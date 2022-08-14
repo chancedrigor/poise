@@ -1,10 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/modal.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>modal.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><script defer src="../../scrape-examples.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../poise/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
-        </a><h2 class="location"></h2>
-    </nav>
-    <nav class="sidebar"><a class="sidebar-logo" href="../../poise/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../poise/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
-                                <a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div>
-                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/modal.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>modal.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><script defer src="../../scrape-examples.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../poise/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../poise/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../poise/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -175,9 +169,9 @@
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">find_modal_text</span>(
     <span class="ident">data</span>: <span class="kw-2">&amp;mut</span> <span class="ident">serenity::ModalSubmitInteractionData</span>,
     <span class="ident">custom_id</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="ident">String</span>&gt; {
     <span class="kw">for</span> <span class="ident">row</span> <span class="kw">in</span> <span class="kw-2">&amp;mut</span> <span class="ident">data</span>.<span class="ident">components</span> {
-        <span class="kw">let</span> <span class="ident">text</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">row</span>.<span class="ident">components</span>.<span class="ident">get_mut</span>(<span class="number">0</span>) {
+        <span class="kw">let</span> <span class="ident">text</span> = <span class="kw">match</span> <span class="ident">row</span>.<span class="ident">components</span>.<span class="ident">get_mut</span>(<span class="number">0</span>) {
             <span class="prelude-val">Some</span>(<span class="ident">serenity::ActionRowComponent::InputText</span>(<span class="ident">text</span>)) =&gt; <span class="ident">text</span>,
             <span class="prelude-val">Some</span>(<span class="kw">_</span>) =&gt; {
                 <span class="macro">log::warn!</span>(<span class="string">&quot;unexpected non input text component in modal response&quot;</span>);
@@ -189,8 +183,8 @@
             }
         };
 
-        <span class="kw">if</span> <span class="ident">text</span>.<span class="ident">custom_id</span> <span class="op">==</span> <span class="ident">custom_id</span> {
-            <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">std::mem::take</span>(<span class="kw-2">&amp;mut</span> <span class="ident">text</span>.<span class="ident">value</span>);
+        <span class="kw">if</span> <span class="ident">text</span>.<span class="ident">custom_id</span> == <span class="ident">custom_id</span> {
+            <span class="kw">let</span> <span class="ident">value</span> = <span class="ident">std::mem::take</span>(<span class="kw-2">&amp;mut</span> <span class="ident">text</span>.<span class="ident">value</span>);
             <span class="kw">return</span> <span class="kw">if</span> <span class="ident">value</span>.<span class="ident">is_empty</span>() { <span class="prelude-val">None</span> } <span class="kw">else</span> { <span class="prelude-val">Some</span>(<span class="ident">value</span>) };
         }
     }
@@ -202,16 +196,16 @@
 }
 
 <span class="doccomment">/// See [`Modal::execute`]</span>
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">execute</span><span class="op">&lt;</span><span class="ident">U</span>: <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span>, <span class="ident">E</span>, <span class="ident">M</span>: <span class="ident">Modal</span><span class="op">&gt;</span>(
-    <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::ApplicationContext</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span><span class="op">&gt;</span>,
-    <span class="ident">defaults</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span>,
-) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">M</span>, <span class="ident">serenity::Error</span><span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="ident">interaction</span> <span class="op">=</span> <span class="ident">ctx</span>.<span class="ident">interaction</span>.<span class="ident">unwrap</span>();
+<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">execute</span>&lt;<span class="ident">U</span>: <span class="ident">Send</span> + <span class="ident">Sync</span>, <span class="ident">E</span>, <span class="ident">M</span>: <span class="ident">Modal</span>&gt;(
+    <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::ApplicationContext</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
+    <span class="ident">defaults</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">M</span>&gt;,
+) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="ident">M</span>, <span class="ident">serenity::Error</span>&gt; {
+    <span class="kw">let</span> <span class="ident">interaction</span> = <span class="ident">ctx</span>.<span class="ident">interaction</span>.<span class="ident">unwrap</span>();
 
     <span class="comment">// Send modal</span>
     <span class="ident">interaction</span>
-        .<span class="ident">create_interaction_response</span>(<span class="ident">ctx</span>.<span class="ident">discord</span>, <span class="op">|</span><span class="ident">b</span><span class="op">|</span> {
-            <span class="kw-2">*</span><span class="ident">b</span> <span class="op">=</span> <span class="ident">M::create</span>(<span class="ident">defaults</span>);
+        .<span class="ident">create_interaction_response</span>(<span class="ident">ctx</span>.<span class="ident">discord</span>, |<span class="ident">b</span>| {
+            <span class="kw-2">*</span><span class="ident">b</span> = <span class="ident">M::create</span>(<span class="ident">defaults</span>);
             <span class="ident">b</span>
         })
         .<span class="kw">await</span><span class="question-mark">?</span>;
@@ -219,14 +213,14 @@
         .<span class="ident">store</span>(<span class="bool-val">true</span>, <span class="ident">std::sync::atomic::Ordering::SeqCst</span>);
 
     <span class="comment">// Wait for user to submit</span>
-    <span class="kw">let</span> <span class="ident">response</span> <span class="op">=</span> <span class="ident">serenity::CollectModalInteraction::new</span>(<span class="kw-2">&amp;</span><span class="ident">ctx</span>.<span class="ident">discord</span>.<span class="ident">shard</span>)
+    <span class="kw">let</span> <span class="ident">response</span> = <span class="ident">serenity::CollectModalInteraction::new</span>(<span class="kw-2">&amp;</span><span class="ident">ctx</span>.<span class="ident">discord</span>.<span class="ident">shard</span>)
         .<span class="ident">author_id</span>(<span class="ident">interaction</span>.<span class="ident">user</span>.<span class="ident">id</span>)
         .<span class="kw">await</span>
         .<span class="ident">unwrap</span>();
 
     <span class="comment">// Send acknowledgement so that the pop-up is closed</span>
     <span class="ident">response</span>
-        .<span class="ident">create_interaction_response</span>(<span class="ident">ctx</span>.<span class="ident">discord</span>, <span class="op">|</span><span class="ident">b</span><span class="op">|</span> {
+        .<span class="ident">create_interaction_response</span>(<span class="ident">ctx</span>.<span class="ident">discord</span>, |<span class="ident">b</span>| {
             <span class="ident">b</span>.<span class="ident">kind</span>(<span class="ident">serenity::InteractionResponseType::DeferredUpdateMessage</span>)
         })
         .<span class="kw">await</span><span class="question-mark">?</span>;
@@ -274,13 +268,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Optionally takes an initialized instance as pre-filled values of this modal (see</span>
     <span class="doccomment">/// [`Self::execute_with_defaults()`] for more info)</span>
-    <span class="kw">fn</span> <span class="ident">create</span>(<span class="ident">defaults</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) -&gt; <span class="ident">serenity::CreateInteractionResponse</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">create</span>(<span class="ident">defaults</span>: <span class="prelude-ty">Option</span>&lt;<span class="self">Self</span>&gt;) -&gt; <span class="ident">serenity::CreateInteractionResponse</span>&lt;<span class="lifetime">&#39;static</span>&gt;;
 
     <span class="doccomment">/// Parses a received modal submit interaction into this type</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns an error if a field was missing. This should never happen, because Discord will only</span>
     <span class="doccomment">/// let users submit when all required fields are filled properly</span>
-    <span class="kw">fn</span> <span class="ident">parse</span>(<span class="ident">data</span>: <span class="ident">serenity::ModalSubmitInteractionData</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">parse</span>(<span class="ident">data</span>: <span class="ident">serenity::ModalSubmitInteractionData</span>) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>&gt;;
 
     <span class="doccomment">/// Convenience function for showing the modal and waiting for a response</span>
     <span class="doccomment">///</span>
@@ -293,10 +287,10 @@
     <span class="doccomment">/// 3. acknowledges the submitted data so that Discord closes the pop-up for the user</span>
     <span class="doccomment">/// 4. parses the submitted data via [`Self::parse()`], wrapping errors in [`serenity::Error::Other`]</span>
     <span class="comment">// TODO: add execute_with_defaults? Or add a `defaults: Option&lt;Self&gt;` param?</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">execute</span><span class="op">&lt;</span><span class="ident">U</span>: <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span>, <span class="ident">E</span><span class="op">&gt;</span>(
-        <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::ApplicationContext</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span><span class="op">&gt;</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">serenity::Error</span><span class="op">&gt;</span> {
-        <span class="ident">execute</span>(<span class="ident">ctx</span>, <span class="prelude-val">None</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>).<span class="kw">await</span>
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">execute</span>&lt;<span class="ident">U</span>: <span class="ident">Send</span> + <span class="ident">Sync</span>, <span class="ident">E</span>&gt;(
+        <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::ApplicationContext</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="ident">serenity::Error</span>&gt; {
+        <span class="ident">execute</span>(<span class="ident">ctx</span>, <span class="prelude-val">None</span>::&lt;<span class="self">Self</span>&gt;).<span class="kw">await</span>
     }
 
     <span class="doccomment">/// Like [`Self::execute()`], but with a parameter to set default values for the fields.</span>
@@ -317,13 +311,12 @@
     <span class="doccomment">/// }).await?;</span>
     <span class="doccomment">/// # Ok(()) }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">execute_with_defaults</span><span class="op">&lt;</span><span class="ident">U</span>: <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span>, <span class="ident">E</span><span class="op">&gt;</span>(
-        <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::ApplicationContext</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span><span class="op">&gt;</span>,
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">execute_with_defaults</span>&lt;<span class="ident">U</span>: <span class="ident">Send</span> + <span class="ident">Sync</span>, <span class="ident">E</span>&gt;(
+        <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::ApplicationContext</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
         <span class="ident">defaults</span>: <span class="self">Self</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">serenity::Error</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="ident">serenity::Error</span>&gt; {
         <span class="ident">execute</span>(<span class="ident">ctx</span>, <span class="prelude-val">Some</span>(<span class="ident">defaults</span>)).<span class="kw">await</span>
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (2643b1646 2022-07-27)" ></div>
-</body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>

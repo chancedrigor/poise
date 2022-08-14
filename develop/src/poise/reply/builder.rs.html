@@ -1,10 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/reply/builder.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>builder.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><script defer src="../../../scrape-examples.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../poise/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
-        </a><h2 class="location"></h2>
-    </nav>
-    <nav class="sidebar"><a class="sidebar-logo" href="../../../poise/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../poise/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
-                                <a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div>
-                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/reply/builder.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>builder.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><script defer src="../../../scrape-examples.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../poise/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../poise/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../poise/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -282,27 +276,27 @@
 
 <span class="doccomment">/// Message builder that abstracts over prefix and application command responses</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CreateReply</span><span class="op">&lt;</span><span class="lifetime">&#39;att</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CreateReply</span>&lt;<span class="lifetime">&#39;att</span>&gt; {
     <span class="doccomment">/// Message content.</span>
-    <span class="kw">pub</span> <span class="ident">content</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">content</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">String</span>&gt;,
     <span class="doccomment">/// Embeds, if present.</span>
-    <span class="kw">pub</span> <span class="ident">embeds</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">serenity::CreateEmbed</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">embeds</span>: <span class="ident">Vec</span>&lt;<span class="ident">serenity::CreateEmbed</span>&gt;,
     <span class="doccomment">/// Message attachments.</span>
-    <span class="kw">pub</span> <span class="ident">attachments</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">serenity::AttachmentType</span><span class="op">&lt;</span><span class="lifetime">&#39;att</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">attachments</span>: <span class="ident">Vec</span>&lt;<span class="ident">serenity::AttachmentType</span>&lt;<span class="lifetime">&#39;att</span>&gt;&gt;,
     <span class="doccomment">/// Whether the message is ephemeral (only has an effect in application commands)</span>
     <span class="kw">pub</span> <span class="ident">ephemeral</span>: <span class="ident">bool</span>,
     <span class="doccomment">/// Message components, that is, buttons and select menus.</span>
-    <span class="kw">pub</span> <span class="ident">components</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">serenity::CreateComponents</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">components</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::CreateComponents</span>&gt;,
     <span class="doccomment">/// The allowed mentions for the message.</span>
-    <span class="kw">pub</span> <span class="ident">allowed_mentions</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">serenity::CreateAllowedMentions</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">allowed_mentions</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::CreateAllowedMentions</span>&gt;,
     <span class="doccomment">/// The reference message this message is a reply to.</span>
-    <span class="kw">pub</span> <span class="ident">reference_message</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">serenity::MessageReference</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">reference_message</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::MessageReference</span>&gt;,
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;att</span><span class="op">&gt;</span> <span class="ident">CreateReply</span><span class="op">&lt;</span><span class="lifetime">&#39;att</span><span class="op">&gt;</span> {
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;att</span>&gt; <span class="ident">CreateReply</span>&lt;<span class="lifetime">&#39;att</span>&gt; {
     <span class="doccomment">/// Set the content of the message.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">content</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">content</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="ident">content</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">content</span>.<span class="ident">into</span>());
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">content</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">content</span>: <span class="kw">impl</span> <span class="ident">Into</span>&lt;<span class="ident">String</span>&gt;) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">content</span> = <span class="prelude-val">Some</span>(<span class="ident">content</span>.<span class="ident">into</span>());
         <span class="self">self</span>
     }
 
@@ -313,7 +307,7 @@
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="ident">f</span>: <span class="kw">impl</span> <span class="ident">FnOnce</span>(<span class="kw-2">&amp;mut</span> <span class="ident">serenity::CreateEmbed</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident">serenity::CreateEmbed</span>,
     ) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">serenity::CreateEmbed::default</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">embed</span> = <span class="ident">serenity::CreateEmbed::default</span>();
         <span class="ident">f</span>(<span class="kw-2">&amp;mut</span> <span class="ident">embed</span>);
         <span class="self">self</span>.<span class="ident">embeds</span>.<span class="ident">push</span>(<span class="ident">embed</span>);
         <span class="self">self</span>
@@ -326,16 +320,16 @@
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="ident">f</span>: <span class="kw">impl</span> <span class="ident">FnOnce</span>(<span class="kw-2">&amp;mut</span> <span class="ident">serenity::CreateComponents</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident">serenity::CreateComponents</span>,
     ) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">components</span> <span class="op">=</span> <span class="ident">serenity::CreateComponents::default</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">components</span> = <span class="ident">serenity::CreateComponents::default</span>();
         <span class="ident">f</span>(<span class="kw-2">&amp;mut</span> <span class="ident">components</span>);
-        <span class="self">self</span>.<span class="ident">components</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">components</span>);
+        <span class="self">self</span>.<span class="ident">components</span> = <span class="prelude-val">Some</span>(<span class="ident">components</span>);
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// Add an attachment.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This will not have an effect in a slash command&#39;s initial response!</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">attachment</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">attachment</span>: <span class="ident">serenity::AttachmentType</span><span class="op">&lt;</span><span class="lifetime">&#39;att</span><span class="op">&gt;</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">attachment</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">attachment</span>: <span class="ident">serenity::AttachmentType</span>&lt;<span class="lifetime">&#39;att</span>&gt;) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">attachments</span>.<span class="ident">push</span>(<span class="ident">attachment</span>);
         <span class="self">self</span>
     }
@@ -349,7 +343,7 @@
     <span class="doccomment">/// if you deferred the response without enabling ephemeral, the initial response will not be</span>
     <span class="doccomment">/// ephemeral.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ephemeral</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">ephemeral</span>: <span class="ident">bool</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="ident">ephemeral</span> <span class="op">=</span> <span class="ident">ephemeral</span>;
+        <span class="self">self</span>.<span class="ident">ephemeral</span> = <span class="ident">ephemeral</span>;
         <span class="self">self</span>
     }
 
@@ -360,27 +354,27 @@
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="ident">f</span>: <span class="kw">impl</span> <span class="ident">FnOnce</span>(<span class="kw-2">&amp;mut</span> <span class="ident">serenity::CreateAllowedMentions</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident">serenity::CreateAllowedMentions</span>,
     ) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">allowed_mentions</span> <span class="op">=</span> <span class="ident">serenity::CreateAllowedMentions::default</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">allowed_mentions</span> = <span class="ident">serenity::CreateAllowedMentions::default</span>();
         <span class="ident">f</span>(<span class="kw-2">&amp;mut</span> <span class="ident">allowed_mentions</span>);
-        <span class="self">self</span>.<span class="ident">allowed_mentions</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">allowed_mentions</span>);
+        <span class="self">self</span>.<span class="ident">allowed_mentions</span> = <span class="prelude-val">Some</span>(<span class="ident">allowed_mentions</span>);
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// Set the reference message this message is a reply to.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reference_message</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
-        <span class="ident">reference</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">serenity::MessageReference</span><span class="op">&gt;</span>,
+        <span class="ident">reference</span>: <span class="kw">impl</span> <span class="ident">Into</span>&lt;<span class="ident">serenity::MessageReference</span>&gt;,
     ) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="ident">reference_message</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">reference</span>.<span class="ident">into</span>());
+        <span class="self">self</span>.<span class="ident">reference_message</span> = <span class="prelude-val">Some</span>(<span class="ident">reference</span>.<span class="ident">into</span>());
         <span class="self">self</span>
     }
 }
 
 <span class="doccomment">/// Methods to create a message builder from any type from this [`CreateReply`]. Used by poise</span>
 <span class="doccomment">/// internally to actually send a response to Discord</span>
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;att</span><span class="op">&gt;</span> <span class="ident">CreateReply</span><span class="op">&lt;</span><span class="lifetime">&#39;att</span><span class="op">&gt;</span> {
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;att</span>&gt; <span class="ident">CreateReply</span>&lt;<span class="lifetime">&#39;att</span>&gt; {
     <span class="doccomment">/// Serialize this response builder to a [`serenity::CreateInteractionResponseData`]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_slash_initial_response</span>(<span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">serenity::CreateInteractionResponseData</span><span class="op">&lt;</span><span class="lifetime">&#39;att</span><span class="op">&gt;</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_slash_initial_response</span>(<span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">serenity::CreateInteractionResponseData</span>&lt;<span class="lifetime">&#39;att</span>&gt;) {
         <span class="kw">let</span> <span class="ident"><span class="kw">crate</span>::CreateReply</span> {
             <span class="ident">content</span>,
             <span class="ident">embeds</span>,
@@ -389,21 +383,21 @@
             <span class="ident">ephemeral</span>,
             <span class="ident">allowed_mentions</span>,
             <span class="ident">reference_message</span>: <span class="kw">_</span>, <span class="comment">// can&#39;t reply to a message in interactions</span>
-        } <span class="op">=</span> <span class="self">self</span>;
+        } = <span class="self">self</span>;
 
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">content</span>) <span class="op">=</span> <span class="ident">content</span> {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">content</span>) = <span class="ident">content</span> {
             <span class="ident">f</span>.<span class="ident">content</span>(<span class="ident">content</span>);
         }
         <span class="ident">f</span>.<span class="ident">set_embeds</span>(<span class="ident">embeds</span>);
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">allowed_mentions</span>) <span class="op">=</span> <span class="ident">allowed_mentions</span> {
-            <span class="ident">f</span>.<span class="ident">allowed_mentions</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> {
-                <span class="kw-2">*</span><span class="ident">f</span> <span class="op">=</span> <span class="ident">allowed_mentions</span>.<span class="ident">clone</span>();
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">allowed_mentions</span>) = <span class="ident">allowed_mentions</span> {
+            <span class="ident">f</span>.<span class="ident">allowed_mentions</span>(|<span class="ident">f</span>| {
+                <span class="kw-2">*</span><span class="ident">f</span> = <span class="ident">allowed_mentions</span>.<span class="ident">clone</span>();
                 <span class="ident">f</span>
             });
         }
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">components</span>) <span class="op">=</span> <span class="ident">components</span> {
-            <span class="ident">f</span>.<span class="ident">components</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> {
-                <span class="ident">f</span>.<span class="number">0</span> <span class="op">=</span> <span class="ident">components</span>.<span class="number">0</span>;
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">components</span>) = <span class="ident">components</span> {
+            <span class="ident">f</span>.<span class="ident">components</span>(|<span class="ident">f</span>| {
+                <span class="ident">f</span>.<span class="number">0</span> = <span class="ident">components</span>.<span class="number">0</span>;
                 <span class="ident">f</span>
             });
         }
@@ -414,7 +408,7 @@
     <span class="doccomment">/// Serialize this response builder to a [`serenity::CreateInteractionResponseFollowup`]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_slash_followup_response</span>(
         <span class="self">self</span>,
-        <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">serenity::CreateInteractionResponseFollowup</span><span class="op">&lt;</span><span class="lifetime">&#39;att</span><span class="op">&gt;</span>,
+        <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">serenity::CreateInteractionResponseFollowup</span>&lt;<span class="lifetime">&#39;att</span>&gt;,
     ) {
         <span class="kw">let</span> <span class="ident"><span class="kw">crate</span>::CreateReply</span> {
             <span class="ident">content</span>,
@@ -424,21 +418,21 @@
             <span class="ident">ephemeral</span>,
             <span class="ident">allowed_mentions</span>,
             <span class="ident">reference_message</span>: <span class="kw">_</span>,
-        } <span class="op">=</span> <span class="self">self</span>;
+        } = <span class="self">self</span>;
 
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">content</span>) <span class="op">=</span> <span class="ident">content</span> {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">content</span>) = <span class="ident">content</span> {
             <span class="ident">f</span>.<span class="ident">content</span>(<span class="ident">content</span>);
         }
         <span class="ident">f</span>.<span class="ident">set_embeds</span>(<span class="ident">embeds</span>);
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">components</span>) <span class="op">=</span> <span class="ident">components</span> {
-            <span class="ident">f</span>.<span class="ident">components</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> {
-                <span class="ident">c</span>.<span class="number">0</span> <span class="op">=</span> <span class="ident">components</span>.<span class="number">0</span>;
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">components</span>) = <span class="ident">components</span> {
+            <span class="ident">f</span>.<span class="ident">components</span>(|<span class="ident">c</span>| {
+                <span class="ident">c</span>.<span class="number">0</span> = <span class="ident">components</span>.<span class="number">0</span>;
                 <span class="ident">c</span>
             });
         }
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">allowed_mentions</span>) <span class="op">=</span> <span class="ident">allowed_mentions</span> {
-            <span class="ident">f</span>.<span class="ident">allowed_mentions</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> {
-                <span class="kw-2">*</span><span class="ident">f</span> <span class="op">=</span> <span class="ident">allowed_mentions</span>.<span class="ident">clone</span>();
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">allowed_mentions</span>) = <span class="ident">allowed_mentions</span> {
+            <span class="ident">f</span>.<span class="ident">allowed_mentions</span>(|<span class="ident">f</span>| {
+                <span class="kw-2">*</span><span class="ident">f</span> = <span class="ident">allowed_mentions</span>.<span class="ident">clone</span>();
                 <span class="ident">f</span>
             });
         }
@@ -456,28 +450,28 @@
             <span class="ident">ephemeral</span>: <span class="kw">_</span>, <span class="comment">// can&#39;t edit ephemerality in retrospect</span>
             <span class="ident">allowed_mentions</span>,
             <span class="ident">reference_message</span>: <span class="kw">_</span>,
-        } <span class="op">=</span> <span class="self">self</span>;
+        } = <span class="self">self</span>;
 
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">content</span>) <span class="op">=</span> <span class="ident">content</span> {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">content</span>) = <span class="ident">content</span> {
             <span class="ident">f</span>.<span class="ident">content</span>(<span class="ident">content</span>);
         }
         <span class="ident">f</span>.<span class="ident">set_embeds</span>(<span class="ident">embeds</span>);
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">components</span>) <span class="op">=</span> <span class="ident">components</span> {
-            <span class="ident">f</span>.<span class="ident">components</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> {
-                <span class="ident">c</span>.<span class="number">0</span> <span class="op">=</span> <span class="ident">components</span>.<span class="number">0</span>;
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">components</span>) = <span class="ident">components</span> {
+            <span class="ident">f</span>.<span class="ident">components</span>(|<span class="ident">c</span>| {
+                <span class="ident">c</span>.<span class="number">0</span> = <span class="ident">components</span>.<span class="number">0</span>;
                 <span class="ident">c</span>
             });
         }
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">allowed_mentions</span>) <span class="op">=</span> <span class="ident">allowed_mentions</span> {
-            <span class="ident">f</span>.<span class="ident">allowed_mentions</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> {
-                <span class="kw-2">*</span><span class="ident">f</span> <span class="op">=</span> <span class="ident">allowed_mentions</span>.<span class="ident">clone</span>();
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">allowed_mentions</span>) = <span class="ident">allowed_mentions</span> {
+            <span class="ident">f</span>.<span class="ident">allowed_mentions</span>(|<span class="ident">f</span>| {
+                <span class="kw-2">*</span><span class="ident">f</span> = <span class="ident">allowed_mentions</span>.<span class="ident">clone</span>();
                 <span class="ident">f</span>
             });
         }
     }
 
     <span class="doccomment">/// Serialize this response builder to a [`serenity::EditMessage`]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_prefix_edit</span>(<span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">serenity::EditMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;att</span><span class="op">&gt;</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_prefix_edit</span>(<span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">serenity::EditMessage</span>&lt;<span class="lifetime">&#39;att</span>&gt;) {
         <span class="kw">let</span> <span class="ident"><span class="kw">crate</span>::CreateReply</span> {
             <span class="ident">content</span>,
             <span class="ident">embeds</span>,
@@ -486,9 +480,9 @@
             <span class="ident">ephemeral</span>: <span class="kw">_</span>, <span class="comment">// not supported in prefix</span>
             <span class="ident">allowed_mentions</span>,
             <span class="ident">reference_message</span>: <span class="kw">_</span>, <span class="comment">// can&#39;t edit reference message afterwards</span>
-        } <span class="op">=</span> <span class="self">self</span>;
+        } = <span class="self">self</span>;
 
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">content</span>) <span class="op">=</span> <span class="ident">content</span> {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">content</span>) = <span class="ident">content</span> {
             <span class="ident">f</span>.<span class="ident">content</span>(<span class="ident">content</span>);
         }
         <span class="ident">f</span>.<span class="ident">add_embeds</span>(<span class="ident">embeds</span>);
@@ -496,23 +490,23 @@
             <span class="ident">f</span>.<span class="ident">attachment</span>(<span class="ident">attachment</span>);
         }
 
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">allowed_mentions</span>) <span class="op">=</span> <span class="ident">allowed_mentions</span> {
-            <span class="ident">f</span>.<span class="ident">allowed_mentions</span>(<span class="op">|</span><span class="ident">b</span><span class="op">|</span> {
-                <span class="kw-2">*</span><span class="ident">b</span> <span class="op">=</span> <span class="ident">allowed_mentions</span>;
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">allowed_mentions</span>) = <span class="ident">allowed_mentions</span> {
+            <span class="ident">f</span>.<span class="ident">allowed_mentions</span>(|<span class="ident">b</span>| {
+                <span class="kw-2">*</span><span class="ident">b</span> = <span class="ident">allowed_mentions</span>;
                 <span class="ident">b</span>
             });
         }
 
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">components</span>) <span class="op">=</span> <span class="ident">components</span> {
-            <span class="ident">f</span>.<span class="ident">components</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> {
-                <span class="kw-2">*</span><span class="ident">f</span> <span class="op">=</span> <span class="ident">components</span>;
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">components</span>) = <span class="ident">components</span> {
+            <span class="ident">f</span>.<span class="ident">components</span>(|<span class="ident">f</span>| {
+                <span class="kw-2">*</span><span class="ident">f</span> = <span class="ident">components</span>;
                 <span class="ident">f</span>
             });
         }
     }
 
     <span class="doccomment">/// Serialize this response builder to a [`serenity::CreateMessage`]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_prefix</span>(<span class="self">self</span>, <span class="ident">m</span>: <span class="kw-2">&amp;mut</span> <span class="ident">serenity::CreateMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;att</span><span class="op">&gt;</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_prefix</span>(<span class="self">self</span>, <span class="ident">m</span>: <span class="kw-2">&amp;mut</span> <span class="ident">serenity::CreateMessage</span>&lt;<span class="lifetime">&#39;att</span>&gt;) {
         <span class="kw">let</span> <span class="ident"><span class="kw">crate</span>::CreateReply</span> {
             <span class="ident">content</span>,
             <span class="ident">embeds</span>,
@@ -521,25 +515,25 @@
             <span class="ident">ephemeral</span>: <span class="kw">_</span>, <span class="comment">// not supported in prefix</span>
             <span class="ident">allowed_mentions</span>,
             <span class="ident">reference_message</span>,
-        } <span class="op">=</span> <span class="self">self</span>;
+        } = <span class="self">self</span>;
 
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">content</span>) <span class="op">=</span> <span class="ident">content</span> {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">content</span>) = <span class="ident">content</span> {
             <span class="ident">m</span>.<span class="ident">content</span>(<span class="ident">content</span>);
         }
         <span class="ident">m</span>.<span class="ident">set_embeds</span>(<span class="ident">embeds</span>);
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">allowed_mentions</span>) <span class="op">=</span> <span class="ident">allowed_mentions</span> {
-            <span class="ident">m</span>.<span class="ident">allowed_mentions</span>(<span class="op">|</span><span class="ident">m</span><span class="op">|</span> {
-                <span class="kw-2">*</span><span class="ident">m</span> <span class="op">=</span> <span class="ident">allowed_mentions</span>;
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">allowed_mentions</span>) = <span class="ident">allowed_mentions</span> {
+            <span class="ident">m</span>.<span class="ident">allowed_mentions</span>(|<span class="ident">m</span>| {
+                <span class="kw-2">*</span><span class="ident">m</span> = <span class="ident">allowed_mentions</span>;
                 <span class="ident">m</span>
             });
         }
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">components</span>) <span class="op">=</span> <span class="ident">components</span> {
-            <span class="ident">m</span>.<span class="ident">components</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> {
-                <span class="ident">c</span>.<span class="number">0</span> <span class="op">=</span> <span class="ident">components</span>.<span class="number">0</span>;
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">components</span>) = <span class="ident">components</span> {
+            <span class="ident">m</span>.<span class="ident">components</span>(|<span class="ident">c</span>| {
+                <span class="ident">c</span>.<span class="number">0</span> = <span class="ident">components</span>.<span class="number">0</span>;
                 <span class="ident">c</span>
             });
         }
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">reference_message</span>) <span class="op">=</span> <span class="ident">reference_message</span> {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">reference_message</span>) = <span class="ident">reference_message</span> {
             <span class="ident">m</span>.<span class="ident">reference_message</span>(<span class="ident">reference_message</span>);
         }
 
@@ -549,5 +543,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (2643b1646 2022-07-27)" ></div>
-</body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>
