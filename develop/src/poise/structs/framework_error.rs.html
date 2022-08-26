@@ -282,7 +282,12 @@
 <span id="282">282</span>
 <span id="283">283</span>
 <span id="284">284</span>
-</pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Simple module for the FrameworkError struct and its impls
+
+</span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
 
 <span class="doccomment">/// Any error that can occur while the bot runs. Either thrown by user code (those variants will
 /// have an `error` field with your error type `E` in it), or originating from within the framework.
@@ -435,7 +440,8 @@
     }
 }
 
-<span class="macro">macro_rules! </span>full_command_name {
+<span class="doccomment">/// Simple macro to deduplicate code. Can&#39;t be a function due to lifetime issues with format_args
+</span><span class="macro">macro_rules! </span>full_command_name {
     (<span class="macro-nonterminal">$ctx</span>:expr) =&gt; {
         <span class="macro">format_args!</span>(<span class="string">&quot;{}{}&quot;</span>, <span class="macro-nonterminal">$ctx</span>.prefix(), <span class="macro-nonterminal">$ctx</span>.command().qualified_name)
     };
