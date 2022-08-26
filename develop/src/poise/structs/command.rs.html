@@ -242,249 +242,249 @@
 <span id="242">242</span>
 <span id="243">243</span>
 <span id="244">244</span>
-</pre><pre class="rust"><code><span class="doccomment">//! The Command struct, which stores all information about a single framework command</span>
+</pre><pre class="rust"><code><span class="doccomment">//! The Command struct, which stores all information about a single framework command
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serenity_prelude</span> <span class="kw">as</span> <span class="ident">serenity</span>, <span class="ident">BoxFuture</span>};
+</span><span class="kw">use crate</span>::{serenity_prelude <span class="kw">as </span>serenity, BoxFuture};
 
-<span class="doccomment">/// Type returned from `#[poise::command]` annotated functions, which contains all of the generated</span>
-<span class="doccomment">/// prefix and application commands</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">derivative::Derivative</span>)]</span>
-<span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Default</span>, <span class="ident">Debug</span>(<span class="ident">bound</span> = <span class="string">&quot;&quot;</span>))]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Command</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; {
-    <span class="comment">// =============</span>
-    <span class="doccomment">/// Callback to execute when this command is invoked in a prefix context</span>
-    <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> = <span class="string">&quot;ignore&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">prefix_action</span>: <span class="prelude-ty">Option</span>&lt;
+<span class="doccomment">/// Type returned from `#[poise::command]` annotated functions, which contains all of the generated
+/// prefix and application commands
+</span><span class="attribute">#[derive(derivative::Derivative)]
+#[derivative(Default, Debug(bound = <span class="string">&quot;&quot;</span>))]
+</span><span class="kw">pub struct </span>Command&lt;U, E&gt; {
+    <span class="comment">// =============
+    </span><span class="doccomment">/// Callback to execute when this command is invoked in a prefix context
+    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="kw">pub </span>prefix_action: <span class="prelude-ty">Option</span>&lt;
         <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">fn</span>(
-            <span class="ident"><span class="kw">crate</span>::PrefixContext</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
-        ) -&gt; <span class="ident">BoxFuture</span>&lt;<span class="lifetime">&#39;a</span>, <span class="prelude-ty">Result</span>&lt;(), <span class="ident"><span class="kw">crate</span>::FrameworkError</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;&gt;&gt;,
+            <span class="kw">crate</span>::PrefixContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
+        ) -&gt; BoxFuture&lt;<span class="lifetime">&#39;a</span>, <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt;&gt;,
     &gt;,
-    <span class="doccomment">/// Callback to execute when this command is invoked in a slash context</span>
-    <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> = <span class="string">&quot;ignore&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">slash_action</span>: <span class="prelude-ty">Option</span>&lt;
+    <span class="doccomment">/// Callback to execute when this command is invoked in a slash context
+    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="kw">pub </span>slash_action: <span class="prelude-ty">Option</span>&lt;
         <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">fn</span>(
-            <span class="ident"><span class="kw">crate</span>::ApplicationContext</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
-        ) -&gt; <span class="ident">BoxFuture</span>&lt;<span class="lifetime">&#39;a</span>, <span class="prelude-ty">Result</span>&lt;(), <span class="ident"><span class="kw">crate</span>::FrameworkError</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;&gt;&gt;,
+            <span class="kw">crate</span>::ApplicationContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
+        ) -&gt; BoxFuture&lt;<span class="lifetime">&#39;a</span>, <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt;&gt;,
     &gt;,
-    <span class="doccomment">/// Callback to execute when this command is invoked in a context menu context</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The enum variant shows which Discord item this context menu command works on</span>
-    <span class="kw">pub</span> <span class="ident">context_menu_action</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident"><span class="kw">crate</span>::ContextMenuCommandAction</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;&gt;,
+    <span class="doccomment">/// Callback to execute when this command is invoked in a context menu context
+    ///
+    /// The enum variant shows which Discord item this context menu command works on
+    </span><span class="kw">pub </span>context_menu_action: <span class="prelude-ty">Option</span>&lt;<span class="kw">crate</span>::ContextMenuCommandAction&lt;U, E&gt;&gt;,
 
-    <span class="comment">// ============= Command type agnostic data</span>
-    <span class="doccomment">/// Subcommands of this command, if any</span>
-    <span class="kw">pub</span> <span class="ident">subcommands</span>: <span class="ident">Vec</span>&lt;<span class="ident">Command</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;&gt;,
-    <span class="doccomment">/// Main name of the command. Aliases (prefix-only) can be set in [`Self::aliases`].</span>
-    <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Localized names with locale string as the key (slash-only)</span>
-    <span class="kw">pub</span> <span class="ident">name_localizations</span>: <span class="ident">std::collections::HashMap</span>&lt;<span class="ident">String</span>, <span class="ident">String</span>&gt;,
-    <span class="doccomment">/// Full name including parent command names.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Initially set to just [`Self::name`] and properly populated when the framework is started.</span>
-    <span class="kw">pub</span> <span class="ident">qualified_name</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// A string to identify this particular command within a list of commands.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Can be configured via the [`crate::command`] macro (though it&#39;s probably not needed for most</span>
-    <span class="doccomment">/// bots). If not explicitly configured, it falls back to the command function name.</span>
-    <span class="kw">pub</span> <span class="ident">identifying_name</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Identifier for the category that this command will be displayed in for help commands.</span>
-    <span class="kw">pub</span> <span class="ident">category</span>: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>&gt;,
-    <span class="doccomment">/// Whether to hide this command in help menus.</span>
-    <span class="kw">pub</span> <span class="ident">hide_in_help</span>: <span class="ident">bool</span>,
-    <span class="doccomment">/// Short description of the command. Displayed inline in help menus and similar.</span>
-    <span class="comment">// TODO: rename to description</span>
-    <span class="kw">pub</span> <span class="ident">description</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">String</span>&gt;,
-    <span class="doccomment">/// Localized descriptions with locale string as the key (slash-only)</span>
-    <span class="kw">pub</span> <span class="ident">description_localizations</span>: <span class="ident">std::collections::HashMap</span>&lt;<span class="ident">String</span>, <span class="ident">String</span>&gt;,
-    <span class="doccomment">/// Multiline description with detailed usage instructions. Displayed in the command specific</span>
-    <span class="doccomment">/// help: `~help command_name`</span>
-    <span class="comment">// TODO: fix the inconsistency that this is String and everywhere else it&#39;s &amp;&#39;static str</span>
-    <span class="kw">pub</span> <span class="ident">help_text</span>: <span class="prelude-ty">Option</span>&lt;<span class="kw">fn</span>() -&gt; <span class="ident">String</span>&gt;,
-    <span class="doccomment">/// Handles command cooldowns. Mainly for framework internal use</span>
-    <span class="kw">pub</span> <span class="ident">cooldowns</span>: <span class="ident">std::sync::Mutex</span>&lt;<span class="ident"><span class="kw">crate</span>::Cooldowns</span>&gt;,
-    <span class="doccomment">/// After the first response, whether to post subsequent responses as edits to the initial</span>
-    <span class="doccomment">/// message</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Note: in prefix commands, this only has an effect if</span>
-    <span class="doccomment">/// `crate::PrefixFrameworkOptions::edit_tracker` is set.</span>
-    <span class="kw">pub</span> <span class="ident">reuse_response</span>: <span class="ident">bool</span>,
-    <span class="doccomment">/// Permissions which users must have to invoke this command. Used by Discord to set who can</span>
-    <span class="doccomment">/// invoke this as a slash command. Not used on prefix commands or checked internally.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Set to [`serenity::Permissions::empty()`] by default</span>
-    <span class="kw">pub</span> <span class="ident">default_member_permissions</span>: <span class="ident">serenity::Permissions</span>,
-    <span class="doccomment">/// Permissions which users must have to invoke this command. This is checked internally and</span>
-    <span class="doccomment">/// works for both prefix commands and slash commands.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Set to [`serenity::Permissions::empty()`] by default</span>
-    <span class="kw">pub</span> <span class="ident">required_permissions</span>: <span class="ident">serenity::Permissions</span>,
-    <span class="doccomment">/// Permissions without which command execution will fail. You can set this to fail early and</span>
-    <span class="doccomment">/// give a descriptive error message in case the</span>
-    <span class="doccomment">/// bot hasn&#39;t been assigned the minimum permissions by the guild admin.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Set to [`serenity::Permissions::empty()`] by default</span>
-    <span class="kw">pub</span> <span class="ident">required_bot_permissions</span>: <span class="ident">serenity::Permissions</span>,
-    <span class="doccomment">/// If true, only users from the [owners list](crate::FrameworkOptions::owners) may use this</span>
-    <span class="doccomment">/// command.</span>
-    <span class="kw">pub</span> <span class="ident">owners_only</span>: <span class="ident">bool</span>,
-    <span class="doccomment">/// If true, only people in guilds may use this command</span>
-    <span class="kw">pub</span> <span class="ident">guild_only</span>: <span class="ident">bool</span>,
-    <span class="doccomment">/// If true, the command may only run in DMs</span>
-    <span class="kw">pub</span> <span class="ident">dm_only</span>: <span class="ident">bool</span>,
-    <span class="doccomment">/// If true, the command may only run in NSFW channels</span>
-    <span class="kw">pub</span> <span class="ident">nsfw_only</span>: <span class="ident">bool</span>,
-    <span class="doccomment">/// Command-specific override for [`crate::FrameworkOptions::on_error`]</span>
-    <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> = <span class="string">&quot;ignore&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">on_error</span>: <span class="prelude-ty">Option</span>&lt;<span class="kw">fn</span>(<span class="ident"><span class="kw">crate</span>::FrameworkError</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;) -&gt; <span class="ident">BoxFuture</span>&lt;<span class="lifetime">&#39;_</span>, ()&gt;&gt;,
-    <span class="doccomment">/// If any of these functions returns false, this command will not be executed.</span>
-    <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> = <span class="string">&quot;ignore&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">checks</span>: <span class="ident">Vec</span>&lt;<span class="kw">fn</span>(<span class="ident"><span class="kw">crate</span>::Context</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;) -&gt; <span class="ident">BoxFuture</span>&lt;<span class="lifetime">&#39;_</span>, <span class="prelude-ty">Result</span>&lt;<span class="ident">bool</span>, <span class="ident">E</span>&gt;&gt;&gt;,
-    <span class="doccomment">/// List of parameters for this command</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Used for registering and parsing slash commands. Can also be used in help commands</span>
-    <span class="kw">pub</span> <span class="ident">parameters</span>: <span class="ident">Vec</span>&lt;<span class="ident"><span class="kw">crate</span>::CommandParameter</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;&gt;,
-    <span class="doccomment">/// Arbitrary data, useful for storing custom metadata about your commands</span>
-    <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Default</span>(<span class="ident">value</span> = <span class="string">&quot;Box::new(())&quot;</span>))]</span>
-    <span class="kw">pub</span> <span class="ident">custom_data</span>: <span class="ident">Box</span>&lt;<span class="kw">dyn</span> <span class="ident">std::any::Any</span> + <span class="ident">Send</span> + <span class="ident">Sync</span>&gt;,
+    <span class="comment">// ============= Command type agnostic data
+    </span><span class="doccomment">/// Subcommands of this command, if any
+    </span><span class="kw">pub </span>subcommands: Vec&lt;Command&lt;U, E&gt;&gt;,
+    <span class="doccomment">/// Main name of the command. Aliases (prefix-only) can be set in [`Self::aliases`].
+    </span><span class="kw">pub </span>name: String,
+    <span class="doccomment">/// Localized names with locale string as the key (slash-only)
+    </span><span class="kw">pub </span>name_localizations: std::collections::HashMap&lt;String, String&gt;,
+    <span class="doccomment">/// Full name including parent command names.
+    ///
+    /// Initially set to just [`Self::name`] and properly populated when the framework is started.
+    </span><span class="kw">pub </span>qualified_name: String,
+    <span class="doccomment">/// A string to identify this particular command within a list of commands.
+    ///
+    /// Can be configured via the [`crate::command`] macro (though it&#39;s probably not needed for most
+    /// bots). If not explicitly configured, it falls back to the command function name.
+    </span><span class="kw">pub </span>identifying_name: String,
+    <span class="doccomment">/// Identifier for the category that this command will be displayed in for help commands.
+    </span><span class="kw">pub </span>category: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str&gt;,
+    <span class="doccomment">/// Whether to hide this command in help menus.
+    </span><span class="kw">pub </span>hide_in_help: bool,
+    <span class="doccomment">/// Short description of the command. Displayed inline in help menus and similar.
+    </span><span class="comment">// TODO: rename to description
+    </span><span class="kw">pub </span>description: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="doccomment">/// Localized descriptions with locale string as the key (slash-only)
+    </span><span class="kw">pub </span>description_localizations: std::collections::HashMap&lt;String, String&gt;,
+    <span class="doccomment">/// Multiline description with detailed usage instructions. Displayed in the command specific
+    /// help: `~help command_name`
+    </span><span class="comment">// TODO: fix the inconsistency that this is String and everywhere else it&#39;s &amp;&#39;static str
+    </span><span class="kw">pub </span>help_text: <span class="prelude-ty">Option</span>&lt;<span class="kw">fn</span>() -&gt; String&gt;,
+    <span class="doccomment">/// Handles command cooldowns. Mainly for framework internal use
+    </span><span class="kw">pub </span>cooldowns: std::sync::Mutex&lt;<span class="kw">crate</span>::Cooldowns&gt;,
+    <span class="doccomment">/// After the first response, whether to post subsequent responses as edits to the initial
+    /// message
+    ///
+    /// Note: in prefix commands, this only has an effect if
+    /// `crate::PrefixFrameworkOptions::edit_tracker` is set.
+    </span><span class="kw">pub </span>reuse_response: bool,
+    <span class="doccomment">/// Permissions which users must have to invoke this command. Used by Discord to set who can
+    /// invoke this as a slash command. Not used on prefix commands or checked internally.
+    ///
+    /// Set to [`serenity::Permissions::empty()`] by default
+    </span><span class="kw">pub </span>default_member_permissions: serenity::Permissions,
+    <span class="doccomment">/// Permissions which users must have to invoke this command. This is checked internally and
+    /// works for both prefix commands and slash commands.
+    ///
+    /// Set to [`serenity::Permissions::empty()`] by default
+    </span><span class="kw">pub </span>required_permissions: serenity::Permissions,
+    <span class="doccomment">/// Permissions without which command execution will fail. You can set this to fail early and
+    /// give a descriptive error message in case the
+    /// bot hasn&#39;t been assigned the minimum permissions by the guild admin.
+    ///
+    /// Set to [`serenity::Permissions::empty()`] by default
+    </span><span class="kw">pub </span>required_bot_permissions: serenity::Permissions,
+    <span class="doccomment">/// If true, only users from the [owners list](crate::FrameworkOptions::owners) may use this
+    /// command.
+    </span><span class="kw">pub </span>owners_only: bool,
+    <span class="doccomment">/// If true, only people in guilds may use this command
+    </span><span class="kw">pub </span>guild_only: bool,
+    <span class="doccomment">/// If true, the command may only run in DMs
+    </span><span class="kw">pub </span>dm_only: bool,
+    <span class="doccomment">/// If true, the command may only run in NSFW channels
+    </span><span class="kw">pub </span>nsfw_only: bool,
+    <span class="doccomment">/// Command-specific override for [`crate::FrameworkOptions::on_error`]
+    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="kw">pub </span>on_error: <span class="prelude-ty">Option</span>&lt;<span class="kw">fn</span>(<span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;_</span>, U, E&gt;) -&gt; BoxFuture&lt;<span class="lifetime">&#39;_</span>, ()&gt;&gt;,
+    <span class="doccomment">/// If any of these functions returns false, this command will not be executed.
+    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="kw">pub </span>checks: Vec&lt;<span class="kw">fn</span>(<span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;_</span>, U, E&gt;) -&gt; BoxFuture&lt;<span class="lifetime">&#39;_</span>, <span class="prelude-ty">Result</span>&lt;bool, E&gt;&gt;&gt;,
+    <span class="doccomment">/// List of parameters for this command
+    ///
+    /// Used for registering and parsing slash commands. Can also be used in help commands
+    </span><span class="kw">pub </span>parameters: Vec&lt;<span class="kw">crate</span>::CommandParameter&lt;U, E&gt;&gt;,
+    <span class="doccomment">/// Arbitrary data, useful for storing custom metadata about your commands
+    </span><span class="attribute">#[derivative(Default(value = <span class="string">&quot;Box::new(())&quot;</span>))]
+    </span><span class="kw">pub </span>custom_data: Box&lt;<span class="kw">dyn </span>std::any::Any + Send + Sync&gt;,
 
-    <span class="comment">// ============= Prefix-specific data</span>
-    <span class="doccomment">/// Alternative triggers for the command (prefix-only)</span>
-    <span class="kw">pub</span> <span class="ident">aliases</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> [<span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>],
-    <span class="doccomment">/// Whether to rerun the command if an existing invocation message is edited (prefix-only)</span>
-    <span class="kw">pub</span> <span class="ident">invoke_on_edit</span>: <span class="ident">bool</span>,
-    <span class="doccomment">/// Whether to broadcast a typing indicator while executing this commmand (prefix-only)</span>
-    <span class="kw">pub</span> <span class="ident">broadcast_typing</span>: <span class="ident">bool</span>,
+    <span class="comment">// ============= Prefix-specific data
+    </span><span class="doccomment">/// Alternative triggers for the command (prefix-only)
+    </span><span class="kw">pub </span>aliases: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str],
+    <span class="doccomment">/// Whether to rerun the command if an existing invocation message is edited (prefix-only)
+    </span><span class="kw">pub </span>invoke_on_edit: bool,
+    <span class="doccomment">/// Whether to broadcast a typing indicator while executing this commmand (prefix-only)
+    </span><span class="kw">pub </span>broadcast_typing: bool,
 
-    <span class="comment">// ============= Application-specific data</span>
-    <span class="doccomment">/// Context menu specific name for this command, displayed in Discord&#39;s context menu</span>
-    <span class="kw">pub</span> <span class="ident">context_menu_name</span>: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>&gt;,
-    <span class="doccomment">/// Whether responses to this command should be ephemeral by default (application-only)</span>
-    <span class="kw">pub</span> <span class="ident">ephemeral</span>: <span class="ident">bool</span>,
+    <span class="comment">// ============= Application-specific data
+    </span><span class="doccomment">/// Context menu specific name for this command, displayed in Discord&#39;s context menu
+    </span><span class="kw">pub </span>context_menu_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str&gt;,
+    <span class="doccomment">/// Whether responses to this command should be ephemeral by default (application-only)
+    </span><span class="kw">pub </span>ephemeral: bool,
 
-    <span class="comment">// Like #[non_exhaustive], but #[poise::command] still needs to be able to create an instance</span>
-    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">__non_exhaustive</span>: (),
+    <span class="comment">// Like #[non_exhaustive], but #[poise::command] still needs to be able to create an instance
+    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="kw">pub </span>__non_exhaustive: (),
 }
 
-<span class="kw">impl</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; <span class="ident">PartialEq</span> <span class="kw">for</span> <span class="ident">Command</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; {
-    <span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">bool</span> {
-        <span class="ident">std::ptr::eq</span>(<span class="self">self</span>, <span class="ident">other</span>)
+<span class="kw">impl</span>&lt;U, E&gt; PartialEq <span class="kw">for </span>Command&lt;U, E&gt; {
+    <span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool {
+        std::ptr::eq(<span class="self">self</span>, other)
     }
 }
-<span class="kw">impl</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; <span class="ident">Eq</span> <span class="kw">for</span> <span class="ident">Command</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; {}
+<span class="kw">impl</span>&lt;U, E&gt; Eq <span class="kw">for </span>Command&lt;U, E&gt; {}
 
-<span class="kw">impl</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; <span class="ident">Command</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; {
-    <span class="doccomment">/// Serializes this Command into an application command option, which is the form which Discord</span>
-    <span class="doccomment">/// requires subcommands to be in</span>
-    <span class="kw">fn</span> <span class="ident">create_as_subcommand</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::CreateApplicationCommandOption</span>&gt; {
-        <span class="self">self</span>.<span class="ident">slash_action</span><span class="question-mark">?</span>;
+<span class="kw">impl</span>&lt;U, E&gt; Command&lt;U, E&gt; {
+    <span class="doccomment">/// Serializes this Command into an application command option, which is the form which Discord
+    /// requires subcommands to be in
+    </span><span class="kw">fn </span>create_as_subcommand(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;serenity::CreateApplicationCommandOption&gt; {
+        <span class="self">self</span>.slash_action<span class="question-mark">?</span>;
 
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">builder</span> = <span class="ident">serenity::CreateApplicationCommandOption::default</span>();
-        <span class="ident">builder</span>
-            .<span class="ident">name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name</span>)
-            .<span class="ident">description</span>(<span class="self">self</span>.<span class="ident">description</span>.<span class="ident">as_deref</span>().<span class="ident">unwrap_or</span>(<span class="string">&quot;A slash command&quot;</span>));
-        <span class="kw">for</span> (<span class="ident">locale</span>, <span class="ident">name</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name_localizations</span> {
-            <span class="ident">builder</span>.<span class="ident">name_localized</span>(<span class="ident">locale</span>, <span class="ident">name</span>);
+        <span class="kw">let </span><span class="kw-2">mut </span>builder = serenity::CreateApplicationCommandOption::default();
+        builder
+            .name(<span class="kw-2">&amp;</span><span class="self">self</span>.name)
+            .description(<span class="self">self</span>.description.as_deref().unwrap_or(<span class="string">&quot;A slash command&quot;</span>));
+        <span class="kw">for </span>(locale, name) <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.name_localizations {
+            builder.name_localized(locale, name);
         }
-        <span class="kw">for</span> (<span class="ident">locale</span>, <span class="ident">description</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">description_localizations</span> {
-            <span class="ident">builder</span>.<span class="ident">description_localized</span>(<span class="ident">locale</span>, <span class="ident">description</span>);
+        <span class="kw">for </span>(locale, description) <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.description_localizations {
+            builder.description_localized(locale, description);
         }
 
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">subcommands</span>.<span class="ident">is_empty</span>() {
-            <span class="ident">builder</span>.<span class="ident">kind</span>(<span class="ident">serenity::CommandOptionType::SubCommand</span>);
+        <span class="kw">if </span><span class="self">self</span>.subcommands.is_empty() {
+            builder.kind(serenity::CommandOptionType::SubCommand);
 
-            <span class="kw">for</span> <span class="ident">param</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">parameters</span> {
-                <span class="comment">// Using `?` because if this command has slash-incompatible parameters, we cannot</span>
-                <span class="comment">// just ignore them but have to abort the creation process entirely</span>
-                <span class="ident">builder</span>.<span class="ident">add_sub_option</span>(<span class="ident">param</span>.<span class="ident">create_as_slash_command_option</span>()<span class="question-mark">?</span>);
+            <span class="kw">for </span>param <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.parameters {
+                <span class="comment">// Using `?` because if this command has slash-incompatible parameters, we cannot
+                // just ignore them but have to abort the creation process entirely
+                </span>builder.add_sub_option(param.create_as_slash_command_option()<span class="question-mark">?</span>);
             }
-        } <span class="kw">else</span> {
-            <span class="ident">builder</span>.<span class="ident">kind</span>(<span class="ident">serenity::CommandOptionType::SubCommandGroup</span>);
+        } <span class="kw">else </span>{
+            builder.kind(serenity::CommandOptionType::SubCommandGroup);
 
-            <span class="kw">for</span> <span class="ident">subcommand</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">subcommands</span> {
-                <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">subcommand</span>) = <span class="ident">subcommand</span>.<span class="ident">create_as_subcommand</span>() {
-                    <span class="ident">builder</span>.<span class="ident">add_sub_option</span>(<span class="ident">subcommand</span>);
+            <span class="kw">for </span>subcommand <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.subcommands {
+                <span class="kw">if let </span><span class="prelude-val">Some</span>(subcommand) = subcommand.create_as_subcommand() {
+                    builder.add_sub_option(subcommand);
                 }
             }
         }
 
-        <span class="prelude-val">Some</span>(<span class="ident">builder</span>)
+        <span class="prelude-val">Some</span>(builder)
     }
 
-    <span class="doccomment">/// Generates a slash command builder from this [`Command`] instance. This can be used</span>
-    <span class="doccomment">/// to register this command on Discord&#39;s servers</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_as_slash_command</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::CreateApplicationCommand</span>&gt; {
-        <span class="self">self</span>.<span class="ident">slash_action</span><span class="question-mark">?</span>;
+    <span class="doccomment">/// Generates a slash command builder from this [`Command`] instance. This can be used
+    /// to register this command on Discord&#39;s servers
+    </span><span class="kw">pub fn </span>create_as_slash_command(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;serenity::CreateApplicationCommand&gt; {
+        <span class="self">self</span>.slash_action<span class="question-mark">?</span>;
 
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">builder</span> = <span class="ident">serenity::CreateApplicationCommand::default</span>();
-        <span class="ident">builder</span>
-            .<span class="ident">name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name</span>)
-            .<span class="ident">description</span>(<span class="self">self</span>.<span class="ident">description</span>.<span class="ident">as_deref</span>().<span class="ident">unwrap_or</span>(<span class="string">&quot;A slash command&quot;</span>));
-        <span class="kw">for</span> (<span class="ident">locale</span>, <span class="ident">name</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name_localizations</span> {
-            <span class="ident">builder</span>.<span class="ident">name_localized</span>(<span class="ident">locale</span>, <span class="ident">name</span>);
+        <span class="kw">let </span><span class="kw-2">mut </span>builder = serenity::CreateApplicationCommand::default();
+        builder
+            .name(<span class="kw-2">&amp;</span><span class="self">self</span>.name)
+            .description(<span class="self">self</span>.description.as_deref().unwrap_or(<span class="string">&quot;A slash command&quot;</span>));
+        <span class="kw">for </span>(locale, name) <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.name_localizations {
+            builder.name_localized(locale, name);
         }
-        <span class="kw">for</span> (<span class="ident">locale</span>, <span class="ident">description</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">description_localizations</span> {
-            <span class="ident">builder</span>.<span class="ident">description_localized</span>(<span class="ident">locale</span>, <span class="ident">description</span>);
-        }
-
-        <span class="comment">// This is_empty check is needed because Discord special cases empty</span>
-        <span class="comment">// default_member_permissions to mean &quot;admin-only&quot; (yes it&#39;s stupid)</span>
-        <span class="kw">if</span> !<span class="self">self</span>.<span class="ident">default_member_permissions</span>.<span class="ident">is_empty</span>() {
-            <span class="ident">builder</span>.<span class="ident">default_member_permissions</span>(<span class="self">self</span>.<span class="ident">default_member_permissions</span>);
+        <span class="kw">for </span>(locale, description) <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.description_localizations {
+            builder.description_localized(locale, description);
         }
 
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">subcommands</span>.<span class="ident">is_empty</span>() {
-            <span class="kw">for</span> <span class="ident">param</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">parameters</span> {
-                <span class="comment">// Using `?` because if this command has slash-incompatible parameters, we cannot</span>
-                <span class="comment">// just ignore them but have to abort the creation process entirely</span>
-                <span class="ident">builder</span>.<span class="ident">add_option</span>(<span class="ident">param</span>.<span class="ident">create_as_slash_command_option</span>()<span class="question-mark">?</span>);
+        <span class="comment">// This is_empty check is needed because Discord special cases empty
+        // default_member_permissions to mean &quot;admin-only&quot; (yes it&#39;s stupid)
+        </span><span class="kw">if </span>!<span class="self">self</span>.default_member_permissions.is_empty() {
+            builder.default_member_permissions(<span class="self">self</span>.default_member_permissions);
+        }
+
+        <span class="kw">if </span><span class="self">self</span>.subcommands.is_empty() {
+            <span class="kw">for </span>param <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.parameters {
+                <span class="comment">// Using `?` because if this command has slash-incompatible parameters, we cannot
+                // just ignore them but have to abort the creation process entirely
+                </span>builder.add_option(param.create_as_slash_command_option()<span class="question-mark">?</span>);
             }
-        } <span class="kw">else</span> {
-            <span class="kw">for</span> <span class="ident">subcommand</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">subcommands</span> {
-                <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">subcommand</span>) = <span class="ident">subcommand</span>.<span class="ident">create_as_subcommand</span>() {
-                    <span class="ident">builder</span>.<span class="ident">add_option</span>(<span class="ident">subcommand</span>);
+        } <span class="kw">else </span>{
+            <span class="kw">for </span>subcommand <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.subcommands {
+                <span class="kw">if let </span><span class="prelude-val">Some</span>(subcommand) = subcommand.create_as_subcommand() {
+                    builder.add_option(subcommand);
                 }
             }
         }
 
-        <span class="prelude-val">Some</span>(<span class="ident">builder</span>)
+        <span class="prelude-val">Some</span>(builder)
     }
 
-    <span class="doccomment">/// Generates a context menu command builder from this [`Command`] instance. This can be used</span>
-    <span class="doccomment">/// to register this command on Discord&#39;s servers</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_as_context_menu_command</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::CreateApplicationCommand</span>&gt; {
-        <span class="kw">let</span> <span class="ident">context_menu_action</span> = <span class="self">self</span>.<span class="ident">context_menu_action</span><span class="question-mark">?</span>;
+    <span class="doccomment">/// Generates a context menu command builder from this [`Command`] instance. This can be used
+    /// to register this command on Discord&#39;s servers
+    </span><span class="kw">pub fn </span>create_as_context_menu_command(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;serenity::CreateApplicationCommand&gt; {
+        <span class="kw">let </span>context_menu_action = <span class="self">self</span>.context_menu_action<span class="question-mark">?</span>;
 
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">builder</span> = <span class="ident">serenity::CreateApplicationCommand::default</span>();
-        <span class="ident">builder</span>
-            <span class="comment">// TODO: localization?</span>
-            .<span class="ident">name</span>(<span class="self">self</span>.<span class="ident">context_menu_name</span>.<span class="ident">unwrap_or</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name</span>))
-            .<span class="ident">kind</span>(<span class="kw">match</span> <span class="ident">context_menu_action</span> {
-                <span class="ident"><span class="kw">crate</span>::ContextMenuCommandAction::User</span>(<span class="kw">_</span>) =&gt; <span class="ident">serenity::CommandType::User</span>,
-                <span class="ident"><span class="kw">crate</span>::ContextMenuCommandAction::Message</span>(<span class="kw">_</span>) =&gt; <span class="ident">serenity::CommandType::Message</span>,
+        <span class="kw">let </span><span class="kw-2">mut </span>builder = serenity::CreateApplicationCommand::default();
+        builder
+            <span class="comment">// TODO: localization?
+            </span>.name(<span class="self">self</span>.context_menu_name.unwrap_or(<span class="kw-2">&amp;</span><span class="self">self</span>.name))
+            .kind(<span class="kw">match </span>context_menu_action {
+                <span class="kw">crate</span>::ContextMenuCommandAction::User(<span class="kw">_</span>) =&gt; serenity::CommandType::User,
+                <span class="kw">crate</span>::ContextMenuCommandAction::Message(<span class="kw">_</span>) =&gt; serenity::CommandType::Message,
             });
 
-        <span class="prelude-val">Some</span>(<span class="ident">builder</span>)
+        <span class="prelude-val">Some</span>(builder)
     }
 
-    <span class="doccomment">/// **Deprecated**</span>
-    <span class="attribute">#[<span class="ident">deprecated</span> = <span class="string">&quot;Please use `poise::Command { category: \&quot;...\&quot;, ..command() }` instead&quot;</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">category</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">category</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="ident">category</span> = <span class="prelude-val">Some</span>(<span class="ident">category</span>);
-        <span class="self">self</span>
-    }
+    <span class="doccomment">/// **Deprecated**
+    </span><span class="attribute">#[deprecated = <span class="string">&quot;Please use `poise::Command { category: \&quot;...\&quot;, ..command() }` instead&quot;</span>]
+    </span><span class="kw">pub fn </span>category(<span class="kw-2">&amp;mut </span><span class="self">self</span>, category: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
+        <span class="self">self</span>.category = <span class="prelude-val">Some</span>(category);
+        <span class="self">self
+    </span>}
 
-    <span class="doccomment">/// Insert a subcommand</span>
-    <span class="attribute">#[<span class="ident">deprecated</span> = <span class="string">&quot;Please use `poise::Command { subcommands: vec![...], ..command() }` instead&quot;</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">subcommand</span>(
-        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
-        <span class="kw-2">mut</span> <span class="ident">subcommand</span>: <span class="ident"><span class="kw">crate</span>::Command</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;,
-        <span class="ident">meta_builder</span>: <span class="kw">impl</span> <span class="ident">FnOnce</span>(<span class="kw-2">&amp;mut</span> <span class="self">Self</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span>,
-    ) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
-        <span class="ident">meta_builder</span>(<span class="kw-2">&amp;mut</span> <span class="ident">subcommand</span>);
-        <span class="self">self</span>.<span class="ident">subcommands</span>.<span class="ident">push</span>(<span class="ident">subcommand</span>);
-        <span class="self">self</span>
-    }
+    <span class="doccomment">/// Insert a subcommand
+    </span><span class="attribute">#[deprecated = <span class="string">&quot;Please use `poise::Command { subcommands: vec![...], ..command() }` instead&quot;</span>]
+    </span><span class="kw">pub fn </span>subcommand(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        <span class="kw-2">mut </span>subcommand: <span class="kw">crate</span>::Command&lt;U, E&gt;,
+        meta_builder: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;mut </span><span class="self">Self</span>) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self</span>,
+    ) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
+        meta_builder(<span class="kw-2">&amp;mut </span>subcommand);
+        <span class="self">self</span>.subcommands.push(subcommand);
+        <span class="self">self
+    </span>}
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (748038961 2022-08-25)" ></div></body></html>

@@ -2,19 +2,19 @@
 commands with a slash if they exist as slash commands.</p>
 <p>Example usage from Ferris, the Discord bot running in the Rust community server:</p>
 
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="doccomment">/// Show this menu</span>
-<span class="attribute">#[<span class="ident">poise::command</span>(<span class="ident">prefix_command</span>, <span class="ident">track_edits</span>, <span class="ident">slash_command</span>)]</span>
-<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">help</span>(
-    <span class="ident">ctx</span>: <span class="ident">Context</span>&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[<span class="ident">description</span> = <span class="string">&quot;Specific command to show help about&quot;</span>]</span> <span class="ident">command</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">String</span>&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">Error</span>&gt; {
-    <span class="kw">let</span> <span class="ident">config</span> = <span class="ident">poise::builtins::HelpConfiguration</span> {
-        <span class="ident">extra_text_at_bottom</span>: <span class="string">&quot;\
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="doccomment">/// Show this menu
+</span><span class="attribute">#[poise::command(prefix_command, track_edits, slash_command)]
+</span><span class="kw">pub async fn </span>help(
+    ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
+    <span class="attribute">#[description = <span class="string">&quot;Specific command to show help about&quot;</span>] </span>command: <span class="prelude-ty">Option</span>&lt;String&gt;,
+) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+    <span class="kw">let </span>config = poise::builtins::HelpConfiguration {
+        extra_text_at_bottom: <span class="string">&quot;\
 Type ?help command for more info on a command.
 You can edit your message to the bot and the bot will edit its response.&quot;</span>,
-        ..<span class="ident">Default::default</span>()
+        ..Default::default()
     };
-    <span class="ident">poise::builtins::help</span>(<span class="ident">ctx</span>, <span class="ident">command</span>.<span class="ident">as_deref</span>(), <span class="ident">config</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+    poise::builtins::help(ctx, command.as_deref(), config).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
 }</code></pre></div>
 <p>Output:</p>
@@ -60,19 +60,19 @@ You can edit your message to the bot and the bot will edit its response.</code><
 <span>119</span>
 <span>120</span>
 <span>121</span>
-</pre><pre class="rust"><code><span class="kw">async</span> <span class="kw">fn</span> <span class="ident">help</span>(
-    <span class="ident">ctx</span>: <span class="ident">Context</span>&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[<span class="ident">description</span> = <span class="string">&quot;Command to display specific information about&quot;</span>]</span> <span class="ident">command</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">String</span>&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">Error</span>&gt; {
-    <span class="kw">let</span> <span class="ident">config</span> = <span class="ident">poise::builtins::HelpConfiguration</span> {
-        <span class="ident">extra_text_at_bottom</span>: <span class="string">&quot;\
+</pre><pre class="rust"><code><span class="kw">async fn </span>help(
+    ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
+    <span class="attribute">#[description = <span class="string">&quot;Command to display specific information about&quot;</span>] </span>command: <span class="prelude-ty">Option</span>&lt;String&gt;,
+) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+    <span class="kw">let </span>config = poise::builtins::HelpConfiguration {
+        extra_text_at_bottom: <span class="string">&quot;\
 Hello! こんにちは！Hola! Bonjour! 您好! 안녕하세요~
 
 If you want more information about a specific command, just pass the command as argument.&quot;</span>,
-        ..<span class="ident">Default::default</span>()
+        ..Default::default()
     };
 
-    <span class="highlight focus"><span class="ident">poise::builtins::help</span></span>(<span class="ident">ctx</span>, <span class="ident">command</span>.<span class="ident">as_deref</span>(), <span class="ident">config</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+    <span class="highlight focus">poise::builtins::help</span>(ctx, command.as_deref(), config).<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="prelude-val">Ok</span>(())
 }</code></pre></div>
@@ -95,23 +95,23 @@ If you want more information about a specific command, just pass the command as 
 <span>36</span>
 <span>37</span>
 <span>38</span>
-</pre><pre class="rust"><code><span class="kw">async</span> <span class="kw">fn</span> <span class="ident">help</span>(
-    <span class="ident">ctx</span>: <span class="ident">Context</span>&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[<span class="ident">description</span> = <span class="string">&quot;Specific command to show help about&quot;</span>]</span>
-    <span class="attribute">#[<span class="ident">autocomplete</span> = <span class="string">&quot;poise::builtins::autocomplete_command&quot;</span>]</span>
-    <span class="ident">command</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">String</span>&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">Error</span>&gt; {
-    <span class="highlight focus"><span class="ident">poise::builtins::help</span></span>(
-        <span class="ident">ctx</span>,
-        <span class="ident">command</span>.<span class="ident">as_deref</span>(),
-        <span class="ident">poise::builtins::HelpConfiguration</span> {
-            <span class="ident">extra_text_at_bottom</span>: <span class="string">&quot;\
+</pre><pre class="rust"><code><span class="kw">async fn </span>help(
+    ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
+    <span class="attribute">#[description = <span class="string">&quot;Specific command to show help about&quot;</span>]
+    #[autocomplete = <span class="string">&quot;poise::builtins::autocomplete_command&quot;</span>]
+    </span>command: <span class="prelude-ty">Option</span>&lt;String&gt;,
+) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+    <span class="highlight focus">poise::builtins::help</span>(
+        ctx,
+        command.as_deref(),
+        poise::builtins::HelpConfiguration {
+            extra_text_at_bottom: <span class="string">&quot;\
 This is an example bot made to showcase features of my custom Discord bot framework&quot;</span>,
-            <span class="ident">show_context_menu_commands</span>: <span class="bool-val">true</span>,
-            ..<span class="ident">Default::default</span>()
+            show_context_menu_commands: <span class="bool-val">true</span>,
+            ..Default::default()
         },
     )
     .<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
 }</code></pre></div>
-</div></div></div></div></details></div></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>
+</div></div></div></div></details></div></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (748038961 2022-08-25)" ></div></body></html>

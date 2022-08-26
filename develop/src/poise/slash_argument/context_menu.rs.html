@@ -35,42 +35,42 @@
 <span id="35">35</span>
 <span id="36">36</span>
 <span id="37">37</span>
-</pre><pre class="rust"><code><span class="doccomment">//! Contains a simple trai, implemented for all context meun command compatible parameter types</span>
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::serenity_prelude</span> <span class="kw">as</span> <span class="ident">serenity</span>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::BoxFuture</span>;
+</pre><pre class="rust"><code><span class="doccomment">//! Contains a simple trai, implemented for all context meun command compatible parameter types
+</span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
+<span class="kw">use </span><span class="kw">crate</span>::BoxFuture;
 
-<span class="doccomment">/// Implemented for all types that can be used in a context menu command</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ContextMenuParameter</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; {
-    <span class="doccomment">/// Convert an action function pointer that takes Self as an argument into the appropriate</span>
-    <span class="doccomment">/// [`crate::ContextMenuCommandAction`] variant.</span>
-    <span class="kw">fn</span> <span class="ident">to_action</span>(
-        <span class="ident">action</span>: <span class="kw">fn</span>(
-            <span class="ident"><span class="kw">crate</span>::ApplicationContext</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
+<span class="doccomment">/// Implemented for all types that can be used in a context menu command
+</span><span class="kw">pub trait </span>ContextMenuParameter&lt;U, E&gt; {
+    <span class="doccomment">/// Convert an action function pointer that takes Self as an argument into the appropriate
+    /// [`crate::ContextMenuCommandAction`] variant.
+    </span><span class="kw">fn </span>to_action(
+        action: <span class="kw">fn</span>(
+            <span class="kw">crate</span>::ApplicationContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt;,
             <span class="self">Self</span>,
-        ) -&gt; <span class="ident">BoxFuture</span>&lt;<span class="lifetime">&#39;_</span>, <span class="prelude-ty">Result</span>&lt;(), <span class="ident"><span class="kw">crate</span>::FrameworkError</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;&gt;&gt;,
-    ) -&gt; <span class="ident"><span class="kw">crate</span>::ContextMenuCommandAction</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;;
+        ) -&gt; BoxFuture&lt;<span class="lifetime">&#39;_</span>, <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;_</span>, U, E&gt;&gt;&gt;,
+    ) -&gt; <span class="kw">crate</span>::ContextMenuCommandAction&lt;U, E&gt;;
 }
 
-<span class="kw">impl</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; <span class="ident">ContextMenuParameter</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; <span class="kw">for</span> <span class="ident">serenity::User</span> {
-    <span class="kw">fn</span> <span class="ident">to_action</span>(
-        <span class="ident">action</span>: <span class="kw">fn</span>(
-            <span class="ident"><span class="kw">crate</span>::ApplicationContext</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
+<span class="kw">impl</span>&lt;U, E&gt; ContextMenuParameter&lt;U, E&gt; <span class="kw">for </span>serenity::User {
+    <span class="kw">fn </span>to_action(
+        action: <span class="kw">fn</span>(
+            <span class="kw">crate</span>::ApplicationContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt;,
             <span class="self">Self</span>,
-        ) -&gt; <span class="ident">BoxFuture</span>&lt;<span class="lifetime">&#39;_</span>, <span class="prelude-ty">Result</span>&lt;(), <span class="ident"><span class="kw">crate</span>::FrameworkError</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;&gt;&gt;,
-    ) -&gt; <span class="ident"><span class="kw">crate</span>::ContextMenuCommandAction</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; {
-        <span class="ident"><span class="kw">crate</span>::ContextMenuCommandAction::User</span>(<span class="ident">action</span>)
+        ) -&gt; BoxFuture&lt;<span class="lifetime">&#39;_</span>, <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;_</span>, U, E&gt;&gt;&gt;,
+    ) -&gt; <span class="kw">crate</span>::ContextMenuCommandAction&lt;U, E&gt; {
+        <span class="kw">crate</span>::ContextMenuCommandAction::User(action)
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; <span class="ident">ContextMenuParameter</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; <span class="kw">for</span> <span class="ident">serenity::Message</span> {
-    <span class="kw">fn</span> <span class="ident">to_action</span>(
-        <span class="ident">action</span>: <span class="kw">fn</span>(
-            <span class="ident"><span class="kw">crate</span>::ApplicationContext</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
+<span class="kw">impl</span>&lt;U, E&gt; ContextMenuParameter&lt;U, E&gt; <span class="kw">for </span>serenity::Message {
+    <span class="kw">fn </span>to_action(
+        action: <span class="kw">fn</span>(
+            <span class="kw">crate</span>::ApplicationContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt;,
             <span class="self">Self</span>,
-        ) -&gt; <span class="ident">BoxFuture</span>&lt;<span class="lifetime">&#39;_</span>, <span class="prelude-ty">Result</span>&lt;(), <span class="ident"><span class="kw">crate</span>::FrameworkError</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;&gt;&gt;,
-    ) -&gt; <span class="ident"><span class="kw">crate</span>::ContextMenuCommandAction</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; {
-        <span class="ident"><span class="kw">crate</span>::ContextMenuCommandAction::Message</span>(<span class="ident">action</span>)
+        ) -&gt; BoxFuture&lt;<span class="lifetime">&#39;_</span>, <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;_</span>, U, E&gt;&gt;&gt;,
+    ) -&gt; <span class="kw">crate</span>::ContextMenuCommandAction&lt;U, E&gt; {
+        <span class="kw">crate</span>::ContextMenuCommandAction::Message(action)
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (748038961 2022-08-25)" ></div></body></html>

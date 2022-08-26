@@ -271,278 +271,278 @@
 <span id="271">271</span>
 <span id="272">272</span>
 <span id="273">273</span>
-</pre><pre class="rust"><code><span class="doccomment">//! Holds application command definition structs.</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Holds application command definition structs.
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serenity_prelude</span> <span class="kw">as</span> <span class="ident">serenity</span>, <span class="ident">BoxFuture</span>};
+</span><span class="kw">use crate</span>::{serenity_prelude <span class="kw">as </span>serenity, BoxFuture};
 
-<span class="doccomment">/// Abstracts over a refernce to an application command interaction or autocomplete interaction</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Used in [`crate::ApplicationContext`]. We need to support autocomplete interactions in</span>
-<span class="doccomment">/// [`crate::ApplicationContext`] because command checks are invoked for autocomplete interactions</span>
-<span class="doccomment">/// too: we don&#39;t want poise accidentally leaking sensitive information through autocomplete</span>
-<span class="doccomment">/// suggestions</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ApplicationCommandOrAutocompleteInteraction</span>&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="doccomment">/// An application command interaction</span>
-    <span class="ident">ApplicationCommand</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">serenity::ApplicationCommandInteraction</span>),
-    <span class="doccomment">/// An autocomplete interaction</span>
-    <span class="ident">Autocomplete</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">serenity::AutocompleteInteraction</span>),
+<span class="doccomment">/// Abstracts over a refernce to an application command interaction or autocomplete interaction
+///
+/// Used in [`crate::ApplicationContext`]. We need to support autocomplete interactions in
+/// [`crate::ApplicationContext`] because command checks are invoked for autocomplete interactions
+/// too: we don&#39;t want poise accidentally leaking sensitive information through autocomplete
+/// suggestions
+</span><span class="attribute">#[derive(Copy, Clone, Debug)]
+</span><span class="kw">pub enum </span>ApplicationCommandOrAutocompleteInteraction&lt;<span class="lifetime">&#39;a</span>&gt; {
+    <span class="doccomment">/// An application command interaction
+    </span>ApplicationCommand(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::ApplicationCommandInteraction),
+    <span class="doccomment">/// An autocomplete interaction
+    </span>Autocomplete(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::AutocompleteInteraction),
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; <span class="ident">ApplicationCommandOrAutocompleteInteraction</span>&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="doccomment">/// Returns the data field of the underlying interaction</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">data</span>(<span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">serenity::CommandData</span> {
-        <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::ApplicationCommand</span>(<span class="ident">x</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">data</span>,
-            <span class="ident"><span class="self">Self</span>::Autocomplete</span>(<span class="ident">x</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">data</span>,
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; ApplicationCommandOrAutocompleteInteraction&lt;<span class="lifetime">&#39;a</span>&gt; {
+    <span class="doccomment">/// Returns the data field of the underlying interaction
+    </span><span class="kw">pub fn </span>data(<span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::CommandData {
+        <span class="kw">match </span><span class="self">self </span>{
+            <span class="self">Self</span>::ApplicationCommand(x) =&gt; <span class="kw-2">&amp;</span>x.data,
+            <span class="self">Self</span>::Autocomplete(x) =&gt; <span class="kw-2">&amp;</span>x.data,
         }
     }
 
-    <span class="doccomment">/// Returns the ID of the underlying interaction</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">id</span>(<span class="self">self</span>) -&gt; <span class="ident">serenity::InteractionId</span> {
-        <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::ApplicationCommand</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">id</span>,
-            <span class="ident"><span class="self">Self</span>::Autocomplete</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">id</span>,
+    <span class="doccomment">/// Returns the ID of the underlying interaction
+    </span><span class="kw">pub fn </span>id(<span class="self">self</span>) -&gt; serenity::InteractionId {
+        <span class="kw">match </span><span class="self">self </span>{
+            <span class="self">Self</span>::ApplicationCommand(x) =&gt; x.id,
+            <span class="self">Self</span>::Autocomplete(x) =&gt; x.id,
         }
     }
 
-    <span class="doccomment">/// Returns the guild ID of the underlying interaction</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild_id</span>(<span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::GuildId</span>&gt; {
-        <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::ApplicationCommand</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">guild_id</span>,
-            <span class="ident"><span class="self">Self</span>::Autocomplete</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">guild_id</span>,
+    <span class="doccomment">/// Returns the guild ID of the underlying interaction
+    </span><span class="kw">pub fn </span>guild_id(<span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;serenity::GuildId&gt; {
+        <span class="kw">match </span><span class="self">self </span>{
+            <span class="self">Self</span>::ApplicationCommand(x) =&gt; x.guild_id,
+            <span class="self">Self</span>::Autocomplete(x) =&gt; x.guild_id,
         }
     }
 
-    <span class="doccomment">/// Returns the channel ID of the underlying interaction</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">channel_id</span>(<span class="self">self</span>) -&gt; <span class="ident">serenity::ChannelId</span> {
-        <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::ApplicationCommand</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">channel_id</span>,
-            <span class="ident"><span class="self">Self</span>::Autocomplete</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">channel_id</span>,
+    <span class="doccomment">/// Returns the channel ID of the underlying interaction
+    </span><span class="kw">pub fn </span>channel_id(<span class="self">self</span>) -&gt; serenity::ChannelId {
+        <span class="kw">match </span><span class="self">self </span>{
+            <span class="self">Self</span>::ApplicationCommand(x) =&gt; x.channel_id,
+            <span class="self">Self</span>::Autocomplete(x) =&gt; x.channel_id,
         }
     }
 
-    <span class="doccomment">/// Returns the member field of the underlying interaction</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">member</span>(<span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">serenity::Member</span>&gt; {
-        <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::ApplicationCommand</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">member</span>.<span class="ident">as_ref</span>(),
-            <span class="ident"><span class="self">Self</span>::Autocomplete</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">member</span>.<span class="ident">as_ref</span>(),
+    <span class="doccomment">/// Returns the member field of the underlying interaction
+    </span><span class="kw">pub fn </span>member(<span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Member&gt; {
+        <span class="kw">match </span><span class="self">self </span>{
+            <span class="self">Self</span>::ApplicationCommand(x) =&gt; x.member.as_ref(),
+            <span class="self">Self</span>::Autocomplete(x) =&gt; x.member.as_ref(),
         }
     }
 
-    <span class="doccomment">/// Returns the user field of the underlying interaction</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">user</span>(<span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">serenity::User</span> {
-        <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::ApplicationCommand</span>(<span class="ident">x</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">user</span>,
-            <span class="ident"><span class="self">Self</span>::Autocomplete</span>(<span class="ident">x</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">user</span>,
+    <span class="doccomment">/// Returns the user field of the underlying interaction
+    </span><span class="kw">pub fn </span>user(<span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::User {
+        <span class="kw">match </span><span class="self">self </span>{
+            <span class="self">Self</span>::ApplicationCommand(x) =&gt; <span class="kw-2">&amp;</span>x.user,
+            <span class="self">Self</span>::Autocomplete(x) =&gt; <span class="kw-2">&amp;</span>x.user,
         }
     }
 
-    <span class="doccomment">/// Returns the inner [`serenity::ApplicationCommandInteraction`] and panics otherwise</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unwrap</span>(<span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">serenity::ApplicationCommandInteraction</span> {
-        <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident">ApplicationCommandOrAutocompleteInteraction::ApplicationCommand</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>,
-            <span class="ident">ApplicationCommandOrAutocompleteInteraction::Autocomplete</span>(<span class="kw">_</span>) =&gt; {
+    <span class="doccomment">/// Returns the inner [`serenity::ApplicationCommandInteraction`] and panics otherwise
+    </span><span class="kw">pub fn </span>unwrap(<span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::ApplicationCommandInteraction {
+        <span class="kw">match </span><span class="self">self </span>{
+            ApplicationCommandOrAutocompleteInteraction::ApplicationCommand(x) =&gt; x,
+            ApplicationCommandOrAutocompleteInteraction::Autocomplete(<span class="kw">_</span>) =&gt; {
                 <span class="macro">panic!</span>(<span class="string">&quot;expected application command interaction, got autocomplete interaction&quot;</span>)
             }
         }
     }
 
-    <span class="doccomment">/// Returns the locale field of the underlying interaction</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">locale</span>(<span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span> {
-        <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident">ApplicationCommandOrAutocompleteInteraction::ApplicationCommand</span>(<span class="ident">x</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">locale</span>,
-            <span class="ident">ApplicationCommandOrAutocompleteInteraction::Autocomplete</span>(<span class="ident">x</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">locale</span>,
+    <span class="doccomment">/// Returns the locale field of the underlying interaction
+    </span><span class="kw">pub fn </span>locale(<span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str {
+        <span class="kw">match </span><span class="self">self </span>{
+            ApplicationCommandOrAutocompleteInteraction::ApplicationCommand(x) =&gt; <span class="kw-2">&amp;</span>x.locale,
+            ApplicationCommandOrAutocompleteInteraction::Autocomplete(x) =&gt; <span class="kw-2">&amp;</span>x.locale,
         }
     }
 }
 
-<span class="doccomment">/// Application command specific context passed to command invocations.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">derivative::Derivative</span>)]</span>
-<span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span>(<span class="ident">bound</span> = <span class="string">&quot;&quot;</span>))]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ApplicationContext</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt; {
-    <span class="doccomment">/// Serenity&#39;s context, like HTTP or cache</span>
-    <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> = <span class="string">&quot;ignore&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">discord</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">serenity::Context</span>,
-    <span class="doccomment">/// The interaction which triggered this command execution.</span>
-    <span class="kw">pub</span> <span class="ident">interaction</span>: <span class="ident">ApplicationCommandOrAutocompleteInteraction</span>&lt;<span class="lifetime">&#39;a</span>&gt;,
-    <span class="doccomment">/// Slash command arguments</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// **Not** equivalent to `self.interaction.data().options`. That one refers to just the</span>
-    <span class="doccomment">/// top-level command arguments, whereas [`Self::args`] is the options of the actual</span>
-    <span class="doccomment">/// subcommand, if any.</span>
-    <span class="kw">pub</span> <span class="ident">args</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">serenity::CommandDataOption</span>],
-    <span class="doccomment">/// Keeps track of whether an initial response has been sent.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Discord requires different HTTP endpoints for initial and additional responses.</span>
-    <span class="kw">pub</span> <span class="ident">has_sent_initial_response</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">std::sync::atomic::AtomicBool</span>,
-    <span class="doccomment">/// Read-only reference to the framework</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Useful if you need the list of commands, for example for a custom help command</span>
-    <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> = <span class="string">&quot;ignore&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">framework</span>: <span class="ident"><span class="kw">crate</span>::FrameworkContext</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
-    <span class="doccomment">/// The command object which is the current command</span>
-    <span class="kw">pub</span> <span class="ident">command</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident"><span class="kw">crate</span>::Command</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;,
-    <span class="doccomment">/// Your custom user data</span>
-    <span class="comment">// TODO: redundant with framework</span>
-    <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> = <span class="string">&quot;ignore&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">U</span>,
-    <span class="doccomment">/// Custom user data carried across a single command invocation</span>
-    <span class="kw">pub</span> <span class="ident">invocation_data</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">tokio::sync::Mutex</span>&lt;<span class="ident">Box</span>&lt;<span class="kw">dyn</span> <span class="ident">std::any::Any</span> + <span class="ident">Send</span> + <span class="ident">Sync</span>&gt;&gt;,
-    <span class="comment">// #[non_exhaustive] forbids struct update syntax for ?? reason</span>
-    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">__non_exhaustive</span>: (),
+<span class="doccomment">/// Application command specific context passed to command invocations.
+</span><span class="attribute">#[derive(derivative::Derivative)]
+#[derivative(Debug(bound = <span class="string">&quot;&quot;</span>))]
+</span><span class="kw">pub struct </span>ApplicationContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt; {
+    <span class="doccomment">/// Serenity&#39;s context, like HTTP or cache
+    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="kw">pub </span>discord: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context,
+    <span class="doccomment">/// The interaction which triggered this command execution.
+    </span><span class="kw">pub </span>interaction: ApplicationCommandOrAutocompleteInteraction&lt;<span class="lifetime">&#39;a</span>&gt;,
+    <span class="doccomment">/// Slash command arguments
+    ///
+    /// **Not** equivalent to `self.interaction.data().options`. That one refers to just the
+    /// top-level command arguments, whereas [`Self::args`] is the options of the actual
+    /// subcommand, if any.
+    </span><span class="kw">pub </span>args: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[serenity::CommandDataOption],
+    <span class="doccomment">/// Keeps track of whether an initial response has been sent.
+    ///
+    /// Discord requires different HTTP endpoints for initial and additional responses.
+    </span><span class="kw">pub </span>has_sent_initial_response: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>std::sync::atomic::AtomicBool,
+    <span class="doccomment">/// Read-only reference to the framework
+    ///
+    /// Useful if you need the list of commands, for example for a custom help command
+    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="kw">pub </span>framework: <span class="kw">crate</span>::FrameworkContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
+    <span class="doccomment">/// The command object which is the current command
+    </span><span class="kw">pub </span>command: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;,
+    <span class="doccomment">/// Your custom user data
+    </span><span class="comment">// TODO: redundant with framework
+    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="kw">pub </span>data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>U,
+    <span class="doccomment">/// Custom user data carried across a single command invocation
+    </span><span class="kw">pub </span>invocation_data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>tokio::sync::Mutex&lt;Box&lt;<span class="kw">dyn </span>std::any::Any + Send + Sync&gt;&gt;,
+    <span class="comment">// #[non_exhaustive] forbids struct update syntax for ?? reason
+    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="kw">pub </span>__non_exhaustive: (),
 }
-<span class="kw">impl</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; <span class="ident">Clone</span> <span class="kw">for</span> <span class="ident">ApplicationContext</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt; {
-    <span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self</span> {
-        <span class="kw-2">*</span><span class="self">self</span>
-    }
+<span class="kw">impl</span>&lt;U, E&gt; Clone <span class="kw">for </span>ApplicationContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt; {
+    <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
+        <span class="kw-2">*</span><span class="self">self
+    </span>}
 }
-<span class="kw">impl</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; <span class="ident">Copy</span> <span class="kw">for</span> <span class="ident">ApplicationContext</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt; {}
-<span class="kw">impl</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; <span class="ident"><span class="kw">crate</span>::_GetGenerics</span> <span class="kw">for</span> <span class="ident">ApplicationContext</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt; {
-    <span class="kw">type</span> <span class="ident">U</span> = <span class="ident">U</span>;
-    <span class="kw">type</span> <span class="ident">E</span> = <span class="ident">E</span>;
+<span class="kw">impl</span>&lt;U, E&gt; Copy <span class="kw">for </span>ApplicationContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt; {}
+<span class="kw">impl</span>&lt;U, E&gt; <span class="kw">crate</span>::_GetGenerics <span class="kw">for </span>ApplicationContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt; {
+    <span class="kw">type </span>U = U;
+    <span class="kw">type </span>E = E;
 }
 
-<span class="kw">impl</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; <span class="ident">ApplicationContext</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt; {
-    <span class="doccomment">/// See [`crate::Context::defer()`]</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">defer_response</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ephemeral</span>: <span class="ident">bool</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">serenity::Error</span>&gt; {
-        <span class="kw">let</span> <span class="ident">interaction</span> = <span class="kw">match</span> <span class="self">self</span>.<span class="ident">interaction</span> {
-            <span class="ident">ApplicationCommandOrAutocompleteInteraction::ApplicationCommand</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>,
-            <span class="ident">ApplicationCommandOrAutocompleteInteraction::Autocomplete</span>(<span class="kw">_</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Ok</span>(()),
+<span class="kw">impl</span>&lt;U, E&gt; ApplicationContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt; {
+    <span class="doccomment">/// See [`crate::Context::defer()`]
+    </span><span class="kw">pub async fn </span>defer_response(<span class="kw-2">&amp;</span><span class="self">self</span>, ephemeral: bool) -&gt; <span class="prelude-ty">Result</span>&lt;(), serenity::Error&gt; {
+        <span class="kw">let </span>interaction = <span class="kw">match </span><span class="self">self</span>.interaction {
+            ApplicationCommandOrAutocompleteInteraction::ApplicationCommand(x) =&gt; x,
+            ApplicationCommandOrAutocompleteInteraction::Autocomplete(<span class="kw">_</span>) =&gt; <span class="kw">return </span><span class="prelude-val">Ok</span>(()),
         };
 
-        <span class="kw">if</span> !<span class="self">self</span>
-            .<span class="ident">has_sent_initial_response</span>
-            .<span class="ident">load</span>(<span class="ident">std::sync::atomic::Ordering::SeqCst</span>)
+        <span class="kw">if </span>!<span class="self">self
+            </span>.has_sent_initial_response
+            .load(std::sync::atomic::Ordering::SeqCst)
         {
-            <span class="ident">interaction</span>
-                .<span class="ident">create_interaction_response</span>(<span class="self">self</span>.<span class="ident">discord</span>, |<span class="ident">f</span>| {
-                    <span class="ident">f</span>.<span class="ident">kind</span>(<span class="ident">serenity::InteractionResponseType::DeferredChannelMessageWithSource</span>)
-                        .<span class="ident">interaction_response_data</span>(|<span class="ident">b</span>| <span class="ident">b</span>.<span class="ident">ephemeral</span>(<span class="ident">ephemeral</span>))
+            interaction
+                .create_interaction_response(<span class="self">self</span>.discord, |f| {
+                    f.kind(serenity::InteractionResponseType::DeferredChannelMessageWithSource)
+                        .interaction_response_data(|b| b.ephemeral(ephemeral))
                 })
                 .<span class="kw">await</span><span class="question-mark">?</span>;
-            <span class="self">self</span>.<span class="ident">has_sent_initial_response</span>
-                .<span class="ident">store</span>(<span class="bool-val">true</span>, <span class="ident">std::sync::atomic::Ordering::SeqCst</span>);
+            <span class="self">self</span>.has_sent_initial_response
+                .store(<span class="bool-val">true</span>, std::sync::atomic::Ordering::SeqCst);
         }
         <span class="prelude-val">Ok</span>(())
     }
 }
 
-<span class="doccomment">/// Possible actions that a context menu entry can have</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">derivative::Derivative</span>)]</span>
-<span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span>(<span class="ident">bound</span> = <span class="string">&quot;&quot;</span>))]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ContextMenuCommandAction</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; {
-    <span class="doccomment">/// Context menu entry on a user</span>
-    <span class="ident">User</span>(
-        <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> = <span class="string">&quot;ignore&quot;</span>)]</span>
-        <span class="kw">fn</span>(
-            <span class="ident">ApplicationContext</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
-            <span class="ident">serenity::User</span>,
-        ) -&gt; <span class="ident">BoxFuture</span>&lt;<span class="lifetime">&#39;_</span>, <span class="prelude-ty">Result</span>&lt;(), <span class="ident"><span class="kw">crate</span>::FrameworkError</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;&gt;&gt;,
+<span class="doccomment">/// Possible actions that a context menu entry can have
+</span><span class="attribute">#[derive(derivative::Derivative)]
+#[derivative(Debug(bound = <span class="string">&quot;&quot;</span>))]
+</span><span class="kw">pub enum </span>ContextMenuCommandAction&lt;U, E&gt; {
+    <span class="doccomment">/// Context menu entry on a user
+    </span>User(
+        <span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+        </span><span class="kw">fn</span>(
+            ApplicationContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt;,
+            serenity::User,
+        ) -&gt; BoxFuture&lt;<span class="lifetime">&#39;_</span>, <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;_</span>, U, E&gt;&gt;&gt;,
     ),
-    <span class="doccomment">/// Context menu entry on a message</span>
-    <span class="ident">Message</span>(
-        <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> = <span class="string">&quot;ignore&quot;</span>)]</span>
-        <span class="kw">fn</span>(
-            <span class="ident">ApplicationContext</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
-            <span class="ident">serenity::Message</span>,
-        ) -&gt; <span class="ident">BoxFuture</span>&lt;<span class="lifetime">&#39;_</span>, <span class="prelude-ty">Result</span>&lt;(), <span class="ident"><span class="kw">crate</span>::FrameworkError</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;&gt;&gt;,
+    <span class="doccomment">/// Context menu entry on a message
+    </span>Message(
+        <span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+        </span><span class="kw">fn</span>(
+            ApplicationContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt;,
+            serenity::Message,
+        ) -&gt; BoxFuture&lt;<span class="lifetime">&#39;_</span>, <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;_</span>, U, E&gt;&gt;&gt;,
     ),
 }
-<span class="kw">impl</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; <span class="ident">Copy</span> <span class="kw">for</span> <span class="ident">ContextMenuCommandAction</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; {}
-<span class="kw">impl</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; <span class="ident">Clone</span> <span class="kw">for</span> <span class="ident">ContextMenuCommandAction</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; {
-    <span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self</span> {
-        <span class="kw-2">*</span><span class="self">self</span>
-    }
+<span class="kw">impl</span>&lt;U, E&gt; Copy <span class="kw">for </span>ContextMenuCommandAction&lt;U, E&gt; {}
+<span class="kw">impl</span>&lt;U, E&gt; Clone <span class="kw">for </span>ContextMenuCommandAction&lt;U, E&gt; {
+    <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
+        <span class="kw-2">*</span><span class="self">self
+    </span>}
 }
 
-<span class="doccomment">/// A single drop-down choice in a slash command choice parameter</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CommandParameterChoice</span> {
-    <span class="doccomment">/// Label of this choice</span>
-    <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Localized labels with locale string as the key (slash-only)</span>
-    <span class="kw">pub</span> <span class="ident">localizations</span>: <span class="ident">std::collections::HashMap</span>&lt;<span class="ident">String</span>, <span class="ident">String</span>&gt;,
+<span class="doccomment">/// A single drop-down choice in a slash command choice parameter
+</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>CommandParameterChoice {
+    <span class="doccomment">/// Label of this choice
+    </span><span class="kw">pub </span>name: String,
+    <span class="doccomment">/// Localized labels with locale string as the key (slash-only)
+    </span><span class="kw">pub </span>localizations: std::collections::HashMap&lt;String, String&gt;,
 }
 
-<span class="doccomment">/// A single parameter of a [`crate::Command`]</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">derivative::Derivative</span>)]</span>
-<span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span>(<span class="ident">bound</span> = <span class="string">&quot;&quot;</span>))]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CommandParameter</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; {
-    <span class="doccomment">/// Name of this command parameter</span>
-    <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Localized names with locale string as the key (slash-only)</span>
-    <span class="kw">pub</span> <span class="ident">name_localizations</span>: <span class="ident">std::collections::HashMap</span>&lt;<span class="ident">String</span>, <span class="ident">String</span>&gt;,
-    <span class="doccomment">/// Description of the command. Required for slash commands</span>
-    <span class="kw">pub</span> <span class="ident">description</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">String</span>&gt;,
-    <span class="doccomment">/// Localized descriptions with locale string as the key (slash-only)</span>
-    <span class="kw">pub</span> <span class="ident">description_localizations</span>: <span class="ident">std::collections::HashMap</span>&lt;<span class="ident">String</span>, <span class="ident">String</span>&gt;,
-    <span class="doccomment">/// `true` is this parameter is required, `false` if it&#39;s optional or variadic</span>
-    <span class="kw">pub</span> <span class="ident">required</span>: <span class="ident">bool</span>,
-    <span class="doccomment">/// If this parameter is a channel, users can only enter these channel types in a slash command</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Prefix commands are currently unaffected by this</span>
-    <span class="kw">pub</span> <span class="ident">channel_types</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">Vec</span>&lt;<span class="ident">serenity::ChannelType</span>&gt;&gt;,
-    <span class="doccomment">/// If this parameter is a choice parameter, this is the fixed list of options</span>
-    <span class="kw">pub</span> <span class="ident">choices</span>: <span class="ident">Vec</span>&lt;<span class="ident">CommandParameterChoice</span>&gt;,
-    <span class="doccomment">/// Closure that sets this parameter&#39;s type and min/max value in the given builder</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// For example a u32 [`CommandParameter`] would store this as the [`Self::type_setter`]:</span>
-    <span class="doccomment">/// ```rust</span>
-    <span class="doccomment">/// # use poise::serenity_prelude as serenity;</span>
-    <span class="doccomment">/// # let _: fn(&amp;mut serenity::CreateApplicationCommandOption) -&gt; &amp;mut serenity::CreateApplicationCommandOption =</span>
-    <span class="doccomment">/// |b| b.kind(serenity::CommandOptionType::Integer).min_int_value(0).max_int_value(u32::MAX)</span>
-    <span class="doccomment">/// # ;</span>
-    <span class="doccomment">/// ```</span>
-    <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> = <span class="string">&quot;ignore&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">type_setter</span>: <span class="prelude-ty">Option</span>&lt;<span class="kw">fn</span>(<span class="kw-2">&amp;mut</span> <span class="ident">serenity::CreateApplicationCommandOption</span>)&gt;,
-    <span class="doccomment">/// Optionally, a callback that is invoked on autocomplete interactions. This closure should</span>
-    <span class="doccomment">/// extract the partial argument from the given JSON value and generate the autocomplete</span>
-    <span class="doccomment">/// response which contains the list of autocomplete suggestions.</span>
-    <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> = <span class="string">&quot;ignore&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">autocomplete_callback</span>: <span class="prelude-ty">Option</span>&lt;
+<span class="doccomment">/// A single parameter of a [`crate::Command`]
+</span><span class="attribute">#[derive(Clone, derivative::Derivative)]
+#[derivative(Debug(bound = <span class="string">&quot;&quot;</span>))]
+</span><span class="kw">pub struct </span>CommandParameter&lt;U, E&gt; {
+    <span class="doccomment">/// Name of this command parameter
+    </span><span class="kw">pub </span>name: String,
+    <span class="doccomment">/// Localized names with locale string as the key (slash-only)
+    </span><span class="kw">pub </span>name_localizations: std::collections::HashMap&lt;String, String&gt;,
+    <span class="doccomment">/// Description of the command. Required for slash commands
+    </span><span class="kw">pub </span>description: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="doccomment">/// Localized descriptions with locale string as the key (slash-only)
+    </span><span class="kw">pub </span>description_localizations: std::collections::HashMap&lt;String, String&gt;,
+    <span class="doccomment">/// `true` is this parameter is required, `false` if it&#39;s optional or variadic
+    </span><span class="kw">pub </span>required: bool,
+    <span class="doccomment">/// If this parameter is a channel, users can only enter these channel types in a slash command
+    ///
+    /// Prefix commands are currently unaffected by this
+    </span><span class="kw">pub </span>channel_types: <span class="prelude-ty">Option</span>&lt;Vec&lt;serenity::ChannelType&gt;&gt;,
+    <span class="doccomment">/// If this parameter is a choice parameter, this is the fixed list of options
+    </span><span class="kw">pub </span>choices: Vec&lt;CommandParameterChoice&gt;,
+    <span class="doccomment">/// Closure that sets this parameter&#39;s type and min/max value in the given builder
+    ///
+    /// For example a u32 [`CommandParameter`] would store this as the [`Self::type_setter`]:
+    /// ```rust
+    /// # use poise::serenity_prelude as serenity;
+    /// # let _: fn(&amp;mut serenity::CreateApplicationCommandOption) -&gt; &amp;mut serenity::CreateApplicationCommandOption =
+    /// |b| b.kind(serenity::CommandOptionType::Integer).min_int_value(0).max_int_value(u32::MAX)
+    /// # ;
+    /// ```
+    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="kw">pub </span>type_setter: <span class="prelude-ty">Option</span>&lt;<span class="kw">fn</span>(<span class="kw-2">&amp;mut </span>serenity::CreateApplicationCommandOption)&gt;,
+    <span class="doccomment">/// Optionally, a callback that is invoked on autocomplete interactions. This closure should
+    /// extract the partial argument from the given JSON value and generate the autocomplete
+    /// response which contains the list of autocomplete suggestions.
+    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="kw">pub </span>autocomplete_callback: <span class="prelude-ty">Option</span>&lt;
         <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">fn</span>(
-            <span class="ident"><span class="kw">crate</span>::ApplicationContext</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
-            <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
-        ) -&gt; <span class="ident">BoxFuture</span>&lt;
+            <span class="kw">crate</span>::ApplicationContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
+            <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
+        ) -&gt; BoxFuture&lt;
             <span class="lifetime">&#39;a</span>,
-            <span class="prelude-ty">Result</span>&lt;<span class="ident">serenity::CreateAutocompleteResponse</span>, <span class="ident"><span class="kw">crate</span>::SlashArgError</span>&gt;,
+            <span class="prelude-ty">Result</span>&lt;serenity::CreateAutocompleteResponse, <span class="kw">crate</span>::SlashArgError&gt;,
         &gt;,
     &gt;,
 }
 
-<span class="kw">impl</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; <span class="ident">CommandParameter</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; {
-    <span class="doccomment">/// Generates a slash command parameter builder from this [`CommandParameter`] instance. This</span>
-    <span class="doccomment">/// can be used to register the command on Discord&#39;s servers</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_as_slash_command_option</span>(
+<span class="kw">impl</span>&lt;U, E&gt; CommandParameter&lt;U, E&gt; {
+    <span class="doccomment">/// Generates a slash command parameter builder from this [`CommandParameter`] instance. This
+    /// can be used to register the command on Discord&#39;s servers
+    </span><span class="kw">pub fn </span>create_as_slash_command_option(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::CreateApplicationCommandOption</span>&gt; {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">builder</span> = <span class="ident">serenity::CreateApplicationCommandOption::default</span>();
-        <span class="ident">builder</span>
-            .<span class="ident">required</span>(<span class="self">self</span>.<span class="ident">required</span>)
-            .<span class="ident">name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name</span>)
-            .<span class="ident">description</span>(
-                <span class="self">self</span>.<span class="ident">description</span>
-                    .<span class="ident">as_deref</span>()
-                    .<span class="ident">unwrap_or</span>(<span class="string">&quot;A slash command parameter&quot;</span>),
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;serenity::CreateApplicationCommandOption&gt; {
+        <span class="kw">let </span><span class="kw-2">mut </span>builder = serenity::CreateApplicationCommandOption::default();
+        builder
+            .required(<span class="self">self</span>.required)
+            .name(<span class="kw-2">&amp;</span><span class="self">self</span>.name)
+            .description(
+                <span class="self">self</span>.description
+                    .as_deref()
+                    .unwrap_or(<span class="string">&quot;A slash command parameter&quot;</span>),
             )
-            .<span class="ident">set_autocomplete</span>(<span class="self">self</span>.<span class="ident">autocomplete_callback</span>.<span class="ident">is_some</span>());
-        <span class="kw">for</span> (<span class="ident">locale</span>, <span class="ident">name</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name_localizations</span> {
-            <span class="ident">builder</span>.<span class="ident">name_localized</span>(<span class="ident">locale</span>, <span class="ident">name</span>);
+            .set_autocomplete(<span class="self">self</span>.autocomplete_callback.is_some());
+        <span class="kw">for </span>(locale, name) <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.name_localizations {
+            builder.name_localized(locale, name);
         }
-        <span class="kw">for</span> (<span class="ident">locale</span>, <span class="ident">description</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">description_localizations</span> {
-            <span class="ident">builder</span>.<span class="ident">description_localized</span>(<span class="ident">locale</span>, <span class="ident">description</span>);
+        <span class="kw">for </span>(locale, description) <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.description_localizations {
+            builder.description_localized(locale, description);
         }
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">channel_types</span>) = <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">channel_types</span> {
-            <span class="ident">builder</span>.<span class="ident">channel_types</span>(<span class="ident">channel_types</span>);
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(channel_types) = <span class="kw-2">&amp;</span><span class="self">self</span>.channel_types {
+            builder.channel_types(channel_types);
         }
-        <span class="kw">for</span> (<span class="ident">i</span>, <span class="ident">choice</span>) <span class="kw">in</span> <span class="self">self</span>.<span class="ident">choices</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>() {
-            <span class="ident">builder</span>.<span class="ident">add_int_choice_localized</span>(<span class="kw-2">&amp;</span><span class="ident">choice</span>.<span class="ident">name</span>, <span class="ident">i</span> <span class="kw">as</span> <span class="kw">_</span>, <span class="ident">choice</span>.<span class="ident">localizations</span>.<span class="ident">iter</span>());
+        <span class="kw">for </span>(i, choice) <span class="kw">in </span><span class="self">self</span>.choices.iter().enumerate() {
+            builder.add_int_choice_localized(<span class="kw-2">&amp;</span>choice.name, i <span class="kw">as _</span>, choice.localizations.iter());
         }
-        (<span class="self">self</span>.<span class="ident">type_setter</span><span class="question-mark">?</span>)(<span class="kw-2">&amp;mut</span> <span class="ident">builder</span>);
-        <span class="prelude-val">Some</span>(<span class="ident">builder</span>)
+        (<span class="self">self</span>.type_setter<span class="question-mark">?</span>)(<span class="kw-2">&amp;mut </span>builder);
+        <span class="prelude-val">Some</span>(builder)
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (748038961 2022-08-25)" ></div></body></html>

@@ -2,12 +2,12 @@
 to register the commands on Discord</p>
 <p>Also see <a href="fn.register_application_commands_buttons.html" title="register_application_commands_buttons"><code>register_application_commands_buttons</code></a> for a ready to use register command</p>
 
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let</span> <span class="ident">commands</span> = <span class="kw-2">&amp;</span><span class="ident">ctx</span>.<span class="ident">framework</span>().<span class="ident">options</span>().<span class="ident">commands</span>;
-<span class="kw">let</span> <span class="ident">create_commands</span> = <span class="ident">poise::builtins::create_application_commands</span>(<span class="ident">commands</span>);
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>commands = <span class="kw-2">&amp;</span>ctx.framework().options().commands;
+<span class="kw">let </span>create_commands = poise::builtins::create_application_commands(commands);
 
-<span class="ident">serenity::Command::set_global_application_commands</span>(<span class="ident">ctx</span>.<span class="ident">discord</span>(), |<span class="ident">b</span>| {
-    <span class="kw-2">*</span><span class="ident">b</span> = <span class="ident">create_commands</span>; <span class="comment">// replace the given builder with the one prepared by poise</span>
-    <span class="ident">b</span>
+serenity::Command::set_global_application_commands(ctx.discord(), |b| {
+    <span class="kw-2">*</span>b = create_commands; <span class="comment">// replace the given builder with the one prepared by poise
+    </span>b
 }).<span class="kw">await</span><span class="question-mark">?</span>;</code></pre></div>
 </div></details><div class="docblock scraped-example-list"><span></span><h5 id="scraped-examples"><a href="#scraped-examples">Examples found in repository</a><a class="scrape-help" href="../../scrape-examples-help.html">?</a></h5><div class="scraped-example " data-locs="[[[7,9],&quot;../../src/invocation_data/main.rs.html#56-58&quot;,&quot;lines 56-58&quot;]]"><div class="scraped-example-title">examples/invocation_data/main.rs (<a href="../../src/invocation_data/main.rs.html#56-58">lines 56-58</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="line-numbers"><span>49</span>
 <span>50</span>
@@ -83,78 +83,78 @@ to register the commands on Discord</p>
 <span>120</span>
 <span>121</span>
 <span>122</span>
-</pre><pre class="rust"><code><span class="kw">async</span> <span class="kw">fn</span> <span class="ident">main</span>() {
-    <span class="ident">poise::Framework::builder</span>()
-        .<span class="ident">token</span>(<span class="ident">std::env::var</span>(<span class="string">&quot;TOKEN&quot;</span>).<span class="ident">unwrap</span>())
-        .<span class="ident">user_data_setup</span>(<span class="kw">move</span> |<span class="ident">ctx</span>, <span class="kw">_</span>, <span class="ident">framework</span>| {
-            <span class="ident">Box::pin</span>(<span class="kw">async</span> <span class="kw">move</span> {
-                <span class="ident">poise::serenity_prelude::GuildId</span>(<span class="number">703332075914264606</span>)
-                    .<span class="ident">set_application_commands</span>(<span class="ident">ctx</span>, |<span class="ident">b</span>| {
-                        <span class="kw-2">*</span><span class="ident">b</span> = <span class="highlight focus"><span class="ident">poise::samples::create_application_commands</span></span>(
-                            <span class="kw-2">&amp;</span><span class="ident">framework</span>.<span class="ident">options</span>().<span class="ident">commands</span>,
+</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+    poise::Framework::builder()
+        .token(std::env::var(<span class="string">&quot;TOKEN&quot;</span>).unwrap())
+        .user_data_setup(<span class="kw">move </span>|ctx, <span class="kw">_</span>, framework| {
+            Box::pin(<span class="kw">async move </span>{
+                poise::serenity_prelude::GuildId(<span class="number">703332075914264606</span>)
+                    .set_application_commands(ctx, |b| {
+                        <span class="kw-2">*</span>b = <span class="highlight focus">poise::samples::create_application_commands</span>(
+                            <span class="kw-2">&amp;</span>framework.options().commands,
                         );
-                        <span class="ident">b</span>
+                        b
                     })
-                    .<span class="kw">await</span>
-                    .<span class="ident">unwrap</span>();
+                    .<span class="kw">await
+                    </span>.unwrap();
                 <span class="prelude-val">Ok</span>(())
             })
         })
-        .<span class="ident">options</span>(<span class="ident">poise::FrameworkOptions</span> {
-            <span class="ident">pre_command</span>: |<span class="ident">ctx</span>| {
-                <span class="ident">Box::pin</span>(<span class="kw">async</span> <span class="kw">move</span> {
+        .options(poise::FrameworkOptions {
+            pre_command: |ctx| {
+                Box::pin(<span class="kw">async move </span>{
                     <span class="macro">println!</span>(
                         <span class="string">&quot;In pre_command: {:?}&quot;</span>,
-                        <span class="ident">ctx</span>.<span class="ident">invocation_data</span>::&lt;<span class="kw-2">&amp;</span><span class="ident">str</span>&gt;().<span class="kw">await</span>.<span class="ident">as_deref</span>()
+                        ctx.invocation_data::&lt;<span class="kw-2">&amp;</span>str&gt;().<span class="kw">await</span>.as_deref()
                     );
                 })
             },
-            <span class="ident">command_check</span>: <span class="prelude-val">Some</span>(|<span class="ident">ctx</span>| {
-                <span class="ident">Box::pin</span>(<span class="kw">async</span> <span class="kw">move</span> {
-                    <span class="comment">// Global command check is the first callback that&#39;s invoked, so let&#39;s set the</span>
-                    <span class="comment">// data here</span>
-                    <span class="macro">println!</span>(<span class="string">&quot;Writing invocation data!&quot;</span>);
-                    <span class="ident">ctx</span>.<span class="ident">set_invocation_data</span>(<span class="string">&quot;hello&quot;</span>).<span class="kw">await</span>;
+            command_check: <span class="prelude-val">Some</span>(|ctx| {
+                Box::pin(<span class="kw">async move </span>{
+                    <span class="comment">// Global command check is the first callback that&#39;s invoked, so let&#39;s set the
+                    // data here
+                    </span><span class="macro">println!</span>(<span class="string">&quot;Writing invocation data!&quot;</span>);
+                    ctx.set_invocation_data(<span class="string">&quot;hello&quot;</span>).<span class="kw">await</span>;
 
                     <span class="macro">println!</span>(
                         <span class="string">&quot;In global check: {:?}&quot;</span>,
-                        <span class="ident">ctx</span>.<span class="ident">invocation_data</span>::&lt;<span class="kw-2">&amp;</span><span class="ident">str</span>&gt;().<span class="kw">await</span>.<span class="ident">as_deref</span>()
+                        ctx.invocation_data::&lt;<span class="kw-2">&amp;</span>str&gt;().<span class="kw">await</span>.as_deref()
                     );
 
                     <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>)
                 })
             }),
-            <span class="ident">post_command</span>: |<span class="ident">ctx</span>| {
-                <span class="ident">Box::pin</span>(<span class="kw">async</span> <span class="kw">move</span> {
+            post_command: |ctx| {
+                Box::pin(<span class="kw">async move </span>{
                     <span class="macro">println!</span>(
                         <span class="string">&quot;In post_command: {:?}&quot;</span>,
-                        <span class="ident">ctx</span>.<span class="ident">invocation_data</span>::&lt;<span class="kw-2">&amp;</span><span class="ident">str</span>&gt;().<span class="kw">await</span>.<span class="ident">as_deref</span>()
+                        ctx.invocation_data::&lt;<span class="kw-2">&amp;</span>str&gt;().<span class="kw">await</span>.as_deref()
                     );
                 })
             },
-            <span class="ident">on_error</span>: |<span class="ident">err</span>| {
-                <span class="ident">Box::pin</span>(<span class="kw">async</span> <span class="kw">move</span> {
-                    <span class="kw">match</span> <span class="ident">err</span> {
-                        <span class="ident">poise::FrameworkError::Command</span> { <span class="ident">ctx</span>, .. } =&gt; {
+            on_error: |err| {
+                Box::pin(<span class="kw">async move </span>{
+                    <span class="kw">match </span>err {
+                        poise::FrameworkError::Command { ctx, .. } =&gt; {
                             <span class="macro">println!</span>(
                                 <span class="string">&quot;In on_error: {:?}&quot;</span>,
-                                <span class="ident">ctx</span>.<span class="ident">invocation_data</span>::&lt;<span class="kw-2">&amp;</span><span class="ident">str</span>&gt;().<span class="kw">await</span>.<span class="ident">as_deref</span>()
+                                ctx.invocation_data::&lt;<span class="kw-2">&amp;</span>str&gt;().<span class="kw">await</span>.as_deref()
                             );
                         }
-                        <span class="ident">err</span> =&gt; <span class="ident">poise::samples::on_error</span>(<span class="ident">err</span>).<span class="kw">await</span>.<span class="ident">unwrap</span>(),
+                        err =&gt; poise::samples::on_error(err).<span class="kw">await</span>.unwrap(),
                     }
                 })
             },
 
-            <span class="ident">commands</span>: <span class="macro">vec!</span>[<span class="ident">invocation_data_test</span>()],
-            <span class="ident">prefix_options</span>: <span class="ident">poise::PrefixFrameworkOptions</span> {
-                <span class="ident">prefix</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;~&quot;</span>.<span class="ident">into</span>()),
-                ..<span class="ident">Default::default</span>()
+            commands: <span class="macro">vec!</span>[invocation_data_test()],
+            prefix_options: poise::PrefixFrameworkOptions {
+                prefix: <span class="prelude-val">Some</span>(<span class="string">&quot;~&quot;</span>.into()),
+                ..Default::default()
             },
-            ..<span class="ident">Default::default</span>()
+            ..Default::default()
         })
-        .<span class="ident">run</span>()
-        .<span class="kw">await</span>
-        .<span class="ident">unwrap</span>();
+        .run()
+        .<span class="kw">await
+        </span>.unwrap();
 }</code></pre></div>
-</div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>
+</div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (748038961 2022-08-25)" ></div></body></html>

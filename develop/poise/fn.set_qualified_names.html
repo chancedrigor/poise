@@ -20,25 +20,25 @@
 <span>59</span>
 <span>60</span>
 <span>61</span>
-</pre><pre class="rust"><code><span class="kw">async</span> <span class="kw">fn</span> <span class="ident">main</span>() -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">Error</span>&gt; {
-    <span class="kw">let</span> <span class="ident">token</span> = <span class="ident">std::env::var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>).<span class="ident">expect</span>(<span class="string">&quot;missing DISCORD_TOKEN&quot;</span>);
-    <span class="kw">let</span> <span class="ident">intents</span> = <span class="ident">serenity::GatewayIntents::non_privileged</span>();
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">handler</span> = <span class="ident">Handler</span> {
-        <span class="ident">options</span>: <span class="ident">poise::FrameworkOptions</span> {
-            <span class="ident">commands</span>: <span class="macro">vec!</span>[<span class="ident">ping</span>()],
-            ..<span class="ident">Default::default</span>()
+</pre><pre class="rust"><code><span class="kw">async fn </span>main() -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+    <span class="kw">let </span>token = std::env::var(<span class="string">&quot;DISCORD_TOKEN&quot;</span>).expect(<span class="string">&quot;missing DISCORD_TOKEN&quot;</span>);
+    <span class="kw">let </span>intents = serenity::GatewayIntents::non_privileged();
+    <span class="kw">let </span><span class="kw-2">mut </span>handler = Handler {
+        options: poise::FrameworkOptions {
+            commands: <span class="macro">vec!</span>[ping()],
+            ..Default::default()
         },
-        <span class="ident">shard_manager</span>: <span class="ident">std::sync::Mutex::new</span>(<span class="prelude-val">None</span>),
+        shard_manager: std::sync::Mutex::new(<span class="prelude-val">None</span>),
     };
-    <span class="highlight focus"><span class="ident">poise::set_qualified_names</span></span>(<span class="kw-2">&amp;mut</span> <span class="ident">handler</span>.<span class="ident">options</span>.<span class="ident">commands</span>); <span class="comment">// some setup</span>
+    <span class="highlight focus">poise::set_qualified_names</span>(<span class="kw-2">&amp;mut </span>handler.options.commands); <span class="comment">// some setup
 
-    <span class="kw">let</span> <span class="ident">handler</span> = <span class="ident">std::sync::Arc::new</span>(<span class="ident">handler</span>);
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">client</span> = <span class="ident">serenity::Client::builder</span>(<span class="ident">token</span>, <span class="ident">intents</span>)
-        .<span class="ident">event_handler_arc</span>(<span class="ident">handler</span>.<span class="ident">clone</span>())
+    </span><span class="kw">let </span>handler = std::sync::Arc::new(handler);
+    <span class="kw">let </span><span class="kw-2">mut </span>client = serenity::Client::builder(token, intents)
+        .event_handler_arc(handler.clone())
         .<span class="kw">await</span><span class="question-mark">?</span>;
-    <span class="kw-2">*</span><span class="ident">handler</span>.<span class="ident">shard_manager</span>.<span class="ident">lock</span>().<span class="ident">unwrap</span>() = <span class="prelude-val">Some</span>(<span class="ident">client</span>.<span class="ident">shard_manager</span>.<span class="ident">clone</span>());
-    <span class="ident">client</span>.<span class="ident">start</span>().<span class="kw">await</span><span class="question-mark">?</span>;
+    <span class="kw-2">*</span>handler.shard_manager.lock().unwrap() = <span class="prelude-val">Some</span>(client.shard_manager.clone());
+    client.start().<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="prelude-val">Ok</span>(())
 }</code></pre></div>
-</div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>
+</div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (748038961 2022-08-25)" ></div></body></html>

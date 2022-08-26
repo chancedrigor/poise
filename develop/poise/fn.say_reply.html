@@ -24,28 +24,28 @@
 <span>454</span>
 <span>455</span>
 <span>456</span>
-</pre><pre class="rust"><code><span class="kw">async</span> <span class="kw">fn</span> <span class="ident">about_role</span>(
-    <span class="ident">ctx</span>: <span class="ident">Context</span>&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[<span class="ident">description</span> = <span class="string">&quot;Name of the role&quot;</span>]</span> <span class="ident">potential_role_name</span>: <span class="ident">String</span>,
-) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">Error</span>&gt; {
-    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">guild</span>) = <span class="ident">ctx</span>.<span class="ident">guild</span>() {
-        <span class="comment">// `role_by_name()` allows us to attempt attaining a reference to a role</span>
-        <span class="comment">// via its name.</span>
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">role</span>) = <span class="ident">guild</span>.<span class="ident">role_by_name</span>(<span class="kw-2">&amp;</span><span class="ident">potential_role_name</span>) {
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">why</span>) = <span class="ident">ctx</span>.<span class="ident">say</span>(<span class="macro">format!</span>(<span class="string">&quot;Role-ID: {}&quot;</span>, <span class="ident">role</span>.<span class="ident">id</span>)).<span class="kw">await</span> {
-                <span class="macro">println!</span>(<span class="string">&quot;Error sending message: {:?}&quot;</span>, <span class="ident">why</span>);
+</pre><pre class="rust"><code><span class="kw">async fn </span>about_role(
+    ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
+    <span class="attribute">#[description = <span class="string">&quot;Name of the role&quot;</span>] </span>potential_role_name: String,
+) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+    <span class="kw">if let </span><span class="prelude-val">Some</span>(guild) = ctx.guild() {
+        <span class="comment">// `role_by_name()` allows us to attempt attaining a reference to a role
+        // via its name.
+        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(role) = guild.role_by_name(<span class="kw-2">&amp;</span>potential_role_name) {
+            <span class="kw">if let </span><span class="prelude-val">Err</span>(why) = ctx.say(<span class="macro">format!</span>(<span class="string">&quot;Role-ID: {}&quot;</span>, role.id)).<span class="kw">await </span>{
+                <span class="macro">println!</span>(<span class="string">&quot;Error sending message: {:?}&quot;</span>, why);
             }
 
-            <span class="kw">return</span> <span class="prelude-val">Ok</span>(());
+            <span class="kw">return </span><span class="prelude-val">Ok</span>(());
         }
     }
 
-    <span class="highlight focus"><span class="ident">poise::say_reply</span></span>(
-        <span class="ident">ctx</span>,
-        <span class="macro">format!</span>(<span class="string">&quot;Could not find role named: {:?}&quot;</span>, <span class="ident">potential_role_name</span>),
+    <span class="highlight focus">poise::say_reply</span>(
+        ctx,
+        <span class="macro">format!</span>(<span class="string">&quot;Could not find role named: {:?}&quot;</span>, potential_role_name),
     )
     .<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="prelude-val">Ok</span>(())
 }</code></pre></div>
-</div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>
+</div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (748038961 2022-08-25)" ></div></body></html>

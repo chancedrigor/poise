@@ -157,164 +157,164 @@
 <span id="157">157</span>
 <span id="158">158</span>
 <span id="159">159</span>
-</pre><pre class="rust"><code><span class="attribute">#![<span class="ident">warn</span>(<span class="ident">clippy::str_to_string</span>)]</span>
+</pre><pre class="rust"><code><span class="attribute">#![warn(clippy::str_to_string)]
 
-<span class="kw">mod</span> <span class="ident">commands</span>;
-<span class="kw">use</span> <span class="ident">commands</span>::<span class="kw-2">*</span>;
+</span><span class="kw">mod </span>commands;
+<span class="kw">use </span>commands::<span class="kw-2">*</span>;
 
-<span class="kw">use</span> <span class="ident">poise::serenity_prelude</span> <span class="kw">as</span> <span class="ident">serenity</span>;
-<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::HashMap</span>, <span class="ident">env::var</span>, <span class="ident">sync::Mutex</span>, <span class="ident">time::Duration</span>};
+<span class="kw">use </span>poise::serenity_prelude <span class="kw">as </span>serenity;
+<span class="kw">use </span>std::{collections::HashMap, env::var, sync::Mutex, time::Duration};
 
-<span class="comment">// Types used by all command functions</span>
-<span class="kw">type</span> <span class="ident">Error</span> = <span class="ident">Box</span>&lt;<span class="kw">dyn</span> <span class="ident">std::error::Error</span> + <span class="ident">Send</span> + <span class="ident">Sync</span>&gt;;
-<span class="kw">type</span> <span class="ident">Context</span>&lt;<span class="lifetime">&#39;a</span>&gt; = <span class="ident">poise::Context</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">Data</span>, <span class="ident">Error</span>&gt;;
+<span class="comment">// Types used by all command functions
+</span><span class="kw">type </span>Error = Box&lt;<span class="kw">dyn </span>std::error::Error + Send + Sync&gt;;
+<span class="kw">type </span>Context&lt;<span class="lifetime">&#39;a</span>&gt; = poise::Context&lt;<span class="lifetime">&#39;a</span>, Data, Error&gt;;
 
-<span class="comment">// Custom user data passed to all command functions</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Data</span> {
-    <span class="ident">votes</span>: <span class="ident">Mutex</span>&lt;<span class="ident">HashMap</span>&lt;<span class="ident">String</span>, <span class="ident">u32</span>&gt;&gt;,
+<span class="comment">// Custom user data passed to all command functions
+</span><span class="kw">pub struct </span>Data {
+    votes: Mutex&lt;HashMap&lt;String, u32&gt;&gt;,
 }
 
-<span class="doccomment">/// Show this help menu</span>
-<span class="attribute">#[<span class="ident">poise::command</span>(<span class="ident">prefix_command</span>, <span class="ident">track_edits</span>, <span class="ident">slash_command</span>)]</span>
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">help</span>(
-    <span class="ident">ctx</span>: <span class="ident">Context</span>&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[<span class="ident">description</span> = <span class="string">&quot;Specific command to show help about&quot;</span>]</span>
-    <span class="attribute">#[<span class="ident">autocomplete</span> = <span class="string">&quot;poise::builtins::autocomplete_command&quot;</span>]</span>
-    <span class="ident">command</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">String</span>&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">Error</span>&gt; {
-    <span class="ident">poise::builtins::help</span>(
-        <span class="ident">ctx</span>,
-        <span class="ident">command</span>.<span class="ident">as_deref</span>(),
-        <span class="ident">poise::builtins::HelpConfiguration</span> {
-            <span class="ident">extra_text_at_bottom</span>: <span class="string">&quot;\
+<span class="doccomment">/// Show this help menu
+</span><span class="attribute">#[poise::command(prefix_command, track_edits, slash_command)]
+</span><span class="kw">async fn </span>help(
+    ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
+    <span class="attribute">#[description = <span class="string">&quot;Specific command to show help about&quot;</span>]
+    #[autocomplete = <span class="string">&quot;poise::builtins::autocomplete_command&quot;</span>]
+    </span>command: <span class="prelude-ty">Option</span>&lt;String&gt;,
+) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+    poise::builtins::help(
+        ctx,
+        command.as_deref(),
+        poise::builtins::HelpConfiguration {
+            extra_text_at_bottom: <span class="string">&quot;\
 This is an example bot made to showcase features of my custom Discord bot framework&quot;</span>,
-            <span class="ident">show_context_menu_commands</span>: <span class="bool-val">true</span>,
-            ..<span class="ident">Default::default</span>()
+            show_context_menu_commands: <span class="bool-val">true</span>,
+            ..Default::default()
         },
     )
     .<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="doccomment">/// Registers or unregisters application commands in this guild or globally</span>
-<span class="attribute">#[<span class="ident">poise::command</span>(<span class="ident">prefix_command</span>, <span class="ident">hide_in_help</span>)]</span>
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">register</span>(<span class="ident">ctx</span>: <span class="ident">Context</span>&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">Error</span>&gt; {
-    <span class="ident">poise::builtins::register_application_commands_buttons</span>(<span class="ident">ctx</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+<span class="doccomment">/// Registers or unregisters application commands in this guild or globally
+</span><span class="attribute">#[poise::command(prefix_command, hide_in_help)]
+</span><span class="kw">async fn </span>register(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+    poise::builtins::register_application_commands_buttons(ctx).<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">on_error</span>(<span class="ident">error</span>: <span class="ident">poise::FrameworkError</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">Data</span>, <span class="ident">Error</span>&gt;) {
-    <span class="comment">// This is our custom error handler</span>
-    <span class="comment">// They are many errors that can occur, so we only handle the ones we want to customize</span>
-    <span class="comment">// and forward the rest to the default handler</span>
-    <span class="kw">match</span> <span class="ident">error</span> {
-        <span class="ident">poise::FrameworkError::Setup</span> { <span class="ident">error</span>, .. } =&gt; <span class="macro">panic!</span>(<span class="string">&quot;Failed to start bot: {:?}&quot;</span>, <span class="ident">error</span>),
-        <span class="ident">poise::FrameworkError::Command</span> { <span class="ident">error</span>, <span class="ident">ctx</span> } =&gt; {
-            <span class="macro">println!</span>(<span class="string">&quot;Error in command `{}`: {:?}&quot;</span>, <span class="ident">ctx</span>.<span class="ident">command</span>().<span class="ident">name</span>, <span class="ident">error</span>,);
+<span class="kw">async fn </span>on_error(error: poise::FrameworkError&lt;<span class="lifetime">&#39;_</span>, Data, Error&gt;) {
+    <span class="comment">// This is our custom error handler
+    // They are many errors that can occur, so we only handle the ones we want to customize
+    // and forward the rest to the default handler
+    </span><span class="kw">match </span>error {
+        poise::FrameworkError::Setup { error, .. } =&gt; <span class="macro">panic!</span>(<span class="string">&quot;Failed to start bot: {:?}&quot;</span>, error),
+        poise::FrameworkError::Command { error, ctx } =&gt; {
+            <span class="macro">println!</span>(<span class="string">&quot;Error in command `{}`: {:?}&quot;</span>, ctx.command().name, error,);
         }
-        <span class="ident">error</span> =&gt; {
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) = <span class="ident">poise::builtins::on_error</span>(<span class="ident">error</span>).<span class="kw">await</span> {
-                <span class="macro">println!</span>(<span class="string">&quot;Error while handling error: {}&quot;</span>, <span class="ident">e</span>)
+        error =&gt; {
+            <span class="kw">if let </span><span class="prelude-val">Err</span>(e) = poise::builtins::on_error(error).<span class="kw">await </span>{
+                <span class="macro">println!</span>(<span class="string">&quot;Error while handling error: {}&quot;</span>, e)
             }
         }
     }
 }
 
-<span class="attribute">#[<span class="ident">tokio::main</span>]</span>
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">main</span>() {
-    <span class="ident">env_logger::init</span>();
+<span class="attribute">#[tokio::main]
+</span><span class="kw">async fn </span>main() {
+    env_logger::init();
 
-    <span class="kw">let</span> <span class="ident">options</span> = <span class="ident">poise::FrameworkOptions</span> {
-        <span class="ident">commands</span>: <span class="macro">vec!</span>[
-            <span class="ident">help</span>(),
-            <span class="ident">register</span>(),
-            <span class="ident">general::vote</span>(),
-            <span class="ident">general::getvotes</span>(),
-            <span class="ident">general::addmultiple</span>(),
-            <span class="ident">general::choice</span>(),
-            <span class="ident">general::boop</span>(),
-            <span class="ident">general::voiceinfo</span>(),
-            <span class="ident">general::test_reuse_response</span>(),
-            <span class="ident">general::oracle</span>(),
-            <span class="ident">general::code</span>(),
-            <span class="ident">general::say</span>(),
-            <span class="ident">general::file_details</span>(),
-            <span class="ident">general::totalsize</span>(),
-            <span class="ident">general::modal</span>(),
-            <span class="ident">general::punish</span>(),
-            <span class="ident">context_menu::user_info</span>(),
-            <span class="ident">context_menu::echo</span>(),
-            <span class="ident">autocomplete::greet</span>(),
-            <span class="ident">checks::shutdown</span>(),
-            <span class="ident">checks::modonly</span>(),
-            <span class="ident">checks::delete</span>(),
-            <span class="ident">checks::ferrisparty</span>(),
-            <span class="ident">checks::add</span>(),
-            <span class="ident">checks::get_guild_name</span>(),
-            <span class="ident">checks::only_in_dms</span>(),
-            <span class="ident">checks::lennyface</span>(),
-            <span class="ident">checks::permissions_v2</span>(),
-            <span class="ident">subcommands::parent</span>(),
-            <span class="ident">localization::welcome</span>(),
+    <span class="kw">let </span>options = poise::FrameworkOptions {
+        commands: <span class="macro">vec!</span>[
+            help(),
+            register(),
+            general::vote(),
+            general::getvotes(),
+            general::addmultiple(),
+            general::choice(),
+            general::boop(),
+            general::voiceinfo(),
+            general::test_reuse_response(),
+            general::oracle(),
+            general::code(),
+            general::say(),
+            general::file_details(),
+            general::totalsize(),
+            general::modal(),
+            general::punish(),
+            context_menu::user_info(),
+            context_menu::echo(),
+            autocomplete::greet(),
+            checks::shutdown(),
+            checks::modonly(),
+            checks::delete(),
+            checks::ferrisparty(),
+            checks::add(),
+            checks::get_guild_name(),
+            checks::only_in_dms(),
+            checks::lennyface(),
+            checks::permissions_v2(),
+            subcommands::parent(),
+            localization::welcome(),
         ],
-        <span class="ident">prefix_options</span>: <span class="ident">poise::PrefixFrameworkOptions</span> {
-            <span class="ident">prefix</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;~&quot;</span>.<span class="ident">into</span>()),
-            <span class="ident">edit_tracker</span>: <span class="prelude-val">Some</span>(<span class="ident">poise::EditTracker::for_timespan</span>(<span class="ident">Duration::from_secs</span>(<span class="number">3600</span>))),
-            <span class="ident">additional_prefixes</span>: <span class="macro">vec!</span>[
-                <span class="ident">poise::Prefix::Literal</span>(<span class="string">&quot;hey bot&quot;</span>),
-                <span class="ident">poise::Prefix::Literal</span>(<span class="string">&quot;hey bot,&quot;</span>),
+        prefix_options: poise::PrefixFrameworkOptions {
+            prefix: <span class="prelude-val">Some</span>(<span class="string">&quot;~&quot;</span>.into()),
+            edit_tracker: <span class="prelude-val">Some</span>(poise::EditTracker::for_timespan(Duration::from_secs(<span class="number">3600</span>))),
+            additional_prefixes: <span class="macro">vec!</span>[
+                poise::Prefix::Literal(<span class="string">&quot;hey bot&quot;</span>),
+                poise::Prefix::Literal(<span class="string">&quot;hey bot,&quot;</span>),
             ],
-            ..<span class="ident">Default::default</span>()
+            ..Default::default()
         },
-        <span class="doccomment">/// The global error handler for all error cases that may occur</span>
-        <span class="ident">on_error</span>: |<span class="ident">error</span>| <span class="ident">Box::pin</span>(<span class="ident">on_error</span>(<span class="ident">error</span>)),
-        <span class="doccomment">/// This code is run before every command</span>
-        <span class="ident">pre_command</span>: |<span class="ident">ctx</span>| {
-            <span class="ident">Box::pin</span>(<span class="kw">async</span> <span class="kw">move</span> {
-                <span class="macro">println!</span>(<span class="string">&quot;Executing command {}...&quot;</span>, <span class="ident">ctx</span>.<span class="ident">command</span>().<span class="ident">qualified_name</span>);
+        <span class="doccomment">/// The global error handler for all error cases that may occur
+        </span>on_error: |error| Box::pin(on_error(error)),
+        <span class="doccomment">/// This code is run before every command
+        </span>pre_command: |ctx| {
+            Box::pin(<span class="kw">async move </span>{
+                <span class="macro">println!</span>(<span class="string">&quot;Executing command {}...&quot;</span>, ctx.command().qualified_name);
             })
         },
-        <span class="doccomment">/// This code is run after a command if it was successful (returned Ok)</span>
-        <span class="ident">post_command</span>: |<span class="ident">ctx</span>| {
-            <span class="ident">Box::pin</span>(<span class="kw">async</span> <span class="kw">move</span> {
-                <span class="macro">println!</span>(<span class="string">&quot;Executed command {}!&quot;</span>, <span class="ident">ctx</span>.<span class="ident">command</span>().<span class="ident">qualified_name</span>);
+        <span class="doccomment">/// This code is run after a command if it was successful (returned Ok)
+        </span>post_command: |ctx| {
+            Box::pin(<span class="kw">async move </span>{
+                <span class="macro">println!</span>(<span class="string">&quot;Executed command {}!&quot;</span>, ctx.command().qualified_name);
             })
         },
-        <span class="doccomment">/// Every command invocation must pass this check to continue execution</span>
-        <span class="ident">command_check</span>: <span class="prelude-val">Some</span>(|<span class="ident">ctx</span>| {
-            <span class="ident">Box::pin</span>(<span class="kw">async</span> <span class="kw">move</span> {
-                <span class="kw">if</span> <span class="ident">ctx</span>.<span class="ident">author</span>().<span class="ident">id</span> == <span class="number">123456789</span> {
-                    <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>);
+        <span class="doccomment">/// Every command invocation must pass this check to continue execution
+        </span>command_check: <span class="prelude-val">Some</span>(|ctx| {
+            Box::pin(<span class="kw">async move </span>{
+                <span class="kw">if </span>ctx.author().id == <span class="number">123456789 </span>{
+                    <span class="kw">return </span><span class="prelude-val">Ok</span>(<span class="bool-val">false</span>);
                 }
                 <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>)
             })
         }),
-        <span class="ident">listener</span>: |<span class="ident">_ctx</span>, <span class="ident">event</span>, <span class="ident">_framework</span>, <span class="ident">_data</span>| {
-            <span class="ident">Box::pin</span>(<span class="kw">async</span> <span class="kw">move</span> {
-                <span class="macro">println!</span>(<span class="string">&quot;Got an event in listener: {:?}&quot;</span>, <span class="ident">event</span>.<span class="ident">name</span>());
+        listener: |_ctx, event, _framework, _data| {
+            Box::pin(<span class="kw">async move </span>{
+                <span class="macro">println!</span>(<span class="string">&quot;Got an event in listener: {:?}&quot;</span>, event.name());
                 <span class="prelude-val">Ok</span>(())
             })
         },
-        ..<span class="ident">Default::default</span>()
+        ..Default::default()
     };
 
-    <span class="ident">poise::Framework::builder</span>()
-        .<span class="ident">token</span>(<span class="ident">var</span>(<span class="string">&quot;TOKEN&quot;</span>).<span class="ident">expect</span>(<span class="string">&quot;Missing `TOKEN` env var, see README for more information.&quot;</span>))
-        .<span class="ident">user_data_setup</span>(<span class="kw">move</span> |<span class="ident">_ctx</span>, <span class="ident">_ready</span>, <span class="ident">_framework</span>| {
-            <span class="ident">Box::pin</span>(<span class="kw">async</span> <span class="kw">move</span> {
-                <span class="prelude-val">Ok</span>(<span class="ident">Data</span> {
-                    <span class="ident">votes</span>: <span class="ident">Mutex::new</span>(<span class="ident">HashMap::new</span>()),
+    poise::Framework::builder()
+        .token(var(<span class="string">&quot;TOKEN&quot;</span>).expect(<span class="string">&quot;Missing `TOKEN` env var, see README for more information.&quot;</span>))
+        .user_data_setup(<span class="kw">move </span>|_ctx, _ready, _framework| {
+            Box::pin(<span class="kw">async move </span>{
+                <span class="prelude-val">Ok</span>(Data {
+                    votes: Mutex::new(HashMap::new()),
                 })
             })
         })
-        .<span class="ident">options</span>(<span class="ident">options</span>)
-        .<span class="ident">intents</span>(
-            <span class="ident">serenity::GatewayIntents::non_privileged</span>() | <span class="ident">serenity::GatewayIntents::MESSAGE_CONTENT</span>,
+        .options(options)
+        .intents(
+            serenity::GatewayIntents::non_privileged() | serenity::GatewayIntents::MESSAGE_CONTENT,
         )
-        .<span class="ident">run</span>()
-        .<span class="kw">await</span>
-        .<span class="ident">unwrap</span>();
+        .run()
+        .<span class="kw">await
+        </span>.unwrap();
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="framework_usage" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="framework_usage" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (748038961 2022-08-25)" ></div></body></html>

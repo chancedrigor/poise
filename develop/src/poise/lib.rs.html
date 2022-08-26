@@ -341,17 +341,17 @@
 <span id="341">341</span>
 <span id="342">342</span>
 <span id="343">343</span>
-</pre><pre class="rust"><code><span class="attribute">#![<span class="ident">cfg_attr</span>(<span class="ident">doc_nightly</span>, <span class="ident">feature</span>(<span class="ident">doc_cfg</span>, <span class="ident">doc_auto_cfg</span>))]</span>
-<span class="attribute">#![<span class="ident">doc</span>(<span class="ident">test</span>(<span class="ident">attr</span>(<span class="ident">deny</span>(<span class="ident">deprecated</span>))))]</span>
-<span class="attribute">#![<span class="ident">warn</span>(<span class="ident">rust_2018_idioms</span>)]</span>
-<span class="attribute">#![<span class="ident">warn</span>(<span class="ident">missing_docs</span>)]</span>
-<span class="attribute">#![<span class="ident">warn</span>(<span class="ident">clippy::missing_docs_in_private_items</span>)]</span>
-<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::type_complexity</span>)]</span>
-<span class="comment">// native #[non_exhaustive] is awful because you can&#39;t do struct update syntax with it (??)</span>
-<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::manual_non_exhaustive</span>)]</span>
-<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">deprecated</span>)]</span>
+</pre><pre class="rust"><code><span class="attribute">#![cfg_attr(doc_nightly, feature(doc_cfg, doc_auto_cfg))]
+#![doc(test(attr(deny(deprecated))))]
+#![warn(rust_2018_idioms)]
+#![warn(missing_docs)]
+#![warn(clippy::missing_docs_in_private_items)]
+#![allow(clippy::type_complexity)]
+</span><span class="comment">// native #[non_exhaustive] is awful because you can&#39;t do struct update syntax with it (??)
+</span><span class="attribute">#![allow(clippy::manual_non_exhaustive)]
+#![allow(deprecated)]
 
-<span class="doccomment">/*!
+</span><span class="doccomment">/*!
 Poise is an opinionated Discord bot framework with a few distinctive features:
 - edit tracking: when user edits their message, automatically update bot response
 - slash commands: completely define both normal and slash commands with a single function
@@ -359,11 +359,11 @@ Poise is an opinionated Discord bot framework with a few distinctive features:
 
 # Quickstart
 ```rust,no_run
-*/</span>
-<span class="comment">// Nested cfg_attr is needed for some reason</span>
-<span class="attribute">#![<span class="ident">cfg_attr</span>(<span class="ident">doc_nightly</span>, <span class="ident">cfg_attr</span>(<span class="ident">doc_nightly</span>, <span class="ident">doc</span> = <span class="macro">include_str!</span>(<span class="string">&quot;../examples/quickstart/main.rs&quot;</span>)))]</span>
-<span class="attribute">#![<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">doc_nightly</span>), <span class="ident">doc</span> = <span class="string">&quot;// See ../examples/quickstart/main.rs&quot;</span>)]</span>
-<span class="doccomment">/*!
+*/
+</span><span class="comment">// Nested cfg_attr is needed for some reason
+</span><span class="attribute">#![cfg_attr(doc_nightly, cfg_attr(doc_nightly, doc = <span class="macro">include_str!</span>(<span class="string">&quot;../examples/quickstart/main.rs&quot;</span>)))]
+#![cfg_attr(not(doc_nightly), doc = <span class="string">&quot;// See ../examples/quickstart/main.rs&quot;</span>)]
+</span><span class="doccomment">/*!
 ```
 
 To run commands, ping your bot and write the command name and arguments after. Run the register
@@ -583,106 +583,106 @@ serenity::Member, serenity::UserId, serenity::ReactionType, serenity::GatewayInt
 # About the weird name
 I&#39;m bad at names. Google lists &quot;poise&quot; as a synonym to &quot;serenity&quot; which is the Discord library
 underlying this framework, so that&#39;s what I chose.
-*/</span>
+*/
 
-<span class="kw">mod</span> <span class="ident">prefix_argument</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">prefix_argument</span>::<span class="kw-2">*</span>;
+</span><span class="kw">mod </span>prefix_argument;
+<span class="kw">pub use </span>prefix_argument::<span class="kw-2">*</span>;
 
-<span class="kw">mod</span> <span class="ident">slash_argument</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">slash_argument</span>::<span class="kw-2">*</span>;
+<span class="kw">mod </span>slash_argument;
+<span class="kw">pub use </span>slash_argument::<span class="kw-2">*</span>;
 
-<span class="kw">mod</span> <span class="ident">event</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">event</span>::{<span class="ident">Event</span>, <span class="ident">EventWrapper</span>};
+<span class="kw">mod </span>event;
+<span class="kw">pub use </span>event::{Event, EventWrapper};
 
-<span class="kw">mod</span> <span class="ident">structs</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">structs</span>::<span class="kw-2">*</span>;
+<span class="kw">mod </span>structs;
+<span class="kw">pub use </span>structs::<span class="kw-2">*</span>;
 
-<span class="kw">mod</span> <span class="ident">dispatch</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">dispatch</span>::<span class="kw-2">*</span>;
+<span class="kw">mod </span>dispatch;
+<span class="kw">pub use </span>dispatch::<span class="kw-2">*</span>;
 
-<span class="kw">mod</span> <span class="ident">framework</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">framework</span>::<span class="kw-2">*</span>;
+<span class="kw">mod </span>framework;
+<span class="kw">pub use </span>framework::<span class="kw-2">*</span>;
 
-<span class="kw">mod</span> <span class="ident">reply</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">reply</span>::<span class="kw-2">*</span>;
+<span class="kw">mod </span>reply;
+<span class="kw">pub use </span>reply::<span class="kw-2">*</span>;
 
-<span class="kw">mod</span> <span class="ident">cooldown</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">cooldown</span>::<span class="kw-2">*</span>;
+<span class="kw">mod </span>cooldown;
+<span class="kw">pub use </span>cooldown::<span class="kw-2">*</span>;
 
-<span class="kw">mod</span> <span class="ident">modal</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">modal</span>::<span class="kw-2">*</span>;
+<span class="kw">mod </span>modal;
+<span class="kw">pub use </span>modal::<span class="kw-2">*</span>;
 
-<span class="kw">mod</span> <span class="ident">track_edits</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">track_edits</span>::<span class="kw-2">*</span>;
+<span class="kw">mod </span>track_edits;
+<span class="kw">pub use </span>track_edits::<span class="kw-2">*</span>;
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod</span> <span class="ident">util</span>;
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>util;
 
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">builtins</span>;
-<span class="doccomment">/// See [`builtins`]</span>
-<span class="attribute">#[<span class="ident">deprecated</span> = <span class="string">&quot;`samples` module was renamed to `builtins`&quot;</span>]</span>
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">samples</span> {
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::builtins</span>::<span class="kw-2">*</span>;
+<span class="kw">pub mod </span>builtins;
+<span class="doccomment">/// See [`builtins`]
+</span><span class="attribute">#[deprecated = <span class="string">&quot;`samples` module was renamed to `builtins`&quot;</span>]
+</span><span class="kw">pub mod </span>samples {
+    <span class="kw">pub use </span><span class="kw">crate</span>::builtins::<span class="kw-2">*</span>;
 }
 
-<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">no_inline</span>)]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">async_trait::async_trait</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">futures_core</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">futures_util</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">poise_macros</span>::<span class="kw-2">*</span>;
+<span class="attribute">#[doc(no_inline)]
+</span><span class="kw">pub use </span>async_trait::async_trait;
+<span class="kw">pub use </span>futures_core;
+<span class="kw">pub use </span>futures_util;
+<span class="kw">pub use </span>poise_macros::<span class="kw-2">*</span>;
 
-<span class="doccomment">/// This module re-exports a bunch of items from all over serenity. Useful if you can&#39;t</span>
-<span class="doccomment">/// remember the full paths of serenity items.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// One way to use this prelude module in your project is</span>
-<span class="doccomment">/// ```rust</span>
-<span class="doccomment">/// use poise::serenity_prelude as serenity;</span>
-<span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">serenity_prelude</span> {
-    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">no_inline</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">serenity</span>::{
-        <span class="ident">async_trait</span>,
-        <span class="ident">builder</span>::<span class="kw-2">*</span>,
-        <span class="ident">client</span>::{
-            <span class="ident">bridge::gateway</span>::{<span class="ident">event</span>::<span class="kw-2">*</span>, <span class="kw-2">*</span>},
+<span class="doccomment">/// This module re-exports a bunch of items from all over serenity. Useful if you can&#39;t
+/// remember the full paths of serenity items.
+///
+/// One way to use this prelude module in your project is
+/// ```rust
+/// use poise::serenity_prelude as serenity;
+/// ```
+</span><span class="kw">pub mod </span>serenity_prelude {
+    <span class="attribute">#[doc(no_inline)]
+    </span><span class="kw">pub use </span>serenity::{
+        async_trait,
+        builder::<span class="kw-2">*</span>,
+        client::{
+            bridge::gateway::{event::<span class="kw-2">*</span>, <span class="kw-2">*</span>},
             <span class="kw-2">*</span>,
         },
-        <span class="ident">collector</span>::<span class="kw-2">*</span>,
-        <span class="ident">http</span>::<span class="kw-2">*</span>,
-        <span class="comment">// Explicit imports to resolve ambiguity between model::prelude::* and</span>
-        <span class="comment">// model::application::interaction::* due to deprecated same-named type aliases</span>
-        <span class="ident">model</span>::{
-            <span class="ident">application::interaction</span>::{
-                <span class="ident">Interaction</span>, <span class="ident">InteractionResponseType</span>, <span class="ident">InteractionType</span>,
-                <span class="ident">MessageFlags</span> <span class="kw">as</span> <span class="ident">InteractionResponseFlags</span>, <span class="ident">MessageInteraction</span>,
+        collector::<span class="kw-2">*</span>,
+        http::<span class="kw-2">*</span>,
+        <span class="comment">// Explicit imports to resolve ambiguity between model::prelude::* and
+        // model::application::interaction::* due to deprecated same-named type aliases
+        </span>model::{
+            application::interaction::{
+                Interaction, InteractionResponseType, InteractionType,
+                MessageFlags <span class="kw">as </span>InteractionResponseFlags, MessageInteraction,
             },
-            <span class="comment">// There&#39;s two MessageFlags in serenity. The interaction response specific one was</span>
-            <span class="comment">// renamed to InteractionResponseFlags above so we can keep this one&#39;s name the same</span>
-            <span class="ident">channel::MessageFlags</span>,
+            <span class="comment">// There&#39;s two MessageFlags in serenity. The interaction response specific one was
+            // renamed to InteractionResponseFlags above so we can keep this one&#39;s name the same
+            </span>channel::MessageFlags,
         },
-        <span class="ident">model</span>::{
-            <span class="ident">application</span>::{
-                <span class="ident">command</span>::<span class="kw-2">*</span>,
-                <span class="ident">component</span>::<span class="kw-2">*</span>,
-                <span class="ident">interaction</span>::{
-                    <span class="ident">application_command</span>::<span class="kw-2">*</span>, <span class="ident">autocomplete</span>::<span class="kw-2">*</span>, <span class="ident">message_component</span>::<span class="kw-2">*</span>, <span class="ident">modal</span>::<span class="kw-2">*</span>, <span class="kw-2">*</span>,
+        model::{
+            application::{
+                command::<span class="kw-2">*</span>,
+                component::<span class="kw-2">*</span>,
+                interaction::{
+                    application_command::<span class="kw-2">*</span>, autocomplete::<span class="kw-2">*</span>, message_component::<span class="kw-2">*</span>, modal::<span class="kw-2">*</span>, <span class="kw-2">*</span>,
                 },
             },
-            <span class="ident">event</span>::<span class="kw-2">*</span>,
-            <span class="ident">prelude</span>::<span class="kw-2">*</span>,
+            event::<span class="kw-2">*</span>,
+            prelude::<span class="kw-2">*</span>,
         },
-        <span class="ident">prelude</span>::<span class="kw-2">*</span>,
-        <span class="ident">utils</span>::<span class="kw-2">*</span>,
+        prelude::<span class="kw-2">*</span>,
+        utils::<span class="kw-2">*</span>,
         <span class="kw-2">*</span>,
     };
 }
-<span class="kw">use</span> <span class="ident">serenity_prelude</span> <span class="kw">as</span> <span class="ident">serenity</span>; <span class="comment">// private alias for crate docs intradoc-links</span>
+<span class="kw">use </span>serenity_prelude <span class="kw">as </span>serenity; <span class="comment">// private alias for crate docs intradoc-links
 
-<span class="kw">use</span> <span class="ident">std::future::Future</span>;
-<span class="kw">use</span> <span class="ident">std::pin::Pin</span>;
+</span><span class="kw">use </span>std::future::Future;
+<span class="kw">use </span>std::pin::Pin;
 
-<span class="doccomment">/// Shorthand for a wrapped async future with a lifetime, used by many parts of this framework.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// An owned future has the `&#39;static` lifetime.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">BoxFuture</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">T</span>&gt; = <span class="ident">Pin</span>&lt;<span class="ident">Box</span>&lt;<span class="kw">dyn</span> <span class="ident">Future</span>&lt;<span class="ident">Output</span> = <span class="ident">T</span>&gt; + <span class="ident">Send</span> + <span class="lifetime">&#39;a</span>&gt;&gt;;
+<span class="doccomment">/// Shorthand for a wrapped async future with a lifetime, used by many parts of this framework.
+///
+/// An owned future has the `&#39;static` lifetime.
+</span><span class="kw">pub type </span>BoxFuture&lt;<span class="lifetime">&#39;a</span>, T&gt; = Pin&lt;Box&lt;<span class="kw">dyn </span>Future&lt;Output = T&gt; + Send + <span class="lifetime">&#39;a</span>&gt;&gt;;
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (748038961 2022-08-25)" ></div></body></html>

@@ -21,28 +21,28 @@
 <span id="21">21</span>
 <span id="22">22</span>
 <span id="23">23</span>
-</pre><pre class="rust"><code><span class="doccomment">//! Hosts just the AutocompleteChoice type. This type will probably move somewhere else</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Hosts just the AutocompleteChoice type. This type will probably move somewhere else
 
-<span class="doccomment">/// A single autocomplete choice, displayed in Discord UI</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// This type can be returned by functions set via the `#[autocomplete = ]` attribute on slash</span>
-<span class="doccomment">/// command parameters.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// For more information, see the autocomplete.rs file in the framework_usage example</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AutocompleteChoice</span>&lt;<span class="ident">T</span>&gt; {
-    <span class="doccomment">/// Name of the choice, displayed in the Discord UI</span>
-    <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Value of the choice, sent to the bot</span>
-    <span class="kw">pub</span> <span class="ident">value</span>: <span class="ident">T</span>,
+/// A single autocomplete choice, displayed in Discord UI
+///
+/// This type can be returned by functions set via the `#[autocomplete = ]` attribute on slash
+/// command parameters.
+///
+/// For more information, see the autocomplete.rs file in the framework_usage example
+</span><span class="kw">pub struct </span>AutocompleteChoice&lt;T&gt; {
+    <span class="doccomment">/// Name of the choice, displayed in the Discord UI
+    </span><span class="kw">pub </span>name: String,
+    <span class="doccomment">/// Value of the choice, sent to the bot
+    </span><span class="kw">pub </span>value: T,
 }
 
-<span class="kw">impl</span>&lt;<span class="ident">T</span>: <span class="ident">ToString</span>&gt; <span class="ident">From</span>&lt;<span class="ident">T</span>&gt; <span class="kw">for</span> <span class="ident">AutocompleteChoice</span>&lt;<span class="ident">T</span>&gt; {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">T</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> {
-            <span class="ident">name</span>: <span class="ident">value</span>.<span class="ident">to_string</span>(),
-            <span class="ident">value</span>,
+<span class="kw">impl</span>&lt;T: ToString&gt; From&lt;T&gt; <span class="kw">for </span>AutocompleteChoice&lt;T&gt; {
+    <span class="kw">fn </span>from(value: T) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            name: value.to_string(),
+            value,
         }
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (748038961 2022-08-25)" ></div></body></html>

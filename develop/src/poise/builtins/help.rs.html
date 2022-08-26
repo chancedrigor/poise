@@ -204,211 +204,211 @@
 <span id="204">204</span>
 <span id="205">205</span>
 <span id="206">206</span>
-</pre><pre class="rust"><code><span class="doccomment">//! Contains the built-in help command and surrounding infrastructure</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Contains the built-in help command and surrounding infrastructure
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::serenity_prelude</span> <span class="kw">as</span> <span class="ident">serenity</span>;
-<span class="kw">use</span> <span class="ident">std::fmt::Write</span> <span class="kw">as</span> <span class="kw">_</span>;
+</span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
+<span class="kw">use </span>std::fmt::Write <span class="kw">as _</span>;
 
-<span class="doccomment">/// Optional configuration for how the help message from [`help()`] looks</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">HelpConfiguration</span>&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="doccomment">/// Extra text displayed at the bottom of your message. Can be used for help and tips specific</span>
-    <span class="doccomment">/// to your bot</span>
-    <span class="kw">pub</span> <span class="ident">extra_text_at_bottom</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
-    <span class="doccomment">/// Whether to make the response ephemeral if possible. Can be nice to reduce clutter</span>
-    <span class="kw">pub</span> <span class="ident">ephemeral</span>: <span class="ident">bool</span>,
-    <span class="doccomment">/// Whether to list context menu commands as well</span>
-    <span class="kw">pub</span> <span class="ident">show_context_menu_commands</span>: <span class="ident">bool</span>,
+<span class="doccomment">/// Optional configuration for how the help message from [`help()`] looks
+</span><span class="kw">pub struct </span>HelpConfiguration&lt;<span class="lifetime">&#39;a</span>&gt; {
+    <span class="doccomment">/// Extra text displayed at the bottom of your message. Can be used for help and tips specific
+    /// to your bot
+    </span><span class="kw">pub </span>extra_text_at_bottom: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
+    <span class="doccomment">/// Whether to make the response ephemeral if possible. Can be nice to reduce clutter
+    </span><span class="kw">pub </span>ephemeral: bool,
+    <span class="doccomment">/// Whether to list context menu commands as well
+    </span><span class="kw">pub </span>show_context_menu_commands: bool,
 }
 
-<span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">HelpConfiguration</span>&lt;<span class="lifetime">&#39;_</span>&gt; {
-    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> {
-            <span class="ident">extra_text_at_bottom</span>: <span class="string">&quot;&quot;</span>,
-            <span class="ident">ephemeral</span>: <span class="bool-val">true</span>,
-            <span class="ident">show_context_menu_commands</span>: <span class="bool-val">false</span>,
+<span class="kw">impl </span>Default <span class="kw">for </span>HelpConfiguration&lt;<span class="lifetime">&#39;_</span>&gt; {
+    <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            extra_text_at_bottom: <span class="string">&quot;&quot;</span>,
+            ephemeral: <span class="bool-val">true</span>,
+            show_context_menu_commands: <span class="bool-val">false</span>,
         }
     }
 }
 
-<span class="doccomment">/// Code for printing help of a specific command (e.g. `~help my_command`)</span>
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">help_single_command</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;(
-    <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::Context</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
-    <span class="ident">command_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-    <span class="ident">config</span>: <span class="ident">HelpConfiguration</span>&lt;<span class="lifetime">&#39;_</span>&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">serenity::Error</span>&gt; {
-    <span class="kw">let</span> <span class="ident">command</span> = <span class="ident">ctx</span>.<span class="ident">framework</span>().<span class="ident">options</span>().<span class="ident">commands</span>.<span class="ident">iter</span>().<span class="ident">find</span>(|<span class="ident">command</span>| {
-        <span class="kw">if</span> <span class="ident">command</span>.<span class="ident">name</span>.<span class="ident">eq_ignore_ascii_case</span>(<span class="ident">command_name</span>) {
-            <span class="kw">return</span> <span class="bool-val">true</span>;
+<span class="doccomment">/// Code for printing help of a specific command (e.g. `~help my_command`)
+</span><span class="kw">async fn </span>help_single_command&lt;U, E&gt;(
+    ctx: <span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;_</span>, U, E&gt;,
+    command_name: <span class="kw-2">&amp;</span>str,
+    config: HelpConfiguration&lt;<span class="lifetime">&#39;_</span>&gt;,
+) -&gt; <span class="prelude-ty">Result</span>&lt;(), serenity::Error&gt; {
+    <span class="kw">let </span>command = ctx.framework().options().commands.iter().find(|command| {
+        <span class="kw">if </span>command.name.eq_ignore_ascii_case(command_name) {
+            <span class="kw">return </span><span class="bool-val">true</span>;
         }
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">context_menu_name</span>) = <span class="ident">command</span>.<span class="ident">context_menu_name</span> {
-            <span class="kw">if</span> <span class="ident">context_menu_name</span>.<span class="ident">eq_ignore_ascii_case</span>(<span class="ident">command_name</span>) {
-                <span class="kw">return</span> <span class="bool-val">true</span>;
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(context_menu_name) = command.context_menu_name {
+            <span class="kw">if </span>context_menu_name.eq_ignore_ascii_case(command_name) {
+                <span class="kw">return </span><span class="bool-val">true</span>;
             }
         }
 
-        <span class="bool-val">false</span>
-    });
+        <span class="bool-val">false
+    </span>});
 
-    <span class="kw">let</span> <span class="ident">reply</span> = <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">command</span>) = <span class="ident">command</span> {
-        <span class="kw">match</span> <span class="ident">command</span>.<span class="ident">help_text</span> {
-            <span class="prelude-val">Some</span>(<span class="ident">f</span>) =&gt; <span class="ident">f</span>(),
-            <span class="prelude-val">None</span> =&gt; <span class="ident">command</span>
-                .<span class="ident">description</span>
-                .<span class="ident">as_deref</span>()
-                .<span class="ident">unwrap_or</span>(<span class="string">&quot;No help available&quot;</span>)
-                .<span class="ident">to_owned</span>(),
+    <span class="kw">let </span>reply = <span class="kw">if let </span><span class="prelude-val">Some</span>(command) = command {
+        <span class="kw">match </span>command.help_text {
+            <span class="prelude-val">Some</span>(f) =&gt; f(),
+            <span class="prelude-val">None </span>=&gt; command
+                .description
+                .as_deref()
+                .unwrap_or(<span class="string">&quot;No help available&quot;</span>)
+                .to_owned(),
         }
-    } <span class="kw">else</span> {
-        <span class="macro">format!</span>(<span class="string">&quot;No such command `{}`&quot;</span>, <span class="ident">command_name</span>)
+    } <span class="kw">else </span>{
+        <span class="macro">format!</span>(<span class="string">&quot;No such command `{}`&quot;</span>, command_name)
     };
 
-    <span class="ident">ctx</span>.<span class="ident">send</span>(|<span class="ident">b</span>| <span class="ident">b</span>.<span class="ident">content</span>(<span class="ident">reply</span>).<span class="ident">ephemeral</span>(<span class="ident">config</span>.<span class="ident">ephemeral</span>))
+    ctx.send(|b| b.content(reply).ephemeral(config.ephemeral))
         .<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="doccomment">/// Code for printing an overview of all commands (e.g. `~help`)</span>
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">help_all_commands</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;(
-    <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::Context</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
-    <span class="ident">config</span>: <span class="ident">HelpConfiguration</span>&lt;<span class="lifetime">&#39;_</span>&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">serenity::Error</span>&gt; {
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">categories</span> = <span class="ident"><span class="kw">crate</span>::util::OrderedMap</span>::&lt;<span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="ident">str</span>&gt;, <span class="ident">Vec</span>&lt;<span class="kw-2">&amp;</span><span class="ident"><span class="kw">crate</span>::Command</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;&gt;&gt;<span class="ident">::new</span>();
-    <span class="kw">for</span> <span class="ident">cmd</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">ctx</span>.<span class="ident">framework</span>().<span class="ident">options</span>().<span class="ident">commands</span> {
-        <span class="ident">categories</span>
-            .<span class="ident">get_or_insert_with</span>(<span class="ident">cmd</span>.<span class="ident">category</span>, <span class="ident">Vec::new</span>)
-            .<span class="ident">push</span>(<span class="ident">cmd</span>);
+<span class="doccomment">/// Code for printing an overview of all commands (e.g. `~help`)
+</span><span class="kw">async fn </span>help_all_commands&lt;U, E&gt;(
+    ctx: <span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;_</span>, U, E&gt;,
+    config: HelpConfiguration&lt;<span class="lifetime">&#39;_</span>&gt;,
+) -&gt; <span class="prelude-ty">Result</span>&lt;(), serenity::Error&gt; {
+    <span class="kw">let </span><span class="kw-2">mut </span>categories = <span class="kw">crate</span>::util::OrderedMap::&lt;<span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;, Vec&lt;<span class="kw-2">&amp;</span><span class="kw">crate</span>::Command&lt;U, E&gt;&gt;&gt;::new();
+    <span class="kw">for </span>cmd <span class="kw">in </span><span class="kw-2">&amp;</span>ctx.framework().options().commands {
+        categories
+            .get_or_insert_with(cmd.category, Vec::new)
+            .push(cmd);
     }
 
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">menu</span> = <span class="ident">String::from</span>(<span class="string">&quot;```\n&quot;</span>);
-    <span class="kw">for</span> (<span class="ident">category_name</span>, <span class="ident">commands</span>) <span class="kw">in</span> <span class="ident">categories</span> {
-        <span class="ident">menu</span> += <span class="ident">category_name</span>.<span class="ident">unwrap_or</span>(<span class="string">&quot;Commands&quot;</span>);
-        <span class="ident">menu</span> += <span class="string">&quot;:\n&quot;</span>;
-        <span class="kw">for</span> <span class="ident">command</span> <span class="kw">in</span> <span class="ident">commands</span> {
-            <span class="kw">if</span> <span class="ident">command</span>.<span class="ident">hide_in_help</span> {
+    <span class="kw">let </span><span class="kw-2">mut </span>menu = String::from(<span class="string">&quot;```\n&quot;</span>);
+    <span class="kw">for </span>(category_name, commands) <span class="kw">in </span>categories {
+        menu += category_name.unwrap_or(<span class="string">&quot;Commands&quot;</span>);
+        menu += <span class="string">&quot;:\n&quot;</span>;
+        <span class="kw">for </span>command <span class="kw">in </span>commands {
+            <span class="kw">if </span>command.hide_in_help {
                 <span class="kw">continue</span>;
             }
 
-            <span class="kw">let</span> <span class="ident">prefix</span> = <span class="kw">if</span> <span class="ident">command</span>.<span class="ident">slash_action</span>.<span class="ident">is_some</span>() {
-                <span class="ident">String::from</span>(<span class="string">&quot;/&quot;</span>)
-            } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">command</span>.<span class="ident">prefix_action</span>.<span class="ident">is_some</span>() {
-                <span class="kw">let</span> <span class="ident">options</span> = <span class="kw-2">&amp;</span><span class="ident">ctx</span>.<span class="ident">framework</span>().<span class="ident">options</span>().<span class="ident">prefix_options</span>;
+            <span class="kw">let </span>prefix = <span class="kw">if </span>command.slash_action.is_some() {
+                String::from(<span class="string">&quot;/&quot;</span>)
+            } <span class="kw">else if </span>command.prefix_action.is_some() {
+                <span class="kw">let </span>options = <span class="kw-2">&amp;</span>ctx.framework().options().prefix_options;
 
-                <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">options</span>.<span class="ident">prefix</span> {
-                    <span class="prelude-val">Some</span>(<span class="ident">fixed_prefix</span>) =&gt; <span class="ident">fixed_prefix</span>.<span class="ident">clone</span>(),
-                    <span class="prelude-val">None</span> =&gt; <span class="kw">match</span> <span class="ident">options</span>.<span class="ident">dynamic_prefix</span> {
-                        <span class="prelude-val">Some</span>(<span class="ident">dynamic_prefix_callback</span>) =&gt; {
-                            <span class="kw">match</span> <span class="ident">dynamic_prefix_callback</span>(<span class="ident"><span class="kw">crate</span>::PartialContext::from</span>(<span class="ident">ctx</span>)).<span class="kw">await</span> {
-                                <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">dynamic_prefix</span>)) =&gt; <span class="ident">dynamic_prefix</span>,
-                                <span class="prelude-val">Err</span>(<span class="kw">_</span>) | <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) =&gt; <span class="ident">String::from</span>(<span class="string">&quot;&quot;</span>),
+                <span class="kw">match </span><span class="kw-2">&amp;</span>options.prefix {
+                    <span class="prelude-val">Some</span>(fixed_prefix) =&gt; fixed_prefix.clone(),
+                    <span class="prelude-val">None </span>=&gt; <span class="kw">match </span>options.dynamic_prefix {
+                        <span class="prelude-val">Some</span>(dynamic_prefix_callback) =&gt; {
+                            <span class="kw">match </span>dynamic_prefix_callback(<span class="kw">crate</span>::PartialContext::from(ctx)).<span class="kw">await </span>{
+                                <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(dynamic_prefix)) =&gt; dynamic_prefix,
+                                <span class="prelude-val">Err</span>(<span class="kw">_</span>) | <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) =&gt; String::from(<span class="string">&quot;&quot;</span>),
                             }
                         }
-                        <span class="prelude-val">None</span> =&gt; <span class="ident">String::from</span>(<span class="string">&quot;&quot;</span>),
+                        <span class="prelude-val">None </span>=&gt; String::from(<span class="string">&quot;&quot;</span>),
                     },
                 }
-            } <span class="kw">else</span> {
-                <span class="comment">// This is not a prefix or slash command, i.e. probably a context menu only command</span>
-                <span class="comment">// which we will only show later</span>
-                <span class="kw">continue</span>;
+            } <span class="kw">else </span>{
+                <span class="comment">// This is not a prefix or slash command, i.e. probably a context menu only command
+                // which we will only show later
+                </span><span class="kw">continue</span>;
             };
 
-            <span class="kw">let</span> <span class="ident">total_command_name_length</span> = <span class="ident">prefix</span>.<span class="ident">chars</span>().<span class="ident">count</span>() + <span class="ident">command</span>.<span class="ident">name</span>.<span class="ident">chars</span>().<span class="ident">count</span>();
-            <span class="kw">let</span> <span class="ident">padding</span> = <span class="number">12_usize</span>.<span class="ident">saturating_sub</span>(<span class="ident">total_command_name_length</span>) + <span class="number">1</span>;
-            <span class="kw">let</span> <span class="kw">_</span> = <span class="macro">writeln!</span>(
-                <span class="ident">menu</span>,
+            <span class="kw">let </span>total_command_name_length = prefix.chars().count() + command.name.chars().count();
+            <span class="kw">let </span>padding = <span class="number">12_usize</span>.saturating_sub(total_command_name_length) + <span class="number">1</span>;
+            <span class="kw">let _ </span>= <span class="macro">writeln!</span>(
+                menu,
                 <span class="string">&quot;  {}{}{}{}&quot;</span>,
-                <span class="ident">prefix</span>,
-                <span class="ident">command</span>.<span class="ident">name</span>,
-                <span class="string">&quot; &quot;</span>.<span class="ident">repeat</span>(<span class="ident">padding</span>),
-                <span class="ident">command</span>.<span class="ident">description</span>.<span class="ident">as_deref</span>().<span class="ident">unwrap_or</span>(<span class="string">&quot;&quot;</span>)
+                prefix,
+                command.name,
+                <span class="string">&quot; &quot;</span>.repeat(padding),
+                command.description.as_deref().unwrap_or(<span class="string">&quot;&quot;</span>)
             );
         }
     }
 
-    <span class="kw">if</span> <span class="ident">config</span>.<span class="ident">show_context_menu_commands</span> {
-        <span class="ident">menu</span> += <span class="string">&quot;\nContext menu commands:\n&quot;</span>;
+    <span class="kw">if </span>config.show_context_menu_commands {
+        menu += <span class="string">&quot;\nContext menu commands:\n&quot;</span>;
 
-        <span class="kw">for</span> <span class="ident">command</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">ctx</span>.<span class="ident">framework</span>().<span class="ident">options</span>().<span class="ident">commands</span> {
-            <span class="kw">let</span> <span class="ident">kind</span> = <span class="kw">match</span> <span class="ident">command</span>.<span class="ident">context_menu_action</span> {
-                <span class="prelude-val">Some</span>(<span class="ident"><span class="kw">crate</span>::ContextMenuCommandAction::User</span>(<span class="kw">_</span>)) =&gt; <span class="string">&quot;user&quot;</span>,
-                <span class="prelude-val">Some</span>(<span class="ident"><span class="kw">crate</span>::ContextMenuCommandAction::Message</span>(<span class="kw">_</span>)) =&gt; <span class="string">&quot;message&quot;</span>,
-                <span class="prelude-val">None</span> =&gt; <span class="kw">continue</span>,
+        <span class="kw">for </span>command <span class="kw">in </span><span class="kw-2">&amp;</span>ctx.framework().options().commands {
+            <span class="kw">let </span>kind = <span class="kw">match </span>command.context_menu_action {
+                <span class="prelude-val">Some</span>(<span class="kw">crate</span>::ContextMenuCommandAction::User(<span class="kw">_</span>)) =&gt; <span class="string">&quot;user&quot;</span>,
+                <span class="prelude-val">Some</span>(<span class="kw">crate</span>::ContextMenuCommandAction::Message(<span class="kw">_</span>)) =&gt; <span class="string">&quot;message&quot;</span>,
+                <span class="prelude-val">None </span>=&gt; <span class="kw">continue</span>,
             };
-            <span class="kw">let</span> <span class="ident">name</span> = <span class="ident">command</span>.<span class="ident">context_menu_name</span>.<span class="ident">unwrap_or</span>(<span class="kw-2">&amp;</span><span class="ident">command</span>.<span class="ident">name</span>);
-            <span class="kw">let</span> <span class="kw">_</span> = <span class="macro">writeln!</span>(<span class="ident">menu</span>, <span class="string">&quot;  {} (on {})&quot;</span>, <span class="ident">name</span>, <span class="ident">kind</span>);
+            <span class="kw">let </span>name = command.context_menu_name.unwrap_or(<span class="kw-2">&amp;</span>command.name);
+            <span class="kw">let _ </span>= <span class="macro">writeln!</span>(menu, <span class="string">&quot;  {} (on {})&quot;</span>, name, kind);
         }
     }
 
-    <span class="ident">menu</span> += <span class="string">&quot;\n&quot;</span>;
-    <span class="ident">menu</span> += <span class="ident">config</span>.<span class="ident">extra_text_at_bottom</span>;
-    <span class="ident">menu</span> += <span class="string">&quot;\n```&quot;</span>;
+    menu += <span class="string">&quot;\n&quot;</span>;
+    menu += config.extra_text_at_bottom;
+    menu += <span class="string">&quot;\n```&quot;</span>;
 
-    <span class="ident">ctx</span>.<span class="ident">send</span>(|<span class="ident">b</span>| <span class="ident">b</span>.<span class="ident">content</span>(<span class="ident">menu</span>).<span class="ident">ephemeral</span>(<span class="ident">config</span>.<span class="ident">ephemeral</span>))
+    ctx.send(|b| b.content(menu).ephemeral(config.ephemeral))
         .<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="doccomment">/// A help command that outputs text in a code block, groups commands by categories, and annotates</span>
-<span class="doccomment">/// commands with a slash if they exist as slash commands.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Example usage from Ferris, the Discord bot running in the Rust community server:</span>
-<span class="doccomment">/// ```rust</span>
-<span class="doccomment">/// # type Error = Box&lt;dyn std::error::Error&gt;;</span>
-<span class="doccomment">/// # type Context&lt;&#39;a&gt; = poise::Context&lt;&#39;a, (), Error&gt;;</span>
-<span class="doccomment">/// /// Show this menu</span>
-<span class="doccomment">/// #[poise::command(prefix_command, track_edits, slash_command)]</span>
-<span class="doccomment">/// pub async fn help(</span>
-<span class="doccomment">///     ctx: Context&lt;&#39;_&gt;,</span>
-<span class="doccomment">///     #[description = &quot;Specific command to show help about&quot;] command: Option&lt;String&gt;,</span>
-<span class="doccomment">/// ) -&gt; Result&lt;(), Error&gt; {</span>
-<span class="doccomment">///     let config = poise::builtins::HelpConfiguration {</span>
-<span class="doccomment">///         extra_text_at_bottom: &quot;\</span>
-<span class="doccomment">/// Type ?help command for more info on a command.</span>
-<span class="doccomment">/// You can edit your message to the bot and the bot will edit its response.&quot;,</span>
-<span class="doccomment">///         ..Default::default()</span>
-<span class="doccomment">///     };</span>
-<span class="doccomment">///     poise::builtins::help(ctx, command.as_deref(), config).await?;</span>
-<span class="doccomment">///     Ok(())</span>
-<span class="doccomment">/// }</span>
-<span class="doccomment">/// ```</span>
-<span class="doccomment">/// Output:</span>
-<span class="doccomment">/// ```text</span>
-<span class="doccomment">/// Playground:</span>
-<span class="doccomment">///   ?play        Compile and run Rust code in a playground</span>
-<span class="doccomment">///   ?eval        Evaluate a single Rust expression</span>
-<span class="doccomment">///   ?miri        Run code and detect undefined behavior using Miri</span>
-<span class="doccomment">///   ?expand      Expand macros to their raw desugared form</span>
-<span class="doccomment">///   ?clippy      Catch common mistakes using the Clippy linter</span>
-<span class="doccomment">///   ?fmt         Format code using rustfmt</span>
-<span class="doccomment">///   ?microbench  Benchmark small snippets of code</span>
-<span class="doccomment">///   ?procmacro   Compile and use a procedural macro</span>
-<span class="doccomment">///   ?godbolt     View assembly using Godbolt</span>
-<span class="doccomment">///   ?mca         Run performance analysis using llvm-mca</span>
-<span class="doccomment">///   ?llvmir      View LLVM IR using Godbolt</span>
-<span class="doccomment">/// Crates:</span>
-<span class="doccomment">///   /crate       Lookup crates on crates.io</span>
-<span class="doccomment">///   /doc         Lookup documentation</span>
-<span class="doccomment">/// Moderation:</span>
-<span class="doccomment">///   /cleanup     Deletes the bot&#39;s messages for cleanup</span>
-<span class="doccomment">///   /ban         Bans another person</span>
-<span class="doccomment">///   ?move        Move a discussion to another channel</span>
-<span class="doccomment">///   /rustify     Adds the Rustacean role to members</span>
-<span class="doccomment">/// Miscellaneous:</span>
-<span class="doccomment">///   ?go          Evaluates Go code</span>
-<span class="doccomment">///   /source      Links to the bot GitHub repo</span>
-<span class="doccomment">///   /help        Show this menu</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Type ?help command for more info on a command.</span>
-<span class="doccomment">/// You can edit your message to the bot and the bot will edit its response.</span>
-<span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">help</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;(
-    <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::Context</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
-    <span class="ident">command</span>: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="ident">str</span>&gt;,
-    <span class="ident">config</span>: <span class="ident">HelpConfiguration</span>&lt;<span class="lifetime">&#39;_</span>&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">serenity::Error</span>&gt; {
-    <span class="kw">match</span> <span class="ident">command</span> {
-        <span class="prelude-val">Some</span>(<span class="ident">command</span>) =&gt; <span class="ident">help_single_command</span>(<span class="ident">ctx</span>, <span class="ident">command</span>, <span class="ident">config</span>).<span class="kw">await</span>,
-        <span class="prelude-val">None</span> =&gt; <span class="ident">help_all_commands</span>(<span class="ident">ctx</span>, <span class="ident">config</span>).<span class="kw">await</span>,
+<span class="doccomment">/// A help command that outputs text in a code block, groups commands by categories, and annotates
+/// commands with a slash if they exist as slash commands.
+///
+/// Example usage from Ferris, the Discord bot running in the Rust community server:
+/// ```rust
+/// # type Error = Box&lt;dyn std::error::Error&gt;;
+/// # type Context&lt;&#39;a&gt; = poise::Context&lt;&#39;a, (), Error&gt;;
+/// /// Show this menu
+/// #[poise::command(prefix_command, track_edits, slash_command)]
+/// pub async fn help(
+///     ctx: Context&lt;&#39;_&gt;,
+///     #[description = &quot;Specific command to show help about&quot;] command: Option&lt;String&gt;,
+/// ) -&gt; Result&lt;(), Error&gt; {
+///     let config = poise::builtins::HelpConfiguration {
+///         extra_text_at_bottom: &quot;\
+/// Type ?help command for more info on a command.
+/// You can edit your message to the bot and the bot will edit its response.&quot;,
+///         ..Default::default()
+///     };
+///     poise::builtins::help(ctx, command.as_deref(), config).await?;
+///     Ok(())
+/// }
+/// ```
+/// Output:
+/// ```text
+/// Playground:
+///   ?play        Compile and run Rust code in a playground
+///   ?eval        Evaluate a single Rust expression
+///   ?miri        Run code and detect undefined behavior using Miri
+///   ?expand      Expand macros to their raw desugared form
+///   ?clippy      Catch common mistakes using the Clippy linter
+///   ?fmt         Format code using rustfmt
+///   ?microbench  Benchmark small snippets of code
+///   ?procmacro   Compile and use a procedural macro
+///   ?godbolt     View assembly using Godbolt
+///   ?mca         Run performance analysis using llvm-mca
+///   ?llvmir      View LLVM IR using Godbolt
+/// Crates:
+///   /crate       Lookup crates on crates.io
+///   /doc         Lookup documentation
+/// Moderation:
+///   /cleanup     Deletes the bot&#39;s messages for cleanup
+///   /ban         Bans another person
+///   ?move        Move a discussion to another channel
+///   /rustify     Adds the Rustacean role to members
+/// Miscellaneous:
+///   ?go          Evaluates Go code
+///   /source      Links to the bot GitHub repo
+///   /help        Show this menu
+///
+/// Type ?help command for more info on a command.
+/// You can edit your message to the bot and the bot will edit its response.
+/// ```
+</span><span class="kw">pub async fn </span>help&lt;U, E&gt;(
+    ctx: <span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;_</span>, U, E&gt;,
+    command: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
+    config: HelpConfiguration&lt;<span class="lifetime">&#39;_</span>&gt;,
+) -&gt; <span class="prelude-ty">Result</span>&lt;(), serenity::Error&gt; {
+    <span class="kw">match </span>command {
+        <span class="prelude-val">Some</span>(command) =&gt; help_single_command(ctx, command, config).<span class="kw">await</span>,
+        <span class="prelude-val">None </span>=&gt; help_all_commands(ctx, config).<span class="kw">await</span>,
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (748038961 2022-08-25)" ></div></body></html>

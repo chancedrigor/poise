@@ -111,118 +111,118 @@
 <span id="111">111</span>
 <span id="112">112</span>
 <span id="113">113</span>
-</pre><pre class="rust"><code><span class="doccomment">//! Just contains FrameworkOptions</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Just contains FrameworkOptions
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serenity_prelude</span> <span class="kw">as</span> <span class="ident">serenity</span>, <span class="ident">BoxFuture</span>};
+</span><span class="kw">use crate</span>::{serenity_prelude <span class="kw">as </span>serenity, BoxFuture};
 
-<span class="doccomment">/// Framework configuration</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">derivative::Derivative</span>)]</span>
-<span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span>(<span class="ident">bound</span> = <span class="string">&quot;&quot;</span>))]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FrameworkOptions</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; {
-    <span class="doccomment">/// List of commands in the framework</span>
-    <span class="kw">pub</span> <span class="ident">commands</span>: <span class="ident">Vec</span>&lt;<span class="ident"><span class="kw">crate</span>::Command</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;&gt;,
-    <span class="doccomment">/// Provide a callback to be invoked when any user code yields an error.</span>
-    <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> = <span class="string">&quot;ignore&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">on_error</span>: <span class="kw">fn</span>(<span class="ident"><span class="kw">crate</span>::FrameworkError</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;) -&gt; <span class="ident">BoxFuture</span>&lt;<span class="lifetime">&#39;_</span>, ()&gt;,
-    <span class="doccomment">/// Called before every command</span>
-    <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> = <span class="string">&quot;ignore&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">pre_command</span>: <span class="kw">fn</span>(<span class="ident"><span class="kw">crate</span>::Context</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;) -&gt; <span class="ident">BoxFuture</span>&lt;<span class="lifetime">&#39;_</span>, ()&gt;,
-    <span class="doccomment">/// Called after every command if it was successful (returned Ok)</span>
-    <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> = <span class="string">&quot;ignore&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">post_command</span>: <span class="kw">fn</span>(<span class="ident"><span class="kw">crate</span>::Context</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;) -&gt; <span class="ident">BoxFuture</span>&lt;<span class="lifetime">&#39;_</span>, ()&gt;,
-    <span class="doccomment">/// Provide a callback to be invoked before every command. The command will only be executed</span>
-    <span class="doccomment">/// if the callback returns true.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// If individual commands add their own check, both callbacks are run and must return true.</span>
-    <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> = <span class="string">&quot;ignore&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">command_check</span>: <span class="prelude-ty">Option</span>&lt;<span class="kw">fn</span>(<span class="ident"><span class="kw">crate</span>::Context</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;) -&gt; <span class="ident">BoxFuture</span>&lt;<span class="lifetime">&#39;_</span>, <span class="prelude-ty">Result</span>&lt;<span class="ident">bool</span>, <span class="ident">E</span>&gt;&gt;&gt;,
-    <span class="doccomment">/// Default set of allowed mentions to use for all responses</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// By default, user pings are allowed and role pings and everyone pings are filtered</span>
-    <span class="kw">pub</span> <span class="ident">allowed_mentions</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::CreateAllowedMentions</span>&gt;,
-    <span class="doccomment">/// Invoked before every message sent using [`crate::Context::say`] or [`crate::Context::send`]</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Allows you to modify every outgoing message in a central place</span>
-    <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> = <span class="string">&quot;ignore&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">reply_callback</span>: <span class="prelude-ty">Option</span>&lt;<span class="kw">fn</span>(<span class="ident"><span class="kw">crate</span>::Context</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;, <span class="kw-2">&amp;mut</span> <span class="ident"><span class="kw">crate</span>::CreateReply</span>&lt;<span class="lifetime">&#39;_</span>&gt;)&gt;,
-    <span class="doccomment">/// If `true`, disables automatic cooldown handling before every command invocation.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Useful for implementing custom cooldown behavior. See [`crate::Command::cooldowns`] and</span>
-    <span class="doccomment">/// the methods on [`crate::Cooldowns`] for how to do that.</span>
-    <span class="kw">pub</span> <span class="ident">manual_cooldowns</span>: <span class="ident">bool</span>,
-    <span class="doccomment">/// If `true`, changes behavior of guild_only command check to abort execution if the guild is</span>
-    <span class="doccomment">/// not in cache.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// **If `cache` feature is disabled, this has no effect!**</span>
-    <span class="kw">pub</span> <span class="ident">require_cache_for_guild_check</span>: <span class="ident">bool</span>,
-    <span class="doccomment">/// Called on every Discord event. Can be used to react to non-command events, like messages</span>
-    <span class="doccomment">/// deletions or guild updates.</span>
-    <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> = <span class="string">&quot;ignore&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">listener</span>: <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">fn</span>(
-        <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">serenity::Context</span>,
-        <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident"><span class="kw">crate</span>::Event</span>&lt;<span class="lifetime">&#39;a</span>&gt;,
-        <span class="ident"><span class="kw">crate</span>::FrameworkContext</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
-        <span class="comment">// TODO: redundant with framework</span>
-        <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">U</span>,
-    ) -&gt; <span class="ident">BoxFuture</span>&lt;<span class="lifetime">&#39;a</span>, <span class="prelude-ty">Result</span>&lt;(), <span class="ident">E</span>&gt;&gt;,
-    <span class="doccomment">/// Prefix command specific options.</span>
-    <span class="kw">pub</span> <span class="ident">prefix_options</span>: <span class="ident"><span class="kw">crate</span>::PrefixFrameworkOptions</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;,
-    <span class="doccomment">/// User IDs which are allowed to use owners_only commands</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// If using [`crate::FrameworkBuilder`], automatically initialized with the bot application</span>
-    <span class="doccomment">/// owner and team members</span>
-    <span class="kw">pub</span> <span class="ident">owners</span>: <span class="ident">std::collections::HashSet</span>&lt;<span class="ident">serenity::UserId</span>&gt;,
-    <span class="comment">// #[non_exhaustive] forbids struct update syntax for ?? reason</span>
-    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">__non_exhaustive</span>: (),
+<span class="doccomment">/// Framework configuration
+</span><span class="attribute">#[derive(derivative::Derivative)]
+#[derivative(Debug(bound = <span class="string">&quot;&quot;</span>))]
+</span><span class="kw">pub struct </span>FrameworkOptions&lt;U, E&gt; {
+    <span class="doccomment">/// List of commands in the framework
+    </span><span class="kw">pub </span>commands: Vec&lt;<span class="kw">crate</span>::Command&lt;U, E&gt;&gt;,
+    <span class="doccomment">/// Provide a callback to be invoked when any user code yields an error.
+    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="kw">pub </span>on_error: <span class="kw">fn</span>(<span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;_</span>, U, E&gt;) -&gt; BoxFuture&lt;<span class="lifetime">&#39;_</span>, ()&gt;,
+    <span class="doccomment">/// Called before every command
+    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="kw">pub </span>pre_command: <span class="kw">fn</span>(<span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;_</span>, U, E&gt;) -&gt; BoxFuture&lt;<span class="lifetime">&#39;_</span>, ()&gt;,
+    <span class="doccomment">/// Called after every command if it was successful (returned Ok)
+    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="kw">pub </span>post_command: <span class="kw">fn</span>(<span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;_</span>, U, E&gt;) -&gt; BoxFuture&lt;<span class="lifetime">&#39;_</span>, ()&gt;,
+    <span class="doccomment">/// Provide a callback to be invoked before every command. The command will only be executed
+    /// if the callback returns true.
+    ///
+    /// If individual commands add their own check, both callbacks are run and must return true.
+    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="kw">pub </span>command_check: <span class="prelude-ty">Option</span>&lt;<span class="kw">fn</span>(<span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;_</span>, U, E&gt;) -&gt; BoxFuture&lt;<span class="lifetime">&#39;_</span>, <span class="prelude-ty">Result</span>&lt;bool, E&gt;&gt;&gt;,
+    <span class="doccomment">/// Default set of allowed mentions to use for all responses
+    ///
+    /// By default, user pings are allowed and role pings and everyone pings are filtered
+    </span><span class="kw">pub </span>allowed_mentions: <span class="prelude-ty">Option</span>&lt;serenity::CreateAllowedMentions&gt;,
+    <span class="doccomment">/// Invoked before every message sent using [`crate::Context::say`] or [`crate::Context::send`]
+    ///
+    /// Allows you to modify every outgoing message in a central place
+    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="kw">pub </span>reply_callback: <span class="prelude-ty">Option</span>&lt;<span class="kw">fn</span>(<span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;_</span>, U, E&gt;, <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::CreateReply&lt;<span class="lifetime">&#39;_</span>&gt;)&gt;,
+    <span class="doccomment">/// If `true`, disables automatic cooldown handling before every command invocation.
+    ///
+    /// Useful for implementing custom cooldown behavior. See [`crate::Command::cooldowns`] and
+    /// the methods on [`crate::Cooldowns`] for how to do that.
+    </span><span class="kw">pub </span>manual_cooldowns: bool,
+    <span class="doccomment">/// If `true`, changes behavior of guild_only command check to abort execution if the guild is
+    /// not in cache.
+    ///
+    /// **If `cache` feature is disabled, this has no effect!**
+    </span><span class="kw">pub </span>require_cache_for_guild_check: bool,
+    <span class="doccomment">/// Called on every Discord event. Can be used to react to non-command events, like messages
+    /// deletions or guild updates.
+    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="kw">pub </span>listener: <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">fn</span>(
+        <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context,
+        <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Event&lt;<span class="lifetime">&#39;a</span>&gt;,
+        <span class="kw">crate</span>::FrameworkContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
+        <span class="comment">// TODO: redundant with framework
+        </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>U,
+    ) -&gt; BoxFuture&lt;<span class="lifetime">&#39;a</span>, <span class="prelude-ty">Result</span>&lt;(), E&gt;&gt;,
+    <span class="doccomment">/// Prefix command specific options.
+    </span><span class="kw">pub </span>prefix_options: <span class="kw">crate</span>::PrefixFrameworkOptions&lt;U, E&gt;,
+    <span class="doccomment">/// User IDs which are allowed to use owners_only commands
+    ///
+    /// If using [`crate::FrameworkBuilder`], automatically initialized with the bot application
+    /// owner and team members
+    </span><span class="kw">pub </span>owners: std::collections::HashSet&lt;serenity::UserId&gt;,
+    <span class="comment">// #[non_exhaustive] forbids struct update syntax for ?? reason
+    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="kw">pub </span>__non_exhaustive: (),
 }
 
-<span class="kw">impl</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; <span class="ident">FrameworkOptions</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; {
-    <span class="doccomment">/// Add a new command to the framework</span>
-    <span class="attribute">#[<span class="ident">deprecated</span> = <span class="string">&quot;supply commands in FrameworkOptions directly with `commands: vec![...]`&quot;</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">command</span>(
-        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
-        <span class="kw-2">mut</span> <span class="ident">command</span>: <span class="ident"><span class="kw">crate</span>::Command</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;,
-        <span class="ident">meta_builder</span>: <span class="kw">impl</span> <span class="ident">FnOnce</span>(<span class="kw-2">&amp;mut</span> <span class="ident"><span class="kw">crate</span>::Command</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident"><span class="kw">crate</span>::Command</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; + <span class="lifetime">&#39;static</span>,
+<span class="kw">impl</span>&lt;U, E&gt; FrameworkOptions&lt;U, E&gt; {
+    <span class="doccomment">/// Add a new command to the framework
+    </span><span class="attribute">#[deprecated = <span class="string">&quot;supply commands in FrameworkOptions directly with `commands: vec![...]`&quot;</span>]
+    </span><span class="kw">pub fn </span>command(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        <span class="kw-2">mut </span>command: <span class="kw">crate</span>::Command&lt;U, E&gt;,
+        meta_builder: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;mut </span><span class="kw">crate</span>::Command&lt;U, E&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::Command&lt;U, E&gt; + <span class="lifetime">&#39;static</span>,
     ) {
-        <span class="ident">meta_builder</span>(<span class="kw-2">&amp;mut</span> <span class="ident">command</span>);
-        <span class="self">self</span>.<span class="ident">commands</span>.<span class="ident">push</span>(<span class="ident">command</span>);
+        meta_builder(<span class="kw-2">&amp;mut </span>command);
+        <span class="self">self</span>.commands.push(command);
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">FrameworkOptions</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;
-<span class="kw">where</span>
-    <span class="ident">U</span>: <span class="ident">Send</span> + <span class="ident">Sync</span>,
-    <span class="ident">E</span>: <span class="ident">std::fmt::Display</span> + <span class="ident">std::fmt::Debug</span> + <span class="ident">Send</span>,
+<span class="kw">impl</span>&lt;U, E&gt; Default <span class="kw">for </span>FrameworkOptions&lt;U, E&gt;
+<span class="kw">where
+    </span>U: Send + Sync,
+    E: std::fmt::Display + std::fmt::Debug + Send,
 {
-    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> {
-            <span class="ident">commands</span>: <span class="ident">Vec::new</span>(),
-            <span class="ident">on_error</span>: |<span class="ident">error</span>| {
-                <span class="ident">Box::pin</span>(<span class="kw">async</span> <span class="kw">move</span> {
-                    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) = <span class="ident"><span class="kw">crate</span>::builtins::on_error</span>(<span class="ident">error</span>).<span class="kw">await</span> {
-                        <span class="macro">log::error!</span>(<span class="string">&quot;Error while handling error: {}&quot;</span>, <span class="ident">e</span>);
+    <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            commands: Vec::new(),
+            on_error: |error| {
+                Box::pin(<span class="kw">async move </span>{
+                    <span class="kw">if let </span><span class="prelude-val">Err</span>(e) = <span class="kw">crate</span>::builtins::on_error(error).<span class="kw">await </span>{
+                        <span class="macro">log::error!</span>(<span class="string">&quot;Error while handling error: {}&quot;</span>, e);
                     }
                 })
             },
-            <span class="ident">listener</span>: |<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>| <span class="ident">Box::pin</span>(<span class="kw">async</span> { <span class="prelude-val">Ok</span>(()) }),
-            <span class="ident">pre_command</span>: |<span class="kw">_</span>| <span class="ident">Box::pin</span>(<span class="kw">async</span> {}),
-            <span class="ident">post_command</span>: |<span class="kw">_</span>| <span class="ident">Box::pin</span>(<span class="kw">async</span> {}),
-            <span class="ident">command_check</span>: <span class="prelude-val">None</span>,
-            <span class="ident">allowed_mentions</span>: <span class="prelude-val">Some</span>({
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">f</span> = <span class="ident">serenity::CreateAllowedMentions::default</span>();
-                <span class="comment">// Only support direct user pings by default</span>
-                <span class="ident">f</span>.<span class="ident">empty_parse</span>().<span class="ident">parse</span>(<span class="ident">serenity::ParseValue::Users</span>);
-                <span class="ident">f</span>
+            listener: |<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>| Box::pin(<span class="kw">async </span>{ <span class="prelude-val">Ok</span>(()) }),
+            pre_command: |<span class="kw">_</span>| Box::pin(<span class="kw">async </span>{}),
+            post_command: |<span class="kw">_</span>| Box::pin(<span class="kw">async </span>{}),
+            command_check: <span class="prelude-val">None</span>,
+            allowed_mentions: <span class="prelude-val">Some</span>({
+                <span class="kw">let </span><span class="kw-2">mut </span>f = serenity::CreateAllowedMentions::default();
+                <span class="comment">// Only support direct user pings by default
+                </span>f.empty_parse().parse(serenity::ParseValue::Users);
+                f
             }),
-            <span class="ident">reply_callback</span>: <span class="prelude-val">None</span>,
-            <span class="ident">manual_cooldowns</span>: <span class="bool-val">false</span>,
-            <span class="ident">require_cache_for_guild_check</span>: <span class="bool-val">false</span>,
-            <span class="ident">prefix_options</span>: <span class="ident">Default::default</span>(),
-            <span class="ident">owners</span>: <span class="ident">Default::default</span>(),
-            <span class="ident">__non_exhaustive</span>: (),
+            reply_callback: <span class="prelude-val">None</span>,
+            manual_cooldowns: <span class="bool-val">false</span>,
+            require_cache_for_guild_check: <span class="bool-val">false</span>,
+            prefix_options: Default::default(),
+            owners: Default::default(),
+            __non_exhaustive: (),
         }
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (748038961 2022-08-25)" ></div></body></html>

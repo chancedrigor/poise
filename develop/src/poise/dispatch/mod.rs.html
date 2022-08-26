@@ -144,151 +144,151 @@
 <span id="144">144</span>
 <span id="145">145</span>
 <span id="146">146</span>
-</pre><pre class="rust"><code><span class="doccomment">//! Contains all code to dispatch incoming events onto framework commands</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Contains all code to dispatch incoming events onto framework commands
 
-<span class="kw">mod</span> <span class="ident">common</span>;
-<span class="kw">mod</span> <span class="ident">prefix</span>;
-<span class="kw">mod</span> <span class="ident">slash</span>;
+</span><span class="kw">mod </span>common;
+<span class="kw">mod </span>prefix;
+<span class="kw">mod </span>slash;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">prefix</span>::{<span class="ident">dispatch_message</span>, <span class="ident">find_command</span>};
+<span class="kw">pub use </span>prefix::{dispatch_message, find_command};
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::serenity_prelude</span> <span class="kw">as</span> <span class="ident">serenity</span>;
+<span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
 
-<span class="comment">// TODO: integrate serenity::Context in here? Every place where FrameworkContext is passed is also</span>
-<span class="comment">// passed serenity::Context</span>
-<span class="doccomment">/// A view into data stored by [`crate::Framework`]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FrameworkContext</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt; {
-    <span class="doccomment">/// User ID of this bot</span>
-    <span class="kw">pub</span> <span class="ident">bot_id</span>: <span class="ident">serenity::UserId</span>,
-    <span class="doccomment">/// Framework configuration</span>
-    <span class="kw">pub</span> <span class="ident">options</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident"><span class="kw">crate</span>::FrameworkOptions</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;,
-    <span class="doccomment">/// Your provided user data</span>
-    <span class="kw">pub</span> <span class="ident">user_data</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">U</span>,
-    <span class="doccomment">/// Serenity shard manager. Can be used for example to shutdown the bot</span>
-    <span class="kw">pub</span> <span class="ident">shard_manager</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">std::sync::Arc</span>&lt;<span class="ident">tokio::sync::Mutex</span>&lt;<span class="ident">serenity::ShardManager</span>&gt;&gt;,
-    <span class="comment">// deliberately not non exhaustive because you need to create FrameworkContext from scratch</span>
-    <span class="comment">// to run your own event loop</span>
+<span class="comment">// TODO: integrate serenity::Context in here? Every place where FrameworkContext is passed is also
+// passed serenity::Context
+</span><span class="doccomment">/// A view into data stored by [`crate::Framework`]
+</span><span class="kw">pub struct </span>FrameworkContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt; {
+    <span class="doccomment">/// User ID of this bot
+    </span><span class="kw">pub </span>bot_id: serenity::UserId,
+    <span class="doccomment">/// Framework configuration
+    </span><span class="kw">pub </span>options: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::FrameworkOptions&lt;U, E&gt;,
+    <span class="doccomment">/// Your provided user data
+    </span><span class="kw">pub </span>user_data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>U,
+    <span class="doccomment">/// Serenity shard manager. Can be used for example to shutdown the bot
+    </span><span class="kw">pub </span>shard_manager: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>std::sync::Arc&lt;tokio::sync::Mutex&lt;serenity::ShardManager&gt;&gt;,
+    <span class="comment">// deliberately not non exhaustive because you need to create FrameworkContext from scratch
+    // to run your own event loop
+</span>}
+<span class="kw">impl</span>&lt;U, E&gt; Copy <span class="kw">for </span>FrameworkContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt; {}
+<span class="kw">impl</span>&lt;U, E&gt; Clone <span class="kw">for </span>FrameworkContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt; {
+    <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
+        <span class="kw-2">*</span><span class="self">self
+    </span>}
 }
-<span class="kw">impl</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; <span class="ident">Copy</span> <span class="kw">for</span> <span class="ident">FrameworkContext</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt; {}
-<span class="kw">impl</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; <span class="ident">Clone</span> <span class="kw">for</span> <span class="ident">FrameworkContext</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt; {
-    <span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self</span> {
-        <span class="kw-2">*</span><span class="self">self</span>
-    }
-}
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt; <span class="ident">FrameworkContext</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt; {
-    <span class="doccomment">/// Returns the stored framework options, including commands.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">options</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident"><span class="kw">crate</span>::FrameworkOptions</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; {
-        <span class="self">self</span>.<span class="ident">options</span>
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, U, E&gt; FrameworkContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt; {
+    <span class="doccomment">/// Returns the stored framework options, including commands.
+    </span><span class="kw">pub fn </span>options(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::FrameworkOptions&lt;U, E&gt; {
+        <span class="self">self</span>.options
     }
 
-    <span class="doccomment">/// Returns the serenity&#39;s client shard manager.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shard_manager</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">std::sync::Arc</span>&lt;<span class="ident">tokio::sync::Mutex</span>&lt;<span class="ident">serenity::ShardManager</span>&gt;&gt; {
-        <span class="self">self</span>.<span class="ident">shard_manager</span>.<span class="ident">clone</span>()
+    <span class="doccomment">/// Returns the serenity&#39;s client shard manager.
+    </span><span class="kw">pub fn </span>shard_manager(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; std::sync::Arc&lt;tokio::sync::Mutex&lt;serenity::ShardManager&gt;&gt; {
+        <span class="self">self</span>.shard_manager.clone()
     }
 
-    <span class="doccomment">/// Retrieves user data</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">user_data</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">U</span> {
-        <span class="self">self</span>.<span class="ident">user_data</span>
+    <span class="doccomment">/// Retrieves user data
+    </span><span class="kw">pub async fn </span>user_data(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>U {
+        <span class="self">self</span>.user_data
     }
 }
 
-<span class="doccomment">/// Central event handling function of this library</span>
-<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">dispatch_event</span>&lt;<span class="ident">U</span>: <span class="ident">Send</span> + <span class="ident">Sync</span>, <span class="ident">E</span>&gt;(
-    <span class="ident">framework</span>: <span class="ident"><span class="kw">crate</span>::FrameworkContext</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
-    <span class="ident">ctx</span>: <span class="kw-2">&amp;</span><span class="ident">serenity::Context</span>,
-    <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="kw">crate</span>::Event</span>&lt;<span class="lifetime">&#39;_</span>&gt;,
+<span class="doccomment">/// Central event handling function of this library
+</span><span class="kw">pub async fn </span>dispatch_event&lt;U: Send + Sync, E&gt;(
+    framework: <span class="kw">crate</span>::FrameworkContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt;,
+    ctx: <span class="kw-2">&amp;</span>serenity::Context,
+    event: <span class="kw-2">&amp;</span><span class="kw">crate</span>::Event&lt;<span class="lifetime">&#39;_</span>&gt;,
 ) {
-    <span class="kw">match</span> <span class="ident">event</span> {
-        <span class="ident"><span class="kw">crate</span>::Event::Message</span> { <span class="ident">new_message</span> } =&gt; {
-            <span class="kw">let</span> <span class="ident">invocation_data</span> = <span class="ident">tokio::sync::Mutex::new</span>(<span class="ident">Box::new</span>(()) <span class="kw">as</span> <span class="kw">_</span>);
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="prelude-val">Some</span>((<span class="ident">error</span>, <span class="ident">command</span>))) = <span class="ident">prefix::dispatch_message</span>(
-                <span class="ident">framework</span>,
-                <span class="ident">ctx</span>,
-                <span class="ident">new_message</span>,
+    <span class="kw">match </span>event {
+        <span class="kw">crate</span>::Event::Message { new_message } =&gt; {
+            <span class="kw">let </span>invocation_data = tokio::sync::Mutex::new(Box::new(()) <span class="kw">as _</span>);
+            <span class="kw">if let </span><span class="prelude-val">Err</span>(<span class="prelude-val">Some</span>((error, command))) = prefix::dispatch_message(
+                framework,
+                ctx,
+                new_message,
                 <span class="bool-val">false</span>,
                 <span class="bool-val">false</span>,
-                <span class="kw-2">&amp;</span><span class="ident">invocation_data</span>,
+                <span class="kw-2">&amp;</span>invocation_data,
             )
-            .<span class="kw">await</span>
-            {
-                <span class="ident">command</span>.<span class="ident">on_error</span>.<span class="ident">unwrap_or</span>(<span class="ident">framework</span>.<span class="ident">options</span>.<span class="ident">on_error</span>)(<span class="ident">error</span>).<span class="kw">await</span>;
+            .<span class="kw">await
+            </span>{
+                command.on_error.unwrap_or(framework.options.on_error)(error).<span class="kw">await</span>;
             }
         }
-        <span class="ident"><span class="kw">crate</span>::Event::MessageUpdate</span> { <span class="ident">event</span>, .. } =&gt; {
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">edit_tracker</span>) = <span class="kw-2">&amp;</span><span class="ident">framework</span>.<span class="ident">options</span>.<span class="ident">prefix_options</span>.<span class="ident">edit_tracker</span> {
-                <span class="kw">let</span> <span class="ident">msg</span> = <span class="ident">edit_tracker</span>.<span class="ident">write</span>().<span class="ident">unwrap</span>().<span class="ident">process_message_update</span>(
-                    <span class="ident">event</span>,
-                    <span class="ident">framework</span>
-                        .<span class="ident">options</span>()
-                        .<span class="ident">prefix_options</span>
-                        .<span class="ident">ignore_edits_if_not_yet_responded</span>,
+        <span class="kw">crate</span>::Event::MessageUpdate { event, .. } =&gt; {
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(edit_tracker) = <span class="kw-2">&amp;</span>framework.options.prefix_options.edit_tracker {
+                <span class="kw">let </span>msg = edit_tracker.write().unwrap().process_message_update(
+                    event,
+                    framework
+                        .options()
+                        .prefix_options
+                        .ignore_edits_if_not_yet_responded,
                 );
 
-                <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">msg</span>, <span class="ident">previously_tracked</span>)) = <span class="ident">msg</span> {
-                    <span class="kw">let</span> <span class="ident">invocation_data</span> = <span class="ident">tokio::sync::Mutex::new</span>(<span class="ident">Box::new</span>(()) <span class="kw">as</span> <span class="kw">_</span>);
-                    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="prelude-val">Some</span>((<span class="ident">error</span>, <span class="ident">command</span>))) = <span class="ident">prefix::dispatch_message</span>(
-                        <span class="ident">framework</span>,
-                        <span class="ident">ctx</span>,
-                        <span class="kw-2">&amp;</span><span class="ident">msg</span>,
+                <span class="kw">if let </span><span class="prelude-val">Some</span>((msg, previously_tracked)) = msg {
+                    <span class="kw">let </span>invocation_data = tokio::sync::Mutex::new(Box::new(()) <span class="kw">as _</span>);
+                    <span class="kw">if let </span><span class="prelude-val">Err</span>(<span class="prelude-val">Some</span>((error, command))) = prefix::dispatch_message(
+                        framework,
+                        ctx,
+                        <span class="kw-2">&amp;</span>msg,
                         <span class="bool-val">true</span>,
-                        <span class="ident">previously_tracked</span>,
-                        <span class="kw-2">&amp;</span><span class="ident">invocation_data</span>,
+                        previously_tracked,
+                        <span class="kw-2">&amp;</span>invocation_data,
                     )
-                    .<span class="kw">await</span>
-                    {
-                        <span class="ident">command</span>.<span class="ident">on_error</span>.<span class="ident">unwrap_or</span>(<span class="ident">framework</span>.<span class="ident">options</span>.<span class="ident">on_error</span>)(<span class="ident">error</span>).<span class="kw">await</span>;
+                    .<span class="kw">await
+                    </span>{
+                        command.on_error.unwrap_or(framework.options.on_error)(error).<span class="kw">await</span>;
                     }
                 }
             }
         }
-        <span class="ident"><span class="kw">crate</span>::Event::InteractionCreate</span> {
-            <span class="ident">interaction</span>: <span class="ident">serenity::Interaction::ApplicationCommand</span>(<span class="ident">interaction</span>),
+        <span class="kw">crate</span>::Event::InteractionCreate {
+            interaction: serenity::Interaction::ApplicationCommand(interaction),
         } =&gt; {
-            <span class="kw">let</span> <span class="ident">invocation_data</span> = <span class="ident">tokio::sync::Mutex::new</span>(<span class="ident">Box::new</span>(()) <span class="kw">as</span> <span class="kw">_</span>);
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="prelude-val">Some</span>((<span class="ident">error</span>, <span class="ident">command</span>))) = <span class="ident">slash::dispatch_interaction</span>(
-                <span class="ident">framework</span>,
-                <span class="ident">ctx</span>,
-                <span class="ident">interaction</span>,
-                <span class="kw-2">&amp;</span><span class="ident">std::sync::atomic::AtomicBool::new</span>(<span class="bool-val">false</span>),
-                <span class="kw-2">&amp;</span><span class="ident">invocation_data</span>,
+            <span class="kw">let </span>invocation_data = tokio::sync::Mutex::new(Box::new(()) <span class="kw">as _</span>);
+            <span class="kw">if let </span><span class="prelude-val">Err</span>(<span class="prelude-val">Some</span>((error, command))) = slash::dispatch_interaction(
+                framework,
+                ctx,
+                interaction,
+                <span class="kw-2">&amp;</span>std::sync::atomic::AtomicBool::new(<span class="bool-val">false</span>),
+                <span class="kw-2">&amp;</span>invocation_data,
             )
-            .<span class="kw">await</span>
-            {
-                <span class="ident">command</span>.<span class="ident">on_error</span>.<span class="ident">unwrap_or</span>(<span class="ident">framework</span>.<span class="ident">options</span>.<span class="ident">on_error</span>)(<span class="ident">error</span>).<span class="kw">await</span>;
+            .<span class="kw">await
+            </span>{
+                command.on_error.unwrap_or(framework.options.on_error)(error).<span class="kw">await</span>;
             }
         }
-        <span class="ident"><span class="kw">crate</span>::Event::InteractionCreate</span> {
-            <span class="ident">interaction</span>: <span class="ident">serenity::Interaction::Autocomplete</span>(<span class="ident">interaction</span>),
+        <span class="kw">crate</span>::Event::InteractionCreate {
+            interaction: serenity::Interaction::Autocomplete(interaction),
         } =&gt; {
-            <span class="kw">let</span> <span class="ident">invocation_data</span> = <span class="ident">tokio::sync::Mutex::new</span>(<span class="ident">Box::new</span>(()) <span class="kw">as</span> <span class="kw">_</span>);
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="prelude-val">Some</span>((<span class="ident">error</span>, <span class="ident">command</span>))) = <span class="ident">slash::dispatch_autocomplete</span>(
-                <span class="ident">framework</span>,
-                <span class="ident">ctx</span>,
-                <span class="ident">interaction</span>,
-                <span class="kw-2">&amp;</span><span class="ident">std::sync::atomic::AtomicBool::new</span>(<span class="bool-val">false</span>),
-                <span class="kw-2">&amp;</span><span class="ident">invocation_data</span>,
+            <span class="kw">let </span>invocation_data = tokio::sync::Mutex::new(Box::new(()) <span class="kw">as _</span>);
+            <span class="kw">if let </span><span class="prelude-val">Err</span>(<span class="prelude-val">Some</span>((error, command))) = slash::dispatch_autocomplete(
+                framework,
+                ctx,
+                interaction,
+                <span class="kw-2">&amp;</span>std::sync::atomic::AtomicBool::new(<span class="bool-val">false</span>),
+                <span class="kw-2">&amp;</span>invocation_data,
             )
-            .<span class="kw">await</span>
-            {
-                <span class="ident">command</span>.<span class="ident">on_error</span>.<span class="ident">unwrap_or</span>(<span class="ident">framework</span>.<span class="ident">options</span>.<span class="ident">on_error</span>)(<span class="ident">error</span>).<span class="kw">await</span>;
+            .<span class="kw">await
+            </span>{
+                command.on_error.unwrap_or(framework.options.on_error)(error).<span class="kw">await</span>;
             }
         }
-        <span class="kw">_</span> =&gt; {}
+        <span class="kw">_ </span>=&gt; {}
     }
 
-    <span class="comment">// Do this after the framework&#39;s Ready handling, so that get_user_data() doesnt</span>
-    <span class="comment">// potentially block infinitely</span>
-    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">error</span>) =
-        (<span class="ident">framework</span>.<span class="ident">options</span>.<span class="ident">listener</span>)(<span class="ident">ctx</span>, <span class="ident">event</span>, <span class="ident">framework</span>, <span class="ident">framework</span>.<span class="ident">user_data</span>().<span class="kw">await</span>).<span class="kw">await</span>
-    {
-        <span class="kw">let</span> <span class="ident">error</span> = <span class="ident"><span class="kw">crate</span>::FrameworkError::Listener</span> {
-            <span class="ident">ctx</span>,
-            <span class="ident">error</span>,
-            <span class="ident">event</span>,
-            <span class="ident">framework</span>,
+    <span class="comment">// Do this after the framework&#39;s Ready handling, so that get_user_data() doesnt
+    // potentially block infinitely
+    </span><span class="kw">if let </span><span class="prelude-val">Err</span>(error) =
+        (framework.options.listener)(ctx, event, framework, framework.user_data().<span class="kw">await</span>).<span class="kw">await
+    </span>{
+        <span class="kw">let </span>error = <span class="kw">crate</span>::FrameworkError::Listener {
+            ctx,
+            error,
+            event,
+            framework,
         };
-        (<span class="ident">framework</span>.<span class="ident">options</span>.<span class="ident">on_error</span>)(<span class="ident">error</span>).<span class="kw">await</span>;
+        (framework.options.on_error)(error).<span class="kw">await</span>;
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (748038961 2022-08-25)" ></div></body></html>

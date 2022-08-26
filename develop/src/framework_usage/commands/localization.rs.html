@@ -48,55 +48,55 @@
 <span id="48">48</span>
 <span id="49">49</span>
 <span id="50">50</span>
-</pre><pre class="rust"><code><span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">Context</span>, <span class="ident">Error</span>};
-<span class="kw">use</span> <span class="ident">poise::serenity_prelude</span> <span class="kw">as</span> <span class="ident">serenity</span>;
-<span class="kw">use</span> <span class="ident">poise::ChoiceParameter</span>;
+</pre><pre class="rust"><code><span class="kw">use crate</span>::{Context, Error};
+<span class="kw">use </span>poise::serenity_prelude <span class="kw">as </span>serenity;
+<span class="kw">use </span>poise::ChoiceParameter;
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">ChoiceParameter</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">WelcomeChoice</span> {
-    <span class="attribute">#[<span class="ident">name</span> = <span class="string">&quot;Welcome to our cool server! Ask me if you need help&quot;</span>]</span>
-    <span class="attribute">#[<span class="ident">name_localized</span>(
+<span class="attribute">#[derive(ChoiceParameter)]
+</span><span class="kw">pub enum </span>WelcomeChoice {
+    <span class="attribute">#[name = <span class="string">&quot;Welcome to our cool server! Ask me if you need help&quot;</span>]
+    #[name_localized(
         <span class="string">&quot;de&quot;</span>,
-        <span class="string">&quot;Willkommen auf unserem coolen Server! Frag mich, falls du Hilfe brauchst&quot;</span>
-    )]</span>
-    <span class="ident">A</span>,
-    <span class="attribute">#[<span class="ident">name</span> = <span class="string">&quot;Welcome to the club, you&#39;re now a good person. Well, I hope.&quot;</span>]</span>
-    <span class="attribute">#[<span class="ident">name_localized</span>(
+        <span class="string">&quot;Willkommen auf unserem coolen Server! Frag mich, falls du Hilfe brauchst&quot;
+    </span>)]
+    </span>A,
+    <span class="attribute">#[name = <span class="string">&quot;Welcome to the club, you&#39;re now a good person. Well, I hope.&quot;</span>]
+    #[name_localized(
         <span class="string">&quot;de&quot;</span>,
-        <span class="string">&quot;Willkommen im Club, du bist jetzt ein guter Mensch. Naja, hoffentlich.&quot;</span>
-    )]</span>
-    <span class="ident">B</span>,
-    <span class="attribute">#[<span class="ident">name</span> = <span class="string">&quot;I hope that you brought a controller to play together!&quot;</span>]</span>
-    <span class="attribute">#[<span class="ident">name_localized</span>(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;Ich hoffe du hast einen Controller zum Spielen mitgebracht!&quot;</span>)]</span>
-    <span class="ident">C</span>,
-    <span class="attribute">#[<span class="ident">name</span> = <span class="string">&quot;Hey, do you want a coffee?&quot;</span>]</span>
-    <span class="attribute">#[<span class="ident">name_localized</span>(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;Hey, willst du einen Kaffee?&quot;</span>)]</span>
-    <span class="ident">D</span>,
+        <span class="string">&quot;Willkommen im Club, du bist jetzt ein guter Mensch. Naja, hoffentlich.&quot;
+    </span>)]
+    </span>B,
+    <span class="attribute">#[name = <span class="string">&quot;I hope that you brought a controller to play together!&quot;</span>]
+    #[name_localized(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;Ich hoffe du hast einen Controller zum Spielen mitgebracht!&quot;</span>)]
+    </span>C,
+    <span class="attribute">#[name = <span class="string">&quot;Hey, do you want a coffee?&quot;</span>]
+    #[name_localized(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;Hey, willst du einen Kaffee?&quot;</span>)]
+    </span>D,
 }
 
-<span class="doccomment">/// Welcome a user</span>
-<span class="attribute">#[<span class="ident">poise::command</span>(
-    <span class="ident">slash_command</span>,
-    <span class="ident">name_localized</span>(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;begrüßen&quot;</span>),
-    <span class="ident">description_localized</span>(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;Einen Nutzer begrüßen&quot;</span>)
-)]</span>
-<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">welcome</span>(
-    <span class="ident">ctx</span>: <span class="ident">Context</span>&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[<span class="ident">name_localized</span>(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;nutzer&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">description_localized</span>(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;Der zu begrüßende Nutzer&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">description</span> = <span class="string">&quot;The user to welcome&quot;</span>]</span>
-    <span class="ident">user</span>: <span class="ident">serenity::User</span>,
-    <span class="attribute">#[<span class="ident">name_localized</span>(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;nachricht&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">description_localized</span>(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;Die versendete Nachricht&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">description</span> = <span class="string">&quot;The message to send&quot;</span>]</span>
-    <span class="ident">message</span>: <span class="ident">WelcomeChoice</span>,
-) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">Error</span>&gt; {
-    <span class="kw">let</span> <span class="ident">message</span> = <span class="ident">message</span>
-        .<span class="ident">localized_name</span>(<span class="ident">ctx</span>.<span class="ident">locale</span>().<span class="ident">unwrap_or</span>(<span class="string">&quot;&quot;</span>))
-        .<span class="ident">unwrap_or_else</span>(|| <span class="ident">message</span>.<span class="ident">name</span>());
-    <span class="ident">ctx</span>.<span class="ident">say</span>(<span class="macro">format!</span>(<span class="string">&quot;&lt;@{}&gt; {}&quot;</span>, <span class="ident">user</span>.<span class="ident">id</span>.<span class="number">0</span>, <span class="ident">message</span>.<span class="ident">to_string</span>()))
+<span class="doccomment">/// Welcome a user
+</span><span class="attribute">#[poise::command(
+    slash_command,
+    name_localized(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;begrüßen&quot;</span>),
+    description_localized(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;Einen Nutzer begrüßen&quot;</span>)
+)]
+</span><span class="kw">pub async fn </span>welcome(
+    ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
+    <span class="attribute">#[name_localized(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;nutzer&quot;</span>)]
+    #[description_localized(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;Der zu begrüßende Nutzer&quot;</span>)]
+    #[description = <span class="string">&quot;The user to welcome&quot;</span>]
+    </span>user: serenity::User,
+    <span class="attribute">#[name_localized(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;nachricht&quot;</span>)]
+    #[description_localized(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;Die versendete Nachricht&quot;</span>)]
+    #[description = <span class="string">&quot;The message to send&quot;</span>]
+    </span>message: WelcomeChoice,
+) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+    <span class="kw">let </span>message = message
+        .localized_name(ctx.locale().unwrap_or(<span class="string">&quot;&quot;</span>))
+        .unwrap_or_else(|| message.name());
+    ctx.say(<span class="macro">format!</span>(<span class="string">&quot;&lt;@{}&gt; {}&quot;</span>, user.id.<span class="number">0</span>, message.to_string()))
         .<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="framework_usage" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="framework_usage" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (748038961 2022-08-25)" ></div></body></html>

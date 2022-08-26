@@ -282,289 +282,289 @@
 <span id="282">282</span>
 <span id="283">283</span>
 <span id="284">284</span>
-</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::serenity_prelude</span> <span class="kw">as</span> <span class="ident">serenity</span>;
+</pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
 
-<span class="doccomment">/// Any error that can occur while the bot runs. Either thrown by user code (those variants will</span>
-<span class="doccomment">/// have an `error` field with your error type `E` in it), or originating from within the framework.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// These errors are handled with the [`crate::FrameworkOptions::on_error`] callback</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">derivative::Derivative</span>)]</span>
-<span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">FrameworkError</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt; {
-    <span class="doccomment">/// User code threw an error in user data setup</span>
-    <span class="ident">Setup</span> {
-        <span class="doccomment">/// Error which was thrown in the setup code</span>
-        <span class="ident">error</span>: <span class="ident">E</span>,
-        <span class="doccomment">/// The Framework passed to the event</span>
-        <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> = <span class="string">&quot;ignore&quot;</span>)]</span>
-        <span class="ident">framework</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident"><span class="kw">crate</span>::Framework</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;,
-        <span class="doccomment">/// Discord Ready event data present during setup</span>
-        <span class="ident">data_about_bot</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">serenity::Ready</span>,
-        <span class="doccomment">/// The serenity Context passed to the event</span>
-        <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> = <span class="string">&quot;ignore&quot;</span>)]</span>
-        <span class="ident">ctx</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">serenity::Context</span>,
+<span class="doccomment">/// Any error that can occur while the bot runs. Either thrown by user code (those variants will
+/// have an `error` field with your error type `E` in it), or originating from within the framework.
+///
+/// These errors are handled with the [`crate::FrameworkOptions::on_error`] callback
+</span><span class="attribute">#[derive(derivative::Derivative)]
+#[derivative(Debug)]
+</span><span class="kw">pub enum </span>FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt; {
+    <span class="doccomment">/// User code threw an error in user data setup
+    </span>Setup {
+        <span class="doccomment">/// Error which was thrown in the setup code
+        </span>error: E,
+        <span class="doccomment">/// The Framework passed to the event
+        </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+        </span>framework: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Framework&lt;U, E&gt;,
+        <span class="doccomment">/// Discord Ready event data present during setup
+        </span>data_about_bot: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Ready,
+        <span class="doccomment">/// The serenity Context passed to the event
+        </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+        </span>ctx: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context,
     },
-    <span class="doccomment">/// User code threw an error in generic event listener</span>
-    <span class="ident">Listener</span> {
-        <span class="doccomment">/// Error which was thrown in the listener code</span>
-        <span class="ident">error</span>: <span class="ident">E</span>,
-        <span class="doccomment">/// The serenity Context passed to the event</span>
-        <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> = <span class="string">&quot;ignore&quot;</span>)]</span>
-        <span class="ident">ctx</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">serenity::Context</span>,
-        <span class="doccomment">/// Which event was being processed when the error occurred</span>
-        <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident"><span class="kw">crate</span>::Event</span>&lt;<span class="lifetime">&#39;a</span>&gt;,
-        <span class="doccomment">/// The Framework passed to the event</span>
-        <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> = <span class="string">&quot;ignore&quot;</span>)]</span>
-        <span class="ident">framework</span>: <span class="ident"><span class="kw">crate</span>::FrameworkContext</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
+    <span class="doccomment">/// User code threw an error in generic event listener
+    </span>Listener {
+        <span class="doccomment">/// Error which was thrown in the listener code
+        </span>error: E,
+        <span class="doccomment">/// The serenity Context passed to the event
+        </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+        </span>ctx: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context,
+        <span class="doccomment">/// Which event was being processed when the error occurred
+        </span>event: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Event&lt;<span class="lifetime">&#39;a</span>&gt;,
+        <span class="doccomment">/// The Framework passed to the event
+        </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+        </span>framework: <span class="kw">crate</span>::FrameworkContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     },
-    <span class="doccomment">/// Error occured during command execution</span>
-    <span class="ident">Command</span> {
-        <span class="doccomment">/// Error which was thrown in the command code</span>
-        <span class="ident">error</span>: <span class="ident">E</span>,
-        <span class="doccomment">/// General context</span>
-        <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::Context</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
+    <span class="doccomment">/// Error occured during command execution
+    </span>Command {
+        <span class="doccomment">/// Error which was thrown in the command code
+        </span>error: E,
+        <span class="doccomment">/// General context
+        </span>ctx: <span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     },
-    <span class="doccomment">/// A command argument failed to parse from the Discord message or interaction content</span>
-    <span class="ident">ArgumentParse</span> {
-        <span class="doccomment">/// Error which was thrown by the parameter type&#39;s parsing routine</span>
-        <span class="ident">error</span>: <span class="ident">Box</span>&lt;<span class="kw">dyn</span> <span class="ident">std::error::Error</span> + <span class="ident">Send</span> + <span class="ident">Sync</span>&gt;,
-        <span class="doccomment">/// If applicable, the input on which parsing failed</span>
-        <span class="ident">input</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">String</span>&gt;,
-        <span class="doccomment">/// General context</span>
-        <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::Context</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
+    <span class="doccomment">/// A command argument failed to parse from the Discord message or interaction content
+    </span>ArgumentParse {
+        <span class="doccomment">/// Error which was thrown by the parameter type&#39;s parsing routine
+        </span>error: Box&lt;<span class="kw">dyn </span>std::error::Error + Send + Sync&gt;,
+        <span class="doccomment">/// If applicable, the input on which parsing failed
+        </span>input: <span class="prelude-ty">Option</span>&lt;String&gt;,
+        <span class="doccomment">/// General context
+        </span>ctx: <span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     },
-    <span class="doccomment">/// Expected a certain argument type at a certain position in the unstructured list of</span>
-    <span class="doccomment">/// arguments, but found something else.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Most often the result of the bot not having registered the command in Discord, so Discord</span>
-    <span class="doccomment">/// stores an outdated version of the command and its parameters.</span>
-    <span class="ident">CommandStructureMismatch</span> {
-        <span class="doccomment">/// Developer-readable description of the type mismatch</span>
-        <span class="ident">description</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>,
-        <span class="doccomment">/// General context</span>
-        <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::ApplicationContext</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
+    <span class="doccomment">/// Expected a certain argument type at a certain position in the unstructured list of
+    /// arguments, but found something else.
+    ///
+    /// Most often the result of the bot not having registered the command in Discord, so Discord
+    /// stores an outdated version of the command and its parameters.
+    </span>CommandStructureMismatch {
+        <span class="doccomment">/// Developer-readable description of the type mismatch
+        </span>description: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str,
+        <span class="doccomment">/// General context
+        </span>ctx: <span class="kw">crate</span>::ApplicationContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     },
-    <span class="doccomment">/// Command was invoked before its cooldown expired</span>
-    <span class="ident">CooldownHit</span> {
-        <span class="doccomment">/// Time until the command may be invoked for the next time in the given context</span>
-        <span class="ident">remaining_cooldown</span>: <span class="ident">std::time::Duration</span>,
-        <span class="doccomment">/// General context</span>
-        <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::Context</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
+    <span class="doccomment">/// Command was invoked before its cooldown expired
+    </span>CooldownHit {
+        <span class="doccomment">/// Time until the command may be invoked for the next time in the given context
+        </span>remaining_cooldown: std::time::Duration,
+        <span class="doccomment">/// General context
+        </span>ctx: <span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     },
-    <span class="doccomment">/// Command was invoked but the bot is lacking the permissions specified in</span>
-    <span class="doccomment">/// [`crate::Command::required_bot_permissions`]</span>
-    <span class="ident">MissingBotPermissions</span> {
-        <span class="doccomment">/// Which permissions in particular the bot is lacking for this command</span>
-        <span class="ident">missing_permissions</span>: <span class="ident">serenity::Permissions</span>,
-        <span class="doccomment">/// General context</span>
-        <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::Context</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
+    <span class="doccomment">/// Command was invoked but the bot is lacking the permissions specified in
+    /// [`crate::Command::required_bot_permissions`]
+    </span>MissingBotPermissions {
+        <span class="doccomment">/// Which permissions in particular the bot is lacking for this command
+        </span>missing_permissions: serenity::Permissions,
+        <span class="doccomment">/// General context
+        </span>ctx: <span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     },
-    <span class="doccomment">/// Command was invoked but the user is lacking the permissions specified in</span>
-    <span class="doccomment">/// [`crate::Command::required_bot_permissions`]</span>
-    <span class="ident">MissingUserPermissions</span> {
-        <span class="doccomment">/// List of permissions that the user is lacking. May be None if retrieving the user&#39;s</span>
-        <span class="doccomment">/// permissions failed</span>
-        <span class="ident">missing_permissions</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::Permissions</span>&gt;,
-        <span class="doccomment">/// General context</span>
-        <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::Context</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
+    <span class="doccomment">/// Command was invoked but the user is lacking the permissions specified in
+    /// [`crate::Command::required_bot_permissions`]
+    </span>MissingUserPermissions {
+        <span class="doccomment">/// List of permissions that the user is lacking. May be None if retrieving the user&#39;s
+        /// permissions failed
+        </span>missing_permissions: <span class="prelude-ty">Option</span>&lt;serenity::Permissions&gt;,
+        <span class="doccomment">/// General context
+        </span>ctx: <span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     },
-    <span class="doccomment">/// A non-owner tried to invoke an owners-only command</span>
-    <span class="ident">NotAnOwner</span> {
-        <span class="doccomment">/// General context</span>
-        <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::Context</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
+    <span class="doccomment">/// A non-owner tried to invoke an owners-only command
+    </span>NotAnOwner {
+        <span class="doccomment">/// General context
+        </span>ctx: <span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     },
-    <span class="doccomment">/// Command was invoked but the channel was a DM channel</span>
-    <span class="ident">GuildOnly</span> {
-        <span class="doccomment">/// General context</span>
-        <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::Context</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
+    <span class="doccomment">/// Command was invoked but the channel was a DM channel
+    </span>GuildOnly {
+        <span class="doccomment">/// General context
+        </span>ctx: <span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     },
-    <span class="doccomment">/// Command was invoked but the channel was a non-DM channel</span>
-    <span class="ident">DmOnly</span> {
-        <span class="doccomment">/// General context</span>
-        <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::Context</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
+    <span class="doccomment">/// Command was invoked but the channel was a non-DM channel
+    </span>DmOnly {
+        <span class="doccomment">/// General context
+        </span>ctx: <span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     },
-    <span class="doccomment">/// Command was invoked but the channel wasn&#39;t a NSFW channel</span>
-    <span class="ident">NsfwOnly</span> {
-        <span class="doccomment">/// General context</span>
-        <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::Context</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
+    <span class="doccomment">/// Command was invoked but the channel wasn&#39;t a NSFW channel
+    </span>NsfwOnly {
+        <span class="doccomment">/// General context
+        </span>ctx: <span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     },
-    <span class="doccomment">/// Provided pre-command check either errored, or returned false, so command execution aborted</span>
-    <span class="ident">CommandCheckFailed</span> {
-        <span class="doccomment">/// If execution wasn&#39;t aborted because of an error but because it successfully returned</span>
-        <span class="doccomment">/// false, this field is None</span>
-        <span class="ident">error</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">E</span>&gt;,
-        <span class="doccomment">/// General context</span>
-        <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::Context</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
+    <span class="doccomment">/// Provided pre-command check either errored, or returned false, so command execution aborted
+    </span>CommandCheckFailed {
+        <span class="doccomment">/// If execution wasn&#39;t aborted because of an error but because it successfully returned
+        /// false, this field is None
+        </span>error: <span class="prelude-ty">Option</span>&lt;E&gt;,
+        <span class="doccomment">/// General context
+        </span>ctx: <span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     },
-    <span class="doccomment">/// [`crate::PrefixFrameworkOptions::dynamic_prefix`] or</span>
-    <span class="doccomment">/// [`crate::PrefixFrameworkOptions::stripped_dynamic_prefix`] returned an error</span>
-    <span class="ident">DynamicPrefix</span> {
-        <span class="doccomment">/// Error which was thrown in the dynamic prefix code</span>
-        <span class="ident">error</span>: <span class="ident">E</span>,
-        <span class="doccomment">/// General context</span>
-        <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> = <span class="string">&quot;ignore&quot;</span>)]</span>
-        <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::PartialContext</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
-        <span class="doccomment">/// Message which the dynamic prefix callback was evaluated upon</span>
-        <span class="ident">msg</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">serenity::Message</span>,
+    <span class="doccomment">/// [`crate::PrefixFrameworkOptions::dynamic_prefix`] or
+    /// [`crate::PrefixFrameworkOptions::stripped_dynamic_prefix`] returned an error
+    </span>DynamicPrefix {
+        <span class="doccomment">/// Error which was thrown in the dynamic prefix code
+        </span>error: E,
+        <span class="doccomment">/// General context
+        </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+        </span>ctx: <span class="kw">crate</span>::PartialContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
+        <span class="doccomment">/// Message which the dynamic prefix callback was evaluated upon
+        </span>msg: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Message,
     },
-    <span class="comment">// #[non_exhaustive] forbids struct update syntax for ?? reason</span>
-    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="ident">__NonExhaustive</span>,
+    <span class="comment">// #[non_exhaustive] forbids struct update syntax for ?? reason
+    </span><span class="attribute">#[doc(hidden)]
+    </span>__NonExhaustive,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt; <span class="ident">FrameworkError</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt; {
-    <span class="doccomment">/// Returns the [`serenity::Context`] of this error</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">discord</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">serenity::Context</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::Setup</span> { <span class="ident">ctx</span>, .. } =&gt; <span class="ident">ctx</span>,
-            <span class="ident"><span class="self">Self</span>::Listener</span> { <span class="ident">ctx</span>, .. } =&gt; <span class="ident">ctx</span>,
-            <span class="ident"><span class="self">Self</span>::Command</span> { <span class="ident">ctx</span>, .. } =&gt; <span class="ident">ctx</span>.<span class="ident">discord</span>(),
-            <span class="ident"><span class="self">Self</span>::ArgumentParse</span> { <span class="ident">ctx</span>, .. } =&gt; <span class="ident">ctx</span>.<span class="ident">discord</span>(),
-            <span class="ident"><span class="self">Self</span>::CommandStructureMismatch</span> { <span class="ident">ctx</span>, .. } =&gt; <span class="ident">ctx</span>.<span class="ident">discord</span>,
-            <span class="ident"><span class="self">Self</span>::CooldownHit</span> { <span class="ident">ctx</span>, .. } =&gt; <span class="ident">ctx</span>.<span class="ident">discord</span>(),
-            <span class="ident"><span class="self">Self</span>::MissingBotPermissions</span> { <span class="ident">ctx</span>, .. } =&gt; <span class="ident">ctx</span>.<span class="ident">discord</span>(),
-            <span class="ident"><span class="self">Self</span>::MissingUserPermissions</span> { <span class="ident">ctx</span>, .. } =&gt; <span class="ident">ctx</span>.<span class="ident">discord</span>(),
-            <span class="ident"><span class="self">Self</span>::NotAnOwner</span> { <span class="ident">ctx</span>, .. } =&gt; <span class="ident">ctx</span>.<span class="ident">discord</span>(),
-            <span class="ident"><span class="self">Self</span>::GuildOnly</span> { <span class="ident">ctx</span>, .. } =&gt; <span class="ident">ctx</span>.<span class="ident">discord</span>(),
-            <span class="ident"><span class="self">Self</span>::DmOnly</span> { <span class="ident">ctx</span>, .. } =&gt; <span class="ident">ctx</span>.<span class="ident">discord</span>(),
-            <span class="ident"><span class="self">Self</span>::NsfwOnly</span> { <span class="ident">ctx</span>, .. } =&gt; <span class="ident">ctx</span>.<span class="ident">discord</span>(),
-            <span class="ident"><span class="self">Self</span>::CommandCheckFailed</span> { <span class="ident">ctx</span>, .. } =&gt; <span class="ident">ctx</span>.<span class="ident">discord</span>(),
-            <span class="ident"><span class="self">Self</span>::DynamicPrefix</span> { <span class="ident">ctx</span>, .. } =&gt; <span class="ident">ctx</span>.<span class="ident">discord</span>,
-            <span class="ident"><span class="self">Self</span>::__NonExhaustive</span> =&gt; <span class="macro">unreachable!</span>(),
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, U, E&gt; FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt; {
+    <span class="doccomment">/// Returns the [`serenity::Context`] of this error
+    </span><span class="kw">pub fn </span>discord(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context {
+        <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
+            <span class="self">Self</span>::Setup { ctx, .. } =&gt; ctx,
+            <span class="self">Self</span>::Listener { ctx, .. } =&gt; ctx,
+            <span class="self">Self</span>::Command { ctx, .. } =&gt; ctx.discord(),
+            <span class="self">Self</span>::ArgumentParse { ctx, .. } =&gt; ctx.discord(),
+            <span class="self">Self</span>::CommandStructureMismatch { ctx, .. } =&gt; ctx.discord,
+            <span class="self">Self</span>::CooldownHit { ctx, .. } =&gt; ctx.discord(),
+            <span class="self">Self</span>::MissingBotPermissions { ctx, .. } =&gt; ctx.discord(),
+            <span class="self">Self</span>::MissingUserPermissions { ctx, .. } =&gt; ctx.discord(),
+            <span class="self">Self</span>::NotAnOwner { ctx, .. } =&gt; ctx.discord(),
+            <span class="self">Self</span>::GuildOnly { ctx, .. } =&gt; ctx.discord(),
+            <span class="self">Self</span>::DmOnly { ctx, .. } =&gt; ctx.discord(),
+            <span class="self">Self</span>::NsfwOnly { ctx, .. } =&gt; ctx.discord(),
+            <span class="self">Self</span>::CommandCheckFailed { ctx, .. } =&gt; ctx.discord(),
+            <span class="self">Self</span>::DynamicPrefix { ctx, .. } =&gt; ctx.discord,
+            <span class="self">Self</span>::__NonExhaustive =&gt; <span class="macro">unreachable!</span>(),
         }
     }
 }
 
-<span class="macro">macro_rules!</span> <span class="ident">full_command_name</span> {
-    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ctx</span>:<span class="ident">expr</span>) =&gt; {
-        <span class="macro">format_args!</span>(<span class="string">&quot;{}{}&quot;</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ctx</span>.<span class="ident">prefix</span>(), <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ctx</span>.<span class="ident">command</span>().<span class="ident">qualified_name</span>)
+<span class="macro">macro_rules! </span>full_command_name {
+    (<span class="macro-nonterminal">$ctx</span>:expr) =&gt; {
+        <span class="macro">format_args!</span>(<span class="string">&quot;{}{}&quot;</span>, <span class="macro-nonterminal">$ctx</span>.prefix(), <span class="macro-nonterminal">$ctx</span>.command().qualified_name)
     };
 }
 
-<span class="kw">impl</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>: <span class="ident">std::fmt::Display</span>&gt; <span class="ident">std::fmt::Display</span> <span class="kw">for</span> <span class="ident">FrameworkError</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt; {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">std::fmt::Formatter</span>&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="ident">std::fmt::Result</span> {
-        <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::Setup</span> {
-                <span class="ident">error</span>: <span class="kw">_</span>,
-                <span class="ident">framework</span>: <span class="kw">_</span>,
-                <span class="ident">data_about_bot</span>: <span class="kw">_</span>,
-                <span class="ident">ctx</span>: <span class="kw">_</span>,
-            } =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;poise setup error&quot;</span>),
-            <span class="ident"><span class="self">Self</span>::Listener</span> {
-                <span class="ident">error</span>: <span class="kw">_</span>,
-                <span class="ident">ctx</span>: <span class="kw">_</span>,
-                <span class="ident">event</span>,
-                <span class="ident">framework</span>: <span class="kw">_</span>,
-            } =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;error in {} event listener&quot;</span>, <span class="ident">event</span>.<span class="ident">name</span>()),
-            <span class="ident"><span class="self">Self</span>::Command</span> { <span class="ident">error</span>: <span class="kw">_</span>, <span class="ident">ctx</span> } =&gt; {
-                <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;error in command `{}`&quot;</span>, <span class="macro">full_command_name!</span>(<span class="ident">ctx</span>))
+<span class="kw">impl</span>&lt;U, E: std::fmt::Display&gt; std::fmt::Display <span class="kw">for </span>FrameworkError&lt;<span class="lifetime">&#39;_</span>, U, E&gt; {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>std::fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; std::fmt::Result {
+        <span class="kw">match </span><span class="self">self </span>{
+            <span class="self">Self</span>::Setup {
+                error: <span class="kw">_</span>,
+                framework: <span class="kw">_</span>,
+                data_about_bot: <span class="kw">_</span>,
+                ctx: <span class="kw">_</span>,
+            } =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;poise setup error&quot;</span>),
+            <span class="self">Self</span>::Listener {
+                error: <span class="kw">_</span>,
+                ctx: <span class="kw">_</span>,
+                event,
+                framework: <span class="kw">_</span>,
+            } =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;error in {} event listener&quot;</span>, event.name()),
+            <span class="self">Self</span>::Command { error: <span class="kw">_</span>, ctx } =&gt; {
+                <span class="macro">write!</span>(f, <span class="string">&quot;error in command `{}`&quot;</span>, <span class="macro">full_command_name!</span>(ctx))
             }
-            <span class="ident"><span class="self">Self</span>::ArgumentParse</span> {
-                <span class="ident">error</span>: <span class="kw">_</span>,
-                <span class="ident">input</span>,
-                <span class="ident">ctx</span>,
+            <span class="self">Self</span>::ArgumentParse {
+                error: <span class="kw">_</span>,
+                input,
+                ctx,
             } =&gt; <span class="macro">write!</span>(
-                <span class="ident">f</span>,
+                f,
                 <span class="string">&quot;failed to parse argument in command `{}` on input {:?}&quot;</span>,
-                <span class="macro">full_command_name!</span>(<span class="ident">ctx</span>),
-                <span class="ident">input</span>
+                <span class="macro">full_command_name!</span>(ctx),
+                input
             ),
-            <span class="ident"><span class="self">Self</span>::CommandStructureMismatch</span> { <span class="ident">description</span>, <span class="ident">ctx</span> } =&gt; <span class="macro">write!</span>(
-                <span class="ident">f</span>,
+            <span class="self">Self</span>::CommandStructureMismatch { description, ctx } =&gt; <span class="macro">write!</span>(
+                f,
                 <span class="string">&quot;unexpected application command structure in command `{}`: {}&quot;</span>,
-                <span class="macro">full_command_name!</span>(<span class="ident"><span class="kw">crate</span>::Context::Application</span>(<span class="kw-2">*</span><span class="ident">ctx</span>)),
-                <span class="ident">description</span>
+                <span class="macro">full_command_name!</span>(<span class="kw">crate</span>::Context::Application(<span class="kw-2">*</span>ctx)),
+                description
             ),
-            <span class="ident"><span class="self">Self</span>::CooldownHit</span> {
-                <span class="ident">remaining_cooldown</span>,
-                <span class="ident">ctx</span>,
+            <span class="self">Self</span>::CooldownHit {
+                remaining_cooldown,
+                ctx,
             } =&gt; <span class="macro">write!</span>(
-                <span class="ident">f</span>,
+                f,
                 <span class="string">&quot;cooldown hit in command `{}` ({:?} remaining)&quot;</span>,
-                <span class="macro">full_command_name!</span>(<span class="ident">ctx</span>),
-                <span class="ident">remaining_cooldown</span>
+                <span class="macro">full_command_name!</span>(ctx),
+                remaining_cooldown
             ),
-            <span class="ident"><span class="self">Self</span>::MissingBotPermissions</span> {
-                <span class="ident">missing_permissions</span>,
-                <span class="ident">ctx</span>,
+            <span class="self">Self</span>::MissingBotPermissions {
+                missing_permissions,
+                ctx,
             } =&gt; <span class="macro">write!</span>(
-                <span class="ident">f</span>,
+                f,
                 <span class="string">&quot;bot is missing permisions ({}) to execute command `{}`&quot;</span>,
-                <span class="ident">missing_permissions</span>,
-                <span class="macro">full_command_name!</span>(<span class="ident">ctx</span>),
+                missing_permissions,
+                <span class="macro">full_command_name!</span>(ctx),
             ),
-            <span class="ident"><span class="self">Self</span>::MissingUserPermissions</span> {
-                <span class="ident">missing_permissions</span>,
-                <span class="ident">ctx</span>,
+            <span class="self">Self</span>::MissingUserPermissions {
+                missing_permissions,
+                ctx,
             } =&gt; <span class="macro">write!</span>(
-                <span class="ident">f</span>,
+                f,
                 <span class="string">&quot;user is or may be missing permisions ({:?}) to execute command `{}`&quot;</span>,
-                <span class="ident">missing_permissions</span>,
-                <span class="macro">full_command_name!</span>(<span class="ident">ctx</span>),
+                missing_permissions,
+                <span class="macro">full_command_name!</span>(ctx),
             ),
-            <span class="ident"><span class="self">Self</span>::NotAnOwner</span> { <span class="ident">ctx</span> } =&gt; <span class="macro">write!</span>(
-                <span class="ident">f</span>,
+            <span class="self">Self</span>::NotAnOwner { ctx } =&gt; <span class="macro">write!</span>(
+                f,
                 <span class="string">&quot;owner-only command `{}` cannot be run by non-owners&quot;</span>,
-                <span class="macro">full_command_name!</span>(<span class="ident">ctx</span>)
+                <span class="macro">full_command_name!</span>(ctx)
             ),
-            <span class="ident"><span class="self">Self</span>::GuildOnly</span> { <span class="ident">ctx</span> } =&gt; <span class="macro">write!</span>(
-                <span class="ident">f</span>,
+            <span class="self">Self</span>::GuildOnly { ctx } =&gt; <span class="macro">write!</span>(
+                f,
                 <span class="string">&quot;guild-only command `{}` cannot run in DMs&quot;</span>,
-                <span class="macro">full_command_name!</span>(<span class="ident">ctx</span>)
+                <span class="macro">full_command_name!</span>(ctx)
             ),
-            <span class="ident"><span class="self">Self</span>::DmOnly</span> { <span class="ident">ctx</span> } =&gt; <span class="macro">write!</span>(
-                <span class="ident">f</span>,
+            <span class="self">Self</span>::DmOnly { ctx } =&gt; <span class="macro">write!</span>(
+                f,
                 <span class="string">&quot;DM-only command `{}` cannot run in guilds&quot;</span>,
-                <span class="macro">full_command_name!</span>(<span class="ident">ctx</span>)
+                <span class="macro">full_command_name!</span>(ctx)
             ),
-            <span class="ident"><span class="self">Self</span>::NsfwOnly</span> { <span class="ident">ctx</span> } =&gt; <span class="macro">write!</span>(
-                <span class="ident">f</span>,
+            <span class="self">Self</span>::NsfwOnly { ctx } =&gt; <span class="macro">write!</span>(
+                f,
                 <span class="string">&quot;nsfw-only command `{}` cannot run in non-nsfw channels&quot;</span>,
-                <span class="macro">full_command_name!</span>(<span class="ident">ctx</span>)
+                <span class="macro">full_command_name!</span>(ctx)
             ),
-            <span class="ident"><span class="self">Self</span>::CommandCheckFailed</span> { <span class="ident">error</span>: <span class="kw">_</span>, <span class="ident">ctx</span> } =&gt; <span class="macro">write!</span>(
-                <span class="ident">f</span>,
+            <span class="self">Self</span>::CommandCheckFailed { error: <span class="kw">_</span>, ctx } =&gt; <span class="macro">write!</span>(
+                f,
                 <span class="string">&quot;pre-command check for command `{}` either denied access or errored&quot;</span>,
-                <span class="macro">full_command_name!</span>(<span class="ident">ctx</span>)
+                <span class="macro">full_command_name!</span>(ctx)
             ),
-            <span class="ident"><span class="self">Self</span>::DynamicPrefix</span> {
-                <span class="ident">error</span>: <span class="kw">_</span>,
-                <span class="ident">ctx</span>: <span class="kw">_</span>,
-                <span class="ident">msg</span>,
+            <span class="self">Self</span>::DynamicPrefix {
+                error: <span class="kw">_</span>,
+                ctx: <span class="kw">_</span>,
+                msg,
             } =&gt; {
                 <span class="macro">write!</span>(
-                    <span class="ident">f</span>,
+                    f,
                     <span class="string">&quot;dynamic prefix callback errored on message {:?}&quot;</span>,
-                    <span class="ident">msg</span>.<span class="ident">content</span>
+                    msg.content
                 )
             }
-            <span class="ident"><span class="self">Self</span>::__NonExhaustive</span> =&gt; <span class="macro">unreachable!</span>(),
+            <span class="self">Self</span>::__NonExhaustive =&gt; <span class="macro">unreachable!</span>(),
         }
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>: <span class="ident">std::fmt::Debug</span>, <span class="ident">E</span>: <span class="ident">std::error::Error</span> + <span class="lifetime">&#39;static</span>&gt; <span class="ident">std::error::Error</span>
-    <span class="kw">for</span> <span class="ident">FrameworkError</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, U: std::fmt::Debug, E: std::error::Error + <span class="lifetime">&#39;static</span>&gt; std::error::Error
+    <span class="kw">for </span>FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;
 {
-    <span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>(<span class="kw">dyn</span> <span class="ident">std::error::Error</span> + <span class="lifetime">&#39;static</span>)&gt; {
-        <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::Setup</span> { <span class="ident">error</span>, .. } =&gt; <span class="prelude-val">Some</span>(<span class="ident">error</span>),
-            <span class="ident"><span class="self">Self</span>::Listener</span> { <span class="ident">error</span>, .. } =&gt; <span class="prelude-val">Some</span>(<span class="ident">error</span>),
-            <span class="ident"><span class="self">Self</span>::Command</span> { <span class="ident">error</span>, .. } =&gt; <span class="prelude-val">Some</span>(<span class="ident">error</span>),
-            <span class="ident"><span class="self">Self</span>::ArgumentParse</span> { <span class="ident">error</span>, .. } =&gt; <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">error</span>),
-            <span class="ident"><span class="self">Self</span>::CommandStructureMismatch</span> { .. } =&gt; <span class="prelude-val">None</span>,
-            <span class="ident"><span class="self">Self</span>::CooldownHit</span> { .. } =&gt; <span class="prelude-val">None</span>,
-            <span class="ident"><span class="self">Self</span>::MissingBotPermissions</span> { .. } =&gt; <span class="prelude-val">None</span>,
-            <span class="ident"><span class="self">Self</span>::MissingUserPermissions</span> { .. } =&gt; <span class="prelude-val">None</span>,
-            <span class="ident"><span class="self">Self</span>::NotAnOwner</span> { .. } =&gt; <span class="prelude-val">None</span>,
-            <span class="ident"><span class="self">Self</span>::GuildOnly</span> { .. } =&gt; <span class="prelude-val">None</span>,
-            <span class="ident"><span class="self">Self</span>::DmOnly</span> { .. } =&gt; <span class="prelude-val">None</span>,
-            <span class="ident"><span class="self">Self</span>::NsfwOnly</span> { .. } =&gt; <span class="prelude-val">None</span>,
-            <span class="ident"><span class="self">Self</span>::CommandCheckFailed</span> { <span class="ident">error</span>, .. } =&gt; <span class="ident">error</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(|<span class="ident">x</span>| <span class="ident">x</span> <span class="kw">as</span> <span class="kw">_</span>),
-            <span class="ident"><span class="self">Self</span>::DynamicPrefix</span> { <span class="ident">error</span>, .. } =&gt; <span class="prelude-val">Some</span>(<span class="ident">error</span>),
-            <span class="ident"><span class="self">Self</span>::__NonExhaustive</span> =&gt; <span class="macro">unreachable!</span>(),
+    <span class="kw">fn </span>source(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>(<span class="kw">dyn </span>std::error::Error + <span class="lifetime">&#39;static</span>)&gt; {
+        <span class="kw">match </span><span class="self">self </span>{
+            <span class="self">Self</span>::Setup { error, .. } =&gt; <span class="prelude-val">Some</span>(error),
+            <span class="self">Self</span>::Listener { error, .. } =&gt; <span class="prelude-val">Some</span>(error),
+            <span class="self">Self</span>::Command { error, .. } =&gt; <span class="prelude-val">Some</span>(error),
+            <span class="self">Self</span>::ArgumentParse { error, .. } =&gt; <span class="prelude-val">Some</span>(<span class="kw-2">&amp;**</span>error),
+            <span class="self">Self</span>::CommandStructureMismatch { .. } =&gt; <span class="prelude-val">None</span>,
+            <span class="self">Self</span>::CooldownHit { .. } =&gt; <span class="prelude-val">None</span>,
+            <span class="self">Self</span>::MissingBotPermissions { .. } =&gt; <span class="prelude-val">None</span>,
+            <span class="self">Self</span>::MissingUserPermissions { .. } =&gt; <span class="prelude-val">None</span>,
+            <span class="self">Self</span>::NotAnOwner { .. } =&gt; <span class="prelude-val">None</span>,
+            <span class="self">Self</span>::GuildOnly { .. } =&gt; <span class="prelude-val">None</span>,
+            <span class="self">Self</span>::DmOnly { .. } =&gt; <span class="prelude-val">None</span>,
+            <span class="self">Self</span>::NsfwOnly { .. } =&gt; <span class="prelude-val">None</span>,
+            <span class="self">Self</span>::CommandCheckFailed { error, .. } =&gt; error.as_ref().map(|x| x <span class="kw">as _</span>),
+            <span class="self">Self</span>::DynamicPrefix { error, .. } =&gt; <span class="prelude-val">Some</span>(error),
+            <span class="self">Self</span>::__NonExhaustive =&gt; <span class="macro">unreachable!</span>(),
         }
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (748038961 2022-08-25)" ></div></body></html>

@@ -169,176 +169,176 @@
 <span id="169">169</span>
 <span id="170">170</span>
 <span id="171">171</span>
-</pre><pre class="rust"><code><span class="doccomment">//! Provides a utility EventHandler that generates [`Event`] enum instances for incoming events.</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Provides a utility EventHandler that generates [`Event`] enum instances for incoming events.
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serenity_prelude</span> <span class="kw">as</span> <span class="ident">serenity</span>, <span class="ident">BoxFuture</span>};
+</span><span class="kw">use crate</span>::{serenity_prelude <span class="kw">as </span>serenity, BoxFuture};
 
-<span class="doccomment">/// A [`serenity::EventHandler`] implementation that wraps every received event into the [`Event`]</span>
-<span class="doccomment">/// enum and propagates it to a callback.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Packaging every event into a singular type can make it easier to pass around and process.</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventWrapper</span>&lt;<span class="ident">F</span>&gt;(<span class="kw">pub</span> <span class="ident">F</span>)
-<span class="kw">where</span>
-    <span class="comment">// gotta have this generic bound in the struct as well, or type inference will break down the line</span>
-    <span class="ident">F</span>: <span class="ident">Send</span> + <span class="ident">Sync</span> + <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; <span class="ident">Fn</span>(<span class="ident">serenity::Context</span>, <span class="ident">Event</span>&lt;<span class="lifetime">&#39;a</span>&gt;) -&gt; <span class="ident">BoxFuture</span>&lt;<span class="lifetime">&#39;a</span>, ()&gt;;
+<span class="doccomment">/// A [`serenity::EventHandler`] implementation that wraps every received event into the [`Event`]
+/// enum and propagates it to a callback.
+///
+/// Packaging every event into a singular type can make it easier to pass around and process.
+</span><span class="kw">pub struct </span>EventWrapper&lt;F&gt;(<span class="kw">pub </span>F)
+<span class="kw">where
+    </span><span class="comment">// gotta have this generic bound in the struct as well, or type inference will break down the line
+    </span>F: Send + Sync + <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; Fn(serenity::Context, Event&lt;<span class="lifetime">&#39;a</span>&gt;) -&gt; BoxFuture&lt;<span class="lifetime">&#39;a</span>, ()&gt;;
 
-<span class="doccomment">/// Small macro to concisely generate the EventWrapper code while handling every possible event</span>
-<span class="macro">macro_rules!</span> <span class="ident">event</span> {
-    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">lt1</span>:<span class="ident">lifetime</span> $(
-        $( <span class="attribute">#[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>:<span class="ident">meta</span>]</span> )<span class="question-mark">?</span>
-        <span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>:<span class="ident">ident</span> $(&lt;<span class="macro-nonterminal">$</span><span class="macro-nonterminal">lt2</span>:<span class="ident">lifetime</span>&gt;)<span class="question-mark">?</span> =&gt; <span class="macro-nonterminal">$</span><span class="macro-nonterminal">variant_name</span>:<span class="ident">ident</span> { $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg_name</span>:<span class="ident">ident</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg_type</span>:<span class="ident">ty</span> ),* },
+<span class="doccomment">/// Small macro to concisely generate the EventWrapper code while handling every possible event
+</span><span class="macro">macro_rules! </span>event {
+    (<span class="macro-nonterminal">$lt1</span>:lifetime $(
+        $( <span class="attribute">#[<span class="macro-nonterminal">$attr</span>:meta] </span>)<span class="question-mark">?
+        </span><span class="macro-nonterminal">$fn_name</span>:ident $(&lt;<span class="macro-nonterminal">$lt2</span>:lifetime&gt;)<span class="question-mark">? </span>=&gt; <span class="macro-nonterminal">$variant_name</span>:ident { $( <span class="macro-nonterminal">$arg_name</span>:ident: <span class="macro-nonterminal">$arg_type</span>:ty ),* },
     )<span class="kw-2">*</span>) =&gt; {
-        <span class="attribute">#[<span class="ident">serenity::async_trait</span>]</span>
-        <span class="kw">impl</span>&lt;<span class="ident">F</span>&gt; <span class="ident">serenity::EventHandler</span> <span class="kw">for</span> <span class="ident">EventWrapper</span>&lt;<span class="ident">F</span>&gt;
-        <span class="kw">where</span>
-            <span class="ident">F</span>: <span class="ident">Send</span> + <span class="ident">Sync</span> + <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; <span class="ident">Fn</span>(<span class="ident">serenity::Context</span>, <span class="ident">Event</span>&lt;<span class="lifetime">&#39;a</span>&gt;) -&gt; <span class="ident">BoxFuture</span>&lt;<span class="lifetime">&#39;a</span>, ()&gt;
+        <span class="attribute">#[serenity::async_trait]
+        </span><span class="kw">impl</span>&lt;F&gt; serenity::EventHandler <span class="kw">for </span>EventWrapper&lt;F&gt;
+        <span class="kw">where
+            </span>F: Send + Sync + <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; Fn(serenity::Context, Event&lt;<span class="lifetime">&#39;a</span>&gt;) -&gt; BoxFuture&lt;<span class="lifetime">&#39;a</span>, ()&gt;
         {
             $(
-                $( <span class="attribute">#[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>]</span> )<span class="question-mark">?</span>
-                <span class="kw">async</span> <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>&lt;<span class="lifetime">&#39;s</span> $(, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">lt2</span>)<span class="question-mark">?</span> &gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;s</span> <span class="self">self</span>, <span class="ident">ctx</span>: <span class="ident">serenity::Context</span>, $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg_name</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg_type</span>, )* ) {
-                    (<span class="self">self</span>.<span class="number">0</span>)(<span class="ident">ctx</span>, <span class="ident">Event</span>::<span class="macro-nonterminal">$</span><span class="macro-nonterminal">variant_name</span> { $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg_name</span>, )* }).<span class="kw">await</span>
-                }
+                $( <span class="attribute">#[<span class="macro-nonterminal">$attr</span>] </span>)<span class="question-mark">?
+                </span><span class="kw">async fn </span><span class="macro-nonterminal">$fn_name</span>&lt;<span class="lifetime">&#39;s </span>$(, <span class="macro-nonterminal">$lt2</span>)<span class="question-mark">? </span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;s </span><span class="self">self</span>, ctx: serenity::Context, $( <span class="macro-nonterminal">$arg_name</span>: <span class="macro-nonterminal">$arg_type</span>, )* ) {
+                    (<span class="self">self</span>.<span class="number">0</span>)(ctx, Event::<span class="macro-nonterminal">$variant_name </span>{ $( <span class="macro-nonterminal">$arg_name</span>, )* }).<span class="kw">await
+                </span>}
             )*
         }
 
-        <span class="doccomment">/// This enum stores every possible event that a [`serenity::EventHandler`] can receive.</span>
-        <span class="doccomment">///</span>
-        <span class="doccomment">/// Passed to the stored callback by [`EventWrapper`].</span>
-        <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::large_enum_variant</span>)]</span>
-        <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">missing_docs</span>)]</span>
-        <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-        <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Event</span>&lt;<span class="macro-nonterminal">$</span><span class="macro-nonterminal">lt1</span>&gt; {
+        <span class="doccomment">/// This enum stores every possible event that a [`serenity::EventHandler`] can receive.
+        ///
+        /// Passed to the stored callback by [`EventWrapper`].
+        </span><span class="attribute">#[allow(clippy::large_enum_variant)]
+        #[allow(missing_docs)]
+        #[derive(Debug, Clone)]
+        </span><span class="kw">pub enum </span>Event&lt;<span class="macro-nonterminal">$lt1</span>&gt; {
             $(
-                $( <span class="attribute">#[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>]</span> )<span class="question-mark">?</span>
-                <span class="macro-nonterminal">$</span><span class="macro-nonterminal">variant_name</span> { $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg_name</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg_type</span> ),* },
+                $( <span class="attribute">#[<span class="macro-nonterminal">$attr</span>] </span>)<span class="question-mark">?
+                </span><span class="macro-nonterminal">$variant_name </span>{ $( <span class="macro-nonterminal">$arg_name</span>: <span class="macro-nonterminal">$arg_type </span>),* },
             )*
-            <span class="comment">// #[non_exhaustive] forbids struct update syntax for ?? reason</span>
-            <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-            <span class="ident">__NonExhaustive</span>,
+            <span class="comment">// #[non_exhaustive] forbids struct update syntax for ?? reason
+            </span><span class="attribute">#[doc(hidden)]
+            </span>__NonExhaustive,
         }
 
-        <span class="kw">impl</span> <span class="ident">Event</span>&lt;<span class="lifetime">&#39;_</span>&gt; {
-            <span class="doccomment">/// Return the name of the event type</span>
-            <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> {
-                <span class="kw">match</span> <span class="self">self</span> {
+        <span class="kw">impl </span>Event&lt;<span class="lifetime">&#39;_</span>&gt; {
+            <span class="doccomment">/// Return the name of the event type
+            </span><span class="kw">pub fn </span>name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str {
+                <span class="kw">match </span><span class="self">self </span>{
                     $(
-                        $( <span class="attribute">#[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>]</span> )<span class="question-mark">?</span>
-                        <span class="self">Self</span>::<span class="macro-nonterminal">$</span><span class="macro-nonterminal">variant_name</span> { .. } =&gt; <span class="macro">stringify!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">variant_name</span>),
+                        $( <span class="attribute">#[<span class="macro-nonterminal">$attr</span>] </span>)<span class="question-mark">?
+                        </span><span class="self">Self</span>::<span class="macro-nonterminal">$variant_name </span>{ .. } =&gt; <span class="macro">stringify!</span>(<span class="macro-nonterminal">$variant_name</span>),
                     )*
-                    <span class="ident"><span class="self">Self</span>::__NonExhaustive</span> =&gt; <span class="macro">panic!</span>(),
+                    <span class="self">Self</span>::__NonExhaustive =&gt; <span class="macro">panic!</span>(),
                 }
             }
 
-            <span class="doccomment">/// Runs this event in the given [`serenity::EventHandler`]</span>
-            <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">dispatch</span>(<span class="self">self</span>, <span class="ident">ctx</span>: <span class="ident">serenity::Context</span>, <span class="ident">handler</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">serenity::EventHandler</span>) {
-                <span class="kw">match</span> <span class="self">self</span> {
+            <span class="doccomment">/// Runs this event in the given [`serenity::EventHandler`]
+            </span><span class="kw">pub async fn </span>dispatch(<span class="self">self</span>, ctx: serenity::Context, handler: <span class="kw-2">&amp;</span><span class="kw">dyn </span>serenity::EventHandler) {
+                <span class="kw">match </span><span class="self">self </span>{
                     $(
-                        $( <span class="attribute">#[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>]</span> )<span class="question-mark">?</span>
-                        <span class="self">Self</span>::<span class="macro-nonterminal">$</span><span class="macro-nonterminal">variant_name</span> { $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg_name</span> ),* } =&gt; {
-                            <span class="ident">handler</span>.<span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_name</span>( <span class="ident">ctx</span>, $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg_name</span> ),* ).<span class="kw">await</span>;
+                        $( <span class="attribute">#[<span class="macro-nonterminal">$attr</span>] </span>)<span class="question-mark">?
+                        </span><span class="self">Self</span>::<span class="macro-nonterminal">$variant_name </span>{ $( <span class="macro-nonterminal">$arg_name </span>),* } =&gt; {
+                            handler.<span class="macro-nonterminal">$fn_name</span>( ctx, $( <span class="macro-nonterminal">$arg_name </span>),* ).<span class="kw">await</span>;
                         }
                     )*
-                    <span class="ident"><span class="self">Self</span>::__NonExhaustive</span> =&gt; <span class="macro">panic!</span>(),
+                    <span class="self">Self</span>::__NonExhaustive =&gt; <span class="macro">panic!</span>(),
                 }
             }
         }
     };
 }
 
-<span class="comment">// generated from serenity/client/event_handler.rs</span>
-<span class="comment">// with help from vscode multiline editing and some manual cleanup</span>
-<span class="macro">event!</span> {
-    <span class="lifetime">&#39;a</span>
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> = <span class="string">&quot;cache&quot;</span>)]</span>
-    <span class="ident">cache_ready</span> =&gt; <span class="ident">CacheReady</span> { <span class="ident">guilds</span>: <span class="ident">Vec</span>&lt;<span class="ident">serenity::GuildId</span>&gt; },
-    <span class="ident">channel_create</span>&lt;<span class="lifetime">&#39;a</span>&gt; =&gt; <span class="ident">ChannelCreate</span> { <span class="ident">channel</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">serenity::GuildChannel</span> },
-    <span class="ident">category_create</span>&lt;<span class="lifetime">&#39;a</span>&gt; =&gt; <span class="ident">CategoryCreate</span> { <span class="ident">category</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">serenity::ChannelCategory</span> },
-    <span class="ident">category_delete</span>&lt;<span class="lifetime">&#39;a</span>&gt; =&gt; <span class="ident">CategoryDelete</span> { <span class="ident">category</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">serenity::ChannelCategory</span> },
-    <span class="ident">channel_delete</span>&lt;<span class="lifetime">&#39;a</span>&gt; =&gt; <span class="ident">ChannelDelete</span> { <span class="ident">channel</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">serenity::GuildChannel</span> },
-    <span class="ident">channel_pins_update</span> =&gt; <span class="ident">ChannelPinsUpdate</span> { <span class="ident">pin</span>: <span class="ident">serenity::ChannelPinsUpdateEvent</span> },
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> = <span class="string">&quot;cache&quot;</span>)]</span>
-    <span class="ident">channel_update</span> =&gt; <span class="ident">ChannelUpdate</span> { <span class="ident">old</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::Channel</span>&gt;, <span class="ident">new</span>: <span class="ident">serenity::Channel</span> },
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> = <span class="string">&quot;cache&quot;</span>))]</span>
-    <span class="ident">channel_update</span> =&gt; <span class="ident">ChannelUpdate</span> { <span class="ident">new</span>: <span class="ident">serenity::Channel</span> },
-    <span class="ident">guild_ban_addition</span> =&gt; <span class="ident">GuildBanAddition</span> { <span class="ident">guild_id</span>: <span class="ident">serenity::GuildId</span>, <span class="ident">banned_user</span>: <span class="ident">serenity::User</span> },
-    <span class="ident">guild_ban_removal</span> =&gt; <span class="ident">GuildBanRemoval</span> { <span class="ident">guild_id</span>: <span class="ident">serenity::GuildId</span>, <span class="ident">unbanned_user</span>: <span class="ident">serenity::User</span> },
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> = <span class="string">&quot;cache&quot;</span>)]</span>
-    <span class="ident">guild_create</span> =&gt; <span class="ident">GuildCreate</span> { <span class="ident">guild</span>: <span class="ident">serenity::Guild</span>, <span class="ident">is_new</span>: <span class="ident">bool</span> },
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> = <span class="string">&quot;cache&quot;</span>))]</span>
-    <span class="ident">guild_create</span> =&gt; <span class="ident">GuildCreate</span> { <span class="ident">guild</span>: <span class="ident">serenity::Guild</span> },
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> = <span class="string">&quot;cache&quot;</span>)]</span>
-    <span class="ident">guild_delete</span> =&gt; <span class="ident">GuildDelete</span> { <span class="ident">incomplete</span>: <span class="ident">serenity::UnavailableGuild</span>, <span class="ident">full</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::Guild</span>&gt; },
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> = <span class="string">&quot;cache&quot;</span>))]</span>
-    <span class="ident">guild_delete</span> =&gt; <span class="ident">GuildDelete</span> { <span class="ident">incomplete</span>: <span class="ident">serenity::UnavailableGuild</span> },
-    <span class="ident">guild_emojis_update</span> =&gt; <span class="ident">GuildEmojisUpdate</span> { <span class="ident">guild_id</span>: <span class="ident">serenity::GuildId</span>, <span class="ident">current_state</span>: <span class="ident">std::collections::HashMap</span>&lt;<span class="ident">serenity::EmojiId</span>, <span class="ident">serenity::Emoji</span>&gt; },
-    <span class="ident">guild_integrations_update</span> =&gt; <span class="ident">GuildIntegrationsUpdate</span> { <span class="ident">guild_id</span>: <span class="ident">serenity::GuildId</span> },
-    <span class="ident">guild_member_addition</span> =&gt; <span class="ident">GuildMemberAddition</span> { <span class="ident">new_member</span>: <span class="ident">serenity::Member</span> },
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> = <span class="string">&quot;cache&quot;</span>)]</span>
-    <span class="ident">guild_member_removal</span> =&gt; <span class="ident">GuildMemberRemoval</span> { <span class="ident">guild_id</span>: <span class="ident">serenity::GuildId</span>, <span class="ident">user</span>: <span class="ident">serenity::User</span>, <span class="ident">member_data_if_available</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::Member</span>&gt; },
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> = <span class="string">&quot;cache&quot;</span>))]</span>
-    <span class="ident">guild_member_removal</span> =&gt; <span class="ident">GuildMemberRemoval</span> { <span class="ident">guild_id</span>: <span class="ident">serenity::GuildId</span>, <span class="ident">user</span>: <span class="ident">serenity::User</span> },
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> = <span class="string">&quot;cache&quot;</span>)]</span>
-    <span class="ident">guild_member_update</span> =&gt; <span class="ident">GuildMemberUpdate</span> { <span class="ident">old_if_available</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::Member</span>&gt;, <span class="ident">new</span>: <span class="ident">serenity::Member</span> },
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> = <span class="string">&quot;cache&quot;</span>))]</span>
-    <span class="ident">guild_member_update</span> =&gt; <span class="ident">GuildMemberUpdate</span> { <span class="ident">data</span>: <span class="ident">serenity::GuildMemberUpdateEvent</span> },
-    <span class="ident">guild_members_chunk</span> =&gt; <span class="ident">GuildMembersChunk</span> { <span class="ident">chunk</span>: <span class="ident">serenity::GuildMembersChunkEvent</span> },
-    <span class="ident">guild_role_create</span> =&gt; <span class="ident">GuildRoleCreate</span> { <span class="ident">new</span>: <span class="ident">serenity::Role</span> },
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> = <span class="string">&quot;cache&quot;</span>)]</span>
-    <span class="ident">guild_role_delete</span> =&gt; <span class="ident">GuildRoleDelete</span> { <span class="ident">guild_id</span>: <span class="ident">serenity::GuildId</span>, <span class="ident">removed_role_id</span>: <span class="ident">serenity::RoleId</span>, <span class="ident">removed_role_data_if_available</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::Role</span>&gt; },
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> = <span class="string">&quot;cache&quot;</span>))]</span>
-    <span class="ident">guild_role_delete</span> =&gt; <span class="ident">GuildRoleDelete</span> { <span class="ident">guild_id</span>: <span class="ident">serenity::GuildId</span>, <span class="ident">removed_role_id</span>: <span class="ident">serenity::RoleId</span> },
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> = <span class="string">&quot;cache&quot;</span>)]</span>
-    <span class="ident">guild_role_update</span> =&gt; <span class="ident">GuildRoleUpdate</span> { <span class="ident">old_data_if_available</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::Role</span>&gt;, <span class="ident">new</span>: <span class="ident">serenity::Role</span> },
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> = <span class="string">&quot;cache&quot;</span>))]</span>
-    <span class="ident">guild_role_update</span> =&gt; <span class="ident">GuildRoleUpdate</span> { <span class="ident">new</span>: <span class="ident">serenity::Role</span> },
-    <span class="ident">guild_stickers_update</span> =&gt; <span class="ident">GuildStickersUpdate</span> { <span class="ident">guild_id</span>: <span class="ident">serenity::GuildId</span>, <span class="ident">current_state</span>: <span class="ident">std::collections::HashMap</span>&lt;<span class="ident">serenity::StickerId</span>, <span class="ident">serenity::Sticker</span>&gt;},
-    <span class="ident">guild_unavailable</span> =&gt; <span class="ident">GuildUnavailable</span> { <span class="ident">guild_id</span>: <span class="ident">serenity::GuildId</span> },
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> = <span class="string">&quot;cache&quot;</span>)]</span>
-    <span class="ident">guild_update</span> =&gt; <span class="ident">GuildUpdate</span> { <span class="ident">old_data_if_available</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::Guild</span>&gt;, <span class="ident">new_but_incomplete</span>: <span class="ident">serenity::PartialGuild</span> },
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> = <span class="string">&quot;cache&quot;</span>))]</span>
-    <span class="ident">guild_update</span> =&gt; <span class="ident">GuildUpdate</span> { <span class="ident">new_but_incomplete</span>: <span class="ident">serenity::PartialGuild</span> },
-    <span class="ident">integration_create</span> =&gt; <span class="ident">IntegrationCreate</span> { <span class="ident">integration</span>: <span class="ident">serenity::Integration</span> },
-    <span class="ident">integration_update</span> =&gt; <span class="ident">IntegrationUpdate</span> { <span class="ident">integration</span>: <span class="ident">serenity::Integration</span> },
-    <span class="ident">integration_delete</span> =&gt; <span class="ident">IntegrationDelete</span> { <span class="ident">integration_id</span>: <span class="ident">serenity::IntegrationId</span>, <span class="ident">guild_id</span>: <span class="ident">serenity::GuildId</span>, <span class="ident">application_id</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::ApplicationId</span>&gt; },
-    <span class="ident">invite_create</span> =&gt; <span class="ident">InviteCreate</span> { <span class="ident">data</span>: <span class="ident">serenity::InviteCreateEvent</span> },
-    <span class="ident">invite_delete</span> =&gt; <span class="ident">InviteDelete</span> { <span class="ident">data</span>: <span class="ident">serenity::InviteDeleteEvent</span> },
-    <span class="ident">message</span> =&gt; <span class="ident">Message</span> { <span class="ident">new_message</span>: <span class="ident">serenity::Message</span> },
-    <span class="ident">message_delete</span> =&gt; <span class="ident">MessageDelete</span> { <span class="ident">channel_id</span>: <span class="ident">serenity::ChannelId</span>, <span class="ident">deleted_message_id</span>: <span class="ident">serenity::MessageId</span>, <span class="ident">guild_id</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::GuildId</span>&gt; },
-    <span class="ident">message_delete_bulk</span> =&gt; <span class="ident">MessageDeleteBulk</span> { <span class="ident">channel_id</span>: <span class="ident">serenity::ChannelId</span>, <span class="ident">multiple_deleted_messages_ids</span>: <span class="ident">Vec</span>&lt;<span class="ident">serenity::MessageId</span>&gt;, <span class="ident">guild_id</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::GuildId</span>&gt; },
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> = <span class="string">&quot;cache&quot;</span>)]</span>
-    <span class="ident">message_update</span> =&gt; <span class="ident">MessageUpdate</span> { <span class="ident">old_if_available</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::Message</span>&gt;, <span class="ident">new</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::Message</span>&gt;, <span class="ident">event</span>: <span class="ident">serenity::MessageUpdateEvent</span> },
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> = <span class="string">&quot;cache&quot;</span>))]</span>
-    <span class="ident">message_update</span> =&gt; <span class="ident">MessageUpdate</span> { <span class="ident">event</span>: <span class="ident">serenity::MessageUpdateEvent</span> },
-    <span class="ident">reaction_add</span> =&gt; <span class="ident">ReactionAdd</span> { <span class="ident">add_reaction</span>: <span class="ident">serenity::Reaction</span> },
-    <span class="ident">reaction_remove</span> =&gt; <span class="ident">ReactionRemove</span> { <span class="ident">removed_reaction</span>: <span class="ident">serenity::Reaction</span> },
-    <span class="ident">reaction_remove_all</span> =&gt; <span class="ident">ReactionRemoveAll</span> { <span class="ident">channel_id</span>: <span class="ident">serenity::ChannelId</span>, <span class="ident">removed_from_message_id</span>: <span class="ident">serenity::MessageId</span> },
-    <span class="ident">presence_replace</span> =&gt; <span class="ident">PresenceReplace</span> { <span class="ident">new_presences</span>: <span class="ident">Vec</span>&lt;<span class="ident">serenity::Presence</span>&gt; },
-    <span class="ident">presence_update</span> =&gt; <span class="ident">PresenceUpdate</span> { <span class="ident">new_data</span>: <span class="ident">serenity::Presence</span> },
-    <span class="ident">ready</span> =&gt; <span class="ident">Ready</span> { <span class="ident">data_about_bot</span>: <span class="ident">serenity::Ready</span> },
-    <span class="ident">resume</span> =&gt; <span class="ident">Resume</span> { <span class="ident">event</span>: <span class="ident">serenity::ResumedEvent</span> },
-    <span class="ident">shard_stage_update</span> =&gt; <span class="ident">ShardStageUpdate</span> { <span class="ident">update</span>: <span class="ident">serenity::ShardStageUpdateEvent</span> },
-    <span class="ident">stage_instance_create</span> =&gt; <span class="ident">StageInstanceCreate</span> { <span class="ident">stage_instance</span>: <span class="ident">serenity::StageInstance</span> },
-    <span class="ident">stage_instance_delete</span> =&gt; <span class="ident">StageInstanceDelete</span> { <span class="ident">stage_instance</span>: <span class="ident">serenity::StageInstance</span> },
-    <span class="ident">stage_instance_update</span> =&gt; <span class="ident">StageInstanceUpdate</span> { <span class="ident">stage_instance</span>: <span class="ident">serenity::StageInstance</span> },
-    <span class="ident">thread_create</span> =&gt; <span class="ident">ThreadCreate</span> { <span class="ident">thread</span>: <span class="ident">serenity::GuildChannel</span> },
-    <span class="ident">thread_delete</span> =&gt; <span class="ident">ThreadDelete</span> { <span class="ident">thread</span>: <span class="ident">serenity::PartialGuildChannel</span> },
-    <span class="ident">thread_list_sync</span> =&gt; <span class="ident">ThreadListSync</span> { <span class="ident">thread_list_sync</span>: <span class="ident">serenity::ThreadListSyncEvent</span> },
-    <span class="ident">thread_member_update</span> =&gt; <span class="ident">ThreadMemberUpdate</span> { <span class="ident">thread_member</span>: <span class="ident">serenity::ThreadMember</span> },
-    <span class="ident">thread_members_update</span> =&gt; <span class="ident">ThreadMembersUpdate</span> { <span class="ident">thread_members_update</span>: <span class="ident">serenity::ThreadMembersUpdateEvent</span> },
-    <span class="ident">thread_update</span> =&gt; <span class="ident">ThreadUpdate</span> { <span class="ident">thread</span>: <span class="ident">serenity::GuildChannel</span> },
-    <span class="ident">typing_start</span> =&gt; <span class="ident">TypingStart</span> { <span class="ident">event</span>: <span class="ident">serenity::TypingStartEvent</span> },
-    <span class="ident">unknown</span> =&gt; <span class="ident">Unknown</span> { <span class="ident">name</span>: <span class="ident">String</span>, <span class="ident">raw</span>: <span class="ident">serenity::json::Value</span> },
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> = <span class="string">&quot;cache&quot;</span>)]</span>
-    <span class="ident">user_update</span> =&gt; <span class="ident">UserUpdate</span> { <span class="ident">old_data</span>: <span class="ident">serenity::CurrentUser</span>, <span class="ident">new</span>: <span class="ident">serenity::CurrentUser</span> },
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> = <span class="string">&quot;cache&quot;</span>))]</span>
-    <span class="ident">user_update</span> =&gt; <span class="ident">UserUpdate</span> { <span class="ident">new</span>: <span class="ident">serenity::CurrentUser</span> },
-    <span class="ident">voice_server_update</span> =&gt; <span class="ident">VoiceServerUpdate</span> { <span class="ident">update</span>: <span class="ident">serenity::VoiceServerUpdateEvent</span> },
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> = <span class="string">&quot;cache&quot;</span>)]</span>
-    <span class="ident">voice_state_update</span> =&gt; <span class="ident">VoiceStateUpdate</span> { <span class="ident">old</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::VoiceState</span>&gt;, <span class="ident">new</span>: <span class="ident">serenity::VoiceState</span> },
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> = <span class="string">&quot;cache&quot;</span>))]</span>
-    <span class="ident">voice_state_update</span> =&gt; <span class="ident">VoiceStateUpdate</span> { <span class="ident">new</span>: <span class="ident">serenity::VoiceState</span> },
-    <span class="ident">webhook_update</span> =&gt; <span class="ident">WebhookUpdate</span> { <span class="ident">guild_id</span>: <span class="ident">serenity::GuildId</span>, <span class="ident">belongs_to_channel_id</span>: <span class="ident">serenity::ChannelId</span> },
-    <span class="ident">interaction_create</span> =&gt; <span class="ident">InteractionCreate</span> { <span class="ident">interaction</span>: <span class="ident">serenity::Interaction</span> },
+<span class="comment">// generated from serenity/client/event_handler.rs
+// with help from vscode multiline editing and some manual cleanup
+</span><span class="macro">event! </span>{
+    <span class="lifetime">&#39;a
+    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span>cache_ready =&gt; CacheReady { guilds: Vec&lt;serenity::GuildId&gt; },
+    channel_create&lt;<span class="lifetime">&#39;a</span>&gt; =&gt; ChannelCreate { channel: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::GuildChannel },
+    category_create&lt;<span class="lifetime">&#39;a</span>&gt; =&gt; CategoryCreate { category: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::ChannelCategory },
+    category_delete&lt;<span class="lifetime">&#39;a</span>&gt; =&gt; CategoryDelete { category: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::ChannelCategory },
+    channel_delete&lt;<span class="lifetime">&#39;a</span>&gt; =&gt; ChannelDelete { channel: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::GuildChannel },
+    channel_pins_update =&gt; ChannelPinsUpdate { pin: serenity::ChannelPinsUpdateEvent },
+    <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span>channel_update =&gt; ChannelUpdate { old: <span class="prelude-ty">Option</span>&lt;serenity::Channel&gt;, new: serenity::Channel },
+    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    </span>channel_update =&gt; ChannelUpdate { new: serenity::Channel },
+    guild_ban_addition =&gt; GuildBanAddition { guild_id: serenity::GuildId, banned_user: serenity::User },
+    guild_ban_removal =&gt; GuildBanRemoval { guild_id: serenity::GuildId, unbanned_user: serenity::User },
+    <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span>guild_create =&gt; GuildCreate { guild: serenity::Guild, is_new: bool },
+    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    </span>guild_create =&gt; GuildCreate { guild: serenity::Guild },
+    <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span>guild_delete =&gt; GuildDelete { incomplete: serenity::UnavailableGuild, full: <span class="prelude-ty">Option</span>&lt;serenity::Guild&gt; },
+    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    </span>guild_delete =&gt; GuildDelete { incomplete: serenity::UnavailableGuild },
+    guild_emojis_update =&gt; GuildEmojisUpdate { guild_id: serenity::GuildId, current_state: std::collections::HashMap&lt;serenity::EmojiId, serenity::Emoji&gt; },
+    guild_integrations_update =&gt; GuildIntegrationsUpdate { guild_id: serenity::GuildId },
+    guild_member_addition =&gt; GuildMemberAddition { new_member: serenity::Member },
+    <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span>guild_member_removal =&gt; GuildMemberRemoval { guild_id: serenity::GuildId, user: serenity::User, member_data_if_available: <span class="prelude-ty">Option</span>&lt;serenity::Member&gt; },
+    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    </span>guild_member_removal =&gt; GuildMemberRemoval { guild_id: serenity::GuildId, user: serenity::User },
+    <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span>guild_member_update =&gt; GuildMemberUpdate { old_if_available: <span class="prelude-ty">Option</span>&lt;serenity::Member&gt;, new: serenity::Member },
+    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    </span>guild_member_update =&gt; GuildMemberUpdate { data: serenity::GuildMemberUpdateEvent },
+    guild_members_chunk =&gt; GuildMembersChunk { chunk: serenity::GuildMembersChunkEvent },
+    guild_role_create =&gt; GuildRoleCreate { new: serenity::Role },
+    <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span>guild_role_delete =&gt; GuildRoleDelete { guild_id: serenity::GuildId, removed_role_id: serenity::RoleId, removed_role_data_if_available: <span class="prelude-ty">Option</span>&lt;serenity::Role&gt; },
+    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    </span>guild_role_delete =&gt; GuildRoleDelete { guild_id: serenity::GuildId, removed_role_id: serenity::RoleId },
+    <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span>guild_role_update =&gt; GuildRoleUpdate { old_data_if_available: <span class="prelude-ty">Option</span>&lt;serenity::Role&gt;, new: serenity::Role },
+    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    </span>guild_role_update =&gt; GuildRoleUpdate { new: serenity::Role },
+    guild_stickers_update =&gt; GuildStickersUpdate { guild_id: serenity::GuildId, current_state: std::collections::HashMap&lt;serenity::StickerId, serenity::Sticker&gt;},
+    guild_unavailable =&gt; GuildUnavailable { guild_id: serenity::GuildId },
+    <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span>guild_update =&gt; GuildUpdate { old_data_if_available: <span class="prelude-ty">Option</span>&lt;serenity::Guild&gt;, new_but_incomplete: serenity::PartialGuild },
+    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    </span>guild_update =&gt; GuildUpdate { new_but_incomplete: serenity::PartialGuild },
+    integration_create =&gt; IntegrationCreate { integration: serenity::Integration },
+    integration_update =&gt; IntegrationUpdate { integration: serenity::Integration },
+    integration_delete =&gt; IntegrationDelete { integration_id: serenity::IntegrationId, guild_id: serenity::GuildId, application_id: <span class="prelude-ty">Option</span>&lt;serenity::ApplicationId&gt; },
+    invite_create =&gt; InviteCreate { data: serenity::InviteCreateEvent },
+    invite_delete =&gt; InviteDelete { data: serenity::InviteDeleteEvent },
+    message =&gt; Message { new_message: serenity::Message },
+    message_delete =&gt; MessageDelete { channel_id: serenity::ChannelId, deleted_message_id: serenity::MessageId, guild_id: <span class="prelude-ty">Option</span>&lt;serenity::GuildId&gt; },
+    message_delete_bulk =&gt; MessageDeleteBulk { channel_id: serenity::ChannelId, multiple_deleted_messages_ids: Vec&lt;serenity::MessageId&gt;, guild_id: <span class="prelude-ty">Option</span>&lt;serenity::GuildId&gt; },
+    <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span>message_update =&gt; MessageUpdate { old_if_available: <span class="prelude-ty">Option</span>&lt;serenity::Message&gt;, new: <span class="prelude-ty">Option</span>&lt;serenity::Message&gt;, event: serenity::MessageUpdateEvent },
+    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    </span>message_update =&gt; MessageUpdate { event: serenity::MessageUpdateEvent },
+    reaction_add =&gt; ReactionAdd { add_reaction: serenity::Reaction },
+    reaction_remove =&gt; ReactionRemove { removed_reaction: serenity::Reaction },
+    reaction_remove_all =&gt; ReactionRemoveAll { channel_id: serenity::ChannelId, removed_from_message_id: serenity::MessageId },
+    presence_replace =&gt; PresenceReplace { new_presences: Vec&lt;serenity::Presence&gt; },
+    presence_update =&gt; PresenceUpdate { new_data: serenity::Presence },
+    ready =&gt; Ready { data_about_bot: serenity::Ready },
+    resume =&gt; Resume { event: serenity::ResumedEvent },
+    shard_stage_update =&gt; ShardStageUpdate { update: serenity::ShardStageUpdateEvent },
+    stage_instance_create =&gt; StageInstanceCreate { stage_instance: serenity::StageInstance },
+    stage_instance_delete =&gt; StageInstanceDelete { stage_instance: serenity::StageInstance },
+    stage_instance_update =&gt; StageInstanceUpdate { stage_instance: serenity::StageInstance },
+    thread_create =&gt; ThreadCreate { thread: serenity::GuildChannel },
+    thread_delete =&gt; ThreadDelete { thread: serenity::PartialGuildChannel },
+    thread_list_sync =&gt; ThreadListSync { thread_list_sync: serenity::ThreadListSyncEvent },
+    thread_member_update =&gt; ThreadMemberUpdate { thread_member: serenity::ThreadMember },
+    thread_members_update =&gt; ThreadMembersUpdate { thread_members_update: serenity::ThreadMembersUpdateEvent },
+    thread_update =&gt; ThreadUpdate { thread: serenity::GuildChannel },
+    typing_start =&gt; TypingStart { event: serenity::TypingStartEvent },
+    unknown =&gt; Unknown { name: String, raw: serenity::json::Value },
+    <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span>user_update =&gt; UserUpdate { old_data: serenity::CurrentUser, new: serenity::CurrentUser },
+    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    </span>user_update =&gt; UserUpdate { new: serenity::CurrentUser },
+    voice_server_update =&gt; VoiceServerUpdate { update: serenity::VoiceServerUpdateEvent },
+    <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span>voice_state_update =&gt; VoiceStateUpdate { old: <span class="prelude-ty">Option</span>&lt;serenity::VoiceState&gt;, new: serenity::VoiceState },
+    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    </span>voice_state_update =&gt; VoiceStateUpdate { new: serenity::VoiceState },
+    webhook_update =&gt; WebhookUpdate { guild_id: serenity::GuildId, belongs_to_channel_id: serenity::ChannelId },
+    interaction_create =&gt; InteractionCreate { interaction: serenity::Interaction },
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (748038961 2022-08-25)" ></div></body></html>

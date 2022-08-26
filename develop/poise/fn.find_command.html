@@ -2,24 +2,24 @@
 Returns the verbatim command name string as well as the command arguments (i.e. the remaining
 string).</p>
 
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attribute">#[<span class="ident">poise::command</span>(<span class="ident">prefix_command</span>)]</span>
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">command1</span>(<span class="ident">ctx</span>: <span class="ident">poise::Context</span>&lt;<span class="lifetime">&#39;_</span>, (), ()&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), ()&gt; { <span class="prelude-val">Ok</span>(()) }
-<span class="attribute">#[<span class="ident">poise::command</span>(<span class="ident">prefix_command</span>, <span class="ident">subcommands</span>(<span class="string">&quot;command3&quot;</span>))]</span>
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">command2</span>(<span class="ident">ctx</span>: <span class="ident">poise::Context</span>&lt;<span class="lifetime">&#39;_</span>, (), ()&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), ()&gt; { <span class="prelude-val">Ok</span>(()) }
-<span class="attribute">#[<span class="ident">poise::command</span>(<span class="ident">prefix_command</span>)]</span>
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">command3</span>(<span class="ident">ctx</span>: <span class="ident">poise::Context</span>&lt;<span class="lifetime">&#39;_</span>, (), ()&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), ()&gt; { <span class="prelude-val">Ok</span>(()) }
-<span class="kw">let</span> <span class="ident">commands</span> = <span class="macro">vec!</span>[<span class="ident">command1</span>(), <span class="ident">command2</span>()];
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attribute">#[poise::command(prefix_command)]
+</span><span class="kw">async fn </span>command1(ctx: poise::Context&lt;<span class="lifetime">&#39;_</span>, (), ()&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), ()&gt; { <span class="prelude-val">Ok</span>(()) }
+<span class="attribute">#[poise::command(prefix_command, subcommands(<span class="string">&quot;command3&quot;</span>))]
+</span><span class="kw">async fn </span>command2(ctx: poise::Context&lt;<span class="lifetime">&#39;_</span>, (), ()&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), ()&gt; { <span class="prelude-val">Ok</span>(()) }
+<span class="attribute">#[poise::command(prefix_command)]
+</span><span class="kw">async fn </span>command3(ctx: poise::Context&lt;<span class="lifetime">&#39;_</span>, (), ()&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), ()&gt; { <span class="prelude-val">Ok</span>(()) }
+<span class="kw">let </span>commands = <span class="macro">vec!</span>[command1(), command2()];
 
 <span class="macro">assert_eq!</span>(
-    <span class="ident">poise::find_command</span>(<span class="kw-2">&amp;</span><span class="ident">commands</span>, <span class="string">&quot;command1 my arguments&quot;</span>, <span class="bool-val">false</span>),
-    <span class="prelude-val">Some</span>((<span class="kw-2">&amp;</span><span class="ident">commands</span>[<span class="number">0</span>], <span class="string">&quot;command1&quot;</span>, <span class="string">&quot;my arguments&quot;</span>)),
+    poise::find_command(<span class="kw-2">&amp;</span>commands, <span class="string">&quot;command1 my arguments&quot;</span>, <span class="bool-val">false</span>),
+    <span class="prelude-val">Some</span>((<span class="kw-2">&amp;</span>commands[<span class="number">0</span>], <span class="string">&quot;command1&quot;</span>, <span class="string">&quot;my arguments&quot;</span>)),
 );
 <span class="macro">assert_eq!</span>(
-    <span class="ident">poise::find_command</span>(<span class="kw-2">&amp;</span><span class="ident">commands</span>, <span class="string">&quot;command2 command3 my arguments&quot;</span>, <span class="bool-val">false</span>),
-    <span class="prelude-val">Some</span>((<span class="kw-2">&amp;</span><span class="ident">commands</span>[<span class="number">1</span>].<span class="ident">subcommands</span>[<span class="number">0</span>], <span class="string">&quot;command3&quot;</span>, <span class="string">&quot;my arguments&quot;</span>)),
+    poise::find_command(<span class="kw-2">&amp;</span>commands, <span class="string">&quot;command2 command3 my arguments&quot;</span>, <span class="bool-val">false</span>),
+    <span class="prelude-val">Some</span>((<span class="kw-2">&amp;</span>commands[<span class="number">1</span>].subcommands[<span class="number">0</span>], <span class="string">&quot;command3&quot;</span>, <span class="string">&quot;my arguments&quot;</span>)),
 );
 <span class="macro">assert_eq!</span>(
-    <span class="ident">poise::find_command</span>(<span class="kw-2">&amp;</span><span class="ident">commands</span>, <span class="string">&quot;CoMmAnD2 cOmMaNd99 my arguments&quot;</span>, <span class="bool-val">true</span>),
-    <span class="prelude-val">Some</span>((<span class="kw-2">&amp;</span><span class="ident">commands</span>[<span class="number">1</span>], <span class="string">&quot;CoMmAnD2&quot;</span>, <span class="string">&quot;cOmMaNd99 my arguments&quot;</span>)),
+    poise::find_command(<span class="kw-2">&amp;</span>commands, <span class="string">&quot;CoMmAnD2 cOmMaNd99 my arguments&quot;</span>, <span class="bool-val">true</span>),
+    <span class="prelude-val">Some</span>((<span class="kw-2">&amp;</span>commands[<span class="number">1</span>], <span class="string">&quot;CoMmAnD2&quot;</span>, <span class="string">&quot;cOmMaNd99 my arguments&quot;</span>)),
 );</code></pre></div>
-</div></details></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>
+</div></details></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (748038961 2022-08-25)" ></div></body></html>

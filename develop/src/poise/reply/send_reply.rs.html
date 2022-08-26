@@ -193,200 +193,200 @@
 <span id="193">193</span>
 <span id="194">194</span>
 <span id="195">195</span>
-</pre><pre class="rust"><code><span class="doccomment">//! All functions to actually send a reply</span>
+</pre><pre class="rust"><code><span class="doccomment">//! All functions to actually send a reply
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::serenity_prelude</span> <span class="kw">as</span> <span class="ident">serenity</span>;
+</span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
 
-<span class="doccomment">/// Send a message in the given context: normal message if prefix command, interaction response</span>
-<span class="doccomment">/// if application command.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// If you just want to send a string, use [`say_reply`].</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Note: panics when called in an autocomplete context!</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// ```rust,no_run</span>
-<span class="doccomment">/// # #[tokio::main] async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {</span>
-<span class="doccomment">/// # let ctx: poise::Context&lt;&#39;_, (), ()&gt; = todo!();</span>
-<span class="doccomment">/// ctx.send(|f| f</span>
-<span class="doccomment">///     .content(&quot;Works for slash and prefix commands&quot;)</span>
-<span class="doccomment">///     .embed(|f| f</span>
-<span class="doccomment">///         .title(&quot;Much versatile, very wow&quot;)</span>
-<span class="doccomment">///         .description(&quot;I need more documentation ok?&quot;)</span>
-<span class="doccomment">///     )</span>
-<span class="doccomment">///     .ephemeral(true) // this one only applies in application commands though</span>
-<span class="doccomment">/// ).await?;</span>
-<span class="doccomment">/// # Ok(()) }</span>
-<span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">send_reply</span>&lt;<span class="lifetime">&#39;att</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;(
-    <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::Context</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
-    <span class="ident">builder</span>: <span class="kw">impl</span> <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident"><span class="kw">crate</span>::CreateReply</span>&lt;<span class="lifetime">&#39;att</span>&gt;) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident"><span class="kw">crate</span>::CreateReply</span>&lt;<span class="lifetime">&#39;att</span>&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="ident"><span class="kw">crate</span>::ReplyHandle</span>&lt;<span class="lifetime">&#39;_</span>&gt;, <span class="ident">serenity::Error</span>&gt; {
-    <span class="prelude-val">Ok</span>(<span class="kw">match</span> <span class="ident">ctx</span> {
-        <span class="ident"><span class="kw">crate</span>::Context::Prefix</span>(<span class="ident">ctx</span>) =&gt; <span class="ident"><span class="kw">crate</span>::ReplyHandle</span>(<span class="ident"><span class="kw">super</span>::ReplyHandleInner::Prefix</span>(
-            <span class="ident"><span class="kw">crate</span>::send_prefix_reply</span>(<span class="ident">ctx</span>, <span class="ident">builder</span>).<span class="kw">await</span><span class="question-mark">?</span>,
+<span class="doccomment">/// Send a message in the given context: normal message if prefix command, interaction response
+/// if application command.
+///
+/// If you just want to send a string, use [`say_reply`].
+///
+/// Note: panics when called in an autocomplete context!
+///
+/// ```rust,no_run
+/// # #[tokio::main] async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+/// # let ctx: poise::Context&lt;&#39;_, (), ()&gt; = todo!();
+/// ctx.send(|f| f
+///     .content(&quot;Works for slash and prefix commands&quot;)
+///     .embed(|f| f
+///         .title(&quot;Much versatile, very wow&quot;)
+///         .description(&quot;I need more documentation ok?&quot;)
+///     )
+///     .ephemeral(true) // this one only applies in application commands though
+/// ).await?;
+/// # Ok(()) }
+/// ```
+</span><span class="kw">pub async fn </span>send_reply&lt;<span class="lifetime">&#39;att</span>, U, E&gt;(
+    ctx: <span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;_</span>, U, E&gt;,
+    builder: <span class="kw">impl for</span>&lt;<span class="lifetime">&#39;a</span>&gt; FnOnce(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="kw">crate</span>::CreateReply&lt;<span class="lifetime">&#39;att</span>&gt;) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="kw">crate</span>::CreateReply&lt;<span class="lifetime">&#39;att</span>&gt;,
+) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw">crate</span>::ReplyHandle&lt;<span class="lifetime">&#39;_</span>&gt;, serenity::Error&gt; {
+    <span class="prelude-val">Ok</span>(<span class="kw">match </span>ctx {
+        <span class="kw">crate</span>::Context::Prefix(ctx) =&gt; <span class="kw">crate</span>::ReplyHandle(<span class="kw">super</span>::ReplyHandleInner::Prefix(
+            <span class="kw">crate</span>::send_prefix_reply(ctx, builder).<span class="kw">await</span><span class="question-mark">?</span>,
         )),
-        <span class="ident"><span class="kw">crate</span>::Context::Application</span>(<span class="ident">ctx</span>) =&gt; <span class="ident"><span class="kw">crate</span>::send_application_reply</span>(<span class="ident">ctx</span>, <span class="ident">builder</span>).<span class="kw">await</span><span class="question-mark">?</span>,
+        <span class="kw">crate</span>::Context::Application(ctx) =&gt; <span class="kw">crate</span>::send_application_reply(ctx, builder).<span class="kw">await</span><span class="question-mark">?</span>,
     })
 }
 
-<span class="doccomment">/// Shorthand of [`send_reply`] for text-only messages</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Note: panics when called in an autocomplete context!</span>
-<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">say_reply</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;(
-    <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::Context</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
-    <span class="ident">text</span>: <span class="kw">impl</span> <span class="ident">Into</span>&lt;<span class="ident">String</span>&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="ident"><span class="kw">crate</span>::ReplyHandle</span>&lt;<span class="lifetime">&#39;_</span>&gt;, <span class="ident">serenity::Error</span>&gt; {
-    <span class="ident">send_reply</span>(<span class="ident">ctx</span>, |<span class="ident">m</span>| <span class="ident">m</span>.<span class="ident">content</span>(<span class="ident">text</span>.<span class="ident">into</span>())).<span class="kw">await</span>
-}
+<span class="doccomment">/// Shorthand of [`send_reply`] for text-only messages
+///
+/// Note: panics when called in an autocomplete context!
+</span><span class="kw">pub async fn </span>say_reply&lt;U, E&gt;(
+    ctx: <span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;_</span>, U, E&gt;,
+    text: <span class="kw">impl </span>Into&lt;String&gt;,
+) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw">crate</span>::ReplyHandle&lt;<span class="lifetime">&#39;_</span>&gt;, serenity::Error&gt; {
+    send_reply(ctx, |m| m.content(text.into())).<span class="kw">await
+</span>}
 
-<span class="doccomment">/// Send a response to an interaction (slash command or context menu command invocation).</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// If a response to this interaction has already been sent, a</span>
-<span class="doccomment">/// [followup](serenity::ApplicationCommandInteraction::create_followup_message) is sent.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// No-op if autocomplete context</span>
-<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">send_application_reply</span>&lt;<span class="lifetime">&#39;att</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;(
-    <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::ApplicationContext</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
-    <span class="ident">builder</span>: <span class="kw">impl</span> <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident"><span class="kw">crate</span>::CreateReply</span>&lt;<span class="lifetime">&#39;att</span>&gt;) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident"><span class="kw">crate</span>::CreateReply</span>&lt;<span class="lifetime">&#39;att</span>&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="ident"><span class="kw">crate</span>::ReplyHandle</span>&lt;<span class="lifetime">&#39;_</span>&gt;, <span class="ident">serenity::Error</span>&gt; {
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">data</span> = <span class="ident"><span class="kw">crate</span>::CreateReply</span> {
-        <span class="ident">ephemeral</span>: <span class="ident">ctx</span>.<span class="ident">command</span>.<span class="ident">ephemeral</span>,
-        <span class="ident">allowed_mentions</span>: <span class="ident">ctx</span>.<span class="ident">framework</span>.<span class="ident">options</span>().<span class="ident">allowed_mentions</span>.<span class="ident">clone</span>(),
-        ..<span class="ident">Default::default</span>()
+<span class="doccomment">/// Send a response to an interaction (slash command or context menu command invocation).
+///
+/// If a response to this interaction has already been sent, a
+/// [followup](serenity::ApplicationCommandInteraction::create_followup_message) is sent.
+///
+/// No-op if autocomplete context
+</span><span class="kw">pub async fn </span>send_application_reply&lt;<span class="lifetime">&#39;att</span>, U, E&gt;(
+    ctx: <span class="kw">crate</span>::ApplicationContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt;,
+    builder: <span class="kw">impl for</span>&lt;<span class="lifetime">&#39;a</span>&gt; FnOnce(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="kw">crate</span>::CreateReply&lt;<span class="lifetime">&#39;att</span>&gt;) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="kw">crate</span>::CreateReply&lt;<span class="lifetime">&#39;att</span>&gt;,
+) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw">crate</span>::ReplyHandle&lt;<span class="lifetime">&#39;_</span>&gt;, serenity::Error&gt; {
+    <span class="kw">let </span><span class="kw-2">mut </span>data = <span class="kw">crate</span>::CreateReply {
+        ephemeral: ctx.command.ephemeral,
+        allowed_mentions: ctx.framework.options().allowed_mentions.clone(),
+        ..Default::default()
     };
-    <span class="ident">builder</span>(<span class="kw-2">&amp;mut</span> <span class="ident">data</span>);
-    <span class="ident">_send_application_reply</span>(<span class="ident">ctx</span>, <span class="ident">data</span>).<span class="kw">await</span>
-}
+    builder(<span class="kw-2">&amp;mut </span>data);
+    _send_application_reply(ctx, data).<span class="kw">await
+</span>}
 
-<span class="doccomment">/// private version of [`send_application_reply`] that isn&#39;t generic over the builder to minimize monomorphization-related codegen bloat</span>
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">_send_application_reply</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;(
-    <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::ApplicationContext</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
-    <span class="kw-2">mut</span> <span class="ident">data</span>: <span class="ident"><span class="kw">crate</span>::CreateReply</span>&lt;<span class="lifetime">&#39;_</span>&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="ident"><span class="kw">crate</span>::ReplyHandle</span>&lt;<span class="lifetime">&#39;a</span>&gt;, <span class="ident">serenity::Error</span>&gt; {
-    <span class="kw">let</span> <span class="ident">interaction</span> = <span class="kw">match</span> <span class="ident">ctx</span>.<span class="ident">interaction</span> {
-        <span class="ident"><span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction::ApplicationCommand</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>,
-        <span class="ident"><span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction::Autocomplete</span>(<span class="kw">_</span>) =&gt; {
-            <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident"><span class="kw">crate</span>::ReplyHandle</span>(<span class="ident"><span class="kw">super</span>::ReplyHandleInner::Autocomplete</span>))
+<span class="doccomment">/// private version of [`send_application_reply`] that isn&#39;t generic over the builder to minimize monomorphization-related codegen bloat
+</span><span class="kw">async fn </span>_send_application_reply&lt;<span class="lifetime">&#39;a</span>, U, E&gt;(
+    ctx: <span class="kw">crate</span>::ApplicationContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
+    <span class="kw-2">mut </span>data: <span class="kw">crate</span>::CreateReply&lt;<span class="lifetime">&#39;_</span>&gt;,
+) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw">crate</span>::ReplyHandle&lt;<span class="lifetime">&#39;a</span>&gt;, serenity::Error&gt; {
+    <span class="kw">let </span>interaction = <span class="kw">match </span>ctx.interaction {
+        <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction::ApplicationCommand(x) =&gt; x,
+        <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction::Autocomplete(<span class="kw">_</span>) =&gt; {
+            <span class="kw">return </span><span class="prelude-val">Ok</span>(<span class="kw">crate</span>::ReplyHandle(<span class="kw">super</span>::ReplyHandleInner::Autocomplete))
         }
     };
 
-    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">callback</span>) = <span class="ident">ctx</span>.<span class="ident">framework</span>.<span class="ident">options</span>().<span class="ident">reply_callback</span> {
-        <span class="ident">callback</span>(<span class="ident">ctx</span>.<span class="ident">into</span>(), <span class="kw-2">&amp;mut</span> <span class="ident">data</span>);
+    <span class="kw">if let </span><span class="prelude-val">Some</span>(callback) = ctx.framework.options().reply_callback {
+        callback(ctx.into(), <span class="kw-2">&amp;mut </span>data);
     }
 
-    <span class="kw">let</span> <span class="ident">has_sent_initial_response</span> = <span class="ident">ctx</span>
-        .<span class="ident">has_sent_initial_response</span>
-        .<span class="ident">load</span>(<span class="ident">std::sync::atomic::Ordering::SeqCst</span>);
+    <span class="kw">let </span>has_sent_initial_response = ctx
+        .has_sent_initial_response
+        .load(std::sync::atomic::Ordering::SeqCst);
 
-    <span class="kw">let</span> <span class="ident">followup</span> = <span class="kw">if</span> <span class="ident">has_sent_initial_response</span> {
-        <span class="prelude-val">Some</span>(<span class="ident">Box::new</span>(
-            <span class="ident">interaction</span>
-                .<span class="ident">create_followup_message</span>(<span class="ident">ctx</span>.<span class="ident">discord</span>, |<span class="ident">f</span>| {
-                    <span class="ident">data</span>.<span class="ident">to_slash_followup_response</span>(<span class="ident">f</span>);
-                    <span class="ident">f</span>
+    <span class="kw">let </span>followup = <span class="kw">if </span>has_sent_initial_response {
+        <span class="prelude-val">Some</span>(Box::new(
+            interaction
+                .create_followup_message(ctx.discord, |f| {
+                    data.to_slash_followup_response(f);
+                    f
                 })
                 .<span class="kw">await</span><span class="question-mark">?</span>,
         ))
-    } <span class="kw">else</span> {
-        <span class="ident">interaction</span>
-            .<span class="ident">create_interaction_response</span>(<span class="ident">ctx</span>.<span class="ident">discord</span>, |<span class="ident">r</span>| {
-                <span class="ident">r</span>.<span class="ident">kind</span>(<span class="ident">serenity::InteractionResponseType::ChannelMessageWithSource</span>)
-                    .<span class="ident">interaction_response_data</span>(|<span class="ident">f</span>| {
-                        <span class="ident">data</span>.<span class="ident">to_slash_initial_response</span>(<span class="ident">f</span>);
-                        <span class="ident">f</span>
+    } <span class="kw">else </span>{
+        interaction
+            .create_interaction_response(ctx.discord, |r| {
+                r.kind(serenity::InteractionResponseType::ChannelMessageWithSource)
+                    .interaction_response_data(|f| {
+                        data.to_slash_initial_response(f);
+                        f
                     })
             })
             .<span class="kw">await</span><span class="question-mark">?</span>;
-        <span class="ident">ctx</span>.<span class="ident">has_sent_initial_response</span>
-            .<span class="ident">store</span>(<span class="bool-val">true</span>, <span class="ident">std::sync::atomic::Ordering::SeqCst</span>);
+        ctx.has_sent_initial_response
+            .store(<span class="bool-val">true</span>, std::sync::atomic::Ordering::SeqCst);
 
-        <span class="prelude-val">None</span>
-    };
+        <span class="prelude-val">None
+    </span>};
 
-    <span class="prelude-val">Ok</span>(<span class="ident"><span class="kw">crate</span>::ReplyHandle</span>(<span class="ident"><span class="kw">crate</span>::ReplyHandleInner::Application</span> {
-        <span class="ident">http</span>: <span class="kw-2">&amp;</span><span class="ident">ctx</span>.<span class="ident">discord</span>.<span class="ident">http</span>,
-        <span class="ident">interaction</span>,
-        <span class="ident">followup</span>,
+    <span class="prelude-val">Ok</span>(<span class="kw">crate</span>::ReplyHandle(<span class="kw">crate</span>::ReplyHandleInner::Application {
+        http: <span class="kw-2">&amp;</span>ctx.discord.http,
+        interaction,
+        followup,
     }))
 }
 
-<span class="doccomment">/// Prefix-specific reply function. For more details, see [`crate::send_reply`].</span>
-<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">send_prefix_reply</span>&lt;<span class="lifetime">&#39;att</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;(
-    <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::PrefixContext</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
-    <span class="ident">builder</span>: <span class="kw">impl</span> <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident"><span class="kw">crate</span>::CreateReply</span>&lt;<span class="lifetime">&#39;att</span>&gt;) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident"><span class="kw">crate</span>::CreateReply</span>&lt;<span class="lifetime">&#39;att</span>&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="ident">Box</span>&lt;<span class="ident">serenity::Message</span>&gt;, <span class="ident">serenity::Error</span>&gt; {
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">reply</span> = <span class="ident"><span class="kw">crate</span>::CreateReply</span> {
-        <span class="ident">ephemeral</span>: <span class="ident">ctx</span>.<span class="ident">command</span>.<span class="ident">ephemeral</span>,
-        <span class="ident">allowed_mentions</span>: <span class="ident">ctx</span>.<span class="ident">framework</span>.<span class="ident">options</span>().<span class="ident">allowed_mentions</span>.<span class="ident">clone</span>(),
-        ..<span class="ident">Default::default</span>()
+<span class="doccomment">/// Prefix-specific reply function. For more details, see [`crate::send_reply`].
+</span><span class="kw">pub async fn </span>send_prefix_reply&lt;<span class="lifetime">&#39;att</span>, U, E&gt;(
+    ctx: <span class="kw">crate</span>::PrefixContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt;,
+    builder: <span class="kw">impl for</span>&lt;<span class="lifetime">&#39;a</span>&gt; FnOnce(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="kw">crate</span>::CreateReply&lt;<span class="lifetime">&#39;att</span>&gt;) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="kw">crate</span>::CreateReply&lt;<span class="lifetime">&#39;att</span>&gt;,
+) -&gt; <span class="prelude-ty">Result</span>&lt;Box&lt;serenity::Message&gt;, serenity::Error&gt; {
+    <span class="kw">let </span><span class="kw-2">mut </span>reply = <span class="kw">crate</span>::CreateReply {
+        ephemeral: ctx.command.ephemeral,
+        allowed_mentions: ctx.framework.options().allowed_mentions.clone(),
+        ..Default::default()
     };
-    <span class="ident">builder</span>(<span class="kw-2">&amp;mut</span> <span class="ident">reply</span>);
-    <span class="ident">_send_prefix_reply</span>(<span class="ident">ctx</span>, <span class="ident">reply</span>).<span class="kw">await</span>
-}
+    builder(<span class="kw-2">&amp;mut </span>reply);
+    _send_prefix_reply(ctx, reply).<span class="kw">await
+</span>}
 
-<span class="doccomment">/// private version of [`send_prefix_reply`] that isn&#39;t generic over the builder to minimize monomorphization-related codegen bloat</span>
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">_send_prefix_reply</span>&lt;<span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;(
-    <span class="ident">ctx</span>: <span class="ident"><span class="kw">crate</span>::PrefixContext</span>&lt;<span class="lifetime">&#39;_</span>, <span class="ident">U</span>, <span class="ident">E</span>&gt;,
-    <span class="kw-2">mut</span> <span class="ident">reply</span>: <span class="ident"><span class="kw">crate</span>::CreateReply</span>&lt;<span class="lifetime">&#39;a</span>&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="ident">Box</span>&lt;<span class="ident">serenity::Message</span>&gt;, <span class="ident">serenity::Error</span>&gt; {
-    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">callback</span>) = <span class="ident">ctx</span>.<span class="ident">framework</span>.<span class="ident">options</span>().<span class="ident">reply_callback</span> {
-        <span class="ident">callback</span>(<span class="ident">ctx</span>.<span class="ident">into</span>(), <span class="kw-2">&amp;mut</span> <span class="ident">reply</span>);
+<span class="doccomment">/// private version of [`send_prefix_reply`] that isn&#39;t generic over the builder to minimize monomorphization-related codegen bloat
+</span><span class="kw">async fn </span>_send_prefix_reply&lt;<span class="lifetime">&#39;a</span>, U, E&gt;(
+    ctx: <span class="kw">crate</span>::PrefixContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt;,
+    <span class="kw-2">mut </span>reply: <span class="kw">crate</span>::CreateReply&lt;<span class="lifetime">&#39;a</span>&gt;,
+) -&gt; <span class="prelude-ty">Result</span>&lt;Box&lt;serenity::Message&gt;, serenity::Error&gt; {
+    <span class="kw">if let </span><span class="prelude-val">Some</span>(callback) = ctx.framework.options().reply_callback {
+        callback(ctx.into(), <span class="kw-2">&amp;mut </span>reply);
     }
 
-    <span class="comment">// This must only return None when we _actually_ want to reuse the existing response! There are</span>
-    <span class="comment">// no checks later</span>
-    <span class="kw">let</span> <span class="ident">lock_edit_tracker</span> = || {
-        <span class="kw">if</span> <span class="ident">ctx</span>.<span class="ident">command</span>.<span class="ident">reuse_response</span> {
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">edit_tracker</span>) = <span class="kw-2">&amp;</span><span class="ident">ctx</span>.<span class="ident">framework</span>.<span class="ident">options</span>().<span class="ident">prefix_options</span>.<span class="ident">edit_tracker</span> {
-                <span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="ident">edit_tracker</span>.<span class="ident">write</span>().<span class="ident">unwrap</span>());
+    <span class="comment">// This must only return None when we _actually_ want to reuse the existing response! There are
+    // no checks later
+    </span><span class="kw">let </span>lock_edit_tracker = || {
+        <span class="kw">if </span>ctx.command.reuse_response {
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(edit_tracker) = <span class="kw-2">&amp;</span>ctx.framework.options().prefix_options.edit_tracker {
+                <span class="kw">return </span><span class="prelude-val">Some</span>(edit_tracker.write().unwrap());
             }
         }
-        <span class="prelude-val">None</span>
-    };
+        <span class="prelude-val">None
+    </span>};
 
-    <span class="kw">let</span> <span class="ident">existing_response</span> = <span class="ident">lock_edit_tracker</span>()
-        .<span class="ident">as_mut</span>()
-        .<span class="ident">and_then</span>(|<span class="ident">t</span>| <span class="ident">t</span>.<span class="ident">find_bot_response</span>(<span class="ident">ctx</span>.<span class="ident">msg</span>.<span class="ident">id</span>))
-        .<span class="ident">cloned</span>();
+    <span class="kw">let </span>existing_response = lock_edit_tracker()
+        .as_mut()
+        .and_then(|t| t.find_bot_response(ctx.msg.id))
+        .cloned();
 
-    <span class="prelude-val">Ok</span>(<span class="ident">Box::new</span>(<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">mut</span> <span class="ident">response</span>) = <span class="ident">existing_response</span> {
-        <span class="ident">response</span>
-            .<span class="ident">edit</span>(<span class="ident">ctx</span>.<span class="ident">discord</span>, |<span class="ident">f</span>| {
-                <span class="comment">// Reset the message. We don&#39;t want leftovers of the previous message (e.g. user</span>
-                <span class="comment">// sends a message with `.content(&quot;abc&quot;)` in a track_edits command, and the edited</span>
-                <span class="comment">// message happens to contain embeds, we don&#39;t want to keep those embeds)</span>
-                <span class="comment">// (*f = Default::default() won&#39;t do)</span>
-                <span class="ident">f</span>.<span class="ident">content</span>(<span class="string">&quot;&quot;</span>);
-                <span class="ident">f</span>.<span class="ident">set_embeds</span>(<span class="ident">Vec::new</span>());
-                <span class="ident">f</span>.<span class="ident">components</span>(|<span class="ident">b</span>| <span class="ident">b</span>);
-                <span class="ident">f</span>.<span class="number">0</span>.<span class="ident">insert</span>(<span class="string">&quot;attachments&quot;</span>, <span class="macro">serenity::json::json!</span> { [] });
+    <span class="prelude-val">Ok</span>(Box::new(<span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">mut </span>response) = existing_response {
+        response
+            .edit(ctx.discord, |f| {
+                <span class="comment">// Reset the message. We don&#39;t want leftovers of the previous message (e.g. user
+                // sends a message with `.content(&quot;abc&quot;)` in a track_edits command, and the edited
+                // message happens to contain embeds, we don&#39;t want to keep those embeds)
+                // (*f = Default::default() won&#39;t do)
+                </span>f.content(<span class="string">&quot;&quot;</span>);
+                f.set_embeds(Vec::new());
+                f.components(|b| b);
+                f.<span class="number">0</span>.insert(<span class="string">&quot;attachments&quot;</span>, <span class="macro">serenity::json::json! </span>{ [] });
 
-                <span class="ident">reply</span>.<span class="ident">to_prefix_edit</span>(<span class="ident">f</span>);
-                <span class="ident">f</span>
+                reply.to_prefix_edit(f);
+                f
             })
             .<span class="kw">await</span><span class="question-mark">?</span>;
 
-        <span class="comment">// If the entry still exists after the await, update it to the new contents</span>
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">mut</span> <span class="ident">edit_tracker</span>) = <span class="ident">lock_edit_tracker</span>() {
-            <span class="ident">edit_tracker</span>.<span class="ident">set_bot_response</span>(<span class="ident">ctx</span>.<span class="ident">msg</span>, <span class="ident">response</span>.<span class="ident">clone</span>());
+        <span class="comment">// If the entry still exists after the await, update it to the new contents
+        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">mut </span>edit_tracker) = lock_edit_tracker() {
+            edit_tracker.set_bot_response(ctx.msg, response.clone());
         }
 
-        <span class="ident">response</span>
-    } <span class="kw">else</span> {
-        <span class="kw">let</span> <span class="ident">new_response</span> = <span class="ident">ctx</span>
-            .<span class="ident">msg</span>
-            .<span class="ident">channel_id</span>
-            .<span class="ident">send_message</span>(<span class="ident">ctx</span>.<span class="ident">discord</span>, |<span class="ident">m</span>| {
-                <span class="ident">reply</span>.<span class="ident">to_prefix</span>(<span class="ident">m</span>);
-                <span class="ident">m</span>
+        response
+    } <span class="kw">else </span>{
+        <span class="kw">let </span>new_response = ctx
+            .msg
+            .channel_id
+            .send_message(ctx.discord, |m| {
+                reply.to_prefix(m);
+                m
             })
             .<span class="kw">await</span><span class="question-mark">?</span>;
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">track_edits</span>) = <span class="kw-2">&amp;mut</span> <span class="ident">lock_edit_tracker</span>() {
-            <span class="ident">track_edits</span>.<span class="ident">set_bot_response</span>(<span class="ident">ctx</span>.<span class="ident">msg</span>, <span class="ident">new_response</span>.<span class="ident">clone</span>());
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(track_edits) = <span class="kw-2">&amp;mut </span>lock_edit_tracker() {
+            track_edits.set_bot_response(ctx.msg, new_response.clone());
         }
 
-        <span class="ident">new_response</span>
+        new_response
     }))
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (748038961 2022-08-25)" ></div></body></html>

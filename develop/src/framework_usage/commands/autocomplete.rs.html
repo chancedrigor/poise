@@ -67,74 +67,74 @@
 <span id="67">67</span>
 <span id="68">68</span>
 <span id="69">69</span>
-</pre><pre class="rust"><code><span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">Context</span>, <span class="ident">Error</span>};
-<span class="kw">use</span> <span class="ident">futures</span>::{<span class="ident">Stream</span>, <span class="ident">StreamExt</span>};
-<span class="kw">use</span> <span class="ident">std::fmt::Write</span> <span class="kw">as</span> <span class="kw">_</span>;
+</pre><pre class="rust"><code><span class="kw">use crate</span>::{Context, Error};
+<span class="kw">use </span>futures::{Stream, StreamExt};
+<span class="kw">use </span>std::fmt::Write <span class="kw">as _</span>;
 
-<span class="comment">// Poise supports autocomplete on slash command parameters. You need to provide an autocomplete</span>
-<span class="comment">// function, which will be called on demand when the user is typing a command.</span>
-<span class="comment">//</span>
-<span class="comment">// The first parameter of that function is ApplicationContext or Context, and the second parameter</span>
-<span class="comment">// is a &amp;str of the partial input which the user has typed so far.</span>
-<span class="comment">//</span>
-<span class="comment">// As the return value of autocomplete functions, you can return a Stream, an Iterator, or an</span>
-<span class="comment">// IntoIterator like Vec&lt;T&gt; and [T; N].</span>
-<span class="comment">//</span>
-<span class="comment">// The returned collection type must be a &amp;str/String (or number, if you&#39;re implementing</span>
-<span class="comment">// autocomplete on a number type). Wrap the type in poise::AutocompleteChoice to set a custom label</span>
-<span class="comment">// for each choice which will be displayed in the Discord UI.</span>
-<span class="comment">//</span>
-<span class="comment">// Example function return types (assuming non-number parameter -&gt; autocomplete choices are string):</span>
-<span class="comment">// - `-&gt; impl Stream&lt;String&gt;`</span>
-<span class="comment">// - `-&gt; Vec&lt;String&gt;`</span>
-<span class="comment">// - `-&gt; impl Iterator&lt;String&gt;`</span>
-<span class="comment">// - `-&gt; impl Iterator&lt;&amp;str&gt;`</span>
-<span class="comment">// - `-&gt; impl Iterator&lt;poise::AutocompleteChoice&lt;&amp;str&gt;&gt;`</span>
+<span class="comment">// Poise supports autocomplete on slash command parameters. You need to provide an autocomplete
+// function, which will be called on demand when the user is typing a command.
+//
+// The first parameter of that function is ApplicationContext or Context, and the second parameter
+// is a &amp;str of the partial input which the user has typed so far.
+//
+// As the return value of autocomplete functions, you can return a Stream, an Iterator, or an
+// IntoIterator like Vec&lt;T&gt; and [T; N].
+//
+// The returned collection type must be a &amp;str/String (or number, if you&#39;re implementing
+// autocomplete on a number type). Wrap the type in poise::AutocompleteChoice to set a custom label
+// for each choice which will be displayed in the Discord UI.
+//
+// Example function return types (assuming non-number parameter -&gt; autocomplete choices are string):
+// - `-&gt; impl Stream&lt;String&gt;`
+// - `-&gt; Vec&lt;String&gt;`
+// - `-&gt; impl Iterator&lt;String&gt;`
+// - `-&gt; impl Iterator&lt;&amp;str&gt;`
+// - `-&gt; impl Iterator&lt;poise::AutocompleteChoice&lt;&amp;str&gt;&gt;`
 
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">autocomplete_name</span>&lt;<span class="lifetime">&#39;a</span>&gt;(
-    <span class="ident">_ctx</span>: <span class="ident">Context</span>&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="ident">partial</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
-) -&gt; <span class="kw">impl</span> <span class="ident">Stream</span>&lt;<span class="ident">Item</span> = <span class="ident">String</span>&gt; + <span class="lifetime">&#39;a</span> {
-    <span class="ident">futures::stream::iter</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;Amanda&quot;</span>, <span class="string">&quot;Bob&quot;</span>, <span class="string">&quot;Christian&quot;</span>, <span class="string">&quot;Danny&quot;</span>, <span class="string">&quot;Ester&quot;</span>, <span class="string">&quot;Falk&quot;</span>])
-        .<span class="ident">filter</span>(<span class="kw">move</span> |<span class="ident">name</span>| <span class="ident">futures::future::ready</span>(<span class="ident">name</span>.<span class="ident">starts_with</span>(<span class="kw-2">&amp;</span><span class="ident">partial</span>)))
-        .<span class="ident">map</span>(|<span class="ident">name</span>| <span class="ident">name</span>.<span class="ident">to_string</span>())
+</span><span class="kw">async fn </span>autocomplete_name&lt;<span class="lifetime">&#39;a</span>&gt;(
+    _ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
+    partial: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
+) -&gt; <span class="kw">impl </span>Stream&lt;Item = String&gt; + <span class="lifetime">&#39;a </span>{
+    futures::stream::iter(<span class="kw-2">&amp;</span>[<span class="string">&quot;Amanda&quot;</span>, <span class="string">&quot;Bob&quot;</span>, <span class="string">&quot;Christian&quot;</span>, <span class="string">&quot;Danny&quot;</span>, <span class="string">&quot;Ester&quot;</span>, <span class="string">&quot;Falk&quot;</span>])
+        .filter(<span class="kw">move </span>|name| futures::future::ready(name.starts_with(<span class="kw-2">&amp;</span>partial)))
+        .map(|name| name.to_string())
 }
 
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">autocomplete_number</span>(
-    <span class="ident">_ctx</span>: <span class="ident">Context</span>&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="ident">_partial</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-) -&gt; <span class="kw">impl</span> <span class="ident">Iterator</span>&lt;<span class="ident">Item</span> = <span class="ident">poise::AutocompleteChoice</span>&lt;<span class="ident">u32</span>&gt;&gt; {
-    <span class="comment">// Dummy choices</span>
-    [<span class="number">1_u32</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]
-        .<span class="ident">iter</span>()
-        .<span class="ident">map</span>(|<span class="kw-2">&amp;</span><span class="ident">n</span>| <span class="ident">poise::AutocompleteChoice</span> {
-            <span class="ident">name</span>: <span class="macro">format!</span>(
+<span class="kw">async fn </span>autocomplete_number(
+    _ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
+    _partial: <span class="kw-2">&amp;</span>str,
+) -&gt; <span class="kw">impl </span>Iterator&lt;Item = poise::AutocompleteChoice&lt;u32&gt;&gt; {
+    <span class="comment">// Dummy choices
+    </span>[<span class="number">1_u32</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]
+        .iter()
+        .map(|<span class="kw-2">&amp;</span>n| poise::AutocompleteChoice {
+            name: <span class="macro">format!</span>(
                 <span class="string">&quot;{} (why did discord even give autocomplete choices separate labels)&quot;</span>,
-                <span class="ident">n</span>
+                n
             ),
-            <span class="ident">value</span>: <span class="ident">n</span>,
+            value: n,
         })
 }
 
-<span class="doccomment">/// Greet a user. Showcasing autocomplete!</span>
-<span class="attribute">#[<span class="ident">poise::command</span>(<span class="ident">slash_command</span>)]</span>
-<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">greet</span>(
-    <span class="ident">ctx</span>: <span class="ident">Context</span>&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[<span class="ident">description</span> = <span class="string">&quot;Who to greet&quot;</span>]</span>
-    <span class="attribute">#[<span class="ident">autocomplete</span> = <span class="string">&quot;autocomplete_name&quot;</span>]</span>
-    <span class="ident">name</span>: <span class="ident">String</span>,
-    <span class="attribute">#[<span class="ident">description</span> = <span class="string">&quot;A number... idk I wanted to test number autocomplete&quot;</span>]</span>
-    <span class="attribute">#[<span class="ident">autocomplete</span> = <span class="string">&quot;autocomplete_number&quot;</span>]</span>
-    <span class="ident">number</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">u32</span>&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">Error</span>&gt; {
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">response</span> = <span class="macro">format!</span>(<span class="string">&quot;Hello {}&quot;</span>, <span class="ident">name</span>);
-    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">number</span>) = <span class="ident">number</span> {
-        <span class="kw">let</span> <span class="kw">_</span> = <span class="macro">write!</span>(<span class="ident">response</span>, <span class="string">&quot;#{}&quot;</span>, <span class="ident">number</span>);
+<span class="doccomment">/// Greet a user. Showcasing autocomplete!
+</span><span class="attribute">#[poise::command(slash_command)]
+</span><span class="kw">pub async fn </span>greet(
+    ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
+    <span class="attribute">#[description = <span class="string">&quot;Who to greet&quot;</span>]
+    #[autocomplete = <span class="string">&quot;autocomplete_name&quot;</span>]
+    </span>name: String,
+    <span class="attribute">#[description = <span class="string">&quot;A number... idk I wanted to test number autocomplete&quot;</span>]
+    #[autocomplete = <span class="string">&quot;autocomplete_number&quot;</span>]
+    </span>number: <span class="prelude-ty">Option</span>&lt;u32&gt;,
+) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+    <span class="kw">let </span><span class="kw-2">mut </span>response = <span class="macro">format!</span>(<span class="string">&quot;Hello {}&quot;</span>, name);
+    <span class="kw">if let </span><span class="prelude-val">Some</span>(number) = number {
+        <span class="kw">let _ </span>= <span class="macro">write!</span>(response, <span class="string">&quot;#{}&quot;</span>, number);
     }
-    <span class="ident">response</span> += <span class="string">&quot;!&quot;</span>;
+    response += <span class="string">&quot;!&quot;</span>;
 
-    <span class="ident">ctx</span>.<span class="ident">say</span>(<span class="ident">response</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+    ctx.say(response).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="framework_usage" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="framework_usage" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (748038961 2022-08-25)" ></div></body></html>

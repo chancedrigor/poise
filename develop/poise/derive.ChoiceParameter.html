@@ -7,16 +7,16 @@
 </code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Use this derive macro on an enum to easily generate a choice parameter type. A choice parameter
 is mainly useful in slash commands. It allows you to constrain input to a fixed set of choices.</p>
 
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attribute">#[<span class="ident">derive</span>(<span class="ident">poise::ChoiceParameter</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">MyChoice</span> {
-    <span class="attribute">#[<span class="ident">name</span> = <span class="string">&quot;The first choice&quot;</span>]</span>
-    <span class="ident">ChoiceA</span>,
-    <span class="comment">// A choice can have multiple names</span>
-    <span class="attribute">#[<span class="ident">name</span> = <span class="string">&quot;The second choice&quot;</span>]</span>
-    <span class="attribute">#[<span class="ident">name</span> = <span class="string">&quot;ChoiceB&quot;</span>]</span>
-    <span class="ident">ChoiceB</span>,
-    <span class="comment">// Or no name, in which case it falls back to the variant name &quot;ChoiceC&quot;</span>
-    <span class="ident">ChoiceC</span>,
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attribute">#[derive(poise::ChoiceParameter)]
+</span><span class="kw">pub enum </span>MyChoice {
+    <span class="attribute">#[name = <span class="string">&quot;The first choice&quot;</span>]
+    </span>ChoiceA,
+    <span class="comment">// A choice can have multiple names
+    </span><span class="attribute">#[name = <span class="string">&quot;The second choice&quot;</span>]
+    #[name = <span class="string">&quot;ChoiceB&quot;</span>]
+    </span>ChoiceB,
+    <span class="comment">// Or no name, in which case it falls back to the variant name &quot;ChoiceC&quot;
+    </span>ChoiceC,
 }</code></pre></div>
 <p>Example invocations:</p>
 <ul>
@@ -27,18 +27,18 @@ is mainly useful in slash commands. It allows you to constrain input to a fixed 
 <h2 id="localization"><a href="#localization">Localization</a></h2>
 <p>In slash commands, you can take advantage of Discord’s localization.</p>
 
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attribute">#[<span class="ident">derive</span>(<span class="ident">poise::ChoiceParameter</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Food</span> {
-    <span class="attribute">#[<span class="ident">name_localized</span>(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;Eier&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">name_localized</span>(<span class="string">&quot;es-ES&quot;</span>, <span class="string">&quot;Huevos&quot;</span>)]</span>
-    <span class="ident">Eggs</span>,
-    <span class="attribute">#[<span class="ident">name_localized</span>(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;Pizza&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">name_localized</span>(<span class="string">&quot;es-ES&quot;</span>, <span class="string">&quot;Pizza&quot;</span>)]</span>
-    <span class="ident">Pizza</span>,
-    <span class="attribute">#[<span class="ident">name_localized</span>(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;Müsli&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">name_localized</span>(<span class="string">&quot;es-ES&quot;</span>, <span class="string">&quot;Muesli&quot;</span>)]</span>
-    <span class="ident">Cereals</span>,
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attribute">#[derive(poise::ChoiceParameter)]
+</span><span class="kw">pub enum </span>Food {
+    <span class="attribute">#[name_localized(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;Eier&quot;</span>)]
+    #[name_localized(<span class="string">&quot;es-ES&quot;</span>, <span class="string">&quot;Huevos&quot;</span>)]
+    </span>Eggs,
+    <span class="attribute">#[name_localized(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;Pizza&quot;</span>)]
+    #[name_localized(<span class="string">&quot;es-ES&quot;</span>, <span class="string">&quot;Pizza&quot;</span>)]
+    </span>Pizza,
+    <span class="attribute">#[name_localized(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;Müsli&quot;</span>)]
+    #[name_localized(<span class="string">&quot;es-ES&quot;</span>, <span class="string">&quot;Muesli&quot;</span>)]
+    </span>Cereals,
 }</code></pre></div>
 <p>When invoking your slash command, users will be shown the name matching their locale.</p>
 <p>You can also set localized choice names programmatically; see <code>CommandParameter::choices</code></p>
-</div></details></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>
+</div></details></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (748038961 2022-08-25)" ></div></body></html>

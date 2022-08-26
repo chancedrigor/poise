@@ -154,145 +154,145 @@ Poise supports several pre-command checks (sorted by order of execution):
 - global check function
 - command-specific check function
 - cooldowns
-*/</span>
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">Context</span>, <span class="ident">Error</span>};
-<span class="kw">use</span> <span class="ident">poise::serenity_prelude</span> <span class="kw">as</span> <span class="ident">serenity</span>;
+*/
+</span><span class="kw">use crate</span>::{Context, Error};
+<span class="kw">use </span>poise::serenity_prelude <span class="kw">as </span>serenity;
 
-<span class="attribute">#[<span class="ident">poise::command</span>(<span class="ident">prefix_command</span>, <span class="ident">owners_only</span>, <span class="ident">hide_in_help</span>)]</span>
-<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">shutdown</span>(<span class="ident">ctx</span>: <span class="ident">Context</span>&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">Error</span>&gt; {
-    <span class="ident">ctx</span>.<span class="ident">framework</span>()
-        .<span class="ident">shard_manager</span>()
-        .<span class="ident">lock</span>()
-        .<span class="kw">await</span>
-        .<span class="ident">shutdown_all</span>()
+<span class="attribute">#[poise::command(prefix_command, owners_only, hide_in_help)]
+</span><span class="kw">pub async fn </span>shutdown(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+    ctx.framework()
+        .shard_manager()
+        .lock()
+        .<span class="kw">await
+        </span>.shutdown_all()
         .<span class="kw">await</span>;
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="doccomment">/// A moderator-only command, using required_permissions</span>
-<span class="attribute">#[<span class="ident">poise::command</span>(
-    <span class="ident">prefix_command</span>,
-    <span class="ident">slash_command</span>,
-    <span class="comment">// Multiple permissions can be OR-ed together with `|` to make them all required</span>
-    <span class="ident">required_permissions</span> = <span class="string">&quot;MANAGE_MESSAGES | MANAGE_THREADS&quot;</span>,
-)]</span>
-<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">modonly</span>(<span class="ident">ctx</span>: <span class="ident">Context</span>&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">Error</span>&gt; {
-    <span class="ident">ctx</span>.<span class="ident">say</span>(<span class="string">&quot;You are a mod because you were able to invoke this command&quot;</span>)
+<span class="doccomment">/// A moderator-only command, using required_permissions
+</span><span class="attribute">#[poise::command(
+    prefix_command,
+    slash_command,
+    <span class="comment">// Multiple permissions can be OR-ed together with `|` to make them all required
+    </span>required_permissions = <span class="string">&quot;MANAGE_MESSAGES | MANAGE_THREADS&quot;</span>,
+)]
+</span><span class="kw">pub async fn </span>modonly(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+    ctx.say(<span class="string">&quot;You are a mod because you were able to invoke this command&quot;</span>)
         .<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="doccomment">/// Deletes the given message</span>
-<span class="attribute">#[<span class="ident">poise::command</span>(
-    <span class="ident">prefix_command</span>,
-    <span class="ident">slash_command</span>,
-    <span class="ident">required_bot_permissions</span> = <span class="string">&quot;MANAGE_MESSAGES&quot;</span>
-)]</span>
-<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">delete</span>(
-    <span class="ident">ctx</span>: <span class="ident">Context</span>&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[<span class="ident">description</span> = <span class="string">&quot;Message to be deleted&quot;</span>]</span> <span class="ident">msg</span>: <span class="ident">serenity::Message</span>,
-) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">Error</span>&gt; {
-    <span class="ident">msg</span>.<span class="ident">delete</span>(<span class="ident">ctx</span>.<span class="ident">discord</span>()).<span class="kw">await</span><span class="question-mark">?</span>;
+<span class="doccomment">/// Deletes the given message
+</span><span class="attribute">#[poise::command(
+    prefix_command,
+    slash_command,
+    required_bot_permissions = <span class="string">&quot;MANAGE_MESSAGES&quot;
+</span>)]
+</span><span class="kw">pub async fn </span>delete(
+    ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
+    <span class="attribute">#[description = <span class="string">&quot;Message to be deleted&quot;</span>] </span>msg: serenity::Message,
+) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+    msg.delete(ctx.discord()).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="doccomment">/// Returns true if username is Ferris</span>
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">is_ferris</span>(<span class="ident">ctx</span>: <span class="ident">Context</span>&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="ident">bool</span>, <span class="ident">Error</span>&gt; {
-    <span class="kw">let</span> <span class="ident">nickname</span> = <span class="kw">match</span> <span class="ident">ctx</span>.<span class="ident">guild_id</span>() {
-        <span class="prelude-val">Some</span>(<span class="ident">guild_id</span>) =&gt; <span class="ident">ctx</span>.<span class="ident">author</span>().<span class="ident">nick_in</span>(<span class="ident">ctx</span>.<span class="ident">discord</span>(), <span class="ident">guild_id</span>).<span class="kw">await</span>,
-        <span class="prelude-val">None</span> =&gt; <span class="prelude-val">None</span>,
+<span class="doccomment">/// Returns true if username is Ferris
+</span><span class="kw">async fn </span>is_ferris(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;bool, Error&gt; {
+    <span class="kw">let </span>nickname = <span class="kw">match </span>ctx.guild_id() {
+        <span class="prelude-val">Some</span>(guild_id) =&gt; ctx.author().nick_in(ctx.discord(), guild_id).<span class="kw">await</span>,
+        <span class="prelude-val">None </span>=&gt; <span class="prelude-val">None</span>,
     };
-    <span class="kw">let</span> <span class="ident">name</span> = <span class="ident">nickname</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap_or</span>(<span class="kw-2">&amp;</span><span class="ident">ctx</span>.<span class="ident">author</span>().<span class="ident">name</span>);
+    <span class="kw">let </span>name = nickname.as_ref().unwrap_or(<span class="kw-2">&amp;</span>ctx.author().name);
 
-    <span class="prelude-val">Ok</span>(<span class="ident">name</span>.<span class="ident">eq_ignore_ascii_case</span>(<span class="string">&quot;ferris&quot;</span>))
+    <span class="prelude-val">Ok</span>(name.eq_ignore_ascii_case(<span class="string">&quot;ferris&quot;</span>))
 }
 
-<span class="doccomment">/// Always passes the check and prints a line on the console</span>
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">noisy_check</span>(<span class="ident">_ctx</span>: <span class="ident">Context</span>&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="ident">bool</span>, <span class="ident">Error</span>&gt; {
+<span class="doccomment">/// Always passes the check and prints a line on the console
+</span><span class="kw">async fn </span>noisy_check(_ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;bool, Error&gt; {
     <span class="macro">println!</span>(<span class="string">&quot;Noisy check has been called!&quot;</span>);
     <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>)
 }
 
-<span class="doccomment">/// Crab party... only for &quot;Ferris&quot;!</span>
-<span class="attribute">#[<span class="ident">poise::command</span>(
-    <span class="ident">prefix_command</span>,
-    <span class="ident">slash_command</span>,
-    <span class="ident">check</span> = <span class="string">&quot;is_ferris&quot;</span>,
-    <span class="comment">// You can write `check = ...` multiple times to add multiple checks</span>
-    <span class="ident">check</span> = <span class="string">&quot;noisy_check&quot;</span>,
-)]</span>
-<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">ferrisparty</span>(<span class="ident">ctx</span>: <span class="ident">Context</span>&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">Error</span>&gt; {
-    <span class="kw">let</span> <span class="ident">response</span> = <span class="string">&quot;```\n&quot;</span>.<span class="ident">to_owned</span>()
+<span class="doccomment">/// Crab party... only for &quot;Ferris&quot;!
+</span><span class="attribute">#[poise::command(
+    prefix_command,
+    slash_command,
+    check = <span class="string">&quot;is_ferris&quot;</span>,
+    <span class="comment">// You can write `check = ...` multiple times to add multiple checks
+    </span>check = <span class="string">&quot;noisy_check&quot;</span>,
+)]
+</span><span class="kw">pub async fn </span>ferrisparty(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+    <span class="kw">let </span>response = <span class="string">&quot;```\n&quot;</span>.to_owned()
         + <span class="kw-2">&amp;</span><span class="string">r&quot;    _~^~^~_
 \) /  o o  \ (/
   &#39;_   ¬   _&#39;
   | &#39;-----&#39; |
-&quot;</span>
-        .<span class="ident">repeat</span>(<span class="number">3</span>)
+&quot;
+        </span>.repeat(<span class="number">3</span>)
         + <span class="string">&quot;```&quot;</span>;
-    <span class="ident">ctx</span>.<span class="ident">say</span>(<span class="ident">response</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+    ctx.say(response).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="doccomment">/// Add two numbers</span>
-<span class="attribute">#[<span class="ident">poise::command</span>(
-    <span class="ident">prefix_command</span>,
-    <span class="ident">track_edits</span>,
-    <span class="ident">slash_command</span>,
-    <span class="comment">// All cooldowns in seconds</span>
-    <span class="ident">global_cooldown</span> = <span class="number">1</span>,
-    <span class="ident">user_cooldown</span> = <span class="number">5</span>,
-    <span class="ident">guild_cooldown</span> = <span class="number">2</span>,
-    <span class="ident">channel_cooldown</span> = <span class="number">2</span>,
-    <span class="ident">member_cooldown</span> = <span class="number">3</span>,
-)]</span>
-<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">add</span>(
-    <span class="ident">ctx</span>: <span class="ident">Context</span>&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[<span class="ident">description</span> = <span class="string">&quot;First operand&quot;</span>]</span> <span class="ident">a</span>: <span class="ident">f64</span>,
-    <span class="attribute">#[<span class="ident">description</span> = <span class="string">&quot;Second operand&quot;</span>]</span>
-    <span class="attribute">#[<span class="ident">min</span> = -<span class="number">15</span>]</span>
-    <span class="attribute">#[<span class="ident">max</span> = <span class="number">28.765</span>]</span>
-    <span class="ident">b</span>: <span class="ident">f32</span>,
-) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">Error</span>&gt; {
-    <span class="ident">ctx</span>.<span class="ident">say</span>(<span class="macro">format!</span>(<span class="string">&quot;Result: {}&quot;</span>, <span class="ident">a</span> + <span class="ident">b</span> <span class="kw">as</span> <span class="ident">f64</span>)).<span class="kw">await</span><span class="question-mark">?</span>;
+<span class="doccomment">/// Add two numbers
+</span><span class="attribute">#[poise::command(
+    prefix_command,
+    track_edits,
+    slash_command,
+    <span class="comment">// All cooldowns in seconds
+    </span>global_cooldown = <span class="number">1</span>,
+    user_cooldown = <span class="number">5</span>,
+    guild_cooldown = <span class="number">2</span>,
+    channel_cooldown = <span class="number">2</span>,
+    member_cooldown = <span class="number">3</span>,
+)]
+</span><span class="kw">pub async fn </span>add(
+    ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
+    <span class="attribute">#[description = <span class="string">&quot;First operand&quot;</span>] </span>a: f64,
+    <span class="attribute">#[description = <span class="string">&quot;Second operand&quot;</span>]
+    #[min = -<span class="number">15</span>]
+    #[max = <span class="number">28.765</span>]
+    </span>b: f32,
+) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+    ctx.say(<span class="macro">format!</span>(<span class="string">&quot;Result: {}&quot;</span>, a + b <span class="kw">as </span>f64)).<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="doccomment">/// Get the guild name (guild-only)</span>
-<span class="attribute">#[<span class="ident">poise::command</span>(<span class="ident">prefix_command</span>, <span class="ident">slash_command</span>, <span class="ident">guild_only</span>)]</span>
-<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">get_guild_name</span>(<span class="ident">ctx</span>: <span class="ident">Context</span>&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">Error</span>&gt; {
-    <span class="ident">ctx</span>.<span class="ident">say</span>(<span class="macro">format!</span>(
+<span class="doccomment">/// Get the guild name (guild-only)
+</span><span class="attribute">#[poise::command(prefix_command, slash_command, guild_only)]
+</span><span class="kw">pub async fn </span>get_guild_name(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+    ctx.say(<span class="macro">format!</span>(
         <span class="string">&quot;The name of this guild is: {}&quot;</span>,
-        <span class="ident">ctx</span>.<span class="ident">partial_guild</span>().<span class="kw">await</span>.<span class="ident">unwrap</span>().<span class="ident">name</span>
+        ctx.partial_guild().<span class="kw">await</span>.unwrap().name
     ))
     .<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="doccomment">/// A dm-only command</span>
-<span class="attribute">#[<span class="ident">poise::command</span>(<span class="ident">prefix_command</span>, <span class="ident">slash_command</span>, <span class="ident">dm_only</span>)]</span>
-<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">only_in_dms</span>(<span class="ident">ctx</span>: <span class="ident">Context</span>&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">Error</span>&gt; {
-    <span class="ident">ctx</span>.<span class="ident">say</span>(<span class="string">&quot;This is a dm channel&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+<span class="doccomment">/// A dm-only command
+</span><span class="attribute">#[poise::command(prefix_command, slash_command, dm_only)]
+</span><span class="kw">pub async fn </span>only_in_dms(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+    ctx.say(<span class="string">&quot;This is a dm channel&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="doccomment">/// Only runs on NSFW channels</span>
-<span class="attribute">#[<span class="ident">poise::command</span>(<span class="ident">prefix_command</span>, <span class="ident">slash_command</span>, <span class="ident">nsfw_only</span>)]</span>
-<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">lennyface</span>(<span class="ident">ctx</span>: <span class="ident">Context</span>&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">Error</span>&gt; {
-    <span class="ident">ctx</span>.<span class="ident">say</span>(<span class="string">&quot;( ͡° ͜ʖ ͡°)&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+<span class="doccomment">/// Only runs on NSFW channels
+</span><span class="attribute">#[poise::command(prefix_command, slash_command, nsfw_only)]
+</span><span class="kw">pub async fn </span>lennyface(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+    ctx.say(<span class="string">&quot;( ͡° ͜ʖ ͡°)&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="doccomment">/// Utilizes the permissions v2 `default_member_permissions` field</span>
-<span class="attribute">#[<span class="ident">poise::command</span>(<span class="ident">slash_command</span>, <span class="ident">default_member_permissions</span> = <span class="string">&quot;ADMINISTRATOR&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">permissions_v2</span>(<span class="ident">ctx</span>: <span class="ident">Context</span>&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">Error</span>&gt; {
-    <span class="ident">ctx</span>.<span class="ident">say</span>(<span class="string">&quot;Whoop! You&#39;re authorized!&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+<span class="doccomment">/// Utilizes the permissions v2 `default_member_permissions` field
+</span><span class="attribute">#[poise::command(slash_command, default_member_permissions = <span class="string">&quot;ADMINISTRATOR&quot;</span>)]
+</span><span class="kw">pub async fn </span>permissions_v2(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+    ctx.say(<span class="string">&quot;Whoop! You&#39;re authorized!&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="prelude-val">Ok</span>(())
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="framework_usage" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="framework_usage" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (748038961 2022-08-25)" ></div></body></html>

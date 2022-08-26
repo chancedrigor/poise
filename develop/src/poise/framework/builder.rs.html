@@ -229,184 +229,184 @@
 <span id="229">229</span>
 <span id="230">230</span>
 <span id="231">231</span>
-</pre><pre class="rust"><code><span class="doccomment">//! A builder struct that allows easy and readable creation of a [`crate::Framework`]</span>
+</pre><pre class="rust"><code><span class="doccomment">//! A builder struct that allows easy and readable creation of a [`crate::Framework`]
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::serenity_prelude</span> <span class="kw">as</span> <span class="ident">serenity</span>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::BoxFuture</span>;
+</span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
+<span class="kw">use </span><span class="kw">crate</span>::BoxFuture;
 
-<span class="doccomment">/// A builder to configure and run a framework.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// If one of the following required values is missing, the builder will panic on start:</span>
-<span class="doccomment">/// - [`Self::token`]</span>
-<span class="doccomment">/// - [`Self::user_data_setup`]</span>
-<span class="doccomment">/// - [`Self::options`]</span>
-<span class="doccomment">/// - [`Self::intents`]</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Before starting, the builder will make an HTTP request to retrieve the bot&#39;s application ID and</span>
-<span class="doccomment">/// owner, if [`Self::initialize_owners`] is set (true by default).</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FrameworkBuilder</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; {
-    <span class="doccomment">/// Callback for user data setup</span>
-    <span class="ident">user_data_setup</span>: <span class="prelude-ty">Option</span>&lt;
-        <span class="ident">Box</span>&lt;
-            <span class="kw">dyn</span> <span class="ident">Send</span>
-                + <span class="ident">Sync</span>
-                + <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; <span class="ident">FnOnce</span>(
-                    <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">serenity::Context</span>,
-                    <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">serenity::Ready</span>,
-                    <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident"><span class="kw">crate</span>::Framework</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;,
-                ) -&gt; <span class="ident">BoxFuture</span>&lt;<span class="lifetime">&#39;a</span>, <span class="prelude-ty">Result</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;&gt;,
+<span class="doccomment">/// A builder to configure and run a framework.
+///
+/// If one of the following required values is missing, the builder will panic on start:
+/// - [`Self::token`]
+/// - [`Self::user_data_setup`]
+/// - [`Self::options`]
+/// - [`Self::intents`]
+///
+/// Before starting, the builder will make an HTTP request to retrieve the bot&#39;s application ID and
+/// owner, if [`Self::initialize_owners`] is set (true by default).
+</span><span class="kw">pub struct </span>FrameworkBuilder&lt;U, E&gt; {
+    <span class="doccomment">/// Callback for user data setup
+    </span>user_data_setup: <span class="prelude-ty">Option</span>&lt;
+        Box&lt;
+            <span class="kw">dyn </span>Send
+                + Sync
+                + <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; FnOnce(
+                    <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context,
+                    <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Ready,
+                    <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Framework&lt;U, E&gt;,
+                ) -&gt; BoxFuture&lt;<span class="lifetime">&#39;a</span>, <span class="prelude-ty">Result</span>&lt;U, E&gt;&gt;,
         &gt;,
     &gt;,
-    <span class="doccomment">/// Framework options</span>
-    <span class="ident">options</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident"><span class="kw">crate</span>::FrameworkOptions</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;&gt;,
-    <span class="doccomment">/// Client settings that will be applied to the ClientBuilder before initializing the framework</span>
-    <span class="ident">client_settings</span>:
-        <span class="prelude-ty">Option</span>&lt;<span class="ident">Box</span>&lt;<span class="kw">dyn</span> <span class="ident">FnOnce</span>(<span class="ident">serenity::ClientBuilder</span>) -&gt; <span class="ident">serenity::ClientBuilder</span> + <span class="ident">Send</span> + <span class="ident">Sync</span>&gt;&gt;,
-    <span class="doccomment">/// Discord bot token</span>
-    <span class="ident">token</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">String</span>&gt;,
-    <span class="doccomment">/// Discord gateway intents</span>
-    <span class="ident">intents</span>: <span class="prelude-ty">Option</span>&lt;<span class="ident">serenity::GatewayIntents</span>&gt;,
-    <span class="doccomment">/// List of framework commands</span>
-    <span class="ident">commands</span>: <span class="ident">Vec</span>&lt;<span class="ident"><span class="kw">crate</span>::Command</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;&gt;,
-    <span class="doccomment">/// See [`Self::initialize_owners()`]</span>
-    <span class="ident">initialize_owners</span>: <span class="ident">bool</span>,
+    <span class="doccomment">/// Framework options
+    </span>options: <span class="prelude-ty">Option</span>&lt;<span class="kw">crate</span>::FrameworkOptions&lt;U, E&gt;&gt;,
+    <span class="doccomment">/// Client settings that will be applied to the ClientBuilder before initializing the framework
+    </span>client_settings:
+        <span class="prelude-ty">Option</span>&lt;Box&lt;<span class="kw">dyn </span>FnOnce(serenity::ClientBuilder) -&gt; serenity::ClientBuilder + Send + Sync&gt;&gt;,
+    <span class="doccomment">/// Discord bot token
+    </span>token: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="doccomment">/// Discord gateway intents
+    </span>intents: <span class="prelude-ty">Option</span>&lt;serenity::GatewayIntents&gt;,
+    <span class="doccomment">/// List of framework commands
+    </span>commands: Vec&lt;<span class="kw">crate</span>::Command&lt;U, E&gt;&gt;,
+    <span class="doccomment">/// See [`Self::initialize_owners()`]
+    </span>initialize_owners: bool,
 }
 
-<span class="kw">impl</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">FrameworkBuilder</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; {
-    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> {
-            <span class="ident">user_data_setup</span>: <span class="ident">Default::default</span>(),
-            <span class="ident">options</span>: <span class="ident">Default::default</span>(),
-            <span class="ident">client_settings</span>: <span class="ident">Default::default</span>(),
-            <span class="ident">token</span>: <span class="ident">Default::default</span>(),
-            <span class="ident">intents</span>: <span class="ident">Default::default</span>(),
-            <span class="ident">commands</span>: <span class="ident">Default::default</span>(),
-            <span class="ident">initialize_owners</span>: <span class="bool-val">true</span>,
+<span class="kw">impl</span>&lt;U, E&gt; Default <span class="kw">for </span>FrameworkBuilder&lt;U, E&gt; {
+    <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            user_data_setup: Default::default(),
+            options: Default::default(),
+            client_settings: Default::default(),
+            token: Default::default(),
+            intents: Default::default(),
+            commands: Default::default(),
+            initialize_owners: <span class="bool-val">true</span>,
         }
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; <span class="ident">FrameworkBuilder</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; {
-    <span class="doccomment">/// Set a prefix for commands</span>
-    <span class="attribute">#[<span class="ident">deprecated</span> = <span class="string">&quot;Please set the prefix via FrameworkOptions::prefix_options::prefix&quot;</span>]</span>
-    <span class="attribute">#[<span class="ident">must_use</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">prefix</span>(<span class="self">self</span>, <span class="ident">_prefix</span>: <span class="kw">impl</span> <span class="ident">Into</span>&lt;<span class="ident">String</span>&gt;) -&gt; <span class="self">Self</span> {
+<span class="kw">impl</span>&lt;U, E&gt; FrameworkBuilder&lt;U, E&gt; {
+    <span class="doccomment">/// Set a prefix for commands
+    </span><span class="attribute">#[deprecated = <span class="string">&quot;Please set the prefix via FrameworkOptions::prefix_options::prefix&quot;</span>]
+    #[must_use]
+    </span><span class="kw">pub fn </span>prefix(<span class="self">self</span>, _prefix: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="self">Self </span>{
         <span class="macro">panic!</span>(<span class="string">&quot;Please set the prefix via FrameworkOptions::prefix_options::prefix&quot;</span>);
     }
 
-    <span class="doccomment">/// Set a callback to be invoked to create the user data instance</span>
-    <span class="attribute">#[<span class="ident">must_use</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">user_data_setup</span>&lt;<span class="ident">F</span>&gt;(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">user_data_setup</span>: <span class="ident">F</span>) -&gt; <span class="self">Self</span>
-    <span class="kw">where</span>
-        <span class="ident">F</span>: <span class="ident">Send</span>
-            + <span class="ident">Sync</span>
-            + <span class="lifetime">&#39;static</span>
-            + <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; <span class="ident">FnOnce</span>(
-                <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">serenity::Context</span>,
-                <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">serenity::Ready</span>,
-                <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident"><span class="kw">crate</span>::Framework</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;,
-            ) -&gt; <span class="ident">BoxFuture</span>&lt;<span class="lifetime">&#39;a</span>, <span class="prelude-ty">Result</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;&gt;,
+    <span class="doccomment">/// Set a callback to be invoked to create the user data instance
+    </span><span class="attribute">#[must_use]
+    </span><span class="kw">pub fn </span>user_data_setup&lt;F&gt;(<span class="kw-2">mut </span><span class="self">self</span>, user_data_setup: F) -&gt; <span class="self">Self
+    </span><span class="kw">where
+        </span>F: Send
+            + Sync
+            + <span class="lifetime">&#39;static
+            </span>+ <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; FnOnce(
+                <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context,
+                <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Ready,
+                <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Framework&lt;U, E&gt;,
+            ) -&gt; BoxFuture&lt;<span class="lifetime">&#39;a</span>, <span class="prelude-ty">Result</span>&lt;U, E&gt;&gt;,
     {
-        <span class="self">self</span>.<span class="ident">user_data_setup</span> = <span class="prelude-val">Some</span>(<span class="ident">Box::new</span>(<span class="ident">user_data_setup</span>) <span class="kw">as</span> <span class="kw">_</span>);
-        <span class="self">self</span>
-    }
+        <span class="self">self</span>.user_data_setup = <span class="prelude-val">Some</span>(Box::new(user_data_setup) <span class="kw">as _</span>);
+        <span class="self">self
+    </span>}
 
-    <span class="doccomment">/// Configure framework options</span>
-    <span class="attribute">#[<span class="ident">must_use</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">options</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">options</span>: <span class="ident"><span class="kw">crate</span>::FrameworkOptions</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;) -&gt; <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="ident">options</span> = <span class="prelude-val">Some</span>(<span class="ident">options</span>);
-        <span class="self">self</span>
-    }
+    <span class="doccomment">/// Configure framework options
+    </span><span class="attribute">#[must_use]
+    </span><span class="kw">pub fn </span>options(<span class="kw-2">mut </span><span class="self">self</span>, options: <span class="kw">crate</span>::FrameworkOptions&lt;U, E&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.options = <span class="prelude-val">Some</span>(options);
+        <span class="self">self
+    </span>}
 
-    <span class="doccomment">/// Configure serenity client settings, like gateway intents, by supplying a custom</span>
-    <span class="doccomment">/// client builder</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Note: the builder&#39;s token will be overridden by the</span>
-    <span class="doccomment">/// [`FrameworkBuilder`]; use [`FrameworkBuilder::token`] to supply a token.</span>
-    <span class="attribute">#[<span class="ident">must_use</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">client_settings</span>(
-        <span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="ident">f</span>: <span class="kw">impl</span> <span class="ident">FnOnce</span>(<span class="ident">serenity::ClientBuilder</span>) -&gt; <span class="ident">serenity::ClientBuilder</span> + <span class="ident">Send</span> + <span class="ident">Sync</span> + <span class="lifetime">&#39;static</span>,
-    ) -&gt; <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="ident">client_settings</span> = <span class="prelude-val">Some</span>(<span class="ident">Box::new</span>(<span class="ident">f</span>));
-        <span class="self">self</span>
-    }
+    <span class="doccomment">/// Configure serenity client settings, like gateway intents, by supplying a custom
+    /// client builder
+    ///
+    /// Note: the builder&#39;s token will be overridden by the
+    /// [`FrameworkBuilder`]; use [`FrameworkBuilder::token`] to supply a token.
+    </span><span class="attribute">#[must_use]
+    </span><span class="kw">pub fn </span>client_settings(
+        <span class="kw-2">mut </span><span class="self">self</span>,
+        f: <span class="kw">impl </span>FnOnce(serenity::ClientBuilder) -&gt; serenity::ClientBuilder + Send + Sync + <span class="lifetime">&#39;static</span>,
+    ) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.client_settings = <span class="prelude-val">Some</span>(Box::new(f));
+        <span class="self">self
+    </span>}
 
-    <span class="doccomment">/// The bot token</span>
-    <span class="attribute">#[<span class="ident">must_use</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">token</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">token</span>: <span class="kw">impl</span> <span class="ident">Into</span>&lt;<span class="ident">String</span>&gt;) -&gt; <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="ident">token</span> = <span class="prelude-val">Some</span>(<span class="ident">token</span>.<span class="ident">into</span>());
-        <span class="self">self</span>
-    }
+    <span class="doccomment">/// The bot token
+    </span><span class="attribute">#[must_use]
+    </span><span class="kw">pub fn </span>token(<span class="kw-2">mut </span><span class="self">self</span>, token: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.token = <span class="prelude-val">Some</span>(token.into());
+        <span class="self">self
+    </span>}
 
-    <span class="doccomment">/// The gateway intents</span>
-    <span class="attribute">#[<span class="ident">must_use</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">intents</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">intents</span>: <span class="ident">serenity::GatewayIntents</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="ident">intents</span> = <span class="prelude-val">Some</span>(<span class="ident">intents</span>);
-        <span class="self">self</span>
-    }
+    <span class="doccomment">/// The gateway intents
+    </span><span class="attribute">#[must_use]
+    </span><span class="kw">pub fn </span>intents(<span class="kw-2">mut </span><span class="self">self</span>, intents: serenity::GatewayIntents) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.intents = <span class="prelude-val">Some</span>(intents);
+        <span class="self">self
+    </span>}
 
-    <span class="doccomment">/// Add a new command to the framework</span>
-    <span class="attribute">#[<span class="ident">deprecated</span> = <span class="string">&quot;supply commands in FrameworkOptions directly with `commands: vec![...]`&quot;</span>]</span>
-    <span class="attribute">#[<span class="ident">must_use</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">command</span>(
-        <span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="kw-2">mut</span> <span class="ident">command</span>: <span class="ident"><span class="kw">crate</span>::Command</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;,
-        <span class="ident">meta_builder</span>: <span class="kw">impl</span> <span class="ident">FnOnce</span>(<span class="kw-2">&amp;mut</span> <span class="ident"><span class="kw">crate</span>::Command</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident"><span class="kw">crate</span>::Command</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt; + <span class="lifetime">&#39;static</span>,
-    ) -&gt; <span class="self">Self</span> {
-        <span class="ident">meta_builder</span>(<span class="kw-2">&amp;mut</span> <span class="ident">command</span>);
-        <span class="self">self</span>.<span class="ident">commands</span>.<span class="ident">push</span>(<span class="ident">command</span>);
-        <span class="self">self</span>
-    }
+    <span class="doccomment">/// Add a new command to the framework
+    </span><span class="attribute">#[deprecated = <span class="string">&quot;supply commands in FrameworkOptions directly with `commands: vec![...]`&quot;</span>]
+    #[must_use]
+    </span><span class="kw">pub fn </span>command(
+        <span class="kw-2">mut </span><span class="self">self</span>,
+        <span class="kw-2">mut </span>command: <span class="kw">crate</span>::Command&lt;U, E&gt;,
+        meta_builder: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;mut </span><span class="kw">crate</span>::Command&lt;U, E&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::Command&lt;U, E&gt; + <span class="lifetime">&#39;static</span>,
+    ) -&gt; <span class="self">Self </span>{
+        meta_builder(<span class="kw-2">&amp;mut </span>command);
+        <span class="self">self</span>.commands.push(command);
+        <span class="self">self
+    </span>}
 
-    <span class="doccomment">/// Add multiple new commands to the framework. Shorthand for calling [`Self::command`] multiple</span>
-    <span class="doccomment">/// times with the builder left to defaults, i.e. no command category or subcommands</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```rust</span>
-    <span class="doccomment">/// # type Error = Box&lt;dyn std::error::Error + Send + Sync&gt;;</span>
-    <span class="doccomment">/// # #[poise::command(prefix_command)]</span>
-    <span class="doccomment">/// # async fn command1(ctx: poise::Context&lt;&#39;_, (), Error&gt;) -&gt; Result&lt;(), Error&gt; { Ok(()) }</span>
-    <span class="doccomment">/// # #[poise::command(prefix_command)]</span>
-    <span class="doccomment">/// # async fn command2(ctx: poise::Context&lt;&#39;_, (), Error&gt;) -&gt; Result&lt;(), Error&gt; { Ok(()) }</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # #[allow(deprecated)] // just for this example</span>
-    <span class="doccomment">/// poise::Framework::builder()</span>
-    <span class="doccomment">///     // framework setup...</span>
-    <span class="doccomment">///     .commands([command1, command2])</span>
-    <span class="doccomment">///     // framework startup...</span>
-    <span class="doccomment">/// # ;</span>
-    <span class="doccomment">/// ```</span>
-    <span class="attribute">#[<span class="ident">deprecated</span> = <span class="string">&quot;supply commands in FrameworkOptions directly with `commands: vec![...]`&quot;</span>]</span>
-    <span class="attribute">#[<span class="ident">must_use</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">commands</span>(
-        <span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="ident">commands</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span>&lt;<span class="ident">Item</span> = <span class="kw">fn</span>() -&gt; <span class="ident"><span class="kw">crate</span>::Command</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;&gt; + <span class="lifetime">&#39;static</span>,
-    ) -&gt; <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="ident">commands</span>.<span class="ident">extend</span>(<span class="ident">commands</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(|<span class="ident">c</span>| <span class="ident">c</span>()));
-        <span class="self">self</span>
-    }
+    <span class="doccomment">/// Add multiple new commands to the framework. Shorthand for calling [`Self::command`] multiple
+    /// times with the builder left to defaults, i.e. no command category or subcommands
+    ///
+    /// ```rust
+    /// # type Error = Box&lt;dyn std::error::Error + Send + Sync&gt;;
+    /// # #[poise::command(prefix_command)]
+    /// # async fn command1(ctx: poise::Context&lt;&#39;_, (), Error&gt;) -&gt; Result&lt;(), Error&gt; { Ok(()) }
+    /// # #[poise::command(prefix_command)]
+    /// # async fn command2(ctx: poise::Context&lt;&#39;_, (), Error&gt;) -&gt; Result&lt;(), Error&gt; { Ok(()) }
+    ///
+    /// # #[allow(deprecated)] // just for this example
+    /// poise::Framework::builder()
+    ///     // framework setup...
+    ///     .commands([command1, command2])
+    ///     // framework startup...
+    /// # ;
+    /// ```
+    </span><span class="attribute">#[deprecated = <span class="string">&quot;supply commands in FrameworkOptions directly with `commands: vec![...]`&quot;</span>]
+    #[must_use]
+    </span><span class="kw">pub fn </span>commands(
+        <span class="kw-2">mut </span><span class="self">self</span>,
+        commands: <span class="kw">impl </span>IntoIterator&lt;Item = <span class="kw">fn</span>() -&gt; <span class="kw">crate</span>::Command&lt;U, E&gt;&gt; + <span class="lifetime">&#39;static</span>,
+    ) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.commands.extend(commands.into_iter().map(|c| c()));
+        <span class="self">self
+    </span>}
 
-    <span class="doccomment">/// Whether to add this bot application&#39;s owner and team members to</span>
-    <span class="doccomment">/// [`crate::FrameworkOptions::owners`] automatically</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` by default</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">initialize_owners</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">initialize_owners</span>: <span class="ident">bool</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="ident">initialize_owners</span> = <span class="ident">initialize_owners</span>;
-        <span class="self">self</span>
-    }
+    <span class="doccomment">/// Whether to add this bot application&#39;s owner and team members to
+    /// [`crate::FrameworkOptions::owners`] automatically
+    ///
+    /// `true` by default
+    </span><span class="kw">pub fn </span>initialize_owners(<span class="kw-2">mut </span><span class="self">self</span>, initialize_owners: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.initialize_owners = initialize_owners;
+        <span class="self">self
+    </span>}
 
-    <span class="doccomment">/// Build the framework with the specified configuration.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// For more information, see [`FrameworkBuilder`]</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="ident">std::sync::Arc</span>&lt;<span class="ident"><span class="kw">crate</span>::Framework</span>&lt;<span class="ident">U</span>, <span class="ident">E</span>&gt;&gt;, <span class="ident">serenity::Error</span>&gt;
-    <span class="kw">where</span>
-        <span class="ident">U</span>: <span class="ident">Send</span> + <span class="ident">Sync</span> + <span class="lifetime">&#39;static</span>,
-        <span class="ident">E</span>: <span class="ident">Send</span> + <span class="lifetime">&#39;static</span>,
+    <span class="doccomment">/// Build the framework with the specified configuration.
+    ///
+    /// For more information, see [`FrameworkBuilder`]
+    </span><span class="kw">pub async fn </span>build(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;std::sync::Arc&lt;<span class="kw">crate</span>::Framework&lt;U, E&gt;&gt;, serenity::Error&gt;
+    <span class="kw">where
+        </span>U: Send + Sync + <span class="lifetime">&#39;static</span>,
+        E: Send + <span class="lifetime">&#39;static</span>,
     {
-        <span class="comment">// Aggregate required values or panic if not provided</span>
-        <span class="comment">// WHEN CHANGING THESE, UPDATE FrameworkBuilder docs!</span>
-        <span class="kw">let</span> <span class="ident">token</span> = <span class="self">self</span>.<span class="ident">token</span>.<span class="ident">expect</span>(<span class="string">&quot;No token was provided to the framework&quot;</span>);
-        <span class="kw">let</span> <span class="ident">intents</span> = <span class="self">self</span>.<span class="ident">intents</span>.<span class="ident">expect</span>(
+        <span class="comment">// Aggregate required values or panic if not provided
+        // WHEN CHANGING THESE, UPDATE FrameworkBuilder docs!
+        </span><span class="kw">let </span>token = <span class="self">self</span>.token.expect(<span class="string">&quot;No token was provided to the framework&quot;</span>);
+        <span class="kw">let </span>intents = <span class="self">self</span>.intents.expect(
             <span class="string">&quot;
 
 No gateway intents were provided to the framework via `FrameworkBuilder::intents()`. If you&#39;re \
@@ -416,49 +416,49 @@ and enable MESSAGE_CONTENT in your Discord bot dashboard
 
 &quot;</span>,
         );
-        <span class="kw">let</span> <span class="ident">user_data_setup</span> = <span class="self">self</span>
-            .<span class="ident">user_data_setup</span>
-            .<span class="ident">expect</span>(<span class="string">&quot;No user data setup function was provided to the framework&quot;</span>);
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">options</span> = <span class="self">self</span>.<span class="ident">options</span>.<span class="ident">expect</span>(<span class="string">&quot;No framework options provided&quot;</span>);
+        <span class="kw">let </span>user_data_setup = <span class="self">self
+            </span>.user_data_setup
+            .expect(<span class="string">&quot;No user data setup function was provided to the framework&quot;</span>);
+        <span class="kw">let </span><span class="kw-2">mut </span>options = <span class="self">self</span>.options.expect(<span class="string">&quot;No framework options provided&quot;</span>);
 
-        <span class="comment">// Build framework options by concatenating user-set options with commands and owners</span>
-        <span class="ident">options</span>.<span class="ident">commands</span>.<span class="ident">extend</span>(<span class="self">self</span>.<span class="ident">commands</span>);
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">initialize_owners</span> {
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) = <span class="ident"><span class="kw">super</span>::insert_owners_from_http</span>(<span class="kw-2">&amp;</span><span class="ident">token</span>, <span class="kw-2">&amp;mut</span> <span class="ident">options</span>.<span class="ident">owners</span>).<span class="kw">await</span> {
-                <span class="macro">log::warn!</span>(<span class="string">&quot;Failed to insert owners from HTTP: {}&quot;</span>, <span class="ident">e</span>);
+        <span class="comment">// Build framework options by concatenating user-set options with commands and owners
+        </span>options.commands.extend(<span class="self">self</span>.commands);
+        <span class="kw">if </span><span class="self">self</span>.initialize_owners {
+            <span class="kw">if let </span><span class="prelude-val">Err</span>(e) = <span class="kw">super</span>::insert_owners_from_http(<span class="kw-2">&amp;</span>token, <span class="kw-2">&amp;mut </span>options.owners).<span class="kw">await </span>{
+                <span class="macro">log::warn!</span>(<span class="string">&quot;Failed to insert owners from HTTP: {}&quot;</span>, e);
             }
         }
 
-        <span class="comment">// Create serenity client</span>
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">client_builder</span> = <span class="ident">serenity::ClientBuilder::new</span>(<span class="ident">token</span>, <span class="ident">intents</span>);
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">client_settings</span>) = <span class="self">self</span>.<span class="ident">client_settings</span> {
-            <span class="ident">client_builder</span> = <span class="ident">client_settings</span>(<span class="ident">client_builder</span>);
+        <span class="comment">// Create serenity client
+        </span><span class="kw">let </span><span class="kw-2">mut </span>client_builder = serenity::ClientBuilder::new(token, intents);
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(client_settings) = <span class="self">self</span>.client_settings {
+            client_builder = client_settings(client_builder);
         }
 
-        <span class="comment">// Create framework with specified settings</span>
-        <span class="ident"><span class="kw">crate</span>::Framework::new</span>(<span class="ident">client_builder</span>, <span class="ident">user_data_setup</span>, <span class="ident">options</span>).<span class="kw">await</span>
-    }
+        <span class="comment">// Create framework with specified settings
+        </span><span class="kw">crate</span>::Framework::new(client_builder, user_data_setup, options).<span class="kw">await
+    </span>}
 
-    <span class="doccomment">/// Start the framework with the specified configuration.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`FrameworkBuilder::run`] is just a shorthand that calls [`FrameworkBuilder::build`] and</span>
-    <span class="doccomment">/// starts the returned framework</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">run</span>(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">serenity::Error</span>&gt;
-    <span class="kw">where</span>
-        <span class="ident">U</span>: <span class="ident">Send</span> + <span class="ident">Sync</span> + <span class="lifetime">&#39;static</span>,
-        <span class="ident">E</span>: <span class="ident">Send</span> + <span class="lifetime">&#39;static</span>,
+    <span class="doccomment">/// Start the framework with the specified configuration.
+    ///
+    /// [`FrameworkBuilder::run`] is just a shorthand that calls [`FrameworkBuilder::build`] and
+    /// starts the returned framework
+    </span><span class="kw">pub async fn </span>run(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(), serenity::Error&gt;
+    <span class="kw">where
+        </span>U: Send + Sync + <span class="lifetime">&#39;static</span>,
+        E: Send + <span class="lifetime">&#39;static</span>,
     {
-        <span class="self">self</span>.<span class="ident">build</span>().<span class="kw">await</span><span class="question-mark">?</span>.<span class="ident">start</span>().<span class="kw">await</span>
-    }
+        <span class="self">self</span>.build().<span class="kw">await</span><span class="question-mark">?</span>.start().<span class="kw">await
+    </span>}
 
-    <span class="doccomment">/// Autosharded version of [`Self::run`]</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">run_autosharded</span>(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="ident">serenity::Error</span>&gt;
-    <span class="kw">where</span>
-        <span class="ident">U</span>: <span class="ident">Send</span> + <span class="ident">Sync</span> + <span class="lifetime">&#39;static</span>,
-        <span class="ident">E</span>: <span class="ident">Send</span> + <span class="lifetime">&#39;static</span>,
+    <span class="doccomment">/// Autosharded version of [`Self::run`]
+    </span><span class="kw">pub async fn </span>run_autosharded(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(), serenity::Error&gt;
+    <span class="kw">where
+        </span>U: Send + Sync + <span class="lifetime">&#39;static</span>,
+        E: Send + <span class="lifetime">&#39;static</span>,
     {
-        <span class="self">self</span>.<span class="ident">build</span>().<span class="kw">await</span><span class="question-mark">?</span>.<span class="ident">start_autosharded</span>().<span class="kw">await</span>
-    }
+        <span class="self">self</span>.build().<span class="kw">await</span><span class="question-mark">?</span>.start_autosharded().<span class="kw">await
+    </span>}
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (75b7e52e9 2022-08-13)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (748038961 2022-08-25)" ></div></body></html>
