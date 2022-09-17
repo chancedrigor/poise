@@ -159,9 +159,41 @@
 <span id="159">159</span>
 <span id="160">160</span>
 <span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Holds prefix-command definition structs.
 
 </span><span class="kw">use crate</span>::{serenity_prelude <span class="kw">as </span>serenity, BoxFuture};
+
+<span class="doccomment">/// The event that triggered a prefix command execution
+</span><span class="attribute">#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+</span><span class="kw">pub enum </span>MessageDispatchTrigger {
+    <span class="doccomment">/// The invocation message was posted directly (common case)
+    </span>MessageCreate,
+    <span class="doccomment">/// The message was edited, and was already a valid invocation pre-edit
+    </span>MessageEdit,
+    <span class="doccomment">/// The message was edited, and was not a valid invocation pre-edit (i.e. user typoed the
+    /// command, then fixed it)
+    </span>MessageEditFromInvalid,
+}
 
 <span class="doccomment">/// Prefix-specific context passed to command invocations.
 ///
@@ -193,6 +225,14 @@
     </span><span class="kw">pub </span>data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>U,
     <span class="doccomment">/// Custom user data carried across a single command invocation
     </span><span class="kw">pub </span>invocation_data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>tokio::sync::Mutex&lt;Box&lt;<span class="kw">dyn </span>std::any::Any + Send + Sync&gt;&gt;,
+    <span class="doccomment">/// How this command invocation was triggered
+    </span><span class="kw">pub </span>trigger: MessageDispatchTrigger,
+    <span class="doccomment">/// The function that is called to execute the actual command
+    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="kw">pub </span>action: <span class="kw">fn</span>(
+        PrefixContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt;,
+    ) -&gt; <span class="kw">crate</span>::BoxFuture&lt;<span class="lifetime">&#39;_</span>, <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;_</span>, U, E&gt;&gt;&gt;,
+
     <span class="comment">// #[non_exhaustive] forbids struct update syntax for ?? reason
     </span><span class="attribute">#[doc(hidden)]
     </span><span class="kw">pub </span>__non_exhaustive: (),
@@ -321,4 +361,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (9243168fa 2022-08-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (95a992a68 2022-09-16)" ></div></body></html>

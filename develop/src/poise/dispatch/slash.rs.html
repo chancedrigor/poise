@@ -201,6 +201,17 @@
 <span id="201">201</span>
 <span id="202">202</span>
 <span id="203">203</span>
+<span id="204">204</span>
+<span id="205">205</span>
+<span id="206">206</span>
+<span id="207">207</span>
+<span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Dispatches interactions onto framework commands
 
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
@@ -239,22 +250,18 @@
     interaction: <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction&lt;<span class="lifetime">&#39;a</span>&gt;,
     has_sent_initial_response: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>std::sync::atomic::AtomicBool,
     invocation_data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>tokio::sync::Mutex&lt;Box&lt;<span class="kw">dyn </span>std::any::Any + Send + Sync&gt;&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;
-    <span class="kw">crate</span>::ApplicationContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
-    <span class="prelude-ty">Option</span>&lt;(<span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;)&gt;,
-&gt; {
+) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw">crate</span>::ApplicationContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;, <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt; {
     <span class="kw">let </span>search_result = find_matching_command(
         <span class="kw-2">&amp;</span>interaction.data().name,
         <span class="kw-2">&amp;</span>interaction.data().options,
         <span class="kw-2">&amp;</span>framework.options.commands,
     );
-    <span class="kw">let </span>(command, leaf_interaction_options) = search_result.ok_or_else(|| {
-        <span class="macro">log::warn!</span>(
-            <span class="string">&quot;received unknown interaction \&quot;{}\&quot;&quot;</span>,
-            interaction.data().name
-        );
-        <span class="prelude-val">None
-    </span>})<span class="question-mark">?</span>;
+    <span class="kw">let </span>(command, leaf_interaction_options) =
+        search_result.ok_or_else(|| <span class="kw">crate</span>::FrameworkError::UnknownInteraction {
+            ctx,
+            framework,
+            interaction,
+        })<span class="question-mark">?</span>;
 
     <span class="kw">let </span>ctx = <span class="kw">crate</span>::ApplicationContext {
         data: framework.user_data().<span class="kw">await</span>,
@@ -268,9 +275,7 @@
         __non_exhaustive: (),
     };
 
-    <span class="kw">super</span>::common::check_permissions_and_cooldown(ctx.into(), command)
-        .<span class="kw">await
-        </span>.map_err(|e| <span class="prelude-val">Some</span>((e, command)))<span class="question-mark">?</span>;
+    <span class="kw">super</span>::common::check_permissions_and_cooldown(ctx.into()).<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="prelude-val">Ok</span>(ctx)
 }
@@ -284,7 +289,7 @@
     </span>has_sent_initial_response: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>std::sync::atomic::AtomicBool,
     <span class="comment">// Need to pass this in from outside because of lifetime issues
     </span>invocation_data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>tokio::sync::Mutex&lt;Box&lt;<span class="kw">dyn </span>std::any::Any + Send + Sync&gt;&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="prelude-ty">Option</span>&lt;(<span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;)&gt;&gt; {
+) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt; {
     <span class="kw">let </span>ctx = extract_command_and_run_checks(
         framework,
         ctx,
@@ -298,14 +303,11 @@
 
     <span class="comment">// Check which interaction type we received and grab the command action and, if context menu,
     // the resolved click target, and execute the action
-    </span><span class="kw">let </span>command_structure_mismatch_error = <span class="prelude-val">Some</span>((
-        <span class="kw">crate</span>::FrameworkError::CommandStructureMismatch {
-            ctx,
-            description: <span class="string">&quot;received interaction type but command contained no \
+    </span><span class="kw">let </span>command_structure_mismatch_error = <span class="kw">crate</span>::FrameworkError::CommandStructureMismatch {
+        ctx,
+        description: <span class="string">&quot;received interaction type but command contained no \
                 matching action or interaction contained no matching context menu object&quot;</span>,
-        },
-        ctx.command,
-    ));
+    };
     <span class="kw">let </span>action_result = <span class="kw">match </span>interaction.data.kind {
         serenity::CommandType::ChatInput =&gt; {
             <span class="kw">let </span>action = ctx
@@ -332,9 +334,12 @@
                 <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(command_structure_mismatch_error),
             }
         }
-        <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="prelude-val">None</span>),
+        other =&gt; {
+            <span class="macro">log::warn!</span>(<span class="string">&quot;unknown interaction command type: {:?}&quot;</span>, other);
+            <span class="kw">return </span><span class="prelude-val">Ok</span>(());
+        }
     };
-    action_result.map_err(|e| <span class="prelude-val">Some</span>((e, ctx.command)))<span class="question-mark">?</span>;
+    action_result<span class="question-mark">?</span>;
 
     (framework.options.post_command)(<span class="kw">crate</span>::Context::Application(ctx)).<span class="kw">await</span>;
 
@@ -351,7 +356,7 @@
     </span>has_sent_initial_response: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>std::sync::atomic::AtomicBool,
     <span class="comment">// Need to pass this in from outside because of lifetime issues
     </span>invocation_data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>tokio::sync::Mutex&lt;Box&lt;<span class="kw">dyn </span>std::any::Any + Send + Sync&gt;&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="prelude-ty">Option</span>&lt;(<span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;)&gt;&gt; {
+) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt; {
     <span class="kw">let </span>ctx = extract_command_and_run_checks(
         framework,
         ctx,
@@ -362,47 +367,64 @@
     .<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="comment">// Find which parameter is focused by the user
-    </span><span class="kw">let </span>focused_option = ctx.args.iter().find(|o| o.focused).ok_or(<span class="prelude-val">None</span>)<span class="question-mark">?</span>;
+    </span><span class="kw">let </span>focused_option = <span class="kw">match </span>ctx.args.iter().find(|o| o.focused) {
+        <span class="prelude-val">Some</span>(x) =&gt; x,
+        <span class="prelude-val">None </span>=&gt; {
+            <span class="macro">log::warn!</span>(<span class="string">&quot;no option is focused in autocomplete interaction&quot;</span>);
+            <span class="kw">return </span><span class="prelude-val">Ok</span>(());
+        }
+    };
 
     <span class="comment">// Find the matching parameter from our Command object
     </span><span class="kw">let </span>parameters = <span class="kw-2">&amp;</span>ctx.command.parameters;
     <span class="kw">let </span>focused_parameter = parameters
         .iter()
         .find(|p| p.name == focused_option.name)
-        .ok_or(<span class="prelude-val">None</span>)<span class="question-mark">?</span>;
+        .ok_or(<span class="kw">crate</span>::FrameworkError::CommandStructureMismatch {
+            ctx,
+            description: <span class="string">&quot;focused autocomplete parameter name not recognized&quot;</span>,
+        })<span class="question-mark">?</span>;
 
-    <span class="comment">// If this parameter supports autocomplete...
-    </span><span class="kw">if let </span><span class="prelude-val">Some</span>(autocomplete_callback) = focused_parameter.autocomplete_callback {
-        <span class="attribute">#[allow(unused_imports)]
-        </span><span class="kw">use </span>::serenity::json::prelude::<span class="kw-2">*</span>; <span class="comment">// as_str() access via trait for simd-json
+    <span class="comment">// Only continue if this parameter supports autocomplete and Discord has given us a partial value
+    </span><span class="kw">let </span>(autocomplete_callback, partial_input) = <span class="kw">match </span>(
+        focused_parameter.autocomplete_callback,
+        <span class="kw-2">&amp;</span>focused_option.value,
+    ) {
+        (<span class="prelude-val">Some</span>(a), <span class="prelude-val">Some</span>(b)) =&gt; (a, b),
+        <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">Ok</span>(()),
+    };
 
-        // Generate an autocomplete response
-        </span><span class="kw">let </span>partial_input = focused_option.value.as_ref().ok_or(<span class="prelude-val">None</span>)<span class="question-mark">?</span>;
-        <span class="kw">let </span>partial_input = partial_input.as_str().ok_or_else(|| {
-            <span class="macro">log::warn!</span>(<span class="string">&quot;unexpected non-string autocomplete input&quot;</span>);
-            <span class="prelude-val">None
-        </span>})<span class="question-mark">?</span>;
-        <span class="kw">let </span>autocomplete_response = <span class="kw">match </span>autocomplete_callback(ctx, partial_input).<span class="kw">await </span>{
-            <span class="prelude-val">Ok</span>(x) =&gt; x,
-            <span class="prelude-val">Err</span>(e) =&gt; {
-                <span class="macro">log::warn!</span>(<span class="string">&quot;couldn&#39;t generate autocomplete response: {}&quot;</span>, e);
-                <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="prelude-val">None</span>);
-            }
-        };
+    <span class="attribute">#[allow(unused_imports)]
+    </span><span class="kw">use </span>::serenity::json::prelude::<span class="kw-2">*</span>; <span class="comment">// as_str() access via trait for simd-json
 
-        <span class="comment">// Send the generates autocomplete response
-        </span><span class="kw">if let </span><span class="prelude-val">Err</span>(e) = interaction
-            .create_autocomplete_response(<span class="kw-2">&amp;</span>ctx.discord.http, |b| {
-                <span class="kw-2">*</span>b = autocomplete_response;
-                b
-            })
-            .<span class="kw">await
-        </span>{
-            <span class="macro">log::warn!</span>(<span class="string">&quot;couldn&#39;t send autocomplete response: {}&quot;</span>, e);
+    // Generate an autocomplete response
+    </span><span class="kw">let </span>partial_input =
+        partial_input
+            .as_str()
+            .ok_or_else(|| <span class="kw">crate</span>::FrameworkError::CommandStructureMismatch {
+                ctx,
+                description: <span class="string">&quot;unexpected non-string autocomplete input&quot;</span>,
+            })<span class="question-mark">?</span>;
+    <span class="kw">let </span>autocomplete_response = <span class="kw">match </span>autocomplete_callback(ctx, partial_input).<span class="kw">await </span>{
+        <span class="prelude-val">Ok</span>(x) =&gt; x,
+        <span class="prelude-val">Err</span>(e) =&gt; {
+            <span class="macro">log::warn!</span>(<span class="string">&quot;couldn&#39;t generate autocomplete response: {}&quot;</span>, e);
+            <span class="kw">return </span><span class="prelude-val">Ok</span>(());
         }
+    };
+
+    <span class="comment">// Send the generates autocomplete response
+    </span><span class="kw">if let </span><span class="prelude-val">Err</span>(e) = interaction
+        .create_autocomplete_response(<span class="kw-2">&amp;</span>ctx.discord.http, |b| {
+            <span class="kw-2">*</span>b = autocomplete_response;
+            b
+        })
+        .<span class="kw">await
+    </span>{
+        <span class="macro">log::warn!</span>(<span class="string">&quot;couldn&#39;t send autocomplete response: {}&quot;</span>, e);
     }
 
     <span class="prelude-val">Ok</span>(())
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (9243168fa 2022-08-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (95a992a68 2022-09-16)" ></div></body></html>

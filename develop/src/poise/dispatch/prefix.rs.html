@@ -256,6 +256,26 @@
 <span id="256">256</span>
 <span id="257">257</span>
 <span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Dispatches incoming messages and message edits onto framework commands
 
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
@@ -358,9 +378,7 @@
     <span class="prelude-val">None
 </span>}
 
-<span class="doccomment">/// Find a command or subcommand within `&amp;[Command]`, given a command invocation without a prefix.
-/// Returns the verbatim command name string as well as the command arguments (i.e. the remaining
-/// string).
+<span class="doccomment">/// Find a command or subcommand within `&amp;[Command]`, given a command name
 ///
 /// ```rust
 /// #[poise::command(prefix_command)]
@@ -385,9 +403,9 @@
 /// );
 </span><span class="kw">pub fn </span>find_command&lt;<span class="lifetime">&#39;a</span>, U, E&gt;(
     commands: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[<span class="kw">crate</span>::Command&lt;U, E&gt;],
-    remaining_message: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
+    command_name: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
     case_insensitive: bool,
-) -&gt; <span class="prelude-ty">Option</span>&lt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str)&gt;
+) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;&gt;
 <span class="kw">where
     </span>U: Send + Sync,
 {
@@ -395,11 +413,6 @@
         |a: <span class="kw-2">&amp;</span>str, b: <span class="kw-2">&amp;</span>str| a.eq_ignore_ascii_case(b)
     } <span class="kw">else </span>{
         |a: <span class="kw-2">&amp;</span>str, b: <span class="kw-2">&amp;</span>str| a == b
-    };
-
-    <span class="kw">let </span>(command_name, remaining_message) = {
-        <span class="kw">let </span><span class="kw-2">mut </span>iter = remaining_message.splitn(<span class="number">2</span>, char::is_whitespace);
-        (iter.next().unwrap(), iter.next().unwrap_or(<span class="string">&quot;&quot;</span>).trim_start())
     };
 
     <span class="kw">for </span>command <span class="kw">in </span>commands {
@@ -413,66 +426,78 @@
         }
 
         <span class="kw">return </span><span class="prelude-val">Some</span>(
-            find_command(<span class="kw-2">&amp;</span>command.subcommands, remaining_message, case_insensitive).unwrap_or((
-                command,
-                command_name,
-                remaining_message,
-            )),
+            find_command(<span class="kw-2">&amp;</span>command.subcommands, command_name, case_insensitive).unwrap_or(command),
         );
     }
 
     <span class="prelude-val">None
 </span>}
 
-<span class="doccomment">/// Manually dispatches a message with the prefix framework.
-///
-/// Returns:
-/// - Ok(()) if a command was successfully dispatched and run
-/// - Err(None) if no command was dispatched, for example if the message didn&#39;t contain a command or
-///   the cooldown limits were reached
-/// - Err(Some(error: UserError)) if any user code yielded an error
-</span><span class="kw">pub async fn </span>dispatch_message&lt;<span class="lifetime">&#39;a</span>, U, E&gt;(
+<span class="doccomment">/// Manually dispatches a message with the prefix framework
+</span><span class="kw">pub async fn </span>dispatch_message&lt;<span class="lifetime">&#39;a</span>, U: Send + Sync, E&gt;(
     framework: <span class="kw">crate</span>::FrameworkContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     ctx: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context,
     msg: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Message,
-    triggered_by_edit: bool,
-    previously_tracked: bool,
+    trigger: <span class="kw">crate</span>::MessageDispatchTrigger,
     invocation_data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>tokio::sync::Mutex&lt;Box&lt;<span class="kw">dyn </span>std::any::Any + Send + Sync&gt;&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="prelude-ty">Option</span>&lt;(<span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;)&gt;&gt;
-<span class="kw">where
-    </span>U: Send + Sync,
-{
+) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt; {
+    <span class="kw">if let </span><span class="prelude-val">Some</span>(ctx) = parse_invocation(framework, ctx, msg, trigger, invocation_data).<span class="kw">await</span><span class="question-mark">? </span>{
+        run_invocation(ctx).<span class="kw">await</span><span class="question-mark">?</span>;
+    }
+    <span class="prelude-val">Ok</span>(())
+}
+
+<span class="kw">pub async fn </span>parse_invocation&lt;<span class="lifetime">&#39;a</span>, U: Send + Sync, E&gt;(
+    framework: <span class="kw">crate</span>::FrameworkContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
+    ctx: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context,
+    msg: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Message,
+    trigger: <span class="kw">crate</span>::MessageDispatchTrigger,
+    invocation_data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>tokio::sync::Mutex&lt;Box&lt;<span class="kw">dyn </span>std::any::Any + Send + Sync&gt;&gt;,
+) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;<span class="kw">crate</span>::PrefixContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt;, <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt; {
     <span class="comment">// Check if we&#39;re allowed to invoke from bot messages
     </span><span class="kw">if </span>msg.author.bot &amp;&amp; framework.options.prefix_options.ignore_bots {
-        <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="prelude-val">None</span>);
+        <span class="kw">return </span><span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>);
     }
 
     <span class="comment">// Check if we&#39;re allowed to execute our own messages
     </span><span class="kw">if </span>framework.bot_id == msg.author.id &amp;&amp; !framework.options.prefix_options.execute_self_messages
     {
-        <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="prelude-val">None</span>);
+        <span class="kw">return </span><span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>);
     }
 
-    <span class="comment">// Strip prefix and whitespace between prefix and command
-    </span><span class="kw">let </span>(prefix, msg_content) = strip_prefix(framework, ctx, msg).<span class="kw">await</span>.ok_or(<span class="prelude-val">None</span>)<span class="question-mark">?</span>;
+    <span class="comment">// Strip prefix, trim whitespace between prefix and rest, split rest into command name and args
+    </span><span class="kw">let </span>(prefix, msg_content) = <span class="kw">match </span>strip_prefix(framework, ctx, msg).<span class="kw">await </span>{
+        <span class="prelude-val">Some</span>(x) =&gt; x,
+        <span class="prelude-val">None </span>=&gt; <span class="kw">return </span><span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
+    };
     <span class="kw">let </span>msg_content = msg_content.trim_start();
+    <span class="kw">let </span>(invoked_command_name, args) = {
+        <span class="kw">let </span><span class="kw-2">mut </span>iter = msg_content.splitn(<span class="number">2</span>, char::is_whitespace);
+        (iter.next().unwrap(), iter.next().unwrap_or(<span class="string">&quot;&quot;</span>).trim_start())
+    };
 
-    <span class="kw">let </span>(command, invoked_command_name, args) = find_command(
+    <span class="kw">let </span>command = find_command(
         <span class="kw-2">&amp;</span>framework.options.commands,
         msg_content,
         framework.options.prefix_options.case_insensitive_commands,
     )
-    .ok_or(<span class="prelude-val">None</span>)<span class="question-mark">?</span>;
-    <span class="kw">let </span>action = command.prefix_action.ok_or(<span class="prelude-val">None</span>)<span class="question-mark">?</span>;
+    .ok_or_else(|| <span class="kw">crate</span>::FrameworkError::UnknownCommand {
+        ctx,
+        msg,
+        prefix,
+        invoked_command_name,
+        args,
+        framework,
+        invocation_data,
+        trigger,
+    })<span class="question-mark">?</span>;
+    <span class="kw">let </span>action = <span class="kw">match </span>command.prefix_action {
+        <span class="prelude-val">Some</span>(x) =&gt; x,
+        <span class="comment">// This command doesn&#39;t have a prefix implementation
+        </span><span class="prelude-val">None </span>=&gt; <span class="kw">return </span><span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
+    };
 
-    <span class="comment">// Check if we should disregard this invocation if it was triggered by an edit
-    </span><span class="kw">let </span>should_execute_if_triggered_by_edit = command.invoke_on_edit
-        || (!previously_tracked &amp;&amp; framework.options.prefix_options.execute_untracked_edits);
-    <span class="kw">if </span>triggered_by_edit &amp;&amp; !should_execute_if_triggered_by_edit {
-        <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="prelude-val">None</span>);
-    }
-
-    <span class="kw">let </span>ctx = <span class="kw">crate</span>::PrefixContext {
+    <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="kw">crate</span>::PrefixContext {
         discord: ctx,
         msg,
         prefix,
@@ -482,37 +507,52 @@
         data: framework.user_data().<span class="kw">await</span>,
         command,
         invocation_data,
+        trigger,
+        action,
         __non_exhaustive: (),
-    };
+    }))
+}
 
-    <span class="kw">super</span>::common::check_permissions_and_cooldown(ctx.into(), command)
-        .<span class="kw">await
-        </span>.map_err(|e| <span class="prelude-val">Some</span>((e, command)))<span class="question-mark">?</span>;
+<span class="doccomment">/// Given an existing parsed command invocation, run it, including all the before and after code
+/// like checks and built in filters from edit tracking
+</span><span class="kw">pub async fn </span>run_invocation&lt;<span class="lifetime">&#39;a</span>, U, E&gt;(
+    ctx: <span class="kw">crate</span>::PrefixContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
+) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt; {
+    <span class="comment">// Check if we should disregard this invocation if it was triggered by an edit
+    </span><span class="kw">if </span>ctx.trigger == <span class="kw">crate</span>::MessageDispatchTrigger::MessageEdit &amp;&amp; !ctx.command.invoke_on_edit {
+        <span class="kw">return </span><span class="prelude-val">Ok</span>(());
+    }
+    <span class="kw">if </span>ctx.trigger == <span class="kw">crate</span>::MessageDispatchTrigger::MessageEditFromInvalid
+        &amp;&amp; !ctx.framework.options.prefix_options.execute_untracked_edits
+    {
+        <span class="kw">return </span><span class="prelude-val">Ok</span>(());
+    }
+
+    <span class="kw">super</span>::common::check_permissions_and_cooldown(ctx.into()).<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="comment">// Typing is broadcasted as long as this object is alive
-    </span><span class="kw">let </span>_typing_broadcaster = <span class="kw">if </span>command.broadcast_typing {
-        msg.channel_id.start_typing(<span class="kw-2">&amp;</span>ctx.discord.http).ok()
+    </span><span class="kw">let </span>_typing_broadcaster = <span class="kw">if </span>ctx.command.broadcast_typing {
+        ctx.msg.channel_id.start_typing(<span class="kw-2">&amp;</span>ctx.discord.http).ok()
     } <span class="kw">else </span>{
         <span class="prelude-val">None
     </span>};
 
-    (framework.options.pre_command)(<span class="kw">crate</span>::Context::Prefix(ctx)).<span class="kw">await</span>;
+    (ctx.framework.options.pre_command)(<span class="kw">crate</span>::Context::Prefix(ctx)).<span class="kw">await</span>;
 
     <span class="comment">// Store that this command is currently running; so that if the invocation message is being
     // edited before a response message is registered, we don&#39;t accidentally treat it as an
     // execute_untracked_edits situation and start an infinite loop
     // Reported by vicky5124 https://discord.com/channels/381880193251409931/381912587505500160/897981367604903966
-    </span><span class="kw">if let </span><span class="prelude-val">Some</span>(edit_tracker) = <span class="kw-2">&amp;</span>framework.options.prefix_options.edit_tracker {
+    </span><span class="kw">if let </span><span class="prelude-val">Some</span>(edit_tracker) = <span class="kw-2">&amp;</span>ctx.framework.options.prefix_options.edit_tracker {
         edit_tracker.write().unwrap().track_command(ctx.msg);
     }
 
     <span class="comment">// Execute command
-    </span><span class="kw">let </span>action_result = (action)(ctx).<span class="kw">await</span>;
-    action_result.map_err(|e| <span class="prelude-val">Some</span>((e, command)))<span class="question-mark">?</span>;
+    </span>(ctx.action)(ctx).<span class="kw">await</span><span class="question-mark">?</span>;
 
-    (framework.options.post_command)(<span class="kw">crate</span>::Context::Prefix(ctx)).<span class="kw">await</span>;
+    (ctx.framework.options.post_command)(<span class="kw">crate</span>::Context::Prefix(ctx)).<span class="kw">await</span>;
 
     <span class="prelude-val">Ok</span>(())
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (9243168fa 2022-08-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (95a992a68 2022-09-16)" ></div></body></html>

@@ -238,6 +238,23 @@
 <span id="238">238</span>
 <span id="239">239</span>
 <span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Building blocks for common commands like help commands or application command registration
 //!
 //! This file provides sample commands and utility functions like help menus or error handlers to
@@ -377,6 +394,23 @@
                 error
             );
         }
+        <span class="kw">crate</span>::FrameworkError::UnknownCommand {
+            invoked_command_name,
+            prefix,
+            ..
+        } =&gt; {
+            <span class="macro">log::warn!</span>(
+                <span class="string">&quot;Recognized prefix `{}`, but didn&#39;t recognize command name `{}`&quot;</span>,
+                prefix,
+                invoked_command_name,
+            );
+        }
+        <span class="kw">crate</span>::FrameworkError::UnknownInteraction { interaction, .. } =&gt; {
+            <span class="macro">log::warn!</span>(
+                <span class="string">&quot;received unknown interaction \&quot;{}\&quot;&quot;</span>,
+                interaction.data().name
+            );
+        }
         <span class="kw">crate</span>::FrameworkError::__NonExhaustive =&gt; <span class="macro">panic!</span>(),
     }
 
@@ -479,4 +513,4 @@
     <span class="prelude-val">Ok</span>(())
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (9243168fa 2022-08-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (95a992a68 2022-09-16)" ></div></body></html>

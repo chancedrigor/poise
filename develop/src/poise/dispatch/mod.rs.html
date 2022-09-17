@@ -137,20 +137,13 @@
 <span id="137">137</span>
 <span id="138">138</span>
 <span id="139">139</span>
-<span id="140">140</span>
-<span id="141">141</span>
-<span id="142">142</span>
-<span id="143">143</span>
-<span id="144">144</span>
-<span id="145">145</span>
-<span id="146">146</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Contains all code to dispatch incoming events onto framework commands
 
 </span><span class="kw">mod </span>common;
 <span class="kw">mod </span>prefix;
 <span class="kw">mod </span>slash;
 
-<span class="kw">pub use </span>prefix::{dispatch_message, find_command};
+<span class="kw">pub use </span>prefix::{dispatch_message, find_command, run_invocation};
 
 <span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
 
@@ -201,17 +194,12 @@
     <span class="kw">match </span>event {
         <span class="kw">crate</span>::Event::Message { new_message } =&gt; {
             <span class="kw">let </span>invocation_data = tokio::sync::Mutex::new(Box::new(()) <span class="kw">as _</span>);
-            <span class="kw">if let </span><span class="prelude-val">Err</span>(<span class="prelude-val">Some</span>((error, command))) = prefix::dispatch_message(
-                framework,
-                ctx,
-                new_message,
-                <span class="bool-val">false</span>,
-                <span class="bool-val">false</span>,
-                <span class="kw-2">&amp;</span>invocation_data,
-            )
-            .<span class="kw">await
+            <span class="kw">let </span>trigger = <span class="kw">crate</span>::MessageDispatchTrigger::MessageCreate;
+            <span class="kw">if let </span><span class="prelude-val">Err</span>(error) =
+                prefix::dispatch_message(framework, ctx, new_message, trigger, <span class="kw-2">&amp;</span>invocation_data)
+                    .<span class="kw">await
             </span>{
-                command.on_error.unwrap_or(framework.options.on_error)(error).<span class="kw">await</span>;
+                error.handle(<span class="kw-2">&amp;</span>framework.options).<span class="kw">await</span>;
             }
         }
         <span class="kw">crate</span>::Event::MessageUpdate { event, .. } =&gt; {
@@ -226,17 +214,15 @@
 
                 <span class="kw">if let </span><span class="prelude-val">Some</span>((msg, previously_tracked)) = msg {
                     <span class="kw">let </span>invocation_data = tokio::sync::Mutex::new(Box::new(()) <span class="kw">as _</span>);
-                    <span class="kw">if let </span><span class="prelude-val">Err</span>(<span class="prelude-val">Some</span>((error, command))) = prefix::dispatch_message(
-                        framework,
-                        ctx,
-                        <span class="kw-2">&amp;</span>msg,
-                        <span class="bool-val">true</span>,
-                        previously_tracked,
-                        <span class="kw-2">&amp;</span>invocation_data,
-                    )
-                    .<span class="kw">await
+                    <span class="kw">let </span>trigger = <span class="kw">match </span>previously_tracked {
+                        <span class="bool-val">true </span>=&gt; <span class="kw">crate</span>::MessageDispatchTrigger::MessageEditFromInvalid,
+                        <span class="bool-val">false </span>=&gt; <span class="kw">crate</span>::MessageDispatchTrigger::MessageEdit,
+                    };
+                    <span class="kw">if let </span><span class="prelude-val">Err</span>(error) =
+                        prefix::dispatch_message(framework, ctx, <span class="kw-2">&amp;</span>msg, trigger, <span class="kw-2">&amp;</span>invocation_data)
+                            .<span class="kw">await
                     </span>{
-                        command.on_error.unwrap_or(framework.options.on_error)(error).<span class="kw">await</span>;
+                        error.handle(<span class="kw-2">&amp;</span>framework.options).<span class="kw">await</span>;
                     }
                 }
             }
@@ -245,7 +231,7 @@
             interaction: serenity::Interaction::ApplicationCommand(interaction),
         } =&gt; {
             <span class="kw">let </span>invocation_data = tokio::sync::Mutex::new(Box::new(()) <span class="kw">as _</span>);
-            <span class="kw">if let </span><span class="prelude-val">Err</span>(<span class="prelude-val">Some</span>((error, command))) = slash::dispatch_interaction(
+            <span class="kw">if let </span><span class="prelude-val">Err</span>(error) = slash::dispatch_interaction(
                 framework,
                 ctx,
                 interaction,
@@ -254,14 +240,14 @@
             )
             .<span class="kw">await
             </span>{
-                command.on_error.unwrap_or(framework.options.on_error)(error).<span class="kw">await</span>;
+                error.handle(<span class="kw-2">&amp;</span>framework.options).<span class="kw">await</span>;
             }
         }
         <span class="kw">crate</span>::Event::InteractionCreate {
             interaction: serenity::Interaction::Autocomplete(interaction),
         } =&gt; {
             <span class="kw">let </span>invocation_data = tokio::sync::Mutex::new(Box::new(()) <span class="kw">as _</span>);
-            <span class="kw">if let </span><span class="prelude-val">Err</span>(<span class="prelude-val">Some</span>((error, command))) = slash::dispatch_autocomplete(
+            <span class="kw">if let </span><span class="prelude-val">Err</span>(error) = slash::dispatch_autocomplete(
                 framework,
                 ctx,
                 interaction,
@@ -270,7 +256,7 @@
             )
             .<span class="kw">await
             </span>{
-                command.on_error.unwrap_or(framework.options.on_error)(error).<span class="kw">await</span>;
+                error.handle(<span class="kw-2">&amp;</span>framework.options).<span class="kw">await</span>;
             }
         }
         <span class="kw">_ </span>=&gt; {}
@@ -291,4 +277,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (9243168fa 2022-08-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (95a992a68 2022-09-16)" ></div></body></html>
