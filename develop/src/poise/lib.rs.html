@@ -326,23 +326,6 @@
 <span id="326">326</span>
 <span id="327">327</span>
 <span id="328">328</span>
-<span id="329">329</span>
-<span id="330">330</span>
-<span id="331">331</span>
-<span id="332">332</span>
-<span id="333">333</span>
-<span id="334">334</span>
-<span id="335">335</span>
-<span id="336">336</span>
-<span id="337">337</span>
-<span id="338">338</span>
-<span id="339">339</span>
-<span id="340">340</span>
-<span id="341">341</span>
-<span id="342">342</span>
-<span id="343">343</span>
-<span id="344">344</span>
-<span id="345">345</span>
 </pre><pre class="rust"><code><span class="attribute">#![cfg_attr(doc_nightly, feature(doc_cfg, doc_auto_cfg))]
 #![doc(test(attr(deny(deprecated))))]
 #![warn(rust_2018_idioms)]
@@ -589,49 +572,35 @@ underlying this framework, so that&#39;s what I chose.
 Also, poise is a stat in Dark Souls
 */
 
-</span><span class="kw">mod </span>prefix_argument;
-<span class="kw">pub use </span>prefix_argument::<span class="kw-2">*</span>;
+</span><span class="kw">pub mod </span>builtins;
+<span class="kw">pub mod </span>cooldown;
+<span class="kw">pub mod </span>dispatch;
+<span class="kw">pub mod </span>event;
+<span class="kw">pub mod </span>framework;
+<span class="kw">pub mod </span>modal;
+<span class="kw">pub mod </span>prefix_argument;
+<span class="kw">pub mod </span>reply;
+<span class="kw">pub mod </span>slash_argument;
+<span class="kw">pub mod </span>structs;
+<span class="kw">pub mod </span>track_edits;
+<span class="kw">mod </span>util;
+<span class="kw">pub use </span>poise_macros <span class="kw">as </span>macros;
 
-<span class="kw">mod </span>slash_argument;
-<span class="kw">pub use </span>slash_argument::<span class="kw-2">*</span>;
+<span class="attribute">#[doc(no_inline)]
+</span><span class="kw">pub use </span>{
+    cooldown::<span class="kw-2">*</span>, dispatch::<span class="kw-2">*</span>, event::<span class="kw-2">*</span>, framework::<span class="kw-2">*</span>, macros::<span class="kw-2">*</span>, modal::<span class="kw-2">*</span>, prefix_argument::<span class="kw-2">*</span>,
+    reply::<span class="kw-2">*</span>, slash_argument::<span class="kw-2">*</span>, structs::<span class="kw-2">*</span>, track_edits::<span class="kw-2">*</span>,
+};
 
-<span class="kw">mod </span>event;
-<span class="kw">pub use </span>event::{Event, EventWrapper};
-
-<span class="kw">mod </span>structs;
-<span class="kw">pub use </span>structs::<span class="kw-2">*</span>;
-
-<span class="kw">mod </span>dispatch;
-<span class="kw">pub use </span>dispatch::<span class="kw-2">*</span>;
-
-<span class="kw">mod </span>framework;
-<span class="kw">pub use </span>framework::<span class="kw-2">*</span>;
-
-<span class="kw">mod </span>reply;
-<span class="kw">pub use </span>reply::<span class="kw-2">*</span>;
-
-<span class="kw">mod </span>cooldown;
-<span class="kw">pub use </span>cooldown::<span class="kw-2">*</span>;
-
-<span class="kw">mod </span>modal;
-<span class="kw">pub use </span>modal::<span class="kw-2">*</span>;
-
-<span class="kw">mod </span>track_edits;
-<span class="kw">pub use </span>track_edits::<span class="kw-2">*</span>;
-
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>util;
-
-<span class="kw">pub mod </span>builtins;
 <span class="doccomment">/// See [`builtins`]
 </span><span class="attribute">#[deprecated = <span class="string">&quot;`samples` module was renamed to `builtins`&quot;</span>]
 </span><span class="kw">pub mod </span>samples {
     <span class="kw">pub use </span><span class="kw">crate</span>::builtins::<span class="kw-2">*</span>;
 }
 
-<span class="attribute">#[doc(no_inline)]
-</span><span class="kw">pub use </span>async_trait::async_trait;
-<span class="kw">pub use </span>futures_core;
-<span class="kw">pub use </span>futures_util;
+<span class="attribute">#[doc(hidden)]
+</span><span class="kw">pub use </span>{async_trait::async_trait, futures_util};
+
 <span class="kw">pub use </span>poise_macros::<span class="kw-2">*</span>;
 
 <span class="doccomment">/// This module re-exports a bunch of items from all over serenity. Useful if you can&#39;t
@@ -679,14 +648,11 @@ Also, poise is a stat in Dark Souls
         <span class="kw-2">*</span>,
     };
 }
-<span class="kw">use </span>serenity_prelude <span class="kw">as </span>serenity; <span class="comment">// private alias for crate docs intradoc-links
+<span class="kw">use </span>serenity_prelude <span class="kw">as </span>serenity; <span class="comment">// private alias for crate root docs intradoc-links
 
-</span><span class="kw">use </span>std::future::Future;
-<span class="kw">use </span>std::pin::Pin;
-
-<span class="doccomment">/// Shorthand for a wrapped async future with a lifetime, used by many parts of this framework.
+</span><span class="doccomment">/// Shorthand for a wrapped async future with a lifetime, used by many parts of this framework.
 ///
 /// An owned future has the `&#39;static` lifetime.
-</span><span class="kw">pub type </span>BoxFuture&lt;<span class="lifetime">&#39;a</span>, T&gt; = Pin&lt;Box&lt;<span class="kw">dyn </span>Future&lt;Output = T&gt; + Send + <span class="lifetime">&#39;a</span>&gt;&gt;;
+</span><span class="kw">pub type </span>BoxFuture&lt;<span class="lifetime">&#39;a</span>, T&gt; = std::pin::Pin&lt;Box&lt;<span class="kw">dyn </span>std::future::Future&lt;Output = T&gt; + Send + <span class="lifetime">&#39;a</span>&gt;&gt;;
 </code></pre></div>
 </section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (95a992a68 2022-09-16)" ></div></body></html>

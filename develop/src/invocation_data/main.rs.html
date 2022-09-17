@@ -175,7 +175,7 @@
             Box::pin(<span class="kw">async move </span>{
                 poise::serenity_prelude::GuildId(<span class="number">703332075914264606</span>)
                     .set_application_commands(ctx, |b| {
-                        <span class="kw-2">*</span>b = poise::samples::create_application_commands(
+                        <span class="kw-2">*</span>b = poise::builtins::create_application_commands(
                             <span class="kw-2">&amp;</span>framework.options().commands,
                         );
                         b
@@ -226,7 +226,7 @@
                                 ctx.invocation_data::&lt;<span class="kw-2">&amp;</span>str&gt;().<span class="kw">await</span>.as_deref()
                             );
                         }
-                        err =&gt; poise::samples::on_error(err).<span class="kw">await</span>.unwrap(),
+                        err =&gt; poise::builtins::on_error(err).<span class="kw">await</span>.unwrap(),
                     }
                 })
             },

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["EditTracker","Stores messages and the associated bot responses in order to implement poise’s edit tracking feature."]]};

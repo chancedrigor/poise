@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CooldownConfig","Configuration struct for [`Cooldowns`]"],["Cooldowns","Handles cooldowns for a single command"]]};

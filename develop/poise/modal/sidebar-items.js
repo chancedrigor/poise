@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"trait":[["Modal","Derivable trait for modal interactions, Discords version of interactive forms"]]};

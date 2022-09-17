@@ -100,7 +100,7 @@
     <span class="kw">let </span>translations = translation::read_ftl().expect(<span class="string">&quot;failed to read translation files&quot;</span>);
     translation::apply_translations(<span class="kw-2">&amp;</span>translations, <span class="kw-2">&amp;mut </span>commands);
 
-    poise::Framework::build()
+    poise::Framework::builder()
         .token(std::env::var(<span class="string">&quot;TOKEN&quot;</span>).unwrap())
         .intents(serenity::GatewayIntents::non_privileged())
         .options(poise::FrameworkOptions {

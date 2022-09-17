@@ -285,6 +285,8 @@
 <span id="285">285</span>
 <span id="286">286</span>
 <span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Dispatches incoming messages and message edits onto framework commands
 
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
@@ -470,7 +472,9 @@
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="kw">pub async fn </span>parse_invocation&lt;<span class="lifetime">&#39;a</span>, U: Send + Sync, E&gt;(
+<span class="doccomment">/// Given a Message and some context data, parses prefix, command etc. out of the message and
+/// returns the resulting [`crate::PrefixContext`]. To run the command, see [`run_invocation`].
+</span><span class="kw">pub async fn </span>parse_invocation&lt;<span class="lifetime">&#39;a</span>, U: Send + Sync, E&gt;(
     framework: <span class="kw">crate</span>::FrameworkContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     ctx: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context,
     msg: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Message,
@@ -500,7 +504,7 @@
         msg_content,
         framework.options.prefix_options.case_insensitive_commands,
     )
-    .ok_or_else(|| <span class="kw">crate</span>::FrameworkError::UnknownCommand {
+    .ok_or(<span class="kw">crate</span>::FrameworkError::UnknownCommand {
         ctx,
         msg,
         prefix,
@@ -531,11 +535,11 @@
     }))
 }
 
-<span class="doccomment">/// Given an existing parsed command invocation, run it, including all the before and after code
-/// like checks and built in filters from edit tracking
-</span><span class="kw">pub async fn </span>run_invocation&lt;<span class="lifetime">&#39;a</span>, U, E&gt;(
-    ctx: <span class="kw">crate</span>::PrefixContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt; {
+<span class="doccomment">/// Given an existing parsed command invocation from [`parse_invocation`], run it, including all the
+/// before and after code like checks and built in filters from edit tracking
+</span><span class="kw">pub async fn </span>run_invocation&lt;U, E&gt;(
+    ctx: <span class="kw">crate</span>::PrefixContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt;,
+) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;_</span>, U, E&gt;&gt; {
     <span class="comment">// Check if we should disregard this invocation if it was triggered by an edit
     </span><span class="kw">if </span>ctx.trigger == <span class="kw">crate</span>::MessageDispatchTrigger::MessageEdit &amp;&amp; !ctx.command.invoke_on_edit {
         <span class="kw">return </span><span class="prelude-val">Ok</span>(());

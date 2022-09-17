@@ -257,7 +257,7 @@
         <span class="kw-2">&amp;</span>framework.options.commands,
     );
     <span class="kw">let </span>(command, leaf_interaction_options) =
-        search_result.ok_or_else(|| <span class="kw">crate</span>::FrameworkError::UnknownInteraction {
+        search_result.ok_or(<span class="kw">crate</span>::FrameworkError::UnknownInteraction {
             ctx,
             framework,
             interaction,
@@ -401,7 +401,7 @@
     </span><span class="kw">let </span>partial_input =
         partial_input
             .as_str()
-            .ok_or_else(|| <span class="kw">crate</span>::FrameworkError::CommandStructureMismatch {
+            .ok_or(<span class="kw">crate</span>::FrameworkError::CommandStructureMismatch {
                 ctx,
                 description: <span class="string">&quot;unexpected non-string autocomplete input&quot;</span>,
             })<span class="question-mark">?</span>;

@@ -235,7 +235,7 @@
     /// not in cache. Also returns a bool with `true` if this message was previously tracked
     ///
     /// Returns None if the command shouldn&#39;t be re-run, e.g. if the message content wasn&#39;t edited
-    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>process_message_update(
+    </span><span class="kw">pub fn </span>process_message_update(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         user_msg_update: <span class="kw-2">&amp;</span>serenity::MessageUpdateEvent,
         ignore_edits_if_not_yet_responded: bool,
@@ -297,7 +297,7 @@
 
     <span class="doccomment">/// Notify the [`EditTracker`] that the given user message should be associated with the given
     /// bot response. Overwrites any previous associated bot response
-    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>set_bot_response(
+    </span><span class="kw">pub fn </span>set_bot_response(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         user_msg: <span class="kw-2">&amp;</span>serenity::Message,
         bot_response: serenity::Message,
@@ -310,9 +310,9 @@
     }
 
     <span class="doccomment">/// Store that this command is currently running; so that if the command is editing its own
-    /// invocation message, we don&#39;t accidentally treat it as an execute_untracked_edits situation
-    /// and start an infinite loop
-    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>track_command(<span class="kw-2">&amp;mut </span><span class="self">self</span>, user_msg: <span class="kw-2">&amp;</span>serenity::Message) {
+    /// invocation message (e.g. removing embeds), we don&#39;t accidentally treat it as an
+    /// execute_untracked_edits situation and start an infinite loop
+    </span><span class="kw">pub fn </span>track_command(<span class="kw-2">&amp;mut </span><span class="self">self</span>, user_msg: <span class="kw-2">&amp;</span>serenity::Message) {
         <span class="kw">if </span>!<span class="self">self</span>.cache.iter().any(|(m, <span class="kw">_</span>)| m.id == user_msg.id) {
             <span class="self">self</span>.cache.push((user_msg.clone(), <span class="prelude-val">None</span>));
         }
