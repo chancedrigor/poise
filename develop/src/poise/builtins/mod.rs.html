@@ -395,14 +395,14 @@
             );
         }
         <span class="kw">crate</span>::FrameworkError::UnknownCommand {
-            invoked_command_name,
+            msg_content,
             prefix,
             ..
         } =&gt; {
             <span class="macro">log::warn!</span>(
-                <span class="string">&quot;Recognized prefix `{}`, but didn&#39;t recognize command name `{}`&quot;</span>,
+                <span class="string">&quot;Recognized prefix `{}`, but didn&#39;t recognize command name in `{}`&quot;</span>,
                 prefix,
-                invoked_command_name,
+                msg_content,
             );
         }
         <span class="kw">crate</span>::FrameworkError::UnknownInteraction { interaction, .. } =&gt; {

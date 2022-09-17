@@ -360,9 +360,6 @@
 <span id="360">360</span>
 <span id="361">361</span>
 <span id="362">362</span>
-<span id="363">363</span>
-<span id="364">364</span>
-<span id="365">365</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Simple module for the FrameworkError struct and its impls
 
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
@@ -499,10 +496,10 @@
         </span>msg: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Message,
         <span class="doccomment">/// The prefix that was recognized
         </span>prefix: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
-        <span class="doccomment">/// The following command name that was not recognized
-        </span>invoked_command_name: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
-        <span class="doccomment">/// The rest of the message
-        </span>args: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
+        <span class="doccomment">/// The rest of the message (after the prefix) which was not recognized as a command
+        ///
+        /// This is a single field instead of two fields (command name and args) due to subcommands
+        </span>msg_content: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
         <span class="doccomment">/// Framework context
         </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
         </span>framework: <span class="kw">crate</span>::FrameworkContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
@@ -689,11 +686,8 @@
                     msg.content
                 )
             }
-            <span class="self">Self</span>::UnknownCommand {
-                invoked_command_name,
-                ..
-            } =&gt; {
-                <span class="macro">write!</span>(f, <span class="string">&quot;unknown command `{}`&quot;</span>, invoked_command_name)
+            <span class="self">Self</span>::UnknownCommand { msg_content, .. } =&gt; {
+                <span class="macro">write!</span>(f, <span class="string">&quot;unknown command `{}`&quot;</span>, msg_content)
             }
             <span class="self">Self</span>::UnknownInteraction { interaction, .. } =&gt; {
                 <span class="macro">write!</span>(f, <span class="string">&quot;unknown interaction `{}`&quot;</span>, interaction.data().name)

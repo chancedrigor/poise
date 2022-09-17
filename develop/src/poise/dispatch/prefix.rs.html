@@ -276,6 +276,15 @@
 <span id="276">276</span>
 <span id="277">277</span>
 <span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Dispatches incoming messages and message edits onto framework commands
 
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
@@ -378,7 +387,12 @@
     <span class="prelude-val">None
 </span>}
 
-<span class="doccomment">/// Find a command or subcommand within `&amp;[Command]`, given a command name
+<span class="doccomment">/// Find a command or subcommand within `&amp;[Command]`, given a command invocation without a prefix.
+/// Returns the verbatim command name string as well as the command arguments (i.e. the remaining
+/// string).
+///
+/// The API must be like this (as opposed to just taking the command name upfront) because of
+/// subcommands.
 ///
 /// ```rust
 /// #[poise::command(prefix_command)]
@@ -403,9 +417,9 @@
 /// );
 </span><span class="kw">pub fn </span>find_command&lt;<span class="lifetime">&#39;a</span>, U, E&gt;(
     commands: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[<span class="kw">crate</span>::Command&lt;U, E&gt;],
-    command_name: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
+    remaining_message: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
     case_insensitive: bool,
-) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;&gt;
+) -&gt; <span class="prelude-ty">Option</span>&lt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str)&gt;
 <span class="kw">where
     </span>U: Send + Sync,
 {
@@ -413,6 +427,11 @@
         |a: <span class="kw-2">&amp;</span>str, b: <span class="kw-2">&amp;</span>str| a.eq_ignore_ascii_case(b)
     } <span class="kw">else </span>{
         |a: <span class="kw-2">&amp;</span>str, b: <span class="kw-2">&amp;</span>str| a == b
+    };
+
+    <span class="kw">let </span>(command_name, remaining_message) = {
+        <span class="kw">let </span><span class="kw-2">mut </span>iter = remaining_message.splitn(<span class="number">2</span>, char::is_whitespace);
+        (iter.next().unwrap(), iter.next().unwrap_or(<span class="string">&quot;&quot;</span>).trim_start())
     };
 
     <span class="kw">for </span>command <span class="kw">in </span>commands {
@@ -426,7 +445,11 @@
         }
 
         <span class="kw">return </span><span class="prelude-val">Some</span>(
-            find_command(<span class="kw-2">&amp;</span>command.subcommands, command_name, case_insensitive).unwrap_or(command),
+            find_command(<span class="kw-2">&amp;</span>command.subcommands, remaining_message, case_insensitive).unwrap_or((
+                command,
+                command_name,
+                remaining_message,
+            )),
         );
     }
 
@@ -471,12 +494,8 @@
         <span class="prelude-val">None </span>=&gt; <span class="kw">return </span><span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
     };
     <span class="kw">let </span>msg_content = msg_content.trim_start();
-    <span class="kw">let </span>(invoked_command_name, args) = {
-        <span class="kw">let </span><span class="kw-2">mut </span>iter = msg_content.splitn(<span class="number">2</span>, char::is_whitespace);
-        (iter.next().unwrap(), iter.next().unwrap_or(<span class="string">&quot;&quot;</span>).trim_start())
-    };
 
-    <span class="kw">let </span>command = find_command(
+    <span class="kw">let </span>(command, invoked_command_name, args) = find_command(
         <span class="kw-2">&amp;</span>framework.options.commands,
         msg_content,
         framework.options.prefix_options.case_insensitive_commands,
@@ -485,8 +504,7 @@
         ctx,
         msg,
         prefix,
-        invoked_command_name,
-        args,
+        msg_content,
         framework,
         invocation_data,
         trigger,
