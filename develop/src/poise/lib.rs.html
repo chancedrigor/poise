@@ -392,6 +392,13 @@
 <span id="392">392</span>
 <span id="393">393</span>
 <span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
+<span id="397">397</span>
+<span id="398">398</span>
+<span id="399">399</span>
+<span id="400">400</span>
+<span id="401">401</span>
 </pre><pre class="rust"><code><span class="attribute">#![cfg_attr(doc_nightly, feature(doc_cfg, doc_auto_cfg))]
 #![doc(test(attr(deny(deprecated))))]
 #![warn(rust_2018_idioms)]
@@ -459,7 +466,7 @@ those either from [`serenity::Context`] (passed to
 Pass your `CacheAndHttp` or `Arc&lt;Http&gt;` to serenity functions in place of the usual
 `serenity::Context`
 
-## Finding serenity methods
+## Useful serenity methods
 
 Many serenity structs have an ID field. Some useful methods are defined only on the Id types.
 For example:
@@ -467,6 +474,13 @@ For example:
 - [`serenity::User`] and [`serenity::UserId`]
 - [`serenity::Role`] and [`serenity::RoleId`]
 - ...
+
+Some examples for methods you should have in your repertoire:
+- [`serenity::GuildId::to_guild_cached`] and [`serenity::GuildId::to_partial_guild`] to access full
+    guild data
+- [`serenity::ChannelId::to_channel`] to access full channel data
+- [`serenity::Channel::guild`] to try convert a generic [`serenity::Channel`] into a
+    [`serenity::GuildChannel`], to access guild specific channel data
 
 # Introduction to slash commands
 
