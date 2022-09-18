@@ -222,6 +222,28 @@
 <span id="222">222</span>
 <span id="223">223</span>
 <span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Utilities for registering application commands
 
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
@@ -334,6 +356,28 @@
 /// Upgraded version of [`register_application_commands`]
 ///
 /// ![Screenshot of output](https://imgur.com/rTbTaDs.png)
+///
+/// You probably want to use this by wrapping it in a small `register` command:
+/// ```rust
+/// # type Error = Box&lt;dyn std::error::Error + Send + Sync&gt;;
+/// # type Context&lt;&#39;a&gt; = poise::Context&lt;&#39;a, (), Error&gt;;
+/// #[poise::command(prefix_command)]
+/// pub async fn register(ctx: Context&lt;&#39;_&gt;) -&gt; Result&lt;(), Error&gt; {
+///     poise::builtins::register_application_commands_buttons(ctx).await?;
+///     Ok(())
+/// }
+///
+/// // ...
+/// poise::FrameworkOptions {
+///     commands: vec![
+///         // ...
+///         register(),
+///     ],
+/// #   ..Default::default()
+/// };
+/// ```
+///
+/// Which you can call like any prefix command, for example `@your_bot register`.
 </span><span class="kw">pub async fn </span>register_application_commands_buttons&lt;U, E&gt;(
     ctx: <span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;_</span>, U, E&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), serenity::Error&gt; {
