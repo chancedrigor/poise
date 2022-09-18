@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["Typing","A struct to start typing in a `Channel` for an indefinite period of time."]]};

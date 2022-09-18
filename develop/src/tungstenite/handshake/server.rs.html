@@ -1,0 +1,644 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/tungstenite-0.17.2/src/handshake/server.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>server.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../tungstenite/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../tungstenite/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../tungstenite/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<span id="2">2</span>
+<span id="3">3</span>
+<span id="4">4</span>
+<span id="5">5</span>
+<span id="6">6</span>
+<span id="7">7</span>
+<span id="8">8</span>
+<span id="9">9</span>
+<span id="10">10</span>
+<span id="11">11</span>
+<span id="12">12</span>
+<span id="13">13</span>
+<span id="14">14</span>
+<span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
+<span id="21">21</span>
+<span id="22">22</span>
+<span id="23">23</span>
+<span id="24">24</span>
+<span id="25">25</span>
+<span id="26">26</span>
+<span id="27">27</span>
+<span id="28">28</span>
+<span id="29">29</span>
+<span id="30">30</span>
+<span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
+<span id="80">80</span>
+<span id="81">81</span>
+<span id="82">82</span>
+<span id="83">83</span>
+<span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
+<span id="87">87</span>
+<span id="88">88</span>
+<span id="89">89</span>
+<span id="90">90</span>
+<span id="91">91</span>
+<span id="92">92</span>
+<span id="93">93</span>
+<span id="94">94</span>
+<span id="95">95</span>
+<span id="96">96</span>
+<span id="97">97</span>
+<span id="98">98</span>
+<span id="99">99</span>
+<span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+<span id="203">203</span>
+<span id="204">204</span>
+<span id="205">205</span>
+<span id="206">206</span>
+<span id="207">207</span>
+<span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
+<span id="318">318</span>
+<span id="319">319</span>
+<span id="320">320</span>
+<span id="321">321</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Server handshake machine.
+
+</span><span class="kw">use </span>std::{
+    io::{<span class="self">self</span>, Read, Write},
+    marker::PhantomData,
+    result::Result <span class="kw">as </span>StdResult,
+};
+
+<span class="kw">use </span>http::{
+    response::Builder, HeaderMap, Request <span class="kw">as </span>HttpRequest, Response <span class="kw">as </span>HttpResponse, StatusCode,
+};
+<span class="kw">use </span>httparse::Status;
+<span class="kw">use </span>log::<span class="kw-2">*</span>;
+
+<span class="kw">use super</span>::{
+    derive_accept_key,
+    headers::{FromHttparse, MAX_HEADERS},
+    machine::{HandshakeMachine, StageResult, TryParse},
+    HandshakeRole, MidHandshake, ProcessingResult,
+};
+<span class="kw">use crate</span>::{
+    error::{Error, ProtocolError, <span class="prelude-ty">Result</span>},
+    protocol::{Role, WebSocket, WebSocketConfig},
+};
+
+<span class="doccomment">/// Server request type.
+</span><span class="kw">pub type </span>Request = HttpRequest&lt;()&gt;;
+
+<span class="doccomment">/// Server response type.
+</span><span class="kw">pub type </span>Response = HttpResponse&lt;()&gt;;
+
+<span class="doccomment">/// Server error response type.
+</span><span class="kw">pub type </span>ErrorResponse = HttpResponse&lt;<span class="prelude-ty">Option</span>&lt;String&gt;&gt;;
+
+<span class="kw">fn </span>create_parts&lt;T&gt;(request: <span class="kw-2">&amp;</span>HttpRequest&lt;T&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Builder&gt; {
+    <span class="kw">if </span>request.method() != http::Method::GET {
+        <span class="kw">return </span><span class="prelude-val">Err</span>(Error::Protocol(ProtocolError::WrongHttpMethod));
+    }
+
+    <span class="kw">if </span>request.version() &lt; http::Version::HTTP_11 {
+        <span class="kw">return </span><span class="prelude-val">Err</span>(Error::Protocol(ProtocolError::WrongHttpVersion));
+    }
+
+    <span class="kw">if </span>!request
+        .headers()
+        .get(<span class="string">&quot;Connection&quot;</span>)
+        .and_then(|h| h.to_str().ok())
+        .map(|h| h.split(|c| c == <span class="string">&#39; &#39; </span>|| c == <span class="string">&#39;,&#39;</span>).any(|p| p.eq_ignore_ascii_case(<span class="string">&quot;Upgrade&quot;</span>)))
+        .unwrap_or(<span class="bool-val">false</span>)
+    {
+        <span class="kw">return </span><span class="prelude-val">Err</span>(Error::Protocol(ProtocolError::MissingConnectionUpgradeHeader));
+    }
+
+    <span class="kw">if </span>!request
+        .headers()
+        .get(<span class="string">&quot;Upgrade&quot;</span>)
+        .and_then(|h| h.to_str().ok())
+        .map(|h| h.eq_ignore_ascii_case(<span class="string">&quot;websocket&quot;</span>))
+        .unwrap_or(<span class="bool-val">false</span>)
+    {
+        <span class="kw">return </span><span class="prelude-val">Err</span>(Error::Protocol(ProtocolError::MissingUpgradeWebSocketHeader));
+    }
+
+    <span class="kw">if </span>!request.headers().get(<span class="string">&quot;Sec-WebSocket-Version&quot;</span>).map(|h| h == <span class="string">&quot;13&quot;</span>).unwrap_or(<span class="bool-val">false</span>) {
+        <span class="kw">return </span><span class="prelude-val">Err</span>(Error::Protocol(ProtocolError::MissingSecWebSocketVersionHeader));
+    }
+
+    <span class="kw">let </span>key = request
+        .headers()
+        .get(<span class="string">&quot;Sec-WebSocket-Key&quot;</span>)
+        .ok_or(Error::Protocol(ProtocolError::MissingSecWebSocketKey))<span class="question-mark">?</span>;
+
+    <span class="kw">let </span>builder = Response::builder()
+        .status(StatusCode::SWITCHING_PROTOCOLS)
+        .version(request.version())
+        .header(<span class="string">&quot;Connection&quot;</span>, <span class="string">&quot;Upgrade&quot;</span>)
+        .header(<span class="string">&quot;Upgrade&quot;</span>, <span class="string">&quot;websocket&quot;</span>)
+        .header(<span class="string">&quot;Sec-WebSocket-Accept&quot;</span>, derive_accept_key(key.as_bytes()));
+
+    <span class="prelude-val">Ok</span>(builder)
+}
+
+<span class="doccomment">/// Create a response for the request.
+</span><span class="kw">pub fn </span>create_response(request: <span class="kw-2">&amp;</span>Request) -&gt; <span class="prelude-ty">Result</span>&lt;Response&gt; {
+    <span class="prelude-val">Ok</span>(create_parts(request)<span class="question-mark">?</span>.body(())<span class="question-mark">?</span>)
+}
+
+<span class="doccomment">/// Create a response for the request with a custom body.
+</span><span class="kw">pub fn </span>create_response_with_body&lt;T&gt;(
+    request: <span class="kw-2">&amp;</span>HttpRequest&lt;T&gt;,
+    generate_body: <span class="kw">impl </span>FnOnce() -&gt; T,
+) -&gt; <span class="prelude-ty">Result</span>&lt;HttpResponse&lt;T&gt;&gt; {
+    <span class="prelude-val">Ok</span>(create_parts(request)<span class="question-mark">?</span>.body(generate_body())<span class="question-mark">?</span>)
+}
+
+<span class="comment">// Assumes that this is a valid response
+</span><span class="kw">fn </span>write_response&lt;T&gt;(<span class="kw-2">mut </span>w: <span class="kw">impl </span>io::Write, response: <span class="kw-2">&amp;</span>HttpResponse&lt;T&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+    <span class="macro">writeln!</span>(
+        w,
+        <span class="string">&quot;{version:?} {status}\r&quot;</span>,
+        version = response.version(),
+        status = response.status()
+    )<span class="question-mark">?</span>;
+
+    <span class="kw">for </span>(k, v) <span class="kw">in </span>response.headers() {
+        <span class="macro">writeln!</span>(w, <span class="string">&quot;{}: {}\r&quot;</span>, k, v.to_str()<span class="question-mark">?</span>)<span class="question-mark">?</span>;
+    }
+
+    <span class="macro">writeln!</span>(w, <span class="string">&quot;\r&quot;</span>)<span class="question-mark">?</span>;
+
+    <span class="prelude-val">Ok</span>(())
+}
+
+<span class="kw">impl </span>TryParse <span class="kw">for </span>Request {
+    <span class="kw">fn </span>try_parse(buf: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;(usize, <span class="self">Self</span>)&gt;&gt; {
+        <span class="kw">let </span><span class="kw-2">mut </span>hbuffer = [httparse::EMPTY_HEADER; MAX_HEADERS];
+        <span class="kw">let </span><span class="kw-2">mut </span>req = httparse::Request::new(<span class="kw-2">&amp;mut </span>hbuffer);
+        <span class="prelude-val">Ok</span>(<span class="kw">match </span>req.parse(buf)<span class="question-mark">? </span>{
+            Status::Partial =&gt; <span class="prelude-val">None</span>,
+            Status::Complete(size) =&gt; <span class="prelude-val">Some</span>((size, Request::from_httparse(req)<span class="question-mark">?</span>)),
+        })
+    }
+}
+
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;h</span>, <span class="lifetime">&#39;b</span>: <span class="lifetime">&#39;h</span>&gt; FromHttparse&lt;httparse::Request&lt;<span class="lifetime">&#39;h</span>, <span class="lifetime">&#39;b</span>&gt;&gt; <span class="kw">for </span>Request {
+    <span class="kw">fn </span>from_httparse(raw: httparse::Request&lt;<span class="lifetime">&#39;h</span>, <span class="lifetime">&#39;b</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
+        <span class="kw">if </span>raw.method.expect(<span class="string">&quot;Bug: no method in header&quot;</span>) != <span class="string">&quot;GET&quot; </span>{
+            <span class="kw">return </span><span class="prelude-val">Err</span>(Error::Protocol(ProtocolError::WrongHttpMethod));
+        }
+
+        <span class="kw">if </span>raw.version.expect(<span class="string">&quot;Bug: no HTTP version&quot;</span>) &lt; <span class="comment">/*1.*/</span><span class="number">1 </span>{
+            <span class="kw">return </span><span class="prelude-val">Err</span>(Error::Protocol(ProtocolError::WrongHttpVersion));
+        }
+
+        <span class="kw">let </span>headers = HeaderMap::from_httparse(raw.headers)<span class="question-mark">?</span>;
+
+        <span class="kw">let </span><span class="kw-2">mut </span>request = Request::new(());
+        <span class="kw-2">*</span>request.method_mut() = http::Method::GET;
+        <span class="kw-2">*</span>request.headers_mut() = headers;
+        <span class="kw-2">*</span>request.uri_mut() = raw.path.expect(<span class="string">&quot;Bug: no path in header&quot;</span>).parse()<span class="question-mark">?</span>;
+        <span class="comment">// TODO: httparse only supports HTTP 0.9/1.0/1.1 but not HTTP 2.0
+        // so the only valid value we could get in the response would be 1.1.
+        </span><span class="kw-2">*</span>request.version_mut() = http::Version::HTTP_11;
+
+        <span class="prelude-val">Ok</span>(request)
+    }
+}
+
+<span class="doccomment">/// The callback trait.
+///
+/// The callback is called when the server receives an incoming WebSocket
+/// handshake request from the client. Specifying a callback allows you to analyze incoming headers
+/// and add additional headers to the response that server sends to the client and/or reject the
+/// connection based on the incoming headers.
+</span><span class="kw">pub trait </span>Callback: Sized {
+    <span class="doccomment">/// Called whenever the server read the request from the client and is ready to reply to it.
+    /// May return additional reply headers.
+    /// Returning an error resulting in rejecting the incoming connection.
+    </span><span class="kw">fn </span>on_request(
+        <span class="self">self</span>,
+        request: <span class="kw-2">&amp;</span>Request,
+        response: Response,
+    ) -&gt; StdResult&lt;Response, ErrorResponse&gt;;
+}
+
+<span class="kw">impl</span>&lt;F&gt; Callback <span class="kw">for </span>F
+<span class="kw">where
+    </span>F: FnOnce(<span class="kw-2">&amp;</span>Request, Response) -&gt; StdResult&lt;Response, ErrorResponse&gt;,
+{
+    <span class="kw">fn </span>on_request(
+        <span class="self">self</span>,
+        request: <span class="kw-2">&amp;</span>Request,
+        response: Response,
+    ) -&gt; StdResult&lt;Response, ErrorResponse&gt; {
+        <span class="self">self</span>(request, response)
+    }
+}
+
+<span class="doccomment">/// Stub for callback that does nothing.
+</span><span class="attribute">#[derive(Clone, Copy, Debug)]
+</span><span class="kw">pub struct </span>NoCallback;
+
+<span class="kw">impl </span>Callback <span class="kw">for </span>NoCallback {
+    <span class="kw">fn </span>on_request(
+        <span class="self">self</span>,
+        _request: <span class="kw-2">&amp;</span>Request,
+        response: Response,
+    ) -&gt; StdResult&lt;Response, ErrorResponse&gt; {
+        <span class="prelude-val">Ok</span>(response)
+    }
+}
+
+<span class="doccomment">/// Server handshake role.
+</span><span class="attribute">#[allow(missing_copy_implementations)]
+#[derive(Debug)]
+</span><span class="kw">pub struct </span>ServerHandshake&lt;S, C&gt; {
+    <span class="doccomment">/// Callback which is called whenever the server read the request from the client and is ready
+    /// to reply to it. The callback returns an optional headers which will be added to the reply
+    /// which the server sends to the user.
+    </span>callback: <span class="prelude-ty">Option</span>&lt;C&gt;,
+    <span class="doccomment">/// WebSocket configuration.
+    </span>config: <span class="prelude-ty">Option</span>&lt;WebSocketConfig&gt;,
+    <span class="doccomment">/// Error code/flag. If set, an error will be returned after sending response to the client.
+    </span>error_response: <span class="prelude-ty">Option</span>&lt;ErrorResponse&gt;,
+    <span class="doccomment">/// Internal stream type.
+    </span>_marker: PhantomData&lt;S&gt;,
+}
+
+<span class="kw">impl</span>&lt;S: Read + Write, C: Callback&gt; ServerHandshake&lt;S, C&gt; {
+    <span class="doccomment">/// Start server handshake. `callback` specifies a custom callback which the user can pass to
+    /// the handshake, this callback will be called when the a websocket client connnects to the
+    /// server, you can specify the callback if you want to add additional header to the client
+    /// upon join based on the incoming headers.
+    </span><span class="kw">pub fn </span>start(stream: S, callback: C, config: <span class="prelude-ty">Option</span>&lt;WebSocketConfig&gt;) -&gt; MidHandshake&lt;<span class="self">Self</span>&gt; {
+        <span class="macro">trace!</span>(<span class="string">&quot;Server handshake initiated.&quot;</span>);
+        MidHandshake {
+            machine: HandshakeMachine::start_read(stream),
+            role: ServerHandshake {
+                callback: <span class="prelude-val">Some</span>(callback),
+                config,
+                error_response: <span class="prelude-val">None</span>,
+                _marker: PhantomData,
+            },
+        }
+    }
+}
+
+<span class="kw">impl</span>&lt;S: Read + Write, C: Callback&gt; HandshakeRole <span class="kw">for </span>ServerHandshake&lt;S, C&gt; {
+    <span class="kw">type </span>IncomingData = Request;
+    <span class="kw">type </span>InternalStream = S;
+    <span class="kw">type </span>FinalResult = WebSocket&lt;S&gt;;
+
+    <span class="kw">fn </span>stage_finished(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        finish: StageResult&lt;<span class="self">Self</span>::IncomingData, <span class="self">Self</span>::InternalStream&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;ProcessingResult&lt;<span class="self">Self</span>::InternalStream, <span class="self">Self</span>::FinalResult&gt;&gt; {
+        <span class="prelude-val">Ok</span>(<span class="kw">match </span>finish {
+            StageResult::DoneReading { stream, result, tail } =&gt; {
+                <span class="kw">if </span>!tail.is_empty() {
+                    <span class="kw">return </span><span class="prelude-val">Err</span>(Error::Protocol(ProtocolError::JunkAfterRequest));
+                }
+
+                <span class="kw">let </span>response = create_response(<span class="kw-2">&amp;</span>result)<span class="question-mark">?</span>;
+                <span class="kw">let </span>callback_result = <span class="kw">if let </span><span class="prelude-val">Some</span>(callback) = <span class="self">self</span>.callback.take() {
+                    callback.on_request(<span class="kw-2">&amp;</span>result, response)
+                } <span class="kw">else </span>{
+                    <span class="prelude-val">Ok</span>(response)
+                };
+
+                <span class="kw">match </span>callback_result {
+                    <span class="prelude-val">Ok</span>(response) =&gt; {
+                        <span class="kw">let </span><span class="kw-2">mut </span>output = <span class="macro">vec!</span>[];
+                        write_response(<span class="kw-2">&amp;mut </span>output, <span class="kw-2">&amp;</span>response)<span class="question-mark">?</span>;
+                        ProcessingResult::Continue(HandshakeMachine::start_write(stream, output))
+                    }
+
+                    <span class="prelude-val">Err</span>(resp) =&gt; {
+                        <span class="kw">if </span>resp.status().is_success() {
+                            <span class="kw">return </span><span class="prelude-val">Err</span>(Error::Protocol(ProtocolError::CustomResponseSuccessful));
+                        }
+
+                        <span class="self">self</span>.error_response = <span class="prelude-val">Some</span>(resp);
+                        <span class="kw">let </span>resp = <span class="self">self</span>.error_response.as_ref().unwrap();
+
+                        <span class="kw">let </span><span class="kw-2">mut </span>output = <span class="macro">vec!</span>[];
+                        write_response(<span class="kw-2">&amp;mut </span>output, resp)<span class="question-mark">?</span>;
+
+                        <span class="kw">if let </span><span class="prelude-val">Some</span>(body) = resp.body() {
+                            output.extend_from_slice(body.as_bytes());
+                        }
+
+                        ProcessingResult::Continue(HandshakeMachine::start_write(stream, output))
+                    }
+                }
+            }
+
+            StageResult::DoneWriting(stream) =&gt; {
+                <span class="kw">if let </span><span class="prelude-val">Some</span>(err) = <span class="self">self</span>.error_response.take() {
+                    <span class="macro">debug!</span>(<span class="string">&quot;Server handshake failed.&quot;</span>);
+                    <span class="kw">return </span><span class="prelude-val">Err</span>(Error::Http(err));
+                } <span class="kw">else </span>{
+                    <span class="macro">debug!</span>(<span class="string">&quot;Server handshake done.&quot;</span>);
+                    <span class="kw">let </span>websocket = WebSocket::from_raw_socket(stream, Role::Server, <span class="self">self</span>.config);
+                    ProcessingResult::Done(websocket)
+                }
+            }
+        })
+    }
+}
+
+<span class="attribute">#[cfg(test)]
+</span><span class="kw">mod </span>tests {
+    <span class="kw">use super</span>::{<span class="kw">super</span>::machine::TryParse, create_response, Request};
+
+    <span class="attribute">#[test]
+    </span><span class="kw">fn </span>request_parsing() {
+        <span class="kw">const </span>DATA: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;GET /script.ws HTTP/1.1\r\nHost: foo.com\r\n\r\n&quot;</span>;
+        <span class="kw">let </span>(<span class="kw">_</span>, req) = Request::try_parse(DATA).unwrap().unwrap();
+        <span class="macro">assert_eq!</span>(req.uri().path(), <span class="string">&quot;/script.ws&quot;</span>);
+        <span class="macro">assert_eq!</span>(req.headers().get(<span class="string">&quot;Host&quot;</span>).unwrap(), <span class="kw-2">&amp;</span><span class="string">b&quot;foo.com&quot;</span>[..]);
+    }
+
+    <span class="attribute">#[test]
+    </span><span class="kw">fn </span>request_replying() {
+        <span class="kw">const </span>DATA: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;\
+            GET /script.ws HTTP/1.1\r\n\
+            Host: foo.com\r\n\
+            Connection: upgrade\r\n\
+            Upgrade: websocket\r\n\
+            Sec-WebSocket-Version: 13\r\n\
+            Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==\r\n\
+            \r\n&quot;</span>;
+        <span class="kw">let </span>(<span class="kw">_</span>, req) = Request::try_parse(DATA).unwrap().unwrap();
+        <span class="kw">let </span>response = create_response(<span class="kw-2">&amp;</span>req).unwrap();
+
+        <span class="macro">assert_eq!</span>(
+            response.headers().get(<span class="string">&quot;Sec-WebSocket-Accept&quot;</span>).unwrap(),
+            <span class="string">b&quot;s3pPLMBiTxaQ9kYGzzhZRbK+xOo=&quot;</span>.as_ref()
+        );
+    }
+}
+</code></pre></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (98ad6a551 2022-09-17)" ></div></body></html>

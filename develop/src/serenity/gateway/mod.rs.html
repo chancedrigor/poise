@@ -1,0 +1,358 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/serenity-0.11.4/src/gateway/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../serenity/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../serenity/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../serenity/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<span id="2">2</span>
+<span id="3">3</span>
+<span id="4">4</span>
+<span id="5">5</span>
+<span id="6">6</span>
+<span id="7">7</span>
+<span id="8">8</span>
+<span id="9">9</span>
+<span id="10">10</span>
+<span id="11">11</span>
+<span id="12">12</span>
+<span id="13">13</span>
+<span id="14">14</span>
+<span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
+<span id="21">21</span>
+<span id="22">22</span>
+<span id="23">23</span>
+<span id="24">24</span>
+<span id="25">25</span>
+<span id="26">26</span>
+<span id="27">27</span>
+<span id="28">28</span>
+<span id="29">29</span>
+<span id="30">30</span>
+<span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
+<span id="80">80</span>
+<span id="81">81</span>
+<span id="82">82</span>
+<span id="83">83</span>
+<span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
+<span id="87">87</span>
+<span id="88">88</span>
+<span id="89">89</span>
+<span id="90">90</span>
+<span id="91">91</span>
+<span id="92">92</span>
+<span id="93">93</span>
+<span id="94">94</span>
+<span id="95">95</span>
+<span id="96">96</span>
+<span id="97">97</span>
+<span id="98">98</span>
+<span id="99">99</span>
+<span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
+</pre><pre class="rust"><code><span class="doccomment">//! The gateway module contains the pieces - primarily the `Shard` -
+//! responsible for maintaining a WebSocket connection with Discord.
+//!
+//! A shard is an interface for the lower-level receiver and sender. It provides
+//! what can otherwise be thought of as &quot;sugar methods&quot;. A shard represents a
+//! single connection to Discord. You can make use of a method named &quot;sharding&quot;
+//! to have multiple shards, potentially offloading some server load to another
+//! server(s).
+//!
+//! # Sharding
+//!
+//! Sharding is a method to split portions of bots into separate processes. This
+//! is an enforced strategy by Discord once a bot reaches a certain number of
+//! guilds (2500). Once this number is reached, a bot must be sharded in a way
+//! that only 2500 guilds maximum may be allocated per shard.
+//!
+//! The &quot;recommended&quot; number of guilds per shard is _around_ 1000. Sharding can
+//! be useful for splitting processes across separate servers. Often you may
+//! want some or all shards to be in the same process, allowing for a shared
+//! State. This is possible through this library.
+//!
+//! See [Discord&#39;s documentation][docs] for more information.
+//!
+//! If you are not using a bot account or do not require sharding - such as for
+//! a small bot - then use [`Client::start`].
+//!
+//! There are a few methods of sharding available:
+//!
+//! - [`Client::start_autosharded`]: retrieves the number of shards Discord
+//! recommends using from the API, and then automatically starts that number of
+//! shards.
+//! - [`Client::start_shard`]: starts a single shard for use in the instance,
+//! handled by the instance of the Client. Use this if you only want 1 shard
+//! handled by this instance.
+//! - [`Client::start_shards`]: starts all shards in this instance. This is best
+//! for when you want a completely shared State.
+//! - [`Client::start_shard_range`]: start a range of shards within this
+//! instance. This should be used when you, for example, want to split 10 shards
+//! across 3 instances.
+//!
+//! [`Client`]: crate::Client
+//! [`Client::start`]: crate::Client::start
+//! [`Client::start_autosharded`]: crate::Client::start_autosharded
+//! [`Client::start_shard`]: crate::Client::start_shard
+//! [`Client::start_shard_range`]: crate::Client::start_shard_range
+//! [`Client::start_shards`]: crate::Client::start_shards
+//! [docs]: https://discordapp.com/developers/docs/topics/gateway#sharding
+
+</span><span class="kw">mod </span>error;
+<span class="kw">mod </span>shard;
+<span class="kw">mod </span>ws_client_ext;
+
+<span class="kw">use </span>std::fmt;
+
+<span class="kw">pub use </span><span class="self">self</span>::error::Error <span class="kw">as </span>GatewayError;
+<span class="kw">pub use </span><span class="self">self</span>::shard::Shard;
+<span class="kw">pub use </span><span class="self">self</span>::ws_client_ext::WebSocketGatewayClientExt;
+<span class="attribute">#[cfg(feature = <span class="string">&quot;client&quot;</span>)]
+</span><span class="kw">use </span><span class="kw">crate</span>::client::bridge::gateway::ShardClientMessage;
+<span class="kw">use </span><span class="kw">crate</span>::json::Value;
+<span class="kw">use </span><span class="kw">crate</span>::model::gateway::Activity;
+<span class="kw">use </span><span class="kw">crate</span>::model::user::OnlineStatus;
+
+<span class="kw">pub type </span>CurrentPresence = (<span class="prelude-ty">Option</span>&lt;Activity&gt;, OnlineStatus);
+
+<span class="kw">use </span>async_tungstenite::tokio::ConnectStream;
+<span class="kw">use </span>async_tungstenite::WebSocketStream;
+
+<span class="kw">pub type </span>WsStream = WebSocketStream&lt;ConnectStream&gt;;
+
+<span class="doccomment">/// Indicates the current connection stage of a [`Shard`].
+///
+/// This can be useful for knowing which shards are currently &quot;down&quot;/&quot;up&quot;.
+</span><span class="attribute">#[derive(Copy, Clone, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
+#[non_exhaustive]
+</span><span class="kw">pub enum </span>ConnectionStage {
+    <span class="doccomment">/// Indicator that the [`Shard`] is normally connected and is not in, e.g.,
+    /// a resume phase.
+    </span>Connected,
+    <span class="doccomment">/// Indicator that the [`Shard`] is connecting and is in, e.g., a resume
+    /// phase.
+    </span>Connecting,
+    <span class="doccomment">/// Indicator that the [`Shard`] is fully disconnected and is not in a
+    /// reconnecting phase.
+    </span>Disconnected,
+    <span class="doccomment">/// Indicator that the [`Shard`] is currently initiating a handshake.
+    </span>Handshake,
+    <span class="doccomment">/// Indicator that the [`Shard`] has sent an IDENTIFY packet and is awaiting
+    /// a READY packet.
+    </span>Identifying,
+    <span class="doccomment">/// Indicator that the [`Shard`] has sent a RESUME packet and is awaiting a
+    /// RESUMED packet.
+    </span>Resuming,
+}
+
+<span class="kw">impl </span>ConnectionStage {
+    <span class="doccomment">/// Whether the stage is a form of connecting.
+    ///
+    /// This will return `true` on:
+    ///
+    /// - [`Connecting`][`ConnectionStage::Connecting`]
+    /// - [`Handshake`][`ConnectionStage::Handshake`]
+    /// - [`Identifying`][`ConnectionStage::Identifying`]
+    /// - [`Resuming`][`ConnectionStage::Resuming`]
+    ///
+    /// All other variants will return `false`.
+    ///
+    /// # Examples
+    ///
+    /// Assert that [`ConnectionStage::Identifying`] is a connecting stage:
+    ///
+    /// ```rust
+    /// use serenity::gateway::ConnectionStage;
+    ///
+    /// assert!(ConnectionStage::Identifying.is_connecting());
+    /// ```
+    ///
+    /// Assert that [`ConnectionStage::Connected`] is _not_ a connecting stage:
+    ///
+    /// ```rust
+    /// use serenity::gateway::ConnectionStage;
+    ///
+    /// assert!(!ConnectionStage::Connected.is_connecting());
+    /// ```
+    </span><span class="attribute">#[must_use]
+    </span><span class="kw">pub fn </span>is_connecting(<span class="self">self</span>) -&gt; bool {
+        <span class="kw">use </span><span class="self">self</span>::ConnectionStage::{Connecting, Handshake, Identifying, Resuming};
+        <span class="macro">matches!</span>(<span class="self">self</span>, Connecting | Handshake | Identifying | Resuming)
+    }
+}
+
+<span class="kw">impl </span>fmt::Display <span class="kw">for </span>ConnectionStage {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
+        f.write_str(<span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
+            <span class="self">Self</span>::Connected =&gt; <span class="string">&quot;connected&quot;</span>,
+            <span class="self">Self</span>::Connecting =&gt; <span class="string">&quot;connecting&quot;</span>,
+            <span class="self">Self</span>::Disconnected =&gt; <span class="string">&quot;disconnected&quot;</span>,
+            <span class="self">Self</span>::Handshake =&gt; <span class="string">&quot;handshaking&quot;</span>,
+            <span class="self">Self</span>::Identifying =&gt; <span class="string">&quot;identifying&quot;</span>,
+            <span class="self">Self</span>::Resuming =&gt; <span class="string">&quot;resuming&quot;</span>,
+        })
+    }
+}
+
+<span class="doccomment">/// A message to be passed around within the library.
+///
+/// As a user you usually don&#39;t need to worry about this, but when working with
+/// the lower-level internals of the [`client`], [`gateway`], and [`voice`] modules it
+/// may be necessary.
+///
+/// [`client`]: crate::client
+/// [`gateway`]: crate::gateway
+/// [`voice`]: crate::model::voice
+</span><span class="attribute">#[derive(Clone, Debug)]
+#[non_exhaustive]
+</span><span class="kw">pub enum </span>InterMessage {
+    <span class="attribute">#[cfg(feature = <span class="string">&quot;client&quot;</span>)]
+    </span>Client(Box&lt;ShardClientMessage&gt;),
+    Json(Value),
+}
+
+<span class="attribute">#[derive(Debug)]
+#[non_exhaustive]
+</span><span class="kw">pub enum </span>ShardAction {
+    Heartbeat,
+    Identify,
+    Reconnect(ReconnectType),
+}
+
+<span class="doccomment">/// The type of reconnection that should be performed.
+</span><span class="attribute">#[derive(Debug)]
+#[non_exhaustive]
+</span><span class="kw">pub enum </span>ReconnectType {
+    <span class="doccomment">/// Indicator that a new connection should be made by sending an IDENTIFY.
+    </span>Reidentify,
+    <span class="doccomment">/// Indicator that a new connection should be made by sending a RESUME.
+    </span>Resume,
+}
+</code></pre></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (98ad6a551 2022-09-17)" ></div></body></html>

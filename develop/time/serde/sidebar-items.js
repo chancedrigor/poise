@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":[["rfc2822","Use the well-known RFC2822 format when serializing and deserializing an [`OffsetDateTime`]."],["rfc3339","Use the well-known RFC3339 format when serializing and deserializing an [`OffsetDateTime`]."],["timestamp","Treat an [`OffsetDateTime`] as a Unix timestamp for the purposes of serde."]]};
