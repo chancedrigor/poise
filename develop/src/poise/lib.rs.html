@@ -324,6 +324,50 @@
 <span id="324">324</span>
 <span id="325">325</span>
 <span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
+<span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
+<span id="358">358</span>
+<span id="359">359</span>
+<span id="360">360</span>
+<span id="361">361</span>
+<span id="362">362</span>
+<span id="363">363</span>
+<span id="364">364</span>
+<span id="365">365</span>
+<span id="366">366</span>
+<span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
 </pre><pre class="rust"><code><span class="attribute">#![cfg_attr(doc_nightly, feature(doc_cfg, doc_auto_cfg))]
 #![doc(test(attr(deny(deprecated))))]
 #![warn(rust_2018_idioms)]
@@ -444,7 +488,51 @@ async fn command_name(
 
 See [`#[poise::command]`](command) for detailed information.
 
+### Subcommands
+Commands in poise have a tree structure. Every commands refers to a list of subcommands, which you
+can easily set using the [`command`] macro like so:
+
+```rust
+# type Error = Box&lt;dyn std::error::Error + Send + Sync&gt;;
+# type Context&lt;&#39;a&gt; = poise::Context&lt;&#39;a, (), Error&gt;;
+#[poise::command(prefix_command, slash_command, subcommands(&quot;child1&quot;, &quot;child2&quot;))]
+pub async fn parent(ctx: Context&lt;&#39;_&gt;, arg: String) -&gt; Result&lt;(), Error&gt; { Ok(()) }
+
+#[poise::command(prefix_command, slash_command)]
+pub async fn child1(ctx: Context&lt;&#39;_&gt;, arg: String) -&gt; Result&lt;(), Error&gt; { Ok(()) }
+#[poise::command(prefix_command, slash_command)]
+pub async fn child2(ctx: Context&lt;&#39;_&gt;, arg: String) -&gt; Result&lt;(), Error&gt; { Ok(()) }
+```
+
+With this setup, users can call `~parent [arg]` or `~parent child1 [arg]` or `~parent child2 [arg]`.
+Slash command subcommands are also supported, but the base command (`/parent`) [cannot be used](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
+as per Discord; only the leaf commands (`/parent child1 [arg]`, `/parent child2 [arg]`).
+
+When adding the commands to the framework, add just the parent command (since it fully contains its
+subcommands):
+
+```rust
+# type Error = Box&lt;dyn std::error::Error + Send + Sync&gt;;
+# type Context&lt;&#39;a&gt; = poise::Context&lt;&#39;a, (), Error&gt;;
+# #[poise::command(prefix_command)]
+# pub async fn parent(ctx: Context&lt;&#39;_&gt;, arg: String) -&gt; Result&lt;(), Error&gt; { Ok(()) }
+let options = poise::FrameworkOptions {
+    commands: vec![
+        parent(),
+    ],
+    ..Default::default()
+};
+```
+
+Subcommands are stored in [`Command::subcommands`]. As with all [`Command`] fields, you can
+programmatically modify those any way you&#39;d like. The [`command`] macro is just a convenience thing
+to set the fields for you.
+
+For another example of subcommands, see `examples/framework_usage/commands/subcommands.rs`.
+
 ### Big example to showcase many command features
+
+Also see the [`command`] macro docs
 
 ```rust
 use poise::serenity_prelude as serenity;
@@ -651,4 +739,4 @@ Also, poise is a stat in Dark Souls
 /// An owned future has the `&#39;static` lifetime.
 </span><span class="kw">pub type </span>BoxFuture&lt;<span class="lifetime">&#39;a</span>, T&gt; = std::pin::Pin&lt;Box&lt;<span class="kw">dyn </span>std::future::Future&lt;Output = T&gt; + Send + <span class="lifetime">&#39;a</span>&gt;&gt;;
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (95a992a68 2022-09-16)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (98ad6a551 2022-09-17)" ></div></body></html>
