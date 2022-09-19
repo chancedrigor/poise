@@ -139,7 +139,46 @@
 <span id="139">139</span>
 <span id="140">140</span>
 <span id="141">141</span>
-</pre><pre class="rust"><code><span class="kw">use crate</span>::{Context, Data, Error};
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Wraps the fluent API and provides easy to use functions and macros for translation
+
+</span><span class="kw">use crate</span>::{Context, Data, Error};
 
 <span class="kw">type </span>FluentBundle = fluent::bundle::FluentBundle&lt;
     fluent::FluentResource,
@@ -151,33 +190,60 @@
     other: std::collections::HashMap&lt;String, FluentBundle&gt;,
 }
 
-<span class="kw">fn </span>format(bundle: <span class="kw-2">&amp;</span>FluentBundle, pattern: <span class="kw-2">&amp;</span>fluent_syntax::ast::Pattern&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; String {
-    bundle
-        .format_pattern(pattern, <span class="prelude-val">None</span>, <span class="kw-2">&amp;mut </span><span class="macro">vec!</span>[])
-        .into_owned()
+<span class="doccomment">/// Macro to retrieve a translation, optionally with arguments. Use like:
+/// - `tr!(ctx, &quot;identifier&quot;)` (no arguments)
+/// - `tr!(ctx, &quot;identifier&quot;, arg1: VALUE1, arg2: VALUE2)` (with arguments)
+///
+/// Doesn&#39;t support retrieving message attributes
+</span><span class="macro">macro_rules! </span>tr {
+    ( <span class="macro-nonterminal">$ctx</span>:ident, <span class="macro-nonterminal">$id</span>:expr $(, <span class="macro-nonterminal">$argname</span>:ident: <span class="macro-nonterminal">$argvalue</span>:expr )* $(,)<span class="question-mark">? </span>) =&gt; {{
+        <span class="attribute">#[allow(unused_mut)]
+        </span><span class="kw">let </span><span class="kw-2">mut </span>args = fluent::FluentArgs::new();
+        $( args.set(<span class="macro">stringify!</span>(<span class="macro-nonterminal">$argname</span>), <span class="macro-nonterminal">$argvalue</span>); )*
+
+        <span class="macro-nonterminal">$crate::translation::get</span>(<span class="macro-nonterminal">$ctx</span>, <span class="macro-nonterminal">$id</span>, <span class="prelude-val">None</span>, <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>args))
+    }};
+}
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>tr;
+
+<span class="doccomment">/// Given a language file and message identifier, returns the translation
+</span><span class="kw">pub fn </span>format(
+    bundle: <span class="kw-2">&amp;</span>FluentBundle,
+    id: <span class="kw-2">&amp;</span>str,
+    attr: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
+    args: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>fluent::FluentArgs&lt;<span class="lifetime">&#39;_</span>&gt;&gt;,
+) -&gt; <span class="prelude-ty">Option</span>&lt;String&gt; {
+    <span class="kw">let </span>message = bundle.get_message(id)<span class="question-mark">?</span>;
+    <span class="kw">let </span>pattern = <span class="kw">match </span>attr {
+        <span class="prelude-val">Some</span>(attribute) =&gt; message.get_attribute(attribute)<span class="question-mark">?</span>.value(),
+        <span class="prelude-val">None </span>=&gt; message.value()<span class="question-mark">?</span>,
+    };
+    <span class="kw">let </span>formatted = bundle.format_pattern(pattern, args, <span class="kw-2">&amp;mut </span><span class="macro">vec!</span>[]);
+    <span class="prelude-val">Some</span>(formatted.into_owned())
 }
 
-<span class="kw">pub fn </span>get(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;, key: <span class="kw-2">&amp;</span>str) -&gt; String {
+<span class="doccomment">/// Retrieves the appropriate language file depending on user locale and calls [`format`]
+</span><span class="kw">pub fn </span>get&lt;<span class="lifetime">&#39;a</span>&gt;(
+    ctx: Context&lt;<span class="lifetime">&#39;a</span>&gt;,
+    id: <span class="kw-2">&amp;</span>str,
+    attr: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
+    args: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>fluent::FluentArgs&lt;<span class="lifetime">&#39;_</span>&gt;&gt;,
+) -&gt; String {
     <span class="kw">let </span>translations = <span class="kw-2">&amp;</span>ctx.data().translations;
     ctx.locale()
         <span class="comment">// Try to get the language-specific translation
-        </span>.and_then(|locale| {
-            <span class="kw">let </span>bundle = translations.other.get(locale)<span class="question-mark">?</span>;
-            <span class="prelude-val">Some</span>(format(bundle, bundle.get_message(key)<span class="question-mark">?</span>.value()<span class="question-mark">?</span>))
-        })
+        </span>.and_then(|locale| format(translations.other.get(locale)<span class="question-mark">?</span>, id, attr, args))
         <span class="comment">// Otherwise, fall back on main translation
-        </span>.or_else(|| {
-            <span class="kw">let </span>bundle = <span class="kw-2">&amp;</span>translations.main;
-            <span class="prelude-val">Some</span>(format(bundle, bundle.get_message(key)<span class="question-mark">?</span>.value()<span class="question-mark">?</span>))
-        })
-        <span class="comment">// If this translation key is not present in any translation files whatsoever
+        </span>.or_else(|| format(<span class="kw-2">&amp;</span>translations.main, id, attr, args))
+        <span class="comment">// If this message ID is not present in any translation files whatsoever
         </span>.unwrap_or_else(|| {
-            <span class="macro">log::warn!</span>(<span class="string">&quot;unknown fluent key `{}`&quot;</span>, key);
-            key.to_string()
+            <span class="macro">log::warn!</span>(<span class="string">&quot;unknown fluent message identifier `{}`&quot;</span>, id);
+            id.to_string()
         })
 }
 
-<span class="kw">pub fn </span>read_ftl() -&gt; <span class="prelude-ty">Result</span>&lt;Translations, Error&gt; {
+<span class="doccomment">/// Parses the `translations/` folder into a set of language files (FluentBundle)
+</span><span class="kw">pub fn </span>read_ftl() -&gt; <span class="prelude-ty">Result</span>&lt;Translations, Error&gt; {
     <span class="kw">fn </span>read_single_ftl(path: <span class="kw-2">&amp;</span>std::path::Path) -&gt; <span class="prelude-ty">Result</span>&lt;(String, FluentBundle), Error&gt; {
         <span class="comment">// Extract locale from filename
         </span><span class="kw">let </span>locale = path.file_stem().ok_or(<span class="string">&quot;invalid .ftl filename&quot;</span>)<span class="question-mark">?</span>;
@@ -207,75 +273,83 @@
     })
 }
 
-<span class="kw">pub fn </span>apply_translations(
+<span class="doccomment">/// Given a set of language files, fills in command strings and their localizations accordingly
+</span><span class="kw">pub fn </span>apply_translations(
     translations: <span class="kw-2">&amp;</span>Translations,
     commands: <span class="kw-2">&amp;mut </span>[poise::Command&lt;Data, Error&gt;],
 ) {
     <span class="kw">for </span>command <span class="kw">in </span><span class="kw-2">&amp;mut *</span>commands {
         <span class="comment">// Add localizations
         </span><span class="kw">for </span>(locale, bundle) <span class="kw">in </span><span class="kw-2">&amp;</span>translations.other {
-            <span class="kw">let </span>msg = <span class="kw">match </span>bundle.get_message(<span class="kw-2">&amp;</span>command.name) {
+            <span class="comment">// Insert localized command name and description
+            </span><span class="kw">let </span>localized_command_name = <span class="kw">match </span>format(bundle, <span class="kw-2">&amp;</span>command.name, <span class="prelude-val">None</span>, <span class="prelude-val">None</span>) {
                 <span class="prelude-val">Some</span>(x) =&gt; x,
                 <span class="prelude-val">None </span>=&gt; <span class="kw">continue</span>, <span class="comment">// no localization entry =&gt; skip localization
             </span>};
-
             command
                 .name_localizations
-                .insert(locale.clone(), format(bundle, msg.value().unwrap()));
+                .insert(locale.clone(), localized_command_name);
             command.description_localizations.insert(
                 locale.clone(),
-                format(bundle, msg.get_attribute(<span class="string">&quot;description&quot;</span>).unwrap().value()),
+                format(bundle, <span class="kw-2">&amp;</span>command.name, <span class="prelude-val">Some</span>(<span class="string">&quot;description&quot;</span>), <span class="prelude-val">None</span>).unwrap(),
             );
+
             <span class="kw">for </span>parameter <span class="kw">in </span><span class="kw-2">&amp;mut </span>command.parameters {
-                parameter.name_localizations.insert(
+                <span class="comment">// Insert localized parameter name and description
+                </span>parameter.name_localizations.insert(
                     locale.clone(),
-                    format(bundle, msg.get_attribute(<span class="kw-2">&amp;</span>parameter.name).unwrap().value()),
+                    format(bundle, <span class="kw-2">&amp;</span>command.name, <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>parameter.name), <span class="prelude-val">None</span>).unwrap(),
                 );
                 parameter.description_localizations.insert(
                     locale.clone(),
                     format(
                         bundle,
-                        msg.get_attribute(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;{}-description&quot;</span>, parameter.name))
-                            .unwrap()
-                            .value(),
-                    ),
+                        <span class="kw-2">&amp;</span>command.name,
+                        <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;{}-description&quot;</span>, parameter.name)),
+                        <span class="prelude-val">None</span>,
+                    )
+                    .unwrap(),
                 );
-                <span class="kw">for </span>choice <span class="kw">in </span><span class="kw-2">&amp;mut </span>parameter.choices {
+
+                <span class="comment">// If this is a choice parameter, insert its localized variants
+                </span><span class="kw">for </span>choice <span class="kw">in </span><span class="kw-2">&amp;mut </span>parameter.choices {
                     choice.localizations.insert(
                         locale.clone(),
-                        format(
-                            bundle,
-                            bundle.get_message(<span class="kw-2">&amp;</span>choice.name).unwrap().value().unwrap(),
-                        ),
+                        format(bundle, <span class="kw-2">&amp;</span>choice.name, <span class="prelude-val">None</span>, <span class="prelude-val">None</span>).unwrap(),
                     );
                 }
             }
         }
 
-        <span class="comment">// Override primary names and descriptions to main translation file
+        <span class="comment">// At this point, all translation files have been applied. However, if a user uses a locale
+        // we haven&#39;t explicitly inserted, there would be no translations at all -&gt; blank texts. So,
+        // we use the &quot;main&quot; translation file (en-US) as the non-localized strings.
+
+        // Set fallback command name and description to en-US
         </span><span class="kw">let </span>bundle = <span class="kw-2">&amp;</span>translations.main;
-        <span class="kw">let </span>msg = <span class="kw">match </span>bundle.get_message(<span class="kw-2">&amp;</span>command.name) {
-            <span class="prelude-val">Some</span>(x) =&gt; x,
-            <span class="prelude-val">None </span>=&gt; <span class="kw">continue</span>, <span class="comment">// no localization entry =&gt; skip localization
-        </span>};
-        command.name = format(bundle, msg.value().unwrap());
-        command.description = <span class="prelude-val">Some</span>(format(
-            bundle,
-            msg.get_attribute(<span class="string">&quot;description&quot;</span>).unwrap().value(),
-        ));
+        <span class="kw">match </span>format(bundle, <span class="kw-2">&amp;</span>command.name, <span class="prelude-val">None</span>, <span class="prelude-val">None</span>) {
+            <span class="prelude-val">Some</span>(x) =&gt; command.name = x,
+            <span class="prelude-val">None </span>=&gt; <span class="kw">continue</span>, <span class="comment">// no localization entry =&gt; keep hardcoded names
+        </span>}
+        command.description =
+            <span class="prelude-val">Some</span>(format(bundle, <span class="kw-2">&amp;</span>command.name, <span class="prelude-val">Some</span>(<span class="string">&quot;description&quot;</span>), <span class="prelude-val">None</span>).unwrap());
+
         <span class="kw">for </span>parameter <span class="kw">in </span><span class="kw-2">&amp;mut </span>command.parameters {
-            parameter.name = format(bundle, msg.get_attribute(<span class="kw-2">&amp;</span>parameter.name).unwrap().value());
-            parameter.description = <span class="prelude-val">Some</span>(format(
-                bundle,
-                msg.get_attribute(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;{}-description&quot;</span>, parameter.name))
-                    .unwrap()
-                    .value(),
-            ));
-            <span class="kw">for </span>choice <span class="kw">in </span><span class="kw-2">&amp;mut </span>parameter.choices {
-                choice.name = format(
+            <span class="comment">// Set fallback parameter name and description to en-US
+            </span>parameter.name = format(bundle, <span class="kw-2">&amp;</span>command.name, <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>parameter.name), <span class="prelude-val">None</span>).unwrap();
+            parameter.description = <span class="prelude-val">Some</span>(
+                format(
                     bundle,
-                    bundle.get_message(<span class="kw-2">&amp;</span>choice.name).unwrap().value().unwrap(),
-                );
+                    <span class="kw-2">&amp;</span>command.name,
+                    <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;{}-description&quot;</span>, parameter.name)),
+                    <span class="prelude-val">None</span>,
+                )
+                .unwrap(),
+            );
+
+            <span class="comment">// If this is a choice parameter, set the choice names to en-US
+            </span><span class="kw">for </span>choice <span class="kw">in </span><span class="kw-2">&amp;mut </span>parameter.choices {
+                choice.name = format(bundle, <span class="kw-2">&amp;</span>choice.name, <span class="prelude-val">None</span>, <span class="prelude-val">None</span>).unwrap();
             }
         }
     }

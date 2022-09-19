@@ -55,10 +55,29 @@
 <span id="55">55</span>
 <span id="56">56</span>
 <span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
 </pre><pre class="rust"><code><span class="kw">mod </span>translation;
 
 <span class="kw">use </span>poise::serenity_prelude <span class="kw">as </span>serenity;
-<span class="kw">use </span>translation::get;
+<span class="kw">use </span>translation::tr;
 
 <span class="kw">pub struct </span>Data {
     translations: translation::Translations,
@@ -81,8 +100,27 @@
     user: serenity::User,
     message: WelcomeChoice,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
-    ctx.say(<span class="macro">format!</span>(<span class="string">&quot;&lt;@{}&gt; {}&quot;</span>, user.id.<span class="number">0</span>, get(ctx, message.name())))
+    ctx.say(<span class="macro">format!</span>(<span class="string">&quot;&lt;@{}&gt; {}&quot;</span>, user.id.<span class="number">0</span>, <span class="macro">tr!</span>(ctx, message.name())))
         .<span class="kw">await</span><span class="question-mark">?</span>;
+    <span class="prelude-val">Ok</span>(())
+}
+
+<span class="attribute">#[poise::command(slash_command)]
+</span><span class="kw">pub async fn </span>info(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+    <span class="kw">let </span>guild = ctx
+        .partial_guild()
+        .<span class="kw">await
+        </span>.ok_or_else(|| <span class="macro">tr!</span>(ctx, <span class="string">&quot;not-in-guild-error&quot;</span>))<span class="question-mark">?</span>;
+
+    <span class="kw">let </span>response = <span class="macro">tr!</span>(ctx, <span class="string">&quot;guild-info&quot;</span>,
+        name: <span class="kw-2">&amp;*</span>guild.name,
+        emojiCount: guild.emojis.len(),
+        emojis: guild.emojis.values().map(|e| e.to_string()).collect::&lt;String&gt;(),
+        roleCount: guild.roles.len(),
+        stickerCount: guild.stickers.len(),
+    );
+
+    ctx.say(response).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
 }
 
@@ -96,7 +134,7 @@
 </span><span class="kw">async fn </span>main() {
     env_logger::init();
 
-    <span class="kw">let </span><span class="kw-2">mut </span>commands = <span class="macro">vec!</span>[welcome(), register()];
+    <span class="kw">let </span><span class="kw-2">mut </span>commands = <span class="macro">vec!</span>[welcome(), info(), register()];
     <span class="kw">let </span>translations = translation::read_ftl().expect(<span class="string">&quot;failed to read translation files&quot;</span>);
     translation::apply_translations(<span class="kw-2">&amp;</span>translations, <span class="kw-2">&amp;mut </span>commands);
 
