@@ -356,7 +356,7 @@
 /// - sets up user data on the first Ready event
 /// - keeps track of shard manager and bot ID automatically
 ///
-/// You can build a bot without [`Framework`]: see the manual_dispatch example in the repository
+/// You can build a bot without [`Framework`]: see the `manual_dispatch` example in the repository
 </span><span class="kw">pub struct </span>Framework&lt;U, E&gt; {
     <span class="doccomment">/// Stores user data. Is initialized on first Ready event
     </span>user_data: once_cell::sync::OnceCell&lt;U&gt;,
@@ -609,7 +609,7 @@
 
 <span class="doccomment">/// Traverses commands recursively and sets [`crate::Command::qualified_name`] to its actual value
 </span><span class="kw">pub fn </span>set_qualified_names&lt;U, E&gt;(commands: <span class="kw-2">&amp;mut </span>[<span class="kw">crate</span>::Command&lt;U, E&gt;]) {
-    <span class="doccomment">/// Fills in qualified_name fields by appending command name to the parent command name
+    <span class="doccomment">/// Fills in `qualified_name` fields by appending command name to the parent command name
     </span><span class="kw">fn </span>set_subcommand_qualified_names&lt;U, E&gt;(parents: <span class="kw-2">&amp;</span>str, commands: <span class="kw-2">&amp;mut </span>[<span class="kw">crate</span>::Command&lt;U, E&gt;]) {
         <span class="kw">for </span>cmd <span class="kw">in </span>commands {
             cmd.qualified_name = <span class="macro">format!</span>(<span class="string">&quot;{} {}&quot;</span>, parents, cmd.name);
@@ -621,7 +621,7 @@
     }
 }
 
-<span class="doccomment">/// Prints a warning on stderr if a prefix is configured but MESSAGE_CONTENT is not set
+<span class="doccomment">/// Prints a warning on stderr if a prefix is configured but `MESSAGE_CONTENT` is not set
 </span><span class="kw">fn </span>message_content_intent_sanity_check&lt;U, E&gt;(
     prefix_options: <span class="kw-2">&amp;</span><span class="kw">crate</span>::PrefixFrameworkOptions&lt;U, E&gt;,
     intents: serenity::GatewayIntents,
@@ -664,7 +664,7 @@
 /// Important to avoid the edit tracker gobbling up unlimited memory
 ///
 /// NOT PUB because it&#39;s not useful to outside users because it requires a full blown Framework
-/// Because e.g. taking a PrefixFrameworkOptions reference won&#39;t work because tokio tasks need to be
+/// Because e.g. taking a `PrefixFrameworkOptions` reference won&#39;t work because tokio tasks need to be
 /// &#39;static
 </span><span class="kw">fn </span>spawn_edit_tracker_purge_task&lt;U: <span class="lifetime">&#39;static </span>+ Send + Sync, E: <span class="lifetime">&#39;static</span>&gt;(
     framework: std::sync::Arc&lt;Framework&lt;U, E&gt;&gt;,
@@ -681,4 +681,4 @@
     })
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (98ad6a551 2022-09-17)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (2019147c5 2022-09-19)" ></div></body></html>

@@ -288,7 +288,7 @@
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), serenity::Error&gt; {
     <span class="kw">match </span>error {
         <span class="kw">crate</span>::FrameworkError::Setup { error, .. } =&gt; {
-            <span class="macro">log::error!</span>(<span class="string">&quot;Error in user data setup: {}&quot;</span>, error)
+            <span class="macro">log::error!</span>(<span class="string">&quot;Error in user data setup: {}&quot;</span>, error);
         }
         <span class="kw">crate</span>::FrameworkError::Listener { error, event, .. } =&gt; <span class="macro">log::error!</span>(
             <span class="string">&quot;User event listener encountered an error on {} event: {}&quot;</span>,
@@ -419,7 +419,7 @@
 
 <span class="doccomment">/// An autocomplete function that can be used for the command parameter in your help function.
 ///
-/// See examples/framework_usage for an example
+/// See `examples/framework_usage` for an example
 </span><span class="kw">pub async fn </span>autocomplete_command&lt;<span class="lifetime">&#39;a</span>, U, E&gt;(
     ctx: <span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     partial: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
@@ -428,7 +428,7 @@
         .options()
         .commands
         .iter()
-        .filter(<span class="kw">move </span>|cmd| cmd.name.starts_with(<span class="kw-2">&amp;</span>partial))
+        .filter(<span class="kw">move </span>|cmd| cmd.name.starts_with(partial))
         .map(|cmd| cmd.name.to_string())
 }
 
@@ -513,4 +513,4 @@
     <span class="prelude-val">Ok</span>(())
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (98ad6a551 2022-09-17)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (2019147c5 2022-09-19)" ></div></body></html>

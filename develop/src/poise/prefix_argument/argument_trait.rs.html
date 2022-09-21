@@ -135,7 +135,7 @@
 <span id="135">135</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Trait implemented for all types usable as prefix command parameters. This file also includes
 //! the auto-deref specialization emulation code to e.g. support more strings for bool parameters
-//! instead of the FromStr ones
+//! instead of the `FromStr` ones
 
 </span><span class="kw">use super</span>::{pop_string, InvalidBool, MissingAttachment, TooFewArguments};
 <span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
@@ -263,10 +263,10 @@
             .attachments
             .get(attachment_index)
             .ok_or_else(|| (MissingAttachment.into(), <span class="prelude-val">None</span>))<span class="question-mark">?
-            </span>.to_owned();
+            </span>.clone(); <span class="comment">// `.clone()` is more clear than `.to_owned()` and is the same.
 
-        <span class="prelude-val">Ok</span>((args, attachment_index + <span class="number">1</span>, attachment))
+        </span><span class="prelude-val">Ok</span>((args, attachment_index + <span class="number">1</span>, attachment))
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (98ad6a551 2022-09-17)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (2019147c5 2022-09-19)" ></div></body></html>
