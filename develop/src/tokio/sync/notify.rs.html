@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.17.0/src/sync/notify.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>notify.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../tokio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../tokio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../tokio/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.21.1/src/sync/notify.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>notify.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../tokio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../tokio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../tokio/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -738,6 +738,230 @@
 <span id="738">738</span>
 <span id="739">739</span>
 <span id="740">740</span>
+<span id="741">741</span>
+<span id="742">742</span>
+<span id="743">743</span>
+<span id="744">744</span>
+<span id="745">745</span>
+<span id="746">746</span>
+<span id="747">747</span>
+<span id="748">748</span>
+<span id="749">749</span>
+<span id="750">750</span>
+<span id="751">751</span>
+<span id="752">752</span>
+<span id="753">753</span>
+<span id="754">754</span>
+<span id="755">755</span>
+<span id="756">756</span>
+<span id="757">757</span>
+<span id="758">758</span>
+<span id="759">759</span>
+<span id="760">760</span>
+<span id="761">761</span>
+<span id="762">762</span>
+<span id="763">763</span>
+<span id="764">764</span>
+<span id="765">765</span>
+<span id="766">766</span>
+<span id="767">767</span>
+<span id="768">768</span>
+<span id="769">769</span>
+<span id="770">770</span>
+<span id="771">771</span>
+<span id="772">772</span>
+<span id="773">773</span>
+<span id="774">774</span>
+<span id="775">775</span>
+<span id="776">776</span>
+<span id="777">777</span>
+<span id="778">778</span>
+<span id="779">779</span>
+<span id="780">780</span>
+<span id="781">781</span>
+<span id="782">782</span>
+<span id="783">783</span>
+<span id="784">784</span>
+<span id="785">785</span>
+<span id="786">786</span>
+<span id="787">787</span>
+<span id="788">788</span>
+<span id="789">789</span>
+<span id="790">790</span>
+<span id="791">791</span>
+<span id="792">792</span>
+<span id="793">793</span>
+<span id="794">794</span>
+<span id="795">795</span>
+<span id="796">796</span>
+<span id="797">797</span>
+<span id="798">798</span>
+<span id="799">799</span>
+<span id="800">800</span>
+<span id="801">801</span>
+<span id="802">802</span>
+<span id="803">803</span>
+<span id="804">804</span>
+<span id="805">805</span>
+<span id="806">806</span>
+<span id="807">807</span>
+<span id="808">808</span>
+<span id="809">809</span>
+<span id="810">810</span>
+<span id="811">811</span>
+<span id="812">812</span>
+<span id="813">813</span>
+<span id="814">814</span>
+<span id="815">815</span>
+<span id="816">816</span>
+<span id="817">817</span>
+<span id="818">818</span>
+<span id="819">819</span>
+<span id="820">820</span>
+<span id="821">821</span>
+<span id="822">822</span>
+<span id="823">823</span>
+<span id="824">824</span>
+<span id="825">825</span>
+<span id="826">826</span>
+<span id="827">827</span>
+<span id="828">828</span>
+<span id="829">829</span>
+<span id="830">830</span>
+<span id="831">831</span>
+<span id="832">832</span>
+<span id="833">833</span>
+<span id="834">834</span>
+<span id="835">835</span>
+<span id="836">836</span>
+<span id="837">837</span>
+<span id="838">838</span>
+<span id="839">839</span>
+<span id="840">840</span>
+<span id="841">841</span>
+<span id="842">842</span>
+<span id="843">843</span>
+<span id="844">844</span>
+<span id="845">845</span>
+<span id="846">846</span>
+<span id="847">847</span>
+<span id="848">848</span>
+<span id="849">849</span>
+<span id="850">850</span>
+<span id="851">851</span>
+<span id="852">852</span>
+<span id="853">853</span>
+<span id="854">854</span>
+<span id="855">855</span>
+<span id="856">856</span>
+<span id="857">857</span>
+<span id="858">858</span>
+<span id="859">859</span>
+<span id="860">860</span>
+<span id="861">861</span>
+<span id="862">862</span>
+<span id="863">863</span>
+<span id="864">864</span>
+<span id="865">865</span>
+<span id="866">866</span>
+<span id="867">867</span>
+<span id="868">868</span>
+<span id="869">869</span>
+<span id="870">870</span>
+<span id="871">871</span>
+<span id="872">872</span>
+<span id="873">873</span>
+<span id="874">874</span>
+<span id="875">875</span>
+<span id="876">876</span>
+<span id="877">877</span>
+<span id="878">878</span>
+<span id="879">879</span>
+<span id="880">880</span>
+<span id="881">881</span>
+<span id="882">882</span>
+<span id="883">883</span>
+<span id="884">884</span>
+<span id="885">885</span>
+<span id="886">886</span>
+<span id="887">887</span>
+<span id="888">888</span>
+<span id="889">889</span>
+<span id="890">890</span>
+<span id="891">891</span>
+<span id="892">892</span>
+<span id="893">893</span>
+<span id="894">894</span>
+<span id="895">895</span>
+<span id="896">896</span>
+<span id="897">897</span>
+<span id="898">898</span>
+<span id="899">899</span>
+<span id="900">900</span>
+<span id="901">901</span>
+<span id="902">902</span>
+<span id="903">903</span>
+<span id="904">904</span>
+<span id="905">905</span>
+<span id="906">906</span>
+<span id="907">907</span>
+<span id="908">908</span>
+<span id="909">909</span>
+<span id="910">910</span>
+<span id="911">911</span>
+<span id="912">912</span>
+<span id="913">913</span>
+<span id="914">914</span>
+<span id="915">915</span>
+<span id="916">916</span>
+<span id="917">917</span>
+<span id="918">918</span>
+<span id="919">919</span>
+<span id="920">920</span>
+<span id="921">921</span>
+<span id="922">922</span>
+<span id="923">923</span>
+<span id="924">924</span>
+<span id="925">925</span>
+<span id="926">926</span>
+<span id="927">927</span>
+<span id="928">928</span>
+<span id="929">929</span>
+<span id="930">930</span>
+<span id="931">931</span>
+<span id="932">932</span>
+<span id="933">933</span>
+<span id="934">934</span>
+<span id="935">935</span>
+<span id="936">936</span>
+<span id="937">937</span>
+<span id="938">938</span>
+<span id="939">939</span>
+<span id="940">940</span>
+<span id="941">941</span>
+<span id="942">942</span>
+<span id="943">943</span>
+<span id="944">944</span>
+<span id="945">945</span>
+<span id="946">946</span>
+<span id="947">947</span>
+<span id="948">948</span>
+<span id="949">949</span>
+<span id="950">950</span>
+<span id="951">951</span>
+<span id="952">952</span>
+<span id="953">953</span>
+<span id="954">954</span>
+<span id="955">955</span>
+<span id="956">956</span>
+<span id="957">957</span>
+<span id="958">958</span>
+<span id="959">959</span>
+<span id="960">960</span>
+<span id="961">961</span>
+<span id="962">962</span>
+<span id="963">963</span>
+<span id="964">964</span>
 </pre><pre class="rust"><code><span class="comment">// Allow `unreachable_pub` warnings when sync is not enabled
 // due to the usage of `Notify` within the `rt` feature set.
 // When this module is compiled with `sync` enabled we will warn on
@@ -766,22 +990,23 @@
 /// `Notify` itself does not carry any data. Instead, it is to be used to signal
 /// another task to perform an operation.
 ///
-/// `Notify` can be thought of as a [`Semaphore`] starting with 0 permits.
-/// [`notified().await`] waits for a permit to become available, and [`notify_one()`]
-/// sets a permit **if there currently are no available permits**.
+/// A `Notify` can be thought of as a [`Semaphore`] starting with 0 permits. The
+/// [`notified().await`] method waits for a permit to become available, and
+/// [`notify_one()`] sets a permit **if there currently are no available
+/// permits**.
 ///
 /// The synchronization details of `Notify` are similar to
 /// [`thread::park`][park] and [`Thread::unpark`][unpark] from std. A [`Notify`]
 /// value contains a single permit. [`notified().await`] waits for the permit to
-/// be made available, consumes the permit, and resumes.  [`notify_one()`] sets the
-/// permit, waking a pending task if there is one.
+/// be made available, consumes the permit, and resumes.  [`notify_one()`] sets
+/// the permit, waking a pending task if there is one.
 ///
-/// If `notify_one()` is called **before** `notified().await`, then the next call to
-/// `notified().await` will complete immediately, consuming the permit. Any
-/// subsequent calls to `notified().await` will wait for a new permit.
+/// If `notify_one()` is called **before** `notified().await`, then the next
+/// call to `notified().await` will complete immediately, consuming the permit.
+/// Any subsequent calls to `notified().await` will wait for a new permit.
 ///
-/// If `notify_one()` is called **multiple** times before `notified().await`, only a
-/// **single** permit is stored. The next call to `notified().await` will
+/// If `notify_one()` is called **multiple** times before `notified().await`,
+/// only a **single** permit is stored. The next call to `notified().await` will
 /// complete immediately, but the one after will wait for a new permit.
 ///
 /// # Examples
@@ -810,7 +1035,11 @@
 /// }
 /// ```
 ///
-/// Unbound mpsc channel.
+/// Unbound multi-producer single-consumer (mpsc) channel.
+///
+/// No wakeups can be lost when using this channel because the call to
+/// `notify_one()` will store a permit in the `Notify`, which the following call
+/// to `notified()` will consume.
 ///
 /// ```
 /// use tokio::sync::Notify;
@@ -832,6 +1061,8 @@
 ///         self.notify.notify_one();
 ///     }
 ///
+///     // This is a single-consumer channel, so several concurrent calls to
+///     // `recv` are not allowed.
 ///     pub async fn recv(&amp;self) -&gt; T {
 ///         loop {
 ///             // Drain values
@@ -846,10 +1077,87 @@
 /// }
 /// ```
 ///
+/// Unbound multi-producer multi-consumer (mpmc) channel.
+///
+/// The call to [`enable`] is important because otherwise if you have two
+/// calls to `recv` and two calls to `send` in parallel, the following could
+/// happen:
+///
+///  1. Both calls to `try_recv` return `None`.
+///  2. Both new elements are added to the vector.
+///  3. The `notify_one` method is called twice, adding only a single
+///     permit to the `Notify`.
+///  4. Both calls to `recv` reach the `Notified` future. One of them
+///     consumes the permit, and the other sleeps forever.
+///
+/// By adding the `Notified` futures to the list by calling `enable` before
+/// `try_recv`, the `notify_one` calls in step three would remove the
+/// futures from the list and mark them notified instead of adding a permit
+/// to the `Notify`. This ensures that both futures are woken.
+///
+/// Notice that this failure can only happen if there are two concurrent calls
+/// to `recv`. This is why the mpsc example above does not require a call to
+/// `enable`.
+///
+/// ```
+/// use tokio::sync::Notify;
+///
+/// use std::collections::VecDeque;
+/// use std::sync::Mutex;
+///
+/// struct Channel&lt;T&gt; {
+///     messages: Mutex&lt;VecDeque&lt;T&gt;&gt;,
+///     notify_on_sent: Notify,
+/// }
+///
+/// impl&lt;T&gt; Channel&lt;T&gt; {
+///     pub fn send(&amp;self, msg: T) {
+///         let mut locked_queue = self.messages.lock().unwrap();
+///         locked_queue.push_back(msg);
+///         drop(locked_queue);
+///
+///         // Send a notification to one of the calls currently
+///         // waiting in a call to `recv`.
+///         self.notify_on_sent.notify_one();
+///     }
+///
+///     pub fn try_recv(&amp;self) -&gt; Option&lt;T&gt; {
+///         let mut locked_queue = self.messages.lock().unwrap();
+///         locked_queue.pop_front()
+///     }
+///
+///     pub async fn recv(&amp;self) -&gt; T {
+///         let future = self.notify_on_sent.notified();
+///         tokio::pin!(future);
+///
+///         loop {
+///             // Make sure that no wakeup is lost if we get
+///             // `None` from `try_recv`.
+///             future.as_mut().enable();
+///
+///             if let Some(msg) = self.try_recv() {
+///                 return msg;
+///             }
+///
+///             // Wait for a call to `notify_one`.
+///             //
+///             // This uses `.as_mut()` to avoid consuming the future,
+///             // which lets us call `Pin::set` below.
+///             future.as_mut().await;
+///
+///             // Reset the future in case another call to
+///             // `try_recv` got the message before us.
+///             future.set(self.notify_on_sent.notified());
+///         }
+///     }
+/// }
+/// ```
+///
 /// [park]: std::thread::park
 /// [unpark]: std::thread::Thread::unpark
 /// [`notified().await`]: Notify::notified()
 /// [`notify_one()`]: Notify::notify_one()
+/// [`enable`]: Notified::enable()
 /// [`Semaphore`]: crate::sync::Semaphore
 </span><span class="attribute">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Notify {
@@ -870,7 +1178,6 @@
 }
 
 <span class="attribute">#[derive(Debug)]
-#[repr(C)] </span><span class="comment">// required by `linked_list::Link` impl
 </span><span class="kw">struct </span>Waiter {
     <span class="doccomment">/// Intrusive linked-list pointers.
     </span>pointers: linked_list::Pointers&lt;Waiter&gt;,
@@ -885,7 +1192,18 @@
     </span>_p: PhantomPinned,
 }
 
-<span class="doccomment">/// Future returned from [`Notify::notified()`]
+<span class="macro">generate_addr_of_methods! </span>{
+    <span class="kw">impl</span>&lt;&gt; Waiter {
+        <span class="kw">unsafe fn </span>addr_of_pointers(<span class="self">self</span>: NonNull&lt;<span class="self">Self</span>&gt;) -&gt; NonNull&lt;linked_list::Pointers&lt;Waiter&gt;&gt; {
+            <span class="kw-2">&amp;</span><span class="self">self</span>.pointers
+        }
+    }
+}
+
+<span class="doccomment">/// Future returned from [`Notify::notified()`].
+///
+/// This future is fused, so once it has completed, any future calls to poll
+/// will immediately return `Poll::Ready`.
 </span><span class="attribute">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Notified&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="doccomment">/// The `Notify` being received on.
@@ -989,7 +1307,16 @@
     /// immediately, consuming that permit. Otherwise, `notified().await` waits
     /// for a permit to be made available by the next call to `notify_one()`.
     ///
+    /// The `Notified` future is not guaranteed to receive wakeups from calls to
+    /// `notify_one()` if it has not yet been polled. See the documentation for
+    /// [`Notified::enable()`] for more details.
+    ///
+    /// The `Notified` future is guaranteed to receive wakeups from
+    /// `notify_waiters()` as soon as it has been created, even if it has not
+    /// yet been polled.
+    ///
     /// [`notify_one()`]: Notify::notify_one
+    /// [`Notified::enable()`]: Notified::enable
     ///
     /// # Cancel safety
     ///
@@ -1145,7 +1472,7 @@
         // transition out of WAITING while the lock is held.
         </span><span class="kw">let </span>curr = <span class="self">self</span>.state.load(SeqCst);
 
-        <span class="kw">if let </span>EMPTY | NOTIFIED = get_state(curr) {
+        <span class="kw">if </span><span class="macro">matches!</span>(get_state(curr), EMPTY | NOTIFIED) {
             <span class="comment">// There are no waiting tasks. All we need to do is increment the
             // number of times this method was called.
             </span>atomic_inc_num_notify_waiters_calls(<span class="kw-2">&amp;</span><span class="self">self</span>.state);
@@ -1253,6 +1580,114 @@
 <span class="comment">// ===== impl Notified =====
 
 </span><span class="kw">impl </span>Notified&lt;<span class="lifetime">&#39;_</span>&gt; {
+    <span class="doccomment">/// Adds this future to the list of futures that are ready to receive
+    /// wakeups from calls to [`notify_one`].
+    ///
+    /// Polling the future also adds it to the list, so this method should only
+    /// be used if you want to add the future to the list before the first call
+    /// to `poll`. (In fact, this method is equivalent to calling `poll` except
+    /// that no `Waker` is registered.)
+    ///
+    /// This has no effect on notifications sent using [`notify_waiters`], which
+    /// are received as long as they happen after the creation of the `Notified`
+    /// regardless of whether `enable` or `poll` has been called.
+    ///
+    /// This method returns true if the `Notified` is ready. This happens in the
+    /// following situations:
+    ///
+    ///  1. The `notify_waiters` method was called between the creation of the
+    ///     `Notified` and the call to this method.
+    ///  2. This is the first call to `enable` or `poll` on this future, and the
+    ///     `Notify` was holding a permit from a previous call to `notify_one`.
+    ///     The call consumes the permit in that case.
+    ///  3. The future has previously been enabled or polled, and it has since
+    ///     then been marked ready by either consuming a permit from the
+    ///     `Notify`, or by a call to `notify_one` or `notify_waiters` that
+    ///     removed it from the list of futures ready to receive wakeups.
+    ///
+    /// If this method returns true, any future calls to poll on the same future
+    /// will immediately return `Poll::Ready`.
+    ///
+    /// # Examples
+    ///
+    /// Unbound multi-producer multi-consumer (mpmc) channel.
+    ///
+    /// The call to `enable` is important because otherwise if you have two
+    /// calls to `recv` and two calls to `send` in parallel, the following could
+    /// happen:
+    ///
+    ///  1. Both calls to `try_recv` return `None`.
+    ///  2. Both new elements are added to the vector.
+    ///  3. The `notify_one` method is called twice, adding only a single
+    ///     permit to the `Notify`.
+    ///  4. Both calls to `recv` reach the `Notified` future. One of them
+    ///     consumes the permit, and the other sleeps forever.
+    ///
+    /// By adding the `Notified` futures to the list by calling `enable` before
+    /// `try_recv`, the `notify_one` calls in step three would remove the
+    /// futures from the list and mark them notified instead of adding a permit
+    /// to the `Notify`. This ensures that both futures are woken.
+    ///
+    /// ```
+    /// use tokio::sync::Notify;
+    ///
+    /// use std::collections::VecDeque;
+    /// use std::sync::Mutex;
+    ///
+    /// struct Channel&lt;T&gt; {
+    ///     messages: Mutex&lt;VecDeque&lt;T&gt;&gt;,
+    ///     notify_on_sent: Notify,
+    /// }
+    ///
+    /// impl&lt;T&gt; Channel&lt;T&gt; {
+    ///     pub fn send(&amp;self, msg: T) {
+    ///         let mut locked_queue = self.messages.lock().unwrap();
+    ///         locked_queue.push_back(msg);
+    ///         drop(locked_queue);
+    ///
+    ///         // Send a notification to one of the calls currently
+    ///         // waiting in a call to `recv`.
+    ///         self.notify_on_sent.notify_one();
+    ///     }
+    ///
+    ///     pub fn try_recv(&amp;self) -&gt; Option&lt;T&gt; {
+    ///         let mut locked_queue = self.messages.lock().unwrap();
+    ///         locked_queue.pop_front()
+    ///     }
+    ///
+    ///     pub async fn recv(&amp;self) -&gt; T {
+    ///         let future = self.notify_on_sent.notified();
+    ///         tokio::pin!(future);
+    ///
+    ///         loop {
+    ///             // Make sure that no wakeup is lost if we get
+    ///             // `None` from `try_recv`.
+    ///             future.as_mut().enable();
+    ///
+    ///             if let Some(msg) = self.try_recv() {
+    ///                 return msg;
+    ///             }
+    ///
+    ///             // Wait for a call to `notify_one`.
+    ///             //
+    ///             // This uses `.as_mut()` to avoid consuming the future,
+    ///             // which lets us call `Pin::set` below.
+    ///             future.as_mut().await;
+    ///
+    ///             // Reset the future in case another call to
+    ///             // `try_recv` got the message before us.
+    ///             future.set(self.notify_on_sent.notified());
+    ///         }
+    ///     }
+    /// }
+    /// ```
+    ///
+    /// [`notify_one`]: Notify::notify_one()
+    /// [`notify_waiters`]: Notify::notify_waiters()
+    </span><span class="kw">pub fn </span>enable(<span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;) -&gt; bool {
+        <span class="self">self</span>.poll_notified(<span class="prelude-val">None</span>).is_ready()
+    }
+
     <span class="doccomment">/// A custom `project` implementation is used in place of `pin-project-lite`
     /// as a custom drop implementation is needed.
     </span><span class="kw">fn </span>project(<span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;) -&gt; (<span class="kw-2">&amp;</span>Notify, <span class="kw-2">&amp;mut </span>State, <span class="kw-2">&amp;</span>UnsafeCell&lt;Waiter&gt;) {
@@ -1266,12 +1701,8 @@
             (me.notify, <span class="kw-2">&amp;mut </span>me.state, <span class="kw-2">&amp;</span>me.waiter)
         }
     }
-}
 
-<span class="kw">impl </span>Future <span class="kw">for </span>Notified&lt;<span class="lifetime">&#39;_</span>&gt; {
-    <span class="kw">type </span>Output = ();
-
-    <span class="kw">fn </span>poll(<span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;()&gt; {
+    <span class="kw">fn </span>poll_notified(<span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, waker: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Waker&gt;) -&gt; Poll&lt;()&gt; {
         <span class="kw">use </span>State::<span class="kw-2">*</span>;
 
         <span class="kw">let </span>(notify, state, waiter) = <span class="self">self</span>.project();
@@ -1297,7 +1728,7 @@
 
                     <span class="comment">// Clone the waker before locking, a waker clone can be
                     // triggering arbitrary code.
-                    </span><span class="kw">let </span>waker = cx.waker().clone();
+                    </span><span class="kw">let </span>waker = waker.cloned();
 
                     <span class="comment">// Acquire the lock and attempt to transition to the waiting
                     // state.
@@ -1358,9 +1789,11 @@
                         }
                     }
 
-                    <span class="comment">// Safety: called while locked.
-                    </span><span class="kw">unsafe </span>{
-                        (<span class="kw-2">*</span>waiter.get()).waker = <span class="prelude-val">Some</span>(waker);
+                    <span class="kw">if </span>waker.is_some() {
+                        <span class="comment">// Safety: called while locked.
+                        </span><span class="kw">unsafe </span>{
+                            (<span class="kw-2">*</span>waiter.get()).waker = waker;
+                        }
                     }
 
                     <span class="comment">// Insert the waiter into the linked list
@@ -1392,8 +1825,14 @@
                         <span class="kw-2">*</span>state = Done;
                     } <span class="kw">else </span>{
                         <span class="comment">// Update the waker, if necessary.
-                        </span><span class="kw">if </span>!w.waker.as_ref().unwrap().will_wake(cx.waker()) {
-                            w.waker = <span class="prelude-val">Some</span>(cx.waker().clone());
+                        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(waker) = waker {
+                            <span class="kw">let </span>should_update = <span class="kw">match </span>w.waker.as_ref() {
+                                <span class="prelude-val">Some</span>(current_waker) =&gt; !current_waker.will_wake(waker),
+                                <span class="prelude-val">None </span>=&gt; <span class="bool-val">true</span>,
+                            };
+                            <span class="kw">if </span>should_update {
+                                w.waker = <span class="prelude-val">Some</span>(waker.clone());
+                            }
                         }
 
                         <span class="kw">return </span>Poll::Pending;
@@ -1414,6 +1853,14 @@
     }
 }
 
+<span class="kw">impl </span>Future <span class="kw">for </span>Notified&lt;<span class="lifetime">&#39;_</span>&gt; {
+    <span class="kw">type </span>Output = ();
+
+    <span class="kw">fn </span>poll(<span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;()&gt; {
+        <span class="self">self</span>.poll_notified(<span class="prelude-val">Some</span>(cx.waker()))
+    }
+}
+
 <span class="kw">impl </span>Drop <span class="kw">for </span>Notified&lt;<span class="lifetime">&#39;_</span>&gt; {
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="kw">use </span>State::<span class="kw-2">*</span>;
@@ -1424,7 +1871,7 @@
         <span class="comment">// This is where we ensure safety. The `Notified` value is being
         // dropped, which means we must ensure that the waiter entry is no
         // longer stored in the linked list.
-        </span><span class="kw">if let </span>Waiting = <span class="kw-2">*</span>state {
+        </span><span class="kw">if </span><span class="macro">matches!</span>(<span class="kw-2">*</span>state, Waiting) {
             <span class="kw">let </span><span class="kw-2">mut </span>waiters = notify.waiters.lock();
             <span class="kw">let </span><span class="kw-2">mut </span>notify_state = notify.state.load(SeqCst);
 
@@ -1434,11 +1881,9 @@
             // being the only `LinkedList` available to the type.
             </span><span class="kw">unsafe </span>{ waiters.remove(NonNull::new_unchecked(waiter.get())) };
 
-            <span class="kw">if </span>waiters.is_empty() {
-                <span class="kw">if let </span>WAITING = get_state(notify_state) {
-                    notify_state = set_state(notify_state, EMPTY);
-                    notify.state.store(notify_state, SeqCst);
-                }
+            <span class="kw">if </span>waiters.is_empty() &amp;&amp; get_state(notify_state) == WAITING {
+                notify_state = set_state(notify_state, EMPTY);
+                notify.state.store(notify_state, SeqCst);
             }
 
             <span class="comment">// See if the node was notified but not received. In this case, if
@@ -1447,7 +1892,10 @@
             //
             // Safety: with the entry removed from the linked list, there can be
             // no concurrent access to the entry
-            </span><span class="kw">if let </span><span class="prelude-val">Some</span>(NotificationType::OneWaiter) = <span class="kw">unsafe </span>{ (<span class="kw-2">*</span>waiter.get()).notified } {
+            </span><span class="kw">if </span><span class="macro">matches!</span>(
+                <span class="kw">unsafe </span>{ (<span class="kw-2">*</span>waiter.get()).notified },
+                <span class="prelude-val">Some</span>(NotificationType::OneWaiter)
+            ) {
                 <span class="kw">if let </span><span class="prelude-val">Some</span>(waker) = notify_locked(<span class="kw-2">&amp;mut </span>waiters, <span class="kw-2">&amp;</span>notify.state, notify_state) {
                     drop(waiters);
                     waker.wake();
@@ -1473,10 +1921,10 @@
     }
 
     <span class="kw">unsafe fn </span>pointers(target: NonNull&lt;Waiter&gt;) -&gt; NonNull&lt;linked_list::Pointers&lt;Waiter&gt;&gt; {
-        target.cast()
+        Waiter::addr_of_pointers(target)
     }
 }
 
 <span class="kw">fn </span>is_unpin&lt;T: Unpin&gt;() {}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (432abd86f 2022-09-20)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (8b705839c 2022-09-26)" ></div></body></html>

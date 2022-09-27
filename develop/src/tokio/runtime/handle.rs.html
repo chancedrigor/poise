@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.17.0/src/runtime/handle.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>handle.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../tokio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../tokio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../tokio/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.21.1/src/runtime/handle.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>handle.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../tokio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../tokio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../tokio/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -433,6 +433,71 @@
 <span id="433">433</span>
 <span id="434">434</span>
 <span id="435">435</span>
+<span id="436">436</span>
+<span id="437">437</span>
+<span id="438">438</span>
+<span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
+<span id="463">463</span>
+<span id="464">464</span>
+<span id="465">465</span>
+<span id="466">466</span>
+<span id="467">467</span>
+<span id="468">468</span>
+<span id="469">469</span>
+<span id="470">470</span>
+<span id="471">471</span>
+<span id="472">472</span>
+<span id="473">473</span>
+<span id="474">474</span>
+<span id="475">475</span>
+<span id="476">476</span>
+<span id="477">477</span>
+<span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
+<span id="482">482</span>
+<span id="483">483</span>
+<span id="484">484</span>
+<span id="485">485</span>
+<span id="486">486</span>
+<span id="487">487</span>
+<span id="488">488</span>
+<span id="489">489</span>
+<span id="490">490</span>
+<span id="491">491</span>
+<span id="492">492</span>
+<span id="493">493</span>
+<span id="494">494</span>
+<span id="495">495</span>
+<span id="496">496</span>
+<span id="497">497</span>
+<span id="498">498</span>
+<span id="499">499</span>
+<span id="500">500</span>
 </pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::runtime::blocking::{BlockingTask, NoopSchedule};
 <span class="kw">use </span><span class="kw">crate</span>::runtime::task::{<span class="self">self</span>, JoinHandle};
 <span class="kw">use </span><span class="kw">crate</span>::runtime::{blocking, context, driver, Spawner};
@@ -451,10 +516,18 @@
 </span><span class="attribute">#[derive(Debug, Clone)]
 </span><span class="kw">pub struct </span>Handle {
     <span class="kw">pub</span>(<span class="kw">super</span>) spawner: Spawner,
+}
 
+<span class="doccomment">/// All internal handles that are *not* the scheduler&#39;s spawner.
+</span><span class="attribute">#[derive(Debug)]
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>HandleInner {
     <span class="doccomment">/// Handles to the I/O drivers
     </span><span class="attribute">#[cfg_attr(
-        not(any(feature = <span class="string">&quot;net&quot;</span>, feature = <span class="string">&quot;process&quot;</span>, all(unix, feature = <span class="string">&quot;signal&quot;</span>))),
+        not(any(
+            feature = <span class="string">&quot;net&quot;</span>,
+            all(unix, feature = <span class="string">&quot;process&quot;</span>),
+            all(unix, feature = <span class="string">&quot;signal&quot;</span>),
+        )),
         allow(dead_code)
     )]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) io_handle: driver::IoHandle,
@@ -482,6 +555,11 @@
     </span><span class="kw">pub</span>(<span class="kw">super</span>) blocking_spawner: blocking::Spawner,
 }
 
+<span class="doccomment">/// Create a new runtime handle.
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">trait </span>ToHandle {
+    <span class="kw">fn </span>to_handle(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Handle;
+}
+
 <span class="doccomment">/// Runtime context guard.
 ///
 /// Returned by [`Runtime::enter`] and [`Handle::enter`], the context guard exits
@@ -498,7 +576,8 @@
 <span class="kw">impl </span>Handle {
     <span class="doccomment">/// Enters the runtime context. This allows you to construct types that must
     /// have an executor available on creation such as [`Sleep`] or [`TcpStream`].
-    /// It will also allow you to call methods such as [`tokio::spawn`].
+    /// It will also allow you to call methods such as [`tokio::spawn`] and [`Handle::current`]
+    /// without panicking.
     ///
     /// [`Sleep`]: struct@crate::time::Sleep
     /// [`TcpStream`]: struct@crate::net::TcpStream
@@ -512,11 +591,12 @@
 
     <span class="doccomment">/// Returns a `Handle` view over the currently running `Runtime`.
     ///
-    /// # Panic
+    /// # Panics
     ///
     /// This will panic if called outside the context of a Tokio runtime. That means that you must
-    /// call this on one of the threads **being run by the runtime**. Calling this from within a
-    /// thread created by `std::thread::spawn` (for example) will cause a panic.
+    /// call this on one of the threads **being run by the runtime**, or from a thread with an active
+    /// `EnterGuard`. Calling this from within a thread created by `std::thread::spawn` (for example)
+    /// will cause a panic unless that thread has an active `EnterGuard`.
     ///
     /// # Examples
     ///
@@ -540,14 +620,20 @@
     /// # let handle =
     /// thread::spawn(move || {
     ///     // Notice that the handle is created outside of this thread and then moved in
-    ///     handle.spawn(async { /* ... */ })
-    ///     // This next line would cause a panic
-    ///     // let handle2 = Handle::current();
+    ///     handle.spawn(async { /* ... */ });
+    ///     // This next line would cause a panic because we haven&#39;t entered the runtime
+    ///     // and created an EnterGuard
+    ///     // let handle2 = Handle::current(); // panic
+    ///     // So we create a guard here with Handle::enter();
+    ///     let _guard = handle.enter();
+    ///     // Now we can call Handle::current();
+    ///     let handle2 = Handle::current();
     /// });
     /// # handle.join().unwrap();
     /// # });
     /// # }
     /// ```
+    </span><span class="attribute">#[track_caller]
     </span><span class="kw">pub fn </span>current() -&gt; <span class="self">Self </span>{
         context::current()
     }
@@ -594,9 +680,7 @@
         </span>F: Future + Send + <span class="lifetime">&#39;static</span>,
         F::Output: Send + <span class="lifetime">&#39;static</span>,
     {
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
-        </span><span class="kw">let </span>future = <span class="kw">crate</span>::util::trace::task(future, <span class="string">&quot;task&quot;</span>, <span class="prelude-val">None</span>);
-        <span class="self">self</span>.spawner.spawn(future)
+        <span class="self">self</span>.spawn_named(future, <span class="prelude-val">None</span>)
     }
 
     <span class="doccomment">/// Runs the provided function on an executor dedicated to blocking.
@@ -624,85 +708,11 @@
         </span>F: FnOnce() -&gt; R + Send + <span class="lifetime">&#39;static</span>,
         R: Send + <span class="lifetime">&#39;static</span>,
     {
-        <span class="kw">let </span>(join_handle, _was_spawned) =
-            <span class="kw">if </span><span class="macro">cfg!</span>(debug_assertions) &amp;&amp; std::mem::size_of::&lt;F&gt;() &gt; <span class="number">2048 </span>{
-                <span class="self">self</span>.spawn_blocking_inner(Box::new(func), blocking::Mandatory::NonMandatory, <span class="prelude-val">None</span>)
-            } <span class="kw">else </span>{
-                <span class="self">self</span>.spawn_blocking_inner(func, blocking::Mandatory::NonMandatory, <span class="prelude-val">None</span>)
-            };
-
-        join_handle
+        <span class="self">self</span>.as_inner().spawn_blocking(<span class="self">self</span>, func)
     }
 
-    <span class="macro">cfg_fs! </span>{
-        <span class="attribute">#[track_caller]
-        #[cfg_attr(any(
-            all(loom, not(test)), <span class="comment">// the function is covered by loom tests
-            </span>test
-        ), allow(dead_code))]
-        </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>spawn_mandatory_blocking&lt;F, R&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, func: F) -&gt; <span class="prelude-ty">Option</span>&lt;JoinHandle&lt;R&gt;&gt;
-        <span class="kw">where
-            </span>F: FnOnce() -&gt; R + Send + <span class="lifetime">&#39;static</span>,
-            R: Send + <span class="lifetime">&#39;static</span>,
-        {
-            <span class="kw">let </span>(join_handle, was_spawned) = <span class="kw">if </span><span class="macro">cfg!</span>(debug_assertions) &amp;&amp; std::mem::size_of::&lt;F&gt;() &gt; <span class="number">2048 </span>{
-                <span class="self">self</span>.spawn_blocking_inner(
-                    Box::new(func),
-                    blocking::Mandatory::Mandatory,
-                    <span class="prelude-val">None
-                </span>)
-            } <span class="kw">else </span>{
-                <span class="self">self</span>.spawn_blocking_inner(
-                    func,
-                    blocking::Mandatory::Mandatory,
-                    <span class="prelude-val">None
-                </span>)
-            };
-
-            <span class="kw">if </span>was_spawned {
-                <span class="prelude-val">Some</span>(join_handle)
-            } <span class="kw">else </span>{
-                <span class="prelude-val">None
-            </span>}
-        }
-    }
-
-    <span class="attribute">#[track_caller]
-    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>spawn_blocking_inner&lt;F, R&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        func: F,
-        is_mandatory: blocking::Mandatory,
-        name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
-    ) -&gt; (JoinHandle&lt;R&gt;, bool)
-    <span class="kw">where
-        </span>F: FnOnce() -&gt; R + Send + <span class="lifetime">&#39;static</span>,
-        R: Send + <span class="lifetime">&#39;static</span>,
-    {
-        <span class="kw">let </span>fut = BlockingTask::new(func);
-
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
-        </span><span class="kw">let </span>fut = {
-            <span class="kw">use </span>tracing::Instrument;
-            <span class="kw">let </span>location = std::panic::Location::caller();
-            <span class="kw">let </span>span = <span class="macro">tracing::trace_span!</span>(
-                target: <span class="string">&quot;tokio::task::blocking&quot;</span>,
-                <span class="string">&quot;runtime.spawn&quot;</span>,
-                kind = %<span class="string">&quot;blocking&quot;</span>,
-                task.name = %name.unwrap_or_default(),
-                <span class="string">&quot;fn&quot; </span>= %std::any::type_name::&lt;F&gt;(),
-                spawn.location = %<span class="macro">format_args!</span>(<span class="string">&quot;{}:{}:{}&quot;</span>, location.file(), location.line(), location.column()),
-            );
-            fut.instrument(span)
-        };
-
-        <span class="attribute">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
-        </span><span class="kw">let _ </span>= name;
-
-        <span class="kw">let </span>(task, handle) = task::unowned(fut, NoopSchedule);
-        <span class="kw">let </span>spawned = <span class="self">self
-            </span>.blocking_spawner
-            .spawn(blocking::Task::new(task, is_mandatory), <span class="self">self</span>);
-        (handle, spawned.is_ok())
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>as_inner(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>HandleInner {
+        <span class="self">self</span>.spawner.as_handle_inner()
     }
 
     <span class="doccomment">/// Runs a future to completion on this `Handle`&#39;s associated `Runtime`.
@@ -778,7 +788,8 @@
     </span><span class="attribute">#[track_caller]
     </span><span class="kw">pub fn </span>block_on&lt;F: Future&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, future: F) -&gt; F::Output {
         <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
-        </span><span class="kw">let </span>future = <span class="kw">crate</span>::util::trace::task(future, <span class="string">&quot;block_on&quot;</span>, <span class="prelude-val">None</span>);
+        </span><span class="kw">let </span>future =
+            <span class="kw">crate</span>::util::trace::task(future, <span class="string">&quot;block_on&quot;</span>, <span class="prelude-val">None</span>, <span class="kw">super</span>::task::Id::next().as_u64());
 
         <span class="comment">// Enter the **runtime** context. This configures spawning, the current I/O driver, ...
         </span><span class="kw">let </span>_rt_enter = <span class="self">self</span>.enter();
@@ -792,8 +803,26 @@
             .expect(<span class="string">&quot;failed to park thread&quot;</span>)
     }
 
+    <span class="attribute">#[track_caller]
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>spawn_named&lt;F&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, future: F, _name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; JoinHandle&lt;F::Output&gt;
+    <span class="kw">where
+        </span>F: Future + Send + <span class="lifetime">&#39;static</span>,
+        F::Output: Send + <span class="lifetime">&#39;static</span>,
+    {
+        <span class="kw">let </span>id = <span class="kw">crate</span>::runtime::task::Id::next();
+        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        </span><span class="kw">let </span>future = <span class="kw">crate</span>::util::trace::task(future, <span class="string">&quot;task&quot;</span>, _name, id.as_u64());
+        <span class="self">self</span>.spawner.spawn(future, id)
+    }
+
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>shutdown(<span class="kw-2">mut </span><span class="self">self</span>) {
         <span class="self">self</span>.spawner.shutdown();
+    }
+}
+
+<span class="kw">impl </span>ToHandle <span class="kw">for </span>Handle {
+    <span class="kw">fn </span>to_handle(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Handle {
+        <span class="self">self</span>.clone()
     }
 }
 
@@ -806,6 +835,107 @@
         </span><span class="kw">pub fn </span>metrics(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; RuntimeMetrics {
             RuntimeMetrics::new(<span class="self">self</span>.clone())
         }
+    }
+}
+
+<span class="kw">impl </span>HandleInner {
+    <span class="attribute">#[track_caller]
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>spawn_blocking&lt;F, R&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, rt: <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToHandle, func: F) -&gt; JoinHandle&lt;R&gt;
+    <span class="kw">where
+        </span>F: FnOnce() -&gt; R + Send + <span class="lifetime">&#39;static</span>,
+        R: Send + <span class="lifetime">&#39;static</span>,
+    {
+        <span class="kw">let </span>(join_handle, spawn_result) = <span class="kw">if </span><span class="macro">cfg!</span>(debug_assertions)
+            &amp;&amp; std::mem::size_of::&lt;F&gt;() &gt; <span class="number">2048
+        </span>{
+            <span class="self">self</span>.spawn_blocking_inner(Box::new(func), blocking::Mandatory::NonMandatory, <span class="prelude-val">None</span>, rt)
+        } <span class="kw">else </span>{
+            <span class="self">self</span>.spawn_blocking_inner(func, blocking::Mandatory::NonMandatory, <span class="prelude-val">None</span>, rt)
+        };
+
+        <span class="kw">match </span>spawn_result {
+            <span class="prelude-val">Ok</span>(()) =&gt; join_handle,
+            <span class="comment">// Compat: do not panic here, return the join_handle even though it will never resolve
+            </span><span class="prelude-val">Err</span>(blocking::SpawnError::ShuttingDown) =&gt; join_handle,
+            <span class="prelude-val">Err</span>(blocking::SpawnError::NoThreads(e)) =&gt; {
+                <span class="macro">panic!</span>(<span class="string">&quot;OS can&#39;t spawn worker thread: {}&quot;</span>, e)
+            }
+        }
+    }
+
+    <span class="macro">cfg_fs! </span>{
+        <span class="attribute">#[track_caller]
+        #[cfg_attr(any(
+            all(loom, not(test)), <span class="comment">// the function is covered by loom tests
+            </span>test
+        ), allow(dead_code))]
+        </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>spawn_mandatory_blocking&lt;F, R&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, rt: <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToHandle, func: F) -&gt; <span class="prelude-ty">Option</span>&lt;JoinHandle&lt;R&gt;&gt;
+        <span class="kw">where
+            </span>F: FnOnce() -&gt; R + Send + <span class="lifetime">&#39;static</span>,
+            R: Send + <span class="lifetime">&#39;static</span>,
+        {
+            <span class="kw">let </span>(join_handle, spawn_result) = <span class="kw">if </span><span class="macro">cfg!</span>(debug_assertions) &amp;&amp; std::mem::size_of::&lt;F&gt;() &gt; <span class="number">2048 </span>{
+                <span class="self">self</span>.spawn_blocking_inner(
+                    Box::new(func),
+                    blocking::Mandatory::Mandatory,
+                    <span class="prelude-val">None</span>,
+                    rt,
+                )
+            } <span class="kw">else </span>{
+                <span class="self">self</span>.spawn_blocking_inner(
+                    func,
+                    blocking::Mandatory::Mandatory,
+                    <span class="prelude-val">None</span>,
+                    rt,
+                )
+            };
+
+            <span class="kw">if </span>spawn_result.is_ok() {
+                <span class="prelude-val">Some</span>(join_handle)
+            } <span class="kw">else </span>{
+                <span class="prelude-val">None
+            </span>}
+        }
+    }
+
+    <span class="attribute">#[track_caller]
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>spawn_blocking_inner&lt;F, R&gt;(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        func: F,
+        is_mandatory: blocking::Mandatory,
+        name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
+        rt: <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToHandle,
+    ) -&gt; (JoinHandle&lt;R&gt;, <span class="prelude-ty">Result</span>&lt;(), blocking::SpawnError&gt;)
+    <span class="kw">where
+        </span>F: FnOnce() -&gt; R + Send + <span class="lifetime">&#39;static</span>,
+        R: Send + <span class="lifetime">&#39;static</span>,
+    {
+        <span class="kw">let </span>fut = BlockingTask::new(func);
+        <span class="kw">let </span>id = <span class="kw">super</span>::task::Id::next();
+        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        </span><span class="kw">let </span>fut = {
+            <span class="kw">use </span>tracing::Instrument;
+            <span class="kw">let </span>location = std::panic::Location::caller();
+            <span class="kw">let </span>span = <span class="macro">tracing::trace_span!</span>(
+                target: <span class="string">&quot;tokio::task::blocking&quot;</span>,
+                <span class="string">&quot;runtime.spawn&quot;</span>,
+                kind = %<span class="string">&quot;blocking&quot;</span>,
+                task.name = %name.unwrap_or_default(),
+                task.id = id.as_u64(),
+                <span class="string">&quot;fn&quot; </span>= %std::any::type_name::&lt;F&gt;(),
+                spawn.location = %<span class="macro">format_args!</span>(<span class="string">&quot;{}:{}:{}&quot;</span>, location.file(), location.line(), location.column()),
+            );
+            fut.instrument(span)
+        };
+
+        <span class="attribute">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
+        </span><span class="kw">let _ </span>= name;
+
+        <span class="kw">let </span>(task, handle) = task::unowned(fut, NoopSchedule, id);
+        <span class="kw">let </span>spawned = <span class="self">self
+            </span>.blocking_spawner
+            .spawn(blocking::Task::new(task, is_mandatory), rt);
+        (handle, spawned)
     }
 }
 
@@ -869,4 +999,4 @@
 
 <span class="kw">impl </span>error::Error <span class="kw">for </span>TryCurrentError {}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (432abd86f 2022-09-20)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (8b705839c 2022-09-26)" ></div></body></html>

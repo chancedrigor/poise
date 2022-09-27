@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.17.0/src/runtime/blocking/pool.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>pool.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../../normalize.css"><link rel="stylesheet" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../../ayu.css" disabled><link rel="stylesheet" href="../../../../dark.css" disabled><link rel="stylesheet" href="../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../storage.js"></script><script defer src="../../../../source-script.js"></script><script defer src="../../../../source-files.js"></script><script defer src="../../../../main.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../../tokio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../../tokio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../../tokio/index.html"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.21.1/src/runtime/blocking/pool.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>pool.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../../normalize.css"><link rel="stylesheet" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../../ayu.css" disabled><link rel="stylesheet" href="../../../../dark.css" disabled><link rel="stylesheet" href="../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../storage.js"></script><script defer src="../../../../source-script.js"></script><script defer src="../../../../source-files.js"></script><script defer src="../../../../main.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../../tokio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../../tokio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../../tokio/index.html"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -394,6 +394,44 @@
 <span id="394">394</span>
 <span id="395">395</span>
 <span id="396">396</span>
+<span id="397">397</span>
+<span id="398">398</span>
+<span id="399">399</span>
+<span id="400">400</span>
+<span id="401">401</span>
+<span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
+<span id="408">408</span>
+<span id="409">409</span>
+<span id="410">410</span>
+<span id="411">411</span>
+<span id="412">412</span>
+<span id="413">413</span>
+<span id="414">414</span>
+<span id="415">415</span>
+<span id="416">416</span>
+<span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
+<span id="423">423</span>
+<span id="424">424</span>
+<span id="425">425</span>
+<span id="426">426</span>
+<span id="427">427</span>
+<span id="428">428</span>
+<span id="429">429</span>
+<span id="430">430</span>
+<span id="431">431</span>
+<span id="432">432</span>
+<span id="433">433</span>
+<span id="434">434</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Thread pool for blocking operations
 
 </span><span class="kw">use </span><span class="kw">crate</span>::loom::sync::{Arc, Condvar, Mutex};
@@ -403,10 +441,11 @@
 <span class="kw">use </span><span class="kw">crate</span>::runtime::builder::ThreadNameFn;
 <span class="kw">use </span><span class="kw">crate</span>::runtime::context;
 <span class="kw">use </span><span class="kw">crate</span>::runtime::task::{<span class="self">self</span>, JoinHandle};
-<span class="kw">use </span><span class="kw">crate</span>::runtime::{Builder, Callback, Handle};
+<span class="kw">use </span><span class="kw">crate</span>::runtime::{Builder, Callback, ToHandle};
 
 <span class="kw">use </span>std::collections::{HashMap, VecDeque};
 <span class="kw">use </span>std::fmt;
+<span class="kw">use </span>std::io;
 <span class="kw">use </span>std::time::Duration;
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>BlockingPool {
@@ -478,6 +517,25 @@
     NonMandatory,
 }
 
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>SpawnError {
+    <span class="doccomment">/// Pool is shutting down and the task was not scheduled
+    </span>ShuttingDown,
+    <span class="doccomment">/// There are no worker threads available to take the task
+    /// and the OS failed to spawn a new one
+    </span>NoThreads(io::Error),
+}
+
+<span class="kw">impl </span>From&lt;SpawnError&gt; <span class="kw">for </span>io::Error {
+    <span class="kw">fn </span>from(e: SpawnError) -&gt; <span class="self">Self </span>{
+        <span class="kw">match </span>e {
+            SpawnError::ShuttingDown =&gt; {
+                io::Error::new(io::ErrorKind::Other, <span class="string">&quot;blocking pool shutting down&quot;</span>)
+            }
+            SpawnError::NoThreads(e) =&gt; e,
+        }
+    }
+}
+
 <span class="kw">impl </span>Task {
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(task: task::UnownedTask&lt;NoopSchedule&gt;, mandatory: Mandatory) -&gt; Task {
         Task { task, mandatory }
@@ -500,6 +558,8 @@
 <span class="doccomment">/// Runs the provided function on an executor dedicated to blocking operations.
 /// Tasks will be scheduled as non-mandatory, meaning they may not get executed
 /// in case of runtime shutdown.
+</span><span class="attribute">#[track_caller]
+#[cfg_attr(tokio_wasi, allow(dead_code))]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>spawn_blocking&lt;F, R&gt;(func: F) -&gt; JoinHandle&lt;R&gt;
 <span class="kw">where
     </span>F: FnOnce() -&gt; R + Send + <span class="lifetime">&#39;static</span>,
@@ -524,7 +584,7 @@
         R: Send + <span class="lifetime">&#39;static</span>,
     {
         <span class="kw">let </span>rt = context::current();
-        rt.spawn_mandatory_blocking(func)
+        rt.as_inner().spawn_mandatory_blocking(<span class="kw-2">&amp;</span>rt, func)
     }
 }
 
@@ -615,7 +675,7 @@
 <span class="comment">// ===== impl Spawner =====
 
 </span><span class="kw">impl </span>Spawner {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>spawn(<span class="kw-2">&amp;</span><span class="self">self</span>, task: Task, rt: <span class="kw-2">&amp;</span>Handle) -&gt; <span class="prelude-ty">Result</span>&lt;(), ()&gt; {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>spawn(<span class="kw-2">&amp;</span><span class="self">self</span>, task: Task, rt: <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToHandle) -&gt; <span class="prelude-ty">Result</span>&lt;(), SpawnError&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>shared = <span class="self">self</span>.inner.shared.lock();
 
         <span class="kw">if </span>shared.shutdown {
@@ -625,7 +685,7 @@
             </span>task.task.shutdown();
 
             <span class="comment">// no need to even push this task; it would never get picked up
-            </span><span class="kw">return </span><span class="prelude-val">Err</span>(());
+            </span><span class="kw">return </span><span class="prelude-val">Err</span>(SpawnError::ShuttingDown);
         }
 
         shared.queue.push_back(task);
@@ -636,17 +696,29 @@
             </span><span class="kw">if </span>shared.num_th == <span class="self">self</span>.inner.thread_cap {
                 <span class="comment">// At max number of threads
             </span>} <span class="kw">else </span>{
-                shared.num_th += <span class="number">1</span>;
                 <span class="macro">assert!</span>(shared.shutdown_tx.is_some());
                 <span class="kw">let </span>shutdown_tx = shared.shutdown_tx.clone();
 
                 <span class="kw">if let </span><span class="prelude-val">Some</span>(shutdown_tx) = shutdown_tx {
                     <span class="kw">let </span>id = shared.worker_thread_index;
-                    shared.worker_thread_index += <span class="number">1</span>;
 
-                    <span class="kw">let </span>handle = <span class="self">self</span>.spawn_thread(shutdown_tx, rt, id);
-
-                    shared.worker_threads.insert(id, handle);
+                    <span class="kw">match </span><span class="self">self</span>.spawn_thread(shutdown_tx, rt, id) {
+                        <span class="prelude-val">Ok</span>(handle) =&gt; {
+                            shared.num_th += <span class="number">1</span>;
+                            shared.worker_thread_index += <span class="number">1</span>;
+                            shared.worker_threads.insert(id, handle);
+                        }
+                        <span class="prelude-val">Err</span>(<span class="kw-2">ref </span>e) <span class="kw">if </span>is_temporary_os_thread_error(e) &amp;&amp; shared.num_th &gt; <span class="number">0 </span>=&gt; {
+                            <span class="comment">// OS temporarily failed to spawn a new thread.
+                            // The task will be picked up eventually by a currently
+                            // busy thread.
+                        </span>}
+                        <span class="prelude-val">Err</span>(e) =&gt; {
+                            <span class="comment">// The OS refused to spawn the thread and there is no thread
+                            // to pick up the task that has just been pushed to the queue.
+                            </span><span class="kw">return </span><span class="prelude-val">Err</span>(SpawnError::NoThreads(e));
+                        }
+                    }
                 }
             }
         } <span class="kw">else </span>{
@@ -666,26 +738,30 @@
     <span class="kw">fn </span>spawn_thread(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         shutdown_tx: shutdown::Sender,
-        rt: <span class="kw-2">&amp;</span>Handle,
+        rt: <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToHandle,
         id: usize,
-    ) -&gt; thread::JoinHandle&lt;()&gt; {
+    ) -&gt; std::io::Result&lt;thread::JoinHandle&lt;()&gt;&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>builder = thread::Builder::new().name((<span class="self">self</span>.inner.thread_name)());
 
         <span class="kw">if let </span><span class="prelude-val">Some</span>(stack_size) = <span class="self">self</span>.inner.stack_size {
             builder = builder.stack_size(stack_size);
         }
 
-        <span class="kw">let </span>rt = rt.clone();
+        <span class="kw">let </span>rt = rt.to_handle();
 
-        builder
-            .spawn(<span class="kw">move </span>|| {
-                <span class="comment">// Only the reference should be moved into the closure
-                </span><span class="kw">let </span>_enter = <span class="kw">crate</span>::runtime::context::enter(rt.clone());
-                rt.blocking_spawner.inner.run(id);
-                drop(shutdown_tx);
-            })
-            .expect(<span class="string">&quot;OS can&#39;t spawn a new worker thread&quot;</span>)
+        builder.spawn(<span class="kw">move </span>|| {
+            <span class="comment">// Only the reference should be moved into the closure
+            </span><span class="kw">let </span>_enter = <span class="kw">crate</span>::runtime::context::enter(rt.clone());
+            rt.as_inner().blocking_spawner.inner.run(id);
+            drop(shutdown_tx);
+        })
     }
+}
+
+<span class="comment">// Tells whether the error when spawning a thread is temporary.
+</span><span class="attribute">#[inline]
+</span><span class="kw">fn </span>is_temporary_os_thread_error(error: <span class="kw-2">&amp;</span>std::io::Error) -&gt; bool {
+    <span class="macro">matches!</span>(error.kind(), std::io::ErrorKind::WouldBlock)
 }
 
 <span class="kw">impl </span>Inner {
@@ -791,4 +867,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (432abd86f 2022-09-20)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (8b705839c 2022-09-26)" ></div></body></html>
