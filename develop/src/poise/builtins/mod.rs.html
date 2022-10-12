@@ -484,8 +484,8 @@
     <span class="kw">let </span>guild_ids = ctx.discord().cache.guilds();
     <span class="kw">let </span><span class="kw-2">mut </span>num_unavailable_guilds = <span class="number">0</span>;
     <span class="kw">let </span><span class="kw-2">mut </span>guilds = guild_ids
-        .into_iter()
-        .map(|guild_id| {
+        .iter()
+        .map(|<span class="kw-2">&amp;</span>guild_id| {
             ctx.discord().cache.guild_field(guild_id, |guild| Guild {
                 name: guild.name.clone(),
                 num_members: guild.member_count,
@@ -503,7 +503,7 @@
 
     </span><span class="kw">let </span><span class="kw-2">mut </span>num_private_guilds = <span class="number">0</span>;
     <span class="kw">let </span><span class="kw-2">mut </span>num_private_guild_members = <span class="number">0</span>;
-    <span class="kw">let </span><span class="kw-2">mut </span>response = <span class="macro">format!</span>(<span class="string">&quot;I am currently in {} servers!\n&quot;</span>, guilds.len());
+    <span class="kw">let </span><span class="kw-2">mut </span>response = <span class="macro">format!</span>(<span class="string">&quot;I am currently in {} servers!\n&quot;</span>, guild_ids.len());
     <span class="kw">for </span>guild <span class="kw">in </span>guilds {
         <span class="kw">if </span>guild.is_public || show_private_guilds {
             <span class="kw">let _ </span>= <span class="macro">writeln!</span>(
