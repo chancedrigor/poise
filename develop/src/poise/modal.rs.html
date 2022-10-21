@@ -158,6 +158,10 @@
 <span id="158">158</span>
 <span id="159">159</span>
 <span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Modal trait and utility items for implementing it (mainly for the derive macro)
 
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
@@ -201,11 +205,12 @@
     defaults: <span class="prelude-ty">Option</span>&lt;M&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;M, serenity::Error&gt; {
     <span class="kw">let </span>interaction = ctx.interaction.unwrap();
+    <span class="kw">let </span>interaction_id = interaction.id.to_string();
 
     <span class="comment">// Send modal
     </span>interaction
         .create_interaction_response(ctx.discord, |b| {
-            <span class="kw-2">*</span>b = M::create(defaults);
+            <span class="kw-2">*</span>b = M::create(defaults, interaction_id.clone());
             b
         })
         .<span class="kw">await</span><span class="question-mark">?</span>;
@@ -214,7 +219,7 @@
 
     <span class="comment">// Wait for user to submit
     </span><span class="kw">let </span>response = serenity::CollectModalInteraction::new(<span class="kw-2">&amp;</span>ctx.discord.shard)
-        .author_id(interaction.user.id)
+        .filter(<span class="kw">move </span>|d| d.data.custom_id == interaction_id)
         .<span class="kw">await
         </span>.unwrap();
 
@@ -268,7 +273,10 @@
     ///
     /// Optionally takes an initialized instance as pre-filled values of this modal (see
     /// [`Self::execute_with_defaults()`] for more info)
-    </span><span class="kw">fn </span>create(defaults: <span class="prelude-ty">Option</span>&lt;<span class="self">Self</span>&gt;) -&gt; serenity::CreateInteractionResponse&lt;<span class="lifetime">&#39;static</span>&gt;;
+    </span><span class="kw">fn </span>create(
+        defaults: <span class="prelude-ty">Option</span>&lt;<span class="self">Self</span>&gt;,
+        custom_id: String,
+    ) -&gt; serenity::CreateInteractionResponse&lt;<span class="lifetime">&#39;static</span>&gt;;
 
     <span class="doccomment">/// Parses a received modal submit interaction into this type
     ///
