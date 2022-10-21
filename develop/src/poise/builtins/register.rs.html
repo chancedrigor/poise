@@ -244,6 +244,30 @@
 <span id="244">244</span>
 <span id="245">245</span>
 <span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Utilities for registering application commands
 
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
@@ -399,11 +423,13 @@
                             b.custom_id(<span class="string">&quot;register.guild&quot;</span>)
                                 .label(<span class="string">&quot;Register in guild&quot;</span>)
                                 .style(serenity::ButtonStyle::Primary)
+                                .emoji(<span class="string">&#39;📋&#39;</span>)
                         })
                         .create_button(|b| {
                             b.custom_id(<span class="string">&quot;unregister.guild&quot;</span>)
                                 .label(<span class="string">&quot;Delete in guild&quot;</span>)
                                 .style(serenity::ButtonStyle::Danger)
+                                .emoji(<span class="string">&#39;🗑&#39;</span>)
                         })
                     })
                     .create_action_row(|r| {
@@ -411,11 +437,13 @@
                             b.custom_id(<span class="string">&quot;register.global&quot;</span>)
                                 .label(<span class="string">&quot;Register globally&quot;</span>)
                                 .style(serenity::ButtonStyle::Primary)
+                                .emoji(<span class="string">&#39;📋&#39;</span>)
                         })
                         .create_button(|b| {
                             b.custom_id(<span class="string">&quot;unregister.global&quot;</span>)
                                 .label(<span class="string">&quot;Delete globally&quot;</span>)
                                 .style(serenity::ButtonStyle::Danger)
+                                .emoji(<span class="string">&#39;🗑&#39;</span>)
                         })
                     })
                 })
@@ -429,11 +457,16 @@
         .author_id(ctx.author().id)
         .<span class="kw">await</span>;
 
-    reply.edit(ctx, |b| b.components(|b| b)).<span class="kw">await</span><span class="question-mark">?</span>; <span class="comment">// remove buttons after button press
+    reply
+        .edit(ctx, |b| {
+            b.components(|b| b).content(<span class="string">&quot;Processing... Please wait.&quot;</span>)
+        })
+        .<span class="kw">await</span><span class="question-mark">?</span>; <span class="comment">// remove buttons after button press and edit message
     </span><span class="kw">let </span>pressed_button_id = <span class="kw">match </span><span class="kw-2">&amp;</span>interaction {
         <span class="prelude-val">Some</span>(m) =&gt; <span class="kw-2">&amp;</span>m.data.custom_id,
         <span class="prelude-val">None </span>=&gt; {
-            ctx.say(<span class="string">&quot;You didn&#39;t interact in time&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+            ctx.say(<span class="string">&quot;:warning: You didn&#39;t interact in time - please run the command again.&quot;</span>)
+                .<span class="kw">await</span><span class="question-mark">?</span>;
             <span class="kw">return </span><span class="prelude-val">Ok</span>(());
         }
     };
@@ -449,30 +482,38 @@
         }
     };
 
+    <span class="kw">let </span>start_time = std::time::Instant::now();
+
     <span class="kw">if </span>global {
         <span class="kw">if </span>register {
-            ctx.say(<span class="macro">format!</span>(<span class="string">&quot;Registering {} global commands...&quot;</span>, num_commands))
-                .<span class="kw">await</span><span class="question-mark">?</span>;
+            ctx.say(<span class="macro">format!</span>(
+                <span class="string">&quot;:gear: Registering {} global commands...&quot;</span>,
+                num_commands
+            ))
+            .<span class="kw">await</span><span class="question-mark">?</span>;
             serenity::Command::set_global_application_commands(ctx.discord(), |b| {
                 <span class="kw-2">*</span>b = create_commands;
                 b
             })
             .<span class="kw">await</span><span class="question-mark">?</span>;
         } <span class="kw">else </span>{
-            ctx.say(<span class="string">&quot;Unregistering global commands...&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+            ctx.say(<span class="string">&quot;:gear: Unregistering global commands...&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
             serenity::Command::set_global_application_commands(ctx.discord(), |b| b).<span class="kw">await</span><span class="question-mark">?</span>;
         }
     } <span class="kw">else </span>{
         <span class="kw">let </span>guild_id = <span class="kw">match </span>ctx.guild_id() {
             <span class="prelude-val">Some</span>(x) =&gt; x,
             <span class="prelude-val">None </span>=&gt; {
-                ctx.say(<span class="string">&quot;Must be called in guild&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+                ctx.say(<span class="string">&quot;:x: Must be called in guild&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
                 <span class="kw">return </span><span class="prelude-val">Ok</span>(());
             }
         };
         <span class="kw">if </span>register {
-            ctx.say(<span class="macro">format!</span>(<span class="string">&quot;Registering {} guild commands...&quot;</span>, num_commands))
-                .<span class="kw">await</span><span class="question-mark">?</span>;
+            ctx.say(<span class="macro">format!</span>(
+                <span class="string">&quot;:gear: Registering {} guild commands...&quot;</span>,
+                num_commands
+            ))
+            .<span class="kw">await</span><span class="question-mark">?</span>;
             guild_id
                 .set_application_commands(ctx.discord(), |b| {
                     <span class="kw-2">*</span>b = create_commands;
@@ -480,15 +521,22 @@
                 })
                 .<span class="kw">await</span><span class="question-mark">?</span>;
         } <span class="kw">else </span>{
-            ctx.say(<span class="string">&quot;Unregistering guild commands...&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+            ctx.say(<span class="string">&quot;:gear: Unregistering guild commands...&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
             guild_id
                 .set_application_commands(ctx.discord(), |b| b)
                 .<span class="kw">await</span><span class="question-mark">?</span>;
         }
     }
 
-    ctx.say(<span class="string">&quot;Done!&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+    <span class="comment">// Calulate time taken and send message
+    </span><span class="kw">let </span>time_taken = start_time.elapsed();
+    ctx.say(<span class="macro">format!</span>(
+        <span class="string">&quot;:white_check_mark: Done! Took {}ms&quot;</span>,
+        time_taken.as_millis()
+    ))
+    .<span class="kw">await</span><span class="question-mark">?</span>;
+
     <span class="prelude-val">Ok</span>(())
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (a24a020e6 2022-10-18)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (dcb376115 2022-10-20)" ></div></body></html>
