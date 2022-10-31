@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/reply/builder.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>builder.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><script defer src="../../../scrape-examples.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><a class="sidebar-logo" href="../../../poise/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../poise/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/reply/builder.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>builder.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><script defer src="../../../scrape-examples.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../poise/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -289,8 +289,8 @@
     </span><span class="kw">pub </span>components: <span class="prelude-ty">Option</span>&lt;serenity::CreateComponents&gt;,
     <span class="doccomment">/// The allowed mentions for the message.
     </span><span class="kw">pub </span>allowed_mentions: <span class="prelude-ty">Option</span>&lt;serenity::CreateAllowedMentions&gt;,
-    <span class="doccomment">/// The reference message this message is a reply to.
-    </span><span class="kw">pub </span>reference_message: <span class="prelude-ty">Option</span>&lt;serenity::MessageReference&gt;,
+    <span class="doccomment">/// Whether this message is an inline reply.
+    </span><span class="kw">pub </span>reply: bool,
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;att</span>&gt; CreateReply&lt;<span class="lifetime">&#39;att</span>&gt; {
@@ -337,11 +337,6 @@
     <span class="doccomment">/// Toggles whether the message is an ephemeral response (only invoking user can see it).
     ///
     /// This only has an effect in slash commands!
-    ///
-    /// If this is the initial response and this response
-    /// has previously been deferred, the ephemerality is decided by the defer operation. I.e.
-    /// if you deferred the response without enabling ephemeral, the initial response will not be
-    /// ephemeral.
     </span><span class="kw">pub fn </span>ephemeral(<span class="kw-2">&amp;mut </span><span class="self">self</span>, ephemeral: bool) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.ephemeral = ephemeral;
         <span class="self">self
@@ -360,12 +355,13 @@
         <span class="self">self
     </span>}
 
-    <span class="doccomment">/// Set the reference message this message is a reply to.
-    </span><span class="kw">pub fn </span>reference_message(
-        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        reference: <span class="kw">impl </span>Into&lt;serenity::MessageReference&gt;,
-    ) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="self">self</span>.reference_message = <span class="prelude-val">Some</span>(reference.into());
+    <span class="doccomment">/// Makes this message an inline reply to another message like [`serenity::Message::reply`]
+    /// (prefix-only, because slash commands are always inline replies anyways).
+    ///
+    /// To disable the ping, set [`Self::allowed_mentions`] with
+    /// [`serenity::CreateAllowedMentions::replied_user`] set to false.
+    </span><span class="kw">pub fn </span>reply(<span class="kw-2">&amp;mut </span><span class="self">self</span>, reply: bool) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
+        <span class="self">self</span>.reply = reply;
         <span class="self">self
     </span>}
 }
@@ -382,7 +378,7 @@
             components,
             ephemeral,
             allowed_mentions,
-            reference_message: <span class="kw">_</span>, <span class="comment">// can&#39;t reply to a message in interactions
+            reply: <span class="kw">_</span>, <span class="comment">// can&#39;t reply to a message in interactions
         </span>} = <span class="self">self</span>;
 
         <span class="kw">if let </span><span class="prelude-val">Some</span>(content) = content {
@@ -417,7 +413,7 @@
             components,
             ephemeral,
             allowed_mentions,
-            reference_message: <span class="kw">_</span>,
+            reply: <span class="kw">_</span>,
         } = <span class="self">self</span>;
 
         <span class="kw">if let </span><span class="prelude-val">Some</span>(content) = content {
@@ -449,7 +445,7 @@
             </span>components,
             ephemeral: <span class="kw">_</span>, <span class="comment">// can&#39;t edit ephemerality in retrospect
             </span>allowed_mentions,
-            reference_message: <span class="kw">_</span>,
+            reply: <span class="kw">_</span>,
         } = <span class="self">self</span>;
 
         <span class="kw">if let </span><span class="prelude-val">Some</span>(content) = content {
@@ -479,7 +475,7 @@
             components,
             ephemeral: <span class="kw">_</span>, <span class="comment">// not supported in prefix
             </span>allowed_mentions,
-            reference_message: <span class="kw">_</span>, <span class="comment">// can&#39;t edit reference message afterwards
+            reply: <span class="kw">_</span>, <span class="comment">// can&#39;t edit reference message afterwards
         </span>} = <span class="self">self</span>;
 
         <span class="kw">if let </span><span class="prelude-val">Some</span>(content) = content {
@@ -506,7 +502,11 @@
     }
 
     <span class="doccomment">/// Serialize this response builder to a [`serenity::CreateMessage`]
-    </span><span class="kw">pub fn </span>to_prefix(<span class="self">self</span>, m: <span class="kw-2">&amp;mut </span>serenity::CreateMessage&lt;<span class="lifetime">&#39;att</span>&gt;) {
+    </span><span class="kw">pub fn </span>to_prefix(
+        <span class="self">self</span>,
+        m: <span class="kw-2">&amp;mut </span>serenity::CreateMessage&lt;<span class="lifetime">&#39;att</span>&gt;,
+        invocation_message: <span class="kw-2">&amp;</span>serenity::Message,
+    ) {
         <span class="kw">let </span><span class="kw">crate</span>::CreateReply {
             content,
             embeds,
@@ -514,7 +514,7 @@
             components,
             ephemeral: <span class="kw">_</span>, <span class="comment">// not supported in prefix
             </span>allowed_mentions,
-            reference_message,
+            reply,
         } = <span class="self">self</span>;
 
         <span class="kw">if let </span><span class="prelude-val">Some</span>(content) = content {
@@ -533,8 +533,8 @@
                 c
             });
         }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(reference_message) = reference_message {
-            m.reference_message(reference_message);
+        <span class="kw">if </span>reply {
+            m.reference_message(invocation_message);
         }
 
         <span class="kw">for </span>attachment <span class="kw">in </span>attachments {
@@ -543,4 +543,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (6e95b6da8 2022-10-22)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>

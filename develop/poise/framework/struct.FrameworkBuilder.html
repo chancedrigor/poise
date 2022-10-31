@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A builder to configure and run a framework."><meta name="keywords" content="rust, rustlang, rust-lang, FrameworkBuilder"><title>FrameworkBuilder in poise::framework - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../normalize.css"><link rel="stylesheet" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../ayu.css" disabled><link rel="stylesheet" href="../../dark.css" disabled><link rel="stylesheet" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../main.js"></script><script defer src="../../scrape-examples.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc struct"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../poise/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../poise/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"><a href="#">FrameworkBuilder</a></h2><div class="sidebar-elems"><section><h3><a href="#implementations">Methods</a></h3><ul class="block"><li><a href="#method.build">build</a></li><li><a href="#method.client_settings">client_settings</a></li><li><a href="#method.command">command</a></li><li><a href="#method.commands">commands</a></li><li><a href="#method.initialize_owners">initialize_owners</a></li><li><a href="#method.intents">intents</a></li><li><a href="#method.options">options</a></li><li><a href="#method.prefix">prefix</a></li><li><a href="#method.run">run</a></li><li><a href="#method.run_autosharded">run_autosharded</a></li><li><a href="#method.token">token</a></li><li><a href="#method.user_data_setup">user_data_setup</a></li></ul><h3><a href="#trait-implementations">Trait Implementations</a></h3><ul class="block"><li><a href="#impl-Default-for-FrameworkBuilder%3CU%2C%20E%3E">Default</a></li></ul><h3><a href="#synthetic-implementations">Auto Trait Implementations</a></h3><ul class="block"><li><a href="#impl-RefUnwindSafe-for-FrameworkBuilder%3CU%2C%20E%3E">!RefUnwindSafe</a></li><li><a href="#impl-Send-for-FrameworkBuilder%3CU%2C%20E%3E">Send</a></li><li><a href="#impl-Sync-for-FrameworkBuilder%3CU%2C%20E%3E">Sync</a></li><li><a href="#impl-Unpin-for-FrameworkBuilder%3CU%2C%20E%3E">Unpin</a></li><li><a href="#impl-UnwindSafe-for-FrameworkBuilder%3CU%2C%20E%3E">!UnwindSafe</a></li></ul><h3><a href="#blanket-implementations">Blanket Implementations</a></h3><ul class="block"><li><a href="#impl-Any-for-FrameworkBuilder%3CU%2C%20E%3E">Any</a></li><li><a href="#impl-Borrow%3CT%3E-for-FrameworkBuilder%3CU%2C%20E%3E">Borrow&lt;T&gt;</a></li><li><a href="#impl-BorrowMut%3CT%3E-for-FrameworkBuilder%3CU%2C%20E%3E">BorrowMut&lt;T&gt;</a></li><li><a href="#impl-From%3CT%3E-for-FrameworkBuilder%3CU%2C%20E%3E">From&lt;T&gt;</a></li><li><a href="#impl-Instrument-for-FrameworkBuilder%3CU%2C%20E%3E">Instrument</a></li><li><a href="#impl-Into%3CU%3E-for-FrameworkBuilder%3CU%2C%20E%3E">Into&lt;U&gt;</a></li><li><a href="#impl-Same%3CT%3E-for-FrameworkBuilder%3CU%2C%20E%3E">Same&lt;T&gt;</a></li><li><a href="#impl-TryFrom%3CU%3E-for-FrameworkBuilder%3CU%2C%20E%3E">TryFrom&lt;U&gt;</a></li><li><a href="#impl-TryInto%3CU%3E-for-FrameworkBuilder%3CU%2C%20E%3E">TryInto&lt;U&gt;</a></li><li><a href="#impl-VZip%3CV%3E-for-FrameworkBuilder%3CU%2C%20E%3E">VZip&lt;V&gt;</a></li><li><a href="#impl-WithSubscriber-for-FrameworkBuilder%3CU%2C%20E%3E">WithSubscriber</a></li></ul></section><h2><a href="index.html">In poise::framework</a></h2></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1 class="fqn">Struct <a href="../index.html">poise</a>::<wbr><a href="index.html">framework</a>::<wbr><a class="struct" href="#">FrameworkBuilder</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../../src/poise/framework/builder.rs.html#16-42">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><div class="item-decl"><pre class="rust struct"><code>pub struct FrameworkBuilder&lt;U, E&gt; { /* private fields */ }</code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A builder to configure and run a framework.</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A builder to configure and run a framework."><meta name="keywords" content="rust, rustlang, rust-lang, FrameworkBuilder"><title>FrameworkBuilder in poise::framework - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../normalize.css"><link rel="stylesheet" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../ayu.css" disabled><link rel="stylesheet" href="../../dark.css" disabled><link rel="stylesheet" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../main.js"></script><script defer src="../../scrape-examples.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc struct"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../poise/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../poise/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"><a href="#">FrameworkBuilder</a></h2><div class="sidebar-elems"><section><h3><a href="#implementations">Methods</a></h3><ul class="block"><li><a href="#method.build">build</a></li><li><a href="#method.client_settings">client_settings</a></li><li><a href="#method.command">command</a></li><li><a href="#method.commands">commands</a></li><li><a href="#method.initialize_owners">initialize_owners</a></li><li><a href="#method.intents">intents</a></li><li><a href="#method.options">options</a></li><li><a href="#method.prefix">prefix</a></li><li><a href="#method.run">run</a></li><li><a href="#method.run_autosharded">run_autosharded</a></li><li><a href="#method.token">token</a></li><li><a href="#method.user_data_setup">user_data_setup</a></li></ul><h3><a href="#trait-implementations">Trait Implementations</a></h3><ul class="block"><li><a href="#impl-Default-for-FrameworkBuilder%3CU%2C%20E%3E">Default</a></li></ul><h3><a href="#synthetic-implementations">Auto Trait Implementations</a></h3><ul class="block"><li><a href="#impl-RefUnwindSafe-for-FrameworkBuilder%3CU%2C%20E%3E">!RefUnwindSafe</a></li><li><a href="#impl-Send-for-FrameworkBuilder%3CU%2C%20E%3E">Send</a></li><li><a href="#impl-Sync-for-FrameworkBuilder%3CU%2C%20E%3E">Sync</a></li><li><a href="#impl-Unpin-for-FrameworkBuilder%3CU%2C%20E%3E">Unpin</a></li><li><a href="#impl-UnwindSafe-for-FrameworkBuilder%3CU%2C%20E%3E">!UnwindSafe</a></li></ul><h3><a href="#blanket-implementations">Blanket Implementations</a></h3><ul class="block"><li><a href="#impl-Any-for-FrameworkBuilder%3CU%2C%20E%3E">Any</a></li><li><a href="#impl-Borrow%3CT%3E-for-FrameworkBuilder%3CU%2C%20E%3E">Borrow&lt;T&gt;</a></li><li><a href="#impl-BorrowMut%3CT%3E-for-FrameworkBuilder%3CU%2C%20E%3E">BorrowMut&lt;T&gt;</a></li><li><a href="#impl-From%3CT%3E-for-FrameworkBuilder%3CU%2C%20E%3E">From&lt;T&gt;</a></li><li><a href="#impl-Instrument-for-FrameworkBuilder%3CU%2C%20E%3E">Instrument</a></li><li><a href="#impl-Into%3CU%3E-for-FrameworkBuilder%3CU%2C%20E%3E">Into&lt;U&gt;</a></li><li><a href="#impl-Same%3CT%3E-for-FrameworkBuilder%3CU%2C%20E%3E">Same&lt;T&gt;</a></li><li><a href="#impl-TryFrom%3CU%3E-for-FrameworkBuilder%3CU%2C%20E%3E">TryFrom&lt;U&gt;</a></li><li><a href="#impl-TryInto%3CU%3E-for-FrameworkBuilder%3CU%2C%20E%3E">TryInto&lt;U&gt;</a></li><li><a href="#impl-VZip%3CV%3E-for-FrameworkBuilder%3CU%2C%20E%3E">VZip&lt;V&gt;</a></li><li><a href="#impl-WithSubscriber-for-FrameworkBuilder%3CU%2C%20E%3E">WithSubscriber</a></li></ul></section><h2><a href="index.html">In poise::framework</a></h2></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1 class="fqn">Struct <a href="../index.html">poise</a>::<wbr><a href="index.html">framework</a>::<wbr><a class="struct" href="#">FrameworkBuilder</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../../src/poise/framework/builder.rs.html#16-42">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><div class="item-decl"><pre class="rust struct"><code>pub struct FrameworkBuilder&lt;U, E&gt; { /* private fields */ }</code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A builder to configure and run a framework.</p>
 <p>If one of the following required values is missing, the builder will panic on start:</p>
 <ul>
 <li><a href="struct.FrameworkBuilder.html#method.token" title="Self::token"><code>Self::token</code></a></li>
@@ -10,7 +10,7 @@
 owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title="Self::initialize_owners"><code>Self::initialize_owners</code></a> is set (true by default).</p>
 </div></details><h2 id="implementations" class="small-section-header">Implementations<a href="#implementations" class="anchor"></a></h2><div id="implementations-list"><details class="rustdoc-toggle implementors-toggle" open><summary><section id="impl-FrameworkBuilder%3CU%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="../../src/poise/framework/builder.rs.html#58-231">source</a><a href="#impl-FrameworkBuilder%3CU%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;U, E&gt; <a class="struct" href="struct.FrameworkBuilder.html" title="struct poise::framework::FrameworkBuilder">FrameworkBuilder</a>&lt;U, E&gt;</h3></section></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><section id="method.prefix" class="method has-srclink"><a class="srclink rightside" href="../../src/poise/framework/builder.rs.html#62-64">source</a><h4 class="code-header">pub fn <a href="#method.prefix" class="fnname">prefix</a>(self, _prefix: impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;) -&gt; Self</h4></section><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span><span>Deprecated: Please set the prefix via FrameworkOptions::prefix_options::prefix</span></div></span></summary><div class="docblock"><p>Set a prefix for commands</p>
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.user_data_setup" class="method has-srclink"><a class="srclink rightside" href="../../src/poise/framework/builder.rs.html#68-81">source</a><h4 class="code-header">pub fn <a href="#method.user_data_setup" class="fnname">user_data_setup</a>&lt;F&gt;(self, user_data_setup: F) -&gt; Self<span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a> + 'static + for&lt;'a&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnOnce.html" title="trait core::ops::function::FnOnce">FnOnce</a>(&amp;'a <a class="struct" href="../../serenity/client/context/struct.Context.html" title="struct serenity::client::context::Context">Context</a>, &amp;'a <a class="struct" href="../../serenity/model/gateway/struct.Ready.html" title="struct serenity::model::gateway::Ready">Ready</a>, &amp;'a <a class="struct" href="struct.Framework.html" title="struct poise::framework::Framework">Framework</a>&lt;U, E&gt;) -&gt; <a class="type" href="../type.BoxFuture.html" title="type poise::BoxFuture">BoxFuture</a>&lt;'a, <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;U, E&gt;&gt;,</span></h4></section></summary><div class="docblock"><p>Set a callback to be invoked to create the user data instance</p>
-</div><div class="docblock scraped-example-list"><span></span><h5 id="scraped-examples"><a href="#scraped-examples">Examples found in repository</a><a class="scrape-help" href="../../scrape-examples-help.html">?</a></h5><div class="scraped-example " data-locs="[[[8,8],&quot;../../src/quickstart/main.rs.html#35&quot;,&quot;line 35&quot;]]"><div class="scraped-example-title">examples/quickstart/main.rs (<a href="../../src/quickstart/main.rs.html#35">line 35</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="src-line-numbers"><span>27</span>
+</div><div class="docblock scraped-example-list"><span></span><h5 id="scraped-examples"><a href="#scraped-examples">Examples found in repository</a><a class="scrape-help" href="../../scrape-examples-help.html">?</a></h5><div class="scraped-example " data-locs="[[[8,8],&quot;../../src/quickstart/main.rs.html#35&quot;,&quot;line 35&quot;]]"><div class="scraped-example-title">examples/quickstart/main.rs (<a href="../../src/quickstart/main.rs.html#35">line 35</a>)</div><div class="code-wrapper"><div class="example-wrap"><pre class="src-line-numbers"><span>27</span>
 <span>28</span>
 <span>29</span>
 <span>30</span>
@@ -22,7 +22,7 @@ owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title=
 <span>36</span>
 <span>37</span>
 <span>38</span>
-</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+</pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>main() {
     <span class="kw">let </span>framework = poise::Framework::builder()
         .options(poise::FrameworkOptions {
             commands: <span class="macro">vec!</span>[age(), register()],
@@ -34,7 +34,7 @@ owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title=
 
     framework.run().<span class="kw">await</span>.unwrap();
 }</code></pre></div>
-</div></div><details class="rustdoc-toggle more-examples-toggle"><summary class="hideme"><span>More examples</span></summary><div class="hide-more">Hide additional examples</div><div class="more-scraped-examples"><div class="toggle-line"><div class="toggle-line-inner"></div></div><div class="more-scraped-examples-inner"><div class="scraped-example " data-locs="[[[14,14],&quot;../../src/fluent_localization/main.rs.html#72&quot;,&quot;line 72&quot;]]"><div class="scraped-example-title">examples/fluent_localization/main.rs (<a href="../../src/fluent_localization/main.rs.html#72">line 72</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="src-line-numbers"><span>58</span>
+</div></div><details class="rustdoc-toggle more-examples-toggle"><summary class="hideme"><span>More examples</span></summary><div class="hide-more">Hide additional examples</div><div class="more-scraped-examples"><div class="toggle-line"><div class="toggle-line-inner"></div></div><div class="more-scraped-examples-inner"><div class="scraped-example " data-locs="[[[14,14],&quot;../../src/fluent_localization/main.rs.html#72&quot;,&quot;line 72&quot;]]"><div class="scraped-example-title">examples/fluent_localization/main.rs (<a href="../../src/fluent_localization/main.rs.html#72">line 72</a>)</div><div class="code-wrapper"><div class="example-wrap"><pre class="src-line-numbers"><span>58</span>
 <span>59</span>
 <span>60</span>
 <span>61</span>
@@ -53,7 +53,7 @@ owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title=
 <span>74</span>
 <span>75</span>
 <span>76</span>
-</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+</pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>main() {
     env_logger::init();
 
     <span class="kw">let </span><span class="kw-2">mut </span>commands = <span class="macro">vec!</span>[welcome(), info(), register()];
@@ -72,7 +72,7 @@ owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title=
         .<span class="kw">await
         </span>.unwrap();
 }</code></pre></div>
-</div></div><div class="scraped-example " data-locs="[[[3,16],&quot;../../src/invocation_data/main.rs.html#52-65&quot;,&quot;lines 52-65&quot;]]"><div class="scraped-example-title">examples/invocation_data/main.rs (<a href="../../src/invocation_data/main.rs.html#52-65">lines 52-65</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="src-line-numbers"><span>49</span>
+</div></div><div class="scraped-example " data-locs="[[[3,16],&quot;../../src/invocation_data/main.rs.html#52-65&quot;,&quot;lines 52-65&quot;]]"><div class="scraped-example-title">examples/invocation_data/main.rs (<a href="../../src/invocation_data/main.rs.html#52-65">lines 52-65</a>)</div><div class="code-wrapper"><div class="example-wrap"><pre class="src-line-numbers"><span>49</span>
 <span>50</span>
 <span>51</span>
 <span>52</span>
@@ -146,7 +146,7 @@ owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title=
 <span>120</span>
 <span>121</span>
 <span>122</span>
-</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+</pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>main() {
     poise::Framework::builder()
         .token(std::env::var(<span class="string">&quot;TOKEN&quot;</span>).unwrap())
         .<span class="highlight focus">user_data_setup</span>(<span class="kw">move </span>|ctx, <span class="kw">_</span>, framework| {
@@ -220,7 +220,7 @@ owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title=
         .<span class="kw">await
         </span>.unwrap();
 }</code></pre></div>
-</div></div><div class="scraped-example " data-locs="[[[80,86],&quot;../../src/framework_usage/main.rs.html#146-152&quot;,&quot;lines 146-152&quot;]]"><div class="scraped-example-title">examples/framework_usage/main.rs (<a href="../../src/framework_usage/main.rs.html#146-152">lines 146-152</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="src-line-numbers"><span>66</span>
+</div></div><div class="scraped-example " data-locs="[[[85,91],&quot;../../src/framework_usage/main.rs.html#151-157&quot;,&quot;lines 151-157&quot;]]"><div class="scraped-example-title">examples/framework_usage/main.rs (<a href="../../src/framework_usage/main.rs.html#151-157">lines 151-157</a>)</div><div class="code-wrapper"><div class="example-wrap"><pre class="src-line-numbers"><span>66</span>
 <span>67</span>
 <span>68</span>
 <span>69</span>
@@ -315,7 +315,12 @@ owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title=
 <span>158</span>
 <span>159</span>
 <span>160</span>
-</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+<span>161</span>
+<span>162</span>
+<span>163</span>
+<span>164</span>
+<span>165</span>
+</pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>main() {
     env_logger::init();
 
     <span class="kw">let </span>options = poise::FrameworkOptions {
@@ -336,7 +341,9 @@ owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title=
             general::totalsize(),
             general::modal(),
             general::punish(),
-            general::servers(),
+            <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+            </span>general::servers(),
+            general::reply(),
             context_menu::user_info(),
             context_menu::echo(),
             autocomplete::greet(),
@@ -394,7 +401,10 @@ owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title=
     };
 
     poise::Framework::builder()
-        .token(var(<span class="string">&quot;TOKEN&quot;</span>).expect(<span class="string">&quot;Missing `TOKEN` env var, see README for more information.&quot;</span>))
+        .token(
+            var(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)
+                .expect(<span class="string">&quot;Missing `DISCORD_TOKEN` env var, see README for more information.&quot;</span>),
+        )
         .<span class="highlight focus">user_data_setup</span>(<span class="kw">move </span>|_ctx, _ready, _framework| {
             Box::pin(<span class="kw">async move </span>{
                 <span class="prelude-val">Ok</span>(Data {
@@ -410,7 +420,7 @@ owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title=
         .<span class="kw">await
         </span>.unwrap();
 }</code></pre></div>
-</div></div><div class="scraped-example " data-locs="[[[58,64],&quot;../../src/serenity_example_port/main.rs.html#293-299&quot;,&quot;lines 293-299&quot;]]"><div class="scraped-example-title">examples/serenity_example_port/main.rs (<a href="../../src/serenity_example_port/main.rs.html#293-299">lines 293-299</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="src-line-numbers"><span>235</span>
+</div></div><div class="scraped-example " data-locs="[[[58,64],&quot;../../src/serenity_example_port/main.rs.html#293-299&quot;,&quot;lines 293-299&quot;]]"><div class="scraped-example-title">examples/serenity_example_port/main.rs (<a href="../../src/serenity_example_port/main.rs.html#293-299">lines 293-299</a>)</div><div class="code-wrapper"><div class="example-wrap"><pre class="src-line-numbers"><span>235</span>
 <span>236</span>
 <span>237</span>
 <span>238</span>
@@ -506,7 +516,7 @@ owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title=
 <span>328</span>
 <span>329</span>
 <span>330</span>
-</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+</pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>main() {
     <span class="kw">let </span>options = poise::FrameworkOptions {
         commands: <span class="macro">vec!</span>[
             <span class="comment">// The `#[poise::command(prefix_command, slash_command)]` macro transforms the function into
@@ -603,7 +613,7 @@ owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title=
     */
 </span>}</code></pre></div>
 </div></div></div></div></details></div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.options" class="method has-srclink"><a class="srclink rightside" href="../../src/poise/framework/builder.rs.html#85-88">source</a><h4 class="code-header">pub fn <a href="#method.options" class="fnname">options</a>(self, options: <a class="struct" href="../structs/struct.FrameworkOptions.html" title="struct poise::structs::FrameworkOptions">FrameworkOptions</a>&lt;U, E&gt;) -&gt; Self</h4></section></summary><div class="docblock"><p>Configure framework options</p>
-</div><div class="docblock scraped-example-list"><span></span><h5 id="scraped-examples-1"><a href="#scraped-examples-1">Examples found in repository</a><a class="scrape-help" href="../../scrape-examples-help.html">?</a></h5><div class="scraped-example " data-locs="[[[2,5],&quot;../../src/quickstart/main.rs.html#29-32&quot;,&quot;lines 29-32&quot;]]"><div class="scraped-example-title">examples/quickstart/main.rs (<a href="../../src/quickstart/main.rs.html#29-32">lines 29-32</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="src-line-numbers"><span>27</span>
+</div><div class="docblock scraped-example-list"><span></span><h5 id="scraped-examples-1"><a href="#scraped-examples-1">Examples found in repository</a><a class="scrape-help" href="../../scrape-examples-help.html">?</a></h5><div class="scraped-example " data-locs="[[[2,5],&quot;../../src/quickstart/main.rs.html#29-32&quot;,&quot;lines 29-32&quot;]]"><div class="scraped-example-title">examples/quickstart/main.rs (<a href="../../src/quickstart/main.rs.html#29-32">lines 29-32</a>)</div><div class="code-wrapper"><div class="example-wrap"><pre class="src-line-numbers"><span>27</span>
 <span>28</span>
 <span>29</span>
 <span>30</span>
@@ -615,7 +625,7 @@ owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title=
 <span>36</span>
 <span>37</span>
 <span>38</span>
-</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+</pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>main() {
     <span class="kw">let </span>framework = poise::Framework::builder()
         .<span class="highlight focus">options</span>(poise::FrameworkOptions {
             commands: <span class="macro">vec!</span>[age(), register()],
@@ -627,7 +637,7 @@ owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title=
 
     framework.run().<span class="kw">await</span>.unwrap();
 }</code></pre></div>
-</div></div><details class="rustdoc-toggle more-examples-toggle"><summary class="hideme"><span>More examples</span></summary><div class="hide-more">Hide additional examples</div><div class="more-scraped-examples"><div class="toggle-line"><div class="toggle-line-inner"></div></div><div class="more-scraped-examples-inner"><div class="scraped-example " data-locs="[[[10,13],&quot;../../src/fluent_localization/main.rs.html#68-71&quot;,&quot;lines 68-71&quot;]]"><div class="scraped-example-title">examples/fluent_localization/main.rs (<a href="../../src/fluent_localization/main.rs.html#68-71">lines 68-71</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="src-line-numbers"><span>58</span>
+</div></div><details class="rustdoc-toggle more-examples-toggle"><summary class="hideme"><span>More examples</span></summary><div class="hide-more">Hide additional examples</div><div class="more-scraped-examples"><div class="toggle-line"><div class="toggle-line-inner"></div></div><div class="more-scraped-examples-inner"><div class="scraped-example " data-locs="[[[10,13],&quot;../../src/fluent_localization/main.rs.html#68-71&quot;,&quot;lines 68-71&quot;]]"><div class="scraped-example-title">examples/fluent_localization/main.rs (<a href="../../src/fluent_localization/main.rs.html#68-71">lines 68-71</a>)</div><div class="code-wrapper"><div class="example-wrap"><pre class="src-line-numbers"><span>58</span>
 <span>59</span>
 <span>60</span>
 <span>61</span>
@@ -646,7 +656,7 @@ owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title=
 <span>74</span>
 <span>75</span>
 <span>76</span>
-</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+</pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>main() {
     env_logger::init();
 
     <span class="kw">let </span><span class="kw-2">mut </span>commands = <span class="macro">vec!</span>[welcome(), info(), register()];
@@ -665,7 +675,7 @@ owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title=
         .<span class="kw">await
         </span>.unwrap();
 }</code></pre></div>
-</div></div><div class="scraped-example " data-locs="[[[17,69],&quot;../../src/invocation_data/main.rs.html#66-118&quot;,&quot;lines 66-118&quot;]]"><div class="scraped-example-title">examples/invocation_data/main.rs (<a href="../../src/invocation_data/main.rs.html#66-118">lines 66-118</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="src-line-numbers"><span>49</span>
+</div></div><div class="scraped-example " data-locs="[[[17,69],&quot;../../src/invocation_data/main.rs.html#66-118&quot;,&quot;lines 66-118&quot;]]"><div class="scraped-example-title">examples/invocation_data/main.rs (<a href="../../src/invocation_data/main.rs.html#66-118">lines 66-118</a>)</div><div class="code-wrapper"><div class="example-wrap"><pre class="src-line-numbers"><span>49</span>
 <span>50</span>
 <span>51</span>
 <span>52</span>
@@ -739,7 +749,7 @@ owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title=
 <span>120</span>
 <span>121</span>
 <span>122</span>
-</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+</pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>main() {
     poise::Framework::builder()
         .token(std::env::var(<span class="string">&quot;TOKEN&quot;</span>).unwrap())
         .user_data_setup(<span class="kw">move </span>|ctx, <span class="kw">_</span>, framework| {
@@ -813,7 +823,7 @@ owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title=
         .<span class="kw">await
         </span>.unwrap();
 }</code></pre></div>
-</div></div><div class="scraped-example " data-locs="[[[87,87],&quot;../../src/framework_usage/main.rs.html#153&quot;,&quot;line 153&quot;]]"><div class="scraped-example-title">examples/framework_usage/main.rs (<a href="../../src/framework_usage/main.rs.html#153">line 153</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="src-line-numbers"><span>66</span>
+</div></div><div class="scraped-example " data-locs="[[[92,92],&quot;../../src/framework_usage/main.rs.html#158&quot;,&quot;line 158&quot;]]"><div class="scraped-example-title">examples/framework_usage/main.rs (<a href="../../src/framework_usage/main.rs.html#158">line 158</a>)</div><div class="code-wrapper"><div class="example-wrap"><pre class="src-line-numbers"><span>66</span>
 <span>67</span>
 <span>68</span>
 <span>69</span>
@@ -908,7 +918,12 @@ owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title=
 <span>158</span>
 <span>159</span>
 <span>160</span>
-</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+<span>161</span>
+<span>162</span>
+<span>163</span>
+<span>164</span>
+<span>165</span>
+</pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>main() {
     env_logger::init();
 
     <span class="kw">let </span>options = poise::FrameworkOptions {
@@ -929,7 +944,9 @@ owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title=
             general::totalsize(),
             general::modal(),
             general::punish(),
-            general::servers(),
+            <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+            </span>general::servers(),
+            general::reply(),
             context_menu::user_info(),
             context_menu::echo(),
             autocomplete::greet(),
@@ -987,7 +1004,10 @@ owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title=
     };
 
     poise::Framework::builder()
-        .token(var(<span class="string">&quot;TOKEN&quot;</span>).expect(<span class="string">&quot;Missing `TOKEN` env var, see README for more information.&quot;</span>))
+        .token(
+            var(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)
+                .expect(<span class="string">&quot;Missing `DISCORD_TOKEN` env var, see README for more information.&quot;</span>),
+        )
         .user_data_setup(<span class="kw">move </span>|_ctx, _ready, _framework| {
             Box::pin(<span class="kw">async move </span>{
                 <span class="prelude-val">Ok</span>(Data {
@@ -1003,7 +1023,7 @@ owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title=
         .<span class="kw">await
         </span>.unwrap();
 }</code></pre></div>
-</div></div><div class="scraped-example " data-locs="[[[57,57],&quot;../../src/serenity_example_port/main.rs.html#292&quot;,&quot;line 292&quot;]]"><div class="scraped-example-title">examples/serenity_example_port/main.rs (<a href="../../src/serenity_example_port/main.rs.html#292">line 292</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="src-line-numbers"><span>235</span>
+</div></div><div class="scraped-example " data-locs="[[[57,57],&quot;../../src/serenity_example_port/main.rs.html#292&quot;,&quot;line 292&quot;]]"><div class="scraped-example-title">examples/serenity_example_port/main.rs (<a href="../../src/serenity_example_port/main.rs.html#292">line 292</a>)</div><div class="code-wrapper"><div class="example-wrap"><pre class="src-line-numbers"><span>235</span>
 <span>236</span>
 <span>237</span>
 <span>238</span>
@@ -1099,7 +1119,7 @@ owner, if <a href="struct.FrameworkBuilder.html#method.initialize_owners" title=
 <span>328</span>
 <span>329</span>
 <span>330</span>
-</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+</pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>main() {
     <span class="kw">let </span>options = poise::FrameworkOptions {
         commands: <span class="macro">vec!</span>[
             <span class="comment">// The `#[poise::command(prefix_command, slash_command)]` macro transforms the function into
@@ -1200,7 +1220,7 @@ client builder</p>
 <p>Note: the builder’s token will be overridden by the
 <a href="struct.FrameworkBuilder.html" title="FrameworkBuilder"><code>FrameworkBuilder</code></a>; use <a href="struct.FrameworkBuilder.html#method.token" title="FrameworkBuilder::token"><code>FrameworkBuilder::token</code></a> to supply a token.</p>
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.token" class="method has-srclink"><a class="srclink rightside" href="../../src/poise/framework/builder.rs.html#106-109">source</a><h4 class="code-header">pub fn <a href="#method.token" class="fnname">token</a>(self, token: impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;) -&gt; Self</h4></section></summary><div class="docblock"><p>The bot token</p>
-</div><div class="docblock scraped-example-list"><span></span><h5 id="scraped-examples-2"><a href="#scraped-examples-2">Examples found in repository</a><a class="scrape-help" href="../../scrape-examples-help.html">?</a></h5><div class="scraped-example " data-locs="[[[6,6],&quot;../../src/quickstart/main.rs.html#33&quot;,&quot;line 33&quot;]]"><div class="scraped-example-title">examples/quickstart/main.rs (<a href="../../src/quickstart/main.rs.html#33">line 33</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="src-line-numbers"><span>27</span>
+</div><div class="docblock scraped-example-list"><span></span><h5 id="scraped-examples-2"><a href="#scraped-examples-2">Examples found in repository</a><a class="scrape-help" href="../../scrape-examples-help.html">?</a></h5><div class="scraped-example " data-locs="[[[6,6],&quot;../../src/quickstart/main.rs.html#33&quot;,&quot;line 33&quot;]]"><div class="scraped-example-title">examples/quickstart/main.rs (<a href="../../src/quickstart/main.rs.html#33">line 33</a>)</div><div class="code-wrapper"><div class="example-wrap"><pre class="src-line-numbers"><span>27</span>
 <span>28</span>
 <span>29</span>
 <span>30</span>
@@ -1212,7 +1232,7 @@ client builder</p>
 <span>36</span>
 <span>37</span>
 <span>38</span>
-</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+</pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>main() {
     <span class="kw">let </span>framework = poise::Framework::builder()
         .options(poise::FrameworkOptions {
             commands: <span class="macro">vec!</span>[age(), register()],
@@ -1224,7 +1244,7 @@ client builder</p>
 
     framework.run().<span class="kw">await</span>.unwrap();
 }</code></pre></div>
-</div></div><details class="rustdoc-toggle more-examples-toggle"><summary class="hideme"><span>More examples</span></summary><div class="hide-more">Hide additional examples</div><div class="more-scraped-examples"><div class="toggle-line"><div class="toggle-line-inner"></div></div><div class="more-scraped-examples-inner"><div class="scraped-example " data-locs="[[[8,8],&quot;../../src/fluent_localization/main.rs.html#66&quot;,&quot;line 66&quot;]]"><div class="scraped-example-title">examples/fluent_localization/main.rs (<a href="../../src/fluent_localization/main.rs.html#66">line 66</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="src-line-numbers"><span>58</span>
+</div></div><details class="rustdoc-toggle more-examples-toggle"><summary class="hideme"><span>More examples</span></summary><div class="hide-more">Hide additional examples</div><div class="more-scraped-examples"><div class="toggle-line"><div class="toggle-line-inner"></div></div><div class="more-scraped-examples-inner"><div class="scraped-example " data-locs="[[[8,8],&quot;../../src/fluent_localization/main.rs.html#66&quot;,&quot;line 66&quot;]]"><div class="scraped-example-title">examples/fluent_localization/main.rs (<a href="../../src/fluent_localization/main.rs.html#66">line 66</a>)</div><div class="code-wrapper"><div class="example-wrap"><pre class="src-line-numbers"><span>58</span>
 <span>59</span>
 <span>60</span>
 <span>61</span>
@@ -1243,7 +1263,7 @@ client builder</p>
 <span>74</span>
 <span>75</span>
 <span>76</span>
-</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+</pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>main() {
     env_logger::init();
 
     <span class="kw">let </span><span class="kw-2">mut </span>commands = <span class="macro">vec!</span>[welcome(), info(), register()];
@@ -1262,7 +1282,7 @@ client builder</p>
         .<span class="kw">await
         </span>.unwrap();
 }</code></pre></div>
-</div></div><div class="scraped-example " data-locs="[[[2,2],&quot;../../src/invocation_data/main.rs.html#51&quot;,&quot;line 51&quot;]]"><div class="scraped-example-title">examples/invocation_data/main.rs (<a href="../../src/invocation_data/main.rs.html#51">line 51</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="src-line-numbers"><span>49</span>
+</div></div><div class="scraped-example " data-locs="[[[2,2],&quot;../../src/invocation_data/main.rs.html#51&quot;,&quot;line 51&quot;]]"><div class="scraped-example-title">examples/invocation_data/main.rs (<a href="../../src/invocation_data/main.rs.html#51">line 51</a>)</div><div class="code-wrapper"><div class="example-wrap"><pre class="src-line-numbers"><span>49</span>
 <span>50</span>
 <span>51</span>
 <span>52</span>
@@ -1336,7 +1356,7 @@ client builder</p>
 <span>120</span>
 <span>121</span>
 <span>122</span>
-</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+</pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>main() {
     poise::Framework::builder()
         .<span class="highlight focus">token</span>(std::env::var(<span class="string">&quot;TOKEN&quot;</span>).unwrap())
         .user_data_setup(<span class="kw">move </span>|ctx, <span class="kw">_</span>, framework| {
@@ -1410,7 +1430,7 @@ client builder</p>
         .<span class="kw">await
         </span>.unwrap();
 }</code></pre></div>
-</div></div><div class="scraped-example " data-locs="[[[79,79],&quot;../../src/framework_usage/main.rs.html#145&quot;,&quot;line 145&quot;]]"><div class="scraped-example-title">examples/framework_usage/main.rs (<a href="../../src/framework_usage/main.rs.html#145">line 145</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="src-line-numbers"><span>66</span>
+</div></div><div class="scraped-example " data-locs="[[[81,84],&quot;../../src/framework_usage/main.rs.html#147-150&quot;,&quot;lines 147-150&quot;]]"><div class="scraped-example-title">examples/framework_usage/main.rs (<a href="../../src/framework_usage/main.rs.html#147-150">lines 147-150</a>)</div><div class="code-wrapper"><div class="example-wrap"><pre class="src-line-numbers"><span>66</span>
 <span>67</span>
 <span>68</span>
 <span>69</span>
@@ -1505,7 +1525,12 @@ client builder</p>
 <span>158</span>
 <span>159</span>
 <span>160</span>
-</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+<span>161</span>
+<span>162</span>
+<span>163</span>
+<span>164</span>
+<span>165</span>
+</pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>main() {
     env_logger::init();
 
     <span class="kw">let </span>options = poise::FrameworkOptions {
@@ -1526,7 +1551,9 @@ client builder</p>
             general::totalsize(),
             general::modal(),
             general::punish(),
-            general::servers(),
+            <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+            </span>general::servers(),
+            general::reply(),
             context_menu::user_info(),
             context_menu::echo(),
             autocomplete::greet(),
@@ -1584,7 +1611,10 @@ client builder</p>
     };
 
     poise::Framework::builder()
-        .<span class="highlight focus">token</span>(var(<span class="string">&quot;TOKEN&quot;</span>).expect(<span class="string">&quot;Missing `TOKEN` env var, see README for more information.&quot;</span>))
+        .<span class="highlight focus">token</span>(
+            var(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)
+                .expect(<span class="string">&quot;Missing `DISCORD_TOKEN` env var, see README for more information.&quot;</span>),
+        )
         .user_data_setup(<span class="kw">move </span>|_ctx, _ready, _framework| {
             Box::pin(<span class="kw">async move </span>{
                 <span class="prelude-val">Ok</span>(Data {
@@ -1600,7 +1630,7 @@ client builder</p>
         .<span class="kw">await
         </span>.unwrap();
 }</code></pre></div>
-</div></div><div class="scraped-example " data-locs="[[[56,56],&quot;../../src/serenity_example_port/main.rs.html#291&quot;,&quot;line 291&quot;]]"><div class="scraped-example-title">examples/serenity_example_port/main.rs (<a href="../../src/serenity_example_port/main.rs.html#291">line 291</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="src-line-numbers"><span>235</span>
+</div></div><div class="scraped-example " data-locs="[[[56,56],&quot;../../src/serenity_example_port/main.rs.html#291&quot;,&quot;line 291&quot;]]"><div class="scraped-example-title">examples/serenity_example_port/main.rs (<a href="../../src/serenity_example_port/main.rs.html#291">line 291</a>)</div><div class="code-wrapper"><div class="example-wrap"><pre class="src-line-numbers"><span>235</span>
 <span>236</span>
 <span>237</span>
 <span>238</span>
@@ -1696,7 +1726,7 @@ client builder</p>
 <span>328</span>
 <span>329</span>
 <span>330</span>
-</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+</pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>main() {
     <span class="kw">let </span>options = poise::FrameworkOptions {
         commands: <span class="macro">vec!</span>[
             <span class="comment">// The `#[poise::command(prefix_command, slash_command)]` macro transforms the function into
@@ -1793,7 +1823,7 @@ client builder</p>
     */
 </span>}</code></pre></div>
 </div></div></div></div></details></div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.intents" class="method has-srclink"><a class="srclink rightside" href="../../src/poise/framework/builder.rs.html#113-116">source</a><h4 class="code-header">pub fn <a href="#method.intents" class="fnname">intents</a>(self, intents: <a class="struct" href="../../serenity/model/gateway/struct.GatewayIntents.html" title="struct serenity::model::gateway::GatewayIntents">GatewayIntents</a>) -&gt; Self</h4></section></summary><div class="docblock"><p>The gateway intents</p>
-</div><div class="docblock scraped-example-list"><span></span><h5 id="scraped-examples-3"><a href="#scraped-examples-3">Examples found in repository</a><a class="scrape-help" href="../../scrape-examples-help.html">?</a></h5><div class="scraped-example " data-locs="[[[7,7],&quot;../../src/quickstart/main.rs.html#34&quot;,&quot;line 34&quot;]]"><div class="scraped-example-title">examples/quickstart/main.rs (<a href="../../src/quickstart/main.rs.html#34">line 34</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="src-line-numbers"><span>27</span>
+</div><div class="docblock scraped-example-list"><span></span><h5 id="scraped-examples-3"><a href="#scraped-examples-3">Examples found in repository</a><a class="scrape-help" href="../../scrape-examples-help.html">?</a></h5><div class="scraped-example " data-locs="[[[7,7],&quot;../../src/quickstart/main.rs.html#34&quot;,&quot;line 34&quot;]]"><div class="scraped-example-title">examples/quickstart/main.rs (<a href="../../src/quickstart/main.rs.html#34">line 34</a>)</div><div class="code-wrapper"><div class="example-wrap"><pre class="src-line-numbers"><span>27</span>
 <span>28</span>
 <span>29</span>
 <span>30</span>
@@ -1805,7 +1835,7 @@ client builder</p>
 <span>36</span>
 <span>37</span>
 <span>38</span>
-</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+</pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>main() {
     <span class="kw">let </span>framework = poise::Framework::builder()
         .options(poise::FrameworkOptions {
             commands: <span class="macro">vec!</span>[age(), register()],
@@ -1817,7 +1847,7 @@ client builder</p>
 
     framework.run().<span class="kw">await</span>.unwrap();
 }</code></pre></div>
-</div></div><details class="rustdoc-toggle more-examples-toggle"><summary class="hideme"><span>More examples</span></summary><div class="hide-more">Hide additional examples</div><div class="more-scraped-examples"><div class="toggle-line"><div class="toggle-line-inner"></div></div><div class="more-scraped-examples-inner"><div class="scraped-example " data-locs="[[[9,9],&quot;../../src/fluent_localization/main.rs.html#67&quot;,&quot;line 67&quot;]]"><div class="scraped-example-title">examples/fluent_localization/main.rs (<a href="../../src/fluent_localization/main.rs.html#67">line 67</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="src-line-numbers"><span>58</span>
+</div></div><details class="rustdoc-toggle more-examples-toggle"><summary class="hideme"><span>More examples</span></summary><div class="hide-more">Hide additional examples</div><div class="more-scraped-examples"><div class="toggle-line"><div class="toggle-line-inner"></div></div><div class="more-scraped-examples-inner"><div class="scraped-example " data-locs="[[[9,9],&quot;../../src/fluent_localization/main.rs.html#67&quot;,&quot;line 67&quot;]]"><div class="scraped-example-title">examples/fluent_localization/main.rs (<a href="../../src/fluent_localization/main.rs.html#67">line 67</a>)</div><div class="code-wrapper"><div class="example-wrap"><pre class="src-line-numbers"><span>58</span>
 <span>59</span>
 <span>60</span>
 <span>61</span>
@@ -1836,7 +1866,7 @@ client builder</p>
 <span>74</span>
 <span>75</span>
 <span>76</span>
-</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+</pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>main() {
     env_logger::init();
 
     <span class="kw">let </span><span class="kw-2">mut </span>commands = <span class="macro">vec!</span>[welcome(), info(), register()];
@@ -1855,7 +1885,7 @@ client builder</p>
         .<span class="kw">await
         </span>.unwrap();
 }</code></pre></div>
-</div></div><div class="scraped-example " data-locs="[[[88,90],&quot;../../src/framework_usage/main.rs.html#154-156&quot;,&quot;lines 154-156&quot;]]"><div class="scraped-example-title">examples/framework_usage/main.rs (<a href="../../src/framework_usage/main.rs.html#154-156">lines 154-156</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="src-line-numbers"><span>66</span>
+</div></div><div class="scraped-example " data-locs="[[[93,95],&quot;../../src/framework_usage/main.rs.html#159-161&quot;,&quot;lines 159-161&quot;]]"><div class="scraped-example-title">examples/framework_usage/main.rs (<a href="../../src/framework_usage/main.rs.html#159-161">lines 159-161</a>)</div><div class="code-wrapper"><div class="example-wrap"><pre class="src-line-numbers"><span>66</span>
 <span>67</span>
 <span>68</span>
 <span>69</span>
@@ -1950,7 +1980,12 @@ client builder</p>
 <span>158</span>
 <span>159</span>
 <span>160</span>
-</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+<span>161</span>
+<span>162</span>
+<span>163</span>
+<span>164</span>
+<span>165</span>
+</pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>main() {
     env_logger::init();
 
     <span class="kw">let </span>options = poise::FrameworkOptions {
@@ -1971,7 +2006,9 @@ client builder</p>
             general::totalsize(),
             general::modal(),
             general::punish(),
-            general::servers(),
+            <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+            </span>general::servers(),
+            general::reply(),
             context_menu::user_info(),
             context_menu::echo(),
             autocomplete::greet(),
@@ -2029,7 +2066,10 @@ client builder</p>
     };
 
     poise::Framework::builder()
-        .token(var(<span class="string">&quot;TOKEN&quot;</span>).expect(<span class="string">&quot;Missing `TOKEN` env var, see README for more information.&quot;</span>))
+        .token(
+            var(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)
+                .expect(<span class="string">&quot;Missing `DISCORD_TOKEN` env var, see README for more information.&quot;</span>),
+        )
         .user_data_setup(<span class="kw">move </span>|_ctx, _ready, _framework| {
             Box::pin(<span class="kw">async move </span>{
                 <span class="prelude-val">Ok</span>(Data {
@@ -2062,7 +2102,7 @@ poise::Framework::builder()
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.run" class="method has-srclink"><a class="srclink rightside" href="../../src/poise/framework/builder.rs.html#215-221">source</a><h4 class="code-header">pub async fn <a href="#method.run" class="fnname">run</a>(self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="enum" href="../../serenity/error/enum.Error.html" title="enum serenity::error::Error">Error</a>&gt;<span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a> + 'static,<br>&nbsp;&nbsp;&nbsp;&nbsp;E: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + 'static,</span></h4></section></summary><div class="docblock"><p>Start the framework with the specified configuration.</p>
 <p><a href="struct.FrameworkBuilder.html#method.run" title="FrameworkBuilder::run"><code>FrameworkBuilder::run</code></a> is just a shorthand that calls <a href="struct.FrameworkBuilder.html#method.build" title="FrameworkBuilder::build"><code>FrameworkBuilder::build</code></a> and
 starts the returned framework</p>
-</div><div class="docblock scraped-example-list"><span></span><h5 id="scraped-examples-4"><a href="#scraped-examples-4">Examples found in repository</a><a class="scrape-help" href="../../scrape-examples-help.html">?</a></h5><div class="scraped-example " data-locs="[[[10,10],&quot;../../src/quickstart/main.rs.html#37&quot;,&quot;line 37&quot;]]"><div class="scraped-example-title">examples/quickstart/main.rs (<a href="../../src/quickstart/main.rs.html#37">line 37</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="src-line-numbers"><span>27</span>
+</div><div class="docblock scraped-example-list"><span></span><h5 id="scraped-examples-4"><a href="#scraped-examples-4">Examples found in repository</a><a class="scrape-help" href="../../scrape-examples-help.html">?</a></h5><div class="scraped-example " data-locs="[[[10,10],&quot;../../src/quickstart/main.rs.html#37&quot;,&quot;line 37&quot;]]"><div class="scraped-example-title">examples/quickstart/main.rs (<a href="../../src/quickstart/main.rs.html#37">line 37</a>)</div><div class="code-wrapper"><div class="example-wrap"><pre class="src-line-numbers"><span>27</span>
 <span>28</span>
 <span>29</span>
 <span>30</span>
@@ -2074,7 +2114,7 @@ starts the returned framework</p>
 <span>36</span>
 <span>37</span>
 <span>38</span>
-</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+</pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>main() {
     <span class="kw">let </span>framework = poise::Framework::builder()
         .options(poise::FrameworkOptions {
             commands: <span class="macro">vec!</span>[age(), register()],
@@ -2086,7 +2126,7 @@ starts the returned framework</p>
 
     framework.<span class="highlight focus">run</span>().<span class="kw">await</span>.unwrap();
 }</code></pre></div>
-</div></div><details class="rustdoc-toggle more-examples-toggle"><summary class="hideme"><span>More examples</span></summary><div class="hide-more">Hide additional examples</div><div class="more-scraped-examples"><div class="toggle-line"><div class="toggle-line-inner"></div></div><div class="more-scraped-examples-inner"><div class="scraped-example " data-locs="[[[15,15],&quot;../../src/fluent_localization/main.rs.html#73&quot;,&quot;line 73&quot;]]"><div class="scraped-example-title">examples/fluent_localization/main.rs (<a href="../../src/fluent_localization/main.rs.html#73">line 73</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="src-line-numbers"><span>58</span>
+</div></div><details class="rustdoc-toggle more-examples-toggle"><summary class="hideme"><span>More examples</span></summary><div class="hide-more">Hide additional examples</div><div class="more-scraped-examples"><div class="toggle-line"><div class="toggle-line-inner"></div></div><div class="more-scraped-examples-inner"><div class="scraped-example " data-locs="[[[15,15],&quot;../../src/fluent_localization/main.rs.html#73&quot;,&quot;line 73&quot;]]"><div class="scraped-example-title">examples/fluent_localization/main.rs (<a href="../../src/fluent_localization/main.rs.html#73">line 73</a>)</div><div class="code-wrapper"><div class="example-wrap"><pre class="src-line-numbers"><span>58</span>
 <span>59</span>
 <span>60</span>
 <span>61</span>
@@ -2105,7 +2145,7 @@ starts the returned framework</p>
 <span>74</span>
 <span>75</span>
 <span>76</span>
-</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+</pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>main() {
     env_logger::init();
 
     <span class="kw">let </span><span class="kw-2">mut </span>commands = <span class="macro">vec!</span>[welcome(), info(), register()];
@@ -2124,7 +2164,7 @@ starts the returned framework</p>
         .<span class="kw">await
         </span>.unwrap();
 }</code></pre></div>
-</div></div><div class="scraped-example " data-locs="[[[70,70],&quot;../../src/invocation_data/main.rs.html#119&quot;,&quot;line 119&quot;]]"><div class="scraped-example-title">examples/invocation_data/main.rs (<a href="../../src/invocation_data/main.rs.html#119">line 119</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="src-line-numbers"><span>49</span>
+</div></div><div class="scraped-example " data-locs="[[[70,70],&quot;../../src/invocation_data/main.rs.html#119&quot;,&quot;line 119&quot;]]"><div class="scraped-example-title">examples/invocation_data/main.rs (<a href="../../src/invocation_data/main.rs.html#119">line 119</a>)</div><div class="code-wrapper"><div class="example-wrap"><pre class="src-line-numbers"><span>49</span>
 <span>50</span>
 <span>51</span>
 <span>52</span>
@@ -2198,7 +2238,7 @@ starts the returned framework</p>
 <span>120</span>
 <span>121</span>
 <span>122</span>
-</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+</pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>main() {
     poise::Framework::builder()
         .token(std::env::var(<span class="string">&quot;TOKEN&quot;</span>).unwrap())
         .user_data_setup(<span class="kw">move </span>|ctx, <span class="kw">_</span>, framework| {
@@ -2272,7 +2312,7 @@ starts the returned framework</p>
         .<span class="kw">await
         </span>.unwrap();
 }</code></pre></div>
-</div></div><div class="scraped-example " data-locs="[[[91,91],&quot;../../src/framework_usage/main.rs.html#157&quot;,&quot;line 157&quot;]]"><div class="scraped-example-title">examples/framework_usage/main.rs (<a href="../../src/framework_usage/main.rs.html#157">line 157</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="src-line-numbers"><span>66</span>
+</div></div><div class="scraped-example " data-locs="[[[96,96],&quot;../../src/framework_usage/main.rs.html#162&quot;,&quot;line 162&quot;]]"><div class="scraped-example-title">examples/framework_usage/main.rs (<a href="../../src/framework_usage/main.rs.html#162">line 162</a>)</div><div class="code-wrapper"><div class="example-wrap"><pre class="src-line-numbers"><span>66</span>
 <span>67</span>
 <span>68</span>
 <span>69</span>
@@ -2367,7 +2407,12 @@ starts the returned framework</p>
 <span>158</span>
 <span>159</span>
 <span>160</span>
-</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+<span>161</span>
+<span>162</span>
+<span>163</span>
+<span>164</span>
+<span>165</span>
+</pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>main() {
     env_logger::init();
 
     <span class="kw">let </span>options = poise::FrameworkOptions {
@@ -2388,7 +2433,9 @@ starts the returned framework</p>
             general::totalsize(),
             general::modal(),
             general::punish(),
-            general::servers(),
+            <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+            </span>general::servers(),
+            general::reply(),
             context_menu::user_info(),
             context_menu::echo(),
             autocomplete::greet(),
@@ -2446,7 +2493,10 @@ starts the returned framework</p>
     };
 
     poise::Framework::builder()
-        .token(var(<span class="string">&quot;TOKEN&quot;</span>).expect(<span class="string">&quot;Missing `TOKEN` env var, see README for more information.&quot;</span>))
+        .token(
+            var(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)
+                .expect(<span class="string">&quot;Missing `DISCORD_TOKEN` env var, see README for more information.&quot;</span>),
+        )
         .user_data_setup(<span class="kw">move </span>|_ctx, _ready, _framework| {
             Box::pin(<span class="kw">async move </span>{
                 <span class="prelude-val">Ok</span>(Data {
@@ -2462,7 +2512,7 @@ starts the returned framework</p>
         .<span class="kw">await
         </span>.unwrap();
 }</code></pre></div>
-</div></div><div class="scraped-example " data-locs="[[[65,65],&quot;../../src/serenity_example_port/main.rs.html#300&quot;,&quot;line 300&quot;]]"><div class="scraped-example-title">examples/serenity_example_port/main.rs (<a href="../../src/serenity_example_port/main.rs.html#300">line 300</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="src-line-numbers"><span>235</span>
+</div></div><div class="scraped-example " data-locs="[[[65,65],&quot;../../src/serenity_example_port/main.rs.html#300&quot;,&quot;line 300&quot;]]"><div class="scraped-example-title">examples/serenity_example_port/main.rs (<a href="../../src/serenity_example_port/main.rs.html#300">line 300</a>)</div><div class="code-wrapper"><div class="example-wrap"><pre class="src-line-numbers"><span>235</span>
 <span>236</span>
 <span>237</span>
 <span>238</span>
@@ -2558,7 +2608,7 @@ starts the returned framework</p>
 <span>328</span>
 <span>329</span>
 <span>330</span>
-</pre><pre class="rust"><code><span class="kw">async fn </span>main() {
+</pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>main() {
     <span class="kw">let </span>options = poise::FrameworkOptions {
         commands: <span class="macro">vec!</span>[
             <span class="comment">// The `#[poise::command(prefix_command, slash_command)]` macro transforms the function into
@@ -2661,6 +2711,6 @@ starts the returned framework</p>
 <code>Instrumented</code> wrapper. <a href="../../tracing/instrument/trait.Instrument.html#method.in_current_span">Read more</a></div></details></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-Into%3CU%3E-for-FrameworkBuilder%3CU%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#717">source</a><a href="#impl-Into%3CU%3E-for-FrameworkBuilder%3CU%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;T, U&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;U&gt; for T<span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;T&gt;,</span></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><section id="method.into" class="method trait-impl has-srclink"><span class="rightside"><span class="since" title="const unstable">const: <a href="https://github.com/rust-lang/rust/issues/88674" title="Tracking issue for const_convert">unstable</a></span> · <a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#725">source</a></span><a href="#method.into" class="anchor"></a><h4 class="code-header">fn <a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html#tymethod.into" class="fnname">into</a>(self) -&gt; U</h4></section></summary><div class="docblock"><p>Calls <code>U::from(self)</code>.</p>
 <p>That is, this conversion is whatever the implementation of
 <code><a href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="From">From</a>&lt;T&gt; for U</code> chooses to do.</p>
-</div></details></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-Same%3CT%3E-for-FrameworkBuilder%3CU%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="../../src/typenum/type_operators.rs.html#34">source</a><a href="#impl-Same%3CT%3E-for-FrameworkBuilder%3CU%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;T&gt; <a class="trait" href="../../typenum/type_operators/trait.Same.html" title="trait typenum::type_operators::Same">Same</a>&lt;T&gt; for T</h3></section></summary><div class="impl-items"><details class="rustdoc-toggle" open><summary><section id="associatedtype.Output" class="associatedtype trait-impl has-srclink"><a href="#associatedtype.Output" class="anchor"></a><h4 class="code-header">type <a href="../../typenum/type_operators/trait.Same.html#associatedtype.Output" class="associatedtype">Output</a> = T</h4></section></summary><div class='docblock'>Should always be <code>Self</code></div></details></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-TryFrom%3CU%3E-for-FrameworkBuilder%3CU%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#775">source</a><a href="#impl-TryFrom%3CU%3E-for-FrameworkBuilder%3CU%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;T, U&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;U&gt; for T<span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;T&gt;,</span></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle" open><summary><section id="associatedtype.Error-1" class="associatedtype trait-impl has-srclink"><a href="#associatedtype.Error-1" class="anchor"></a><h4 class="code-header">type <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" class="associatedtype">Error</a> = <a class="enum" href="https://doc.rust-lang.org/nightly/core/convert/enum.Infallible.html" title="enum core::convert::Infallible">Infallible</a></h4></section></summary><div class='docblock'>The type returned in the event of a conversion error.</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.try_from" class="method trait-impl has-srclink"><span class="rightside"><span class="since" title="const unstable">const: <a href="https://github.com/rust-lang/rust/issues/88674" title="Tracking issue for const_convert">unstable</a></span> · <a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#781">source</a></span><a href="#method.try_from" class="anchor"></a><h4 class="code-header">fn <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#tymethod.try_from" class="fnname">try_from</a>(value: U) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;T, &lt;T as <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;U&gt;&gt;::<a class="associatedtype" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" title="type core::convert::TryFrom::Error">Error</a>&gt;</h4></section></summary><div class='docblock'>Performs the conversion.</div></details></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-TryInto%3CU%3E-for-FrameworkBuilder%3CU%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#760">source</a><a href="#impl-TryInto%3CU%3E-for-FrameworkBuilder%3CU%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;T, U&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html" title="trait core::convert::TryInto">TryInto</a>&lt;U&gt; for T<span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;T&gt;,</span></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle" open><summary><section id="associatedtype.Error" class="associatedtype trait-impl has-srclink"><a href="#associatedtype.Error" class="anchor"></a><h4 class="code-header">type <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#associatedtype.Error" class="associatedtype">Error</a> = &lt;U as <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;T&gt;&gt;::<a class="associatedtype" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" title="type core::convert::TryFrom::Error">Error</a></h4></section></summary><div class='docblock'>The type returned in the event of a conversion error.</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.try_into" class="method trait-impl has-srclink"><span class="rightside"><span class="since" title="const unstable">const: <a href="https://github.com/rust-lang/rust/issues/88674" title="Tracking issue for const_convert">unstable</a></span> · <a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#766">source</a></span><a href="#method.try_into" class="anchor"></a><h4 class="code-header">fn <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#tymethod.try_into" class="fnname">try_into</a>(self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;U, &lt;U as <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;T&gt;&gt;::<a class="associatedtype" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" title="type core::convert::TryFrom::Error">Error</a>&gt;</h4></section></summary><div class='docblock'>Performs the conversion.</div></details></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-VZip%3CV%3E-for-FrameworkBuilder%3CU%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="../../src/ppv_lite86/types.rs.html#221">source</a><a href="#impl-VZip%3CV%3E-for-FrameworkBuilder%3CU%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;V, T&gt; <a class="trait" href="../../ppv_lite86/types/trait.VZip.html" title="trait ppv_lite86::types::VZip">VZip</a>&lt;V&gt; for T<span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;V: <a class="trait" href="../../ppv_lite86/types/trait.MultiLane.html" title="trait ppv_lite86::types::MultiLane">MultiLane</a>&lt;T&gt;,</span></h3></section></summary><div class="impl-items"><section id="method.vzip" class="method trait-impl has-srclink"><a class="srclink rightside" href="../../src/ppv_lite86/types.rs.html#226">source</a><a href="#method.vzip" class="anchor"></a><h4 class="code-header">fn <a href="../../ppv_lite86/types/trait.VZip.html#tymethod.vzip" class="fnname">vzip</a>(self) -&gt; V</h4></section></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-WithSubscriber-for-FrameworkBuilder%3CU%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="../../src/tracing/instrument.rs.html#334">source</a><a href="#impl-WithSubscriber-for-FrameworkBuilder%3CU%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;T&gt; <a class="trait" href="../../tracing/instrument/trait.WithSubscriber.html" title="trait tracing::instrument::WithSubscriber">WithSubscriber</a> for T</h3></section></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><section id="method.with_subscriber" class="method trait-impl has-srclink"><a class="srclink rightside" href="../../src/tracing/instrument.rs.html#169-171">source</a><a href="#method.with_subscriber" class="anchor"></a><h4 class="code-header">fn <a href="../../tracing/instrument/trait.WithSubscriber.html#method.with_subscriber" class="fnname">with_subscriber</a>&lt;S&gt;(self, subscriber: S) -&gt; <a class="struct" href="../../tracing/instrument/struct.WithDispatch.html" title="struct tracing::instrument::WithDispatch">WithDispatch</a>&lt;Self&gt;<span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;S: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="../../tracing_core/dispatcher/struct.Dispatch.html" title="struct tracing_core::dispatcher::Dispatch">Dispatch</a>&gt;,</span></h4></section></summary><div class='docblock'>Attaches the provided <a href="../../tracing_core/subscriber/trait.Subscriber.html"><code>Subscriber</code></a> to this type, returning a
+</div></details></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-Same%3CT%3E-for-FrameworkBuilder%3CU%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="../../src/typenum/type_operators.rs.html#34">source</a><a href="#impl-Same%3CT%3E-for-FrameworkBuilder%3CU%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;T&gt; <a class="trait" href="../../typenum/type_operators/trait.Same.html" title="trait typenum::type_operators::Same">Same</a>&lt;T&gt; for T</h3></section></summary><div class="impl-items"><details class="rustdoc-toggle" open><summary><section id="associatedtype.Output" class="associatedtype trait-impl has-srclink"><a href="#associatedtype.Output" class="anchor"></a><h4 class="code-header">type <a href="../../typenum/type_operators/trait.Same.html#associatedtype.Output" class="associatedtype">Output</a> = T</h4></section></summary><div class='docblock'>Should always be <code>Self</code></div></details></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-TryFrom%3CU%3E-for-FrameworkBuilder%3CU%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#775">source</a><a href="#impl-TryFrom%3CU%3E-for-FrameworkBuilder%3CU%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;T, U&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;U&gt; for T<span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;T&gt;,</span></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle" open><summary><section id="associatedtype.Error" class="associatedtype trait-impl has-srclink"><a href="#associatedtype.Error" class="anchor"></a><h4 class="code-header">type <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" class="associatedtype">Error</a> = <a class="enum" href="https://doc.rust-lang.org/nightly/core/convert/enum.Infallible.html" title="enum core::convert::Infallible">Infallible</a></h4></section></summary><div class='docblock'>The type returned in the event of a conversion error.</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.try_from" class="method trait-impl has-srclink"><span class="rightside"><span class="since" title="const unstable">const: <a href="https://github.com/rust-lang/rust/issues/88674" title="Tracking issue for const_convert">unstable</a></span> · <a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#781">source</a></span><a href="#method.try_from" class="anchor"></a><h4 class="code-header">fn <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#tymethod.try_from" class="fnname">try_from</a>(value: U) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;T, &lt;T as <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;U&gt;&gt;::<a class="associatedtype" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" title="type core::convert::TryFrom::Error">Error</a>&gt;</h4></section></summary><div class='docblock'>Performs the conversion.</div></details></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-TryInto%3CU%3E-for-FrameworkBuilder%3CU%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#760">source</a><a href="#impl-TryInto%3CU%3E-for-FrameworkBuilder%3CU%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;T, U&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html" title="trait core::convert::TryInto">TryInto</a>&lt;U&gt; for T<span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;T&gt;,</span></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle" open><summary><section id="associatedtype.Error-1" class="associatedtype trait-impl has-srclink"><a href="#associatedtype.Error-1" class="anchor"></a><h4 class="code-header">type <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#associatedtype.Error" class="associatedtype">Error</a> = &lt;U as <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;T&gt;&gt;::<a class="associatedtype" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" title="type core::convert::TryFrom::Error">Error</a></h4></section></summary><div class='docblock'>The type returned in the event of a conversion error.</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.try_into" class="method trait-impl has-srclink"><span class="rightside"><span class="since" title="const unstable">const: <a href="https://github.com/rust-lang/rust/issues/88674" title="Tracking issue for const_convert">unstable</a></span> · <a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#766">source</a></span><a href="#method.try_into" class="anchor"></a><h4 class="code-header">fn <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#tymethod.try_into" class="fnname">try_into</a>(self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;U, &lt;U as <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;T&gt;&gt;::<a class="associatedtype" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" title="type core::convert::TryFrom::Error">Error</a>&gt;</h4></section></summary><div class='docblock'>Performs the conversion.</div></details></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-VZip%3CV%3E-for-FrameworkBuilder%3CU%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="../../src/ppv_lite86/types.rs.html#221">source</a><a href="#impl-VZip%3CV%3E-for-FrameworkBuilder%3CU%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;V, T&gt; <a class="trait" href="../../ppv_lite86/types/trait.VZip.html" title="trait ppv_lite86::types::VZip">VZip</a>&lt;V&gt; for T<span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;V: <a class="trait" href="../../ppv_lite86/types/trait.MultiLane.html" title="trait ppv_lite86::types::MultiLane">MultiLane</a>&lt;T&gt;,</span></h3></section></summary><div class="impl-items"><section id="method.vzip" class="method trait-impl has-srclink"><a class="srclink rightside" href="../../src/ppv_lite86/types.rs.html#226">source</a><a href="#method.vzip" class="anchor"></a><h4 class="code-header">fn <a href="../../ppv_lite86/types/trait.VZip.html#tymethod.vzip" class="fnname">vzip</a>(self) -&gt; V</h4></section></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-WithSubscriber-for-FrameworkBuilder%3CU%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="../../src/tracing/instrument.rs.html#334">source</a><a href="#impl-WithSubscriber-for-FrameworkBuilder%3CU%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;T&gt; <a class="trait" href="../../tracing/instrument/trait.WithSubscriber.html" title="trait tracing::instrument::WithSubscriber">WithSubscriber</a> for T</h3></section></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><section id="method.with_subscriber" class="method trait-impl has-srclink"><a class="srclink rightside" href="../../src/tracing/instrument.rs.html#169-171">source</a><a href="#method.with_subscriber" class="anchor"></a><h4 class="code-header">fn <a href="../../tracing/instrument/trait.WithSubscriber.html#method.with_subscriber" class="fnname">with_subscriber</a>&lt;S&gt;(self, subscriber: S) -&gt; <a class="struct" href="../../tracing/instrument/struct.WithDispatch.html" title="struct tracing::instrument::WithDispatch">WithDispatch</a>&lt;Self&gt;<span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;S: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="../../tracing_core/dispatcher/struct.Dispatch.html" title="struct tracing_core::dispatcher::Dispatch">Dispatch</a>&gt;,</span></h4></section></summary><div class='docblock'>Attaches the provided <a href="../../tracing_core/subscriber/trait.Subscriber.html"><code>Subscriber</code></a> to this type, returning a
 <a href="../../tracing/instrument/struct.WithDispatch.html" title="WithDispatch"><code>WithDispatch</code></a> wrapper. <a href="../../tracing/instrument/trait.WithSubscriber.html#method.with_subscriber">Read more</a></div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.with_current_subscriber" class="method trait-impl has-srclink"><a class="srclink rightside" href="../../src/tracing/instrument.rs.html#221">source</a><a href="#method.with_current_subscriber" class="anchor"></a><h4 class="code-header">fn <a href="../../tracing/instrument/trait.WithSubscriber.html#method.with_current_subscriber" class="fnname">with_current_subscriber</a>(self) -&gt; <a class="struct" href="../../tracing/instrument/struct.WithDispatch.html" title="struct tracing::instrument::WithDispatch">WithDispatch</a>&lt;Self&gt;</h4></section></summary><div class='docblock'>Attaches the current <a href="../../tracing/dispatcher/index.html#setting-the-default-subscriber">default</a> <a href="../../tracing_core/subscriber/trait.Subscriber.html"><code>Subscriber</code></a> to this type, returning a
-<a href="../../tracing/instrument/struct.WithDispatch.html" title="WithDispatch"><code>WithDispatch</code></a> wrapper. <a href="../../tracing/instrument/trait.WithSubscriber.html#method.with_current_subscriber">Read more</a></div></details></div></details></div></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (6e95b6da8 2022-10-22)" ></div></body></html>
+<a href="../../tracing/instrument/struct.WithDispatch.html" title="WithDispatch"><code>WithDispatch</code></a> wrapper. <a href="../../tracing/instrument/trait.WithSubscriber.html#method.with_current_subscriber">Read more</a></div></details></div></details></div></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
