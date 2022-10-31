@@ -398,6 +398,10 @@
 <span id="398">398</span>
 <span id="399">399</span>
 <span id="400">400</span>
+<span id="401">401</span>
+<span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
 </pre><pre class="rust"><code><span class="attribute">#![cfg_attr(doc_nightly, feature(doc_cfg, doc_auto_cfg))]
 #![doc(test(attr(deny(deprecated))))]
 #![warn(rust_2018_idioms)]
@@ -730,7 +734,11 @@ Also, poise is a stat in Dark Souls
 <span class="kw">pub mod </span>structs;
 <span class="kw">pub mod </span>track_edits;
 <span class="kw">mod </span>util;
-<span class="kw">pub use </span>poise_macros <span class="kw">as </span>macros;
+<span class="kw">pub mod </span>macros {
+    <span class="doccomment">//! Procedural macros used in poise, like [`command`]
+    </span><span class="attribute">#[doc(inline)]
+    </span><span class="kw">pub use </span>poise_macros::<span class="kw-2">*</span>;
+}
 
 <span class="attribute">#[doc(no_inline)]
 </span><span class="kw">pub use </span>{
