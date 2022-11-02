@@ -212,6 +212,18 @@
 <span id="212">212</span>
 <span id="213">213</span>
 <span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Dispatches interactions onto framework commands
 
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
@@ -221,6 +233,7 @@
     interaction_name: <span class="kw-2">&amp;</span>str,
     interaction_options: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span>[serenity::CommandDataOption],
     commands: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[<span class="kw">crate</span>::Command&lt;U, E&gt;],
+    parent_commands: <span class="kw-2">&amp;mut </span>Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;&gt;,
 ) -&gt; <span class="prelude-ty">Option</span>&lt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;, <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span>[serenity::CommandDataOption])&gt; {
     commands.iter().find_map(|cmd| {
         <span class="kw">if </span>interaction_name != cmd.name &amp;&amp; <span class="prelude-val">Some</span>(interaction_name) != cmd.context_menu_name {
@@ -231,10 +244,12 @@
             option.kind == serenity::CommandOptionType::SubCommand
                 || option.kind == serenity::CommandOptionType::SubCommandGroup
         }) {
+            parent_commands.push(cmd);
             find_matching_command(
                 <span class="kw-2">&amp;</span>sub_interaction.name,
                 <span class="kw-2">&amp;</span>sub_interaction.options,
                 <span class="kw-2">&amp;</span>cmd.subcommands,
+                parent_commands,
             )
         } <span class="kw">else </span>{
             <span class="prelude-val">Some</span>((cmd, interaction_options))
@@ -250,11 +265,13 @@
     interaction: <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction&lt;<span class="lifetime">&#39;a</span>&gt;,
     has_sent_initial_response: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>std::sync::atomic::AtomicBool,
     invocation_data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>tokio::sync::Mutex&lt;Box&lt;<span class="kw">dyn </span>std::any::Any + Send + Sync&gt;&gt;,
+    parent_commands: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw">crate</span>::ApplicationContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;, <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt; {
     <span class="kw">let </span>search_result = find_matching_command(
         <span class="kw-2">&amp;</span>interaction.data().name,
         <span class="kw-2">&amp;</span>interaction.data().options,
         <span class="kw-2">&amp;</span>framework.options.commands,
+        parent_commands,
     );
     <span class="kw">let </span>(command, leaf_interaction_options) =
         search_result.ok_or(<span class="kw">crate</span>::FrameworkError::UnknownInteraction {
@@ -270,6 +287,7 @@
         interaction,
         args: leaf_interaction_options,
         command,
+        parent_commands,
         has_sent_initial_response,
         invocation_data,
         __non_exhaustive: (),
@@ -289,6 +307,8 @@
     </span>has_sent_initial_response: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>std::sync::atomic::AtomicBool,
     <span class="comment">// Need to pass this in from outside because of lifetime issues
     </span>invocation_data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>tokio::sync::Mutex&lt;Box&lt;<span class="kw">dyn </span>std::any::Any + Send + Sync&gt;&gt;,
+    <span class="comment">// Need to pass this in from outside because of lifetime issues
+    </span>parent_commands: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt; {
     <span class="kw">let </span>ctx = extract_command_and_run_checks(
         framework,
@@ -296,6 +316,7 @@
         <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction::ApplicationCommand(interaction),
         has_sent_initial_response,
         invocation_data,
+        parent_commands,
     )
     .<span class="kw">await</span><span class="question-mark">?</span>;
 
@@ -356,6 +377,8 @@
     </span>has_sent_initial_response: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>std::sync::atomic::AtomicBool,
     <span class="comment">// Need to pass this in from outside because of lifetime issues
     </span>invocation_data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>tokio::sync::Mutex&lt;Box&lt;<span class="kw">dyn </span>std::any::Any + Send + Sync&gt;&gt;,
+    <span class="comment">// Need to pass this in from outside because of lifetime issues
+    </span>parent_commands: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt; {
     <span class="kw">let </span>ctx = extract_command_and_run_checks(
         framework,
@@ -363,6 +386,7 @@
         <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction::Autocomplete(interaction),
         has_sent_initial_response,
         invocation_data,
+        parent_commands,
     )
     .<span class="kw">await</span><span class="question-mark">?</span>;
 
@@ -427,4 +451,4 @@
     <span class="prelude-val">Ok</span>(())
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>

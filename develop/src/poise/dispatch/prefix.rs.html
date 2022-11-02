@@ -287,6 +287,26 @@
 <span id="287">287</span>
 <span id="288">288</span>
 <span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Dispatches incoming messages and message edits onto framework commands
 
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
@@ -421,6 +441,7 @@
     commands: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[<span class="kw">crate</span>::Command&lt;U, E&gt;],
     remaining_message: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
     case_insensitive: bool,
+    parent_commands: <span class="kw-2">&amp;mut </span>Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;&gt;,
 ) -&gt; <span class="prelude-ty">Option</span>&lt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str)&gt;
 <span class="kw">where
     </span>U: Send + Sync,
@@ -446,12 +467,18 @@
             <span class="kw">continue</span>;
         }
 
+        parent_commands.push(command);
         <span class="kw">return </span><span class="prelude-val">Some</span>(
-            find_command(<span class="kw-2">&amp;</span>command.subcommands, remaining_message, case_insensitive).unwrap_or((
-                command,
-                command_name,
+            find_command(
+                <span class="kw-2">&amp;</span>command.subcommands,
                 remaining_message,
-            )),
+                case_insensitive,
+                parent_commands,
+            )
+            .unwrap_or_else(|| {
+                parent_commands.pop();
+                (command, command_name, remaining_message)
+            }),
         );
     }
 
@@ -465,8 +492,18 @@
     msg: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Message,
     trigger: <span class="kw">crate</span>::MessageDispatchTrigger,
     invocation_data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>tokio::sync::Mutex&lt;Box&lt;<span class="kw">dyn </span>std::any::Any + Send + Sync&gt;&gt;,
+    parent_commands: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt; {
-    <span class="kw">if let </span><span class="prelude-val">Some</span>(ctx) = parse_invocation(framework, ctx, msg, trigger, invocation_data).<span class="kw">await</span><span class="question-mark">? </span>{
+    <span class="kw">if let </span><span class="prelude-val">Some</span>(ctx) = parse_invocation(
+        framework,
+        ctx,
+        msg,
+        trigger,
+        invocation_data,
+        parent_commands,
+    )
+    .<span class="kw">await</span><span class="question-mark">?
+    </span>{
         run_invocation(ctx).<span class="kw">await</span><span class="question-mark">?</span>;
     }
     <span class="prelude-val">Ok</span>(())
@@ -480,6 +517,7 @@
     msg: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Message,
     trigger: <span class="kw">crate</span>::MessageDispatchTrigger,
     invocation_data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>tokio::sync::Mutex&lt;Box&lt;<span class="kw">dyn </span>std::any::Any + Send + Sync&gt;&gt;,
+    parent_commands: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;<span class="kw">crate</span>::PrefixContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt;, <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt; {
     <span class="comment">// Check if we&#39;re allowed to invoke from bot messages
     </span><span class="kw">if </span>msg.author.bot &amp;&amp; framework.options.prefix_options.ignore_bots {
@@ -503,6 +541,7 @@
         <span class="kw-2">&amp;</span>framework.options.commands,
         msg_content,
         framework.options.prefix_options.case_insensitive_commands,
+        parent_commands,
     )
     .ok_or(<span class="kw">crate</span>::FrameworkError::UnknownCommand {
         ctx,
@@ -527,6 +566,7 @@
         args,
         framework,
         data: framework.user_data().<span class="kw">await</span>,
+        parent_commands,
         command,
         invocation_data,
         trigger,
@@ -577,4 +617,4 @@
     <span class="prelude-val">Ok</span>(())
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>

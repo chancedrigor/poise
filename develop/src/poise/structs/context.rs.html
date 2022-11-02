@@ -433,6 +433,37 @@
 <span id="433">433</span>
 <span id="434">434</span>
 <span id="435">435</span>
+<span id="436">436</span>
+<span id="437">437</span>
+<span id="438">438</span>
+<span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
+<span id="463">463</span>
+<span id="464">464</span>
+<span id="465">465</span>
+<span id="466">466</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Just contains Context and `PartialContext` structs
 
 </span><span class="kw">use </span>std::borrow::Cow;
@@ -671,6 +702,15 @@
         }
     }
 
+    <span class="doccomment">/// If the invoked command was a subcommand, these are the parent commands, ordered top-level
+    /// downwards.
+    </span><span class="kw">pub fn </span>parent_commands(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;] {
+        <span class="kw">match </span><span class="self">self </span>{
+            <span class="self">Self</span>::Prefix(x) =&gt; x.parent_commands,
+            <span class="self">Self</span>::Application(x) =&gt; x.parent_commands,
+        }
+    }
+
     <span class="doccomment">/// Returns a reference to the command.
     </span><span class="kw">pub fn </span>command(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt; {
         <span class="kw">match </span><span class="self">self </span>{
@@ -776,25 +816,47 @@
         }
     }
 
-    <span class="comment">// TODO: implement invocation_string. Needs hierarchy of parent commands available, e.g. as
-    // `parent_commands: Vec&lt;&amp;&#39;a Command&gt;` field. But... do I want to do that?
-    /* pub fn invocation_string(&amp;self) -&gt; String {
-        match self {
+    <span class="doccomment">/// Returns the string with which this command was invoked.
+    ///
+    /// For example `&quot;/slash_command subcommand arg1:value1 arg2:value2&quot;`.
+    </span><span class="kw">pub fn </span>invocation_string(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
+        <span class="kw">match </span><span class="self">self </span>{
             Context::Application(ctx) =&gt; {
-                let mut string = String::from(&quot;/&quot;);
-                string += ctx.interaction.data().name; // ... ah crap we need to traverse hierarchy of parent commands
-                for arg in ctx.args {
-                    string += &quot; &quot;;
-                    string += arg.name;
-                    string += &quot;:&quot;;
-                    strińg +=
+                <span class="kw">let </span><span class="kw-2">mut </span>string = String::from(<span class="string">&quot;/&quot;</span>);
+                <span class="kw">for </span>parent_command <span class="kw">in </span>ctx.parent_commands {
+                    string += <span class="kw-2">&amp;</span>parent_command.name;
+                    string += <span class="string">&quot; &quot;</span>;
                 }
-            },
+                string += <span class="kw-2">&amp;</span>ctx.command.name;
+                <span class="kw">for </span>arg <span class="kw">in </span>ctx.args {
+                    <span class="kw">if let </span><span class="prelude-val">Some</span>(value) = <span class="kw-2">&amp;</span>arg.value {
+                        <span class="attribute">#[allow(unused_imports)] </span><span class="comment">// required for simd-json
+                        </span><span class="kw">use </span>::serenity::json::prelude::<span class="kw-2">*</span>;
+                        <span class="kw">use </span>std::fmt::Write <span class="kw">as _</span>;
+
+                        string += <span class="string">&quot; &quot;</span>;
+                        string += <span class="kw-2">&amp;</span>arg.name;
+                        string += <span class="string">&quot;:&quot;</span>;
+                        <span class="kw">if let </span><span class="prelude-val">Some</span>(x) = value.as_bool() {
+                            <span class="kw">let _ </span>= <span class="macro">write!</span>(string, <span class="string">&quot;{}&quot;</span>, x);
+                        } <span class="kw">else if let </span><span class="prelude-val">Some</span>(x) = value.as_i64() {
+                            <span class="kw">let _ </span>= <span class="macro">write!</span>(string, <span class="string">&quot;{}&quot;</span>, x);
+                        } <span class="kw">else if let </span><span class="prelude-val">Some</span>(x) = value.as_u64() {
+                            <span class="kw">let _ </span>= <span class="macro">write!</span>(string, <span class="string">&quot;{}&quot;</span>, x);
+                        } <span class="kw">else if let </span><span class="prelude-val">Some</span>(x) = value.as_f64() {
+                            <span class="kw">let _ </span>= <span class="macro">write!</span>(string, <span class="string">&quot;{}&quot;</span>, x);
+                        } <span class="kw">else if let </span><span class="prelude-val">Some</span>(x) = value.as_str() {
+                            <span class="kw">let _ </span>= <span class="macro">write!</span>(string, <span class="string">&quot;{}&quot;</span>, x);
+                        }
+                    }
+                }
+                string
+            }
             Context::Prefix(ctx) =&gt; ctx.msg.content.clone(),
         }
-    } */
+    }
 
-    </span><span class="doccomment">/// Returns the raw type erased invocation data
+    <span class="doccomment">/// Returns the raw type erased invocation data
     </span><span class="kw">fn </span>invocation_data_raw(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>tokio::sync::Mutex&lt;Box&lt;<span class="kw">dyn </span>std::any::Any + Send + Sync&gt;&gt; {
         <span class="kw">match </span><span class="self">self </span>{
             Context::Application(ctx) =&gt; ctx.invocation_data,
@@ -869,4 +931,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
