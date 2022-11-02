@@ -298,14 +298,14 @@
 <span class="kw">const </span>STREAM_PARAM_NONCE: u32 = <span class="number">1</span>;
 <span class="kw">const </span>STREAM_PARAM_BLOCK: u32 = <span class="number">0</span>;
 
-<span class="attribute">#[derive(Clone, PartialEq, Eq)]
+<span class="attr">#[derive(Clone, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>ChaCha {
     <span class="kw">pub</span>(<span class="kw">crate</span>) b: vec128_storage,
     <span class="kw">pub</span>(<span class="kw">crate</span>) c: vec128_storage,
     <span class="kw">pub</span>(<span class="kw">crate</span>) d: vec128_storage,
 }
 
-<span class="attribute">#[derive(Clone)]
+<span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>State&lt;V&gt; {
     <span class="kw">pub</span>(<span class="kw">crate</span>) a: V,
     <span class="kw">pub</span>(<span class="kw">crate</span>) b: V,
@@ -313,7 +313,7 @@
     <span class="kw">pub</span>(<span class="kw">crate</span>) d: V,
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>round&lt;V: ArithOps + BitOps32&gt;(<span class="kw-2">mut </span>x: State&lt;V&gt;) -&gt; State&lt;V&gt; {
     x.a += x.b;
     x.d = (x.d ^ x.a).rotate_each_word_right16();
@@ -326,14 +326,14 @@
     x
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>diagonalize&lt;V: LaneWords4&gt;(<span class="kw-2">mut </span>x: State&lt;V&gt;) -&gt; State&lt;V&gt; {
     x.b = x.b.shuffle_lane_words3012();
     x.c = x.c.shuffle_lane_words2301();
     x.d = x.d.shuffle_lane_words1230();
     x
 }
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>undiagonalize&lt;V: LaneWords4&gt;(<span class="kw-2">mut </span>x: State&lt;V&gt;) -&gt; State&lt;V&gt; {
     x.b = x.b.shuffle_lane_words1230();
     x.c = x.c.shuffle_lane_words2301();
@@ -342,50 +342,50 @@
 }
 
 <span class="kw">impl </span>ChaCha {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>new(key: <span class="kw-2">&amp;</span>[u8; <span class="number">32</span>], nonce: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="self">Self </span>{
         init_chacha(key, nonce)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>pos64&lt;M: Machine&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, m: M) -&gt; u64 {
         <span class="kw">let </span>d: M::u32x4 = m.unpack(<span class="self">self</span>.d);
         ((d.extract(<span class="number">1</span>) <span class="kw">as </span>u64) &lt;&lt; <span class="number">32</span>) | d.extract(<span class="number">0</span>) <span class="kw">as </span>u64
     }
 
     <span class="doccomment">/// Produce 4 blocks of output, advancing the state
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>refill4(<span class="kw-2">&amp;mut </span><span class="self">self</span>, drounds: u32, out: <span class="kw-2">&amp;mut </span>[u8; BUFSZ]) {
         refill_wide(<span class="self">self</span>, drounds, out)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>set_block_pos(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: u64) {
         set_stream_param(<span class="self">self</span>, STREAM_PARAM_BLOCK, value)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>get_block_pos(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u64 {
         get_stream_param(<span class="self">self</span>, STREAM_PARAM_BLOCK)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>set_nonce(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: u64) {
         set_stream_param(<span class="self">self</span>, STREAM_PARAM_NONCE, value)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>get_nonce(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u64 {
         get_stream_param(<span class="self">self</span>, STREAM_PARAM_NONCE)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>get_seed(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; [u8; <span class="number">32</span>] {
         get_seed(<span class="self">self</span>)
     }
 }
 
-<span class="attribute">#[allow(clippy::many_single_char_names)]
+<span class="attr">#[allow(clippy::many_single_char_names)]
 #[inline(always)]
 </span><span class="kw">fn </span>refill_wide_impl&lt;Mach: Machine&gt;(
     m: Mach, state: <span class="kw-2">&amp;mut </span>ChaCha, drounds: u32, out: <span class="kw-2">&amp;mut </span>[u8; BUFSZ],
@@ -546,4 +546,4 @@
     }
 });
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rand_chacha" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rand_chacha" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

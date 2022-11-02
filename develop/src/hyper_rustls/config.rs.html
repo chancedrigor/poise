@@ -79,19 +79,19 @@
 </span><span class="kw">pub trait </span>ConfigBuilderExt {
     <span class="doccomment">/// This configures the platform&#39;s trusted certs, as implemented by
     /// rustls-native-certs
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;rustls-native-certs&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;rustls-native-certs&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;rustls-native-certs&quot;</span>)))]
     </span><span class="kw">fn </span>with_native_roots(<span class="self">self</span>) -&gt; ConfigBuilder&lt;ClientConfig, WantsTransparencyPolicyOrClientCert&gt;;
 
     <span class="doccomment">/// This configures the webpki roots, which are Mozilla&#39;s set of
     /// trusted roots as packaged by webpki-roots.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;webpki-roots&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;webpki-roots&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;webpki-roots&quot;</span>)))]
     </span><span class="kw">fn </span>with_webpki_roots(<span class="self">self</span>) -&gt; ConfigBuilder&lt;ClientConfig, WantsTransparencyPolicyOrClientCert&gt;;
 }
 
 <span class="kw">impl </span>ConfigBuilderExt <span class="kw">for </span>ConfigBuilder&lt;ClientConfig, WantsVerifier&gt; {
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;rustls-native-certs&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;rustls-native-certs&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;rustls-native-certs&quot;</span>)))]
     #[cfg_attr(not(feature = <span class="string">&quot;logging&quot;</span>), allow(unused_variables))]
     </span><span class="kw">fn </span>with_native_roots(<span class="self">self</span>) -&gt; ConfigBuilder&lt;ClientConfig, WantsTransparencyPolicyOrClientCert&gt; {
@@ -121,7 +121,7 @@
         <span class="self">self</span>.with_root_certificates(roots)
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;webpki-roots&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;webpki-roots&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;webpki-roots&quot;</span>)))]
     </span><span class="kw">fn </span>with_webpki_roots(<span class="self">self</span>) -&gt; ConfigBuilder&lt;ClientConfig, WantsTransparencyPolicyOrClientCert&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>roots = rustls::RootCertStore::empty();
@@ -141,4 +141,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="hyper_rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="hyper_rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

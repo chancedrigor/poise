@@ -263,7 +263,7 @@
 /// on a `FixedOffset` struct is the preferred way to construct
 /// `DateTime&lt;FixedOffset&gt;` instances. See the [`east`](#method.east) and
 /// [`west`](#method.west) methods for examples.
-</span><span class="attribute">#[derive(PartialEq, Eq, Hash, Copy, Clone)]
+</span><span class="attr">#[derive(PartialEq, Eq, Hash, Copy, Clone)]
 </span><span class="kw">pub struct </span>FixedOffset {
     local_minus_utc: i32,
 }
@@ -330,13 +330,13 @@
     }
 
     <span class="doccomment">/// Returns the number of seconds to add to convert from UTC to the local time.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>local_minus_utc(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="self">self</span>.local_minus_utc
     }
 
     <span class="doccomment">/// Returns the number of seconds to add to convert from the local time to UTC.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>utc_minus_local(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         -<span class="self">self</span>.local_minus_utc
     }
@@ -408,7 +408,7 @@
 <span class="kw">impl </span>Add&lt;FixedOffset&gt; <span class="kw">for </span>NaiveTime {
     <span class="kw">type </span>Output = NaiveTime;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>add(<span class="self">self</span>, rhs: FixedOffset) -&gt; NaiveTime {
         add_with_leapsecond(<span class="kw-2">&amp;</span><span class="self">self</span>, rhs.local_minus_utc)
     }
@@ -417,7 +417,7 @@
 <span class="kw">impl </span>Sub&lt;FixedOffset&gt; <span class="kw">for </span>NaiveTime {
     <span class="kw">type </span>Output = NaiveTime;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sub(<span class="self">self</span>, rhs: FixedOffset) -&gt; NaiveTime {
         add_with_leapsecond(<span class="kw-2">&amp;</span><span class="self">self</span>, -rhs.local_minus_utc)
     }
@@ -426,7 +426,7 @@
 <span class="kw">impl </span>Add&lt;FixedOffset&gt; <span class="kw">for </span>NaiveDateTime {
     <span class="kw">type </span>Output = NaiveDateTime;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>add(<span class="self">self</span>, rhs: FixedOffset) -&gt; NaiveDateTime {
         add_with_leapsecond(<span class="kw-2">&amp;</span><span class="self">self</span>, rhs.local_minus_utc)
     }
@@ -435,7 +435,7 @@
 <span class="kw">impl </span>Sub&lt;FixedOffset&gt; <span class="kw">for </span>NaiveDateTime {
     <span class="kw">type </span>Output = NaiveDateTime;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sub(<span class="self">self</span>, rhs: FixedOffset) -&gt; NaiveDateTime {
         add_with_leapsecond(<span class="kw-2">&amp;</span><span class="self">self</span>, -rhs.local_minus_utc)
     }
@@ -444,7 +444,7 @@
 <span class="kw">impl</span>&lt;Tz: TimeZone&gt; Add&lt;FixedOffset&gt; <span class="kw">for </span>DateTime&lt;Tz&gt; {
     <span class="kw">type </span>Output = DateTime&lt;Tz&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>add(<span class="self">self</span>, rhs: FixedOffset) -&gt; DateTime&lt;Tz&gt; {
         add_with_leapsecond(<span class="kw-2">&amp;</span><span class="self">self</span>, rhs.local_minus_utc)
     }
@@ -453,18 +453,18 @@
 <span class="kw">impl</span>&lt;Tz: TimeZone&gt; Sub&lt;FixedOffset&gt; <span class="kw">for </span>DateTime&lt;Tz&gt; {
     <span class="kw">type </span>Output = DateTime&lt;Tz&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sub(<span class="self">self</span>, rhs: FixedOffset) -&gt; DateTime&lt;Tz&gt; {
         add_with_leapsecond(<span class="kw-2">&amp;</span><span class="self">self</span>, -rhs.local_minus_utc)
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::FixedOffset;
     <span class="kw">use </span>offset::TimeZone;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_date_extreme_offset() {
         <span class="comment">// starting from 0.3 we don&#39;t have an offset exceeding one day.
         // this makes everything easier!
@@ -487,4 +487,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -1282,7 +1282,7 @@
 <span class="kw">type </span><span class="prelude-ty">Result </span>= result::Result&lt;Patch, Error&gt;;
 <span class="kw">type </span>ResultOrEmpty = result::Result&lt;<span class="prelude-ty">Option</span>&lt;Patch&gt;, Error&gt;;
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>Patch {
     hole: Hole,
     entry: InstPtr,
@@ -1292,7 +1292,7 @@
 /// instructions. The sequence of instructions represents an NFA.
 </span><span class="comment">// `Compiler` is only public via the `internal` module, so avoid deriving
 // `Debug`.
-</span><span class="attribute">#[allow(missing_debug_implementations)]
+</span><span class="attr">#[allow(missing_debug_implementations)]
 </span><span class="kw">pub struct </span>Compiler {
     insts: Vec&lt;MaybeInst&gt;,
     compiled: Program,
@@ -2108,7 +2108,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">enum </span>Hole {
     <span class="prelude-val">None</span>,
     One(InstPtr),
@@ -2126,7 +2126,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">enum </span>MaybeInst {
     Compiled(Inst),
     Uncompiled(InstHole),
@@ -2211,7 +2211,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">enum </span>InstHole {
     Save { slot: usize },
     EmptyLook { look: EmptyLook },
@@ -2357,19 +2357,19 @@
 /// This uses similar idea to [`SparseSet`](../sparse/struct.SparseSet.html),
 /// except it uses hashes as original indices and then compares full keys for
 /// validation against `dense` array.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>SuffixCache {
     sparse: Box&lt;[usize]&gt;,
     dense: Vec&lt;SuffixCacheEntry&gt;,
 }
 
-<span class="attribute">#[derive(Clone, Copy, Debug, Default, Eq, Hash, PartialEq)]
+<span class="attr">#[derive(Clone, Copy, Debug, Default, Eq, Hash, PartialEq)]
 </span><span class="kw">struct </span>SuffixCacheEntry {
     key: SuffixCacheKey,
     pc: InstPtr,
 }
 
-<span class="attribute">#[derive(Clone, Copy, Debug, Default, Eq, Hash, PartialEq)]
+<span class="attr">#[derive(Clone, Copy, Debug, Default, Eq, Hash, PartialEq)]
 </span><span class="kw">struct </span>SuffixCacheKey {
     from_inst: InstPtr,
     start: u8,
@@ -2482,11 +2482,11 @@
     n <span class="kw">as </span>usize
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::ByteClassSet;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>byte_classes() {
         <span class="kw">let </span><span class="kw-2">mut </span>set = ByteClassSet::new();
         set.set_range(<span class="string">b&#39;a&#39;</span>, <span class="string">b&#39;z&#39;</span>);
@@ -2517,7 +2517,7 @@
         <span class="macro">assert_eq!</span>(classes[<span class="number">255</span>], <span class="number">3</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>full_byte_classes() {
         <span class="kw">let </span><span class="kw-2">mut </span>set = ByteClassSet::new();
         <span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..<span class="number">256u16 </span>{
@@ -2527,4 +2527,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="regex" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="regex" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

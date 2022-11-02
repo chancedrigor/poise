@@ -318,7 +318,7 @@
 /// The prefilter variant of this has more comments. Also note that we only
 /// implement this for forward searches for now. If you have a compelling use
 /// case for accelerated reverse search, please file an issue.
-</span><span class="attribute">#[derive(Clone, Copy, Debug)]
+</span><span class="attr">#[derive(Clone, Copy, Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Forward {
     rare1i: u8,
     rare2i: u8,
@@ -345,7 +345,7 @@
     <span class="doccomment">/// Returns the minimum length of haystack that is needed for this searcher
     /// to work for a particular vector. Passing a haystack with a length
     /// smaller than this will cause `fwd_find` to panic.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>min_haystack_len&lt;V: Vector&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.rare2i <span class="kw">as </span>usize + size_of::&lt;V&gt;()
     }
@@ -365,7 +365,7 @@
 /// Therefore, callers must ensure that whatever target feature is being used
 /// supports the vector functions that this function is specialized for. (For
 /// the specific vector functions used, see the Vector trait implementations.)
-</span><span class="attribute">#[inline(always)]
+</span><span class="attr">#[inline(always)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">unsafe fn </span>fwd_find&lt;V: Vector&gt;(
     fwd: <span class="kw-2">&amp;</span>Forward,
     haystack: <span class="kw-2">&amp;</span>[u8],
@@ -479,7 +479,7 @@
 /// It must be safe to do an unaligned read of size(V) bytes starting at both
 /// (ptr + rare1i) and (ptr + rare2i). It must also be safe to do unaligned
 /// loads on ptr up to (end_ptr - needle.len()).
-</span><span class="attribute">#[inline(always)]
+</span><span class="attr">#[inline(always)]
 </span><span class="kw">unsafe fn </span>fwd_find_in_chunk&lt;V: Vector&gt;(
     fwd: <span class="kw-2">&amp;</span>Forward,
     needle: <span class="kw-2">&amp;</span>[u8],
@@ -518,7 +518,7 @@
 /// algorithm to learned why it&#39;s tagged with inline(never). Even here, where
 /// the function is simpler, inlining it leads to poorer codegen. (Although
 /// it does improve some benchmarks, like prebuiltiter/huge-en/common-you.)
-</span><span class="attribute">#[cold]
+</span><span class="attr">#[cold]
 #[inline(never)]
 </span><span class="kw">fn </span>matched(start_ptr: <span class="kw-2">*const </span>u8, ptr: <span class="kw-2">*const </span>u8, chunki: usize) -&gt; usize {
     diff(ptr, start_ptr) + chunki
@@ -531,4 +531,4 @@
     (a <span class="kw">as </span>usize) - (b <span class="kw">as </span>usize)
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="memchr" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="memchr" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -810,7 +810,7 @@
 //! [`Builder::enable_all`]: crate::runtime::Builder::enable_all
 
 </span><span class="comment">// At the top due to macros
-</span><span class="attribute">#[cfg(test)]
+</span><span class="attr">#[cfg(test)]
 #[cfg(not(tokio_wasm))]
 #[macro_use]
 </span><span class="kw">mod </span>tests;
@@ -832,7 +832,7 @@
 
     <span class="kw">mod </span>blocking;
     <span class="kw">use </span>blocking::BlockingPool;
-    <span class="attribute">#[cfg_attr(tokio_wasi, allow(unused_imports))]
+    <span class="attr">#[cfg_attr(tokio_wasi, allow(unused_imports))]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>blocking::spawn_blocking;
 
     <span class="macro">cfg_trace! </span>{
@@ -928,7 +928,7 @@
     /// [mod]: index.html
     /// [`new`]: method@Self::new
     /// [`Builder`]: struct@Builder
-    </span><span class="attribute">#[derive(Debug)]
+    </span><span class="attr">#[derive(Debug)]
     </span><span class="kw">pub struct </span>Runtime {
         <span class="doccomment">/// Task executor
         </span>kind: Kind,
@@ -941,13 +941,13 @@
     }
 
     <span class="doccomment">/// The runtime executor is either a multi-thread or a current-thread executor.
-    </span><span class="attribute">#[derive(Debug)]
+    </span><span class="attr">#[derive(Debug)]
     </span><span class="kw">enum </span>Kind {
         <span class="doccomment">/// Execute all tasks on the current-thread.
         </span>CurrentThread(CurrentThread),
 
         <span class="doccomment">/// Execute tasks across multiple threads.
-        </span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
+        </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
         </span>MultiThread(MultiThread),
     }
 
@@ -984,7 +984,7 @@
             /// [main]: ../attr.main.html
             /// [threaded scheduler]: index.html#threaded-scheduler
             /// [runtime builder]: crate::runtime::Builder
-            </span><span class="attribute">#[cfg(feature = <span class="string">&quot;rt-multi-thread&quot;</span>)]
+            </span><span class="attr">#[cfg(feature = <span class="string">&quot;rt-multi-thread&quot;</span>)]
             #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;rt-multi-thread&quot;</span>)))]
             </span><span class="kw">pub fn </span>new() -&gt; std::io::Result&lt;Runtime&gt; {
                 Builder::new_multi_thread().enable_all().build()
@@ -1037,7 +1037,7 @@
         /// });
         /// # }
         /// ```
-        </span><span class="attribute">#[track_caller]
+        </span><span class="attr">#[track_caller]
         </span><span class="kw">pub fn </span>spawn&lt;F&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, future: F) -&gt; JoinHandle&lt;F::Output&gt;
         <span class="kw">where
             </span>F: Future + Send + <span class="lifetime">&#39;static</span>,
@@ -1062,7 +1062,7 @@
         ///     println!(&quot;now running on a worker thread&quot;);
         /// });
         /// # }
-        </span><span class="attribute">#[track_caller]
+        </span><span class="attr">#[track_caller]
         </span><span class="kw">pub fn </span>spawn_blocking&lt;F, R&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, func: F) -&gt; JoinHandle&lt;R&gt;
         <span class="kw">where
             </span>F: FnOnce() -&gt; R + Send + <span class="lifetime">&#39;static</span>,
@@ -1117,16 +1117,16 @@
         /// ```
         ///
         /// [handle]: fn@Handle::block_on
-        </span><span class="attribute">#[track_caller]
+        </span><span class="attr">#[track_caller]
         </span><span class="kw">pub fn </span>block_on&lt;F: Future&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, future: F) -&gt; F::Output {
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span><span class="kw">let </span>future = <span class="kw">crate</span>::util::trace::task(future, <span class="string">&quot;block_on&quot;</span>, <span class="prelude-val">None</span>, task::Id::next().as_u64());
 
             <span class="kw">let </span>_enter = <span class="self">self</span>.enter();
 
             <span class="kw">match </span><span class="kw-2">&amp;</span><span class="self">self</span>.kind {
                 Kind::CurrentThread(exec) =&gt; exec.block_on(future),
-                <span class="attribute">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
+                <span class="attr">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
                 </span>Kind::MultiThread(exec) =&gt; exec.block_on(future),
             }
         }
@@ -1239,7 +1239,7 @@
         }
     }
 
-    <span class="attribute">#[allow(clippy::single_match)] </span><span class="comment">// there are comments in the error branch, so we don&#39;t want if-let
+    <span class="attr">#[allow(clippy::single_match)] </span><span class="comment">// there are comments in the error branch, so we don&#39;t want if-let
     </span><span class="kw">impl </span>Drop <span class="kw">for </span>Runtime {
         <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
             <span class="kw">match </span><span class="kw-2">&amp;mut </span><span class="self">self</span>.kind {
@@ -1256,7 +1256,7 @@
                         </span>},
                     }
                 },
-                <span class="attribute">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
+                <span class="attr">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
                 </span>Kind::MultiThread(<span class="kw">_</span>) =&gt; {
                     <span class="comment">// The threaded scheduler drops its tasks on its worker threads, which is
                     // already in the runtime&#39;s context.
@@ -1275,4 +1275,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

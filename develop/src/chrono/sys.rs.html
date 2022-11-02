@@ -142,15 +142,15 @@
 
 </span><span class="kw">use </span>std::time::{SystemTime, UNIX_EPOCH};
 
-<span class="attribute">#[cfg(any(target_arch = <span class="string">&quot;wasm32&quot;</span>, target_env = <span class="string">&quot;sgx&quot;</span>))]
+<span class="attr">#[cfg(any(target_arch = <span class="string">&quot;wasm32&quot;</span>, target_env = <span class="string">&quot;sgx&quot;</span>))]
 #[path = <span class="string">&quot;sys/stub.rs&quot;</span>]
 </span><span class="kw">mod </span>inner;
 
-<span class="attribute">#[cfg(unix)]
+<span class="attr">#[cfg(unix)]
 #[path = <span class="string">&quot;sys/unix.rs&quot;</span>]
 </span><span class="kw">mod </span>inner;
 
-<span class="attribute">#[cfg(windows)]
+<span class="attr">#[cfg(windows)]
 #[path = <span class="string">&quot;sys/windows.rs&quot;</span>]
 </span><span class="kw">mod </span>inner;
 
@@ -196,7 +196,7 @@
 <span class="doccomment">/// Holds a calendar date and time broken down into its components (year, month,
 /// day, and so on), also called a broken-down time value.
 </span><span class="comment">// FIXME: use c_int instead of i32?
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>Tm {
     <span class="doccomment">/// Seconds after the minute - [0, 60]
@@ -251,4 +251,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

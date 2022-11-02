@@ -207,7 +207,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::model::channel::ReactionType;
 
 <span class="doccomment">/// The type of a component
-</span><span class="attribute">#[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, PartialOrd, Ord)]
+</span><span class="attr">#[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, PartialOrd, Ord)]
 #[non_exhaustive]
 #[repr(u8)]
 </span><span class="kw">pub enum </span>ComponentType {
@@ -226,18 +226,18 @@
 });
 
 <span class="doccomment">/// An action row.
-</span><span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 </span><span class="kw">pub struct </span>ActionRow {
     <span class="doccomment">/// The type of component this ActionRow is.
-    </span><span class="attribute">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
+    </span><span class="attr">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
     </span><span class="kw">pub </span>kind: ComponentType,
     <span class="doccomment">/// The components of this ActionRow.
-    </span><span class="attribute">#[serde(default)]
+    </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>components: Vec&lt;ActionRowComponent&gt;,
 }
 
 <span class="comment">// A component which can be inside of an [`ActionRow`].
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>ActionRowComponent {
     Button(Button),
@@ -296,10 +296,10 @@
 }
 
 <span class="doccomment">/// A button component.
-</span><span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 </span><span class="kw">pub struct </span>Button {
     <span class="doccomment">/// The component type, it will always be [`ComponentType::Button`].
-    </span><span class="attribute">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
+    </span><span class="attr">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
     </span><span class="kw">pub </span>kind: ComponentType,
     <span class="doccomment">/// The button style.
     </span><span class="kw">pub </span>style: ButtonStyle,
@@ -312,12 +312,12 @@
     <span class="doccomment">/// The url of the button, if there is one.
     </span><span class="kw">pub </span>url: <span class="prelude-ty">Option</span>&lt;String&gt;,
     <span class="doccomment">/// Whether the button is disabled.
-    </span><span class="attribute">#[serde(default)]
+    </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>disabled: bool,
 }
 
 <span class="doccomment">/// The style of a button.
-</span><span class="attribute">#[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, PartialOrd, Ord)]
+</span><span class="attr">#[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, PartialOrd, Ord)]
 #[non_exhaustive]
 #[repr(u8)]
 </span><span class="kw">pub enum </span>ButtonStyle {
@@ -338,10 +338,10 @@
 });
 
 <span class="doccomment">/// A select menu component.
-</span><span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 </span><span class="kw">pub struct </span>SelectMenu {
     <span class="doccomment">/// The component type, it will always be [`ComponentType::SelectMenu`].
-    </span><span class="attribute">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
+    </span><span class="attr">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
     </span><span class="kw">pub </span>kind: ComponentType,
     <span class="doccomment">/// The placeholder shown when nothing is selected.
     </span><span class="kw">pub </span>placeholder: <span class="prelude-ty">Option</span>&lt;String&gt;,
@@ -352,15 +352,15 @@
     <span class="doccomment">/// The maximum number of selections allowed.
     </span><span class="kw">pub </span>max_values: <span class="prelude-ty">Option</span>&lt;u64&gt;,
     <span class="doccomment">/// The options of this select menu.
-    </span><span class="attribute">#[serde(default)]
+    </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>options: Vec&lt;SelectMenuOption&gt;,
     <span class="doccomment">/// The result location for modals
-    </span><span class="attribute">#[serde(default)]
+    </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>values: Vec&lt;String&gt;,
 }
 
 <span class="doccomment">/// A select menu component options.
-</span><span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 </span><span class="kw">pub struct </span>SelectMenuOption {
     <span class="doccomment">/// The text displayed on this option.
     </span><span class="kw">pub </span>label: String,
@@ -371,15 +371,15 @@
     <span class="doccomment">/// The emoji displayed on this option.
     </span><span class="kw">pub </span>emoji: <span class="prelude-ty">Option</span>&lt;ReactionType&gt;,
     <span class="doccomment">/// Render this option as the default selection.
-    </span><span class="attribute">#[serde(default)]
+    </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>default: bool,
 }
 
 <span class="doccomment">/// An input text component for modal interactions
-</span><span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 </span><span class="kw">pub struct </span>InputText {
     <span class="doccomment">/// The component type, it will always be [`ComponentType::InputText`].
-    </span><span class="attribute">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
+    </span><span class="attr">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
     </span><span class="kw">pub </span>kind: ComponentType,
     <span class="doccomment">/// An identifier defined by the developer for the select menu.
     </span><span class="kw">pub </span>custom_id: String,
@@ -388,7 +388,7 @@
 }
 
 <span class="doccomment">/// The style of the input text
-</span><span class="attribute">#[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, PartialOrd, Ord)]
+</span><span class="attr">#[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, PartialOrd, Ord)]
 #[non_exhaustive]
 #[repr(u8)]
 </span><span class="kw">pub enum </span>InputTextStyle {
@@ -403,4 +403,4 @@
     Unknown
 });
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -3380,11 +3380,11 @@
 //! The FFI binding for this module are in the
 //! [encoding_c_mem crate](https://github.com/hsivonen/encoding_c_mem).
 
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span>alloc::borrow::Cow;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span>alloc::string::String;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span>alloc::vec::Vec;
 
 <span class="kw">use </span><span class="kw">super</span>::in_inclusive_range16;
@@ -3401,16 +3401,16 @@
 }
 
 <span class="macro">cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(feature = <span class="string">&quot;simd-accel&quot;</span>)] </span>{
+    <span class="kw">if </span><span class="attr">#[cfg(feature = <span class="string">&quot;simd-accel&quot;</span>)] </span>{
         <span class="kw">use </span>::core::intrinsics::likely;
         <span class="kw">use </span>::core::intrinsics::unlikely;
     } <span class="kw">else </span>{
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="comment">// Unsafe to match the intrinsic, which is needlessly unsafe.
         </span><span class="kw">unsafe fn </span>likely(b: bool) -&gt; bool {
             b
         }
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="comment">// Unsafe to match the intrinsic, which is needlessly unsafe.
         </span><span class="kw">unsafe fn </span>unlikely(b: bool) -&gt; bool {
             b
@@ -3421,7 +3421,7 @@
 <span class="doccomment">/// Classification of text as Latin1 (all code points are below U+0100),
 /// left-to-right with some non-Latin1 characters or as containing at least
 /// some right-to-left characters.
-</span><span class="attribute">#[must_use]
+</span><span class="attr">#[must_use]
 #[derive(Debug, PartialEq, Eq)]
 #[repr(C)]
 </span><span class="kw">pub enum </span>Latin1Bidi {
@@ -3435,13 +3435,13 @@
 }
 
 <span class="comment">// `as` truncates, so works on 32-bit, too.
-</span><span class="attribute">#[allow(dead_code)]
+</span><span class="attr">#[allow(dead_code)]
 </span><span class="kw">const </span>LATIN1_MASK: usize = <span class="number">0xFF00_FF00_FF00_FF00u64 </span><span class="kw">as </span>usize;
 
-<span class="attribute">#[allow(unused_macros)]
+<span class="attr">#[allow(unused_macros)]
 </span><span class="macro">macro_rules! </span>by_unit_check_alu {
     (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$unit</span>:ty, <span class="macro-nonterminal">$bound</span>:expr, <span class="macro-nonterminal">$mask</span>:ident) =&gt; {
-        <span class="attribute">#[cfg_attr(feature = <span class="string">&quot;cargo-clippy&quot;</span>, allow(cast_ptr_alignment))]
+        <span class="attr">#[cfg_attr(feature = <span class="string">&quot;cargo-clippy&quot;</span>, allow(cast_ptr_alignment))]
         #[inline(always)]
         </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>(buffer: <span class="kw-2">&amp;</span>[<span class="macro-nonterminal">$unit</span>]) -&gt; bool {
             <span class="kw">let </span><span class="kw-2">mut </span>offset = <span class="number">0usize</span>;
@@ -3511,10 +3511,10 @@
     };
 }
 
-<span class="attribute">#[allow(unused_macros)]
+<span class="attr">#[allow(unused_macros)]
 </span><span class="macro">macro_rules! </span>by_unit_check_simd {
     (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$unit</span>:ty, <span class="macro-nonterminal">$splat</span>:expr, <span class="macro-nonterminal">$simd_ty</span>:ty, <span class="macro-nonterminal">$bound</span>:expr, <span class="macro-nonterminal">$func</span>:ident) =&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>(buffer: <span class="kw-2">&amp;</span>[<span class="macro-nonterminal">$unit</span>]) -&gt; bool {
             <span class="kw">let </span><span class="kw-2">mut </span>offset = <span class="number">0usize</span>;
             <span class="kw">let </span><span class="kw-2">mut </span>accu = <span class="number">0usize</span>;
@@ -3590,7 +3590,7 @@
 }
 
 <span class="macro">cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;simd-accel&quot;</span>, any(target_feature = <span class="string">&quot;sse2&quot;</span>, all(target_endian = <span class="string">&quot;little&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>), all(target_endian = <span class="string">&quot;little&quot;</span>, target_feature = <span class="string">&quot;neon&quot;</span>))))] </span>{
+    <span class="kw">if </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;simd-accel&quot;</span>, any(target_feature = <span class="string">&quot;sse2&quot;</span>, all(target_endian = <span class="string">&quot;little&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>), all(target_endian = <span class="string">&quot;little&quot;</span>, target_feature = <span class="string">&quot;neon&quot;</span>))))] </span>{
         <span class="kw">use </span><span class="kw">crate</span>::simd_funcs::<span class="kw-2">*</span>;
         <span class="kw">use </span>packed_simd::u8x16;
         <span class="kw">use </span>packed_simd::u16x8;
@@ -3603,7 +3603,7 @@
         <span class="macro">by_unit_check_simd!</span>(is_basic_latin_impl, u16, u16x8::splat(<span class="number">0</span>), u16x8, <span class="number">0x80</span>, simd_is_basic_latin);
         <span class="macro">by_unit_check_simd!</span>(is_utf16_latin1_impl, u16, u16x8::splat(<span class="number">0</span>), u16x8, <span class="number">0x100</span>, simd_is_latin1);
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>utf16_valid_up_to_impl(buffer: <span class="kw-2">&amp;</span>[u16]) -&gt; usize {
             <span class="comment">// This function is a mess, because it simultaneously tries to do
             // only aligned SIMD (perhaps misguidedly) and needs to deal with
@@ -3667,7 +3667,7 @@
         <span class="macro">by_unit_check_alu!</span>(is_basic_latin_impl, u16, <span class="number">0x80</span>, BASIC_LATIN_MASK);
         <span class="macro">by_unit_check_alu!</span>(is_utf16_latin1_impl, u16, <span class="number">0x100</span>, LATIN1_MASK);
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>utf16_valid_up_to_impl(buffer: <span class="kw-2">&amp;</span>[u16]) -&gt; usize {
             <span class="kw">let </span>(up_to, <span class="kw">_</span>) = utf16_valid_up_to_alu(buffer);
             up_to
@@ -3677,7 +3677,7 @@
 
 <span class="doccomment">/// The second return value is true iff the last code unit of the slice was
 /// reached and turned out to be a low surrogate that is part of a valid pair.
-</span><span class="attribute">#[cfg_attr(feature = <span class="string">&quot;cargo-clippy&quot;</span>, allow(collapsible_if))]
+</span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;cargo-clippy&quot;</span>, allow(collapsible_if))]
 #[inline(always)]
 </span><span class="kw">fn </span>utf16_valid_up_to_alu(buffer: <span class="kw-2">&amp;</span>[u16]) -&gt; (usize, bool) {
     <span class="kw">let </span>len = buffer.len();
@@ -3722,8 +3722,8 @@
 }
 
 <span class="macro">cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;simd-accel&quot;</span>, any(target_feature = <span class="string">&quot;sse2&quot;</span>, all(target_endian = <span class="string">&quot;little&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>), all(target_endian = <span class="string">&quot;little&quot;</span>, target_feature = <span class="string">&quot;neon&quot;</span>))))] </span>{
-        <span class="attribute">#[inline(always)]
+    <span class="kw">if </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;simd-accel&quot;</span>, any(target_feature = <span class="string">&quot;sse2&quot;</span>, all(target_endian = <span class="string">&quot;little&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>), all(target_endian = <span class="string">&quot;little&quot;</span>, target_feature = <span class="string">&quot;neon&quot;</span>))))] </span>{
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>is_str_latin1_impl(buffer: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
             <span class="kw">let </span><span class="kw-2">mut </span>offset = <span class="number">0usize</span>;
             <span class="kw">let </span>bytes = buffer.as_bytes();
@@ -3764,7 +3764,7 @@
             <span class="prelude-val">None
         </span>}
     } <span class="kw">else </span>{
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>is_str_latin1_impl(buffer: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
             <span class="kw">let </span><span class="kw-2">mut </span>bytes = buffer.as_bytes();
             <span class="kw">let </span><span class="kw-2">mut </span>total = <span class="number">0</span>;
@@ -3784,7 +3784,7 @@
     }
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">fn </span>is_utf8_latin1_impl(buffer: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>bytes = buffer;
     <span class="kw">let </span><span class="kw-2">mut </span>total = <span class="number">0</span>;
@@ -3811,8 +3811,8 @@
 }
 
 <span class="macro">cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;simd-accel&quot;</span>, any(target_feature = <span class="string">&quot;sse2&quot;</span>, all(target_endian = <span class="string">&quot;little&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>), all(target_endian = <span class="string">&quot;little&quot;</span>, target_feature = <span class="string">&quot;neon&quot;</span>))))] </span>{
-        <span class="attribute">#[inline(always)]
+    <span class="kw">if </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;simd-accel&quot;</span>, any(target_feature = <span class="string">&quot;sse2&quot;</span>, all(target_endian = <span class="string">&quot;little&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>), all(target_endian = <span class="string">&quot;little&quot;</span>, target_feature = <span class="string">&quot;neon&quot;</span>))))] </span>{
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>is_utf16_bidi_impl(buffer: <span class="kw-2">&amp;</span>[u16]) -&gt; bool {
             <span class="kw">let </span><span class="kw-2">mut </span>offset = <span class="number">0usize</span>;
             <span class="kw">let </span>len = buffer.len();
@@ -3848,7 +3848,7 @@
             <span class="bool-val">false
         </span>}
     } <span class="kw">else </span>{
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>is_utf16_bidi_impl(buffer: <span class="kw-2">&amp;</span>[u16]) -&gt; bool {
             <span class="kw">for </span><span class="kw-2">&amp;</span>u <span class="kw">in </span>buffer {
                 <span class="kw">if </span>is_utf16_code_unit_bidi(u) {
@@ -3861,8 +3861,8 @@
 }
 
 <span class="macro">cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;simd-accel&quot;</span>, any(target_feature = <span class="string">&quot;sse2&quot;</span>, all(target_endian = <span class="string">&quot;little&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>), all(target_endian = <span class="string">&quot;little&quot;</span>, target_feature = <span class="string">&quot;neon&quot;</span>))))] </span>{
-        <span class="attribute">#[inline(always)]
+    <span class="kw">if </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;simd-accel&quot;</span>, any(target_feature = <span class="string">&quot;sse2&quot;</span>, all(target_endian = <span class="string">&quot;little&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>), all(target_endian = <span class="string">&quot;little&quot;</span>, target_feature = <span class="string">&quot;neon&quot;</span>))))] </span>{
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>check_utf16_for_latin1_and_bidi_impl(buffer: <span class="kw-2">&amp;</span>[u16]) -&gt; Latin1Bidi {
             <span class="kw">let </span><span class="kw-2">mut </span>offset = <span class="number">0usize</span>;
             <span class="kw">let </span>len = buffer.len();
@@ -3932,7 +3932,7 @@
             }
         }
     } <span class="kw">else </span>{
-        <span class="attribute">#[cfg_attr(feature = <span class="string">&quot;cargo-clippy&quot;</span>, allow(cast_ptr_alignment))]
+        <span class="attr">#[cfg_attr(feature = <span class="string">&quot;cargo-clippy&quot;</span>, allow(cast_ptr_alignment))]
         #[inline(always)]
         </span><span class="kw">fn </span>check_utf16_for_latin1_and_bidi_impl(buffer: <span class="kw-2">&amp;</span>[u16]) -&gt; Latin1Bidi {
             <span class="kw">let </span><span class="kw-2">mut </span>offset = <span class="number">0usize</span>;
@@ -4051,7 +4051,7 @@
 /// Returns `true` if the input is invalid UTF-8 or the input contains an
 /// RTL character. Returns `false` if the input is valid UTF-8 and contains
 /// no RTL characters.
-</span><span class="attribute">#[cfg_attr(feature = <span class="string">&quot;cargo-clippy&quot;</span>, allow(collapsible_if, cyclomatic_complexity))]
+</span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;cargo-clippy&quot;</span>, allow(collapsible_if, cyclomatic_complexity))]
 #[inline]
 </span><span class="kw">pub fn </span>is_utf8_bidi(buffer: <span class="kw-2">&amp;</span>[u8]) -&gt; bool {
     <span class="comment">// As of rustc 1.25.0-nightly (73ac5d6a8 2018-01-11), this is faster
@@ -4481,7 +4481,7 @@
 /// cause right-to-left behavior without the presence of right-to-left
 /// characters or right-to-left controls are not checked for. As a special
 /// case, U+FEFF is excluded from Arabic Presentation Forms-B.
-</span><span class="attribute">#[cfg_attr(feature = <span class="string">&quot;cargo-clippy&quot;</span>, allow(collapsible_if))]
+</span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;cargo-clippy&quot;</span>, allow(collapsible_if))]
 #[inline]
 </span><span class="kw">pub fn </span>is_str_bidi(buffer: <span class="kw-2">&amp;</span>str) -&gt; bool {
     <span class="comment">// U+058F: D6 8F
@@ -4657,7 +4657,7 @@
 /// cause right-to-left behavior without the presence of right-to-left
 /// characters or right-to-left controls are not checked for. As a special
 /// case, U+FEFF is excluded from Arabic Presentation Forms-B.
-</span><span class="attribute">#[inline(always)]
+</span><span class="attr">#[inline(always)]
 </span><span class="kw">pub fn </span>is_char_bidi(c: char) -&gt; bool {
     <span class="comment">// Controls:
     // Every control with RIGHT-TO-LEFT in its name in
@@ -4732,7 +4732,7 @@
 /// supplementary-plane text without decoding surrogate pairs to scalar
 /// values. Obviously, such high surrogates are then reported as right-to-left
 /// even if actually unpaired.
-</span><span class="attribute">#[inline(always)]
+</span><span class="attr">#[inline(always)]
 </span><span class="kw">pub fn </span>is_utf16_code_unit_bidi(u: u16) -&gt; bool {
     <span class="kw">if </span>u &lt; <span class="number">0x0590 </span>{
         <span class="comment">// Below Hebrew
@@ -5006,7 +5006,7 @@
 /// If you want to convert into a `&amp;mut str`, use
 /// `convert_utf16_to_str_partial()` instead of using this function
 /// together with the `unsafe` method `as_bytes_mut()` on `&amp;mut str`.
-</span><span class="attribute">#[inline(always)]
+</span><span class="attr">#[inline(always)]
 </span><span class="kw">pub fn </span>convert_utf16_to_utf8_partial(src: <span class="kw-2">&amp;</span>[u16], dst: <span class="kw-2">&amp;mut </span>[u8]) -&gt; (usize, usize) {
     <span class="comment">// The two functions called below are marked `inline(never)` to make
     // transitions from the hot part (first function) into the cold part
@@ -5041,7 +5041,7 @@
 /// If you want to convert into a `&amp;mut str`, use `convert_utf16_to_str()`
 /// instead of using this function together with the `unsafe` method
 /// `as_bytes_mut()` on `&amp;mut str`.
-</span><span class="attribute">#[inline(always)]
+</span><span class="attr">#[inline(always)]
 </span><span class="kw">pub fn </span>convert_utf16_to_utf8(src: <span class="kw-2">&amp;</span>[u16], dst: <span class="kw-2">&amp;mut </span>[u8]) -&gt; usize {
     <span class="macro">assert!</span>(dst.len() &gt;= src.len() * <span class="number">3</span>);
     <span class="kw">let </span>(read, written) = convert_utf16_to_utf8_partial(src, dst);
@@ -5086,7 +5086,7 @@
 /// # Panics
 ///
 /// Panics if the destination buffer is shorter than stated above.
-</span><span class="attribute">#[inline(always)]
+</span><span class="attr">#[inline(always)]
 </span><span class="kw">pub fn </span>convert_utf16_to_str(src: <span class="kw-2">&amp;</span>[u16], dst: <span class="kw-2">&amp;mut </span>str) -&gt; usize {
     <span class="macro">assert!</span>(dst.len() &gt;= src.len() * <span class="number">3</span>);
     <span class="kw">let </span>(read, written) = convert_utf16_to_str_partial(src, dst);
@@ -5186,7 +5186,7 @@
 /// indicated by the return value, so using a `&amp;mut str` interpreted as
 /// `&amp;mut [u8]` as the destination is not safe. If you want to convert into
 /// a `&amp;mut str`, use `convert_utf16_to_str()` instead of this function.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>convert_latin1_to_utf8(src: <span class="kw-2">&amp;</span>[u8], dst: <span class="kw-2">&amp;mut </span>[u8]) -&gt; usize {
     <span class="macro">assert!</span>(
         dst.len() &gt;= src.len() * <span class="number">2</span>,
@@ -5205,7 +5205,7 @@
 /// Returns the number of bytes read and the number of bytes written.
 ///
 /// If the output isn&#39;t large enough, not all input is consumed.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>convert_latin1_to_str_partial(src: <span class="kw-2">&amp;</span>[u8], dst: <span class="kw-2">&amp;mut </span>str) -&gt; (usize, usize) {
     <span class="kw">let </span>bytes: <span class="kw-2">&amp;mut </span>[u8] = <span class="kw">unsafe </span>{ dst.as_bytes_mut() };
     <span class="kw">let </span>(read, written) = convert_latin1_to_utf8_partial(src, bytes);
@@ -5235,7 +5235,7 @@
 /// # Panics
 ///
 /// Panics if the destination buffer is shorter than stated above.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>convert_latin1_to_str(src: <span class="kw-2">&amp;</span>[u8], dst: <span class="kw-2">&amp;mut </span>str) -&gt; usize {
     <span class="macro">assert!</span>(
         dst.len() &gt;= src.len() * <span class="number">2</span>,
@@ -5349,7 +5349,7 @@
 /// otherwise.
 ///
 /// Only available if the `alloc` feature is enabled (enabled by default).
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub fn </span>decode_latin1&lt;<span class="lifetime">&#39;a</span>&gt;(bytes: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]) -&gt; Cow&lt;<span class="lifetime">&#39;a</span>, str&gt; {
     <span class="kw">let </span>up_to = ascii_valid_up_to(bytes);
     <span class="comment">// &gt;= makes later things optimize better than ==
@@ -5386,7 +5386,7 @@
 /// otherwise.
 ///
 /// Only available if the `alloc` feature is enabled (enabled by default).
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub fn </span>encode_latin1_lossy&lt;<span class="lifetime">&#39;a</span>&gt;(string: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; Cow&lt;<span class="lifetime">&#39;a</span>, [u8]&gt; {
     <span class="kw">let </span>bytes = string.as_bytes();
     <span class="kw">let </span>up_to = ascii_valid_up_to(bytes);
@@ -5427,7 +5427,7 @@
 }
 
 <span class="doccomment">/// Replaces unpaired surrogates in the input with the REPLACEMENT CHARACTER.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>ensure_utf16_validity(buffer: <span class="kw-2">&amp;mut </span>[u16]) {
     <span class="kw">let </span><span class="kw-2">mut </span>offset = <span class="number">0</span>;
     <span class="kw">loop </span>{
@@ -5520,11 +5520,11 @@
 <span class="comment">// Any copyright to the test code below this comment is dedicated to the
 // Public Domain. http://creativecommons.org/publicdomain/zero/1.0/
 
-</span><span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
+</span><span class="attr">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_is_ascii_success() {
         <span class="kw">let </span><span class="kw-2">mut </span>src: Vec&lt;u8&gt; = Vec::with_capacity(<span class="number">128</span>);
         src.resize(<span class="number">128</span>, <span class="number">0</span>);
@@ -5536,7 +5536,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_is_ascii_fail() {
         <span class="kw">let </span><span class="kw-2">mut </span>src: Vec&lt;u8&gt; = Vec::with_capacity(<span class="number">128</span>);
         src.resize(<span class="number">128</span>, <span class="number">0</span>);
@@ -5552,7 +5552,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_is_basic_latin_success() {
         <span class="kw">let </span><span class="kw-2">mut </span>src: Vec&lt;u16&gt; = Vec::with_capacity(<span class="number">128</span>);
         src.resize(<span class="number">128</span>, <span class="number">0</span>);
@@ -5564,7 +5564,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_is_basic_latin_fail() {
         <span class="kw">let </span><span class="kw-2">mut </span>src: Vec&lt;u16&gt; = Vec::with_capacity(<span class="number">128</span>);
         src.resize(<span class="number">128</span>, <span class="number">0</span>);
@@ -5580,7 +5580,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_is_utf16_latin1_success() {
         <span class="kw">let </span><span class="kw-2">mut </span>src: Vec&lt;u16&gt; = Vec::with_capacity(<span class="number">256</span>);
         src.resize(<span class="number">256</span>, <span class="number">0</span>);
@@ -5596,7 +5596,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_is_utf16_latin1_fail() {
         <span class="kw">let </span>len = <span class="kw">if </span><span class="macro">cfg!</span>(miri) { <span class="number">64 </span>} <span class="kw">else </span>{ <span class="number">256 </span>}; <span class="comment">// Miri is too slow
         </span><span class="kw">let </span><span class="kw-2">mut </span>src: Vec&lt;u16&gt; = Vec::with_capacity(len);
@@ -5614,7 +5614,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_is_str_latin1_success() {
         <span class="kw">let </span>len = <span class="kw">if </span><span class="macro">cfg!</span>(miri) { <span class="number">64 </span>} <span class="kw">else </span>{ <span class="number">256 </span>}; <span class="comment">// Miri is too slow
         </span><span class="kw">let </span><span class="kw-2">mut </span>src: Vec&lt;u16&gt; = Vec::with_capacity(len);
@@ -5629,7 +5629,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_is_str_latin1_fail() {
         <span class="kw">let </span>len = <span class="kw">if </span><span class="macro">cfg!</span>(miri) { <span class="number">32 </span>} <span class="kw">else </span>{ <span class="number">256 </span>}; <span class="comment">// Miri is too slow
         </span><span class="kw">let </span><span class="kw-2">mut </span>src: Vec&lt;u16&gt; = Vec::with_capacity(len);
@@ -5648,7 +5648,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_is_utf8_latin1_success() {
         <span class="kw">let </span>len = <span class="kw">if </span><span class="macro">cfg!</span>(miri) { <span class="number">64 </span>} <span class="kw">else </span>{ <span class="number">256 </span>}; <span class="comment">// Miri is too slow
         </span><span class="kw">let </span><span class="kw-2">mut </span>src: Vec&lt;u16&gt; = Vec::with_capacity(len);
@@ -5666,7 +5666,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_is_utf8_latin1_fail() {
         <span class="kw">let </span>len = <span class="kw">if </span><span class="macro">cfg!</span>(miri) { <span class="number">32 </span>} <span class="kw">else </span>{ <span class="number">256 </span>}; <span class="comment">// Miri is too slow
         </span><span class="kw">let </span><span class="kw-2">mut </span>src: Vec&lt;u16&gt; = Vec::with_capacity(len);
@@ -5688,7 +5688,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_is_utf8_latin1_invalid() {
         <span class="macro">assert!</span>(!is_utf8_latin1(<span class="string">b&quot;\xC3&quot;</span>));
         <span class="macro">assert!</span>(!is_utf8_latin1(<span class="string">b&quot;a\xC3&quot;</span>));
@@ -5698,7 +5698,7 @@
         <span class="macro">assert!</span>(!is_utf8_latin1(<span class="string">b&quot;a\xC3\xFF&quot;</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_convert_utf8_to_utf16() {
         <span class="kw">let </span>src = <span class="string">&quot;abcdefghijklmnopqrstu\u{1F4A9}v\u{2603}w\u{00B6}xyzz&quot;</span>;
         <span class="kw">let </span><span class="kw-2">mut </span>dst: Vec&lt;u16&gt; = Vec::with_capacity(src.len() + <span class="number">1</span>);
@@ -5709,7 +5709,7 @@
         <span class="macro">assert_eq!</span>(dst, reference);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_convert_str_to_utf16() {
         <span class="kw">let </span>src = <span class="string">&quot;abcdefghijklmnopqrstu\u{1F4A9}v\u{2603}w\u{00B6}xyzz&quot;</span>;
         <span class="kw">let </span><span class="kw-2">mut </span>dst: Vec&lt;u16&gt; = Vec::with_capacity(src.len());
@@ -5720,7 +5720,7 @@
         <span class="macro">assert_eq!</span>(dst, reference);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_convert_utf16_to_utf8_partial() {
         <span class="kw">let </span>reference = <span class="string">&quot;abcdefghijklmnopqrstu\u{1F4A9}v\u{2603}w\u{00B6}xyzz&quot;</span>;
         <span class="kw">let </span>src: Vec&lt;u16&gt; = reference.encode_utf16().collect();
@@ -5732,7 +5732,7 @@
         <span class="macro">assert_eq!</span>(dst, reference.as_bytes());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_convert_utf16_to_utf8() {
         <span class="kw">let </span>reference = <span class="string">&quot;abcdefghijklmnopqrstu\u{1F4A9}v\u{2603}w\u{00B6}xyzz&quot;</span>;
         <span class="kw">let </span>src: Vec&lt;u16&gt; = reference.encode_utf16().collect();
@@ -5743,7 +5743,7 @@
         <span class="macro">assert_eq!</span>(dst, reference.as_bytes());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_convert_latin1_to_utf16() {
         <span class="kw">let </span><span class="kw-2">mut </span>src: Vec&lt;u8&gt; = Vec::with_capacity(<span class="number">256</span>);
         src.resize(<span class="number">256</span>, <span class="number">0</span>);
@@ -5759,7 +5759,7 @@
         <span class="macro">assert_eq!</span>(dst, reference);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_convert_latin1_to_utf8_partial() {
         <span class="kw">let </span><span class="kw-2">mut </span>dst = [<span class="number">0u8</span>, <span class="number">2</span>];
         <span class="kw">let </span>(read, written) = convert_latin1_to_utf8_partial(<span class="string">b&quot;a\xFF&quot;</span>, <span class="kw-2">&amp;mut </span>dst[..]);
@@ -5767,7 +5767,7 @@
         <span class="macro">assert_eq!</span>(written, <span class="number">1</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_convert_latin1_to_utf8() {
         <span class="kw">let </span><span class="kw-2">mut </span>src: Vec&lt;u8&gt; = Vec::with_capacity(<span class="number">256</span>);
         src.resize(<span class="number">256</span>, <span class="number">0</span>);
@@ -5785,7 +5785,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>dst[..], s.as_bytes());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_convert_utf8_to_latin1_lossy() {
         <span class="kw">let </span><span class="kw-2">mut </span>reference: Vec&lt;u8&gt; = Vec::with_capacity(<span class="number">256</span>);
         reference.resize(<span class="number">256</span>, <span class="number">0</span>);
@@ -5803,7 +5803,7 @@
         <span class="macro">assert_eq!</span>(dst, reference);
     }
 
-    <span class="attribute">#[cfg(all(debug_assertions, not(fuzzing)))]
+    <span class="attr">#[cfg(all(debug_assertions, not(fuzzing)))]
     #[test]
     #[should_panic]
     </span><span class="kw">fn </span>test_convert_utf8_to_latin1_lossy_panics() {
@@ -5811,7 +5811,7 @@
         <span class="kw">let _ </span>= convert_utf8_to_latin1_lossy(<span class="string">&quot;\u{100}&quot;</span>.as_bytes(), <span class="kw-2">&amp;mut </span>dst[..]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_convert_utf16_to_latin1_lossy() {
         <span class="kw">let </span><span class="kw-2">mut </span>src: Vec&lt;u16&gt; = Vec::with_capacity(<span class="number">256</span>);
         src.resize(<span class="number">256</span>, <span class="number">0</span>);
@@ -5827,14 +5827,14 @@
         <span class="macro">assert_eq!</span>(dst, reference);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="comment">// #[should_panic]
     </span><span class="kw">fn </span>test_convert_utf16_to_latin1_lossy_panics() {
         <span class="kw">let </span><span class="kw-2">mut </span>dst = [<span class="number">0u8</span>; <span class="number">16</span>];
         <span class="kw">let _ </span>= convert_utf16_to_latin1_lossy(<span class="kw-2">&amp;</span>[<span class="number">0x0100u16</span>], <span class="kw-2">&amp;mut </span>dst[..]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_utf16_valid_up_to() {
         <span class="kw">let </span>valid = <span class="macro">vec!</span>[
             <span class="number">0u16</span>, <span class="number">0u16</span>, <span class="number">0u16</span>, <span class="number">0u16</span>, <span class="number">0u16</span>, <span class="number">0u16</span>, <span class="number">0u16</span>, <span class="number">0u16</span>, <span class="number">0u16</span>, <span class="number">0u16</span>, <span class="number">0u16</span>, <span class="number">0u16</span>, <span class="number">0x2603u16</span>,
@@ -5858,7 +5858,7 @@
         <span class="macro">assert_eq!</span>(utf16_valid_up_to(<span class="kw-2">&amp;</span>lone_high_at_end[..]), <span class="number">15</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_ensure_utf16_validity() {
         <span class="kw">let </span><span class="kw-2">mut </span>src = <span class="macro">vec!</span>[
             <span class="number">0u16</span>, <span class="number">0xD83Du16</span>, <span class="number">0u16</span>, <span class="number">0u16</span>, <span class="number">0u16</span>, <span class="number">0xD83Du16</span>, <span class="number">0xDCA9u16</span>, <span class="number">0u16</span>, <span class="number">0u16</span>, <span class="number">0u16</span>, <span class="number">0u16</span>, <span class="number">0u16</span>,
@@ -5874,7 +5874,7 @@
         <span class="macro">assert_eq!</span>(src, reference);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_is_char_bidi() {
         <span class="macro">assert!</span>(!is_char_bidi(<span class="string">&#39;a&#39;</span>));
         <span class="macro">assert!</span>(!is_char_bidi(<span class="string">&#39;\u{03B1}&#39;</span>));
@@ -5900,7 +5900,7 @@
         <span class="macro">assert!</span>(is_char_bidi(<span class="string">&#39;\u{1EFFF}&#39;</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_is_utf16_code_unit_bidi() {
         <span class="macro">assert!</span>(!is_utf16_code_unit_bidi(<span class="number">0x0062</span>));
         <span class="macro">assert!</span>(!is_utf16_code_unit_bidi(<span class="number">0x03B1</span>));
@@ -5927,7 +5927,7 @@
         <span class="macro">assert!</span>(is_utf16_code_unit_bidi(<span class="number">0xD83B</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_is_str_bidi() {
         <span class="macro">assert!</span>(!is_str_bidi(<span class="string">&quot;abcdefghijklmnopaabcdefghijklmnop&quot;</span>));
         <span class="macro">assert!</span>(!is_str_bidi(<span class="string">&quot;abcdefghijklmnop\u{03B1}abcdefghijklmnop&quot;</span>));
@@ -5953,7 +5953,7 @@
         <span class="macro">assert!</span>(is_str_bidi(<span class="string">&quot;abcdefghijklmnop\u{1EFFF}abcdefghijklmnop&quot;</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_is_utf8_bidi() {
         <span class="macro">assert!</span>(!is_utf8_bidi(
             <span class="string">&quot;abcdefghijklmnopaabcdefghijklmnop&quot;</span>.as_bytes()
@@ -6023,7 +6023,7 @@
         ));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_is_utf16_bidi() {
         <span class="macro">assert!</span>(!is_utf16_bidi(<span class="kw-2">&amp;</span>[
             <span class="number">0x62</span>, <span class="number">0x63</span>, <span class="number">0x64</span>, <span class="number">0x65</span>, <span class="number">0x66</span>, <span class="number">0x67</span>, <span class="number">0x68</span>, <span class="number">0x69</span>, <span class="number">0x0062</span>, <span class="number">0x62</span>, <span class="number">0x63</span>, <span class="number">0x64</span>, <span class="number">0x65</span>, <span class="number">0x66</span>,
@@ -6124,7 +6124,7 @@
         ]));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_check_str_for_latin1_and_bidi() {
         <span class="macro">assert_ne!</span>(
             check_str_for_latin1_and_bidi(<span class="string">&quot;abcdefghijklmnopaabcdefghijklmnop&quot;</span>),
@@ -6216,7 +6216,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_check_utf8_for_latin1_and_bidi() {
         <span class="macro">assert_ne!</span>(
             check_utf8_for_latin1_and_bidi(<span class="string">&quot;abcdefghijklmnopaabcdefghijklmnop&quot;</span>.as_bytes()),
@@ -6308,7 +6308,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_check_utf16_for_latin1_and_bidi() {
         <span class="macro">assert_ne!</span>(
             check_utf16_for_latin1_and_bidi(<span class="kw-2">&amp;</span>[
@@ -6481,7 +6481,7 @@
         );
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>reference_is_char_bidi(c: char) -&gt; bool {
         <span class="kw">match </span>c {
             <span class="string">&#39;\u{0590}&#39;</span>..=<span class="string">&#39;\u{08FF}&#39;
@@ -6497,7 +6497,7 @@
         }
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>reference_is_utf16_code_unit_bidi(u: u16) -&gt; bool {
         <span class="kw">match </span>u {
             <span class="number">0x0590</span>..=<span class="number">0x08FF
@@ -6515,7 +6515,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(miri, ignore)] </span><span class="comment">// Miri is too slow
     </span><span class="kw">fn </span>test_is_char_bidi_thoroughly() {
         <span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..<span class="number">0xD800u32 </span>{
@@ -6528,7 +6528,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(miri, ignore)] </span><span class="comment">// Miri is too slow
     </span><span class="kw">fn </span>test_is_utf16_code_unit_bidi_thoroughly() {
         <span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..<span class="number">0x10000u32 </span>{
@@ -6540,7 +6540,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(miri, ignore)] </span><span class="comment">// Miri is too slow
     </span><span class="kw">fn </span>test_is_str_bidi_thoroughly() {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">4</span>];
@@ -6560,7 +6560,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(miri, ignore)] </span><span class="comment">// Miri is too slow
     </span><span class="kw">fn </span>test_is_utf8_bidi_thoroughly() {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">8</span>];
@@ -6602,7 +6602,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(miri, ignore)] </span><span class="comment">// Miri is too slow
     </span><span class="kw">fn </span>test_is_utf16_bidi_thoroughly() {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">32</span>];
@@ -6616,7 +6616,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_is_utf8_bidi_edge_cases() {
         <span class="macro">assert!</span>(!is_utf8_bidi(<span class="string">b&quot;\xD5\xBF\x61&quot;</span>));
         <span class="macro">assert!</span>(!is_utf8_bidi(<span class="string">b&quot;\xD6\x80\x61&quot;</span>));
@@ -6626,7 +6626,7 @@
         <span class="macro">assert!</span>(is_utf8_bidi(<span class="string">b&quot;ab\xC2&quot;</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_latin1() {
         <span class="kw">match </span>decode_latin1(<span class="string">b&quot;ab&quot;</span>) {
             Cow::Borrowed(s) =&gt; {
@@ -6639,7 +6639,7 @@
         <span class="macro">assert_eq!</span>(decode_latin1(<span class="string">b&quot;a\xE4&quot;</span>), <span class="string">&quot;a\u{E4}&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_encode_latin1_lossy() {
         <span class="kw">match </span>encode_latin1_lossy(<span class="string">&quot;ab&quot;</span>) {
             Cow::Borrowed(s) =&gt; {
@@ -6652,7 +6652,7 @@
         <span class="macro">assert_eq!</span>(encode_latin1_lossy(<span class="string">&quot;a\u{E4}&quot;</span>), <span class="kw-2">&amp;</span>(<span class="string">b&quot;a\xE4&quot;</span>)[..]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_convert_utf8_to_utf16_without_replacement() {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0u16</span>; <span class="number">5</span>];
         <span class="macro">assert_eq!</span>(
@@ -6711,4 +6711,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="encoding_rs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="encoding_rs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

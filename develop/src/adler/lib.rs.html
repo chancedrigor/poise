@@ -295,9 +295,9 @@
 //! - Decent performance (3-4 GB/s).
 //! - `#![no_std]` support (with `default-features = false`).
 
-</span><span class="attribute">#![doc(html_root_url = <span class="string">&quot;https://docs.rs/adler/1.0.2&quot;</span>)]
+</span><span class="attr">#![doc(html_root_url = <span class="string">&quot;https://docs.rs/adler/1.0.2&quot;</span>)]
 </span><span class="comment">// Deny a few warnings in doctests, since rustdoc `allow`s many warnings by default
-</span><span class="attribute">#![doc(test(attr(deny(unused_imports, unused_must_use))))]
+</span><span class="attr">#![doc(test(attr(deny(unused_imports, unused_must_use))))]
 #![cfg_attr(docsrs, feature(doc_cfg))]
 #![warn(missing_debug_implementations)]
 #![forbid(unsafe_code)]
@@ -310,7 +310,7 @@
 
 <span class="kw">use </span>std::hash::Hasher;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">use </span>std::io::{<span class="self">self</span>, BufRead};
 
 <span class="doccomment">/// Adler-32 checksum calculator.
@@ -370,7 +370,7 @@
 /// [`new`]: #method.new
 /// [`from_checksum`]: #method.from_checksum
 /// [`checksum`]: #method.checksum
-</span><span class="attribute">#[derive(Debug, Copy, Clone)]
+</span><span class="attr">#[derive(Debug, Copy, Clone)]
 </span><span class="kw">pub struct </span>Adler32 {
     a: u16,
     b: u16,
@@ -378,7 +378,7 @@
 
 <span class="kw">impl </span>Adler32 {
     <span class="doccomment">/// Creates a new Adler-32 instance with default state.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::default()
     }
@@ -408,7 +408,7 @@
     /// sum.write_slice(parts[1].as_bytes());
     /// assert_eq!(sum.checksum(), whole);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>from_checksum(sum: u32) -&gt; <span class="self">Self </span>{
         Adler32 {
             a: sum <span class="kw">as </span>u16,
@@ -417,7 +417,7 @@
     }
 
     <span class="doccomment">/// Returns the calculated checksum at this point in time.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>checksum(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         (u32::from(<span class="self">self</span>.b) &lt;&lt; <span class="number">16</span>) | u32::from(<span class="self">self</span>.a)
     }
@@ -432,14 +432,14 @@
 }
 
 <span class="kw">impl </span>Default <span class="kw">for </span>Adler32 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
         Adler32 { a: <span class="number">1</span>, b: <span class="number">0 </span>}
     }
 }
 
 <span class="kw">impl </span>Hasher <span class="kw">for </span>Adler32 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>finish(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u64 {
         u64::from(<span class="self">self</span>.checksum())
     }
@@ -488,7 +488,7 @@
 /// # Ok(()) }
 /// # fn main() { run().unwrap() }
 /// ```
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;std&quot;</span>)))]
 </span><span class="kw">pub fn </span>adler32&lt;R: BufRead&gt;(<span class="kw-2">mut </span>reader: R) -&gt; io::Result&lt;u32&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>h = Adler32::new();
@@ -506,11 +506,11 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>zeroes() {
         <span class="macro">assert_eq!</span>(adler32_slice(<span class="kw-2">&amp;</span>[]), <span class="number">1</span>);
         <span class="macro">assert_eq!</span>(adler32_slice(<span class="kw-2">&amp;</span>[<span class="number">0</span>]), <span class="number">1 </span>| <span class="number">1 </span>&lt;&lt; <span class="number">16</span>);
@@ -520,13 +520,13 @@
         <span class="macro">assert_eq!</span>(adler32_slice(<span class="kw-2">&amp;</span>[<span class="number">0</span>; <span class="number">1024 </span>* <span class="number">1024</span>]), <span class="number">0x00f00001</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>ones() {
         <span class="macro">assert_eq!</span>(adler32_slice(<span class="kw-2">&amp;</span>[<span class="number">0xff</span>; <span class="number">1024</span>]), <span class="number">0x79a6fc2e</span>);
         <span class="macro">assert_eq!</span>(adler32_slice(<span class="kw-2">&amp;</span>[<span class="number">0xff</span>; <span class="number">1024 </span>* <span class="number">1024</span>]), <span class="number">0x8e88ef11</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>mixed() {
         <span class="macro">assert_eq!</span>(adler32_slice(<span class="kw-2">&amp;</span>[<span class="number">1</span>]), <span class="number">2 </span>| <span class="number">2 </span>&lt;&lt; <span class="number">16</span>);
         <span class="macro">assert_eq!</span>(adler32_slice(<span class="kw-2">&amp;</span>[<span class="number">40</span>]), <span class="number">41 </span>| <span class="number">41 </span>&lt;&lt; <span class="number">16</span>);
@@ -535,12 +535,12 @@
     }
 
     <span class="doccomment">/// Example calculation from https://en.wikipedia.org/wiki/Adler-32.
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>wiki() {
         <span class="macro">assert_eq!</span>(adler32_slice(<span class="string">b&quot;Wikipedia&quot;</span>), <span class="number">0x11E60398</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>resume() {
         <span class="kw">let </span><span class="kw-2">mut </span>adler = Adler32::new();
         adler.write_slice(<span class="kw-2">&amp;</span>[<span class="number">0xff</span>; <span class="number">1024</span>]);
@@ -555,7 +555,7 @@
         <span class="macro">assert_eq!</span>(adler.checksum(), <span class="number">0x8e88ef11</span>); <span class="comment">// from above
     </span>}
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     #[test]
     </span><span class="kw">fn </span>bufread() {
         <span class="kw">use </span>std::io::BufReader;
@@ -573,4 +573,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="adler" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="adler" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

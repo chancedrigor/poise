@@ -1149,7 +1149,7 @@
 <span class="kw">use </span>alloc::{borrow::Borrow, boxed::Box, string::String, vec::Vec};
 
 <span class="kw">use </span><span class="kw">crate</span>::buf::IntoIter;
-<span class="attribute">#[allow(unused)]
+<span class="attr">#[allow(unused)]
 </span><span class="kw">use </span><span class="kw">crate</span>::loom::sync::atomic::AtomicMut;
 <span class="kw">use </span><span class="kw">crate</span>::loom::sync::atomic::{<span class="self">self</span>, AtomicPtr, AtomicUsize, Ordering};
 <span class="kw">use </span><span class="kw">crate</span>::Buf;
@@ -1263,7 +1263,7 @@
     /// let b = Bytes::new();
     /// assert_eq!(&amp;b[..], b&quot;&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[cfg(not(all(loom, test)))]
     </span><span class="kw">pub const fn </span>new() -&gt; Bytes {
         <span class="comment">// Make it a named const to work around
@@ -1272,7 +1272,7 @@
         Bytes::from_static(EMPTY)
     }
 
-    <span class="attribute">#[cfg(all(loom, test))]
+    <span class="attr">#[cfg(all(loom, test))]
     </span><span class="kw">pub fn </span>new() -&gt; Bytes {
         <span class="kw">const </span>EMPTY: <span class="kw-2">&amp;</span>[u8] = <span class="kw-2">&amp;</span>[];
         Bytes::from_static(EMPTY)
@@ -1291,7 +1291,7 @@
     /// let b = Bytes::from_static(b&quot;hello&quot;);
     /// assert_eq!(&amp;b[..], b&quot;hello&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[cfg(not(all(loom, test)))]
     </span><span class="kw">pub const fn </span>from_static(bytes: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[u8]) -&gt; Bytes {
         Bytes {
@@ -1302,7 +1302,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(all(loom, test))]
+    <span class="attr">#[cfg(all(loom, test))]
     </span><span class="kw">pub fn </span>from_static(bytes: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[u8]) -&gt; Bytes {
         Bytes {
             ptr: bytes.as_ptr(),
@@ -1322,7 +1322,7 @@
     /// let b = Bytes::from(&amp;b&quot;hello&quot;[..]);
     /// assert_eq!(b.len(), 5);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.len
     }
@@ -1337,7 +1337,7 @@
     /// let b = Bytes::new();
     /// assert!(b.is_empty());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_empty(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.len == <span class="number">0
     </span>}
@@ -1492,7 +1492,7 @@
     /// # Panics
     ///
     /// Panics if `at &gt; len`.
-    </span><span class="attribute">#[must_use = <span class="string">&quot;consider Bytes::truncate if you don&#39;t need the other half&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;consider Bytes::truncate if you don&#39;t need the other half&quot;</span>]
     </span><span class="kw">pub fn </span>split_off(<span class="kw-2">&amp;mut </span><span class="self">self</span>, at: usize) -&gt; Bytes {
         <span class="macro">assert!</span>(
             at &lt;= <span class="self">self</span>.len(),
@@ -1541,7 +1541,7 @@
     /// # Panics
     ///
     /// Panics if `at &gt; len`.
-    </span><span class="attribute">#[must_use = <span class="string">&quot;consider Bytes::advance if you don&#39;t need the other half&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;consider Bytes::advance if you don&#39;t need the other half&quot;</span>]
     </span><span class="kw">pub fn </span>split_to(<span class="kw-2">&amp;mut </span><span class="self">self</span>, at: usize) -&gt; Bytes {
         <span class="macro">assert!</span>(
             at &lt;= <span class="self">self</span>.len(),
@@ -1586,7 +1586,7 @@
     /// ```
     ///
     /// [`split_off`]: #method.split_off
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>truncate(<span class="kw-2">&amp;mut </span><span class="self">self</span>, len: usize) {
         <span class="kw">if </span>len &lt; <span class="self">self</span>.len {
             <span class="comment">// The Vec &quot;promotable&quot; vtables do not store the capacity,
@@ -1613,12 +1613,12 @@
     /// buf.clear();
     /// assert!(buf.is_empty());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>clear(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.truncate(<span class="number">0</span>);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">unsafe fn </span>with_vtable(
         ptr: <span class="kw-2">*const </span>u8,
         len: usize,
@@ -1635,12 +1635,12 @@
 
     <span class="comment">// private
 
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>as_slice(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8] {
         <span class="kw">unsafe </span>{ slice::from_raw_parts(<span class="self">self</span>.ptr, <span class="self">self</span>.len) }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>inc_start(<span class="kw-2">&amp;mut </span><span class="self">self</span>, by: usize) {
         <span class="comment">// should already be asserted, but debug assert for tests
         </span><span class="macro">debug_assert!</span>(<span class="self">self</span>.len &gt;= by, <span class="string">&quot;internal: inc_start out of bounds&quot;</span>);
@@ -1654,31 +1654,31 @@
 <span class="kw">unsafe impl </span>Sync <span class="kw">for </span>Bytes {}
 
 <span class="kw">impl </span>Drop <span class="kw">for </span>Bytes {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{ (<span class="self">self</span>.vtable.drop)(<span class="kw-2">&amp;mut </span><span class="self">self</span>.data, <span class="self">self</span>.ptr, <span class="self">self</span>.len) }
     }
 }
 
 <span class="kw">impl </span>Clone <span class="kw">for </span>Bytes {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Bytes {
         <span class="kw">unsafe </span>{ (<span class="self">self</span>.vtable.clone)(<span class="kw-2">&amp;</span><span class="self">self</span>.data, <span class="self">self</span>.ptr, <span class="self">self</span>.len) }
     }
 }
 
 <span class="kw">impl </span>Buf <span class="kw">for </span>Bytes {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>remaining(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.len()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>chunk(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8] {
         <span class="self">self</span>.as_slice()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>advance(<span class="kw-2">&amp;mut </span><span class="self">self</span>, cnt: usize) {
         <span class="macro">assert!</span>(
             cnt &lt;= <span class="self">self</span>.len(),
@@ -1706,14 +1706,14 @@
 <span class="kw">impl </span>Deref <span class="kw">for </span>Bytes {
     <span class="kw">type </span>Target = [u8];
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>deref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8] {
         <span class="self">self</span>.as_slice()
     }
 }
 
 <span class="kw">impl </span>AsRef&lt;[u8]&gt; <span class="kw">for </span>Bytes {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>as_ref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8] {
         <span class="self">self</span>.as_slice()
     }
@@ -1921,7 +1921,7 @@
 <span class="comment">// impl From
 
 </span><span class="kw">impl </span>Default <span class="kw">for </span>Bytes {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>default() -&gt; Bytes {
         Bytes::new()
     }
@@ -2131,7 +2131,7 @@
     }
 }
 
-<span class="attribute">#[cold]
+<span class="attr">#[cold]
 </span><span class="kw">unsafe fn </span>shallow_clone_vec(
     atom: <span class="kw-2">&amp;</span>AtomicPtr&lt;()&gt;,
     ptr: <span class="kw-2">*const </span>(),
@@ -2255,13 +2255,13 @@
 </span><span class="kw">fn </span>_split_off_must_use() {}
 
 <span class="comment">// fuzz tests
-</span><span class="attribute">#[cfg(all(test, loom))]
+</span><span class="attr">#[cfg(all(test, loom))]
 </span><span class="kw">mod </span>fuzz {
     <span class="kw">use </span>loom::sync::Arc;
     <span class="kw">use </span>loom::thread;
 
     <span class="kw">use </span><span class="kw">super</span>::Bytes;
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>bytes_cloning_vec() {
         loom::model(|| {
             <span class="kw">let </span>a = Bytes::from(<span class="string">b&quot;abcdefgh&quot;</span>.to_vec());
@@ -2287,4 +2287,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="bytes" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="bytes" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

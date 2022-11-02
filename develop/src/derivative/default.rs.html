@@ -205,10 +205,10 @@
 
     <span class="kw">let </span>new_fn = <span class="kw">if </span>default.new {
         <span class="prelude-val">Some</span>(<span class="macro">quote!</span>(
-            <span class="attribute">#[allow(unused_qualifications)]
+            <span class="attr">#[allow(unused_qualifications)]
             </span><span class="kw">impl </span>#impl_generics #name #ty_generics #where_clause {
                 <span class="doccomment">/// Creates a default value for this type.
-                </span><span class="attribute">#[inline]
+                </span><span class="attr">#[inline]
                 </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
                     &lt;<span class="self">Self </span><span class="kw">as </span>#default_trait_path&gt;::default()
                 }
@@ -221,7 +221,7 @@
     <span class="macro">quote!</span>(
         #new_fn
 
-        <span class="attribute">#[allow(unused_qualifications)]
+        <span class="attr">#[allow(unused_qualifications)]
         </span><span class="kw">impl </span>#impl_generics #default_trait_path <span class="kw">for </span>#name #ty_generics #where_clause {
             <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
                 #body
@@ -239,4 +239,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="derivative" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="derivative" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

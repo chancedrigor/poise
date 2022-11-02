@@ -441,7 +441,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::utf8::{decode_last_utf8, decode_utf8};
 
 <span class="doccomment">/// Represents a location in the input.
-</span><span class="attribute">#[derive(Clone, Copy, Debug)]
+</span><span class="attr">#[derive(Clone, Copy, Debug)]
 </span><span class="kw">pub struct </span>InputAt {
     pos: usize,
     c: Char,
@@ -568,7 +568,7 @@
 }
 
 <span class="doccomment">/// An input reader over characters.
-</span><span class="attribute">#[derive(Clone, Copy, Debug)]
+</span><span class="attr">#[derive(Clone, Copy, Debug)]
 </span><span class="kw">pub struct </span>CharInput&lt;<span class="lifetime">&#39;t</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;t </span>[u8]);
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;t</span>&gt; CharInput&lt;<span class="lifetime">&#39;t</span>&gt; {
@@ -654,7 +654,7 @@
 }
 
 <span class="doccomment">/// An input reader over bytes.
-</span><span class="attribute">#[derive(Clone, Copy, Debug)]
+</span><span class="attr">#[derive(Clone, Copy, Debug)]
 </span><span class="kw">pub struct </span>ByteInput&lt;<span class="lifetime">&#39;t</span>&gt; {
     text: <span class="kw-2">&amp;</span><span class="lifetime">&#39;t </span>[u8],
     only_utf8: bool,
@@ -774,7 +774,7 @@
 /// (The `Option&lt;char&gt;` is not related to encoding. Instead, it is used in the
 /// matching engines to represent the beginning and ending boundaries of the
 /// search text.)
-</span><span class="attribute">#[derive(Clone, Copy, Hash, PartialEq, Eq, PartialOrd, Ord)]
+</span><span class="attr">#[derive(Clone, Copy, Hash, PartialEq, Eq, PartialOrd, Ord)]
 </span><span class="kw">pub struct </span>Char(u32);
 
 <span class="kw">impl </span>fmt::Debug <span class="kw">for </span>Char {
@@ -788,7 +788,7 @@
 
 <span class="kw">impl </span>Char {
     <span class="doccomment">/// Returns true iff the character is absent.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_none(<span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.<span class="number">0 </span>== u32::MAX
     }
@@ -796,7 +796,7 @@
     <span class="doccomment">/// Returns the length of the character&#39;s UTF-8 encoding.
     ///
     /// If the character is absent, then `1` is returned.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>len_utf8(<span class="self">self</span>) -&gt; usize {
         char::from_u32(<span class="self">self</span>.<span class="number">0</span>).map_or(<span class="number">1</span>, |c| c.len_utf8())
     }
@@ -836,31 +836,31 @@
 }
 
 <span class="kw">impl </span>PartialEq&lt;char&gt; <span class="kw">for </span>Char {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>char) -&gt; bool {
         <span class="self">self</span>.<span class="number">0 </span>== <span class="kw-2">*</span>other <span class="kw">as </span>u32
     }
 }
 
 <span class="kw">impl </span>PartialEq&lt;Char&gt; <span class="kw">for </span>char {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Char) -&gt; bool {
         <span class="kw-2">*</span><span class="self">self </span><span class="kw">as </span>u32 == other.<span class="number">0
     </span>}
 }
 
 <span class="kw">impl </span>PartialOrd&lt;char&gt; <span class="kw">for </span>Char {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>char) -&gt; <span class="prelude-ty">Option</span>&lt;Ordering&gt; {
         <span class="self">self</span>.<span class="number">0</span>.partial_cmp(<span class="kw-2">&amp;</span>(<span class="kw-2">*</span>other <span class="kw">as </span>u32))
     }
 }
 
 <span class="kw">impl </span>PartialOrd&lt;Char&gt; <span class="kw">for </span>char {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Char) -&gt; <span class="prelude-ty">Option</span>&lt;Ordering&gt; {
         (<span class="kw-2">*</span><span class="self">self </span><span class="kw">as </span>u32).partial_cmp(<span class="kw-2">&amp;</span>other.<span class="number">0</span>)
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="regex" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="regex" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

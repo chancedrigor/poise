@@ -186,11 +186,11 @@
 
 <span class="macro">macro_rules! </span>define_endian {
     (<span class="macro-nonterminal">$endian</span>:ident) =&gt; {
-        <span class="attribute">#[repr(transparent)]
+        <span class="attr">#[repr(transparent)]
         </span><span class="kw">pub struct </span><span class="macro-nonterminal">$endian</span>&lt;T&gt;(T);
 
         <span class="kw">impl</span>&lt;T&gt; <span class="macro-nonterminal">$endian</span>&lt;T&gt; {
-            <span class="attribute">#[deprecated]
+            <span class="attr">#[deprecated]
             </span><span class="kw">pub fn </span>into_raw_value(<span class="self">self</span>) -&gt; T {
                 <span class="self">self</span>.<span class="number">0
             </span>}
@@ -247,35 +247,35 @@
         }
 
         <span class="kw">impl </span>From&lt;[u8; <span class="macro-nonterminal">$size</span>]&gt; <span class="kw">for </span><span class="macro-nonterminal">$endian</span>&lt;<span class="macro-nonterminal">$base</span>&gt; {
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>from(bytes: [u8; <span class="macro-nonterminal">$size</span>]) -&gt; <span class="self">Self </span>{
                 <span class="self">Self</span>(<span class="macro-nonterminal">$base::from_ne_bytes</span>(bytes))
             }
         }
 
         <span class="kw">impl </span>From&lt;<span class="macro-nonterminal">$endian</span>&lt;<span class="macro-nonterminal">$base</span>&gt;&gt; <span class="kw">for </span>[u8; <span class="macro-nonterminal">$size</span>] {
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>from(encoded: <span class="macro-nonterminal">$endian</span>&lt;<span class="macro-nonterminal">$base</span>&gt;) -&gt; <span class="self">Self </span>{
                 <span class="macro-nonterminal">$base::to_ne_bytes</span>(encoded.<span class="number">0</span>)
             }
         }
 
         <span class="kw">impl </span>From&lt;<span class="macro-nonterminal">$base</span>&gt; <span class="kw">for </span><span class="macro-nonterminal">$endian</span>&lt;<span class="macro-nonterminal">$base</span>&gt; {
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>from(value: <span class="macro-nonterminal">$base</span>) -&gt; <span class="self">Self </span>{
                 <span class="self">Self</span>(<span class="macro-nonterminal">$base</span>::<span class="macro-nonterminal">$to_endian</span>(value))
             }
         }
 
         <span class="kw">impl </span>From&lt;Wrapping&lt;<span class="macro-nonterminal">$base</span>&gt;&gt; <span class="kw">for </span><span class="macro-nonterminal">$endian</span>&lt;<span class="macro-nonterminal">$base</span>&gt; {
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>from(Wrapping(value): Wrapping&lt;<span class="macro-nonterminal">$base</span>&gt;) -&gt; <span class="self">Self </span>{
                 <span class="self">Self</span>(<span class="macro-nonterminal">$base</span>::<span class="macro-nonterminal">$to_endian</span>(value))
             }
         }
 
         <span class="kw">impl </span>From&lt;<span class="macro-nonterminal">$endian</span>&lt;<span class="macro-nonterminal">$base</span>&gt;&gt; <span class="kw">for </span><span class="macro-nonterminal">$base </span>{
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>from(<span class="macro-nonterminal">$endian</span>(value): <span class="macro-nonterminal">$endian</span>&lt;<span class="macro-nonterminal">$base</span>&gt;) -&gt; <span class="self">Self </span>{
                 <span class="macro-nonterminal">$base</span>::<span class="macro-nonterminal">$from_endian</span>(value)
             }
@@ -296,15 +296,15 @@
 <span class="macro">impl_endian!</span>(LittleEndian, u32, to_le, from_le, <span class="number">4</span>);
 <span class="macro">impl_endian!</span>(LittleEndian, u64, to_le, from_le, <span class="number">8</span>);
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_big_endian() {
         <span class="kw">let </span>x = BigEndian::from(<span class="number">1u32</span>);
         <span class="macro">assert_eq!</span>(u32::from(x), <span class="number">1</span>);
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

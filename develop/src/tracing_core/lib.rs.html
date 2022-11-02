@@ -421,7 +421,7 @@
 //! [`Dispatch`]: dispatcher/struct.Dispatch.html
 //! [`tokio-rs/tracing`]: https://github.com/tokio-rs/tracing
 //! [`tracing`]: https://crates.io/crates/tracing
-</span><span class="attribute">#![doc(html_root_url = <span class="string">&quot;https://docs.rs/tracing-core/0.1.22&quot;</span>)]
+</span><span class="attr">#![doc(html_root_url = <span class="string">&quot;https://docs.rs/tracing-core/0.1.22&quot;</span>)]
 #![doc(
     html_logo_url = <span class="string">&quot;https://raw.githubusercontent.com/tokio-rs/tracing/master/assets/logo-type.png&quot;</span>,
     issue_tracker_base_url = <span class="string">&quot;https://github.com/tokio-rs/tracing/issues/&quot;
@@ -483,7 +483,7 @@
 /// [`Identifier`]: callsite/struct.Identifier.html
 /// [`Callsite`]: callsite/trait.Callsite.html
 /// [`Callsite::id`]: callsite/trait.Callsite.html#method.id
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>identify_callsite {
     (<span class="macro-nonterminal">$callsite</span>:expr) =&gt; {
         <span class="macro-nonterminal">$crate::callsite::Identifier</span>(<span class="macro-nonterminal">$callsite</span>)
@@ -521,7 +521,7 @@
 ///
 /// [metadata]: metadata/struct.Metadata.html
 /// [`Metadata::new`]: metadata/struct.Metadata.html#method.new
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>metadata {
     (
         name: <span class="macro-nonterminal">$name</span>:expr,
@@ -562,24 +562,24 @@
 }
 
 <span class="comment">// when `std` is enabled, use the `lazy_static` crate from crates.io
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>lazy_static::lazy_static;
 
 <span class="comment">// Facade module: `no_std` uses spinlocks, `std` uses the mutexes in the standard library
-</span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
+</span><span class="attr">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
 #[macro_use]
 </span><span class="kw">mod </span>lazy_static;
 
 <span class="comment">// Trimmed-down vendored version of spin 0.5.2 (0387621)
 // Dependency of no_std lazy_static, not required in a std build
-</span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
+</span><span class="attr">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>spin;
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
 #[doc(hidden)]
 </span><span class="kw">pub type </span>Once = <span class="self">self</span>::spin::Once&lt;()&gt;;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">pub use </span>stdlib::sync::Once;
 
 <span class="kw">pub mod </span>callsite;
@@ -592,7 +592,7 @@
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>stdlib;
 <span class="kw">pub mod </span>subscriber;
 
-<span class="attribute">#[doc(inline)]
+<span class="attr">#[doc(inline)]
 </span><span class="kw">pub use </span><span class="self">self</span>::{
     callsite::Callsite,
     dispatcher::Dispatch,
@@ -608,4 +608,4 @@
     <span class="kw">pub trait </span>Sealed {}
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

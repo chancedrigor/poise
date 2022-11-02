@@ -1477,7 +1477,7 @@
 <span class="kw">use </span><span class="kw">super</span>::pool::{
     <span class="self">self</span>, CheckoutIsClosedError, Key <span class="kw">as </span>PoolKey, Pool, Poolable, Pooled, Reservation,
 };
-<span class="attribute">#[cfg(feature = <span class="string">&quot;tcp&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;tcp&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">super</span>::HttpConnector;
 <span class="kw">use </span><span class="kw">crate</span>::body::{Body, HttpBody};
 <span class="kw">use </span><span class="kw">crate</span>::common::{exec::BoxSendFuture, sync_wrapper::SyncWrapper, lazy <span class="kw">as </span>hyper_lazy, task, Future, Lazy, Pin, Poll};
@@ -1487,7 +1487,7 @@
 ///
 /// `Client` is cheap to clone and cloning is the recommended way to share a `Client`. The
 /// underlying connection pool will be reused.
-</span><span class="attribute">#[cfg_attr(docsrs, doc(cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))))]
+</span><span class="attr">#[cfg_attr(docsrs, doc(cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))))]
 </span><span class="kw">pub struct </span>Client&lt;C, B = Body&gt; {
     config: Config,
     conn_builder: conn::Builder,
@@ -1495,7 +1495,7 @@
     pool: Pool&lt;PoolClient&lt;B&gt;&gt;,
 }
 
-<span class="attribute">#[derive(Clone, Copy, Debug)]
+<span class="attr">#[derive(Clone, Copy, Debug)]
 </span><span class="kw">struct </span>Config {
     retry_canceled_requests: bool,
     set_host: bool,
@@ -1505,14 +1505,14 @@
 <span class="doccomment">/// A `Future` that will resolve to an HTTP Response.
 ///
 /// This is returned by `Client::request` (and `Client::get`).
-</span><span class="attribute">#[must_use = <span class="string">&quot;futures do nothing unless polled&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;futures do nothing unless polled&quot;</span>]
 </span><span class="kw">pub struct </span>ResponseFuture {
     inner: SyncWrapper&lt;Pin&lt;Box&lt;<span class="kw">dyn </span>Future&lt;Output = <span class="kw">crate</span>::Result&lt;Response&lt;Body&gt;&gt;&gt; + Send&gt;&gt;&gt;,
 }
 
 <span class="comment">// ===== impl Client =====
 
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;tcp&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;tcp&quot;</span>)]
 </span><span class="kw">impl </span>Client&lt;HttpConnector, Body&gt; {
     <span class="doccomment">/// Create a new Client with the default [config](Builder).
     ///
@@ -1521,14 +1521,14 @@
     /// The default connector does **not** handle TLS. Speaking to `https`
     /// destinations will require [configuring a connector that implements
     /// TLS](https://hyper.rs/guides/client/configuration).
-    </span><span class="attribute">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;tcp&quot;</span>)))]
+    </span><span class="attr">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;tcp&quot;</span>)))]
     #[inline]
     </span><span class="kw">pub fn </span>new() -&gt; Client&lt;HttpConnector, Body&gt; {
         Builder::default().build_http()
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;tcp&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;tcp&quot;</span>)]
 </span><span class="kw">impl </span>Default <span class="kw">for </span>Client&lt;HttpConnector, Body&gt; {
     <span class="kw">fn </span>default() -&gt; Client&lt;HttpConnector, Body&gt; {
         Client::new()
@@ -1555,7 +1555,7 @@
     /// # }
     /// # fn main() {}
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>builder() -&gt; Builder {
         Builder::default()
     }
@@ -1887,9 +1887,9 @@
     ) -&gt; <span class="kw">impl </span>Lazy&lt;Output = <span class="kw">crate</span>::Result&lt;Pooled&lt;PoolClient&lt;B&gt;&gt;&gt;&gt; + Unpin {
         <span class="kw">let </span>executor = <span class="self">self</span>.conn_builder.exec.clone();
         <span class="kw">let </span>pool = <span class="self">self</span>.pool.clone();
-        <span class="attribute">#[cfg(not(feature = <span class="string">&quot;http2&quot;</span>))]
+        <span class="attr">#[cfg(not(feature = <span class="string">&quot;http2&quot;</span>))]
         </span><span class="kw">let </span>conn_builder = <span class="self">self</span>.conn_builder.clone();
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
         </span><span class="kw">let </span><span class="kw-2">mut </span>conn_builder = <span class="self">self</span>.conn_builder.clone();
         <span class="kw">let </span>ver = <span class="self">self</span>.config.ver;
         <span class="kw">let </span>is_ver_h2 = ver == Ver::Http2;
@@ -1936,9 +1936,9 @@
                             connecting
                         };
 
-                        <span class="attribute">#[cfg_attr(not(feature = <span class="string">&quot;http2&quot;</span>), allow(unused))]
+                        <span class="attr">#[cfg_attr(not(feature = <span class="string">&quot;http2&quot;</span>), allow(unused))]
                         </span><span class="kw">let </span>is_h2 = is_ver_h2 || connected.alpn == Alpn::H2;
-                        <span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+                        <span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
                         </span>{
                             conn_builder.http2_only(is_h2);
                         }
@@ -1957,7 +1957,7 @@
                             </span><span class="kw">let </span>tx = tx.when_ready().<span class="kw">await</span><span class="question-mark">?</span>;
 
                             <span class="kw">let </span>tx = {
-                                <span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+                                <span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
                                 </span>{
                                     <span class="kw">if </span>is_h2 {
                                         PoolTx::Http2(tx.into_http2())
@@ -1965,7 +1965,7 @@
                                         PoolTx::Http1(tx)
                                     }
                                 }
-                                <span class="attribute">#[cfg(not(feature = <span class="string">&quot;http2&quot;</span>))]
+                                <span class="attr">#[cfg(not(feature = <span class="string">&quot;http2&quot;</span>))]
                                 </span>PoolTx::Http1(tx)
                             };
 
@@ -2077,7 +2077,7 @@
 <span class="comment">// ===== impl PoolClient =====
 
 // FIXME: allow() required due to `impl Trait` leaking types to this lint
-</span><span class="attribute">#[allow(missing_debug_implementations)]
+</span><span class="attr">#[allow(missing_debug_implementations)]
 </span><span class="kw">struct </span>PoolClient&lt;B&gt; {
     conn_info: Connected,
     tx: PoolTx&lt;B&gt;,
@@ -2085,7 +2085,7 @@
 
 <span class="kw">enum </span>PoolTx&lt;B&gt; {
     Http1(conn::SendRequest&lt;B&gt;),
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
     </span>Http2(conn::Http2SendRequest&lt;B&gt;),
 }
 
@@ -2093,7 +2093,7 @@
     <span class="kw">fn </span>poll_ready(<span class="kw-2">&amp;mut </span><span class="self">self</span>, cx: <span class="kw-2">&amp;mut </span>task::Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;<span class="kw">crate</span>::Result&lt;()&gt;&gt; {
         <span class="kw">match </span><span class="self">self</span>.tx {
             PoolTx::Http1(<span class="kw-2">ref mut </span>tx) =&gt; tx.poll_ready(cx),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
             </span>PoolTx::Http2(<span class="kw">_</span>) =&gt; Poll::Ready(<span class="prelude-val">Ok</span>(())),
         }
     }
@@ -2105,7 +2105,7 @@
     <span class="kw">fn </span>is_http2(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">match </span><span class="self">self</span>.tx {
             PoolTx::Http1(<span class="kw">_</span>) =&gt; <span class="bool-val">false</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
             </span>PoolTx::Http2(<span class="kw">_</span>) =&gt; <span class="bool-val">true</span>,
         }
     }
@@ -2113,7 +2113,7 @@
     <span class="kw">fn </span>is_ready(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">match </span><span class="self">self</span>.tx {
             PoolTx::Http1(<span class="kw-2">ref </span>tx) =&gt; tx.is_ready(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
             </span>PoolTx::Http2(<span class="kw-2">ref </span>tx) =&gt; tx.is_ready(),
         }
     }
@@ -2121,7 +2121,7 @@
     <span class="kw">fn </span>is_closed(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">match </span><span class="self">self</span>.tx {
             PoolTx::Http1(<span class="kw-2">ref </span>tx) =&gt; tx.is_closed(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
             </span>PoolTx::Http2(<span class="kw-2">ref </span>tx) =&gt; tx.is_closed(),
         }
     }
@@ -2136,11 +2136,11 @@
         </span>B: Send,
     {
         <span class="kw">match </span><span class="self">self</span>.tx {
-            <span class="attribute">#[cfg(not(feature = <span class="string">&quot;http2&quot;</span>))]
+            <span class="attr">#[cfg(not(feature = <span class="string">&quot;http2&quot;</span>))]
             </span>PoolTx::Http1(<span class="kw-2">ref mut </span>tx) =&gt; tx.send_request_retryable(req),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
             </span>PoolTx::Http1(<span class="kw-2">ref mut </span>tx) =&gt; Either::Left(tx.send_request_retryable(req)),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
             </span>PoolTx::Http2(<span class="kw-2">ref mut </span>tx) =&gt; Either::Right(tx.send_request_retryable(req)),
         }
     }
@@ -2153,7 +2153,7 @@
     <span class="kw">fn </span>is_open(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">match </span><span class="self">self</span>.tx {
             PoolTx::Http1(<span class="kw-2">ref </span>tx) =&gt; tx.is_ready(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
             </span>PoolTx::Http2(<span class="kw-2">ref </span>tx) =&gt; tx.is_ready(),
         }
     }
@@ -2164,7 +2164,7 @@
                 conn_info: <span class="self">self</span>.conn_info,
                 tx: PoolTx::Http1(tx),
             }),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
             </span>PoolTx::Http2(tx) =&gt; {
                 <span class="kw">let </span>b = PoolClient {
                     conn_info: <span class="self">self</span>.conn_info.clone(),
@@ -2187,7 +2187,7 @@
 <span class="comment">// ===== impl ClientError =====
 
 // FIXME: allow() required due to `impl Trait` leaking types to this lint
-</span><span class="attribute">#[allow(missing_debug_implementations)]
+</span><span class="attr">#[allow(missing_debug_implementations)]
 </span><span class="kw">enum </span>ClientError&lt;B&gt; {
     Normal(<span class="kw">crate</span>::Error),
     Canceled {
@@ -2219,7 +2219,7 @@
 }
 
 <span class="doccomment">/// A marker to identify what version a pooled connection is.
-</span><span class="attribute">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">enum </span>Ver {
     Auto,
     Http2,
@@ -2352,7 +2352,7 @@
 /// # }
 /// # fn main() {}
 /// ```
-</span><span class="attribute">#[cfg_attr(docsrs, doc(cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))))]
+</span><span class="attr">#[cfg_attr(docsrs, doc(cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))))]
 #[derive(Clone)]
 </span><span class="kw">pub struct </span>Builder {
     client_config: Config,
@@ -2378,7 +2378,7 @@
 }
 
 <span class="kw">impl </span>Builder {
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     #[deprecated(
         note = <span class="string">&quot;name is confusing, to disable the connection pool, call pool_max_idle_per_host(0)&quot;
     </span>)]
@@ -2395,7 +2395,7 @@
         </span>}
     }
 
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     #[deprecated(note = <span class="string">&quot;renamed to `pool_idle_timeout`&quot;</span>)]
     </span><span class="kw">pub fn </span>keep_alive_timeout&lt;D&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, val: D) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self
     </span><span class="kw">where
@@ -2417,7 +2417,7 @@
         <span class="self">self
     </span>}
 
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     #[deprecated(note = <span class="string">&quot;renamed to `pool_max_idle_per_host`&quot;</span>)]
     </span><span class="kw">pub fn </span>max_idle_per_host(<span class="kw-2">&amp;mut </span><span class="self">self</span>, max_idle: usize) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.pool_config.max_idle_per_host = max_idle;
@@ -2453,7 +2453,7 @@
     /// # Panics
     ///
     /// The minimum value allowed is 8192. This method panics if the passed `max` is less than the minimum.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;http1&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;http1&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;http1&quot;</span>)))]
     </span><span class="kw">pub fn </span>http1_max_buf_size(<span class="kw-2">&amp;mut </span><span class="self">self</span>, max: usize) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.conn_builder.http1_max_buf_size(max);
@@ -2589,7 +2589,7 @@
     /// Note that setting this to true prevents HTTP/1 from being allowed.
     ///
     /// Default is false.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;http2&quot;</span>)))]
     </span><span class="kw">pub fn </span>http2_only(<span class="kw-2">&amp;mut </span><span class="self">self</span>, val: bool) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.client_config.ver = <span class="kw">if </span>val { Ver::Http2 } <span class="kw">else </span>{ Ver::Auto };
@@ -2604,7 +2604,7 @@
     /// If not set, hyper will use a default.
     ///
     /// [spec]: https://http2.github.io/http2-spec/#SETTINGS_INITIAL_WINDOW_SIZE
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;http2&quot;</span>)))]
     </span><span class="kw">pub fn </span>http2_initial_stream_window_size(<span class="kw-2">&amp;mut </span><span class="self">self</span>, sz: <span class="kw">impl </span>Into&lt;<span class="prelude-ty">Option</span>&lt;u32&gt;&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.conn_builder
@@ -2617,7 +2617,7 @@
     /// Passing `None` will do nothing.
     ///
     /// If not set, hyper will use a default.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;http2&quot;</span>)))]
     </span><span class="kw">pub fn </span>http2_initial_connection_window_size(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
@@ -2633,7 +2633,7 @@
     /// Enabling this will override the limits set in
     /// `http2_initial_stream_window_size` and
     /// `http2_initial_connection_window_size`.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;http2&quot;</span>)))]
     </span><span class="kw">pub fn </span>http2_adaptive_window(<span class="kw-2">&amp;mut </span><span class="self">self</span>, enabled: bool) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.conn_builder.http2_adaptive_window(enabled);
@@ -2645,7 +2645,7 @@
     /// Passing `None` will do nothing.
     ///
     /// If not set, hyper will use a default.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;http2&quot;</span>)))]
     </span><span class="kw">pub fn </span>http2_max_frame_size(<span class="kw-2">&amp;mut </span><span class="self">self</span>, sz: <span class="kw">impl </span>Into&lt;<span class="prelude-ty">Option</span>&lt;u32&gt;&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.conn_builder.http2_max_frame_size(sz);
@@ -2662,7 +2662,7 @@
     /// # Cargo Feature
     ///
     /// Requires the `runtime` cargo feature to be enabled.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
     #[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;http2&quot;</span>)))]
     </span><span class="kw">pub fn </span>http2_keep_alive_interval(
@@ -2683,7 +2683,7 @@
     /// # Cargo Feature
     ///
     /// Requires the `runtime` cargo feature to be enabled.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
     #[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;http2&quot;</span>)))]
     </span><span class="kw">pub fn </span>http2_keep_alive_timeout(<span class="kw-2">&amp;mut </span><span class="self">self</span>, timeout: Duration) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
@@ -2703,7 +2703,7 @@
     /// # Cargo Feature
     ///
     /// Requires the `runtime` cargo feature to be enabled.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
     #[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;http2&quot;</span>)))]
     </span><span class="kw">pub fn </span>http2_keep_alive_while_idle(<span class="kw-2">&amp;mut </span><span class="self">self</span>, enabled: bool) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
@@ -2719,7 +2719,7 @@
     /// The default value is determined by the `h2` crate.
     ///
     /// [`h2::client::Builder::max_concurrent_reset_streams`]: https://docs.rs/h2/client/struct.Builder.html#method.max_concurrent_reset_streams
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;http2&quot;</span>)))]
     </span><span class="kw">pub fn </span>http2_max_concurrent_reset_streams(<span class="kw-2">&amp;mut </span><span class="self">self</span>, max: usize) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.conn_builder.http2_max_concurrent_reset_streams(max);
@@ -2733,7 +2733,7 @@
     /// # Panics
     ///
     /// The value must be no larger than `u32::MAX`.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;http2&quot;</span>)))]
     </span><span class="kw">pub fn </span>http2_max_send_buf_size(<span class="kw-2">&amp;mut </span><span class="self">self</span>, max: usize) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.conn_builder.http2_max_send_buf_size(max);
@@ -2751,7 +2751,7 @@
     /// resolve to an `Error::Cancel`.
     ///
     /// Default is `true`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>retry_canceled_requests(<span class="kw-2">&amp;mut </span><span class="self">self</span>, val: bool) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.client_config.retry_canceled_requests = val;
         <span class="self">self
@@ -2763,7 +2763,7 @@
     /// added automatically, derived from the authority of the `Uri`.
     ///
     /// Default is `true`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_host(<span class="kw-2">&amp;mut </span><span class="self">self</span>, val: bool) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.client_config.set_host = val;
         <span class="self">self
@@ -2779,7 +2779,7 @@
     </span>}
 
     <span class="doccomment">/// Builder a client with this configuration and the default `HttpConnector`.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;tcp&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;tcp&quot;</span>)]
     </span><span class="kw">pub fn </span>build_http&lt;B&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Client&lt;HttpConnector, B&gt;
     <span class="kw">where
         </span>B: HttpBody + Send,
@@ -2818,24 +2818,24 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>unit_tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>response_future_is_sync() {
         <span class="kw">fn </span>assert_sync&lt;T: Sync&gt;() {}
         assert_sync::&lt;ResponseFuture&gt;();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>set_relative_uri_with_implicit_path() {
         <span class="kw">let </span><span class="kw-2">mut </span>uri = <span class="string">&quot;http://hyper.rs&quot;</span>.parse().unwrap();
         origin_form(<span class="kw-2">&amp;mut </span>uri);
         <span class="macro">assert_eq!</span>(uri.to_string(), <span class="string">&quot;/&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_origin_form() {
         <span class="kw">let </span><span class="kw-2">mut </span>uri = <span class="string">&quot;http://hyper.rs/guides&quot;</span>.parse().unwrap();
         origin_form(<span class="kw-2">&amp;mut </span>uri);
@@ -2846,7 +2846,7 @@
         <span class="macro">assert_eq!</span>(uri.to_string(), <span class="string">&quot;/guides?foo=bar&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_absolute_form() {
         <span class="kw">let </span><span class="kw-2">mut </span>uri = <span class="string">&quot;http://hyper.rs/guides&quot;</span>.parse().unwrap();
         absolute_form(<span class="kw-2">&amp;mut </span>uri);
@@ -2857,7 +2857,7 @@
         <span class="macro">assert_eq!</span>(uri.to_string(), <span class="string">&quot;/guides&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_authority_form() {
         <span class="kw">let _ </span>= pretty_env_logger::try_init();
 
@@ -2870,7 +2870,7 @@
         <span class="macro">assert_eq!</span>(uri.to_string(), <span class="string">&quot;hyper.rs&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_extract_domain_connect_no_port() {
         <span class="kw">let </span><span class="kw-2">mut </span>uri = <span class="string">&quot;hyper.rs&quot;</span>.parse().unwrap();
         <span class="kw">let </span>(scheme, host) = extract_domain(<span class="kw-2">&amp;mut </span>uri, <span class="bool-val">true</span>).expect(<span class="string">&quot;extract domain&quot;</span>);
@@ -2878,7 +2878,7 @@
         <span class="macro">assert_eq!</span>(host, <span class="string">&quot;hyper.rs&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_is_secure() {
         <span class="macro">assert_eq!</span>(
             is_schema_secure(<span class="kw-2">&amp;</span><span class="string">&quot;http://hyper.rs&quot;</span>.parse::&lt;Uri&gt;().unwrap()),
@@ -2895,7 +2895,7 @@
         </span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_get_non_default_port() {
         <span class="macro">assert!</span>(get_non_default_port(<span class="kw-2">&amp;</span><span class="string">&quot;http://hyper.rs&quot;</span>.parse::&lt;Uri&gt;().unwrap()).is_none());
         <span class="macro">assert!</span>(get_non_default_port(<span class="kw-2">&amp;</span><span class="string">&quot;http://hyper.rs:80&quot;</span>.parse::&lt;Uri&gt;().unwrap()).is_none());
@@ -2923,4 +2923,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

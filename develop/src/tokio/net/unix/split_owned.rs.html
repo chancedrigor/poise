@@ -428,7 +428,7 @@
 /// [`UnixStream`]: crate::net::UnixStream
 /// [`into_split`]: crate::net::UnixStream::into_split()
 /// [`AsyncReadExt`]: trait@crate::io::AsyncReadExt
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>OwnedReadHalf {
     inner: Arc&lt;UnixStream&gt;,
 }
@@ -447,7 +447,7 @@
 /// [`AsyncWrite`]: trait@crate::io::AsyncWrite
 /// [`poll_shutdown`]: fn@crate::io::AsyncWrite::poll_shutdown
 /// [`AsyncWriteExt`]: trait@crate::io::AsyncWriteExt
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>OwnedWriteHalf {
     inner: Arc&lt;UnixStream&gt;,
     shutdown_on_drop: bool,
@@ -481,7 +481,7 @@
 
 <span class="doccomment">/// Error indicating that two halves were not from the same socket, and thus could
 /// not be reunited.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ReuniteError(<span class="kw">pub </span>OwnedReadHalf, <span class="kw">pub </span>OwnedWriteHalf);
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>ReuniteError {
@@ -765,7 +765,7 @@
         <span class="self">self</span>.inner.is_write_vectored()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>poll_flush(<span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, <span class="kw">_</span>: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;io::Result&lt;()&gt;&gt; {
         <span class="comment">// flush is a no-op
         </span>Poll::Ready(<span class="prelude-val">Ok</span>(()))
@@ -793,4 +793,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

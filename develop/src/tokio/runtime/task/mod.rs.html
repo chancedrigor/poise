@@ -668,14 +668,14 @@
 
 </span><span class="comment">// Some task infrastructure is here to support `JoinSet`, which is currently
 // unstable. This should be removed once `JoinSet` is stabilized.
-</span><span class="attribute">#![cfg_attr(not(tokio_unstable), allow(dead_code))]
+</span><span class="attr">#![cfg_attr(not(tokio_unstable), allow(dead_code))]
 
 </span><span class="kw">mod </span>core;
 <span class="kw">use </span><span class="self">self</span>::core::Cell;
 <span class="kw">use </span><span class="self">self</span>::core::Header;
 
 <span class="kw">mod </span>error;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::error::JoinError;
 
 <span class="kw">mod </span>harness;
@@ -686,15 +686,15 @@
     <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">use </span><span class="self">self</span>::inject::Inject;
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;rt&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;rt&quot;</span>)]
 </span><span class="kw">mod </span>abort;
 <span class="kw">mod </span>join;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;rt&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;rt&quot;</span>)]
 #[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::abort::AbortHandle;
 
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::join::JoinHandle;
 
 <span class="kw">mod </span>list;
@@ -730,14 +730,14 @@
 /// features][unstable] for details.
 ///
 /// [unstable]: crate#unstable-features
-</span><span class="attribute">#[cfg_attr(docsrs, doc(cfg(all(feature = <span class="string">&quot;rt&quot;</span>, tokio_unstable))))]
+</span><span class="attr">#[cfg_attr(docsrs, doc(cfg(all(feature = <span class="string">&quot;rt&quot;</span>, tokio_unstable))))]
 #[cfg_attr(not(tokio_unstable), allow(unreachable_pub))]
 </span><span class="comment">// TODO(eliza): there&#39;s almost certainly no reason not to make this `Copy` as well...
-</span><span class="attribute">#[derive(Clone, Debug, Hash, Eq, PartialEq)]
+</span><span class="attr">#[derive(Clone, Debug, Hash, Eq, PartialEq)]
 </span><span class="kw">pub struct </span>Id(u64);
 
 <span class="doccomment">/// An owned handle to the task, tracked by ref count.
-</span><span class="attribute">#[repr(transparent)]
+</span><span class="attr">#[repr(transparent)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Task&lt;S: <span class="lifetime">&#39;static</span>&gt; {
     raw: RawTask,
     _p: PhantomData&lt;S&gt;,
@@ -747,7 +747,7 @@
 <span class="kw">unsafe impl</span>&lt;S&gt; Sync <span class="kw">for </span>Task&lt;S&gt; {}
 
 <span class="doccomment">/// A task was notified.
-</span><span class="attribute">#[repr(transparent)]
+</span><span class="attr">#[repr(transparent)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Notified&lt;S: <span class="lifetime">&#39;static</span>&gt;(Task&lt;S&gt;);
 
 <span class="comment">// safety: This type cannot be used to touch the task without first verifying
@@ -757,7 +757,7 @@
 
 <span class="doccomment">/// A non-Send variant of Notified with the invariant that it is on a thread
 /// where it is safe to poll it.
-</span><span class="attribute">#[repr(transparent)]
+</span><span class="attr">#[repr(transparent)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>LocalNotified&lt;S: <span class="lifetime">&#39;static</span>&gt; {
     task: Task&lt;S&gt;,
     _not_send: PhantomData&lt;<span class="kw-2">*const </span>()&gt;,
@@ -919,7 +919,7 @@
 
 <span class="kw">impl</span>&lt;S: Schedule&gt; UnownedTask&lt;S&gt; {
     <span class="comment">// Used in test of the inject queue.
-    </span><span class="attribute">#[cfg(test)]
+    </span><span class="attr">#[cfg(test)]
     #[cfg_attr(tokio_wasm, allow(dead_code))]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>into_notified(<span class="self">self</span>) -&gt; Notified&lt;S&gt; {
         Notified(<span class="self">self</span>.into_task())
@@ -1061,4 +1061,4 @@
     </span>}
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

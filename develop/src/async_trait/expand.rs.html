@@ -484,7 +484,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Copy)]
+<span class="attr">#[derive(Clone, Copy)]
 </span><span class="kw">enum </span>Context&lt;<span class="lifetime">&#39;a</span>&gt; {
     Trait {
         generics: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Generics,
@@ -528,7 +528,7 @@
                     <span class="kw">if </span>sig.asyncness.is_some() {
                         <span class="kw">let </span>block = <span class="kw-2">&amp;mut </span>method.default;
                         <span class="kw">let </span><span class="kw-2">mut </span>has_self = has_self_in_sig(sig);
-                        method.attrs.push(<span class="macro">parse_quote!</span>(<span class="attribute">#[must_use]</span>));
+                        method.attrs.push(<span class="macro">parse_quote!</span>(<span class="attr">#[must_use]</span>));
                         <span class="kw">if let </span><span class="prelude-val">Some</span>(block) = block {
                             has_self |= has_self_in_block(block);
                             transform_block(context, sig, block);
@@ -581,7 +581,7 @@
 
 <span class="kw">fn </span>lint_suppress_with_body() -&gt; Attribute {
     <span class="macro">parse_quote! </span>{
-        <span class="attribute">#[allow(
+        <span class="attr">#[allow(
             clippy::let_unit_value,
             clippy::no_effect_underscore_binding,
             clippy::shadow_same,
@@ -594,7 +594,7 @@
 
 <span class="kw">fn </span>lint_suppress_without_body() -&gt; Attribute {
     <span class="macro">parse_quote! </span>{
-        <span class="attribute">#[allow(
+        <span class="attr">#[allow(
             clippy::type_complexity,
             clippy::type_repetition_in_bounds
         )]
@@ -847,7 +847,7 @@
                     }
                     #(#decls)*
                     <span class="kw">let </span>__ret: #ret = { #(#stmts)* };
-                    <span class="attribute">#[allow(unreachable_code)]
+                    <span class="attr">#[allow(unreachable_code)]
                     </span>__ret
                 }
             }
@@ -923,4 +923,4 @@
     })
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="async_trait" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="async_trait" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -261,11 +261,11 @@
 <span class="kw">use </span><span class="kw">crate</span>::variant::<span class="kw-2">*</span>;
 
 <span class="macro">cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(feature = <span class="string">&quot;simd-accel&quot;</span>)] </span>{
+    <span class="kw">if </span><span class="attr">#[cfg(feature = <span class="string">&quot;simd-accel&quot;</span>)] </span>{
         <span class="kw">use </span>simd_funcs::<span class="kw-2">*</span>;
         <span class="kw">use </span>packed_simd::u16x8;
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>shift_upper(unpacked: u16x8) -&gt; u16x8 {
             <span class="kw">let </span>highest_ascii = u16x8::splat(<span class="number">0x7F</span>);
             unpacked + unpacked.gt(highest_ascii).select(u16x8::splat(<span class="number">0xF700</span>), u16x8::splat(<span class="number">0</span>))        }
@@ -318,7 +318,7 @@
         Utf8Destination
     );
 
-    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;simd-accel&quot;</span>))]
+    <span class="attr">#[cfg(not(feature = <span class="string">&quot;simd-accel&quot;</span>))]
     </span><span class="kw">pub fn </span>decode_to_utf16_raw(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         src: <span class="kw-2">&amp;</span>[u8],
@@ -348,7 +348,7 @@
         (pending, length, length)
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;simd-accel&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;simd-accel&quot;</span>)]
     </span><span class="kw">pub fn </span>decode_to_utf16_raw(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         src: <span class="kw-2">&amp;</span>[u8],
@@ -445,7 +445,7 @@
 <span class="comment">// Any copyright to the test code below this comment is dedicated to the
 // Public Domain. http://creativecommons.org/publicdomain/zero/1.0/
 
-</span><span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
+</span><span class="attr">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::testing::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::<span class="kw-2">*</span>;
@@ -458,7 +458,7 @@
         encode(X_USER_DEFINED, string, expect);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_x_user_defined_decode() {
         <span class="comment">// Empty
         </span>decode_x_user_defined(<span class="string">b&quot;&quot;</span>, <span class="string">&quot;&quot;</span>);
@@ -470,7 +470,7 @@
         decode_x_user_defined(<span class="string">b&quot;\x80\xFF\x61\x62\x80\xFF\x61\x62\x80\xFF\x61\x62\x80\xFF\x61\x62\x80\xFF\x61\x62&quot;</span>, <span class="string">&quot;\u{F780}\u{F7FF}\u{0061}\u{0062}\u{F780}\u{F7FF}\u{0061}\u{0062}\u{F780}\u{F7FF}\u{0061}\u{0062}\u{F780}\u{F7FF}\u{0061}\u{0062}\u{F780}\u{F7FF}\u{0061}\u{0062}&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_x_user_defined_encode() {
         <span class="comment">// Empty
         </span>encode_x_user_defined(<span class="string">&quot;&quot;</span>, <span class="string">b&quot;&quot;</span>);
@@ -482,7 +482,7 @@
         encode_x_user_defined(<span class="string">&quot;\u{F77F}\u{F800}&quot;</span>, <span class="string">b&quot;&amp;#63359;&amp;#63488;&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_x_user_defined_from_two_low_surrogates() {
         <span class="kw">let </span>expectation = <span class="string">b&quot;&amp;#65533;&amp;#65533;&quot;</span>;
         <span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0u8</span>; <span class="number">40</span>];
@@ -497,4 +497,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="encoding_rs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="encoding_rs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

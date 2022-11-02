@@ -147,9 +147,9 @@
 <span id="147">147</span>
 <span id="148">148</span>
 <span id="149">149</span>
-</pre><pre class="rust"><code><span class="attribute">#[cfg(unix)]
+</pre><pre class="rust"><code><span class="attr">#[cfg(unix)]
 </span><span class="kw">use </span>std::os::unix::io::{AsRawFd, RawFd};
-<span class="attribute">#[cfg(windows)]
+<span class="attr">#[cfg(windows)]
 </span><span class="kw">use </span>std::os::windows::io::{AsRawSocket, RawSocket};
 
 <span class="kw">use super</span>::<span class="kw-2">*</span>;
@@ -157,7 +157,7 @@
 
 <span class="doccomment">/// A wrapper around an underlying raw stream which implements the TLS or SSL
 /// protocol.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>TlsStream&lt;IO&gt; {
     <span class="kw">pub</span>(<span class="kw">crate</span>) io: IO,
     <span class="kw">pub</span>(<span class="kw">crate</span>) session: ServerConnection,
@@ -165,17 +165,17 @@
 }
 
 <span class="kw">impl</span>&lt;IO&gt; TlsStream&lt;IO&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>get_ref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (<span class="kw-2">&amp;</span>IO, <span class="kw-2">&amp;</span>ServerConnection) {
         (<span class="kw-2">&amp;</span><span class="self">self</span>.io, <span class="kw-2">&amp;</span><span class="self">self</span>.session)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>get_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; (<span class="kw-2">&amp;mut </span>IO, <span class="kw-2">&amp;mut </span>ServerConnection) {
         (<span class="kw-2">&amp;mut </span><span class="self">self</span>.io, <span class="kw-2">&amp;mut </span><span class="self">self</span>.session)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>into_inner(<span class="self">self</span>) -&gt; (IO, ServerConnection) {
         (<span class="self">self</span>.io, <span class="self">self</span>.session)
     }
@@ -185,17 +185,17 @@
     <span class="kw">type </span>Io = IO;
     <span class="kw">type </span>Session = ServerConnection;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>skip_handshake(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="bool-val">false
     </span>}
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>get_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; (<span class="kw-2">&amp;mut </span>TlsState, <span class="kw-2">&amp;mut </span><span class="self">Self</span>::Io, <span class="kw-2">&amp;mut </span><span class="self">Self</span>::Session) {
         (<span class="kw-2">&amp;mut </span><span class="self">self</span>.state, <span class="kw-2">&amp;mut </span><span class="self">self</span>.io, <span class="kw-2">&amp;mut </span><span class="self">self</span>.session)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>into_io(<span class="self">self</span>) -&gt; <span class="self">Self</span>::Io {
         <span class="self">self</span>.io
     }
@@ -234,7 +234,7 @@
                 }
             }
             TlsState::ReadShutdown | TlsState::FullyShutdown =&gt; Poll::Ready(<span class="prelude-val">Ok</span>(())),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;early-data&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;early-data&quot;</span>)]
             </span>s =&gt; <span class="macro">unreachable!</span>(<span class="string">&quot;server TLS can not hit this state: {:?}&quot;</span>, s),
         }
     }
@@ -277,7 +277,7 @@
     }
 }
 
-<span class="attribute">#[cfg(unix)]
+<span class="attr">#[cfg(unix)]
 </span><span class="kw">impl</span>&lt;IO&gt; AsRawFd <span class="kw">for </span>TlsStream&lt;IO&gt;
 <span class="kw">where
     </span>IO: AsRawFd,
@@ -287,7 +287,7 @@
     }
 }
 
-<span class="attribute">#[cfg(windows)]
+<span class="attr">#[cfg(windows)]
 </span><span class="kw">impl</span>&lt;IO&gt; AsRawSocket <span class="kw">for </span>TlsStream&lt;IO&gt;
 <span class="kw">where
     </span>IO: AsRawSocket,
@@ -297,4 +297,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tokio_rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tokio_rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

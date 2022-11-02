@@ -134,7 +134,7 @@
     sockaddr.sun_family = libc::AF_UNIX <span class="kw">as </span>libc::sa_family_t;
     <span class="kw">let </span><span class="kw-2">mut </span>socklen = mem::size_of_val(<span class="kw-2">&amp;</span>sockaddr) <span class="kw">as </span>libc::socklen_t;
 
-    <span class="attribute">#[cfg(not(any(
+    <span class="attr">#[cfg(not(any(
         target_os = <span class="string">&quot;ios&quot;</span>,
         target_os = <span class="string">&quot;macos&quot;</span>,
         target_os = <span class="string">&quot;netbsd&quot;</span>,
@@ -157,7 +157,7 @@
         .map(|socket| <span class="kw">unsafe </span>{ net::UnixStream::from_raw_fd(socket) })
     };
 
-    <span class="attribute">#[cfg(any(
+    <span class="attr">#[cfg(any(
         target_os = <span class="string">&quot;ios&quot;</span>,
         target_os = <span class="string">&quot;macos&quot;</span>,
         target_os = <span class="string">&quot;netbsd&quot;</span>,
@@ -176,7 +176,7 @@
         <span class="macro">syscall!</span>(fcntl(socket, libc::F_SETFD, libc::FD_CLOEXEC))<span class="question-mark">?</span>;
 
         <span class="comment">// See https://github.com/tokio-rs/mio/issues/1450
-        </span><span class="attribute">#[cfg(all(target_arch = <span class="string">&quot;x86&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>))]
+        </span><span class="attr">#[cfg(all(target_arch = <span class="string">&quot;x86&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>))]
         </span><span class="macro">syscall!</span>(fcntl(socket, libc::F_SETFL, libc::O_NONBLOCK))<span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(s)
@@ -191,4 +191,4 @@
     <span class="kw">super</span>::local_addr(listener.as_raw_fd())
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="mio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="mio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

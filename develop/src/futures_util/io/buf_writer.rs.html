@@ -255,7 +255,7 @@
     ///
     </span><span class="comment">// TODO: Examples
     </span><span class="kw">pub struct </span>BufWriter&lt;W&gt; {
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span>inner: W,
         buf: Vec&lt;u8&gt;,
         written: usize,
@@ -315,7 +315,7 @@
     }
 
     <span class="doccomment">/// Remaining number of bytes to reach `buf` &#39;s capacity
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>spare_capacity(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.buf.capacity() - <span class="self">self</span>.buf.len()
     }
@@ -341,7 +341,7 @@
     <span class="doccomment">/// Write byte slice directly into `self.buf`
     ///
     /// Based on `std::io::BufWriter`
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>write_to_buffer_unchecked(<span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, buf: <span class="kw-2">&amp;</span>[u8]) {
         <span class="macro">debug_assert!</span>(buf.len() &lt;= <span class="self">self</span>.spare_capacity());
         <span class="kw">let </span>this = <span class="self">self</span>.project();
@@ -447,4 +447,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

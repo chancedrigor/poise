@@ -385,7 +385,7 @@ fn my_command() -&gt; poise::Command&lt;Data, Error&gt; {
 If you&#39;re curious, you can use [`cargo expand`](https://github.com/dtolnay/cargo-expand) to see the
 exact desugaring
 */
-</span><span class="attribute">#[proc_macro_attribute]
+</span><span class="attr">#[proc_macro_attribute]
 </span><span class="kw">pub fn </span>command(args: TokenStream, function: TokenStream) -&gt; TokenStream {
     <span class="kw">let </span>args = <span class="macro">syn::parse_macro_input!</span>(args <span class="kw">as </span>Vec&lt;syn::NestedMeta&gt;);
     <span class="kw">let </span>args = <span class="kw">match </span>&lt;command::CommandArgs <span class="kw">as </span>darling::FromMeta&gt;::from_list(<span class="kw-2">&amp;</span>args) {
@@ -446,7 +446,7 @@ When invoking your slash command, users will be shown the name matching their lo
 
 You can also set localized choice names programmatically; see `CommandParameter::choices`
 */
-</span><span class="attribute">#[proc_macro_derive(ChoiceParameter, attributes(name, name_localized))]
+</span><span class="attr">#[proc_macro_derive(ChoiceParameter, attributes(name, name_localized))]
 </span><span class="kw">pub fn </span>choice_parameter(input: TokenStream) -&gt; TokenStream {
     <span class="kw">let </span>enum_ = <span class="macro">syn::parse_macro_input!</span>(input <span class="kw">as </span>syn::DeriveInput);
 
@@ -457,14 +457,14 @@ You can also set localized choice names programmatically; see `CommandParameter:
 }
 
 <span class="doccomment">/// See [`ChoiceParameter`]
-</span><span class="attribute">#[deprecated = <span class="string">&quot;renamed to ChoiceParameter&quot;</span>]
+</span><span class="attr">#[deprecated = <span class="string">&quot;renamed to ChoiceParameter&quot;</span>]
 #[proc_macro_derive(SlashChoiceParameter, attributes(name))]
 </span><span class="kw">pub fn </span>slash_choice_parameter(input: TokenStream) -&gt; TokenStream {
     choice_parameter(input)
 }
 
 <span class="doccomment">/// See `Modal` trait documentation
-</span><span class="attribute">#[proc_macro_derive(
+</span><span class="attr">#[proc_macro_derive(
     Modal,
     attributes(name, placeholder, min_length, max_length, paragraph)
 )]
@@ -477,4 +477,4 @@ You can also set localized choice names programmatically; see `CommandParameter:
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise_macros" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise_macros" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

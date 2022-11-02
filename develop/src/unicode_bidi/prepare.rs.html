@@ -393,7 +393,7 @@
 
 
 <span class="doccomment">/// Output of `isolating_run_sequences` (steps X9-X10)
-</span><span class="attribute">#[derive(Debug, PartialEq)]
+</span><span class="attr">#[derive(Debug, PartialEq)]
 </span><span class="kw">pub struct </span>IsolatingRunSequence {
     <span class="kw">pub </span>runs: Vec&lt;LevelRun&gt;,
     <span class="kw">pub </span>sos: BidiClass, <span class="comment">// Start-of-sequence type.
@@ -408,7 +408,7 @@
 /// whose matching PDI is the first character of the next level run in the sequence.
 ///
 /// Note: This function does *not* return the sequences in order by their first characters.
-</span><span class="attribute">#[cfg_attr(feature = <span class="string">&quot;flame_it&quot;</span>, flamer::flame)]
+</span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;flame_it&quot;</span>, flamer::flame)]
 </span><span class="kw">pub fn </span>isolating_run_sequences(
     para_level: Level,
     original_classes: <span class="kw-2">&amp;</span>[BidiClass],
@@ -463,7 +463,7 @@
             <span class="kw">let </span>end_of_seq = sequence[sequence.len() - <span class="number">1</span>].end;
             <span class="kw">let </span>seq_level = levels[start_of_seq];
 
-            <span class="attribute">#[cfg(test)]
+            <span class="attr">#[cfg(test)]
             </span><span class="kw">for </span>run <span class="kw">in </span>sequence.clone() {
                 <span class="kw">for </span>idx <span class="kw">in </span>run {
                     <span class="kw">if </span>not_removed_by_x9(<span class="kw-2">&amp;</span>original_classes[idx]) {
@@ -542,11 +542,11 @@
     !removed_by_x9(<span class="kw-2">*</span>class)
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_level_runs() {
         <span class="macro">assert_eq!</span>(level_runs(<span class="kw-2">&amp;</span>Level::vec(<span class="kw-2">&amp;</span>[]), <span class="kw-2">&amp;</span>[]), <span class="kw-2">&amp;</span>[]);
         <span class="macro">assert_eq!</span>(
@@ -556,7 +556,7 @@
     }
 
     <span class="comment">// From &lt;http://www.unicode.org/reports/tr9/#BD13&gt;
-    </span><span class="attribute">#[rustfmt::skip]
+    </span><span class="attr">#[rustfmt::skip]
     #[test]
     </span><span class="kw">fn </span>test_isolating_run_sequences() {
 
@@ -601,7 +601,7 @@
     }
 
     <span class="comment">// From &lt;http://www.unicode.org/reports/tr9/#X10&gt;
-    </span><span class="attribute">#[rustfmt::skip]
+    </span><span class="attr">#[rustfmt::skip]
     #[test]
     </span><span class="kw">fn </span>test_isolating_run_sequences_sos_and_eos() {
 
@@ -714,7 +714,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_removed_by_x9() {
         <span class="kw">let </span>rem_classes = <span class="kw-2">&amp;</span>[RLE, LRE, RLO, LRO, PDF, BN];
         <span class="kw">let </span>not_classes = <span class="kw-2">&amp;</span>[L, RLI, AL, LRI, PDI];
@@ -726,7 +726,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_not_removed_by_x9() {
         <span class="kw">let </span>non_x9_classes = <span class="kw-2">&amp;</span>[L, R, AL, EN, ES, ET, AN, CS, NSM, B, S, WS, ON, LRI, RLI, FSI, PDI];
         <span class="kw">for </span>x <span class="kw">in </span>non_x9_classes {
@@ -735,4 +735,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="unicode_bidi" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="unicode_bidi" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

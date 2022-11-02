@@ -147,9 +147,9 @@
 <span class="kw">use </span><span class="kw">super</span>::EMPTY;
 <span class="kw">use </span>core::mem;
 
-<span class="attribute">#[cfg(target_arch = <span class="string">&quot;x86&quot;</span>)]
+<span class="attr">#[cfg(target_arch = <span class="string">&quot;x86&quot;</span>)]
 </span><span class="kw">use </span>core::arch::x86;
-<span class="attribute">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
+<span class="attr">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
 </span><span class="kw">use </span>core::arch::x86_64 <span class="kw">as </span>x86;
 
 <span class="kw">pub type </span>BitMaskWord = u16;
@@ -160,11 +160,11 @@
 /// parallel.
 ///
 /// This implementation uses a 128-bit SSE value.
-</span><span class="attribute">#[derive(Copy, Clone)]
+</span><span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">pub struct </span>Group(x86::__m128i);
 
 <span class="comment">// FIXME: https://github.com/rust-lang/rust-clippy/issues/3859
-</span><span class="attribute">#[allow(clippy::use_self)]
+</span><span class="attr">#[allow(clippy::use_self)]
 </span><span class="kw">impl </span>Group {
     <span class="doccomment">/// Number of bytes in the group.
     </span><span class="kw">pub const </span>WIDTH: usize = mem::size_of::&lt;<span class="self">Self</span>&gt;();
@@ -173,9 +173,9 @@
     /// value for an empty hash table.
     ///
     /// This is guaranteed to be aligned to the group size.
-    </span><span class="attribute">#[allow(clippy::items_after_statements)]
+    </span><span class="attr">#[allow(clippy::items_after_statements)]
     </span><span class="kw">pub const fn </span>static_empty() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[u8; Group::WIDTH] {
-        <span class="attribute">#[repr(C)]
+        <span class="attr">#[repr(C)]
         </span><span class="kw">struct </span>AlignedBytes {
             _align: [Group; <span class="number">0</span>],
             bytes: [u8; Group::WIDTH],
@@ -188,7 +188,7 @@
     }
 
     <span class="doccomment">/// Loads a group of bytes starting at the given address.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[allow(clippy::cast_ptr_alignment)] </span><span class="comment">// unaligned load
     </span><span class="kw">pub unsafe fn </span>load(ptr: <span class="kw-2">*const </span>u8) -&gt; <span class="self">Self </span>{
         Group(x86::_mm_loadu_si128(ptr.cast()))
@@ -196,7 +196,7 @@
 
     <span class="doccomment">/// Loads a group of bytes starting at the given address, which must be
     /// aligned to `mem::align_of::&lt;Group&gt;()`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[allow(clippy::cast_ptr_alignment)]
     </span><span class="kw">pub unsafe fn </span>load_aligned(ptr: <span class="kw-2">*const </span>u8) -&gt; <span class="self">Self </span>{
         <span class="comment">// FIXME: use align_offset once it stabilizes
@@ -206,7 +206,7 @@
 
     <span class="doccomment">/// Stores the group of bytes to the given address, which must be
     /// aligned to `mem::align_of::&lt;Group&gt;()`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[allow(clippy::cast_ptr_alignment)]
     </span><span class="kw">pub unsafe fn </span>store_aligned(<span class="self">self</span>, ptr: <span class="kw-2">*mut </span>u8) {
         <span class="comment">// FIXME: use align_offset once it stabilizes
@@ -216,9 +216,9 @@
 
     <span class="doccomment">/// Returns a `BitMask` indicating all bytes in the group which have
     /// the given value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>match_byte(<span class="self">self</span>, byte: u8) -&gt; BitMask {
-        <span class="attribute">#[allow(
+        <span class="attr">#[allow(
             clippy::cast_possible_wrap, <span class="comment">// byte: u8 as i8
             // byte: i32 as u16
             //   note: _mm_movemask_epi8 returns a 16-bit mask in a i32, the
@@ -234,16 +234,16 @@
 
     <span class="doccomment">/// Returns a `BitMask` indicating all bytes in the group which are
     /// `EMPTY`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>match_empty(<span class="self">self</span>) -&gt; BitMask {
         <span class="self">self</span>.match_byte(EMPTY)
     }
 
     <span class="doccomment">/// Returns a `BitMask` indicating all bytes in the group which are
     /// `EMPTY` or `DELETED`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>match_empty_or_deleted(<span class="self">self</span>) -&gt; BitMask {
-        <span class="attribute">#[allow(
+        <span class="attr">#[allow(
             <span class="comment">// byte: i32 as u16
             //   note: _mm_movemask_epi8 returns a 16-bit mask in a i32, the
             //   upper 16-bits of the i32 are zeroed:
@@ -257,7 +257,7 @@
     }
 
     <span class="doccomment">/// Returns a `BitMask` indicating all bytes in the group which are full.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>match_full(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; BitMask {
         <span class="self">self</span>.match_empty_or_deleted().invert()
     }
@@ -266,7 +266,7 @@
     /// - `EMPTY =&gt; EMPTY`
     /// - `DELETED =&gt; EMPTY`
     /// - `FULL =&gt; DELETED`
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>convert_special_to_empty_and_full_to_deleted(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="comment">// Map high_bit = 1 (EMPTY or DELETED) to 1111_1111
         // and high_bit = 0 (FULL) to 1000_0000
@@ -275,7 +275,7 @@
         //   let special = 0 &gt; byte = 1111_1111 (true) or 0000_0000 (false)
         //   1111_1111 | 1000_0000 = 1111_1111
         //   0000_0000 | 1000_0000 = 1000_0000
-        </span><span class="attribute">#[allow(
+        </span><span class="attr">#[allow(
             clippy::cast_possible_wrap, <span class="comment">// byte: 0x80_u8 as i8
         </span>)]
         </span><span class="kw">unsafe </span>{
@@ -289,4 +289,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="hashbrown" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="hashbrown" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

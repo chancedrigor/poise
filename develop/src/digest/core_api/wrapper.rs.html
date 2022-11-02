@@ -290,13 +290,13 @@
     BlockSizeUser, InvalidLength, Key, KeyInit, KeySizeUser, Output,
 };
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;mac&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;mac&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::MacMarker;
 
 <span class="doccomment">/// Wrapper around [`BufferKindUser`].
 ///
 /// It handles data buffering and implements the slice-based traits.
-</span><span class="attribute">#[derive(Clone, Default)]
+</span><span class="attr">#[derive(Clone, Default)]
 </span><span class="kw">pub struct </span>CoreWrapper&lt;T&gt;
 <span class="kw">where
     </span>T: BufferKindUser,
@@ -315,7 +315,7 @@
 {
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;mac&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;mac&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;mac&quot;</span>)))]
 </span><span class="kw">impl</span>&lt;T&gt; MacMarker <span class="kw">for </span>CoreWrapper&lt;T&gt;
 <span class="kw">where
@@ -342,14 +342,14 @@
     Le&lt;T::BlockSize, U256&gt;: NonZero,
 {
     <span class="doccomment">/// Create new wrapper from `core`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>from_core(core: T) -&gt; <span class="self">Self </span>{
         <span class="kw">let </span>buffer = Default::default();
         <span class="self">Self </span>{ core, buffer }
     }
 
     <span class="doccomment">/// Decompose wrapper into inner parts.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>decompose(<span class="self">self</span>) -&gt; (T, Buffer&lt;T&gt;) {
         <span class="kw">let </span><span class="self">Self </span>{ core, buffer } = <span class="self">self</span>;
         (core, buffer)
@@ -371,7 +371,7 @@
     T::BlockSize: IsLess&lt;U256&gt;,
     Le&lt;T::BlockSize, U256&gt;: NonZero,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>new(key: <span class="kw-2">&amp;</span>Key&lt;<span class="self">Self</span>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             core: T::new(key),
@@ -379,7 +379,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>new_from_slice(key: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, InvalidLength&gt; {
         <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
             core: T::new_from_slice(key)<span class="question-mark">?</span>,
@@ -394,7 +394,7 @@
     T::BlockSize: IsLess&lt;U256&gt;,
     Le&lt;T::BlockSize, U256&gt;: NonZero,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), fmt::Error&gt; {
         T::write_alg_name(f)<span class="question-mark">?</span>;
         f.write_str(<span class="string">&quot; { .. }&quot;</span>)
@@ -407,7 +407,7 @@
     T::BlockSize: IsLess&lt;U256&gt;,
     Le&lt;T::BlockSize, U256&gt;: NonZero,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>reset(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.core.reset();
         <span class="self">self</span>.buffer.reset();
@@ -420,7 +420,7 @@
     T::BlockSize: IsLess&lt;U256&gt;,
     Le&lt;T::BlockSize, U256&gt;: NonZero,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>update(<span class="kw-2">&amp;mut </span><span class="self">self</span>, input: <span class="kw-2">&amp;</span>[u8]) {
         <span class="kw">let </span><span class="self">Self </span>{ core, buffer } = <span class="self">self</span>;
         buffer.digest_blocks(input, |blocks| core.update_blocks(blocks));
@@ -442,7 +442,7 @@
     T::BlockSize: IsLess&lt;U256&gt;,
     Le&lt;T::BlockSize, U256&gt;: NonZero,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>finalize_into(<span class="kw-2">mut </span><span class="self">self</span>, out: <span class="kw-2">&amp;mut </span>Output&lt;<span class="self">Self</span>&gt;) {
         <span class="kw">let </span><span class="self">Self </span>{ core, buffer } = <span class="kw-2">&amp;mut </span><span class="self">self</span>;
         core.finalize_fixed_core(buffer, out);
@@ -455,7 +455,7 @@
     T::BlockSize: IsLess&lt;U256&gt;,
     Le&lt;T::BlockSize, U256&gt;: NonZero,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>finalize_into_reset(<span class="kw-2">&amp;mut </span><span class="self">self</span>, out: <span class="kw-2">&amp;mut </span>Output&lt;<span class="self">Self</span>&gt;) {
         <span class="kw">let </span><span class="self">Self </span>{ core, buffer } = <span class="self">self</span>;
         core.finalize_fixed_core(buffer, out);
@@ -474,7 +474,7 @@
 {
     <span class="kw">type </span>Reader = XofReaderCoreWrapper&lt;T::ReaderCore&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>finalize_xof(<span class="self">self</span>) -&gt; <span class="self">Self</span>::Reader {
         <span class="kw">let </span>(<span class="kw-2">mut </span>core, <span class="kw-2">mut </span>buffer) = <span class="self">self</span>.decompose();
         <span class="kw">let </span>core = core.finalize_xof_core(<span class="kw-2">&amp;mut </span>buffer);
@@ -491,7 +491,7 @@
     &lt;T::ReaderCore <span class="kw">as </span>BlockSizeUser&gt;::BlockSize: IsLess&lt;U256&gt;,
     Le&lt;&lt;T::ReaderCore <span class="kw">as </span>BlockSizeUser&gt;::BlockSize, U256&gt;: NonZero,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>finalize_xof_reset(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="self">Self</span>::Reader {
         <span class="kw">let </span><span class="self">Self </span>{ core, buffer } = <span class="self">self</span>;
         <span class="kw">let </span>reader_core = core.finalize_xof_core(buffer);
@@ -505,7 +505,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;std&quot;</span>)))]
 </span><span class="kw">impl</span>&lt;T&gt; std::io::Write <span class="kw">for </span>CoreWrapper&lt;T&gt;
 <span class="kw">where
@@ -513,13 +513,13 @@
     T::BlockSize: IsLess&lt;U256&gt;,
     Le&lt;T::BlockSize, U256&gt;: NonZero,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write(<span class="kw-2">&amp;mut </span><span class="self">self</span>, buf: <span class="kw-2">&amp;</span>[u8]) -&gt; std::io::Result&lt;usize&gt; {
         Update::update(<span class="self">self</span>, buf);
         <span class="prelude-val">Ok</span>(buf.len())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>flush(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; std::io::Result&lt;()&gt; {
         <span class="prelude-val">Ok</span>(())
     }
@@ -554,4 +554,4 @@
     <span class="kw">type </span>Core = T;
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="digest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="digest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

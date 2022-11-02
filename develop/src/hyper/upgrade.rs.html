@@ -430,7 +430,7 @@
 <span class="kw">use </span>bytes::Bytes;
 <span class="kw">use </span>tokio::io::{AsyncRead, AsyncWrite, ReadBuf};
 <span class="kw">use </span>tokio::sync::oneshot;
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
 </span><span class="kw">use </span>tracing::trace;
 
 <span class="kw">use </span><span class="kw">crate</span>::common::io::Rewind;
@@ -459,7 +459,7 @@
 ///
 /// Includes the original IO type, and a read buffer of bytes that the
 /// HTTP state machine may have already read before completing an upgrade.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Parts&lt;T&gt; {
     <span class="doccomment">/// The original IO object used before the upgrade.
     </span><span class="kw">pub </span>io: T,
@@ -487,12 +487,12 @@
     msg.on_upgrade()
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>Pending {
     tx: oneshot::Sender&lt;<span class="kw">crate</span>::Result&lt;Upgraded&gt;&gt;,
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>pending() -&gt; (Pending, OnUpgrade) {
     <span class="kw">let </span>(tx, rx) = oneshot::channel();
     (Pending { tx }, OnUpgrade { rx: <span class="prelude-val">Some</span>(rx) })
@@ -501,7 +501,7 @@
 <span class="comment">// ===== impl Upgraded =====
 
 </span><span class="kw">impl </span>Upgraded {
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>, test))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>, test))]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>new&lt;T&gt;(io: T, read_buf: Bytes) -&gt; <span class="self">Self
     </span><span class="kw">where
         </span>T: AsyncRead + AsyncWrite + Unpin + Send + <span class="lifetime">&#39;static</span>,
@@ -583,7 +583,7 @@
         OnUpgrade { rx: <span class="prelude-val">None </span>}
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;http1&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;http1&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>is_none(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.rx.is_none()
     }
@@ -612,14 +612,14 @@
 
 <span class="comment">// ===== impl Pending =====
 
-</span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
+</span><span class="attr">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
 </span><span class="kw">impl </span>Pending {
     <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>fulfill(<span class="self">self</span>, upgraded: Upgraded) {
         <span class="macro">trace!</span>(<span class="string">&quot;pending upgrade fulfill&quot;</span>);
         <span class="kw">let _ </span>= <span class="self">self</span>.tx.send(<span class="prelude-val">Ok</span>(upgraded));
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;http1&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;http1&quot;</span>)]
     </span><span class="doccomment">/// Don&#39;t fulfill the pending Upgrade, but instead signal that
     /// upgrades are handled manually.
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>manual(<span class="self">self</span>) {
@@ -634,7 +634,7 @@
 /// for whatever reason.
 ///
 /// This likely means the actual `Conn` future wasn&#39;t polled and upgraded.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>UpgradeExpected;
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>UpgradeExpected {
@@ -714,11 +714,11 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>upgraded_downcast() {
         <span class="kw">let </span>upgraded = Upgraded::new(Mock, Bytes::new());
 
@@ -763,4 +763,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

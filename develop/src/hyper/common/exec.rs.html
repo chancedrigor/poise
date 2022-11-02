@@ -148,24 +148,24 @@
 <span class="kw">use </span>std::pin::Pin;
 <span class="kw">use </span>std::sync::Arc;
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>)))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>)))]
 </span><span class="kw">use </span><span class="kw">crate</span>::body::Body;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::body::HttpBody;
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;http2&quot;</span>, feature = <span class="string">&quot;server&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;http2&quot;</span>, feature = <span class="string">&quot;server&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::proto::h2::server::H2Stream;
 <span class="kw">use </span><span class="kw">crate</span>::rt::Executor;
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>)))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>)))]
 </span><span class="kw">use </span><span class="kw">crate</span>::server::conn::spawn_all::{NewSvcTask, Watcher};
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>)))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>)))]
 </span><span class="kw">use </span><span class="kw">crate</span>::service::HttpService;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
 </span><span class="kw">pub trait </span>ConnStreamExec&lt;F, B: HttpBody&gt;: Clone {
     <span class="kw">fn </span>execute_h2stream(<span class="kw-2">&amp;mut </span><span class="self">self</span>, fut: H2Stream&lt;F, B&gt;);
 }
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>)))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>)))]
 </span><span class="kw">pub trait </span>NewSvcExec&lt;I, N, S: HttpService&lt;Body&gt;, E, W: Watcher&lt;I, S, E&gt;&gt;: Clone {
     <span class="kw">fn </span>execute_new_svc(<span class="kw-2">&amp;mut </span><span class="self">self</span>, fut: NewSvcTask&lt;I, N, S, E, W&gt;);
 }
@@ -174,7 +174,7 @@
 
 <span class="comment">// Either the user provides an executor for background tasks, or we use
 // `tokio::spawn`.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub enum </span>Exec {
     Default,
     Executor(Arc&lt;<span class="kw">dyn </span>Executor&lt;BoxSendFuture&gt; + Send + Sync&gt;),
@@ -189,11 +189,11 @@
     {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             Exec::Default =&gt; {
-                <span class="attribute">#[cfg(feature = <span class="string">&quot;tcp&quot;</span>)]
+                <span class="attr">#[cfg(feature = <span class="string">&quot;tcp&quot;</span>)]
                 </span>{
                     tokio::task::spawn(fut);
                 }
-                <span class="attribute">#[cfg(not(feature = <span class="string">&quot;tcp&quot;</span>))]
+                <span class="attr">#[cfg(not(feature = <span class="string">&quot;tcp&quot;</span>))]
                 </span>{
                     <span class="comment">// If no runtime, we need an executor!
                     </span><span class="macro">panic!</span>(<span class="string">&quot;executor must be set&quot;</span>)
@@ -212,7 +212,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
 </span><span class="kw">impl</span>&lt;F, B&gt; ConnStreamExec&lt;F, B&gt; <span class="kw">for </span>Exec
 <span class="kw">where
     </span>H2Stream&lt;F, B&gt;: Future&lt;Output = ()&gt; + Send + <span class="lifetime">&#39;static</span>,
@@ -223,7 +223,7 @@
     }
 }
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>)))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>)))]
 </span><span class="kw">impl</span>&lt;I, N, S, E, W&gt; NewSvcExec&lt;I, N, S, E, W&gt; <span class="kw">for </span>Exec
 <span class="kw">where
     </span>NewSvcTask&lt;I, N, S, E, W&gt;: Future&lt;Output = ()&gt; + Send + <span class="lifetime">&#39;static</span>,
@@ -237,7 +237,7 @@
 
 <span class="comment">// ==== impl Executor =====
 
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
 </span><span class="kw">impl</span>&lt;E, F, B&gt; ConnStreamExec&lt;F, B&gt; <span class="kw">for </span>E
 <span class="kw">where
     </span>E: Executor&lt;H2Stream&lt;F, B&gt;&gt; + Clone,
@@ -249,7 +249,7 @@
     }
 }
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>)))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>)))]
 </span><span class="kw">impl</span>&lt;I, N, S, E, W&gt; NewSvcExec&lt;I, N, S, E, W&gt; <span class="kw">for </span>E
 <span class="kw">where
     </span>E: Executor&lt;NewSvcTask&lt;I, N, S, E, W&gt;&gt; + Clone,
@@ -267,11 +267,11 @@
 //
 // Because enabling `http2` shouldn&#39;t suddenly add new trait bounds that cause
 // a compilation error.
-</span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;http2&quot;</span>))]
+</span><span class="attr">#[cfg(not(feature = <span class="string">&quot;http2&quot;</span>))]
 #[allow(missing_debug_implementations)]
 </span><span class="kw">pub struct </span>H2Stream&lt;F, B&gt;(std::marker::PhantomData&lt;(F, B)&gt;);
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;http2&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;http2&quot;</span>))]
 </span><span class="kw">impl</span>&lt;F, B, E&gt; Future <span class="kw">for </span>H2Stream&lt;F, B&gt;
 <span class="kw">where
     </span>F: Future&lt;Output = <span class="prelude-ty">Result</span>&lt;http::Response&lt;B&gt;, E&gt;&gt;,
@@ -289,4 +289,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

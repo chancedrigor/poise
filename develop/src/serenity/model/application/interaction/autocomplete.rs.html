@@ -204,16 +204,16 @@
 </pre><pre class="rust"><code><span class="kw">use </span>serde::de::Error <span class="kw">as </span>DeError;
 <span class="kw">use </span>serde::{Deserialize, Deserializer};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::builder::CreateAutocompleteResponse;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::http::Http;
 <span class="kw">use </span><span class="kw">crate</span>::internal::prelude::<span class="kw-2">*</span>;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::json;
 <span class="kw">use </span><span class="kw">crate</span>::json::prelude::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::model::application::interaction::application_command::CommandData;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::model::application::interaction::InteractionResponseType;
 <span class="kw">use </span><span class="kw">crate</span>::model::application::interaction::InteractionType;
 <span class="kw">use </span><span class="kw">crate</span>::model::guild::Member;
@@ -224,7 +224,7 @@
 <span class="doccomment">/// An interaction received when the user fills in an autocomplete option
 ///
 /// [Discord docs](https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object).
-</span><span class="attribute">#[derive(Clone, Debug, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>AutocompleteInteraction {
     <span class="doccomment">/// Id of the interaction.
@@ -232,19 +232,19 @@
     <span class="doccomment">/// Id of the application this interaction is for.
     </span><span class="kw">pub </span>application_id: ApplicationId,
     <span class="doccomment">/// The type of interaction.
-    </span><span class="attribute">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
+    </span><span class="attr">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
     </span><span class="kw">pub </span>kind: InteractionType,
     <span class="doccomment">/// The data of the interaction which was triggered.
     </span><span class="kw">pub </span>data: CommandData,
     <span class="doccomment">/// The guild Id this interaction was sent from, if there is one.
-    </span><span class="attribute">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span><span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
     </span><span class="kw">pub </span>guild_id: <span class="prelude-ty">Option</span>&lt;GuildId&gt;,
     <span class="doccomment">/// The channel Id this interaction was sent from.
     </span><span class="kw">pub </span>channel_id: ChannelId,
     <span class="doccomment">/// The `member` data for the invoking user.
     ///
     /// **Note**: It is only present if the interaction is triggered in a guild.
-    </span><span class="attribute">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span><span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
     </span><span class="kw">pub </span>member: <span class="prelude-ty">Option</span>&lt;Member&gt;,
     <span class="doccomment">/// The `user` object for the invoking user.
     </span><span class="kw">pub </span>user: User,
@@ -260,7 +260,7 @@
     </span><span class="kw">pub </span>guild_locale: <span class="prelude-ty">Option</span>&lt;String&gt;,
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
 </span><span class="kw">impl </span>AutocompleteInteraction {
     <span class="doccomment">/// Creates a response to an autocomplete interaction.
     ///
@@ -405,4 +405,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

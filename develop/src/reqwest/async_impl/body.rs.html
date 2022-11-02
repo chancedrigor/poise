@@ -377,10 +377,10 @@
 <span class="kw">use </span>futures_core::Stream;
 <span class="kw">use </span>http_body::Body <span class="kw">as </span>HttpBody;
 <span class="kw">use </span>pin_project_lite::pin_project;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
 </span><span class="kw">use </span>tokio::fs::File;
 <span class="kw">use </span>tokio::time::Sleep;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
 </span><span class="kw">use </span>tokio_util::io::ReaderStream;
 
 <span class="doccomment">/// An asynchronous request body.
@@ -407,7 +407,7 @@
 
 <span class="macro">pin_project! </span>{
     <span class="kw">struct </span>WrapStream&lt;S&gt; {
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span>inner: S,
     }
 }
@@ -448,7 +448,7 @@
     /// # Optional
     ///
     /// This requires the `stream` feature to be enabled.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;stream&quot;</span>)))]
     </span><span class="kw">pub fn </span>wrap_stream&lt;S&gt;(stream: S) -&gt; Body
     <span class="kw">where
@@ -487,7 +487,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;blocking&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;blocking&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>wrap(body: hyper::Body) -&gt; Body {
         Body {
             inner: Inner::Streaming {
@@ -527,7 +527,7 @@
         ImplStream(<span class="self">self</span>)
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;multipart&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;multipart&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>content_length(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;u64&gt; {
         <span class="kw">match </span><span class="self">self</span>.inner {
             Inner::Reusable(<span class="kw-2">ref </span>bytes) =&gt; <span class="prelude-val">Some</span>(bytes.len() <span class="kw">as </span>u64),
@@ -537,7 +537,7 @@
 }
 
 <span class="kw">impl </span>From&lt;hyper::Body&gt; <span class="kw">for </span>Body {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(body: hyper::Body) -&gt; Body {
         <span class="self">Self </span>{
             inner: Inner::Streaming {
@@ -549,44 +549,44 @@
 }
 
 <span class="kw">impl </span>From&lt;Bytes&gt; <span class="kw">for </span>Body {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(bytes: Bytes) -&gt; Body {
         Body::reusable(bytes)
     }
 }
 
 <span class="kw">impl </span>From&lt;Vec&lt;u8&gt;&gt; <span class="kw">for </span>Body {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(vec: Vec&lt;u8&gt;) -&gt; Body {
         Body::reusable(vec.into())
     }
 }
 
 <span class="kw">impl </span>From&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[u8]&gt; <span class="kw">for </span>Body {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(s: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[u8]) -&gt; Body {
         Body::reusable(Bytes::from_static(s))
     }
 }
 
 <span class="kw">impl </span>From&lt;String&gt; <span class="kw">for </span>Body {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(s: String) -&gt; Body {
         Body::reusable(s.into())
     }
 }
 
 <span class="kw">impl </span>From&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str&gt; <span class="kw">for </span>Body {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(s: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str) -&gt; Body {
         s.as_bytes().into()
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;stream&quot;</span>)))]
 </span><span class="kw">impl </span>From&lt;File&gt; <span class="kw">for </span>Body {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(file: File) -&gt; Body {
         Body::wrap_stream(ReaderStream::new(file))
     }
@@ -727,11 +727,11 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::Body;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_as_bytes() {
         <span class="kw">let </span>test_data = <span class="string">b&quot;Test body&quot;</span>;
         <span class="kw">let </span>body = Body::from(<span class="kw-2">&amp;</span>test_data[..]);
@@ -739,4 +739,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="reqwest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="reqwest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -152,7 +152,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::lock::BiLock;
 
 <span class="doccomment">/// A `Stream` part of the split pair
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 #[must_use = <span class="string">&quot;streams do nothing unless polled&quot;</span>]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;sink&quot;</span>)))]
 </span><span class="kw">pub struct </span>SplitStream&lt;S&gt;(BiLock&lt;S&gt;);
@@ -179,13 +179,13 @@
     }
 }
 
-<span class="attribute">#[allow(bad_style)]
+<span class="attr">#[allow(bad_style)]
 </span><span class="kw">fn </span>SplitSink&lt;S: Sink&lt;Item&gt;, Item&gt;(lock: BiLock&lt;S&gt;) -&gt; SplitSink&lt;S, Item&gt; {
     SplitSink { lock, slot: <span class="prelude-val">None </span>}
 }
 
 <span class="doccomment">/// A `Sink` part of the split pair
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 #[must_use = <span class="string">&quot;sinks do nothing unless polled&quot;</span>]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;sink&quot;</span>)))]
 </span><span class="kw">pub struct </span>SplitSink&lt;S, Item&gt; {
@@ -269,7 +269,7 @@
 
 <span class="doccomment">/// Error indicating a `SplitSink&lt;S&gt;` and `SplitStream&lt;S&gt;` were not two halves
 /// of a `Stream + Split`, and thus could not be `reunite`d.
-</span><span class="attribute">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;sink&quot;</span>)))]
+</span><span class="attr">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;sink&quot;</span>)))]
 </span><span class="kw">pub struct </span>ReuniteError&lt;T, Item&gt;(<span class="kw">pub </span>SplitSink&lt;T, Item&gt;, <span class="kw">pub </span>SplitStream&lt;T&gt;);
 
 <span class="kw">impl</span>&lt;T, Item&gt; fmt::Debug <span class="kw">for </span>ReuniteError&lt;T, Item&gt; {
@@ -284,7 +284,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl</span>&lt;T: core::any::Any, Item&gt; std::error::Error <span class="kw">for </span>ReuniteError&lt;T, Item&gt; {}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

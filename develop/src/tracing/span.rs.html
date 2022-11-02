@@ -1984,7 +1984,7 @@
 /// If the span was rejected by the current `Subscriber`&#39;s filter, entering the
 /// span will silently do nothing. Thus, the handle can be used in the same
 /// manner regardless of whether or not the trace is currently being collected.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>Span {
     <span class="doccomment">/// A handle used to enter the span when it is not executing.
     ///
@@ -2002,7 +2002,7 @@
 /// Unlike `Span`, this type is only constructed for spans which _have_ been
 /// enabled by the current filter. This type is primarily used for implementing
 /// span handles; users should typically not need to interact with it directly.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Inner {
     <span class="doccomment">/// The span&#39;s ID, as provided by `subscriber`.
     </span>id: Id,
@@ -2022,7 +2022,7 @@
 /// This is returned by the [`Span::enter`] function.
 ///
 /// [`Span::enter`]: ../struct.Span.html#method.enter
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 #[must_use = <span class="string">&quot;once a span has been entered, it should be exited&quot;</span>]
 </span><span class="kw">pub struct </span>Entered&lt;<span class="lifetime">&#39;a</span>&gt; {
     span: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Span,
@@ -2036,7 +2036,7 @@
 /// This is returned by the [`Span::entered`] function.
 ///
 /// [`Span::entered`]: super::Span::entered()
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 #[must_use = <span class="string">&quot;once a span has been entered, it should be exited&quot;</span>]
 </span><span class="kw">pub struct </span>EnteredSpan {
     span: Span,
@@ -2051,10 +2051,10 @@
 }
 
 <span class="doccomment">/// `log` target for all span lifecycle (creation/enter/exit/close) records.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
 </span><span class="kw">const </span>LIFECYCLE_LOG_TARGET: <span class="kw-2">&amp;</span>str = <span class="string">&quot;tracing::span&quot;</span>;
 <span class="doccomment">/// `log` target for span activity (enter/exit) records.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
 </span><span class="kw">const </span>ACTIVITY_LOG_TARGET: <span class="kw-2">&amp;</span>str = <span class="string">&quot;tracing::span::active&quot;</span>;
 
 <span class="comment">// ===== impl Span =====
@@ -2077,7 +2077,7 @@
         dispatcher::get_default(|dispatch| <span class="self">Self</span>::new_with(meta, values, dispatch))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     #[doc(hidden)]
     </span><span class="kw">pub fn </span>new_with(
         meta: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Metadata&lt;<span class="lifetime">&#39;static</span>&gt;,
@@ -2101,7 +2101,7 @@
         dispatcher::get_default(|dispatch| <span class="self">Self</span>::new_root_with(meta, values, dispatch))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     #[doc(hidden)]
     </span><span class="kw">pub fn </span>new_root_with(
         meta: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Metadata&lt;<span class="lifetime">&#39;static</span>&gt;,
@@ -2132,7 +2132,7 @@
         })
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     #[doc(hidden)]
     </span><span class="kw">pub fn </span>child_of_with(
         parent: <span class="kw">impl </span>Into&lt;<span class="prelude-ty">Option</span>&lt;Id&gt;&gt;,
@@ -2155,7 +2155,7 @@
     /// Entering, exiting, and recording values on this span will not notify the
     /// `Subscriber` but _may_ record log messages if the `log` feature flag is
     /// enabled.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>new_disabled(meta: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Metadata&lt;<span class="lifetime">&#39;static</span>&gt;) -&gt; Span {
         <span class="self">Self </span>{
             inner: <span class="prelude-val">None</span>,
@@ -2169,7 +2169,7 @@
     /// span is not present.
     ///
     /// Entering, exiting, and recording values on this span will do nothing.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub const fn </span>none() -&gt; Span {
         <span class="self">Self </span>{
             inner: <span class="prelude-val">None</span>,
@@ -2415,7 +2415,7 @@
     /// [`Subscriber::enter`]: super::subscriber::Subscriber::enter()
     /// [`Subscriber::exit`]: super::subscriber::Subscriber::exit()
     /// [`Id`]: super::Id
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>enter(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Entered&lt;<span class="lifetime">&#39;_</span>&gt; {
         <span class="self">self</span>.do_enter();
         Entered { span: <span class="self">self </span>}
@@ -2526,7 +2526,7 @@
     /// [`Subscriber::enter`]: super::subscriber::Subscriber::enter()
     /// [`Subscriber::exit`]: super::subscriber::Subscriber::exit()
     /// [`Id`]: super::Id
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>entered(<span class="self">self</span>) -&gt; EnteredSpan {
         <span class="self">self</span>.do_enter();
         EnteredSpan {
@@ -2665,7 +2665,7 @@
         <span class="self">self
     </span>}
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>do_enter(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(inner) = <span class="self">self</span>.inner.as_ref() {
             inner.subscriber.enter(<span class="kw-2">&amp;</span>inner.id);
@@ -2682,7 +2682,7 @@
     //
     // Running this behaviour on drop rather than with an explicit function
     // call means that spans may still be exited when unwinding.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>do_exit(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(inner) = <span class="self">self</span>.inner.as_ref() {
             inner.subscriber.exit(<span class="kw-2">&amp;</span>inner.id);
@@ -2747,7 +2747,7 @@
 
     <span class="doccomment">/// Returns true if this `Span` has a field for the given
     /// [`Field`](../field/struct.Field.html) or field name.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>has_field&lt;Q: <span class="question-mark">?</span>Sized&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, field: <span class="kw-2">&amp;</span>Q) -&gt; bool
     <span class="kw">where
         </span>Q: field::AsField,
@@ -2870,7 +2870,7 @@
     /// See also [`is_none`].
     ///
     /// [`is_none`]: #method.is_none
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_disabled(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.inner.is_none()
     }
@@ -2885,7 +2885,7 @@
     ///
     /// [`Span::none`]: #method.none
     /// [`is_disabled`]: #method.is_disabled
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_none(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.is_disabled() &amp;&amp; <span class="self">self</span>.meta.is_none()
     }
@@ -2956,7 +2956,7 @@
         <span class="self">self</span>.meta
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
     #[inline]
     </span><span class="kw">fn </span>log(<span class="kw-2">&amp;</span><span class="self">self</span>, target: <span class="kw-2">&amp;</span>str, level: log::Level, message: fmt::Arguments&lt;<span class="lifetime">&#39;_</span>&gt;) {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(meta) = <span class="self">self</span>.meta {
@@ -3083,7 +3083,7 @@
 }
 
 <span class="kw">impl </span>Drop <span class="kw">for </span>Span {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(Inner {
             <span class="kw-2">ref </span>id,
@@ -3174,7 +3174,7 @@
     }
 
     <span class="doccomment">/// Exits this span, returning the underlying [`Span`].
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>exit(<span class="kw-2">mut </span><span class="self">self</span>) -&gt; Span {
         <span class="comment">// One does not simply move out of a struct with `Drop`.
         </span><span class="kw">let </span>span = mem::replace(<span class="kw-2">&amp;mut </span><span class="self">self</span>.span, Span::none());
@@ -3186,21 +3186,21 @@
 <span class="kw">impl </span>Deref <span class="kw">for </span>EnteredSpan {
     <span class="kw">type </span>Target = Span;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>deref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Span {
         <span class="kw-2">&amp;</span><span class="self">self</span>.span
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Drop <span class="kw">for </span>Entered&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.span.do_exit()
     }
 }
 
 <span class="kw">impl </span>Drop <span class="kw">for </span>EnteredSpan {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.span.do_exit()
     }
@@ -3220,12 +3220,12 @@
 /// `Entered` guard can be `Sync`.
 ///
 /// Thus, this is totally safe.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>PhantomNotSend {
     ghost: PhantomData&lt;<span class="kw-2">*mut </span>()&gt;,
 }
 
-<span class="attribute">#[allow(non_upper_case_globals)]
+<span class="attr">#[allow(non_upper_case_globals)]
 </span><span class="kw">const </span>PhantomNotSend: PhantomNotSend = PhantomNotSend { ghost: PhantomData };
 
 <span class="doccomment">/// # Safety
@@ -3233,10 +3233,10 @@
 /// Trivially safe, as `PhantomNotSend` doesn&#39;t have any API.
 </span><span class="kw">unsafe impl </span>Sync <span class="kw">for </span>PhantomNotSend {}
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
 </span><span class="kw">struct </span>FmtValues&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Record&lt;<span class="lifetime">&#39;a</span>&gt;);
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; fmt::Display <span class="kw">for </span>FmtValues&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">let </span><span class="kw-2">mut </span>res = <span class="prelude-val">Ok</span>(());
@@ -3249,10 +3249,10 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
 </span><span class="kw">struct </span>FmtAttrs&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Attributes&lt;<span class="lifetime">&#39;a</span>&gt;);
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; fmt::Display <span class="kw">for </span>FmtAttrs&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">let </span><span class="kw-2">mut </span>res = <span class="prelude-val">Ok</span>(());
@@ -3265,7 +3265,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
@@ -3278,4 +3278,4 @@
     <span class="kw">impl </span>AssertSync <span class="kw">for </span>EnteredSpan {}
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

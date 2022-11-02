@@ -836,7 +836,7 @@
 <span id="836">836</span>
 <span id="837">837</span>
 <span id="838">838</span>
-</pre><pre class="rust"><code><span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+</pre><pre class="rust"><code><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
 </span><span class="kw">use </span>std::fmt;
 <span class="kw">use </span>std::sync::Arc;
 
@@ -846,14 +846,14 @@
 <span class="kw">use </span>tracing::instrument;
 <span class="kw">use </span>typemap_rev::TypeMap;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">super</span>::bridge::gateway::event::ClientEvent;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">super</span>::event_handler::{EventHandler, RawEventHandler};
 <span class="kw">use </span><span class="kw">super</span>::Context;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::cache::{Cache, CacheUpdate};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::framework::Framework;
 <span class="kw">use </span><span class="kw">crate</span>::gateway::InterMessage;
 <span class="kw">use </span><span class="kw">crate</span>::http::Http;
@@ -861,11 +861,11 @@
 <span class="kw">use </span><span class="kw">crate</span>::model::channel::{Channel, Message};
 <span class="kw">use </span><span class="kw">crate</span>::model::event::Event;
 <span class="kw">use </span><span class="kw">crate</span>::model::guild::Member;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::model::id::GuildId;
 <span class="kw">use </span><span class="kw">crate</span>::CacheAndHttp;
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 #[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
 </span><span class="kw">fn </span>update&lt;E: CacheUpdate + fmt::Debug&gt;(
     cache_and_http: <span class="kw-2">&amp;</span>Arc&lt;CacheAndHttp&gt;,
@@ -874,13 +874,13 @@
     cache_and_http.cache.update(event)
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 #[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
 </span><span class="kw">fn </span>update&lt;E&gt;(_cache_and_http: <span class="kw-2">&amp;</span>Arc&lt;CacheAndHttp&gt;, _event: <span class="kw-2">&amp;mut </span>E) -&gt; <span class="prelude-ty">Option</span>&lt;()&gt; {
     <span class="prelude-val">None
 </span>}
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
 </span><span class="kw">fn </span>context(
     data: <span class="kw-2">&amp;</span>Arc&lt;RwLock&lt;TypeMap&gt;&gt;,
     runner_tx: <span class="kw-2">&amp;</span>Sender&lt;InterMessage&gt;,
@@ -891,7 +891,7 @@
     Context::new(Arc::clone(data), runner_tx.clone(), shard_id, Arc::clone(http), Arc::clone(cache))
 }
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
 </span><span class="kw">fn </span>context(
     data: <span class="kw-2">&amp;</span>Arc&lt;RwLock&lt;TypeMap&gt;&gt;,
     runner_tx: <span class="kw-2">&amp;</span>Sender&lt;InterMessage&gt;,
@@ -902,7 +902,7 @@
 }
 
 <span class="comment">// Once we can use `Box` as part of a pattern, we will reconsider boxing.
-</span><span class="attribute">#[allow(clippy::large_enum_variant)]
+</span><span class="attr">#[allow(clippy::large_enum_variant)]
 #[non_exhaustive]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>DispatchEvent {
     Client(ClientEvent),
@@ -910,7 +910,7 @@
 }
 
 <span class="kw">impl </span>DispatchEvent {
-    <span class="attribute">#[instrument(skip(<span class="self">self</span>, cache_and_http))]
+    <span class="attr">#[instrument(skip(<span class="self">self</span>, cache_and_http))]
     </span><span class="kw">fn </span>update(<span class="kw-2">&amp;mut </span><span class="self">self</span>, cache_and_http: <span class="kw-2">&amp;</span>Arc&lt;CacheAndHttp&gt;) {
         <span class="kw">match </span><span class="self">self </span>{
             <span class="self">Self</span>::Model(Event::ChannelCreate(<span class="kw-2">ref mut </span>event)) =&gt; {
@@ -992,11 +992,11 @@
     }
 }
 
-<span class="attribute">#[allow(clippy::too_many_arguments)]
+<span class="attr">#[allow(clippy::too_many_arguments)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>dispatch&lt;<span class="lifetime">&#39;rec</span>&gt;(
     <span class="comment">// #[allow(unused_variables)]
     </span><span class="kw-2">mut </span>event: DispatchEvent,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)] </span>framework: <span class="kw-2">&amp;</span><span class="lifetime">&#39;rec </span>Arc&lt;<span class="kw">dyn </span>Framework + Send + Sync&gt;,
+    <span class="attr">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)] </span>framework: <span class="kw-2">&amp;</span><span class="lifetime">&#39;rec </span>Arc&lt;<span class="kw">dyn </span>Framework + Send + Sync&gt;,
     data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;rec </span>Arc&lt;RwLock&lt;TypeMap&gt;&gt;,
     event_handler: <span class="kw-2">&amp;</span><span class="lifetime">&#39;rec </span><span class="prelude-ty">Option</span>&lt;Arc&lt;<span class="kw">dyn </span>EventHandler&gt;&gt;,
     raw_event_handler: <span class="kw-2">&amp;</span><span class="lifetime">&#39;rec </span><span class="prelude-ty">Option</span>&lt;Arc&lt;<span class="kw">dyn </span>RawEventHandler&gt;&gt;,
@@ -1009,11 +1009,11 @@
             (<span class="prelude-val">None</span>, <span class="prelude-val">None</span>) =&gt; {
                 event.update(<span class="kw-2">&amp;</span>cache_and_http);
 
-                <span class="attribute">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
+                <span class="attr">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
                 </span><span class="kw">if let </span>DispatchEvent::Model(Event::MessageCreate(event)) = event {
-                    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+                    <span class="attr">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
                     </span><span class="kw">let </span>context = context(data, runner_tx, shard_id, <span class="kw-2">&amp;</span>cache_and_http.http);
-                    <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
                     </span><span class="kw">let </span>context = context(
                         data,
                         runner_tx,
@@ -1033,9 +1033,9 @@
                 DispatchEvent::Model(Event::MessageCreate(<span class="kw-2">mut </span>event)) =&gt; {
                     update(<span class="kw-2">&amp;</span>cache_and_http, <span class="kw-2">&amp;mut </span>event);
 
-                    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+                    <span class="attr">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
                     </span><span class="kw">let </span>context = context(data, runner_tx, shard_id, <span class="kw-2">&amp;</span>cache_and_http.http);
-                    <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
                     </span><span class="kw">let </span>context = context(
                         data,
                         runner_tx,
@@ -1044,13 +1044,13 @@
                         <span class="kw-2">&amp;</span>cache_and_http.cache,
                     );
 
-                    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;framework&quot;</span>))]
+                    <span class="attr">#[cfg(not(feature = <span class="string">&quot;framework&quot;</span>))]
                     </span>{
                         <span class="comment">// Avoid cloning if there will be no framework dispatch.
                         </span>dispatch_message(context, event.message, h).<span class="kw">await</span>;
                     }
 
-                    <span class="attribute">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
                     </span>{
                         dispatch_message(context.clone(), event.message.clone(), h).<span class="kw">await</span>;
 
@@ -1071,9 +1071,9 @@
                 <span class="kw">if let </span>DispatchEvent::Model(event) = event {
                     <span class="kw">let </span>event_handler = Arc::clone(rh);
 
-                    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+                    <span class="attr">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
                     </span><span class="kw">let </span>context = context(data, runner_tx, shard_id, <span class="kw-2">&amp;</span>cache_and_http.http);
-                    <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
                     </span><span class="kw">let </span>context = context(
                         data,
                         runner_tx,
@@ -1082,13 +1082,13 @@
                         <span class="kw-2">&amp;</span>cache_and_http.cache,
                     );
 
-                    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;framework&quot;</span>))]
+                    <span class="attr">#[cfg(not(feature = <span class="string">&quot;framework&quot;</span>))]
                     </span>{
                         <span class="comment">// No clone needed, as there will be no framework dispatch.
                         </span>event_handler.raw_event(context, event).<span class="kw">await</span>;
                     }
 
-                    <span class="attribute">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
                     </span>{
                         <span class="kw">if let </span>Event::MessageCreate(<span class="kw-2">ref </span>msg_event) = event {
                             <span class="comment">// Must clone in order to dispatch the framework too.
@@ -1110,9 +1110,9 @@
             <span class="comment">// We call this function again, passing `None` for each event handler
             // and passing no framework, as we dispatch once we are done right here.
             </span>(<span class="prelude-val">Some</span>(<span class="kw-2">ref </span>handler), <span class="prelude-val">Some</span>(<span class="kw-2">ref </span>raw_handler)) =&gt; {
-                <span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+                <span class="attr">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
                 </span><span class="kw">let </span>context = context(data, runner_tx, shard_id, <span class="kw-2">&amp;</span>cache_and_http.http);
-                <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+                <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
                 </span><span class="kw">let </span>context =
                     context(data, runner_tx, shard_id, <span class="kw-2">&amp;</span>cache_and_http.http, <span class="kw-2">&amp;</span>cache_and_http.cache);
 
@@ -1122,13 +1122,13 @@
 
                 <span class="kw">match </span>event {
                     DispatchEvent::Model(Event::MessageCreate(event)) =&gt; {
-                        <span class="attribute">#[cfg(not(feature = <span class="string">&quot;framework&quot;</span>))]
+                        <span class="attr">#[cfg(not(feature = <span class="string">&quot;framework&quot;</span>))]
                         </span>{
                             <span class="comment">// Avoid cloning if there will be no framework dispatch.
                             </span>dispatch_message(context, event.message, handler).<span class="kw">await</span>;
                         }
 
-                        <span class="attribute">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
+                        <span class="attr">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
                         </span>{
                             dispatch_message(context.clone(), event.message.clone(), handler).<span class="kw">await</span>;
 
@@ -1155,7 +1155,7 @@
     <span class="kw-2">mut </span>message: Message,
     event_handler: <span class="kw-2">&amp;</span>Arc&lt;<span class="kw">dyn </span>EventHandler&gt;,
 ) {
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
     </span>{
         message.transform_content();
     }
@@ -1167,7 +1167,7 @@
     });
 }
 <span class="comment">// Once we can use `Box` as part of a pattern, we will reconsider boxing.
-</span><span class="attribute">#[allow(clippy::too_many_arguments)]
+</span><span class="attr">#[allow(clippy::too_many_arguments)]
 #[cfg_attr(feature = <span class="string">&quot;cache&quot;</span>, allow(clippy::used_underscore_binding))]
 #[instrument(skip(event, data, event_handler, cache_and_http))]
 </span><span class="kw">async fn </span>handle_event(
@@ -1178,9 +1178,9 @@
     shard_id: u64,
     cache_and_http: Arc&lt;CacheAndHttp&gt;,
 ) {
-    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    <span class="attr">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
     </span><span class="kw">let </span>context = context(data, runner_tx, shard_id, <span class="kw-2">&amp;</span>cache_and_http.http);
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span><span class="kw">let </span>context = context(data, runner_tx, shard_id, <span class="kw-2">&amp;</span>cache_and_http.http, <span class="kw-2">&amp;</span>cache_and_http.cache);
 
     <span class="kw">let </span>event_handler = Arc::clone(event_handler);
@@ -1295,12 +1295,12 @@
             });
         },
         Event::GuildCreate(<span class="kw-2">mut </span>event) =&gt; {
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
             </span><span class="kw">let </span>_is_new = !cache_and_http.cache.unavailable_guilds.contains(<span class="kw-2">&amp;</span>event.guild.id);
 
             update(<span class="kw-2">&amp;</span>cache_and_http, <span class="kw-2">&amp;mut </span>event);
 
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
             </span>{
                 <span class="kw">let </span>context = context.clone();
 
@@ -1675,4 +1675,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

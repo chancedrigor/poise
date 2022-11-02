@@ -341,7 +341,7 @@
 <span class="kw">static </span>INITIAL_N: u32 = <span class="number">0x80</span>;
 <span class="kw">static </span>DELIMITER: char = <span class="string">&#39;-&#39;</span>;
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>adapt(<span class="kw-2">mut </span>delta: u32, num_points: u32, first_time: bool) -&gt; u32 {
     delta /= <span class="kw">if </span>first_time { DAMP } <span class="kw">else </span>{ <span class="number">2 </span>};
     delta += delta / num_points;
@@ -356,7 +356,7 @@
 <span class="doccomment">/// Convert Punycode to an Unicode `String`.
 ///
 /// This is a convenience wrapper around `decode`.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>decode_to_string(input: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;String&gt; {
     decode(input).map(|chars| chars.into_iter().collect())
 }
@@ -370,7 +370,7 @@
     <span class="prelude-val">Some</span>(Decoder::default().decode(input).ok()<span class="question-mark">?</span>.collect())
 }
 
-<span class="attribute">#[derive(Default)]
+<span class="attr">#[derive(Default)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Decoder {
     insertions: Vec&lt;(usize, char)&gt;,
 }
@@ -527,7 +527,7 @@
 <span class="doccomment">/// Convert an Unicode `str` to Punycode.
 ///
 /// This is a convenience wrapper around `encode`.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>encode_str(input: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;String&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>buf = String::with_capacity(input.len());
     encode_into(input.chars(), <span class="kw-2">&amp;mut </span>buf).ok().map(|()| buf)
@@ -620,7 +620,7 @@
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>value_to_digit(value: u32) -&gt; char {
     <span class="kw">match </span>value {
         <span class="number">0</span>..=<span class="number">25 </span>=&gt; (value <span class="kw">as </span>u8 + <span class="string">b&#39;a&#39;</span>) <span class="kw">as </span>char,       <span class="comment">// a..z
@@ -629,4 +629,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="idna" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="idna" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

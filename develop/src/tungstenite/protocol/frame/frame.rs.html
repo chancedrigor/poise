@@ -494,7 +494,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::error::{Error, ProtocolError, <span class="prelude-ty">Result</span>};
 
 <span class="doccomment">/// A struct representing the close command.
-</span><span class="attribute">#[derive(Debug, Clone, Eq, PartialEq)]
+</span><span class="attr">#[derive(Debug, Clone, Eq, PartialEq)]
 </span><span class="kw">pub struct </span>CloseFrame&lt;<span class="lifetime">&#39;t</span>&gt; {
     <span class="doccomment">/// The reason as a code.
     </span><span class="kw">pub </span>code: CloseCode,
@@ -516,7 +516,7 @@
 }
 
 <span class="doccomment">/// A struct representing a WebSocket frame header.
-</span><span class="attribute">#[allow(missing_copy_implementations)]
+</span><span class="attr">#[allow(missing_copy_implementations)]
 #[derive(Debug, Clone, Eq, PartialEq)]
 </span><span class="kw">pub struct </span>FrameHeader {
     <span class="doccomment">/// Indicates that the frame is the last one of a possibly fragmented message.
@@ -562,7 +562,7 @@
     }
 
     <span class="doccomment">/// Get the size of the header formatted with given payload length.
-    </span><span class="attribute">#[allow(clippy::len_without_is_empty)]
+    </span><span class="attr">#[allow(clippy::len_without_is_empty)]
     </span><span class="kw">pub fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>, length: u64) -&gt; usize {
         <span class="number">2 </span>+ LengthFormat::for_length(length).extra_bytes() + <span class="kw">if </span><span class="self">self</span>.mask.is_some() { <span class="number">4 </span>} <span class="kw">else </span>{ <span class="number">0 </span>}
     }
@@ -677,7 +677,7 @@
 }
 
 <span class="doccomment">/// A struct representing a WebSocket frame.
-</span><span class="attribute">#[derive(Debug, Clone, Eq, PartialEq)]
+</span><span class="attr">#[derive(Debug, Clone, Eq, PartialEq)]
 </span><span class="kw">pub struct </span>Frame {
     header: FrameHeader,
     payload: Vec&lt;u8&gt;,
@@ -686,44 +686,44 @@
 <span class="kw">impl </span>Frame {
     <span class="doccomment">/// Get the length of the frame.
     /// This is the length of the header + the length of the payload.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="kw">let </span>length = <span class="self">self</span>.payload.len();
         <span class="self">self</span>.header.len(length <span class="kw">as </span>u64) + length
     }
 
     <span class="doccomment">/// Check if the frame is empty.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_empty(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.len() == <span class="number">0
     </span>}
 
     <span class="doccomment">/// Get a reference to the frame&#39;s header.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>header(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>FrameHeader {
         <span class="kw-2">&amp;</span><span class="self">self</span>.header
     }
 
     <span class="doccomment">/// Get a mutable reference to the frame&#39;s header.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>header_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>FrameHeader {
         <span class="kw-2">&amp;mut </span><span class="self">self</span>.header
     }
 
     <span class="doccomment">/// Get a reference to the frame&#39;s payload.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>payload(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Vec&lt;u8&gt; {
         <span class="kw-2">&amp;</span><span class="self">self</span>.payload
     }
 
     <span class="doccomment">/// Get a mutable reference to the frame&#39;s payload.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>payload_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>Vec&lt;u8&gt; {
         <span class="kw-2">&amp;mut </span><span class="self">self</span>.payload
     }
 
     <span class="doccomment">/// Test whether the frame is masked.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>is_masked(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.header.mask.is_some()
     }
@@ -732,14 +732,14 @@
     ///
     /// This just generates a mask, payload is not changed. The actual masking is performed
     /// either on `format()` or on `apply_mask()` call.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>set_random_mask(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.header.set_random_mask()
     }
 
     <span class="doccomment">/// This method unmasks the payload and should only be called on frames that are actually
     /// masked. In other words, those frames that have just been received from a client endpoint.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>apply_mask(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(mask) = <span class="self">self</span>.header.mask.take() {
             apply_mask(<span class="kw-2">&amp;mut </span><span class="self">self</span>.payload, mask)
@@ -747,25 +747,25 @@
     }
 
     <span class="doccomment">/// Consume the frame into its payload as binary.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>into_data(<span class="self">self</span>) -&gt; Vec&lt;u8&gt; {
         <span class="self">self</span>.payload
     }
 
     <span class="doccomment">/// Consume the frame into its payload as string.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>into_string(<span class="self">self</span>) -&gt; StdResult&lt;String, FromUtf8Error&gt; {
         String::from_utf8(<span class="self">self</span>.payload)
     }
 
     <span class="doccomment">/// Get frame payload as `&amp;str`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>to_text(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw-2">&amp;</span>str, Utf8Error&gt; {
         std::str::from_utf8(<span class="kw-2">&amp;</span><span class="self">self</span>.payload)
     }
 
     <span class="doccomment">/// Consume the frame into a closing frame.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>into_close(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;CloseFrame&lt;<span class="lifetime">&#39;static</span>&gt;&gt;&gt; {
         <span class="kw">match </span><span class="self">self</span>.payload.len() {
             <span class="number">0 </span>=&gt; <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
@@ -781,7 +781,7 @@
     }
 
     <span class="doccomment">/// Create a new data frame.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>message(data: Vec&lt;u8&gt;, opcode: OpCode, is_final: bool) -&gt; Frame {
         <span class="macro">debug_assert!</span>(<span class="macro">matches!</span>(opcode, OpCode::Data(<span class="kw">_</span>)), <span class="string">&quot;Invalid opcode for data frame.&quot;</span>);
 
@@ -789,7 +789,7 @@
     }
 
     <span class="doccomment">/// Create a new Pong control frame.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>pong(data: Vec&lt;u8&gt;) -&gt; Frame {
         Frame {
             header: FrameHeader {
@@ -801,7 +801,7 @@
     }
 
     <span class="doccomment">/// Create a new Ping control frame.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>ping(data: Vec&lt;u8&gt;) -&gt; Frame {
         Frame {
             header: FrameHeader {
@@ -813,7 +813,7 @@
     }
 
     <span class="doccomment">/// Create a new Close control frame.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>close(msg: <span class="prelude-ty">Option</span>&lt;CloseFrame&gt;) -&gt; Frame {
         <span class="kw">let </span>payload = <span class="kw">if let </span><span class="prelude-val">Some</span>(CloseFrame { code, reason }) = msg {
             <span class="kw">let </span><span class="kw-2">mut </span>p = Vec::with_capacity(reason.as_bytes().len() + <span class="number">2</span>);
@@ -876,7 +876,7 @@ payload: 0x{}
 
 <span class="kw">impl </span>LengthFormat {
     <span class="doccomment">/// Get the length format for a given data size.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>for_length(length: u64) -&gt; <span class="self">Self </span>{
         <span class="kw">if </span>length &lt; <span class="number">126 </span>{
             LengthFormat::U8(length <span class="kw">as </span>u8)
@@ -888,7 +888,7 @@ payload: 0x{}
     }
 
     <span class="doccomment">/// Get the size of the length encoding.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>extra_bytes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             LengthFormat::U8(<span class="kw">_</span>) =&gt; <span class="number">0</span>,
@@ -898,7 +898,7 @@ payload: 0x{}
     }
 
     <span class="doccomment">/// Encode the given length.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>length_byte(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u8 {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             LengthFormat::U8(b) =&gt; b,
@@ -908,7 +908,7 @@ payload: 0x{}
     }
 
     <span class="doccomment">/// Get the length format for a given length byte.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>for_byte(byte: u8) -&gt; <span class="self">Self </span>{
         <span class="kw">match </span>byte &amp; <span class="number">0x7F </span>{
             <span class="number">126 </span>=&gt; LengthFormat::U16,
@@ -918,14 +918,14 @@ payload: 0x{}
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
     <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::coding::{Data, OpCode};
     <span class="kw">use </span>std::io::Cursor;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>parse() {
         <span class="kw">let </span><span class="kw-2">mut </span>raw: Cursor&lt;Vec&lt;u8&gt;&gt; =
             Cursor::new(<span class="macro">vec!</span>[<span class="number">0x82</span>, <span class="number">0x07</span>, <span class="number">0x01</span>, <span class="number">0x02</span>, <span class="number">0x03</span>, <span class="number">0x04</span>, <span class="number">0x05</span>, <span class="number">0x06</span>, <span class="number">0x07</span>]);
@@ -937,7 +937,7 @@ payload: 0x{}
         <span class="macro">assert_eq!</span>(frame.into_data(), <span class="macro">vec!</span>[<span class="number">0x01</span>, <span class="number">0x02</span>, <span class="number">0x03</span>, <span class="number">0x04</span>, <span class="number">0x05</span>, <span class="number">0x06</span>, <span class="number">0x07</span>]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>format() {
         <span class="kw">let </span>frame = Frame::ping(<span class="macro">vec!</span>[<span class="number">0x01</span>, <span class="number">0x02</span>]);
         <span class="kw">let </span><span class="kw-2">mut </span>buf = Vec::with_capacity(frame.len());
@@ -945,7 +945,7 @@ payload: 0x{}
         <span class="macro">assert_eq!</span>(buf, <span class="macro">vec!</span>[<span class="number">0x89</span>, <span class="number">0x02</span>, <span class="number">0x01</span>, <span class="number">0x02</span>]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>display() {
         <span class="kw">let </span>f = Frame::message(<span class="string">&quot;hi there&quot;</span>.into(), OpCode::Data(Data::Text), <span class="bool-val">true</span>);
         <span class="kw">let </span>view = <span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, f);
@@ -953,4 +953,4 @@ payload: 0x{}
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

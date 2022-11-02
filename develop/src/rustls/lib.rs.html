@@ -787,7 +787,7 @@
 //!   buffers. Will do nothing on non-Nightly releases.
 
 </span><span class="comment">// Require docs for public APIs, deny unsafe code, etc.
-</span><span class="attribute">#![forbid(unsafe_code, unused_must_use)]
+</span><span class="attr">#![forbid(unsafe_code, unused_must_use)]
 #![cfg_attr(not(read_buf), forbid(unstable_features))]
 #![deny(
     clippy::clone_on_ref_ptr,
@@ -810,7 +810,7 @@
 //   a false positive, https://github.com/rust-lang/rust-clippy/issues/5210
 // - new_without_default: for internal constructors, the indirection is not
 //   helpful
-</span><span class="attribute">#![allow(
+</span><span class="attr">#![allow(
     clippy::too_many_arguments,
     clippy::new_ret_no_self,
     clippy::ptr_arg,
@@ -818,7 +818,7 @@
     clippy::new_without_default
 )]
 </span><span class="comment">// Enable documentation for all features on docs.rs
-</span><span class="attribute">#![cfg_attr(docsrs, feature(doc_cfg))]
+</span><span class="attr">#![cfg_attr(docsrs, feature(doc_cfg))]
 </span><span class="comment">// XXX: Because of https://github.com/rust-lang/rust/issues/54726, we cannot
 // write `#![rustversion::attr(nightly, feature(read_buf))]` here. Instead,
 // build.rs set `read_buf` for (only) Rust Nightly to get the same effect.
@@ -827,13 +827,13 @@
 // `#[rustversion::nightly]` instead of `#[cfg(read_buf)]`; `#[cfg(read_buf)]`
 // is used to avoid needing `rustversion` to be compiled twice during
 // cross-compiling.
-</span><span class="attribute">#![cfg_attr(read_buf, feature(read_buf))]
+</span><span class="attr">#![cfg_attr(read_buf, feature(read_buf))]
 
 </span><span class="comment">// log for logging (optional).
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
 </span><span class="kw">use </span>log;
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;logging&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;logging&quot;</span>))]
 #[macro_use]
 </span><span class="kw">mod </span>log {
     <span class="macro">macro_rules! </span>trace    ( ($(<span class="macro-nonterminal">$tt</span>:tt)<span class="kw-2">*</span>) =&gt; {{}} );
@@ -842,7 +842,7 @@
     <span class="macro">macro_rules! </span>error    ( ($(<span class="macro-nonterminal">$tt</span>:tt)<span class="kw-2">*</span>) =&gt; {{}} );
 }
 
-<span class="attribute">#[allow(missing_docs)]
+<span class="attr">#[allow(missing_docs)]
 #[macro_use]
 </span><span class="kw">mod </span>msgs;
 <span class="kw">mod </span>anchors;
@@ -854,15 +854,15 @@
 <span class="kw">mod </span>rand;
 <span class="kw">mod </span>record_layer;
 <span class="kw">mod </span>stream;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
 </span><span class="kw">mod </span>tls12;
 <span class="kw">mod </span>tls13;
 <span class="kw">mod </span>vecbuf;
 <span class="kw">mod </span>verify;
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>verifybench;
 <span class="kw">mod </span>x509;
-<span class="attribute">#[macro_use]
+<span class="attr">#[macro_use]
 </span><span class="kw">mod </span>check;
 <span class="kw">mod </span>bs_debug;
 <span class="kw">mod </span>builder;
@@ -909,7 +909,7 @@
     BulkAlgorithm, SupportedCipherSuite, ALL_CIPHER_SUITES, DEFAULT_CIPHER_SUITES,
 };
 <span class="kw">pub use </span><span class="kw">crate</span>::ticketer::Ticketer;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
 </span><span class="kw">pub use </span><span class="kw">crate</span>::tls12::Tls12CipherSuite;
 <span class="kw">pub use </span><span class="kw">crate</span>::tls13::Tls13CipherSuite;
 <span class="kw">pub use </span><span class="kw">crate</span>::versions::{SupportedProtocolVersion, ALL_VERSIONS, DEFAULT_VERSIONS};
@@ -921,12 +921,12 @@
     <span class="kw">mod </span>common;
     <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">mod </span>handy;
     <span class="kw">mod </span>hs;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
     </span><span class="kw">mod </span>tls12;
     <span class="kw">mod </span>tls13;
 
     <span class="kw">pub use </span>builder::{WantsClientCert, WantsTransparencyPolicyOrClientCert};
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;quic&quot;</span>)))]
     </span><span class="kw">pub use </span>client_conn::ClientQuicExt;
     <span class="kw">pub use </span>client_conn::InvalidDnsNameError;
@@ -936,13 +936,13 @@
     <span class="kw">pub use </span>client_conn::{ClientConfig, ClientConnection, ClientConnectionData, WriteEarlyData};
     <span class="kw">pub use </span>handy::{ClientSessionMemoryCache, NoClientSessionStorage};
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;dangerous_configuration&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;dangerous_configuration&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;dangerous_configuration&quot;</span>)))]
     </span><span class="kw">pub use </span><span class="kw">crate</span>::verify::{
         CertificateTransparencyPolicy, HandshakeSignatureValid, ServerCertVerified,
         ServerCertVerifier, WebPkiVerifier,
     };
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;dangerous_configuration&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;dangerous_configuration&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;dangerous_configuration&quot;</span>)))]
     </span><span class="kw">pub use </span>client_conn::danger::DangerousClientConfig;
 }
@@ -956,7 +956,7 @@
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>handy;
     <span class="kw">mod </span>hs;
     <span class="kw">mod </span>server_conn;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
     </span><span class="kw">mod </span>tls12;
     <span class="kw">mod </span>tls13;
 
@@ -966,7 +966,7 @@
     <span class="kw">pub use </span>builder::WantsServerCert;
     <span class="kw">pub use </span>handy::ResolvesServerCertUsingSni;
     <span class="kw">pub use </span>handy::{NoServerSessionStorage, ServerSessionMemoryCache};
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;quic&quot;</span>)))]
     </span><span class="kw">pub use </span>server_conn::ServerQuicExt;
     <span class="kw">pub use </span>server_conn::StoresServerSessions;
@@ -975,7 +975,7 @@
     };
     <span class="kw">pub use </span>server_conn::{ClientHello, ProducesTickets, ResolvesServerCert};
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;dangerous_configuration&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;dangerous_configuration&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;dangerous_configuration&quot;</span>)))]
     </span><span class="kw">pub use </span><span class="kw">crate</span>::verify::{ClientCertVerified, ClientCertVerifier, DnsName};
 }
@@ -987,17 +987,17 @@
 /// [`ALL_CIPHER_SUITES`] is provided as an array of all of these values.
 </span><span class="kw">pub mod </span>cipher_suite {
     <span class="kw">pub use </span><span class="kw">crate</span>::suites::CipherSuiteCommon;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
     </span><span class="kw">pub use </span><span class="kw">crate</span>::tls12::TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
     </span><span class="kw">pub use </span><span class="kw">crate</span>::tls12::TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
     </span><span class="kw">pub use </span><span class="kw">crate</span>::tls12::TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
     </span><span class="kw">pub use </span><span class="kw">crate</span>::tls12::TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
     </span><span class="kw">pub use </span><span class="kw">crate</span>::tls12::TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
     </span><span class="kw">pub use </span><span class="kw">crate</span>::tls12::TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256;
     <span class="kw">pub use </span><span class="kw">crate</span>::tls13::TLS13_AES_128_GCM_SHA256;
     <span class="kw">pub use </span><span class="kw">crate</span>::tls13::TLS13_AES_256_GCM_SHA384;
@@ -1008,7 +1008,7 @@
 ///
 /// ALL_VERSIONS is a provided as an array of all of these values.
 </span><span class="kw">pub mod </span>version {
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
     </span><span class="kw">pub use </span><span class="kw">crate</span>::versions::TLS12;
     <span class="kw">pub use </span><span class="kw">crate</span>::versions::TLS13;
 }
@@ -1025,7 +1025,7 @@
 <span class="doccomment">/// Message signing interfaces and implementations.
 </span><span class="kw">pub mod </span>sign;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;quic&quot;</span>)))]
 </span><span class="doccomment">/// APIs for implementing QUIC TLS
 </span><span class="kw">pub mod </span>quic;
@@ -1034,24 +1034,24 @@
 </span><span class="kw">pub mod </span>manual;
 
 <span class="doccomment">/** Type renames. */
-</span><span class="attribute">#[allow(clippy::upper_case_acronyms)]
+</span><span class="attr">#[allow(clippy::upper_case_acronyms)]
 #[doc(hidden)]
 #[deprecated(since = <span class="string">&quot;0.20.0&quot;</span>, note = <span class="string">&quot;Use ResolvesServerCertUsingSni&quot;</span>)]
 </span><span class="kw">pub type </span>ResolvesServerCertUsingSNI = server::ResolvesServerCertUsingSni;
-<span class="attribute">#[allow(clippy::upper_case_acronyms)]
+<span class="attr">#[allow(clippy::upper_case_acronyms)]
 #[cfg(feature = <span class="string">&quot;dangerous_configuration&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;dangerous_configuration&quot;</span>)))]
 #[doc(hidden)]
 #[deprecated(since = <span class="string">&quot;0.20.0&quot;</span>, note = <span class="string">&quot;Use client::WebPkiVerifier&quot;</span>)]
 </span><span class="kw">pub type </span>WebPKIVerifier = client::WebPkiVerifier;
-<span class="attribute">#[allow(clippy::upper_case_acronyms)]
+<span class="attr">#[allow(clippy::upper_case_acronyms)]
 #[doc(hidden)]
 #[deprecated(since = <span class="string">&quot;0.20.0&quot;</span>, note = <span class="string">&quot;Use Error&quot;</span>)]
 </span><span class="kw">pub type </span>TLSError = Error;
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 #[deprecated(since = <span class="string">&quot;0.20.0&quot;</span>, note = <span class="string">&quot;Use ClientConnection&quot;</span>)]
 </span><span class="kw">pub type </span>ClientSession = ClientConnection;
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 #[deprecated(since = <span class="string">&quot;0.20.0&quot;</span>, note = <span class="string">&quot;Use ServerConnection&quot;</span>)]
 </span><span class="kw">pub type </span>ServerSession = ServerConnection;
 
@@ -1059,4 +1059,4 @@
 pub trait Session = Connection;
 */
 </span></code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

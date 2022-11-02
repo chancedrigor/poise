@@ -20,7 +20,7 @@
 <span id="20">20</span>
 <span id="21">21</span>
 <span id="22">22</span>
-</pre><pre class="rust"><code><span class="attribute">#![no_std]
+</pre><pre class="rust"><code><span class="attr">#![no_std]
 
 </span><span class="comment">// Design:
 // - safety: safe creation of any machine type is done only by instance methods of a
@@ -31,16 +31,16 @@
 <span class="kw">mod </span>types;
 <span class="kw">pub use </span><span class="self">self</span>::types::<span class="kw-2">*</span>;
 
-<span class="attribute">#[cfg(all(target_arch = <span class="string">&quot;x86_64&quot;</span>, not(feature = <span class="string">&quot;no_simd&quot;</span>), not(miri)))]
+<span class="attr">#[cfg(all(target_arch = <span class="string">&quot;x86_64&quot;</span>, not(feature = <span class="string">&quot;no_simd&quot;</span>), not(miri)))]
 </span><span class="kw">pub mod </span>x86_64;
-<span class="attribute">#[cfg(all(target_arch = <span class="string">&quot;x86_64&quot;</span>, not(feature = <span class="string">&quot;no_simd&quot;</span>), not(miri)))]
+<span class="attr">#[cfg(all(target_arch = <span class="string">&quot;x86_64&quot;</span>, not(feature = <span class="string">&quot;no_simd&quot;</span>), not(miri)))]
 </span><span class="kw">use </span><span class="self">self</span>::x86_64 <span class="kw">as </span>arch;
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;no_simd&quot;</span>, miri, not(target_arch = <span class="string">&quot;x86_64&quot;</span>)))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;no_simd&quot;</span>, miri, not(target_arch = <span class="string">&quot;x86_64&quot;</span>)))]
 </span><span class="kw">pub mod </span>generic;
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;no_simd&quot;</span>, miri, not(target_arch = <span class="string">&quot;x86_64&quot;</span>)))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;no_simd&quot;</span>, miri, not(target_arch = <span class="string">&quot;x86_64&quot;</span>)))]
 </span><span class="kw">use </span><span class="self">self</span>::generic <span class="kw">as </span>arch;
 
 <span class="kw">pub use </span><span class="self">self</span>::arch::{vec128_storage, vec256_storage, vec512_storage};
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ppv_lite86" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ppv_lite86" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

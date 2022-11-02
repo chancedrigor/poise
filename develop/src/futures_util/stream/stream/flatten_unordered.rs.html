@@ -525,7 +525,7 @@
     stream::{FusedStream, Stream},
     task::{Context, Poll, Waker},
 };
-<span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
 </span><span class="kw">use </span>futures_sink::Sink;
 <span class="kw">use </span>futures_task::{waker, ArcWake};
 
@@ -561,7 +561,7 @@
 
 <span class="doccomment">/// Determines what needs to be polled, and is stream being polled at the
 /// moment or not.
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">struct </span>SharedPollState {
     state: Arc&lt;AtomicU8&gt;,
 }
@@ -778,9 +778,9 @@
     ///
     /// If `poll_next` will return `Poll::Pending`, it will be forwarded to
     /// the future and current task will be notified by waker.
-    </span><span class="attribute">#[must_use = <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]
     </span><span class="kw">struct </span>PollStreamFut&lt;St&gt; {
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span>stream: <span class="prelude-ty">Option</span>&lt;St&gt;,
     }
 }
@@ -813,12 +813,12 @@
 <span class="macro">pin_project! </span>{
     <span class="doccomment">/// Stream for the [`flatten_unordered`](super::StreamExt::flatten_unordered)
     /// method.
-    </span><span class="attribute">#[project = FlattenUnorderedProj]
+    </span><span class="attr">#[project = FlattenUnorderedProj]
     #[must_use = <span class="string">&quot;streams do nothing unless polled&quot;</span>]
     </span><span class="kw">pub struct </span>FlattenUnordered&lt;St&gt; <span class="kw">where </span>St: Stream {
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span>inner_streams: FuturesUnordered&lt;PollStreamFut&lt;St::Item&gt;&gt;,
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span>stream: St,
         poll_state: SharedPollState,
         limit: <span class="prelude-ty">Option</span>&lt;NonZeroUsize&gt;,
@@ -1007,7 +1007,7 @@
 }
 
 <span class="comment">// Forwarding impl of Sink from the underlying stream
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
 </span><span class="kw">impl</span>&lt;St, Item&gt; Sink&lt;Item&gt; <span class="kw">for </span>FlattenUnordered&lt;St&gt;
 <span class="kw">where
     </span>St: Stream + Sink&lt;Item&gt;,
@@ -1017,4 +1017,4 @@
     <span class="macro">delegate_sink!</span>(stream, Item);
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

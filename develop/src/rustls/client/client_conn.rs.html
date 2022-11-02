@@ -615,9 +615,9 @@
 <span class="kw">use </span><span class="kw">crate</span>::conn::{CommonState, ConnectionCommon, Protocol, Side};
 <span class="kw">use </span><span class="kw">crate</span>::error::Error;
 <span class="kw">use </span><span class="kw">crate</span>::kx::SupportedKxGroup;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::log::trace;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::msgs::enums::AlertDescription;
 <span class="kw">use </span><span class="kw">crate</span>::msgs::enums::CipherSuite;
 <span class="kw">use </span><span class="kw">crate</span>::msgs::enums::ProtocolVersion;
@@ -630,7 +630,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::KeyLog;
 
 <span class="kw">use </span><span class="kw">super</span>::hs;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::quic;
 
 <span class="kw">use </span>std::convert::TryFrom;
@@ -699,7 +699,7 @@
 /// * [`ClientConfig::session_storage`]: the default stores 256 sessions in memory.
 /// * [`ClientConfig::alpn_protocols`]: the default is empty -- no ALPN protocol is negotiated.
 /// * [`ClientConfig::key_log`]: key material is not logged.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>ClientConfig {
     <span class="doccomment">/// List of ciphersuites, in preference order.
     </span><span class="kw">pub</span>(<span class="kw">super</span>) cipher_suites: Vec&lt;SupportedCipherSuite&gt;,
@@ -772,7 +772,7 @@
         }
     }
 
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span><span class="doccomment">/// We support a given TLS version if it&#39;s quoted in the configured
     /// versions *and* at least one ciphersuite for this version is
     /// also configured.
@@ -786,7 +786,7 @@
 
     <span class="doccomment">/// Access configuration options whose use is dangerous and requires
     /// extra care.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;dangerous_configuration&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;dangerous_configuration&quot;</span>)]
     </span><span class="kw">pub fn </span>dangerous(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; danger::DangerousClientConfig {
         danger::DangerousClientConfig { cfg: <span class="self">self </span>}
     }
@@ -821,7 +821,7 @@
 /// let x = &quot;example.com&quot;.try_into().expect(&quot;invalid DNS name&quot;);
 /// # let _: ServerName = x;
 /// ```
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[derive(Debug, PartialEq, Clone)]
 </span><span class="kw">pub enum </span>ServerName {
     <span class="doccomment">/// The server is identified by a DNS name.  The name
@@ -872,7 +872,7 @@
 
 <span class="doccomment">/// The provided input could not be parsed because
 /// it is not a syntactically-valid DNS Name.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>InvalidDnsNameError;
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>InvalidDnsNameError {
@@ -884,7 +884,7 @@
 <span class="kw">impl </span>StdError <span class="kw">for </span>InvalidDnsNameError {}
 
 <span class="doccomment">/// Container for unsafe APIs
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;dangerous_configuration&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;dangerous_configuration&quot;</span>)]
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">mod </span>danger {
     <span class="kw">use </span>std::sync::Arc;
 
@@ -905,7 +905,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug, PartialEq)]
+<span class="attr">#[derive(Debug, PartialEq)]
 </span><span class="kw">enum </span>EarlyDataState {
     Disabled,
     Ready,
@@ -1121,7 +1121,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; TryFrom&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="kw">crate</span>::Connection&gt; <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>ClientConnection {
     <span class="kw">type </span>Error = ();
 
@@ -1157,7 +1157,7 @@
 
 <span class="kw">impl </span><span class="kw">crate</span>::conn::SideData <span class="kw">for </span>ClientConnectionData {}
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
 </span><span class="kw">impl </span>quic::QuicExt <span class="kw">for </span>ClientConnection {
     <span class="kw">fn </span>quic_transport_parameters(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>[u8]&gt; {
         <span class="self">self</span>.inner
@@ -1196,7 +1196,7 @@
 }
 
 <span class="doccomment">/// Methods specific to QUIC client sessions
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
 </span><span class="kw">pub trait </span>ClientQuicExt {
     <span class="doccomment">/// Make a new QUIC ClientConnection. This differs from `ClientConnection::new()`
     /// in that it takes an extra argument, `params`, which contains the
@@ -1222,7 +1222,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
 </span><span class="kw">impl </span>ClientQuicExt <span class="kw">for </span>ClientConnection {}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

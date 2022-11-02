@@ -305,13 +305,13 @@
 <span class="kw">use </span>std::task::Context;
 <span class="kw">use </span>std::task::Poll;
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">use </span><span class="kw">super</span>::mocks::spawn_blocking;
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">use </span><span class="kw">super</span>::mocks::JoinHandle;
-<span class="attribute">#[cfg(not(test))]
+<span class="attr">#[cfg(not(test))]
 </span><span class="kw">use </span><span class="kw">crate</span>::blocking::spawn_blocking;
-<span class="attribute">#[cfg(not(test))]
+<span class="attr">#[cfg(not(test))]
 </span><span class="kw">use </span><span class="kw">crate</span>::blocking::JoinHandle;
 
 <span class="doccomment">/// Returns a stream over the entries within a directory.
@@ -347,11 +347,11 @@
 /// [`read_dir`]: read_dir
 /// [`DirEntry`]: DirEntry
 /// [`Err`]: std::result::Result::Err
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 #[must_use = <span class="string">&quot;streams do nothing unless polled&quot;</span>]
 </span><span class="kw">pub struct </span>ReadDir(State);
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">enum </span>State {
     Idle(<span class="prelude-ty">Option</span>&lt;std::fs::ReadDir&gt;),
     Pending(JoinHandle&lt;(<span class="prelude-ty">Option</span>&lt;io::Result&lt;std::fs::DirEntry&gt;&gt;, std::fs::ReadDir)&gt;),
@@ -415,7 +415,7 @@
 }
 
 <span class="macro">feature! </span>{
-    <span class="attribute">#![unix]
+    <span class="attr">#![unix]
 
     </span><span class="kw">use </span>std::os::unix::fs::DirEntryExt;
 
@@ -454,7 +454,7 @@
 /// An instance of `DirEntry` represents an entry inside of a directory on the
 /// filesystem. Each entry can be inspected via methods to learn about the full
 /// path or possibly other metadata through per-platform extension traits.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>DirEntry(Arc&lt;std::fs::DirEntry&gt;);
 
 <span class="kw">impl </span>DirEntry {
@@ -583,10 +583,10 @@
     </span>}
 
     <span class="doccomment">/// Returns a reference to the underlying `std::fs::DirEntry`.
-    </span><span class="attribute">#[cfg(unix)]
+    </span><span class="attr">#[cfg(unix)]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>as_inner(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>std::fs::DirEntry {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0
     </span>}
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

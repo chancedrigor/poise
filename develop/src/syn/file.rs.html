@@ -202,7 +202,7 @@
     ///         ),
     /// ...
     /// ```
-    </span><span class="attribute">#[cfg_attr(doc_cfg, doc(cfg(feature = <span class="string">&quot;full&quot;</span>)))]
+    </span><span class="attr">#[cfg_attr(doc_cfg, doc(cfg(feature = <span class="string">&quot;full&quot;</span>)))]
     </span><span class="kw">pub struct </span>File {
         <span class="kw">pub </span>shebang: <span class="prelude-ty">Option</span>&lt;String&gt;,
         <span class="kw">pub </span>attrs: Vec&lt;Attribute&gt;,
@@ -210,12 +210,12 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">pub mod </span>parsing {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::parse::{Parse, ParseStream, <span class="prelude-ty">Result</span>};
 
-    <span class="attribute">#[cfg_attr(doc_cfg, doc(cfg(feature = <span class="string">&quot;parsing&quot;</span>)))]
+    <span class="attr">#[cfg_attr(doc_cfg, doc(cfg(feature = <span class="string">&quot;parsing&quot;</span>)))]
     </span><span class="kw">impl </span>Parse <span class="kw">for </span>File {
         <span class="kw">fn </span>parse(input: ParseStream) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
             <span class="prelude-val">Ok</span>(File {
@@ -233,14 +233,14 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;printing&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;printing&quot;</span>)]
 </span><span class="kw">mod </span>printing {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::attr::FilterAttrs;
     <span class="kw">use </span>proc_macro2::TokenStream;
     <span class="kw">use </span>quote::{ToTokens, TokenStreamExt};
 
-    <span class="attribute">#[cfg_attr(doc_cfg, doc(cfg(feature = <span class="string">&quot;printing&quot;</span>)))]
+    <span class="attr">#[cfg_attr(doc_cfg, doc(cfg(feature = <span class="string">&quot;printing&quot;</span>)))]
     </span><span class="kw">impl </span>ToTokens <span class="kw">for </span>File {
         <span class="kw">fn </span>to_tokens(<span class="kw-2">&amp;</span><span class="self">self</span>, tokens: <span class="kw-2">&amp;mut </span>TokenStream) {
             tokens.append_all(<span class="self">self</span>.attrs.inner());
@@ -249,4 +249,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="syn" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="syn" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -217,7 +217,7 @@
     <span class="kw">let </span>(impl_generics, ty_generics, where_clause) = generics.split_for_impl();
 
     <span class="macro">quote! </span>{
-        <span class="attribute">#[allow(unused_qualifications)]
+        <span class="attr">#[allow(unused_qualifications)]
         </span><span class="kw">impl </span>#impl_generics #copy_trait_path <span class="kw">for </span>#name #ty_generics #where_clause {}
     }
 }
@@ -239,7 +239,7 @@
     <span class="kw">let </span>is_copy = input.attrs.copy.is_some();
     <span class="kw">if </span>is_copy &amp;&amp; input.generics.type_params().count() == <span class="number">0 </span>{
         <span class="macro">quote! </span>{
-            <span class="attribute">#[allow(unused_qualifications)]
+            <span class="attr">#[allow(unused_qualifications)]
             </span><span class="kw">impl </span>#impl_generics #clone_trait_path <span class="kw">for </span>#name #ty_generics #where_clause {
                 <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
                     <span class="kw-2">*</span><span class="self">self
@@ -343,7 +343,7 @@
             </span>};
 
             <span class="macro">quote! </span>{
-                <span class="attribute">#[allow(clippy::needless_return)]
+                <span class="attr">#[allow(clippy::needless_return)]
                 </span><span class="kw">fn </span>clone_from(<span class="kw-2">&amp;mut </span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
                     <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
                         #body
@@ -355,7 +355,7 @@
         });
 
         <span class="macro">quote! </span>{
-            <span class="attribute">#[allow(unused_qualifications)]
+            <span class="attr">#[allow(unused_qualifications)]
             </span><span class="kw">impl </span>#impl_generics #clone_trait_path <span class="kw">for </span>#name #ty_generics #where_clause {
                 <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
                     <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
@@ -391,4 +391,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="derivative" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="derivative" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -117,7 +117,7 @@
 // http://opensource.org/licenses/MIT&gt;, at your option. This file may not be
 // copied, modified, or distributed except according to those terms.
 
-</span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;hardware-lock-elision&quot;</span>, any(target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>)))]
+</span><span class="attr">#[cfg(all(feature = <span class="string">&quot;hardware-lock-elision&quot;</span>, any(target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>)))]
 </span><span class="kw">use </span>std::arch::asm;
 <span class="kw">use </span>std::sync::atomic::AtomicUsize;
 
@@ -137,7 +137,7 @@
 }
 
 <span class="comment">// Indicates whether the target architecture supports lock elision
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>have_elision() -&gt; bool {
     <span class="macro">cfg!</span>(all(
         feature = <span class="string">&quot;hardware-lock-elision&quot;</span>,
@@ -147,31 +147,31 @@
 
 <span class="comment">// This implementation is never actually called because it is guarded by
 // have_elision().
-</span><span class="attribute">#[cfg(not(all(feature = <span class="string">&quot;hardware-lock-elision&quot;</span>, any(target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))))]
+</span><span class="attr">#[cfg(not(all(feature = <span class="string">&quot;hardware-lock-elision&quot;</span>, any(target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))))]
 </span><span class="kw">impl </span>AtomicElisionExt <span class="kw">for </span>AtomicUsize {
     <span class="kw">type </span>IntType = usize;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>elision_compare_exchange_acquire(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: usize, <span class="kw">_</span>: usize) -&gt; <span class="prelude-ty">Result</span>&lt;usize, usize&gt; {
         <span class="macro">unreachable!</span>();
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>elision_fetch_sub_release(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: usize) -&gt; usize {
         <span class="macro">unreachable!</span>();
     }
 }
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;hardware-lock-elision&quot;</span>, any(target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>)))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;hardware-lock-elision&quot;</span>, any(target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>)))]
 </span><span class="kw">impl </span>AtomicElisionExt <span class="kw">for </span>AtomicUsize {
     <span class="kw">type </span>IntType = usize;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>elision_compare_exchange_acquire(<span class="kw-2">&amp;</span><span class="self">self</span>, current: usize, new: usize) -&gt; <span class="prelude-ty">Result</span>&lt;usize, usize&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">use </span>core::arch::asm;
             <span class="kw">let </span>prev: usize;
-            <span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
+            <span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
             </span><span class="macro">asm!</span>(
                 <span class="string">&quot;xacquire&quot;</span>,
                 <span class="string">&quot;lock&quot;</span>,
@@ -180,7 +180,7 @@
                 <span class="kw">in</span>(reg) new,
                 inout(<span class="string">&quot;eax&quot;</span>) current =&gt; prev,
             );
-            <span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
+            <span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
             </span><span class="macro">asm!</span>(
                 <span class="string">&quot;xacquire&quot;</span>,
                 <span class="string">&quot;lock&quot;</span>,
@@ -197,12 +197,12 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>elision_fetch_sub_release(<span class="kw-2">&amp;</span><span class="self">self</span>, val: usize) -&gt; usize {
         <span class="kw">unsafe </span>{
             <span class="kw">use </span>core::arch::asm;
             <span class="kw">let </span>prev: usize;
-            <span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
+            <span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
             </span><span class="macro">asm!</span>(
                 <span class="string">&quot;xrelease&quot;</span>,
                 <span class="string">&quot;lock&quot;</span>,
@@ -210,7 +210,7 @@
                 <span class="kw">in</span>(reg) <span class="self">self</span>,
                 inout(reg) val.wrapping_neg() =&gt; prev,
             );
-            <span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
+            <span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
             </span><span class="macro">asm!</span>(
                 <span class="string">&quot;xrelease&quot;</span>,
                 <span class="string">&quot;lock&quot;</span>,
@@ -223,4 +223,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

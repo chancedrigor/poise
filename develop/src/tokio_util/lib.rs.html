@@ -199,7 +199,7 @@
 <span id="199">199</span>
 <span id="200">200</span>
 <span id="201">201</span>
-</pre><pre class="rust"><code><span class="attribute">#![allow(clippy::needless_doctest_main)]
+</pre><pre class="rust"><code><span class="attr">#![allow(clippy::needless_doctest_main)]
 #![warn(
     missing_debug_implementations,
     missing_docs,
@@ -220,7 +220,7 @@
 //!
 //! [`tokio`]: https://docs.rs/tokio
 
-</span><span class="attribute">#[macro_use]
+</span><span class="attr">#[macro_use]
 </span><span class="kw">mod </span>cfg;
 
 <span class="kw">mod </span>loom;
@@ -255,7 +255,7 @@
 
 <span class="kw">pub mod </span>either;
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;io&quot;</span>, feature = <span class="string">&quot;codec&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;io&quot;</span>, feature = <span class="string">&quot;codec&quot;</span>))]
 </span><span class="kw">mod </span>util {
     <span class="kw">use </span>tokio::io::{AsyncRead, AsyncWrite, ReadBuf};
 
@@ -304,7 +304,7 @@
     /// # Ok(())
     /// # }
     /// ```
-    </span><span class="attribute">#[cfg_attr(not(feature = <span class="string">&quot;io&quot;</span>), allow(unreachable_pub))]
+    </span><span class="attr">#[cfg_attr(not(feature = <span class="string">&quot;io&quot;</span>), allow(unreachable_pub))]
     </span><span class="kw">pub fn </span>poll_read_buf&lt;T: AsyncRead, B: BufMut&gt;(
         io: Pin&lt;<span class="kw-2">&amp;mut </span>T&gt;,
         cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;,
@@ -375,7 +375,7 @@
     /// [`AsyncWrite`]: tokio::io::AsyncWrite
     /// [`File`]: tokio::fs::File
     /// [vectored writes]: tokio::io::AsyncWrite::poll_write_vectored
-    </span><span class="attribute">#[cfg_attr(not(feature = <span class="string">&quot;io&quot;</span>), allow(unreachable_pub))]
+    </span><span class="attr">#[cfg_attr(not(feature = <span class="string">&quot;io&quot;</span>), allow(unreachable_pub))]
     </span><span class="kw">pub fn </span>poll_write_buf&lt;T: AsyncWrite, B: Buf&gt;(
         io: Pin&lt;<span class="kw-2">&amp;mut </span>T&gt;,
         cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;,
@@ -401,4 +401,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tokio_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tokio_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -118,14 +118,14 @@
     bytes.insert(<span class="number">0</span>, der::Tag::Sequence <span class="kw">as </span>u8);
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_empty() {
     <span class="kw">let </span><span class="kw-2">mut </span>val = Vec::new();
     wrap_in_sequence(<span class="kw-2">&amp;mut </span>val);
     <span class="macro">assert_eq!</span>(<span class="macro">vec!</span>[<span class="number">0x30</span>, <span class="number">0x00</span>], val);
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_small() {
     <span class="kw">let </span><span class="kw-2">mut </span>val = Vec::new();
     val.insert(<span class="number">0</span>, <span class="number">0x00</span>);
@@ -136,7 +136,7 @@
     <span class="macro">assert_eq!</span>(<span class="macro">vec!</span>[<span class="number">0x30</span>, <span class="number">0x04</span>, <span class="number">0x00</span>, <span class="number">0x11</span>, <span class="number">0x22</span>, <span class="number">0x33</span>], val);
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_medium() {
     <span class="kw">let </span><span class="kw-2">mut </span>val = Vec::new();
     val.resize(<span class="number">255</span>, <span class="number">0x12</span>);
@@ -144,7 +144,7 @@
     <span class="macro">assert_eq!</span>(<span class="macro">vec!</span>[<span class="number">0x30</span>, <span class="number">0x81</span>, <span class="number">0xff</span>, <span class="number">0x12</span>, <span class="number">0x12</span>, <span class="number">0x12</span>], val[..<span class="number">6</span>].to_vec());
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_large() {
     <span class="kw">let </span><span class="kw-2">mut </span>val = Vec::new();
     val.resize(<span class="number">4660</span>, <span class="number">0x12</span>);
@@ -152,7 +152,7 @@
     <span class="macro">assert_eq!</span>(<span class="macro">vec!</span>[<span class="number">0x30</span>, <span class="number">0x82</span>, <span class="number">0x12</span>, <span class="number">0x34</span>, <span class="number">0x12</span>, <span class="number">0x12</span>], val[..<span class="number">6</span>].to_vec());
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_huge() {
     <span class="kw">let </span><span class="kw-2">mut </span>val = Vec::new();
     val.resize(<span class="number">0xffff</span>, <span class="number">0x12</span>);
@@ -161,7 +161,7 @@
     <span class="macro">assert_eq!</span>(val.len(), <span class="number">0xffff </span>+ <span class="number">4</span>);
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_gigantic() {
     <span class="kw">let </span><span class="kw-2">mut </span>val = Vec::new();
     val.resize(<span class="number">0x100000</span>, <span class="number">0x12</span>);
@@ -173,7 +173,7 @@
     <span class="macro">assert_eq!</span>(val.len(), <span class="number">0x100000 </span>+ <span class="number">5</span>);
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_ludicrous() {
     <span class="kw">let </span><span class="kw-2">mut </span>val = Vec::new();
     val.resize(<span class="number">0x1000000</span>, <span class="number">0x12</span>);
@@ -185,4 +185,4 @@
     <span class="macro">assert_eq!</span>(val.len(), <span class="number">0x1000000 </span>+ <span class="number">6</span>);
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

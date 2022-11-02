@@ -1647,16 +1647,16 @@
 <span class="kw">use </span><span class="kw">crate</span>::variant::<span class="kw-2">*</span>;
 
 <span class="macro">cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(feature = <span class="string">&quot;simd-accel&quot;</span>)] </span>{
+    <span class="kw">if </span><span class="attr">#[cfg(feature = <span class="string">&quot;simd-accel&quot;</span>)] </span>{
         <span class="kw">use </span>::core::intrinsics::unlikely;
         <span class="kw">use </span>::core::intrinsics::likely;
     } <span class="kw">else </span>{
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="comment">// Unsafe to match the intrinsic, which is needlessly unsafe.
         </span><span class="kw">unsafe fn </span>unlikely(b: bool) -&gt; bool {
             b
         }
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="comment">// Unsafe to match the intrinsic, which is needlessly unsafe.
         </span><span class="kw">unsafe fn </span>likely(b: bool) -&gt; bool {
             b
@@ -1664,7 +1664,7 @@
     }
 }
 
-<span class="attribute">#[repr(align(<span class="number">64</span>))] </span><span class="comment">// Align to cache lines
+<span class="attr">#[repr(align(<span class="number">64</span>))] </span><span class="comment">// Align to cache lines
 </span><span class="kw">pub struct </span>Utf8Data {
     <span class="kw">pub </span>table: [u8; <span class="number">384</span>],
 }
@@ -1859,7 +1859,7 @@
     read
 }
 
-<span class="attribute">#[cfg_attr(feature = <span class="string">&quot;cargo-clippy&quot;</span>, allow(never_loop, cyclomatic_complexity))]
+<span class="attr">#[cfg_attr(feature = <span class="string">&quot;cargo-clippy&quot;</span>, allow(never_loop, cyclomatic_complexity))]
 </span><span class="kw">pub fn </span>convert_utf8_to_utf16_up_to_invalid(src: <span class="kw-2">&amp;</span>[u8], dst: <span class="kw-2">&amp;mut </span>[u16]) -&gt; (usize, usize) {
     <span class="kw">let </span><span class="kw-2">mut </span>read = <span class="number">0</span>;
     <span class="kw">let </span><span class="kw-2">mut </span>written = <span class="number">0</span>;
@@ -2236,7 +2236,7 @@
     );
 }
 
-<span class="attribute">#[cfg_attr(feature = <span class="string">&quot;cargo-clippy&quot;</span>, allow(never_loop))]
+<span class="attr">#[cfg_attr(feature = <span class="string">&quot;cargo-clippy&quot;</span>, allow(never_loop))]
 #[inline(never)]
 </span><span class="kw">pub fn </span>convert_utf16_to_utf8_partial_inner(src: <span class="kw-2">&amp;</span>[u16], dst: <span class="kw-2">&amp;mut </span>[u8]) -&gt; (usize, usize) {
     <span class="kw">let </span><span class="kw-2">mut </span>read = <span class="number">0</span>;
@@ -2376,7 +2376,7 @@
     }
 }
 
-<span class="attribute">#[inline(never)]
+<span class="attr">#[inline(never)]
 </span><span class="kw">pub fn </span>convert_utf16_to_utf8_partial_tail(src: <span class="kw-2">&amp;</span>[u16], dst: <span class="kw-2">&amp;mut </span>[u8]) -&gt; (usize, usize) {
     <span class="comment">// Everything below is cold code!
     </span><span class="kw">let </span><span class="kw-2">mut </span>read = <span class="number">0</span>;
@@ -2517,7 +2517,7 @@
 <span class="comment">// Any copyright to the test code below this comment is dedicated to the
 // Public Domain. http://creativecommons.org/publicdomain/zero/1.0/
 
-</span><span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
+</span><span class="attr">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::testing::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::<span class="kw-2">*</span>;
@@ -2575,7 +2575,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_utf8_decode() {
         <span class="comment">// Empty
         </span>decode_valid_utf8(<span class="string">&quot;&quot;</span>);
@@ -2736,7 +2736,7 @@
         decode_utf8_to_utf8(<span class="string">b&quot;a\xF4\x8F\xBF\xFFZ&quot;</span>, <span class="string">&quot;a\u{FFFD}\u{FFFD}Z&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_utf8_encode() {
         <span class="comment">// Empty
         </span>encode_utf8_from_utf16(<span class="kw-2">&amp;</span>[], <span class="string">b&quot;&quot;</span>);
@@ -2759,7 +2759,7 @@
         encode_utf8_from_utf16(<span class="kw-2">&amp;</span>[<span class="number">0xDC00</span>, <span class="number">0xDEDE</span>], <span class="string">&quot;\u{FFFD}\u{FFFD}&quot;</span>.as_bytes());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_encode_utf8_from_utf16_with_output_limit() {
         encode_utf8_from_utf16_with_output_limit(<span class="kw-2">&amp;</span>[<span class="number">0x0062</span>], <span class="string">&quot;\u{62}&quot;</span>, <span class="number">1</span>, EncoderResult::InputEmpty);
         encode_utf8_from_utf16_with_output_limit(<span class="kw-2">&amp;</span>[<span class="number">0x00A7</span>], <span class="string">&quot;\u{A7}&quot;</span>, <span class="number">2</span>, EncoderResult::InputEmpty);
@@ -3157,7 +3157,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_utf8_max_length_from_utf16() {
         <span class="kw">let </span><span class="kw-2">mut </span>encoder = UTF_8.new_encoder();
         <span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0u8</span>; <span class="number">13</span>];
@@ -3170,7 +3170,7 @@
         <span class="macro">assert_eq!</span>(result, EncoderResult::InputEmpty);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_bom_prefixed_split_byte_triple() {
         <span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0u16</span>; <span class="number">20</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = UTF_8.new_decoder();
@@ -3204,7 +3204,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_bom_prefixed_split_byte_pair() {
         <span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0u16</span>; <span class="number">20</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = UTF_8.new_decoder();
@@ -3229,7 +3229,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_bom_prefix() {
         <span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0u16</span>; <span class="number">20</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = UTF_8.new_decoder();
@@ -3245,7 +3245,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_tail() {
         <span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0u16</span>; <span class="number">1</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = UTF_8.new_decoder_without_bom_handling();
@@ -3261,4 +3261,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="encoding_rs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="encoding_rs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

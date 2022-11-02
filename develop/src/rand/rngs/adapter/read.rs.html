@@ -160,7 +160,7 @@
 
 </span><span class="doccomment">//! A wrapper around any Read to treat it as an RNG.
 
-</span><span class="attribute">#![allow(deprecated)]
+</span><span class="attr">#![allow(deprecated)]
 
 </span><span class="kw">use </span>std::fmt;
 <span class="kw">use </span>std::io::Read;
@@ -185,7 +185,7 @@
 ///
 /// [`OsRng`]: crate::rngs::OsRng
 /// [`try_fill_bytes`]: RngCore::try_fill_bytes
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 #[deprecated(since=<span class="string">&quot;0.8.4&quot;</span>, note=<span class="string">&quot;removal due to lack of usage&quot;</span>)]
 </span><span class="kw">pub struct </span>ReadRng&lt;R&gt; {
     reader: R,
@@ -228,7 +228,7 @@
 }
 
 <span class="doccomment">/// `ReadRng` error type
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 #[deprecated(since=<span class="string">&quot;0.8.4&quot;</span>)]
 </span><span class="kw">pub struct </span>ReadError(std::io::Error);
 
@@ -245,17 +245,17 @@
 }
 
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use </span>std::println;
 
     <span class="kw">use </span><span class="kw">super</span>::ReadRng;
     <span class="kw">use </span><span class="kw">crate</span>::RngCore;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_reader_rng_u64() {
         <span class="comment">// transmute from the target to avoid endianness concerns.
-        </span><span class="attribute">#[rustfmt::skip]
+        </span><span class="attr">#[rustfmt::skip]
         </span><span class="kw">let </span>v = [<span class="number">0u8</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>,
                  <span class="number">0</span>,   <span class="number">4</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>,
                  <span class="number">5</span>,   <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>];
@@ -266,7 +266,7 @@
         <span class="macro">assert_eq!</span>(rng.next_u64(), <span class="number">5</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_reader_rng_u32() {
         <span class="kw">let </span>v = [<span class="number">0u8</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>rng = ReadRng::new(<span class="kw-2">&amp;</span>v[..]);
@@ -276,7 +276,7 @@
         <span class="macro">assert_eq!</span>(rng.next_u32(), <span class="number">3</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_reader_rng_fill_bytes() {
         <span class="kw">let </span>v = [<span class="number">1u8</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>w = [<span class="number">0u8</span>; <span class="number">8</span>];
@@ -287,7 +287,7 @@
         <span class="macro">assert!</span>(v == w);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_reader_rng_insufficient_bytes() {
         <span class="kw">let </span>v = [<span class="number">1u8</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>w = [<span class="number">0u8</span>; <span class="number">9</span>];
@@ -300,4 +300,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="rand" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="rand" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

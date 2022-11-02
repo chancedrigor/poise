@@ -221,7 +221,7 @@
 
 <span class="kw">use </span>std::io;
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Codec&lt;T, B&gt; {
     inner: FramedRead&lt;FramedWrite&lt;T, B&gt;&gt;,
 }
@@ -232,7 +232,7 @@
     B: Buf,
 {
     <span class="doccomment">/// Returns a new `Codec` with the default max frame size
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new(io: T) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::with_max_recv_frame_size(io, frame::DEFAULT_MAX_FRAME_SIZE <span class="kw">as </span>usize)
     }
@@ -266,7 +266,7 @@
     /// words, if a frame is currently in process of being decoded with a frame
     /// size greater than `val` but less than the max frame size in effect
     /// before calling this function, then the frame will be allowed.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_max_recv_frame_size(<span class="kw-2">&amp;mut </span><span class="self">self</span>, val: usize) {
         <span class="self">self</span>.inner.set_max_frame_size(val)
     }
@@ -275,7 +275,7 @@
     ///
     /// This is the largest size this codec will accept from the wire. Larger
     /// frames will be rejected.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
     #[inline]
     </span><span class="kw">pub fn </span>max_recv_frame_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.inner.max_frame_size()
@@ -302,7 +302,7 @@
     }
 
     <span class="doccomment">/// Get a reference to the inner stream.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
     </span><span class="kw">pub fn </span>get_ref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>T {
         <span class="self">self</span>.inner.get_ref().get_ref()
     }
@@ -401,4 +401,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -116,18 +116,18 @@
 </span><span class="kw">mod </span>component_range;
 <span class="kw">mod </span>conversion_range;
 <span class="kw">mod </span>different_variant;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
 </span><span class="kw">mod </span>format;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;local-offset&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;local-offset&quot;</span>)]
 </span><span class="kw">mod </span>indeterminate_offset;
-<span class="attribute">#[cfg(all(any(feature = <span class="string">&quot;formatting&quot;</span>, feature = <span class="string">&quot;parsing&quot;</span>), feature = <span class="string">&quot;alloc&quot;</span>))]
+<span class="attr">#[cfg(all(any(feature = <span class="string">&quot;formatting&quot;</span>, feature = <span class="string">&quot;parsing&quot;</span>), feature = <span class="string">&quot;alloc&quot;</span>))]
 </span><span class="kw">mod </span>invalid_format_description;
 <span class="kw">mod </span>invalid_variant;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">mod </span>parse;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">mod </span>parse_from_description;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">mod </span>try_from_parsed;
 
 <span class="kw">use </span>core::fmt;
@@ -135,43 +135,43 @@
 <span class="kw">pub use </span>component_range::ComponentRange;
 <span class="kw">pub use </span>conversion_range::ConversionRange;
 <span class="kw">pub use </span>different_variant::DifferentVariant;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
 </span><span class="kw">pub use </span>format::Format;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;local-offset&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;local-offset&quot;</span>)]
 </span><span class="kw">pub use </span>indeterminate_offset::IndeterminateOffset;
-<span class="attribute">#[cfg(all(any(feature = <span class="string">&quot;formatting&quot;</span>, feature = <span class="string">&quot;parsing&quot;</span>), feature = <span class="string">&quot;alloc&quot;</span>))]
+<span class="attr">#[cfg(all(any(feature = <span class="string">&quot;formatting&quot;</span>, feature = <span class="string">&quot;parsing&quot;</span>), feature = <span class="string">&quot;alloc&quot;</span>))]
 </span><span class="kw">pub use </span>invalid_format_description::InvalidFormatDescription;
 <span class="kw">pub use </span>invalid_variant::InvalidVariant;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">pub use </span>parse::Parse;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">pub use </span>parse_from_description::ParseFromDescription;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">pub use </span>try_from_parsed::TryFromParsed;
 
 <span class="doccomment">/// A unified error type for anything returned by a method in the time crate.
 ///
 /// This can be used when you either don&#39;t know or don&#39;t care about the exact error returned.
 /// `Result&lt;_, time::Error&gt;` (or its alias `time::Result&lt;_&gt;`) will work in these situations.
-</span><span class="attribute">#[allow(missing_copy_implementations, variant_size_differences)]
+</span><span class="attr">#[allow(missing_copy_implementations, variant_size_differences)]
 #[allow(clippy::missing_docs_in_private_items)] </span><span class="comment">// variants only
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[derive(Debug)]
 </span><span class="kw">pub enum </span>Error {
     ConversionRange(ConversionRange),
     ComponentRange(ComponentRange),
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;local-offset&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;local-offset&quot;</span>)]
     </span>IndeterminateOffset(IndeterminateOffset),
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
     </span>Format(Format),
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
     </span>ParseFromDescription(ParseFromDescription),
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
     #[non_exhaustive]
     </span>UnexpectedTrailingCharacters,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
     </span>TryFromParsed(TryFromParsed),
-    <span class="attribute">#[cfg(all(any(feature = <span class="string">&quot;formatting&quot;</span>, feature = <span class="string">&quot;parsing&quot;</span>), feature = <span class="string">&quot;alloc&quot;</span>))]
+    <span class="attr">#[cfg(all(any(feature = <span class="string">&quot;formatting&quot;</span>, feature = <span class="string">&quot;parsing&quot;</span>), feature = <span class="string">&quot;alloc&quot;</span>))]
     </span>InvalidFormatDescription(InvalidFormatDescription),
     DifferentVariant(DifferentVariant),
     InvalidVariant(InvalidVariant),
@@ -182,17 +182,17 @@
         <span class="kw">match </span><span class="self">self </span>{
             <span class="self">Self</span>::ConversionRange(e) =&gt; e.fmt(f),
             <span class="self">Self</span>::ComponentRange(e) =&gt; e.fmt(f),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;local-offset&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;local-offset&quot;</span>)]
             </span><span class="self">Self</span>::IndeterminateOffset(e) =&gt; e.fmt(f),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
             </span><span class="self">Self</span>::Format(e) =&gt; e.fmt(f),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
             </span><span class="self">Self</span>::ParseFromDescription(e) =&gt; e.fmt(f),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
             </span><span class="self">Self</span>::UnexpectedTrailingCharacters =&gt; f.write_str(<span class="string">&quot;unexpected trailing characters&quot;</span>),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
             </span><span class="self">Self</span>::TryFromParsed(e) =&gt; e.fmt(f),
-            <span class="attribute">#[cfg(all(any(feature = <span class="string">&quot;formatting&quot;</span>, feature = <span class="string">&quot;parsing&quot;</span>), feature = <span class="string">&quot;alloc&quot;</span>))]
+            <span class="attr">#[cfg(all(any(feature = <span class="string">&quot;formatting&quot;</span>, feature = <span class="string">&quot;parsing&quot;</span>), feature = <span class="string">&quot;alloc&quot;</span>))]
             </span><span class="self">Self</span>::InvalidFormatDescription(e) =&gt; e.fmt(f),
             <span class="self">Self</span>::DifferentVariant(e) =&gt; e.fmt(f),
             <span class="self">Self</span>::InvalidVariant(e) =&gt; e.fmt(f),
@@ -200,23 +200,23 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>std::error::Error <span class="kw">for </span>Error {
     <span class="kw">fn </span>source(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>(<span class="kw">dyn </span>std::error::Error + <span class="lifetime">&#39;static</span>)&gt; {
         <span class="kw">match </span><span class="self">self </span>{
             <span class="self">Self</span>::ConversionRange(err) =&gt; <span class="prelude-val">Some</span>(err),
             <span class="self">Self</span>::ComponentRange(err) =&gt; <span class="prelude-val">Some</span>(err),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;local-offset&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;local-offset&quot;</span>)]
             </span><span class="self">Self</span>::IndeterminateOffset(err) =&gt; <span class="prelude-val">Some</span>(err),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
             </span><span class="self">Self</span>::Format(err) =&gt; <span class="prelude-val">Some</span>(err),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
             </span><span class="self">Self</span>::ParseFromDescription(err) =&gt; <span class="prelude-val">Some</span>(err),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
             </span><span class="self">Self</span>::UnexpectedTrailingCharacters =&gt; <span class="prelude-val">None</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
             </span><span class="self">Self</span>::TryFromParsed(err) =&gt; <span class="prelude-val">Some</span>(err),
-            <span class="attribute">#[cfg(all(any(feature = <span class="string">&quot;formatting&quot;</span>, feature = <span class="string">&quot;parsing&quot;</span>), feature = <span class="string">&quot;alloc&quot;</span>))]
+            <span class="attr">#[cfg(all(any(feature = <span class="string">&quot;formatting&quot;</span>, feature = <span class="string">&quot;parsing&quot;</span>), feature = <span class="string">&quot;alloc&quot;</span>))]
             </span><span class="self">Self</span>::InvalidFormatDescription(err) =&gt; <span class="prelude-val">Some</span>(err),
             <span class="self">Self</span>::DifferentVariant(err) =&gt; <span class="prelude-val">Some</span>(err),
             <span class="self">Self</span>::InvalidVariant(err) =&gt; <span class="prelude-val">Some</span>(err),
@@ -224,4 +224,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

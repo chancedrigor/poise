@@ -1282,7 +1282,7 @@
 ///
 /// This type can be used to construct an instance or `Request`
 /// through a builder-like pattern.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Builder {
     inner: <span class="prelude-ty">Result</span>&lt;Parts&gt;,
 }
@@ -1304,7 +1304,7 @@
     ///     .body(())
     ///     .unwrap();
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>builder() -&gt; Builder {
         Builder::new()
     }
@@ -1531,7 +1531,7 @@
     /// assert_eq!(*request.method(), Method::GET);
     /// assert_eq!(*request.body(), &quot;hello world&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new(body: T) -&gt; Request&lt;T&gt; {
         Request {
             head: Parts::new(),
@@ -1551,7 +1551,7 @@
     ///
     /// let request = Request::from_parts(parts, body);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>from_parts(parts: Parts, body: T) -&gt; Request&lt;T&gt; {
         Request {
             head: parts,
@@ -1568,7 +1568,7 @@
     /// let request: Request&lt;()&gt; = Request::default();
     /// assert_eq!(*request.method(), Method::GET);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>method(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Method {
         <span class="kw-2">&amp;</span><span class="self">self</span>.head.method
     }
@@ -1583,7 +1583,7 @@
     /// *request.method_mut() = Method::PUT;
     /// assert_eq!(*request.method(), Method::PUT);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>method_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>Method {
         <span class="kw-2">&amp;mut </span><span class="self">self</span>.head.method
     }
@@ -1597,7 +1597,7 @@
     /// let request: Request&lt;()&gt; = Request::default();
     /// assert_eq!(*request.uri(), *&quot;/&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>uri(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Uri {
         <span class="kw-2">&amp;</span><span class="self">self</span>.head.uri
     }
@@ -1612,7 +1612,7 @@
     /// *request.uri_mut() = &quot;/hello&quot;.parse().unwrap();
     /// assert_eq!(*request.uri(), *&quot;/hello&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>uri_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>Uri {
         <span class="kw-2">&amp;mut </span><span class="self">self</span>.head.uri
     }
@@ -1626,7 +1626,7 @@
     /// let request: Request&lt;()&gt; = Request::default();
     /// assert_eq!(request.version(), Version::HTTP_11);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>version(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Version {
         <span class="self">self</span>.head.version
     }
@@ -1641,7 +1641,7 @@
     /// *request.version_mut() = Version::HTTP_2;
     /// assert_eq!(request.version(), Version::HTTP_2);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>version_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>Version {
         <span class="kw-2">&amp;mut </span><span class="self">self</span>.head.version
     }
@@ -1655,7 +1655,7 @@
     /// let request: Request&lt;()&gt; = Request::default();
     /// assert!(request.headers().is_empty());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>headers(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>HeaderMap&lt;HeaderValue&gt; {
         <span class="kw-2">&amp;</span><span class="self">self</span>.head.headers
     }
@@ -1671,7 +1671,7 @@
     /// request.headers_mut().insert(HOST, HeaderValue::from_static(&quot;world&quot;));
     /// assert!(!request.headers().is_empty());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>headers_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>HeaderMap&lt;HeaderValue&gt; {
         <span class="kw-2">&amp;mut </span><span class="self">self</span>.head.headers
     }
@@ -1685,7 +1685,7 @@
     /// let request: Request&lt;()&gt; = Request::default();
     /// assert!(request.extensions().get::&lt;i32&gt;().is_none());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>extensions(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Extensions {
         <span class="kw-2">&amp;</span><span class="self">self</span>.head.extensions
     }
@@ -1701,7 +1701,7 @@
     /// request.extensions_mut().insert(&quot;hello&quot;);
     /// assert_eq!(request.extensions().get(), Some(&amp;&quot;hello&quot;));
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>extensions_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>Extensions {
         <span class="kw-2">&amp;mut </span><span class="self">self</span>.head.extensions
     }
@@ -1715,7 +1715,7 @@
     /// let request: Request&lt;String&gt; = Request::default();
     /// assert!(request.body().is_empty());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>body(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>T {
         <span class="kw-2">&amp;</span><span class="self">self</span>.body
     }
@@ -1730,7 +1730,7 @@
     /// request.body_mut().push_str(&quot;hello world&quot;);
     /// assert!(!request.body().is_empty());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>body_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>T {
         <span class="kw-2">&amp;mut </span><span class="self">self</span>.body
     }
@@ -1745,7 +1745,7 @@
     /// let body = request.into_body();
     /// assert_eq!(body, 10);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>into_body(<span class="self">self</span>) -&gt; T {
         <span class="self">self</span>.body
     }
@@ -1760,7 +1760,7 @@
     /// let (parts, body) = request.into_parts();
     /// assert_eq!(parts.method, Method::GET);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>into_parts(<span class="self">self</span>) -&gt; (Parts, T) {
         (<span class="self">self</span>.head, <span class="self">self</span>.body)
     }
@@ -1779,7 +1779,7 @@
     /// });
     /// assert_eq!(mapped_request.body(), &amp;&quot;some string&quot;.as_bytes());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>map&lt;F, U&gt;(<span class="self">self</span>, f: F) -&gt; Request&lt;U&gt;
     <span class="kw">where
         </span>F: FnOnce(T) -&gt; U,
@@ -1850,7 +1850,7 @@
     ///     .body(())
     ///     .unwrap();
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new() -&gt; Builder {
         Builder::default()
     }
@@ -2168,7 +2168,7 @@
 }
 
 <span class="kw">impl </span>Default <span class="kw">for </span>Builder {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>default() -&gt; Builder {
         Builder {
             inner: <span class="prelude-val">Ok</span>(Parts::new()),
@@ -2176,11 +2176,11 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>it_can_map_a_body_from_one_type_to_another() {
         <span class="kw">let </span>request = Request::builder().body(<span class="string">&quot;some string&quot;</span>).unwrap();
         <span class="kw">let </span>mapped_request = request.map(|s| {
@@ -2191,4 +2191,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="http" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="http" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

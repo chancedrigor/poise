@@ -1036,28 +1036,28 @@
 </span><span class="kw">use </span>core::fmt;
 <span class="kw">use </span>core::ops::{Add, Sub};
 <span class="kw">use </span>core::time::Duration <span class="kw">as </span>StdDuration;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
 </span><span class="kw">use </span>std::io;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::formatting::Formattable;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::parsing::Parsable;
 <span class="kw">use </span><span class="kw">crate</span>::util::{days_in_year, days_in_year_month, is_leap_year, weeks_in_year};
 <span class="kw">use crate</span>::{error, Duration, Month, PrimitiveDateTime, Time, Weekday};
 
 <span class="doccomment">/// The minimum valid year.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;large-dates&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;large-dates&quot;</span>)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>MIN_YEAR: i32 = -<span class="number">999_999</span>;
 <span class="doccomment">/// The maximum valid year.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;large-dates&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;large-dates&quot;</span>)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>MAX_YEAR: i32 = <span class="number">999_999</span>;
 
 <span class="doccomment">/// The minimum valid year.
-</span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;large-dates&quot;</span>))]
+</span><span class="attr">#[cfg(not(feature = <span class="string">&quot;large-dates&quot;</span>))]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>MIN_YEAR: i32 = -<span class="number">9999</span>;
 <span class="doccomment">/// The maximum valid year.
-</span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;large-dates&quot;</span>))]
+</span><span class="attr">#[cfg(not(feature = <span class="string">&quot;large-dates&quot;</span>))]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>MAX_YEAR: i32 = <span class="number">9999</span>;
 
 <span class="doccomment">/// Date in the proleptic Gregorian calendar.
@@ -1065,7 +1065,7 @@
 /// By default, years between ±9999 inclusive are representable. This can be expanded to ±999,999
 /// inclusive by enabling the `large-dates` crate feature. Doing so has performance implications
 /// and introduces some ambiguities when parsing.
-</span><span class="attribute">#[derive(Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
+</span><span class="attr">#[derive(Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
 </span><span class="kw">pub struct </span>Date {
     <span class="doccomment">/// Bitpacked field containing both the year and ordinal.
     </span><span class="comment">// |     xx     | xxxxxxxxxxxxxxxxxxxxx | xxxxxxxxx |
@@ -1098,7 +1098,7 @@
     <span class="comment">// region: constructors
     </span><span class="doccomment">/// Construct a `Date` from the year and ordinal values, the validity of which must be
     /// guaranteed by the caller.
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     </span><span class="kw">pub const fn </span>__from_ordinal_date_unchecked(year: i32, ordinal: u16) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             value: (year &lt;&lt; <span class="number">9</span>) | ordinal <span class="kw">as </span>i32,
@@ -1215,7 +1215,7 @@
     /// assert_eq!(Date::from_julian_day(2_458_485), Ok(date!(2019 - 01 - 01)));
     /// assert_eq!(Date::from_julian_day(2_458_849), Ok(date!(2019 - 12 - 31)));
     /// ```
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;from_julian_date&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;from_julian_date&quot;</span>)]
     </span><span class="kw">pub const fn </span>from_julian_day(julian_day: i32) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, error::ComponentRange&gt; {
         <span class="macro">ensure_value_in_range!</span>(
             julian_day <span class="kw">in </span><span class="self">Self</span>::MIN.to_julian_day() =&gt; <span class="self">Self</span>::MAX.to_julian_day()
@@ -1227,15 +1227,15 @@
     ///
     /// This does not check the validity of the provided Julian day, and as such may result in an
     /// internally invalid value.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;from_julian_date_unchecked&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;from_julian_date_unchecked&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const fn </span>from_julian_day_unchecked(julian_day: i32) -&gt; <span class="self">Self </span>{
-        <span class="attribute">#![allow(trivial_numeric_casts)] </span><span class="comment">// cast depends on type alias
+        <span class="attr">#![allow(trivial_numeric_casts)] </span><span class="comment">// cast depends on type alias
 
         </span><span class="doccomment">/// A type that is either `i32` or `i64`. This subtle difference allows for optimization
         /// based on the valid values.
-        </span><span class="attribute">#[cfg(feature = <span class="string">&quot;large-dates&quot;</span>)]
+        </span><span class="attr">#[cfg(feature = <span class="string">&quot;large-dates&quot;</span>)]
         </span><span class="kw">type </span>MaybeWidened = i64;
-        <span class="attribute">#[allow(clippy::missing_docs_in_private_items)]
+        <span class="attr">#[allow(clippy::missing_docs_in_private_items)]
         #[cfg(not(feature = <span class="string">&quot;large-dates&quot;</span>))]
         </span><span class="kw">type </span>MaybeWidened = i32;
 
@@ -1751,7 +1751,7 @@
     /// assert!(date!(2022 - 02 - 18).replace_year(-1_000_000_000).is_err()); // -1_000_000_000 isn&#39;t a valid year
     /// assert!(date!(2022 - 02 - 18).replace_year(1_000_000_000).is_err()); // 1_000_000_000 isn&#39;t a valid year
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `Date`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `Date`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_year(<span class="self">self</span>, year: i32) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, error::ComponentRange&gt; {
         <span class="macro">ensure_value_in_range!</span>(year <span class="kw">in </span>MIN_YEAR =&gt; MAX_YEAR);
 
@@ -1804,7 +1804,7 @@
     ///         .is_err()
     /// ); // 30 isn&#39;t a valid day in February
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `Date`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `Date`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_month(<span class="self">self</span>, month: Month) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, error::ComponentRange&gt; {
         <span class="kw">let </span>(year, <span class="kw">_</span>, day) = <span class="self">self</span>.to_calendar_date();
         <span class="self">Self</span>::from_calendar_date(year, month, day)
@@ -1821,7 +1821,7 @@
     /// assert!(date!(2022 - 02 - 18).replace_day(0).is_err()); // 0 isn&#39;t a valid day
     /// assert!(date!(2022 - 02 - 18).replace_day(30).is_err()); // 30 isn&#39;t a valid day in February
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `Date`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `Date`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_day(<span class="self">self</span>, day: u8) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, error::ComponentRange&gt; {
         <span class="comment">// Days 1-28 are present in every month, so we can skip checking.
         </span><span class="kw">if </span>day == <span class="number">0 </span>|| day &gt;= <span class="number">29 </span>{
@@ -1947,7 +1947,7 @@
 <span class="comment">// endregion attach time
 
 // region: formatting &amp; parsing
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
 </span><span class="kw">impl </span>Date {
     <span class="doccomment">/// Format the `Date` using the provided [format description](crate::format_description).
     </span><span class="kw">pub fn </span>format_into(
@@ -1971,7 +1971,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">impl </span>Date {
     <span class="doccomment">/// Parse a `Date` from the input using the provided [format
     /// description](crate::format_description).
@@ -2064,4 +2064,4 @@
 }
 <span class="comment">// endregion trait impls
 </span></code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

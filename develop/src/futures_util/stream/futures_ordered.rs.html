@@ -234,10 +234,10 @@
 <span class="kw">use </span>pin_project_lite::pin_project;
 
 <span class="macro">pin_project! </span>{
-    <span class="attribute">#[must_use = <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]
+    <span class="attr">#[must_use = <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]
     #[derive(Debug)]
     </span><span class="kw">struct </span>OrderWrapper&lt;T&gt; {
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span>data: T, <span class="comment">// A future or a future&#39;s output
         </span>index: usize,
     }
@@ -311,7 +311,7 @@
 ///
 /// This type is only available when the `std` or `alloc` feature of this
 /// library is activated, and it is activated by default.
-</span><span class="attribute">#[must_use = <span class="string">&quot;streams do nothing unless polled&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;streams do nothing unless polled&quot;</span>]
 </span><span class="kw">pub struct </span>FuturesOrdered&lt;T: Future&gt; {
     in_progress_queue: FuturesUnordered&lt;OrderWrapper&lt;T&gt;&gt;,
     queued_outputs: BinaryHeap&lt;OrderWrapper&lt;T::Output&gt;&gt;,
@@ -439,4 +439,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

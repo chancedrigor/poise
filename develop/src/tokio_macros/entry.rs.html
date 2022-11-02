@@ -434,7 +434,7 @@
 <span class="comment">// syn::AttributeArgs does not implement syn::Parse
 </span><span class="kw">type </span>AttributeArgs = syn::punctuated::Punctuated&lt;syn::NestedMeta, <span class="macro">syn::Token!</span>[,]&gt;;
 
-<span class="attribute">#[derive(Clone, Copy, PartialEq)]
+<span class="attr">#[derive(Clone, Copy, PartialEq)]
 </span><span class="kw">enum </span>RuntimeFlavor {
     CurrentThread,
     Threaded,
@@ -758,7 +758,7 @@
 
     <span class="kw">let </span>header = <span class="kw">if </span>is_test {
         <span class="macro">quote! </span>{
-            <span class="attribute">#[::core::prelude::v1::test]
+            <span class="attr">#[::core::prelude::v1::test]
         </span>}
     } <span class="kw">else </span>{
         <span class="macro">quote! </span>{}
@@ -783,7 +783,7 @@
     input.block = syn::parse2(<span class="macro">quote_spanned! </span>{last_stmt_end_span=&gt;
         {
             <span class="kw">let </span>body = <span class="kw">async </span>#body;
-            <span class="attribute">#[allow(clippy::expect_used)]
+            <span class="attr">#[allow(clippy::expect_used)]
             </span>#tail_return #rt
                 .enable_all()
                 .build()
@@ -807,7 +807,7 @@
     tokens
 }
 
-<span class="attribute">#[cfg(not(test))] </span><span class="comment">// Work around for rust-lang/rust#62127
+<span class="attr">#[cfg(not(test))] </span><span class="comment">// Work around for rust-lang/rust#62127
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>main(args: TokenStream, item: TokenStream, rt_multi_thread: bool) -&gt; TokenStream {
     <span class="comment">// If any of the steps for this macro fail, we still want to expand to an item that is as close
     // to the expected output as possible. This helps out IDEs such that completions and other
@@ -855,4 +855,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tokio_macros" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tokio_macros" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

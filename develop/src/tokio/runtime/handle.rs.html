@@ -513,16 +513,16 @@
 /// obtained using the [`Runtime::handle`] method.
 ///
 /// [`Runtime::handle`]: crate::runtime::Runtime::handle()
-</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone)]
 </span><span class="kw">pub struct </span>Handle {
     <span class="kw">pub</span>(<span class="kw">super</span>) spawner: Spawner,
 }
 
 <span class="doccomment">/// All internal handles that are *not* the scheduler&#39;s spawner.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>HandleInner {
     <span class="doccomment">/// Handles to the I/O drivers
-    </span><span class="attribute">#[cfg_attr(
+    </span><span class="attr">#[cfg_attr(
         not(any(
             feature = <span class="string">&quot;net&quot;</span>,
             all(unix, feature = <span class="string">&quot;process&quot;</span>),
@@ -533,7 +533,7 @@
     </span><span class="kw">pub</span>(<span class="kw">super</span>) io_handle: driver::IoHandle,
 
     <span class="doccomment">/// Handles to the signal drivers
-    </span><span class="attribute">#[cfg_attr(
+    </span><span class="attr">#[cfg_attr(
         any(
             loom,
             not(all(unix, feature = <span class="string">&quot;signal&quot;</span>)),
@@ -544,11 +544,11 @@
     </span><span class="kw">pub</span>(<span class="kw">super</span>) signal_handle: driver::SignalHandle,
 
     <span class="doccomment">/// Handles to the time drivers
-    </span><span class="attribute">#[cfg_attr(not(feature = <span class="string">&quot;time&quot;</span>), allow(dead_code))]
+    </span><span class="attr">#[cfg_attr(not(feature = <span class="string">&quot;time&quot;</span>), allow(dead_code))]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) time_handle: driver::TimeHandle,
 
     <span class="doccomment">/// Source of `Instant::now()`
-    </span><span class="attribute">#[cfg_attr(not(all(feature = <span class="string">&quot;time&quot;</span>, feature = <span class="string">&quot;test-util&quot;</span>)), allow(dead_code))]
+    </span><span class="attr">#[cfg_attr(not(all(feature = <span class="string">&quot;time&quot;</span>, feature = <span class="string">&quot;test-util&quot;</span>)), allow(dead_code))]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) clock: driver::Clock,
 
     <span class="doccomment">/// Blocking pool spawner
@@ -566,7 +566,7 @@
 /// the runtime context on drop.
 ///
 /// [`Runtime::enter`]: fn@crate::runtime::Runtime::enter
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 #[must_use = <span class="string">&quot;Creating and dropping a guard does nothing&quot;</span>]
 </span><span class="kw">pub struct </span>EnterGuard&lt;<span class="lifetime">&#39;a</span>&gt; {
     _guard: context::EnterGuard,
@@ -633,7 +633,7 @@
     /// # });
     /// # }
     /// ```
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>current() -&gt; <span class="self">Self </span>{
         context::current()
     }
@@ -674,7 +674,7 @@
     /// });
     /// # }
     /// ```
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>spawn&lt;F&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, future: F) -&gt; JoinHandle&lt;F::Output&gt;
     <span class="kw">where
         </span>F: Future + Send + <span class="lifetime">&#39;static</span>,
@@ -702,7 +702,7 @@
     ///     println!(&quot;now running on a worker thread&quot;);
     /// });
     /// # }
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>spawn_blocking&lt;F, R&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, func: F) -&gt; JoinHandle&lt;R&gt;
     <span class="kw">where
         </span>F: FnOnce() -&gt; R + Send + <span class="lifetime">&#39;static</span>,
@@ -785,9 +785,9 @@
     /// [`tokio::fs`]: crate::fs
     /// [`tokio::net`]: crate::net
     /// [`tokio::time`]: crate::time
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>block_on&lt;F: Future&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, future: F) -&gt; F::Output {
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>future =
             <span class="kw">crate</span>::util::trace::task(future, <span class="string">&quot;block_on&quot;</span>, <span class="prelude-val">None</span>, <span class="kw">super</span>::task::Id::next().as_u64());
 
@@ -803,14 +803,14 @@
             .expect(<span class="string">&quot;failed to park thread&quot;</span>)
     }
 
-    <span class="attribute">#[track_caller]
+    <span class="attr">#[track_caller]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>spawn_named&lt;F&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, future: F, _name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; JoinHandle&lt;F::Output&gt;
     <span class="kw">where
         </span>F: Future + Send + <span class="lifetime">&#39;static</span>,
         F::Output: Send + <span class="lifetime">&#39;static</span>,
     {
         <span class="kw">let </span>id = <span class="kw">crate</span>::runtime::task::Id::next();
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>future = <span class="kw">crate</span>::util::trace::task(future, <span class="string">&quot;task&quot;</span>, _name, id.as_u64());
         <span class="self">self</span>.spawner.spawn(future, id)
     }
@@ -839,7 +839,7 @@
 }
 
 <span class="kw">impl </span>HandleInner {
-    <span class="attribute">#[track_caller]
+    <span class="attr">#[track_caller]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>spawn_blocking&lt;F, R&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, rt: <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToHandle, func: F) -&gt; JoinHandle&lt;R&gt;
     <span class="kw">where
         </span>F: FnOnce() -&gt; R + Send + <span class="lifetime">&#39;static</span>,
@@ -864,7 +864,7 @@
     }
 
     <span class="macro">cfg_fs! </span>{
-        <span class="attribute">#[track_caller]
+        <span class="attr">#[track_caller]
         #[cfg_attr(any(
             all(loom, not(test)), <span class="comment">// the function is covered by loom tests
             </span>test
@@ -898,7 +898,7 @@
         }
     }
 
-    <span class="attribute">#[track_caller]
+    <span class="attr">#[track_caller]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>spawn_blocking_inner&lt;F, R&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         func: F,
@@ -912,7 +912,7 @@
     {
         <span class="kw">let </span>fut = BlockingTask::new(func);
         <span class="kw">let </span>id = <span class="kw">super</span>::task::Id::next();
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>fut = {
             <span class="kw">use </span>tracing::Instrument;
             <span class="kw">let </span>location = std::panic::Location::caller();
@@ -928,7 +928,7 @@
             fut.instrument(span)
         };
 
-        <span class="attribute">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
+        <span class="attr">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
         </span><span class="kw">let _ </span>= name;
 
         <span class="kw">let </span>(task, handle) = task::unowned(fut, NoopSchedule, id);
@@ -940,7 +940,7 @@
 }
 
 <span class="doccomment">/// Error returned by `try_current` when no Runtime has been started
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>TryCurrentError {
     kind: TryCurrentErrorKind,
 }
@@ -999,4 +999,4 @@
 
 <span class="kw">impl </span>error::Error <span class="kw">for </span>TryCurrentError {}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

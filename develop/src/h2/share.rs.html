@@ -596,7 +596,7 @@
 
 <span class="kw">use </span><span class="kw">crate</span>::PollExt;
 <span class="kw">use </span>std::fmt;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
 </span><span class="kw">use </span>std::pin::Pin;
 <span class="kw">use </span>std::task::{Context, Poll};
 
@@ -683,7 +683,7 @@
 /// [`send_data`]: #method.send_data
 /// [`send_trailers`]: #method.send_trailers
 /// [`send_reset`]: #method.send_reset
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>SendStream&lt;B: Buf&gt; {
     inner: proto::StreamRef&lt;B&gt;,
 }
@@ -698,7 +698,7 @@
 /// new stream.
 ///
 /// [Section 5.1.1]: https://tools.ietf.org/html/rfc7540#section-5.1.1
-</span><span class="attribute">#[derive(Debug, Clone, Eq, PartialEq, Hash)]
+</span><span class="attr">#[derive(Debug, Clone, Eq, PartialEq, Hash)]
 </span><span class="kw">pub struct </span>StreamId(u32);
 
 <span class="doccomment">/// Receives the body stream and trailers from the remote peer.
@@ -718,7 +718,7 @@
 /// [`server::Connection`]: server/struct.Connection.html
 /// [`FlowControl`]: struct.FlowControl.html
 /// [`Stream`]: https://docs.rs/futures/0.1/futures/stream/trait.Stream.html
-</span><span class="attribute">#[must_use = <span class="string">&quot;streams do nothing unless polled&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;streams do nothing unless polled&quot;</span>]
 </span><span class="kw">pub struct </span>RecvStream {
     inner: FlowControl,
 }
@@ -775,7 +775,7 @@
 ///
 /// [flow control]: ../index.html#flow-control
 /// [`release_capacity`]: struct.FlowControl.html#method.release_capacity
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>FlowControl {
     inner: proto::OpaqueStreamRef,
 }
@@ -995,7 +995,7 @@
         <span class="self">self</span>.inner.inner.poll_data(cx).map_err_(Into::into)
     }
 
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span><span class="kw">pub fn </span>poll_trailers(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         cx: <span class="kw-2">&amp;mut </span>Context,
@@ -1032,7 +1032,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
 </span><span class="kw">impl </span>futures_core::Stream <span class="kw">for </span>RecvStream {
     <span class="kw">type </span>Item = <span class="prelude-ty">Result</span>&lt;Bytes, <span class="kw">crate</span>::Error&gt;;
 
@@ -1124,7 +1124,7 @@
         futures_util::future::poll_fn(|cx| <span class="self">self</span>.poll_pong(cx)).<span class="kw">await
     </span>}
 
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span><span class="kw">pub fn </span>send_ping(<span class="kw-2">&amp;mut </span><span class="self">self</span>, ping: Ping) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::Error&gt; {
         <span class="comment">// Passing a `Ping` here is just to be forwards-compatible with
         // eventually allowing choosing a ping payload. For now, we can
@@ -1137,7 +1137,7 @@
         })
     }
 
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span><span class="kw">pub fn </span>poll_pong(<span class="kw-2">&amp;mut </span><span class="self">self</span>, cx: <span class="kw-2">&amp;mut </span>Context) -&gt; Poll&lt;<span class="prelude-ty">Result</span>&lt;Pong, <span class="kw">crate</span>::Error&gt;&gt; {
         <span class="macro">ready!</span>(<span class="self">self</span>.inner.poll_pong(cx))<span class="question-mark">?</span>;
         Poll::Ready(<span class="prelude-val">Ok</span>(Pong { _p: () }))
@@ -1177,4 +1177,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

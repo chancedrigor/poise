@@ -953,47 +953,47 @@
 //! currently Chrono supports [one built-in syntax closely resembling
 //! C&#39;s `strftime` format](./strftime/index.html).
 
-</span><span class="attribute">#![allow(ellipsis_inclusive_range_patterns)]
+</span><span class="attr">#![allow(ellipsis_inclusive_range_patterns)]
 
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span>alloc::boxed::Box;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span>alloc::string::{String, ToString};
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">use </span>core::borrow::Borrow;
 <span class="kw">use </span>core::fmt;
 <span class="kw">use </span>core::str::FromStr;
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">use </span>std::error::Error;
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">use </span>naive::{NaiveDate, NaiveTime};
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">use </span>offset::{FixedOffset, Offset};
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">use </span>{Datelike, Timelike};
 <span class="kw">use </span>{Month, ParseMonthError, ParseWeekdayError, Weekday};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>locales;
 
 <span class="kw">pub use </span><span class="self">self</span>::parse::parse;
 <span class="kw">pub use </span><span class="self">self</span>::parsed::Parsed;
 <span class="kw">pub use </span><span class="self">self</span>::strftime::StrftimeItems;
 <span class="doccomment">/// L10n locales.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
 </span><span class="kw">pub use </span>pure_rust_locales::Locale;
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;unstable-locales&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;unstable-locales&quot;</span>))]
 #[derive(Debug)]
 </span><span class="kw">struct </span>Locale;
 
 <span class="doccomment">/// An uninhabited type used for `InternalNumeric` and `InternalFixed` below.
-</span><span class="attribute">#[derive(Clone, PartialEq, Eq)]
+</span><span class="attr">#[derive(Clone, PartialEq, Eq)]
 </span><span class="kw">enum </span>Void {}
 
 <span class="doccomment">/// Padding characters for numeric items.
-</span><span class="attribute">#[derive(Copy, Clone, PartialEq, Eq, Debug)]
+</span><span class="attr">#[derive(Copy, Clone, PartialEq, Eq, Debug)]
 </span><span class="kw">pub enum </span>Pad {
     <span class="doccomment">/// No padding.
     </span><span class="prelude-val">None</span>,
@@ -1016,7 +1016,7 @@
 /// It also trims the preceding whitespace if any.
 /// It cannot parse the negative number, so some date and time cannot be formatted then
 /// parsed with the same formatting items.
-</span><span class="attribute">#[derive(Clone, PartialEq, Eq, Debug)]
+</span><span class="attr">#[derive(Clone, PartialEq, Eq, Debug)]
 </span><span class="kw">pub enum </span>Numeric {
     <span class="doccomment">/// Full Gregorian year (FW=4, PW=∞).
     /// May accept years before 1 BCE or after 9999 CE, given an initial sign.
@@ -1100,7 +1100,7 @@
 ///
 /// They have their own rules of formatting and parsing.
 /// Otherwise noted, they print in the specified cases but parse case-insensitively.
-</span><span class="attribute">#[derive(Clone, PartialEq, Eq, Debug)]
+</span><span class="attr">#[derive(Clone, PartialEq, Eq, Debug)]
 </span><span class="kw">pub enum </span>Fixed {
     <span class="doccomment">/// Abbreviated month names.
     ///
@@ -1172,12 +1172,12 @@
 }
 
 <span class="doccomment">/// An opaque type representing fixed-format item types for internal uses only.
-</span><span class="attribute">#[derive(Debug, Clone, PartialEq, Eq)]
+</span><span class="attr">#[derive(Debug, Clone, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>InternalFixed {
     val: InternalInternal,
 }
 
-<span class="attribute">#[derive(Debug, Clone, PartialEq, Eq)]
+<span class="attr">#[derive(Debug, Clone, PartialEq, Eq)]
 </span><span class="kw">enum </span>InternalInternal {
     <span class="doccomment">/// Same as [`TimezoneOffsetColonZ`](#variant.TimezoneOffsetColonZ), but
     /// allows missing minutes (per [ISO 8601][iso8601]).
@@ -1197,17 +1197,17 @@
 }
 
 <span class="doccomment">/// A single formatting item. This is used for both formatting and parsing.
-</span><span class="attribute">#[derive(Clone, PartialEq, Eq, Debug)]
+</span><span class="attr">#[derive(Clone, PartialEq, Eq, Debug)]
 </span><span class="kw">pub enum </span>Item&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="doccomment">/// A literally printed and parsed text.
     </span>Literal(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str),
     <span class="doccomment">/// Same as `Literal` but with the string owned by the item.
-    </span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
     </span>OwnedLiteral(Box&lt;str&gt;),
     <span class="doccomment">/// Whitespace. Prints literally but reads zero or more whitespace.
     </span>Space(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str),
     <span class="doccomment">/// Same as `Space` but with the string owned by the item.
-    </span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
     </span>OwnedSpace(Box&lt;str&gt;),
     <span class="doccomment">/// Numeric item. Can be optionally padded to the maximal length (if any) when formatting;
     /// the parser simply ignores any padded whitespace and zeroes.
@@ -1255,11 +1255,11 @@
 }
 
 <span class="doccomment">/// An error from the `parse` function.
-</span><span class="attribute">#[derive(Debug, Clone, PartialEq, Eq, Copy)]
+</span><span class="attr">#[derive(Debug, Clone, PartialEq, Eq, Copy)]
 </span><span class="kw">pub struct </span>ParseError(ParseErrorKind);
 
 <span class="doccomment">/// The category of parse error
-</span><span class="attribute">#[derive(Debug, Clone, PartialEq, Eq, Copy)]
+</span><span class="attr">#[derive(Debug, Clone, PartialEq, Eq, Copy)]
 </span><span class="kw">enum </span>ParseErrorKind {
     <span class="doccomment">/// Given field is out of permitted range.
     </span>OutOfRange,
@@ -1307,9 +1307,9 @@
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">impl </span>Error <span class="kw">for </span>ParseError {
-    <span class="attribute">#[allow(deprecated)]
+    <span class="attr">#[allow(deprecated)]
     </span><span class="kw">fn </span>description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="string">&quot;parser error, see to_string() for details&quot;
     </span>}
@@ -1325,7 +1325,7 @@
 <span class="kw">const </span>BAD_FORMAT: ParseError = ParseError(ParseErrorKind::BadFormat);
 
 <span class="doccomment">/// Formats single formatting item
-</span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+</span><span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">pub fn </span>format_item&lt;<span class="lifetime">&#39;a</span>&gt;(
     w: <span class="kw-2">&amp;mut </span>fmt::Formatter,
     date: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>NaiveDate&gt;,
@@ -1338,7 +1338,7 @@
     w.pad(<span class="kw-2">&amp;</span>result)
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">fn </span>format_inner&lt;<span class="lifetime">&#39;a</span>&gt;(
     result: <span class="kw-2">&amp;mut </span>String,
     date: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>NaiveDate&gt;,
@@ -1347,7 +1347,7 @@
     item: <span class="kw-2">&amp;</span>Item&lt;<span class="lifetime">&#39;a</span>&gt;,
     _locale: <span class="prelude-ty">Option</span>&lt;Locale&gt;,
 ) -&gt; fmt::Result {
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
     </span><span class="kw">let </span>(short_months, long_months, short_weekdays, long_weekdays, am_pm, am_pm_lowercase) = {
         <span class="kw">let </span>locale = _locale.unwrap_or(Locale::POSIX);
         <span class="kw">let </span>am_pm = locales::am_pm(locale);
@@ -1360,7 +1360,7 @@
             <span class="kw-2">&amp;</span>[am_pm[<span class="number">0</span>].to_lowercase(), am_pm[<span class="number">1</span>].to_lowercase()],
         )
     };
-    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;unstable-locales&quot;</span>))]
+    <span class="attr">#[cfg(not(feature = <span class="string">&quot;unstable-locales&quot;</span>))]
     </span><span class="kw">let </span>(short_months, long_months, short_weekdays, long_weekdays, am_pm, am_pm_lowercase) = {
         (
             <span class="kw-2">&amp;</span>[<span class="string">&quot;Jan&quot;</span>, <span class="string">&quot;Feb&quot;</span>, <span class="string">&quot;Mar&quot;</span>, <span class="string">&quot;Apr&quot;</span>, <span class="string">&quot;May&quot;</span>, <span class="string">&quot;Jun&quot;</span>, <span class="string">&quot;Jul&quot;</span>, <span class="string">&quot;Aug&quot;</span>, <span class="string">&quot;Sep&quot;</span>, <span class="string">&quot;Oct&quot;</span>, <span class="string">&quot;Nov&quot;</span>, <span class="string">&quot;Dec&quot;</span>],
@@ -1390,7 +1390,7 @@
 
     <span class="kw">match </span><span class="kw-2">*</span>item {
         Item::Literal(s) | Item::Space(s) =&gt; result.push_str(s),
-        <span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+        <span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
         </span>Item::OwnedLiteral(<span class="kw-2">ref </span>s) | Item::OwnedSpace(<span class="kw-2">ref </span>s) =&gt; result.push_str(s),
 
         Item::Numeric(<span class="kw-2">ref </span>spec, <span class="kw-2">ref </span>pad) =&gt; {
@@ -1503,7 +1503,7 @@
                         <span class="prelude-val">Ok</span>(())
                     }),
                     LowerAmPm =&gt; time.map(|t| {
-                        <span class="attribute">#[cfg_attr(feature = <span class="string">&quot;cargo-clippy&quot;</span>, allow(useless_asref))]
+                        <span class="attr">#[cfg_attr(feature = <span class="string">&quot;cargo-clippy&quot;</span>, allow(useless_asref))]
                         </span>{
                             result.push_str(<span class="kw">if </span>t.hour12().<span class="number">0 </span>{
                                 am_pm_lowercase[<span class="number">1</span>].as_ref()
@@ -1623,7 +1623,7 @@
 
 <span class="doccomment">/// Tries to format given arguments with given formatting items.
 /// Internally used by `DelayedFormat`.
-</span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+</span><span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">pub fn </span>format&lt;<span class="lifetime">&#39;a</span>, I, B&gt;(
     w: <span class="kw-2">&amp;mut </span>fmt::Formatter,
     date: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>NaiveDate&gt;,
@@ -1652,7 +1652,7 @@
 
 <span class="doccomment">/// A *temporary* object which can be used as an argument to `format!` or others.
 /// This is normally constructed via `format` methods of each date and time type.
-</span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+</span><span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 #[derive(Debug)]
 </span><span class="kw">pub struct </span>DelayedFormat&lt;I&gt; {
     <span class="doccomment">/// The date view, if any.
@@ -1667,7 +1667,7 @@
     </span>locale: <span class="prelude-ty">Option</span>&lt;Locale&gt;,
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, I: Iterator&lt;Item = B&gt; + Clone, B: Borrow&lt;Item&lt;<span class="lifetime">&#39;a</span>&gt;&gt;&gt; DelayedFormat&lt;I&gt; {
     <span class="doccomment">/// Makes a new `DelayedFormat` value out of local date and time.
     </span><span class="kw">pub fn </span>new(date: <span class="prelude-ty">Option</span>&lt;NaiveDate&gt;, time: <span class="prelude-ty">Option</span>&lt;NaiveTime&gt;, items: I) -&gt; DelayedFormat&lt;I&gt; {
@@ -1695,7 +1695,7 @@
     }
 
     <span class="doccomment">/// Makes a new `DelayedFormat` value out of local date and time and locale.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
     </span><span class="kw">pub fn </span>new_with_locale(
         date: <span class="prelude-ty">Option</span>&lt;NaiveDate&gt;,
         time: <span class="prelude-ty">Option</span>&lt;NaiveTime&gt;,
@@ -1706,7 +1706,7 @@
     }
 
     <span class="doccomment">/// Makes a new `DelayedFormat` value out of local date and time, UTC offset and locale.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
     </span><span class="kw">pub fn </span>new_with_offset_and_locale&lt;Off&gt;(
         date: <span class="prelude-ty">Option</span>&lt;NaiveDate&gt;,
         time: <span class="prelude-ty">Option</span>&lt;NaiveTime&gt;,
@@ -1728,10 +1728,10 @@
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, I: Iterator&lt;Item = B&gt; + Clone, B: Borrow&lt;Item&lt;<span class="lifetime">&#39;a</span>&gt;&gt;&gt; fmt::Display <span class="kw">for </span>DelayedFormat&lt;I&gt; {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
         </span>{
             <span class="kw">if let </span><span class="prelude-val">Some</span>(locale) = <span class="self">self</span>.locale {
                 <span class="kw">return </span>format_localized(
@@ -1788,7 +1788,7 @@
 }
 
 <span class="doccomment">/// Formats single formatting item
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
 </span><span class="kw">pub fn </span>format_item_localized&lt;<span class="lifetime">&#39;a</span>&gt;(
     w: <span class="kw-2">&amp;mut </span>fmt::Formatter,
     date: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>NaiveDate&gt;,
@@ -1804,7 +1804,7 @@
 
 <span class="doccomment">/// Tries to format given arguments with given formatting items.
 /// Internally used by `DelayedFormat`.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
 </span><span class="kw">pub fn </span>format_localized&lt;<span class="lifetime">&#39;a</span>, I, B&gt;(
     w: <span class="kw-2">&amp;mut </span>fmt::Formatter,
     date: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>NaiveDate&gt;,
@@ -1875,4 +1875,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

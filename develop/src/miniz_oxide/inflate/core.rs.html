@@ -1963,13 +1963,13 @@
     /// The symbol is stored in the lower 9 bits, the length in the next 6.
     /// If the returned value is negative, the code wasn&#39;t found in the
     /// fast lookup table and the full tree has to be traversed to find the code.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>fast_lookup(<span class="kw-2">&amp;</span><span class="self">self</span>, bit_buf: BitBuffer) -&gt; i16 {
         <span class="self">self</span>.look_up[(bit_buf &amp; BitBuffer::from(FAST_LOOKUP_SIZE - <span class="number">1</span>)) <span class="kw">as </span>usize]
     }
 
     <span class="doccomment">/// Get the symbol and the code length from the huffman tree.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>tree_lookup(<span class="kw-2">&amp;</span><span class="self">self</span>, fast_symbol: i32, bit_buf: BitBuffer, <span class="kw-2">mut </span>code_len: u32) -&gt; (i32, u32) {
         <span class="kw">let </span><span class="kw-2">mut </span>symbol = fast_symbol;
         <span class="comment">// We step through the tree until we encounter a positive value, which indicates a
@@ -1986,7 +1986,7 @@
         (symbol, code_len)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="doccomment">/// Look up a symbol and code length from the bits in the provided bit buffer.
     ///
     /// Returns Some(symbol, length) on success,
@@ -2077,10 +2077,10 @@
 
 <span class="kw">const </span>MIN_TABLE_SIZES: [u16; <span class="number">3</span>] = [<span class="number">257</span>, <span class="number">1</span>, <span class="number">4</span>];
 
-<span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
+<span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
 </span><span class="kw">type </span>BitBuffer = u64;
 
-<span class="attribute">#[cfg(not(target_pointer_width = <span class="string">&quot;64&quot;</span>))]
+<span class="attr">#[cfg(not(target_pointer_width = <span class="string">&quot;64&quot;</span>))]
 </span><span class="kw">type </span>BitBuffer = u32;
 
 <span class="doccomment">/// Main decompression struct.
@@ -2127,7 +2127,7 @@
     }
 
     <span class="doccomment">/// Set the current state to `Start`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>init(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="comment">// The rest of the data is reset or overwritten when used.
         </span><span class="self">self</span>.state = core::State::Start;
@@ -2135,7 +2135,7 @@
 
     <span class="doccomment">/// Returns the adler32 checksum of the currently decompressed data.
     /// Note: Will return Some(1) if decompressing zlib but ignoring adler32.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>adler32(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;u32&gt; {
         <span class="kw">if </span><span class="self">self</span>.state != State::Start &amp;&amp; !<span class="self">self</span>.state.is_failure() &amp;&amp; <span class="self">self</span>.z_header0 != <span class="number">0 </span>{
             <span class="prelude-val">Some</span>(<span class="self">self</span>.check_adler32)
@@ -2145,7 +2145,7 @@
     }
 
     <span class="doccomment">/// Returns the adler32 that was read from the zlib header if it exists.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>adler32_header(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;u32&gt; {
         <span class="kw">if </span><span class="self">self</span>.state != State::Start &amp;&amp; <span class="self">self</span>.state != State::BadZlibHeader &amp;&amp; <span class="self">self</span>.z_header0 != <span class="number">0 </span>{
             <span class="prelude-val">Some</span>(<span class="self">self</span>.z_adler32)
@@ -2157,7 +2157,7 @@
 
 <span class="kw">impl </span>Default <span class="kw">for </span>DecompressorOxide {
     <span class="doccomment">/// Create a new tinfl_decompressor with all fields set to 0.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
         DecompressorOxide {
             state: core::State::Start,
@@ -2185,7 +2185,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone, PartialEq, Eq, Debug)]
+<span class="attr">#[derive(Copy, Clone, PartialEq, Eq, Debug)]
 </span><span class="kw">enum </span>State {
     Start = <span class="number">0</span>,
     ReadZlibCmf,
@@ -2243,7 +2243,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>begin(<span class="kw-2">&amp;mut </span><span class="self">self</span>, new_state: State) {
         <span class="kw-2">*</span><span class="self">self </span>= new_state;
     }
@@ -2261,21 +2261,21 @@
 ///
 /// The base is used together with the value of the extra bits to decode the actual
 /// length/distance values in a match.
-</span><span class="attribute">#[rustfmt::skip]
+</span><span class="attr">#[rustfmt::skip]
 </span><span class="kw">const </span>LENGTH_BASE: [u16; <span class="number">32</span>] = [
     <span class="number">3</span>,  <span class="number">4</span>,  <span class="number">5</span>,  <span class="number">6</span>,  <span class="number">7</span>,  <span class="number">8</span>,  <span class="number">9</span>,  <span class="number">10</span>,  <span class="number">11</span>,  <span class="number">13</span>,  <span class="number">15</span>,  <span class="number">17</span>,  <span class="number">19</span>,  <span class="number">23</span>,  <span class="number">27</span>,  <span class="number">31</span>,
     <span class="number">35</span>, <span class="number">43</span>, <span class="number">51</span>, <span class="number">59</span>, <span class="number">67</span>, <span class="number">83</span>, <span class="number">99</span>, <span class="number">115</span>, <span class="number">131</span>, <span class="number">163</span>, <span class="number">195</span>, <span class="number">227</span>, <span class="number">258</span>, <span class="number">512</span>, <span class="number">512</span>, <span class="number">512
 </span>];
 
 <span class="doccomment">/// Number of extra bits for each length code.
-</span><span class="attribute">#[rustfmt::skip]
+</span><span class="attr">#[rustfmt::skip]
 </span><span class="kw">const </span>LENGTH_EXTRA: [u8; <span class="number">32</span>] = [
     <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>,
     <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0
 </span>];
 
 <span class="doccomment">/// Base length for each distance code.
-</span><span class="attribute">#[rustfmt::skip]
+</span><span class="attr">#[rustfmt::skip]
 </span><span class="kw">const </span>DIST_BASE: [u16; <span class="number">32</span>] = [
     <span class="number">1</span>,    <span class="number">2</span>,    <span class="number">3</span>,    <span class="number">4</span>,    <span class="number">5</span>,    <span class="number">7</span>,      <span class="number">9</span>,      <span class="number">13</span>,     <span class="number">17</span>,     <span class="number">25</span>,    <span class="number">33</span>,
     <span class="number">49</span>,   <span class="number">65</span>,   <span class="number">97</span>,   <span class="number">129</span>,  <span class="number">193</span>,  <span class="number">257</span>,    <span class="number">385</span>,    <span class="number">513</span>,    <span class="number">769</span>,    <span class="number">1025</span>,  <span class="number">1537</span>,
@@ -2283,7 +2283,7 @@
 </span>];
 
 <span class="doccomment">/// Number of extra bits for each distance code.
-</span><span class="attribute">#[rustfmt::skip]
+</span><span class="attr">#[rustfmt::skip]
 </span><span class="kw">const </span>DIST_EXTRA: [u8; <span class="number">32</span>] = [
     <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>,  <span class="number">2</span>,  <span class="number">3</span>,  <span class="number">3</span>,  <span class="number">4</span>,  <span class="number">4</span>,  <span class="number">5</span>,  <span class="number">5</span>,  <span class="number">6</span>,  <span class="number">6</span>,
     <span class="number">7</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">11</span>, <span class="number">12</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">13</span>, <span class="number">13</span>, <span class="number">13
@@ -2293,7 +2293,7 @@
 </span><span class="kw">const </span>BASE_EXTRA_MASK: usize = <span class="number">32 </span>- <span class="number">1</span>;
 
 <span class="doccomment">/// Sets the value of all the elements of the slice to `val`.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>memset&lt;T: Copy&gt;(slice: <span class="kw-2">&amp;mut </span>[T], val: T) {
     <span class="kw">for </span>x <span class="kw">in </span>slice {
         <span class="kw-2">*</span>x = val
@@ -2304,7 +2304,7 @@
 ///
 /// # Panics
 /// Panics if there are less than two bytes left.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>read_u16_le(iter: <span class="kw-2">&amp;mut </span>slice::Iter&lt;u8&gt;) -&gt; u16 {
     <span class="kw">let </span>ret = {
         <span class="kw">let </span>two_bytes = iter.as_ref()[..<span class="number">2</span>].try_into().unwrap();
@@ -2318,7 +2318,7 @@
 ///
 /// # Panics
 /// Panics if there are less than four bytes left.
-</span><span class="attribute">#[inline(always)]
+</span><span class="attr">#[inline(always)]
 #[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
 </span><span class="kw">fn </span>read_u32_le(iter: <span class="kw-2">&amp;mut </span>slice::Iter&lt;u8&gt;) -&gt; u32 {
     <span class="kw">let </span>ret = {
@@ -2334,7 +2334,7 @@
 /// On 64-bit platform, we use a 64-bit value so this will
 /// result in there being at least 32 bits in the bit buffer.
 /// This function assumes that there is at least 4 bytes left in the input buffer.
-</span><span class="attribute">#[inline(always)]
+</span><span class="attr">#[inline(always)]
 #[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
 </span><span class="kw">fn </span>fill_bit_buffer(l: <span class="kw-2">&amp;mut </span>LocalVars, in_iter: <span class="kw-2">&amp;mut </span>slice::Iter&lt;u8&gt;) {
     <span class="comment">// Read four bytes into the buffer at once.
@@ -2346,7 +2346,7 @@
 
 <span class="doccomment">/// Same as previous, but for non-64-bit platforms.
 /// Ensures at least 16 bits are present, requires at least 2 bytes in the in buffer.
-</span><span class="attribute">#[inline(always)]
+</span><span class="attr">#[inline(always)]
 #[cfg(not(target_pointer_width = <span class="string">&quot;64&quot;</span>))]
 </span><span class="kw">fn </span>fill_bit_buffer(l: <span class="kw-2">&amp;mut </span>LocalVars, in_iter: <span class="kw-2">&amp;mut </span>slice::Iter&lt;u8&gt;) {
     <span class="comment">// If the buffer is 32-bit wide, read 2 bytes instead.
@@ -2360,7 +2360,7 @@
 /// for the window size specified in the header.
 ///
 /// See https://tools.ietf.org/html/rfc1950
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>validate_zlib_header(cmf: u32, flg: u32, flags: u32, mask: usize) -&gt; Action {
     <span class="kw">let </span><span class="kw-2">mut </span>failed =
     <span class="comment">// cmf + flg should be divisible by 31.
@@ -2511,7 +2511,7 @@
 <span class="doccomment">/// Try to read one byte from `in_iter` and call `f` with the read byte as an argument,
 /// returning the result.
 /// If reading fails, `Action::End is returned`
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>read_byte&lt;F&gt;(in_iter: <span class="kw-2">&amp;mut </span>slice::Iter&lt;u8&gt;, flags: u32, f: F) -&gt; Action
 <span class="kw">where
     </span>F: FnOnce(u8) -&gt; Action,
@@ -2526,7 +2526,7 @@
 </span><span class="doccomment">/// Try to read `amount` number of bits from `in_iter` and call the function `f` with the bits as an
 /// an argument after reading, returning the result of that function, or `Action::End` if there are
 /// not enough bytes left.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 #[allow(clippy::while_immutable_condition)]
 </span><span class="kw">fn </span>read_bits&lt;F&gt;(
     l: <span class="kw-2">&amp;mut </span>LocalVars,
@@ -2559,7 +2559,7 @@
     f(l, bits)
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>pad_to_bytes&lt;F&gt;(l: <span class="kw-2">&amp;mut </span>LocalVars, in_iter: <span class="kw-2">&amp;mut </span>slice::Iter&lt;u8&gt;, flags: u32, f: F) -&gt; Action
 <span class="kw">where
     </span>F: FnOnce(<span class="kw-2">&amp;mut </span>LocalVars) -&gt; Action,
@@ -2568,7 +2568,7 @@
     read_bits(l, num_bits, in_iter, flags, |l, <span class="kw">_</span>| f(l))
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>end_of_input(flags: u32) -&gt; Action {
     Action::End(<span class="kw">if </span>flags &amp; TINFL_FLAG_HAS_MORE_INPUT != <span class="number">0 </span>{
         TINFLStatus::NeedsMoreInput
@@ -2577,7 +2577,7 @@
     })
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>undo_bytes(l: <span class="kw-2">&amp;mut </span>LocalVars, max: u32) -&gt; u32 {
     <span class="kw">let </span>res = cmp::min(l.num_bits &gt;&gt; <span class="number">3</span>, max);
     l.num_bits -= res &lt;&lt; <span class="number">3</span>;
@@ -2704,7 +2704,7 @@
     };
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">struct </span>LocalVars {
     <span class="kw">pub </span>bit_buf: BitBuffer,
     <span class="kw">pub </span>num_bits: u32,
@@ -2713,7 +2713,7 @@
     <span class="kw">pub </span>num_extra: u32,
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>transfer(
     out_slice: <span class="kw-2">&amp;mut </span>[u8],
     <span class="kw-2">mut </span>source_pos: usize,
@@ -2747,7 +2747,7 @@
 }
 
 <span class="doccomment">/// Presumes that there is at least match_len bytes in output left.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>apply_match(
     out_slice: <span class="kw-2">&amp;mut </span>[u8],
     out_pos: usize,
@@ -3618,7 +3618,7 @@
     )
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
@@ -3634,7 +3634,7 @@
         (status, <span class="kw-2">&amp;</span>input_buffer[in_pos..], out_pos)
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>decompress_zlib() {
         <span class="kw">let </span>encoded = [
             <span class="number">120</span>, <span class="number">156</span>, <span class="number">243</span>, <span class="number">72</span>, <span class="number">205</span>, <span class="number">201</span>, <span class="number">201</span>, <span class="number">215</span>, <span class="number">81</span>, <span class="number">168</span>, <span class="number">202</span>, <span class="number">201</span>, <span class="number">76</span>, <span class="number">82</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">27</span>, <span class="number">101</span>, <span class="number">4</span>, <span class="number">19</span>,
@@ -3661,7 +3661,7 @@
         <span class="macro">assert_eq!</span>(b_status.<span class="number">0</span>, TINFLStatus::Done);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>raw_block() {
         <span class="kw">const </span>LEN: usize = <span class="number">64</span>;
 
@@ -3697,7 +3697,7 @@
         (ret.<span class="number">0 </span>&amp; <span class="number">511</span>, ret.<span class="number">1</span>)
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>fixed_table_lookup() {
         <span class="kw">let </span><span class="kw-2">mut </span>d = DecompressorOxide::new();
         d.block_type = <span class="number">1</span>;
@@ -3742,7 +3742,7 @@
         <span class="macro">assert_eq!</span>(expected_state, r.state);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>bogus_input() {
         <span class="kw">use </span><span class="self">self</span>::check_result <span class="kw">as </span>cr;
         <span class="kw">const </span>F: TINFLStatus = TINFLStatus::Failed;
@@ -3818,7 +3818,7 @@
         //cr(&amp;[0x1f, 0x8b, 0x08 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0x03, 0, 0, 0, 0, 0, 0, 0, 0, 0x01], F, State::BadCRC, false)
     </span>}
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>empty_output_buffer_non_wrapping() {
         <span class="kw">let </span>encoded = [
             <span class="number">120</span>, <span class="number">156</span>, <span class="number">243</span>, <span class="number">72</span>, <span class="number">205</span>, <span class="number">201</span>, <span class="number">201</span>, <span class="number">215</span>, <span class="number">81</span>, <span class="number">168</span>, <span class="number">202</span>, <span class="number">201</span>, <span class="number">76</span>, <span class="number">82</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">27</span>, <span class="number">101</span>, <span class="number">4</span>, <span class="number">19</span>,
@@ -3834,7 +3834,7 @@
         <span class="macro">assert_eq!</span>(res, (TINFLStatus::HasMoreOutput, <span class="number">4</span>, <span class="number">0</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>empty_output_buffer_wrapping() {
         <span class="kw">let </span>encoded = [
             <span class="number">0x73</span>, <span class="number">0x49</span>, <span class="number">0x4d</span>, <span class="number">0xcb</span>, <span class="number">0x49</span>, <span class="number">0x2c</span>, <span class="number">0x49</span>, <span class="number">0x55</span>, <span class="number">0x00</span>, <span class="number">0x11</span>, <span class="number">0x00</span>,
@@ -3849,4 +3849,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="miniz_oxide" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="miniz_oxide" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

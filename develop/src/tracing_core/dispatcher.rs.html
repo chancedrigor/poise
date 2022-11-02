@@ -1049,7 +1049,7 @@
     },
 };
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::stdlib::{
     cell::{Cell, RefCell, RefMut},
     error,
@@ -1058,12 +1058,12 @@
 <span class="doccomment">/// `Dispatch` trace data to a [`Subscriber`].
 ///
 /// [`Subscriber`]: trait.Subscriber.html
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>Dispatch {
     subscriber: Arc&lt;<span class="kw">dyn </span>Subscriber + Send + Sync&gt;,
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="macro">thread_local! </span>{
     <span class="kw">static </span>CURRENT_STATE: State = State {
         default: RefCell::new(<span class="prelude-val">None</span>),
@@ -1081,7 +1081,7 @@
 <span class="kw">static </span><span class="kw-2">mut </span>GLOBAL_DISPATCH: <span class="prelude-ty">Option</span>&lt;Dispatch&gt; = <span class="prelude-val">None</span>;
 
 <span class="doccomment">/// The dispatch state of a thread.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">struct </span>State {
     <span class="doccomment">/// This thread&#39;s current default dispatcher.
     </span>default: RefCell&lt;<span class="prelude-ty">Option</span>&lt;Dispatch&gt;&gt;,
@@ -1098,12 +1098,12 @@
 <span class="doccomment">/// While this guard is active, additional calls to subscriber functions on
 /// the default dispatcher will not be able to access the dispatch context.
 /// Dropping the guard will allow the dispatch context to be re-entered.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">struct </span>Entered&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>State);
 
 <span class="doccomment">/// A guard that resets the current default dispatcher to the prior
 /// default dispatcher when dropped.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;std&quot;</span>)))]
 #[derive(Debug)]
 </span><span class="kw">pub struct </span>DefaultGuard(<span class="prelude-ty">Option</span>&lt;Dispatch&gt;);
@@ -1123,7 +1123,7 @@
 /// [`Subscriber`]: ../subscriber/trait.Subscriber.html
 /// [`Event`]: ../event/struct.Event.html
 /// [`set_global_default`]: ../fn.set_global_default.html
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;std&quot;</span>)))]
 </span><span class="kw">pub fn </span>with_default&lt;T&gt;(dispatcher: <span class="kw-2">&amp;</span>Dispatch, f: <span class="kw">impl </span>FnOnce() -&gt; T) -&gt; T {
     <span class="comment">// When this guard is dropped, the default dispatcher will be reset to the
@@ -1144,7 +1144,7 @@
 /// &lt;/pre&gt;
 ///
 /// [`set_global_default`]: ../fn.set_global_default.html
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;std&quot;</span>)))]
 #[must_use = <span class="string">&quot;Dropping the guard unregisters the dispatcher.&quot;</span>]
 </span><span class="kw">pub fn </span>set_default(dispatcher: <span class="kw-2">&amp;</span>Dispatch) -&gt; DefaultGuard {
@@ -1197,14 +1197,14 @@
 ///
 /// This may be used to completely elide trace points if tracing is not in use
 /// at all or has yet to be initialized.
-</span><span class="attribute">#[doc(hidden)]
+</span><span class="attr">#[doc(hidden)]
 #[inline(always)]
 </span><span class="kw">pub fn </span>has_been_set() -&gt; bool {
     EXISTS.load(Ordering::Relaxed)
 }
 
 <span class="doccomment">/// Returned if setting the global dispatcher fails.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>SetGlobalDefaultError {
     _no_construct: (),
 }
@@ -1215,7 +1215,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;std&quot;</span>)))]
 </span><span class="kw">impl </span>error::Error <span class="kw">for </span>SetGlobalDefaultError {}
 
@@ -1226,7 +1226,7 @@
 /// with `Dispatch::none` rather than the previously set dispatcher.
 ///
 /// [dispatcher]: ../dispatcher/struct.Dispatch.html
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">pub fn </span>get_default&lt;T, F&gt;(<span class="kw-2">mut </span>f: F) -&gt; T
 <span class="kw">where
     </span>F: FnMut(<span class="kw-2">&amp;</span>Dispatch) -&gt; T,
@@ -1249,7 +1249,7 @@
 /// with `Dispatch::none` rather than the previously set dispatcher.
 ///
 /// [dispatcher]: ../dispatcher/struct.Dispatch.html
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 #[doc(hidden)]
 #[inline(never)]
 </span><span class="kw">pub fn </span>get_current&lt;T&gt;(f: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;</span>Dispatch) -&gt; T) -&gt; <span class="prelude-ty">Option</span>&lt;T&gt; {
@@ -1264,7 +1264,7 @@
 <span class="doccomment">/// Executes a closure with a reference to the current [dispatcher].
 ///
 /// [dispatcher]: ../dispatcher/struct.Dispatch.html
-</span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
+</span><span class="attr">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
 #[doc(hidden)]
 </span><span class="kw">pub fn </span>get_current&lt;T&gt;(f: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;</span>Dispatch) -&gt; T) -&gt; <span class="prelude-ty">Option</span>&lt;T&gt; {
     <span class="kw">let </span>dispatch = get_global()<span class="question-mark">?</span>;
@@ -1274,7 +1274,7 @@
 <span class="doccomment">/// Executes a closure with a reference to the current [dispatcher].
 ///
 /// [dispatcher]: ../dispatcher/struct.Dispatch.html
-</span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
+</span><span class="attr">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
 </span><span class="kw">pub fn </span>get_default&lt;T, F&gt;(<span class="kw-2">mut </span>f: F) -&gt; T
 <span class="kw">where
     </span>F: FnMut(<span class="kw-2">&amp;</span>Dispatch) -&gt; T,
@@ -1303,7 +1303,7 @@
 
 <span class="kw">impl </span>Dispatch {
     <span class="doccomment">/// Returns a new `Dispatch` that discards events and spans.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>none() -&gt; <span class="self">Self </span>{
         Dispatch {
             subscriber: Arc::new(NoSubscriber::default()),
@@ -1336,7 +1336,7 @@
     ///
     /// [`Subscriber`]: ../subscriber/trait.Subscriber.html
     /// [`register_callsite`]: ../subscriber/trait.Subscriber.html#method.register_callsite
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>register_callsite(<span class="kw-2">&amp;</span><span class="self">self</span>, metadata: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Metadata&lt;<span class="lifetime">&#39;static</span>&gt;) -&gt; subscriber::Interest {
         <span class="self">self</span>.subscriber.register_callsite(metadata)
     }
@@ -1352,7 +1352,7 @@
     /// [`Subscriber`]: ../subscriber/trait.Subscriber.html
     /// [`register_callsite`]: ../subscriber/trait.Subscriber.html#method.max_level_hint
     </span><span class="comment">// TODO(eliza): consider making this a public API?
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>max_level_hint(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;LevelFilter&gt; {
         <span class="self">self</span>.subscriber.max_level_hint()
     }
@@ -1366,7 +1366,7 @@
     /// [ID]: ../span/struct.Id.html
     /// [`Subscriber`]: ../subscriber/trait.Subscriber.html
     /// [`new_span`]: ../subscriber/trait.Subscriber.html#method.new_span
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new_span(<span class="kw-2">&amp;</span><span class="self">self</span>, span: <span class="kw-2">&amp;</span>span::Attributes&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; span::Id {
         <span class="self">self</span>.subscriber.new_span(span)
     }
@@ -1378,7 +1378,7 @@
     ///
     /// [`Subscriber`]: ../subscriber/trait.Subscriber.html
     /// [`record`]: ../subscriber/trait.Subscriber.html#method.record
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>record(<span class="kw-2">&amp;</span><span class="self">self</span>, span: <span class="kw-2">&amp;</span>span::Id, values: <span class="kw-2">&amp;</span>span::Record&lt;<span class="lifetime">&#39;_</span>&gt;) {
         <span class="self">self</span>.subscriber.record(span, values)
     }
@@ -1391,7 +1391,7 @@
     ///
     /// [`Subscriber`]: ../subscriber/trait.Subscriber.html
     /// [`record_follows_from`]: ../subscriber/trait.Subscriber.html#method.record_follows_from
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>record_follows_from(<span class="kw-2">&amp;</span><span class="self">self</span>, span: <span class="kw-2">&amp;</span>span::Id, follows: <span class="kw-2">&amp;</span>span::Id) {
         <span class="self">self</span>.subscriber.record_follows_from(span, follows)
     }
@@ -1405,7 +1405,7 @@
     /// [metadata]: ../metadata/struct.Metadata.html
     /// [`Subscriber`]: ../subscriber/trait.Subscriber.html
     /// [`enabled`]: ../subscriber/trait.Subscriber.html#method.enabled
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>enabled(<span class="kw-2">&amp;</span><span class="self">self</span>, metadata: <span class="kw-2">&amp;</span>Metadata&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; bool {
         <span class="self">self</span>.subscriber.enabled(metadata)
     }
@@ -1418,7 +1418,7 @@
     /// [`Event`]: ../event/struct.Event.html
     /// [`Subscriber`]: ../subscriber/trait.Subscriber.html
     /// [`event`]: ../subscriber/trait.Subscriber.html#method.event
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>event(<span class="kw-2">&amp;</span><span class="self">self</span>, event: <span class="kw-2">&amp;</span>Event&lt;<span class="lifetime">&#39;_</span>&gt;) {
         <span class="self">self</span>.subscriber.event(event)
     }
@@ -1459,7 +1459,7 @@
     /// [`Subscriber`]: ../subscriber/trait.Subscriber.html
     /// [`clone_span`]: ../subscriber/trait.Subscriber.html#method.clone_span
     /// [`new_span`]: ../subscriber/trait.Subscriber.html#method.new_span
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>clone_span(<span class="kw-2">&amp;</span><span class="self">self</span>, id: <span class="kw-2">&amp;</span>span::Id) -&gt; span::Id {
         <span class="self">self</span>.subscriber.clone_span(id)
     }
@@ -1486,10 +1486,10 @@
     /// [`drop_span`]: ../subscriber/trait.Subscriber.html#method.drop_span
     /// [`new_span`]: ../subscriber/trait.Subscriber.html#method.new_span
     /// [`try_close`]: #method.try_close
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[deprecated(since = <span class="string">&quot;0.1.2&quot;</span>, note = <span class="string">&quot;use `Dispatch::try_close` instead&quot;</span>)]
     </span><span class="kw">pub fn </span>drop_span(<span class="kw-2">&amp;</span><span class="self">self</span>, id: span::Id) {
-        <span class="attribute">#[allow(deprecated)]
+        <span class="attr">#[allow(deprecated)]
         </span><span class="self">self</span>.subscriber.drop_span(id);
     }
 
@@ -1518,21 +1518,21 @@
     /// `Dispatch` forwards to.
     ///
     /// [`current`]: ../subscriber/trait.Subscriber.html#method.current
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>current_span(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; span::Current {
         <span class="self">self</span>.subscriber.current_span()
     }
 
     <span class="doccomment">/// Returns `true` if this `Dispatch` forwards to a `Subscriber` of type
     /// `T`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is&lt;T: Any&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         &lt;<span class="kw">dyn </span>Subscriber&gt;::is::&lt;T&gt;(<span class="kw-2">&amp;*</span><span class="self">self</span>.subscriber)
     }
 
     <span class="doccomment">/// Returns some reference to the `Subscriber` this `Dispatch` forwards to
     /// if it is of type `T`, or `None` if it isn&#39;t.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>downcast_ref&lt;T: Any&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>T&gt; {
         &lt;<span class="kw">dyn </span>Subscriber&gt;::downcast_ref(<span class="kw-2">&amp;*</span><span class="self">self</span>.subscriber)
     }
@@ -1557,7 +1557,7 @@
 <span class="kw">where
     </span>S: Subscriber + Send + Sync + <span class="lifetime">&#39;static</span>,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(subscriber: S) -&gt; <span class="self">Self </span>{
         Dispatch::new(subscriber)
     }
@@ -1578,14 +1578,14 @@
 
 <span class="comment">// ===== impl State =====
 
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>State {
     <span class="doccomment">/// Replaces the current default dispatcher on this thread with the provided
     /// dispatcher.Any
     ///
     /// Dropping the returned `ResetGuard` will reset the default dispatcher to
     /// the previous value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>set_default(new_dispatch: Dispatch) -&gt; DefaultGuard {
         <span class="kw">let </span>prior = CURRENT_STATE
             .try_with(|state| {
@@ -1598,7 +1598,7 @@
         DefaultGuard(prior)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>enter(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Entered&lt;<span class="lifetime">&#39;_</span>&gt;&gt; {
         <span class="kw">if </span><span class="self">self</span>.can_enter.replace(<span class="bool-val">false</span>) {
             <span class="prelude-val">Some</span>(Entered(<span class="self">self</span>))
@@ -1610,9 +1610,9 @@
 
 <span class="comment">// ===== impl Entered =====
 
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Entered&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>current(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; RefMut&lt;<span class="lifetime">&#39;a</span>, Dispatch&gt; {
         <span class="kw">let </span>default = <span class="self">self</span>.<span class="number">0</span>.default.borrow_mut();
         RefMut::map(default, |default| {
@@ -1621,9 +1621,9 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Drop <span class="kw">for </span>Entered&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.<span class="number">0</span>.can_enter.set(<span class="bool-val">true</span>);
     }
@@ -1631,9 +1631,9 @@
 
 <span class="comment">// ===== impl DefaultGuard =====
 
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>Drop <span class="kw">for </span>DefaultGuard {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="comment">// Replace the dispatcher and then drop the old one outside
         // of the thread-local context. Dropping the dispatch may
@@ -1645,10 +1645,10 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     </span><span class="kw">use </span><span class="kw">crate</span>::stdlib::sync::atomic::{AtomicUsize, Ordering};
     <span class="kw">use crate</span>::{
         callsite::Callsite,
@@ -1656,13 +1656,13 @@
         subscriber::Interest,
     };
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>dispatch_is() {
         <span class="kw">let </span>dispatcher = Dispatch::new(NoSubscriber::default());
         <span class="macro">assert!</span>(dispatcher.is::&lt;NoSubscriber&gt;());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>dispatch_downcasts() {
         <span class="kw">let </span>dispatcher = Dispatch::new(NoSubscriber::default());
         <span class="macro">assert!</span>(dispatcher.downcast_ref::&lt;NoSubscriber&gt;().is_some());
@@ -1686,7 +1686,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     </span><span class="kw">fn </span>events_dont_infinite_loop() {
         <span class="comment">// This test ensures that an event triggered within a subscriber
@@ -1725,7 +1725,7 @@
         })
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     </span><span class="kw">fn </span>spans_dont_infinite_loop() {
         <span class="comment">// This test ensures that a span created within a subscriber
@@ -1771,13 +1771,13 @@
         with_default(<span class="kw-2">&amp;</span>Dispatch::new(TestSubscriber), mk_span)
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>default_no_subscriber() {
         <span class="kw">let </span>default_dispatcher = Dispatch::default();
         <span class="macro">assert!</span>(default_dispatcher.is::&lt;NoSubscriber&gt;());
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     #[test]
     </span><span class="kw">fn </span>default_dispatch() {
         <span class="kw">struct </span>TestSubscriber;
@@ -1810,4 +1810,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

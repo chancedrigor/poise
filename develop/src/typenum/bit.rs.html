@@ -352,26 +352,26 @@
 <span class="kw">pub use </span><span class="kw">crate</span>::marker_traits::Bit;
 
 <span class="doccomment">/// The type-level bit 0.
-</span><span class="attribute">#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug, Default)]
+</span><span class="attr">#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug, Default)]
 #[cfg_attr(feature = <span class="string">&quot;scale_info&quot;</span>, derive(scale_info::TypeInfo))]
 </span><span class="kw">pub struct </span>B0;
 
 <span class="kw">impl </span>B0 {
     <span class="doccomment">/// Instantiates a singleton representing this bit.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new() -&gt; B0 {
         B0
     }
 }
 
 <span class="doccomment">/// The type-level bit 1.
-</span><span class="attribute">#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug, Default)]
+</span><span class="attr">#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug, Default)]
 #[cfg_attr(feature = <span class="string">&quot;scale_info&quot;</span>, derive(scale_info::TypeInfo))]
 </span><span class="kw">pub struct </span>B1;
 
 <span class="kw">impl </span>B1 {
     <span class="doccomment">/// Instantiates a singleton representing this bit.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new() -&gt; B1 {
         B1
     }
@@ -381,15 +381,15 @@
     <span class="kw">const </span>U8: u8 = <span class="number">0</span>;
     <span class="kw">const </span>BOOL: bool = <span class="bool-val">false</span>;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
         <span class="self">Self
     </span>}
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_u8() -&gt; u8 {
         <span class="number">0
     </span>}
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_bool() -&gt; bool {
         <span class="bool-val">false
     </span>}
@@ -399,15 +399,15 @@
     <span class="kw">const </span>U8: u8 = <span class="number">1</span>;
     <span class="kw">const </span>BOOL: bool = <span class="bool-val">true</span>;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
         <span class="self">Self
     </span>}
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_u8() -&gt; u8 {
         <span class="number">1
     </span>}
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_bool() -&gt; bool {
         <span class="bool-val">true
     </span>}
@@ -420,7 +420,7 @@
 <span class="doccomment">/// Not of 0 (!0 = 1)
 </span><span class="kw">impl </span>Not <span class="kw">for </span>B0 {
     <span class="kw">type </span>Output = B1;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>not(<span class="self">self</span>) -&gt; <span class="self">Self</span>::Output {
         B1
     }
@@ -428,7 +428,7 @@
 <span class="doccomment">/// Not of 1 (!1 = 0)
 </span><span class="kw">impl </span>Not <span class="kw">for </span>B1 {
     <span class="kw">type </span>Output = B0;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>not(<span class="self">self</span>) -&gt; <span class="self">Self</span>::Output {
         B0
     }
@@ -437,7 +437,7 @@
 <span class="doccomment">/// And with 0 ( 0 &amp; B = 0)
 </span><span class="kw">impl</span>&lt;Rhs: Bit&gt; BitAnd&lt;Rhs&gt; <span class="kw">for </span>B0 {
     <span class="kw">type </span>Output = B0;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>bitand(<span class="self">self</span>, <span class="kw">_</span>: Rhs) -&gt; <span class="self">Self</span>::Output {
         B0
     }
@@ -446,7 +446,7 @@
 <span class="doccomment">/// And with 1 ( 1 &amp; 0 = 0)
 </span><span class="kw">impl </span>BitAnd&lt;B0&gt; <span class="kw">for </span>B1 {
     <span class="kw">type </span>Output = B0;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>bitand(<span class="self">self</span>, <span class="kw">_</span>: B0) -&gt; <span class="self">Self</span>::Output {
         B0
     }
@@ -455,7 +455,7 @@
 <span class="doccomment">/// And with 1 ( 1 &amp; 1 = 1)
 </span><span class="kw">impl </span>BitAnd&lt;B1&gt; <span class="kw">for </span>B1 {
     <span class="kw">type </span>Output = B1;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>bitand(<span class="self">self</span>, <span class="kw">_</span>: B1) -&gt; <span class="self">Self</span>::Output {
         B1
     }
@@ -464,7 +464,7 @@
 <span class="doccomment">/// Or with 0 ( 0 | 0 = 0)
 </span><span class="kw">impl </span>BitOr&lt;B0&gt; <span class="kw">for </span>B0 {
     <span class="kw">type </span>Output = B0;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>bitor(<span class="self">self</span>, <span class="kw">_</span>: B0) -&gt; <span class="self">Self</span>::Output {
         B0
     }
@@ -473,7 +473,7 @@
 <span class="doccomment">/// Or with 0 ( 0 | 1 = 1)
 </span><span class="kw">impl </span>BitOr&lt;B1&gt; <span class="kw">for </span>B0 {
     <span class="kw">type </span>Output = B1;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>bitor(<span class="self">self</span>, <span class="kw">_</span>: B1) -&gt; <span class="self">Self</span>::Output {
         B1
     }
@@ -482,7 +482,7 @@
 <span class="doccomment">/// Or with 1 ( 1 | B = 1)
 </span><span class="kw">impl</span>&lt;Rhs: Bit&gt; BitOr&lt;Rhs&gt; <span class="kw">for </span>B1 {
     <span class="kw">type </span>Output = B1;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>bitor(<span class="self">self</span>, <span class="kw">_</span>: Rhs) -&gt; <span class="self">Self</span>::Output {
         B1
     }
@@ -491,7 +491,7 @@
 <span class="doccomment">/// Xor between 0 and 0 ( 0 ^ 0 = 0)
 </span><span class="kw">impl </span>BitXor&lt;B0&gt; <span class="kw">for </span>B0 {
     <span class="kw">type </span>Output = B0;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>bitxor(<span class="self">self</span>, <span class="kw">_</span>: B0) -&gt; <span class="self">Self</span>::Output {
         B0
     }
@@ -499,7 +499,7 @@
 <span class="doccomment">/// Xor between 1 and 0 ( 1 ^ 0 = 1)
 </span><span class="kw">impl </span>BitXor&lt;B0&gt; <span class="kw">for </span>B1 {
     <span class="kw">type </span>Output = B1;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>bitxor(<span class="self">self</span>, <span class="kw">_</span>: B0) -&gt; <span class="self">Self</span>::Output {
         B1
     }
@@ -507,7 +507,7 @@
 <span class="doccomment">/// Xor between 0 and 1 ( 0 ^ 1 = 1)
 </span><span class="kw">impl </span>BitXor&lt;B1&gt; <span class="kw">for </span>B0 {
     <span class="kw">type </span>Output = B1;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>bitxor(<span class="self">self</span>, <span class="kw">_</span>: B1) -&gt; <span class="self">Self</span>::Output {
         B1
     }
@@ -515,13 +515,13 @@
 <span class="doccomment">/// Xor between 1 and 1 ( 1 ^ 1 = 0)
 </span><span class="kw">impl </span>BitXor&lt;B1&gt; <span class="kw">for </span>B1 {
     <span class="kw">type </span>Output = B0;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>bitxor(<span class="self">self</span>, <span class="kw">_</span>: B1) -&gt; <span class="self">Self</span>::Output {
         B0
     }
 }
 
-<span class="attribute">#[cfg(tests)]
+<span class="attr">#[cfg(tests)]
 </span><span class="kw">mod </span>tests {
     <span class="comment">// macro for testing operation results. Uses `Same` to ensure the types are equal and
     // not just the values they evaluate to.
@@ -536,7 +536,7 @@
         }};
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>bit_operations() {
         <span class="macro">test_bit_op!</span>(Not B0 = B1);
         <span class="macro">test_bit_op!</span>(Not B1 = B0);
@@ -561,7 +561,7 @@
 <span class="kw">impl </span>Cmp&lt;B0&gt; <span class="kw">for </span>B0 {
     <span class="kw">type </span>Output = Equal;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>compare&lt;P: InternalMarker&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span>B0) -&gt; <span class="self">Self</span>::Output {
         Equal
     }
@@ -570,7 +570,7 @@
 <span class="kw">impl </span>Cmp&lt;B1&gt; <span class="kw">for </span>B0 {
     <span class="kw">type </span>Output = Less;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>compare&lt;P: InternalMarker&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span>B1) -&gt; <span class="self">Self</span>::Output {
         Less
     }
@@ -579,7 +579,7 @@
 <span class="kw">impl </span>Cmp&lt;B0&gt; <span class="kw">for </span>B1 {
     <span class="kw">type </span>Output = Greater;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>compare&lt;P: InternalMarker&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span>B0) -&gt; <span class="self">Self</span>::Output {
         Greater
     }
@@ -588,7 +588,7 @@
 <span class="kw">impl </span>Cmp&lt;B1&gt; <span class="kw">for </span>B1 {
     <span class="kw">type </span>Output = Equal;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>compare&lt;P: InternalMarker&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span>B1) -&gt; <span class="self">Self</span>::Output {
         Equal
     }
@@ -597,28 +597,28 @@
 <span class="kw">use </span><span class="kw">crate</span>::Min;
 <span class="kw">impl </span>Min&lt;B0&gt; <span class="kw">for </span>B0 {
     <span class="kw">type </span>Output = B0;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>min(<span class="self">self</span>, <span class="kw">_</span>: B0) -&gt; B0 {
         <span class="self">self
     </span>}
 }
 <span class="kw">impl </span>Min&lt;B1&gt; <span class="kw">for </span>B0 {
     <span class="kw">type </span>Output = B0;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>min(<span class="self">self</span>, <span class="kw">_</span>: B1) -&gt; B0 {
         <span class="self">self
     </span>}
 }
 <span class="kw">impl </span>Min&lt;B0&gt; <span class="kw">for </span>B1 {
     <span class="kw">type </span>Output = B0;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>min(<span class="self">self</span>, rhs: B0) -&gt; B0 {
         rhs
     }
 }
 <span class="kw">impl </span>Min&lt;B1&gt; <span class="kw">for </span>B1 {
     <span class="kw">type </span>Output = B1;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>min(<span class="self">self</span>, <span class="kw">_</span>: B1) -&gt; B1 {
         <span class="self">self
     </span>}
@@ -627,36 +627,36 @@
 <span class="kw">use </span><span class="kw">crate</span>::Max;
 <span class="kw">impl </span>Max&lt;B0&gt; <span class="kw">for </span>B0 {
     <span class="kw">type </span>Output = B0;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>max(<span class="self">self</span>, <span class="kw">_</span>: B0) -&gt; B0 {
         <span class="self">self
     </span>}
 }
 <span class="kw">impl </span>Max&lt;B1&gt; <span class="kw">for </span>B0 {
     <span class="kw">type </span>Output = B1;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>max(<span class="self">self</span>, rhs: B1) -&gt; B1 {
         rhs
     }
 }
 <span class="kw">impl </span>Max&lt;B0&gt; <span class="kw">for </span>B1 {
     <span class="kw">type </span>Output = B1;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>max(<span class="self">self</span>, <span class="kw">_</span>: B0) -&gt; B1 {
         <span class="self">self
     </span>}
 }
 <span class="kw">impl </span>Max&lt;B1&gt; <span class="kw">for </span>B1 {
     <span class="kw">type </span>Output = B1;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>max(<span class="self">self</span>, <span class="kw">_</span>: B1) -&gt; B1 {
         <span class="self">self
     </span>}
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>bit_creation() {
         {
             <span class="kw">use crate</span>::{B0, B1};
@@ -673,4 +673,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="typenum" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="typenum" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

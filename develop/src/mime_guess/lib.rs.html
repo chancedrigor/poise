@@ -563,11 +563,11 @@
 <span class="kw">use </span>std::path::Path;
 <span class="kw">use </span>std::{iter, slice};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;phf&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;phf&quot;</span>)]
 #[path = <span class="string">&quot;impl_phf.rs&quot;</span>]
 </span><span class="kw">mod </span>impl_;
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;phf&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;phf&quot;</span>))]
 #[path = <span class="string">&quot;impl_bin_search.rs&quot;</span>]
 </span><span class="kw">mod </span>impl_;
 
@@ -583,7 +583,7 @@
 /// ### Note: Values Not Stable
 /// The exact Media Types returned in any given guess are not considered to be stable and are often
 /// updated in patch releases in order to reflect the most up-to-date information possible.
-</span><span class="attribute">#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+</span><span class="attr">#[derive(Copy, Clone, Debug, PartialEq, Eq)]
 </span><span class="comment">// FIXME: change repr when `mime` gains macro/const fn constructor
 </span><span class="kw">pub struct </span>MimeGuess(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str]);
 
@@ -732,7 +732,7 @@
 <span class="doccomment">/// An iterator over the `Mime` types of a `MimeGuess`.
 ///
 /// See [Note: Ordering on `MimeGuess`](struct.MimeGuess.html#note-ordering).
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>Iter(iter::Map&lt;IterRaw, <span class="kw">fn</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str) -&gt; Mime&gt;);
 
 <span class="kw">impl </span>Iterator <span class="kw">for </span>Iter {
@@ -764,7 +764,7 @@
 <span class="doccomment">/// An iterator over the raw media type strings of a `MimeGuess`.
 ///
 /// See [Note: Ordering on `MimeGuess`](struct.MimeGuess.html#note-ordering).
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>IterRaw(iter::Cloned&lt;slice::Iter&lt;<span class="lifetime">&#39;static</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str&gt;&gt;);
 
 <span class="kw">impl </span>Iterator <span class="kw">for </span>IterRaw {
@@ -824,7 +824,7 @@
 /// header at all instead of defaulting to `application/octet-stream`.
 ///
 /// [rfc7231]: https://tools.ietf.org/html/rfc7231#section-3.1.1.5
-</span><span class="attribute">#[deprecated(
+</span><span class="attr">#[deprecated(
     since = <span class="string">&quot;2.0.0&quot;</span>,
     note = <span class="string">&quot;Use `from_path(path).first_or_octet_stream()` instead&quot;
 </span>)]
@@ -837,7 +837,7 @@
 /// If `path` has no extension, or its extension has no known MIME type mapping,
 /// then `None` is returned.
 ///
-</span><span class="attribute">#[deprecated(since = <span class="string">&quot;2.0.0&quot;</span>, note = <span class="string">&quot;Use `from_path(path).first()` instead&quot;</span>)]
+</span><span class="attr">#[deprecated(since = <span class="string">&quot;2.0.0&quot;</span>, note = <span class="string">&quot;Use `from_path(path).first()` instead&quot;</span>)]
 </span><span class="kw">pub fn </span>guess_mime_type_opt&lt;P: AsRef&lt;Path&gt;&gt;(path: P) -&gt; <span class="prelude-ty">Option</span>&lt;Mime&gt; {
     from_path(path).first()
 }
@@ -852,7 +852,7 @@
 /// that `path` points to match the MIME type associated with the path&#39;s extension.
 ///
 /// Take care when processing files with assumptions based on the return value of this function.
-</span><span class="attribute">#[deprecated(since = <span class="string">&quot;2.0.0&quot;</span>, note = <span class="string">&quot;Use `from_path(path).first_raw()` instead&quot;</span>)]
+</span><span class="attr">#[deprecated(since = <span class="string">&quot;2.0.0&quot;</span>, note = <span class="string">&quot;Use `from_path(path).first_raw()` instead&quot;</span>)]
 </span><span class="kw">pub fn </span>mime_str_for_path_ext&lt;P: AsRef&lt;Path&gt;&gt;(path: P) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str&gt; {
     from_path(path).first_raw()
 }
@@ -867,7 +867,7 @@
 /// header at all instead of defaulting to `application/octet-stream`.
 ///
 /// [rfc7231]: https://tools.ietf.org/html/rfc7231#section-3.1.1.5
-</span><span class="attribute">#[deprecated(
+</span><span class="attr">#[deprecated(
     since = <span class="string">&quot;2.0.0&quot;</span>,
     note = <span class="string">&quot;use `from_ext(search_ext).first_or_octet_stream()` instead&quot;
 </span>)]
@@ -879,7 +879,7 @@
 ///
 /// If there is no association for the extension, or `ext` is empty,
 /// `None` is returned.
-</span><span class="attribute">#[deprecated(since = <span class="string">&quot;2.0.0&quot;</span>, note = <span class="string">&quot;use `from_ext(search_ext).first()` instead&quot;</span>)]
+</span><span class="attr">#[deprecated(since = <span class="string">&quot;2.0.0&quot;</span>, note = <span class="string">&quot;use `from_ext(search_ext).first()` instead&quot;</span>)]
 </span><span class="kw">pub fn </span>get_mime_type_opt(search_ext: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;Mime&gt; {
     from_ext(search_ext).first()
 }
@@ -890,7 +890,7 @@
 /// it will be converted to lowercase to facilitate the search.
 ///
 /// Returns `None` if `search_ext` is empty or an associated extension was not found.
-</span><span class="attribute">#[deprecated(
+</span><span class="attr">#[deprecated(
     since = <span class="string">&quot;2.0.0&quot;</span>,
     note = <span class="string">&quot;use `from_ext(search_ext).first_raw()` instead&quot;
 </span>)]
@@ -908,7 +908,7 @@
 /// If the top-level of the MIME type is a wildcard (`*`), returns all extensions.
 ///
 /// If the sub-level of the MIME type is a wildcard, returns all extensions for the top-level.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;rev-mappings&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;rev-mappings&quot;</span>)]
 </span><span class="kw">pub fn </span>get_mime_extensions(mime: <span class="kw-2">&amp;</span>Mime) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str]&gt; {
     get_extensions(mime.type_().as_ref(), mime.subtype().as_ref())
 }
@@ -926,7 +926,7 @@
 ///
 /// ### Panics
 /// If `mime_str` is not a valid MIME type specifier (naive).
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;rev-mappings&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;rev-mappings&quot;</span>)]
 </span><span class="kw">pub fn </span>get_mime_extensions_str(<span class="kw-2">mut </span>mime_str: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str]&gt; {
     mime_str = mime_str.trim();
 
@@ -951,29 +951,29 @@
 /// If the top-level of the MIME type is a wildcard (`*`), returns all extensions.
 ///
 /// If the sub-level of the MIME type is a wildcard, returns all extensions for the top-level.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;rev-mappings&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;rev-mappings&quot;</span>)]
 </span><span class="kw">pub fn </span>get_extensions(toplevel: <span class="kw-2">&amp;</span>str, sublevel: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str]&gt; {
     impl_::get_extensions(toplevel, sublevel)
 }
 
 <span class="doccomment">/// Get the MIME type for `application/octet-stream` (generic binary stream)
-</span><span class="attribute">#[deprecated(since = <span class="string">&quot;2.0.0&quot;</span>, note = <span class="string">&quot;use `mime::APPLICATION_OCTET_STREAM` instead&quot;</span>)]
+</span><span class="attr">#[deprecated(since = <span class="string">&quot;2.0.0&quot;</span>, note = <span class="string">&quot;use `mime::APPLICATION_OCTET_STREAM` instead&quot;</span>)]
 </span><span class="kw">pub fn </span>octet_stream() -&gt; Mime {
     <span class="string">&quot;application/octet-stream&quot;</span>.parse().unwrap()
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="macro">include!</span>(<span class="string">&quot;mime_types.rs&quot;</span>);
 
     <span class="kw">use super</span>::{expect_mime, from_ext, from_path, get_mime_extensions_str};
-    <span class="attribute">#[allow(deprecated, unused_imports)]
+    <span class="attr">#[allow(deprecated, unused_imports)]
     </span><span class="kw">use </span>std::ascii::AsciiExt;
 
     <span class="kw">use </span>std::fmt::Debug;
     <span class="kw">use </span>std::path::Path;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>check_type_bounds() {
         <span class="kw">fn </span>assert_type_bounds&lt;T: Clone + Debug + Send + Sync + <span class="lifetime">&#39;static</span>&gt;() {}
 
@@ -982,7 +982,7 @@
         assert_type_bounds::&lt;<span class="kw">super</span>::IterRaw&gt;();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_mime_type_guessing() {
         <span class="macro">assert_eq!</span>(
             from_ext(<span class="string">&quot;gif&quot;</span>).first_or_octet_stream().to_string(),
@@ -1011,7 +1011,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_mime_type_guessing_opt() {
         <span class="macro">assert_eq!</span>(
             from_ext(<span class="string">&quot;gif&quot;</span>).first().unwrap().to_string(),
@@ -1030,7 +1030,7 @@
         <span class="macro">assert_eq!</span>(from_path(<span class="string">&quot;/path/to/file&quot;</span>).first(), <span class="prelude-val">None</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_are_mime_types_parseable() {
         <span class="kw">for </span>(<span class="kw">_</span>, mimes) <span class="kw">in </span>MIME_TYPES {
             mimes.iter().for_each(|s| {
@@ -1040,14 +1040,14 @@
     }
 
     <span class="comment">// RFC: Is this test necessary anymore? --@cybergeek94, 2/1/2016
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>test_are_extensions_ascii() {
         <span class="kw">for </span>(ext, <span class="kw">_</span>) <span class="kw">in </span>MIME_TYPES {
             <span class="macro">assert!</span>(ext.is_ascii(), <span class="string">&quot;Extension not ASCII: {:?}&quot;</span>, ext);
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_are_extensions_sorted() {
         <span class="comment">// simultaneously checks the requirement that duplicate extension entries are adjacent
         </span><span class="kw">for </span>(<span class="kw-2">&amp;</span>(ext, <span class="kw">_</span>), <span class="kw-2">&amp;</span>(n_ext, <span class="kw">_</span>)) <span class="kw">in </span>MIME_TYPES.iter().zip(MIME_TYPES.iter().skip(<span class="number">1</span>)) {
@@ -1061,10 +1061,10 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_get_mime_extensions_str_no_panic_if_bad_mime() {
         <span class="macro">assert_eq!</span>(get_mime_extensions_str(<span class="string">&quot;&quot;</span>), <span class="prelude-val">None</span>);
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="mime_guess" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="mime_guess" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

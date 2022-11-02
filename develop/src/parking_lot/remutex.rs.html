@@ -217,17 +217,17 @@
 </span><span class="kw">pub type </span>MappedReentrantMutexGuard&lt;<span class="lifetime">&#39;a</span>, T&gt; =
     lock_api::MappedReentrantMutexGuard&lt;<span class="lifetime">&#39;a</span>, RawMutex, RawThreadId, T&gt;;
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">crate</span>::ReentrantMutex;
     <span class="kw">use </span>std::cell::RefCell;
     <span class="kw">use </span>std::sync::Arc;
     <span class="kw">use </span>std::thread;
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
     </span><span class="kw">use </span>bincode::{deserialize, serialize};
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>smoke() {
         <span class="kw">let </span>m = ReentrantMutex::new(<span class="number">2</span>);
         {
@@ -244,7 +244,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>is_mutex() {
         <span class="kw">let </span>m = Arc::new(ReentrantMutex::new(RefCell::new(<span class="number">0</span>)));
         <span class="kw">let </span>m2 = m.clone();
@@ -261,7 +261,7 @@
         child.join().unwrap();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>trylock_works() {
         <span class="kw">let </span>m = Arc::new(ReentrantMutex::new(()));
         <span class="kw">let </span>m2 = m.clone();
@@ -276,14 +276,14 @@
         <span class="kw">let </span>_lock3 = m.try_lock();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_reentrant_mutex_debug() {
         <span class="kw">let </span>mutex = ReentrantMutex::new(<span class="macro">vec!</span>[<span class="number">0u8</span>, <span class="number">10</span>]);
 
         <span class="macro">assert_eq!</span>(<span class="macro">format!</span>(<span class="string">&quot;{:?}&quot;</span>, mutex), <span class="string">&quot;ReentrantMutex { data: [0, 10] }&quot;</span>);
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
     #[test]
     </span><span class="kw">fn </span>test_serde() {
         <span class="kw">let </span>contents: Vec&lt;u8&gt; = <span class="macro">vec!</span>[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>];
@@ -297,4 +297,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

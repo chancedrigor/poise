@@ -241,11 +241,11 @@
 
 <span class="doccomment">/// An owned dynamically typed [`Stream`] for use in cases where you can&#39;t
 /// statically type your result or need to add some indirection.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub type </span>BoxStream&lt;<span class="lifetime">&#39;a</span>, T&gt; = Pin&lt;alloc::boxed::Box&lt;<span class="kw">dyn </span>Stream&lt;Item = T&gt; + Send + <span class="lifetime">&#39;a</span>&gt;&gt;;
 
 <span class="doccomment">/// `BoxStream`, but without the `Send` requirement.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub type </span>LocalBoxStream&lt;<span class="lifetime">&#39;a</span>, T&gt; = Pin&lt;alloc::boxed::Box&lt;<span class="kw">dyn </span>Stream&lt;Item = T&gt; + <span class="lifetime">&#39;a</span>&gt;&gt;;
 
 <span class="doccomment">/// A stream of values produced asynchronously.
@@ -258,7 +258,7 @@
 /// The trait is modeled after `Future`, but allows `poll_next` to be called
 /// even after a value has been produced, yielding `None` once the stream has
 /// been fully exhausted.
-</span><span class="attribute">#[must_use = <span class="string">&quot;streams do nothing unless polled&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;streams do nothing unless polled&quot;</span>]
 </span><span class="kw">pub trait </span>Stream {
     <span class="doccomment">/// Values yielded by the stream.
     </span><span class="kw">type </span>Item;
@@ -326,7 +326,7 @@
     ///
     /// The default implementation returns `(0, `[`None`]`)` which is correct for any
     /// stream.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>size_hint(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (usize, <span class="prelude-ty">Option</span>&lt;usize&gt;) {
         (<span class="number">0</span>, <span class="prelude-val">None</span>)
     }
@@ -432,7 +432,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">mod </span>if_alloc {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span>alloc::boxed::Box;
@@ -449,7 +449,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     </span><span class="kw">impl</span>&lt;S: Stream&gt; Stream <span class="kw">for </span>std::panic::AssertUnwindSafe&lt;S&gt; {
         <span class="kw">type </span>Item = S::Item;
 
@@ -469,4 +469,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="futures_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="futures_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

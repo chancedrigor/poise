@@ -1152,7 +1152,7 @@
 }
 
 <span class="doccomment">/// Indicates whether the callsite is a span or event.
-</span><span class="attribute">#[derive(Clone, Eq, PartialEq)]
+</span><span class="attr">#[derive(Clone, Eq, PartialEq)]
 </span><span class="kw">pub struct </span>Kind(u8);
 
 <span class="doccomment">/// Describes the level of verbosity of a span or event.
@@ -1283,7 +1283,7 @@
 /// [`Subscriber::max_level_hint`]: crate::subscriber::Subscriber::max_level_hint
 /// [`Subscriber`]: crate::subscriber::Subscriber
 /// [envfilter]: https://docs.rs/tracing-subscriber/latest/tracing_subscriber/filter/struct.EnvFilter.html
-</span><span class="attribute">#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
+</span><span class="attr">#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
 </span><span class="kw">pub struct </span>Level(LevelInner);
 
 <span class="doccomment">/// A filter comparable to a verbosity [`Level`].
@@ -1301,12 +1301,12 @@
 /// and `LevelFilter`s interact.
 ///
 /// [`OFF`]: LevelFilter::OFF
-</span><span class="attribute">#[repr(transparent)]
+</span><span class="attr">#[repr(transparent)]
 #[derive(Copy, Clone, Eq, PartialEq, Hash)]
 </span><span class="kw">pub struct </span>LevelFilter(<span class="prelude-ty">Option</span>&lt;Level&gt;);
 
 <span class="doccomment">/// Indicates that a string could not be parsed to a valid level.
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>ParseLevelFilterError(());
 
 <span class="kw">static </span>MAX_LEVEL: AtomicUsize = AtomicUsize::new(LevelFilter::OFF_USIZE);
@@ -1382,7 +1382,7 @@
 
     <span class="doccomment">/// Returns an opaque `Identifier` that uniquely identifies the callsite
     /// this `Metadata` originated from.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>callsite(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; callsite::Identifier {
         <span class="self">self</span>.fields.callsite()
     }
@@ -1556,7 +1556,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;std&quot;</span>)))]
 </span><span class="kw">impl </span><span class="kw">crate</span>::stdlib::error::Error <span class="kw">for </span>ParseLevelError {}
 
@@ -1584,7 +1584,7 @@
     }
 }
 
-<span class="attribute">#[repr(usize)]
+<span class="attr">#[repr(usize)]
 #[derive(Copy, Clone, Debug, Hash, Eq, PartialEq)]
 </span><span class="kw">enum </span>LevelInner {
     <span class="doccomment">/// The &quot;trace&quot; level.
@@ -1612,21 +1612,21 @@
 <span class="comment">// === impl LevelFilter ===
 
 </span><span class="kw">impl </span>From&lt;Level&gt; <span class="kw">for </span>LevelFilter {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(level: Level) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::from_level(level)
     }
 }
 
 <span class="kw">impl </span>From&lt;<span class="prelude-ty">Option</span>&lt;Level&gt;&gt; <span class="kw">for </span>LevelFilter {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(level: <span class="prelude-ty">Option</span>&lt;Level&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>(level)
     }
 }
 
 <span class="kw">impl </span>From&lt;LevelFilter&gt; <span class="kw">for </span><span class="prelude-ty">Option</span>&lt;Level&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(filter: LevelFilter) -&gt; <span class="self">Self </span>{
         filter.into_level()
     }
@@ -1703,7 +1703,7 @@
     ///
     /// [`Level`]: ../struct.Level.html
     /// [`Subscriber`]: ../../trait.Subscriber.html
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>current() -&gt; <span class="self">Self </span>{
         <span class="kw">match </span>MAX_LEVEL.load(Ordering::Relaxed) {
             <span class="self">Self</span>::ERROR_USIZE =&gt; <span class="self">Self</span>::ERROR,
@@ -1712,7 +1712,7 @@
             <span class="self">Self</span>::DEBUG_USIZE =&gt; <span class="self">Self</span>::DEBUG,
             <span class="self">Self</span>::TRACE_USIZE =&gt; <span class="self">Self</span>::TRACE,
             <span class="self">Self</span>::OFF_USIZE =&gt; <span class="self">Self</span>::OFF,
-            <span class="attribute">#[cfg(debug_assertions)]
+            <span class="attr">#[cfg(debug_assertions)]
             </span>unknown =&gt; <span class="macro">unreachable!</span>(
                 <span class="string">&quot;/!\\ `LevelFilter` representation seems to have changed! /!\\ \n\
                 This is a bug (and it&#39;s pretty bad). Please contact the `tracing` \
@@ -1720,7 +1720,7 @@
                 The offending repr was: {:?}&quot;</span>,
                 unknown,
             ),
-            <span class="attribute">#[cfg(not(debug_assertions))]
+            <span class="attr">#[cfg(not(debug_assertions))]
             </span><span class="kw">_ </span>=&gt; <span class="kw">unsafe </span>{
                 <span class="comment">// Using `unreachable_unchecked` here (rather than
                 // `unreachable!()`) is necessary to ensure that rustc generates
@@ -1812,7 +1812,7 @@
 }
 
 <span class="doccomment">/// Returned if parsing a `Level` fails.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ParseLevelError {
     _p: (),
 }
@@ -1835,7 +1835,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>std::error::Error <span class="kw">for </span>ParseLevelFilterError {}
 
 <span class="comment">// ==== Level and LevelFilter comparisons ====
@@ -1912,74 +1912,74 @@
 // change it unless you know what you&#39;re doing.
 
 </span><span class="kw">impl </span>PartialEq&lt;LevelFilter&gt; <span class="kw">for </span>Level {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>LevelFilter) -&gt; bool {
         <span class="self">self</span>.<span class="number">0 </span><span class="kw">as </span>usize == filter_as_usize(<span class="kw-2">&amp;</span>other.<span class="number">0</span>)
     }
 }
 
 <span class="kw">impl </span>PartialOrd <span class="kw">for </span>Level {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Level) -&gt; <span class="prelude-ty">Option</span>&lt;cmp::Ordering&gt; {
         <span class="prelude-val">Some</span>(<span class="self">self</span>.cmp(other))
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>lt(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Level) -&gt; bool {
         (other.<span class="number">0 </span><span class="kw">as </span>usize) &lt; (<span class="self">self</span>.<span class="number">0 </span><span class="kw">as </span>usize)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>le(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Level) -&gt; bool {
         (other.<span class="number">0 </span><span class="kw">as </span>usize) &lt;= (<span class="self">self</span>.<span class="number">0 </span><span class="kw">as </span>usize)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>gt(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Level) -&gt; bool {
         (other.<span class="number">0 </span><span class="kw">as </span>usize) &gt; (<span class="self">self</span>.<span class="number">0 </span><span class="kw">as </span>usize)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>ge(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Level) -&gt; bool {
         (other.<span class="number">0 </span><span class="kw">as </span>usize) &gt;= (<span class="self">self</span>.<span class="number">0 </span><span class="kw">as </span>usize)
     }
 }
 
 <span class="kw">impl </span>Ord <span class="kw">for </span>Level {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; cmp::Ordering {
         (other.<span class="number">0 </span><span class="kw">as </span>usize).cmp(<span class="kw-2">&amp;</span>(<span class="self">self</span>.<span class="number">0 </span><span class="kw">as </span>usize))
     }
 }
 
 <span class="kw">impl </span>PartialOrd&lt;LevelFilter&gt; <span class="kw">for </span>Level {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>LevelFilter) -&gt; <span class="prelude-ty">Option</span>&lt;cmp::Ordering&gt; {
         <span class="prelude-val">Some</span>(filter_as_usize(<span class="kw-2">&amp;</span>other.<span class="number">0</span>).cmp(<span class="kw-2">&amp;</span>(<span class="self">self</span>.<span class="number">0 </span><span class="kw">as </span>usize)))
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>lt(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>LevelFilter) -&gt; bool {
         filter_as_usize(<span class="kw-2">&amp;</span>other.<span class="number">0</span>) &lt; (<span class="self">self</span>.<span class="number">0 </span><span class="kw">as </span>usize)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>le(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>LevelFilter) -&gt; bool {
         filter_as_usize(<span class="kw-2">&amp;</span>other.<span class="number">0</span>) &lt;= (<span class="self">self</span>.<span class="number">0 </span><span class="kw">as </span>usize)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>gt(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>LevelFilter) -&gt; bool {
         filter_as_usize(<span class="kw-2">&amp;</span>other.<span class="number">0</span>) &gt; (<span class="self">self</span>.<span class="number">0 </span><span class="kw">as </span>usize)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>ge(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>LevelFilter) -&gt; bool {
         filter_as_usize(<span class="kw-2">&amp;</span>other.<span class="number">0</span>) &gt;= (<span class="self">self</span>.<span class="number">0 </span><span class="kw">as </span>usize)
     }
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">fn </span>filter_as_usize(x: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;Level&gt;) -&gt; usize {
     <span class="kw">match </span>x {
         <span class="prelude-val">Some</span>(Level(f)) =&gt; <span class="kw-2">*</span>f <span class="kw">as </span>usize,
@@ -1988,86 +1988,86 @@
 }
 
 <span class="kw">impl </span>PartialEq&lt;Level&gt; <span class="kw">for </span>LevelFilter {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Level) -&gt; bool {
         filter_as_usize(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>) == other.<span class="number">0 </span><span class="kw">as </span>usize
     }
 }
 
 <span class="kw">impl </span>PartialOrd <span class="kw">for </span>LevelFilter {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>LevelFilter) -&gt; <span class="prelude-ty">Option</span>&lt;cmp::Ordering&gt; {
         <span class="prelude-val">Some</span>(<span class="self">self</span>.cmp(other))
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>lt(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>LevelFilter) -&gt; bool {
         filter_as_usize(<span class="kw-2">&amp;</span>other.<span class="number">0</span>) &lt; filter_as_usize(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>le(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>LevelFilter) -&gt; bool {
         filter_as_usize(<span class="kw-2">&amp;</span>other.<span class="number">0</span>) &lt;= filter_as_usize(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>gt(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>LevelFilter) -&gt; bool {
         filter_as_usize(<span class="kw-2">&amp;</span>other.<span class="number">0</span>) &gt; filter_as_usize(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>ge(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>LevelFilter) -&gt; bool {
         filter_as_usize(<span class="kw-2">&amp;</span>other.<span class="number">0</span>) &gt;= filter_as_usize(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>)
     }
 }
 
 <span class="kw">impl </span>Ord <span class="kw">for </span>LevelFilter {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; cmp::Ordering {
         filter_as_usize(<span class="kw-2">&amp;</span>other.<span class="number">0</span>).cmp(<span class="kw-2">&amp;</span>filter_as_usize(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>))
     }
 }
 
 <span class="kw">impl </span>PartialOrd&lt;Level&gt; <span class="kw">for </span>LevelFilter {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Level) -&gt; <span class="prelude-ty">Option</span>&lt;cmp::Ordering&gt; {
         <span class="prelude-val">Some</span>((other.<span class="number">0 </span><span class="kw">as </span>usize).cmp(<span class="kw-2">&amp;</span>filter_as_usize(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>)))
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>lt(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Level) -&gt; bool {
         (other.<span class="number">0 </span><span class="kw">as </span>usize) &lt; filter_as_usize(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>le(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Level) -&gt; bool {
         (other.<span class="number">0 </span><span class="kw">as </span>usize) &lt;= filter_as_usize(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>gt(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Level) -&gt; bool {
         (other.<span class="number">0 </span><span class="kw">as </span>usize) &gt; filter_as_usize(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>ge(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Level) -&gt; bool {
         (other.<span class="number">0 </span><span class="kw">as </span>usize) &gt;= filter_as_usize(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>)
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::stdlib::mem;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>level_from_str() {
         <span class="macro">assert_eq!</span>(<span class="string">&quot;error&quot;</span>.parse::&lt;Level&gt;().unwrap(), Level::ERROR);
         <span class="macro">assert_eq!</span>(<span class="string">&quot;4&quot;</span>.parse::&lt;Level&gt;().unwrap(), Level::DEBUG);
         <span class="macro">assert!</span>(<span class="string">&quot;0&quot;</span>.parse::&lt;Level&gt;().is_err())
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>filter_level_conversion() {
         <span class="kw">let </span>mapping = [
             (LevelFilter::OFF, <span class="prelude-val">None</span>),
@@ -2092,7 +2092,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>level_filter_is_usize_sized() {
         <span class="macro">assert_eq!</span>(
             mem::size_of::&lt;LevelFilter&gt;(),
@@ -2101,7 +2101,7 @@
         </span>)
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>level_filter_reprs() {
         <span class="kw">let </span>mapping = [
             (LevelFilter::OFF, LevelInner::Error <span class="kw">as </span>usize + <span class="number">1</span>),
@@ -2124,4 +2124,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

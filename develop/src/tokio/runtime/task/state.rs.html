@@ -604,7 +604,7 @@
 }
 
 <span class="doccomment">/// Current state value.
-</span><span class="attribute">#[derive(Copy, Clone)]
+</span><span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>Snapshot(usize);
 
 <span class="kw">type </span>UpdateResult = <span class="prelude-ty">Result</span>&lt;Snapshot, Snapshot&gt;;
@@ -624,15 +624,15 @@
 </span><span class="kw">const </span>NOTIFIED: usize = <span class="number">0b100</span>;
 
 <span class="doccomment">/// The join handle is still around.
-</span><span class="attribute">#[allow(clippy::unusual_byte_groupings)] </span><span class="comment">// https://github.com/rust-lang/rust-clippy/issues/6556
+</span><span class="attr">#[allow(clippy::unusual_byte_groupings)] </span><span class="comment">// https://github.com/rust-lang/rust-clippy/issues/6556
 </span><span class="kw">const </span>JOIN_INTEREST: usize = <span class="number">0b1_000</span>;
 
 <span class="doccomment">/// A join handle waker has been set.
-</span><span class="attribute">#[allow(clippy::unusual_byte_groupings)] </span><span class="comment">// https://github.com/rust-lang/rust-clippy/issues/6556
+</span><span class="attr">#[allow(clippy::unusual_byte_groupings)] </span><span class="comment">// https://github.com/rust-lang/rust-clippy/issues/6556
 </span><span class="kw">const </span>JOIN_WAKER: usize = <span class="number">0b10_000</span>;
 
 <span class="doccomment">/// The task has been forcibly cancelled.
-</span><span class="attribute">#[allow(clippy::unusual_byte_groupings)] </span><span class="comment">// https://github.com/rust-lang/rust-clippy/issues/6556
+</span><span class="attr">#[allow(clippy::unusual_byte_groupings)] </span><span class="comment">// https://github.com/rust-lang/rust-clippy/issues/6556
 </span><span class="kw">const </span>CANCELLED: usize = <span class="number">0b100_000</span>;
 
 <span class="doccomment">/// All bits.
@@ -659,7 +659,7 @@
 /// As the task starts with a `Notified`, `NOTIFIED` is set.
 </span><span class="kw">const </span>INITIAL_STATE: usize = (REF_ONE * <span class="number">3</span>) | JOIN_INTEREST | NOTIFIED;
 
-<span class="attribute">#[must_use]
+<span class="attr">#[must_use]
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">enum </span>TransitionToRunning {
     Success,
     Cancelled,
@@ -667,7 +667,7 @@
     Dealloc,
 }
 
-<span class="attribute">#[must_use]
+<span class="attr">#[must_use]
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">enum </span>TransitionToIdle {
     <span class="prelude-val">Ok</span>,
     OkNotified,
@@ -675,14 +675,14 @@
     Cancelled,
 }
 
-<span class="attribute">#[must_use]
+<span class="attr">#[must_use]
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">enum </span>TransitionToNotifiedByVal {
     DoNothing,
     Submit,
     Dealloc,
 }
 
-<span class="attribute">#[must_use]
+<span class="attr">#[must_use]
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">enum </span>TransitionToNotifiedByRef {
     DoNothing,
     Submit,
@@ -1189,4 +1189,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -337,13 +337,13 @@
 }
 
 <span class="doccomment">/// Getter for https://url.spec.whatwg.org/#dom-url-protocol
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>protocol(url: <span class="kw-2">&amp;</span>Url) -&gt; <span class="kw-2">&amp;</span>str {
     <span class="kw-2">&amp;</span>url.as_str()[..url.scheme().len() + <span class="string">&quot;:&quot;</span>.len()]
 }
 
 <span class="doccomment">/// Setter for https://url.spec.whatwg.org/#dom-url-protocol
-</span><span class="attribute">#[allow(clippy::result_unit_err)]
+</span><span class="attr">#[allow(clippy::result_unit_err)]
 </span><span class="kw">pub fn </span>set_protocol(url: <span class="kw-2">&amp;mut </span>Url, <span class="kw-2">mut </span>new_protocol: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;(), ()&gt; {
     <span class="comment">// The scheme state in the spec ignores everything after the first `:`,
     // but `set_scheme` errors if there is more.
@@ -354,25 +354,25 @@
 }
 
 <span class="doccomment">/// Getter for https://url.spec.whatwg.org/#dom-url-username
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>username(url: <span class="kw-2">&amp;</span>Url) -&gt; <span class="kw-2">&amp;</span>str {
     url.username()
 }
 
 <span class="doccomment">/// Setter for https://url.spec.whatwg.org/#dom-url-username
-</span><span class="attribute">#[allow(clippy::result_unit_err)]
+</span><span class="attr">#[allow(clippy::result_unit_err)]
 </span><span class="kw">pub fn </span>set_username(url: <span class="kw-2">&amp;mut </span>Url, new_username: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;(), ()&gt; {
     url.set_username(new_username)
 }
 
 <span class="doccomment">/// Getter for https://url.spec.whatwg.org/#dom-url-password
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>password(url: <span class="kw-2">&amp;</span>Url) -&gt; <span class="kw-2">&amp;</span>str {
     url.password().unwrap_or(<span class="string">&quot;&quot;</span>)
 }
 
 <span class="doccomment">/// Setter for https://url.spec.whatwg.org/#dom-url-password
-</span><span class="attribute">#[allow(clippy::result_unit_err)]
+</span><span class="attr">#[allow(clippy::result_unit_err)]
 </span><span class="kw">pub fn </span>set_password(url: <span class="kw-2">&amp;mut </span>Url, new_password: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;(), ()&gt; {
     url.set_password(<span class="kw">if </span>new_password.is_empty() {
         <span class="prelude-val">None
@@ -382,13 +382,13 @@
 }
 
 <span class="doccomment">/// Getter for https://url.spec.whatwg.org/#dom-url-host
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>host(url: <span class="kw-2">&amp;</span>Url) -&gt; <span class="kw-2">&amp;</span>str {
     <span class="kw-2">&amp;</span>url[Position::BeforeHost..Position::AfterPort]
 }
 
 <span class="doccomment">/// Setter for https://url.spec.whatwg.org/#dom-url-host
-</span><span class="attribute">#[allow(clippy::result_unit_err)]
+</span><span class="attr">#[allow(clippy::result_unit_err)]
 </span><span class="kw">pub fn </span>set_host(url: <span class="kw-2">&amp;mut </span>Url, new_host: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;(), ()&gt; {
     <span class="comment">// If context object’s url’s cannot-be-a-base-URL flag is set, then return.
     </span><span class="kw">if </span>url.cannot_be_a_base() {
@@ -439,13 +439,13 @@
 }
 
 <span class="doccomment">/// Getter for https://url.spec.whatwg.org/#dom-url-hostname
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>hostname(url: <span class="kw-2">&amp;</span>Url) -&gt; <span class="kw-2">&amp;</span>str {
     url.host_str().unwrap_or(<span class="string">&quot;&quot;</span>)
 }
 
 <span class="doccomment">/// Setter for https://url.spec.whatwg.org/#dom-url-hostname
-</span><span class="attribute">#[allow(clippy::result_unit_err)]
+</span><span class="attr">#[allow(clippy::result_unit_err)]
 </span><span class="kw">pub fn </span>set_hostname(url: <span class="kw-2">&amp;mut </span>Url, new_hostname: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;(), ()&gt; {
     <span class="kw">if </span>url.cannot_be_a_base() {
         <span class="kw">return </span><span class="prelude-val">Err</span>(());
@@ -481,13 +481,13 @@
 }
 
 <span class="doccomment">/// Getter for https://url.spec.whatwg.org/#dom-url-port
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>port(url: <span class="kw-2">&amp;</span>Url) -&gt; <span class="kw-2">&amp;</span>str {
     <span class="kw-2">&amp;</span>url[Position::BeforePort..Position::AfterPort]
 }
 
 <span class="doccomment">/// Setter for https://url.spec.whatwg.org/#dom-url-port
-</span><span class="attribute">#[allow(clippy::result_unit_err)]
+</span><span class="attr">#[allow(clippy::result_unit_err)]
 </span><span class="kw">pub fn </span>set_port(url: <span class="kw-2">&amp;mut </span>Url, new_port: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;(), ()&gt; {
     <span class="kw">let </span>result;
     {
@@ -511,7 +511,7 @@
 }
 
 <span class="doccomment">/// Getter for https://url.spec.whatwg.org/#dom-url-pathname
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>pathname(url: <span class="kw-2">&amp;</span>Url) -&gt; <span class="kw-2">&amp;</span>str {
     url.path()
 }
@@ -573,4 +573,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="url" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="url" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

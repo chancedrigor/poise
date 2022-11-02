@@ -2993,7 +2993,7 @@
 /// in the [`http`] module.
 ///
 /// [`http`]: crate::http
-</span><span class="attribute">#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>Route {
     <span class="doccomment">/// Route for the `/channels/:channel_id` path.
@@ -3454,27 +3454,27 @@
 }
 
 <span class="kw">impl </span>Route {
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel(channel_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/channels/{}&quot;</span>, channel_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel_invites(channel_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/channels/{}/invites&quot;</span>, channel_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel_message(channel_id: u64, message_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/channels/{}/messages/{}&quot;</span>, channel_id, message_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel_message_crosspost(channel_id: u64, message_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/channels/{}/messages/{}/crosspost&quot;</span>, channel_id, message_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel_message_reaction&lt;D, T&gt;(
         channel_id: u64,
         message_id: u64,
@@ -3494,7 +3494,7 @@
         )
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel_message_reaction_emoji&lt;T&gt;(
         channel_id: u64,
         message_id: u64,
@@ -3506,12 +3506,12 @@
         <span class="macro">api!</span>(<span class="string">&quot;/channels/{}/messages/{}/reactions/{}&quot;</span>, channel_id, message_id, reaction_type)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel_message_reactions(channel_id: u64, message_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/channels/{}/messages/{}/reactions&quot;</span>, channel_id, message_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel_message_reactions_list(
         channel_id: u64,
         message_id: u64,
@@ -3534,72 +3534,72 @@
         url
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel_messages(channel_id: u64, query: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/channels/{}/messages{}&quot;</span>, channel_id, query.unwrap_or(<span class="string">&quot;&quot;</span>))
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel_messages_bulk_delete(channel_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/channels/{}/messages/bulk-delete&quot;</span>, channel_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel_follow_news(channel_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/channels/{}/followers&quot;</span>, channel_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel_permission(channel_id: u64, target_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/channels/{}/permissions/{}&quot;</span>, channel_id, target_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel_pin(channel_id: u64, message_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/channels/{}/pins/{}&quot;</span>, channel_id, message_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel_pins(channel_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/channels/{}/pins&quot;</span>, channel_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel_typing(channel_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/channels/{}/typing&quot;</span>, channel_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel_webhooks(channel_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/channels/{}/webhooks&quot;</span>, channel_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel_public_threads(channel_id: u64, message_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/channels/{}/messages/{}/threads&quot;</span>, channel_id, message_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel_private_threads(channel_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/channels/{}/threads&quot;</span>, channel_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel_thread_member(channel_id: u64, user_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/channels/{}/thread-members/{}&quot;</span>, channel_id, user_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel_thread_member_me(channel_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/channels/{}/thread-members/@me&quot;</span>, channel_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel_thread_members(channel_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/channels/{}/thread-members&quot;</span>, channel_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel_archived_public_threads(
         channel_id: u64,
         before: <span class="prelude-ty">Option</span>&lt;u64&gt;,
@@ -3618,7 +3618,7 @@
         s
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel_archived_private_threads(
         channel_id: u64,
         before: <span class="prelude-ty">Option</span>&lt;u64&gt;,
@@ -3637,7 +3637,7 @@
         s
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>channel_joined_private_threads(
         channel_id: u64,
         before: <span class="prelude-ty">Option</span>&lt;u64&gt;,
@@ -3656,27 +3656,27 @@
         s
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>gateway() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str {
         <span class="macro">api!</span>(<span class="string">&quot;/gateway&quot;</span>)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>gateway_bot() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str {
         <span class="macro">api!</span>(<span class="string">&quot;/gateway/bot&quot;</span>)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild(guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}&quot;</span>, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_with_counts(guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}?with_counts=true&quot;</span>, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_audit_logs(
         guild_id: u64,
         action_type: <span class="prelude-ty">Option</span>&lt;u8&gt;,
@@ -3705,97 +3705,97 @@
         s
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_automod_rule(guild_id: u64, rule_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/auto-moderation/rules/{}&quot;</span>, guild_id, rule_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_automod_rules(guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/auto-moderation/rules&quot;</span>, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_ban(guild_id: u64, user_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/bans/{}&quot;</span>, guild_id, user_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_ban_optioned(guild_id: u64, user_id: u64, delete_message_days: u8) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/bans/{}?delete_message_days={}&quot;</span>, guild_id, user_id, delete_message_days)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_kick_optioned(guild_id: u64, user_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/members/{}&quot;</span>, guild_id, user_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_bans(guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/bans&quot;</span>, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_channels(guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/channels&quot;</span>, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_widget(guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/widget&quot;</span>, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_preview(guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/preview&quot;</span>, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_emojis(guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/emojis&quot;</span>, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_emoji(guild_id: u64, emoji_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/emojis/{}&quot;</span>, guild_id, emoji_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_integration(guild_id: u64, integration_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/integrations/{}&quot;</span>, guild_id, integration_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_integration_sync(guild_id: u64, integration_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/integrations/{}/sync&quot;</span>, guild_id, integration_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_integrations(guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/integrations&quot;</span>, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_invites(guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/invites&quot;</span>, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_member(guild_id: u64, user_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/members/{}&quot;</span>, guild_id, user_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_member_role(guild_id: u64, user_id: u64, role_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/members/{}/roles/{}&quot;</span>, guild_id, user_id, role_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_members(guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/members&quot;</span>, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_members_search(guild_id: u64, query: <span class="kw-2">&amp;</span>str, limit: <span class="prelude-ty">Option</span>&lt;u64&gt;) -&gt; String {
         <span class="kw">let </span><span class="kw-2">mut </span>s = <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/members/search?&quot;</span>, guild_id);
 
@@ -3804,7 +3804,7 @@
         s
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_members_optioned(guild_id: u64, after: <span class="prelude-ty">Option</span>&lt;u64&gt;, limit: <span class="prelude-ty">Option</span>&lt;u64&gt;) -&gt; String {
         <span class="kw">let </span><span class="kw-2">mut </span>s = <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/members?&quot;</span>, guild_id);
 
@@ -3816,37 +3816,37 @@
         s
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_member_me(guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/members/@me&quot;</span>, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_nickname(guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/members/@me/nick&quot;</span>, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_prune(guild_id: u64, days: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/prune?days={}&quot;</span>, guild_id, days)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_regions(guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/regions&quot;</span>, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_role(guild_id: u64, role_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/roles/{}&quot;</span>, guild_id, role_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_roles(guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/roles&quot;</span>, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_scheduled_event(
         guild_id: u64,
         event_id: u64,
@@ -3859,7 +3859,7 @@
         s
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_scheduled_events(guild_id: u64, with_user_count: <span class="prelude-ty">Option</span>&lt;bool&gt;) -&gt; String {
         <span class="kw">let </span><span class="kw-2">mut </span>s = <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/scheduled-events&quot;</span>, guild_id);
         <span class="kw">if let </span><span class="prelude-val">Some</span>(b) = with_user_count {
@@ -3868,7 +3868,7 @@
         s
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_scheduled_event_users(
         guild_id: u64,
         event_id: u64,
@@ -3898,57 +3898,57 @@
         s
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_sticker(guild_id: u64, sticker_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/stickers/{}&quot;</span>, guild_id, sticker_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_stickers(guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/stickers&quot;</span>, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_vanity_url(guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/vanity-url&quot;</span>, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_voice_states(guild_id: u64, user_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/voice-states/{}&quot;</span>, guild_id, user_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_voice_states_me(guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/voice-states/@me&quot;</span>, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_webhooks(guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/webhooks&quot;</span>, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_welcome_screen(guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/welcome-screen&quot;</span>, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild_threads_active(guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/threads/active&quot;</span>, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guilds() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str {
         <span class="macro">api!</span>(<span class="string">&quot;/guilds&quot;</span>)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>invite(code: <span class="kw-2">&amp;</span>str) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/invites/{}&quot;</span>, code)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>invite_optioned(
         code: <span class="kw-2">&amp;</span>str,
         member_counts: bool,
@@ -3967,67 +3967,67 @@
         )
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>oauth2_application_current() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str {
         <span class="macro">api!</span>(<span class="string">&quot;/oauth2/applications/@me&quot;</span>)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>private_channel() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str {
         <span class="macro">api!</span>(<span class="string">&quot;/users/@me/channels&quot;</span>)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>status_incidents_unresolved() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str {
         <span class="macro">status!</span>(<span class="string">&quot;/incidents/unresolved.json&quot;</span>)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>status_maintenances_active() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str {
         <span class="macro">status!</span>(<span class="string">&quot;/scheduled-maintenances/active.json&quot;</span>)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>status_maintenances_upcoming() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str {
         <span class="macro">status!</span>(<span class="string">&quot;/scheduled-maintenances/upcoming.json&quot;</span>)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>sticker(sticker_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/stickers/{}&quot;</span>, sticker_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>sticker_packs() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str {
         <span class="macro">api!</span>(<span class="string">&quot;/sticker-packs&quot;</span>)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>user&lt;D: Display&gt;(target: D) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/users/{}&quot;</span>, target)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>user_me_connections() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str {
         <span class="macro">api!</span>(<span class="string">&quot;/users/@me/connections&quot;</span>)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>user_dm_channels&lt;D: Display&gt;(target: D) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/users/{}/channels&quot;</span>, target)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>user_guild&lt;D: Display&gt;(target: D, guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/users/{}/guilds/{}&quot;</span>, target, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>user_guilds&lt;D: Display&gt;(target: D) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/users/{}/guilds&quot;</span>, target)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>user_guilds_optioned&lt;D: Display&gt;(
         target: D,
         after: <span class="prelude-ty">Option</span>&lt;u64&gt;,
@@ -4051,17 +4051,17 @@
         s
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>voice_regions() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str {
         <span class="macro">api!</span>(<span class="string">&quot;/voice/regions&quot;</span>)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>webhook(webhook_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/webhooks/{}&quot;</span>, webhook_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>webhook_with_token&lt;D&gt;(webhook_id: u64, token: D) -&gt; String
     <span class="kw">where
         </span>D: Display,
@@ -4069,7 +4069,7 @@
         <span class="macro">api!</span>(<span class="string">&quot;/webhooks/{}/{}&quot;</span>, webhook_id, token)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>webhook_with_token_optioned&lt;D&gt;(webhook_id: u64, token: D, wait: bool) -&gt; String
     <span class="kw">where
         </span>D: Display,
@@ -4077,7 +4077,7 @@
         <span class="macro">api!</span>(<span class="string">&quot;/webhooks/{}/{}?wait={}&quot;</span>, webhook_id, token, wait)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>webhook_message&lt;D&gt;(webhook_id: u64, token: D, message_id: u64) -&gt; String
     <span class="kw">where
         </span>D: Display,
@@ -4085,7 +4085,7 @@
         <span class="macro">api!</span>(<span class="string">&quot;/webhooks/{}/{}/messages/{}&quot;</span>, webhook_id, token, message_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>webhook_original_interaction_response&lt;D: Display&gt;(
         application_id: u64,
         token: D,
@@ -4093,7 +4093,7 @@
         <span class="macro">api!</span>(<span class="string">&quot;/webhooks/{}/{}/messages/@original&quot;</span>, application_id, token)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>webhook_followup_message&lt;D: Display&gt;(
         application_id: u64,
         token: D,
@@ -4102,27 +4102,27 @@
         <span class="macro">api!</span>(<span class="string">&quot;/webhooks/{}/{}/messages/{}&quot;</span>, application_id, token, message_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>webhook_followup_messages&lt;D: Display&gt;(application_id: u64, token: D) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/webhooks/{}/{}&quot;</span>, application_id, token)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>interaction_response&lt;D: Display&gt;(application_id: u64, token: D) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/interactions/{}/{}/callback&quot;</span>, application_id, token)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>application_command(application_id: u64, command_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/applications/{}/commands/{}&quot;</span>, application_id, command_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>application_commands(application_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/applications/{}/commands&quot;</span>, application_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>application_guild_command(
         application_id: u64,
         guild_id: u64,
@@ -4131,7 +4131,7 @@
         <span class="macro">api!</span>(<span class="string">&quot;/applications/{}/guilds/{}/commands/{}&quot;</span>, application_id, guild_id, command_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>application_guild_command_permissions(
         application_id: u64,
         guild_id: u64,
@@ -4145,28 +4145,28 @@
         )
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>application_guild_commands(application_id: u64, guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/applications/{}/guilds/{}/commands&quot;</span>, application_id, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>application_guild_commands_permissions(application_id: u64, guild_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/applications/{}/guilds/{}/commands/permissions&quot;</span>, application_id, guild_id)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>stage_instances() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str {
         <span class="macro">api!</span>(<span class="string">&quot;/stage-instances&quot;</span>)
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>stage_instance(channel_id: u64) -&gt; String {
         <span class="macro">api!</span>(<span class="string">&quot;/stage-instances/{}&quot;</span>, channel_id)
     }
 }
 
-<span class="attribute">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>RouteInfo&lt;<span class="lifetime">&#39;a</span>&gt; {
     AddGuildMember {
@@ -4749,7 +4749,7 @@
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; RouteInfo&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>deconstruct(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (LightMethod, Route, Cow&lt;<span class="lifetime">&#39;_</span>, str&gt;) {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             RouteInfo::AddGuildMember {
@@ -5967,4 +5967,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

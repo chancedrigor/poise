@@ -134,10 +134,10 @@
     <span class="doccomment">/// Future for the [`poll_immediate`](poll_immediate()) function.
     ///
     /// It will never return [Poll::Pending](core::task::Poll::Pending)
-    </span><span class="attribute">#[derive(Debug, Clone)]
+    </span><span class="attr">#[derive(Debug, Clone)]
     #[must_use = <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]
     </span><span class="kw">pub struct </span>PollImmediate&lt;T&gt; {
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span>future: <span class="prelude-ty">Option</span>&lt;T&gt;
     }
 }
@@ -148,7 +148,7 @@
 {
     <span class="kw">type </span>Output = <span class="prelude-ty">Option</span>&lt;T&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>poll(<span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;<span class="prelude-ty">Option</span>&lt;T&gt;&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>this = <span class="self">self</span>.project();
         <span class="kw">let </span>inner =
@@ -251,4 +251,4 @@
     assert_future::&lt;<span class="prelude-ty">Option</span>&lt;F::Output&gt;, PollImmediate&lt;F&gt;&gt;(PollImmediate { future: <span class="prelude-val">Some</span>(f) })
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

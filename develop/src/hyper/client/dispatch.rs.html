@@ -408,13 +408,13 @@
 <span id="408">408</span>
 <span id="409">409</span>
 <span id="410">410</span>
-</pre><pre class="rust"><code><span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+</pre><pre class="rust"><code><span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
 </span><span class="kw">use </span>std::future::Future;
 
 <span class="kw">use </span>futures_util::FutureExt;
 <span class="kw">use </span>tokio::sync::{mpsc, oneshot};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::common::Pin;
 <span class="kw">use </span><span class="kw">crate</span>::common::{task, Poll};
 
@@ -455,7 +455,7 @@
 ///
 /// Cannot poll the Giver, but can still use it to determine if the Receiver
 /// has been dropped. However, this version can be cloned.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>UnboundedSender&lt;T, U&gt; {
     <span class="doccomment">/// Only used for `is_closed`, since mpsc::UnboundedSender cannot be checked.
     </span>giver: want::SharedGiver,
@@ -512,7 +512,7 @@
             .map_err(|<span class="kw-2">mut </span>e| (e.<span class="number">0</span>).<span class="number">0</span>.take().expect(<span class="string">&quot;envelope not dropped&quot;</span>).<span class="number">0</span>)
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>unbound(<span class="self">self</span>) -&gt; UnboundedSender&lt;T, U&gt; {
         UnboundedSender {
             giver: <span class="self">self</span>.giver.shared(),
@@ -521,7 +521,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
 </span><span class="kw">impl</span>&lt;T, U&gt; UnboundedSender&lt;T, U&gt; {
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>is_ready(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         !<span class="self">self</span>.giver.is_canceled()
@@ -540,7 +540,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
 </span><span class="kw">impl</span>&lt;T, U&gt; Clone <span class="kw">for </span>UnboundedSender&lt;T, U&gt; {
     <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
         UnboundedSender {
@@ -571,13 +571,13 @@
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;http1&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;http1&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>close(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.taker.cancel();
         <span class="self">self</span>.inner.close();
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;http1&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;http1&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>try_recv(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(T, Callback&lt;T, U&gt;)&gt; {
         <span class="kw">match </span><span class="self">self</span>.inner.recv().now_or_never() {
             <span class="prelude-val">Some</span>(<span class="prelude-val">Some</span>(<span class="kw-2">mut </span>env)) =&gt; env.<span class="number">0</span>.take(),
@@ -613,7 +613,7 @@
 }
 
 <span class="kw">impl</span>&lt;T, U&gt; Callback&lt;T, U&gt; {
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>is_canceled(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             Callback::Retry(<span class="kw-2">ref </span>tx) =&gt; tx.is_closed(),
@@ -639,7 +639,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>send_when(
         <span class="self">self</span>,
         <span class="kw-2">mut </span>when: <span class="kw">impl </span>Future&lt;Output = <span class="prelude-ty">Result</span>&lt;U, (<span class="kw">crate</span>::Error, <span class="prelude-ty">Option</span>&lt;T&gt;)&gt;&gt; + Unpin,
@@ -672,9 +672,9 @@
     </span>}
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
     </span><span class="kw">extern crate </span>test;
 
     <span class="kw">use </span>std::future::Future;
@@ -683,7 +683,7 @@
 
     <span class="kw">use super</span>::{channel, Callback, Receiver};
 
-    <span class="attribute">#[derive(Debug)]
+    <span class="attr">#[derive(Debug)]
     </span><span class="kw">struct </span>Custom(i32);
 
     <span class="kw">impl</span>&lt;T, U&gt; Future <span class="kw">for </span>Receiver&lt;T, U&gt; {
@@ -711,7 +711,7 @@
         }
     }
 
-    <span class="attribute">#[tokio::test]
+    <span class="attr">#[tokio::test]
     </span><span class="kw">async fn </span>drop_receiver_sends_cancel_errors() {
         <span class="kw">let _ </span>= pretty_env_logger::try_init();
 
@@ -733,7 +733,7 @@
         }
     }
 
-    <span class="attribute">#[tokio::test]
+    <span class="attr">#[tokio::test]
     </span><span class="kw">async fn </span>sender_checks_for_want_on_send() {
         <span class="kw">let </span>(<span class="kw-2">mut </span>tx, <span class="kw-2">mut </span>rx) = channel::&lt;Custom, ()&gt;();
 
@@ -752,7 +752,7 @@
         <span class="kw">let _ </span>= tx.try_send(Custom(<span class="number">2</span>)).expect(<span class="string">&quot;2 ready&quot;</span>);
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
     #[test]
     </span><span class="kw">fn </span>unbounded_sender_doesnt_bound_on_want() {
         <span class="kw">let </span>(tx, rx) = channel::&lt;Custom, ()&gt;();
@@ -767,7 +767,7 @@
         <span class="kw">let _ </span>= tx.try_send(Custom(<span class="number">4</span>)).unwrap_err();
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
     #[bench]
     </span><span class="kw">fn </span>giver_queue_throughput(b: <span class="kw-2">&amp;mut </span>test::Bencher) {
         <span class="kw">use crate</span>::{Body, Request, Response};
@@ -792,7 +792,7 @@
         })
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
     #[bench]
     </span><span class="kw">fn </span>giver_queue_not_ready(b: <span class="kw-2">&amp;mut </span>test::Bencher) {
         <span class="kw">let </span>rt = tokio::runtime::Builder::new_current_thread()
@@ -808,7 +808,7 @@
         })
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
     #[bench]
     </span><span class="kw">fn </span>giver_queue_cancel(b: <span class="kw-2">&amp;mut </span>test::Bencher) {
         <span class="kw">let </span>(_tx, <span class="kw-2">mut </span>rx) = channel::&lt;i32, ()&gt;();
@@ -819,4 +819,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

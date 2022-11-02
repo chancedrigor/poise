@@ -114,7 +114,7 @@
 <span id="114">114</span>
 <span id="115">115</span>
 <span id="116">116</span>
-</pre><pre class="rust"><code><span class="attribute">#![warn(missing_docs, missing_debug_implementations, rust_2018_idioms)]
+</pre><pre class="rust"><code><span class="attr">#![warn(missing_docs, missing_debug_implementations, rust_2018_idioms)]
 #![doc(test(
     no_crate_inject,
     attr(deny(warnings, rust_2018_idioms), allow(dead_code, unused_variables))
@@ -193,7 +193,7 @@
 
 </span><span class="kw">extern crate </span>alloc;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">extern crate </span>std;
 
 <span class="kw">pub mod </span>buf;
@@ -207,18 +207,18 @@
 <span class="kw">pub use </span><span class="kw">crate</span>::bytes_mut::BytesMut;
 
 <span class="comment">// Optional Serde support
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">mod </span>serde;
 
-<span class="attribute">#[inline(never)]
+<span class="attr">#[inline(never)]
 #[cold]
 </span><span class="kw">fn </span>abort() -&gt; ! {
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     </span>{
         std::process::abort();
     }
 
-    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
+    <span class="attr">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
     </span>{
         <span class="kw">struct </span>Abort;
         <span class="kw">impl </span>Drop <span class="kw">for </span>Abort {
@@ -231,4 +231,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="bytes" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="bytes" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

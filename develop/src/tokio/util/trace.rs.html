@@ -108,7 +108,7 @@
         <span class="kw">use </span>std::future::Future;
         <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>tracing::instrument::Instrumented;
 
-        <span class="attribute">#[inline]
+        <span class="attr">#[inline]
         #[track_caller]
         </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>task&lt;F&gt;(task: F, kind: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str, name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;, id: u64) -&gt; Instrumented&lt;F&gt; {
             <span class="kw">use </span>tracing::instrument::Instrument;
@@ -147,7 +147,7 @@
             })
         }
 
-        <span class="attribute">#[derive(Debug, Clone)]
+        <span class="attr">#[derive(Debug, Clone)]
         </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>AsyncOpTracingCtx {
             <span class="kw">pub</span>(<span class="kw">crate</span>) async_op_span: tracing::Span,
             <span class="kw">pub</span>(<span class="kw">crate</span>) async_op_poll_span: tracing::Span,
@@ -156,9 +156,9 @@
 
 
         <span class="macro">pin_project! </span>{
-            <span class="attribute">#[derive(Debug, Clone)]
+            <span class="attr">#[derive(Debug, Clone)]
             </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>InstrumentedAsyncOp&lt;F&gt; {
-                <span class="attribute">#[pin]
+                <span class="attr">#[pin]
                 </span><span class="kw">pub</span>(<span class="kw">crate</span>) inner: F,
                 <span class="kw">pub</span>(<span class="kw">crate</span>) tracing_ctx: AsyncOpTracingCtx,
                 <span class="kw">pub</span>(<span class="kw">crate</span>) poll_op_name: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str
@@ -180,18 +180,18 @@
     }
 }
 <span class="macro">cfg_time! </span>{
-    <span class="attribute">#[track_caller]
+    <span class="attr">#[track_caller]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>caller_location() -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>std::panic::Location&lt;<span class="lifetime">&#39;static</span>&gt;&gt; {
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">return </span><span class="prelude-val">Some</span>(std::panic::Location::caller());
-        <span class="attribute">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
+        <span class="attr">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
         </span><span class="prelude-val">None
     </span>}
 }
 
 <span class="macro">cfg_not_trace! </span>{
     <span class="macro">cfg_rt! </span>{
-        <span class="attribute">#[inline]
+        <span class="attr">#[inline]
         </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>task&lt;F&gt;(task: F, <span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str, _name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;, <span class="kw">_</span>: u64) -&gt; F {
             <span class="comment">// nop
             </span>task
@@ -199,4 +199,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

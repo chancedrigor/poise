@@ -338,7 +338,7 @@
 </pre><pre class="rust"><code><span class="doccomment">//! Combinators and utilities for working with `Future`s, `Stream`s, `Sink`s,
 //! and the `AsyncRead` and `AsyncWrite` traits.
 
-</span><span class="attribute">#![cfg_attr(feature = <span class="string">&quot;write-all-vectored&quot;</span>, feature(io_slice_advance))]
+</span><span class="attr">#![cfg_attr(feature = <span class="string">&quot;write-all-vectored&quot;</span>, feature(io_slice_advance))]
 #![cfg_attr(not(feature = <span class="string">&quot;std&quot;</span>), no_std)]
 #![warn(
     missing_debug_implementations,
@@ -359,22 +359,22 @@
 #[cfg(all(feature = <span class="string">&quot;bilock&quot;</span>, not(feature = <span class="string">&quot;unstable&quot;</span>)))]
 </span><span class="macro">compile_error!</span>(<span class="string">&quot;The `bilock` feature requires the `unstable` feature as an explicit opt-in to unstable features&quot;</span>);
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">extern crate </span>alloc;
 
 <span class="comment">// Macro re-exports
 </span><span class="kw">pub use </span>futures_core::ready;
 <span class="kw">pub use </span>pin_utils::pin_mut;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;async-await&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;async-await&quot;</span>)]
 #[macro_use]
 </span><span class="kw">mod </span>async_await;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;async-await&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;async-await&quot;</span>)]
 #[doc(hidden)]
 </span><span class="kw">pub use </span><span class="self">self</span>::async_await::<span class="kw-2">*</span>;
 
 <span class="comment">// Not public API.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;async-await&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;async-await&quot;</span>)]
 #[doc(hidden)]
 </span><span class="kw">pub mod </span>__private {
     <span class="kw">pub use crate</span>::<span class="kw-2">*</span>;
@@ -389,7 +389,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
 </span><span class="macro">macro_rules! </span>delegate_sink {
     (<span class="macro-nonterminal">$field</span>:ident, <span class="macro-nonterminal">$item</span>:ty) =&gt; {
         <span class="kw">fn </span>poll_ready(
@@ -444,7 +444,7 @@
     };
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;io&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;io&quot;</span>)]
 #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="macro">macro_rules! </span>delegate_async_write {
     (<span class="macro-nonterminal">$field</span>:ident) =&gt; {
@@ -477,7 +477,7 @@
     };
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;io&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;io&quot;</span>)]
 #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="macro">macro_rules! </span>delegate_async_read {
     (<span class="macro-nonterminal">$field</span>:ident) =&gt; {
@@ -499,7 +499,7 @@
     };
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;io&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;io&quot;</span>)]
 #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="macro">macro_rules! </span>delegate_async_buf_read {
     (<span class="macro-nonterminal">$field</span>:ident) =&gt; {
@@ -582,7 +582,7 @@
         }
     };
     (@<span class="kw">trait </span>Sink <span class="macro-nonterminal">$name</span>:ident &lt; $(<span class="macro-nonterminal">$arg</span>:ident),* &gt; (<span class="macro-nonterminal">$t</span>:ty) $(<span class="kw">where </span>$(<span class="macro-nonterminal">$bound</span>:tt)<span class="kw-2">*</span>)<span class="kw-2">*</span>) =&gt; {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
         </span><span class="kw">impl</span>&lt;_Item, $(<span class="macro-nonterminal">$arg</span>),<span class="kw-2">*</span>&gt; futures_sink::Sink&lt;_Item&gt; <span class="kw">for </span><span class="macro-nonterminal">$name</span>&lt;$(<span class="macro-nonterminal">$arg</span>),<span class="kw-2">*</span>&gt; <span class="kw">where </span><span class="macro-nonterminal">$t</span>: futures_sink::Sink&lt;_Item&gt; $(, $(<span class="macro-nonterminal">$bound</span>)<span class="kw-2">*</span>)* {
             <span class="kw">type </span>Error = &lt;<span class="macro-nonterminal">$t </span><span class="kw">as </span>futures_sink::Sink&lt;_Item&gt;&gt;::Error;
 
@@ -608,11 +608,11 @@
             }
         }
     };
-    ($(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)* <span class="macro-nonterminal">$name</span>:ident&lt;$(<span class="macro-nonterminal">$arg</span>:ident),<span class="kw-2">*</span>&gt;(<span class="macro-nonterminal">$t</span>:ty) : <span class="macro-nonterminal">$ftrait</span>:ident $([$(<span class="macro-nonterminal">$targs</span>:tt)<span class="kw-2">*</span>])* $({$(<span class="macro-nonterminal">$item</span>:tt)<span class="kw-2">*</span>})* $(<span class="kw">where </span>$(<span class="macro-nonterminal">$bound</span>:tt)<span class="kw-2">*</span>)<span class="kw-2">*</span>) =&gt; {
+    ($(<span class="attr">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)* <span class="macro-nonterminal">$name</span>:ident&lt;$(<span class="macro-nonterminal">$arg</span>:ident),<span class="kw-2">*</span>&gt;(<span class="macro-nonterminal">$t</span>:ty) : <span class="macro-nonterminal">$ftrait</span>:ident $([$(<span class="macro-nonterminal">$targs</span>:tt)<span class="kw-2">*</span>])* $({$(<span class="macro-nonterminal">$item</span>:tt)<span class="kw-2">*</span>})* $(<span class="kw">where </span>$(<span class="macro-nonterminal">$bound</span>:tt)<span class="kw-2">*</span>)<span class="kw-2">*</span>) =&gt; {
         <span class="macro">pin_project_lite::pin_project! </span>{
-            <span class="attribute">#[must_use = <span class="string">&quot;futures/streams/sinks do nothing unless you `.await` or poll them&quot;</span>]
-            </span>$(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>]</span>)*
-            <span class="kw">pub struct </span><span class="macro-nonterminal">$name</span>&lt; $(<span class="macro-nonterminal">$arg</span>),* &gt; $(<span class="kw">where </span>$(<span class="macro-nonterminal">$bound</span>)<span class="kw-2">*</span>)* { <span class="attribute">#[pin] </span>inner: <span class="macro-nonterminal">$t </span>}
+            <span class="attr">#[must_use = <span class="string">&quot;futures/streams/sinks do nothing unless you `.await` or poll them&quot;</span>]
+            </span>$(<span class="attr">#[<span class="macro-nonterminal">$attr</span>]</span>)*
+            <span class="kw">pub struct </span><span class="macro-nonterminal">$name</span>&lt; $(<span class="macro-nonterminal">$arg</span>),* &gt; $(<span class="kw">where </span>$(<span class="macro-nonterminal">$bound</span>)<span class="kw-2">*</span>)* { <span class="attr">#[pin] </span>inner: <span class="macro-nonterminal">$t </span>}
         }
 
         <span class="kw">impl</span>&lt;$(<span class="macro-nonterminal">$arg</span>),<span class="kw-2">*</span>&gt; <span class="macro-nonterminal">$name</span>&lt; $(<span class="macro-nonterminal">$arg</span>),* &gt; $(<span class="kw">where </span>$(<span class="macro-nonterminal">$bound</span>)<span class="kw-2">*</span>)* {
@@ -621,25 +621,25 @@
 
         <span class="macro">delegate_all!</span>(@<span class="kw">trait </span><span class="macro-nonterminal">$ftrait </span>$([$(<span class="macro-nonterminal">$targs</span>)<span class="kw-2">*</span>])* <span class="macro-nonterminal">$name</span>&lt;$(<span class="macro-nonterminal">$arg</span>),<span class="kw-2">*</span>&gt;(<span class="macro-nonterminal">$t</span>) $(<span class="kw">where </span>$(<span class="macro-nonterminal">$bound</span>)<span class="kw-2">*</span>)<span class="kw-2">*</span>);
     };
-    ($(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)* <span class="macro-nonterminal">$name</span>:ident&lt;$(<span class="macro-nonterminal">$arg</span>:ident),<span class="kw-2">*</span>&gt;(<span class="macro-nonterminal">$t</span>:ty) : <span class="macro-nonterminal">$ftrait</span>:ident $([$(<span class="macro-nonterminal">$ftargs</span>:tt)<span class="kw-2">*</span>])* + <span class="macro-nonterminal">$strait</span>:ident $([$(<span class="macro-nonterminal">$stargs</span>:tt)<span class="kw-2">*</span>])* $(+ <span class="macro-nonterminal">$</span><span class="kw">trait</span>:<span class="macro-nonterminal">ident </span>$([$(<span class="macro-nonterminal">$targs</span>:tt)<span class="kw-2">*</span>])<span class="kw-2">*</span>)* $({$(<span class="macro-nonterminal">$item</span>:tt)<span class="kw-2">*</span>})* $(<span class="kw">where </span>$(<span class="macro-nonterminal">$bound</span>:tt)<span class="kw-2">*</span>)<span class="kw-2">*</span>) =&gt; {
-        <span class="macro">delegate_all!</span>($(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>]</span>)* <span class="macro-nonterminal">$name</span>&lt;$(<span class="macro-nonterminal">$arg</span>),<span class="kw-2">*</span>&gt;(<span class="macro-nonterminal">$t</span>) : <span class="macro-nonterminal">$strait </span>$([$(<span class="macro-nonterminal">$stargs</span>)<span class="kw-2">*</span>])* $(+ <span class="macro-nonterminal">$</span><span class="kw">trait </span>$([$(<span class="macro-nonterminal">$targs</span>)<span class="kw-2">*</span>])<span class="kw-2">*</span>)* $({$(<span class="macro-nonterminal">$item</span>)<span class="kw-2">*</span>})* $(<span class="kw">where </span>$(<span class="macro-nonterminal">$bound</span>)<span class="kw-2">*</span>)<span class="kw-2">*</span>);
+    ($(<span class="attr">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)* <span class="macro-nonterminal">$name</span>:ident&lt;$(<span class="macro-nonterminal">$arg</span>:ident),<span class="kw-2">*</span>&gt;(<span class="macro-nonterminal">$t</span>:ty) : <span class="macro-nonterminal">$ftrait</span>:ident $([$(<span class="macro-nonterminal">$ftargs</span>:tt)<span class="kw-2">*</span>])* + <span class="macro-nonterminal">$strait</span>:ident $([$(<span class="macro-nonterminal">$stargs</span>:tt)<span class="kw-2">*</span>])* $(+ <span class="macro-nonterminal">$</span><span class="kw">trait</span>:<span class="macro-nonterminal">ident </span>$([$(<span class="macro-nonterminal">$targs</span>:tt)<span class="kw-2">*</span>])<span class="kw-2">*</span>)* $({$(<span class="macro-nonterminal">$item</span>:tt)<span class="kw-2">*</span>})* $(<span class="kw">where </span>$(<span class="macro-nonterminal">$bound</span>:tt)<span class="kw-2">*</span>)<span class="kw-2">*</span>) =&gt; {
+        <span class="macro">delegate_all!</span>($(<span class="attr">#[<span class="macro-nonterminal">$attr</span>]</span>)* <span class="macro-nonterminal">$name</span>&lt;$(<span class="macro-nonterminal">$arg</span>),<span class="kw-2">*</span>&gt;(<span class="macro-nonterminal">$t</span>) : <span class="macro-nonterminal">$strait </span>$([$(<span class="macro-nonterminal">$stargs</span>)<span class="kw-2">*</span>])* $(+ <span class="macro-nonterminal">$</span><span class="kw">trait </span>$([$(<span class="macro-nonterminal">$targs</span>)<span class="kw-2">*</span>])<span class="kw-2">*</span>)* $({$(<span class="macro-nonterminal">$item</span>)<span class="kw-2">*</span>})* $(<span class="kw">where </span>$(<span class="macro-nonterminal">$bound</span>)<span class="kw-2">*</span>)<span class="kw-2">*</span>);
 
         <span class="macro">delegate_all!</span>(@<span class="kw">trait </span><span class="macro-nonterminal">$ftrait </span>$([$(<span class="macro-nonterminal">$ftargs</span>)<span class="kw-2">*</span>])* <span class="macro-nonterminal">$name</span>&lt;$(<span class="macro-nonterminal">$arg</span>),<span class="kw-2">*</span>&gt;(<span class="macro-nonterminal">$t</span>) $(<span class="kw">where </span>$(<span class="macro-nonterminal">$bound</span>)<span class="kw-2">*</span>)<span class="kw-2">*</span>);
     };
 }
 
 <span class="kw">pub mod </span>future;
-<span class="attribute">#[doc(no_inline)]
+<span class="attr">#[doc(no_inline)]
 </span><span class="kw">pub use </span><span class="kw">crate</span>::future::{Future, FutureExt, TryFuture, TryFutureExt};
 
 <span class="kw">pub mod </span>stream;
-<span class="attribute">#[doc(no_inline)]
+<span class="attr">#[doc(no_inline)]
 </span><span class="kw">pub use </span><span class="kw">crate</span>::stream::{Stream, StreamExt, TryStream, TryStreamExt};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;sink&quot;</span>)))]
 </span><span class="kw">pub mod </span>sink;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
 #[doc(no_inline)]
 </span><span class="kw">pub use </span><span class="kw">crate</span>::sink::{Sink, SinkExt};
 
@@ -647,15 +647,15 @@
 
 <span class="kw">pub mod </span>never;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;compat&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;compat&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;compat&quot;</span>)))]
 </span><span class="kw">pub mod </span>compat;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;io&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;io&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;io&quot;</span>)))]
 #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">pub mod </span>io;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;io&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;io&quot;</span>)]
 #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 #[doc(no_inline)]
 </span><span class="kw">pub use </span><span class="kw">crate</span>::io::{
@@ -663,14 +663,14 @@
     AsyncWriteExt,
 };
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub mod </span>lock;
 
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">mod </span>abortable;
 
 <span class="kw">mod </span>fns;
 <span class="kw">mod </span>unfold_state;
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

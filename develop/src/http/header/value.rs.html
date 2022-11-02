@@ -812,7 +812,7 @@
 /// To handle this, the `HeaderValue` is useable as a type and can be compared
 /// with strings and implements `Debug`. A `to_str` fn is provided that returns
 /// an `Err` if the header value contains non visible ascii characters.
-</span><span class="attribute">#[derive(Clone, Hash)]
+</span><span class="attr">#[derive(Clone, Hash)]
 </span><span class="kw">pub struct </span>HeaderValue {
     inner: Bytes,
     is_sensitive: bool,
@@ -828,7 +828,7 @@
 ///
 /// Header field values may contain opaque bytes, in which case it is not
 /// possible to represent the value as a string.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ToStrError {
     _priv: (),
 }
@@ -873,7 +873,7 @@
     /// let val = HeaderValue::from_static(&quot;hello&quot;);
     /// assert_eq!(val, &quot;hello&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[allow(unconditional_panic)] </span><span class="comment">// required for the panic circumventon
     </span><span class="kw">pub const fn </span>from_static(src: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str) -&gt; HeaderValue {
         <span class="kw">let </span>bytes = src.as_bytes();
@@ -916,7 +916,7 @@
     /// let val = HeaderValue::from_str(&quot;\n&quot;);
     /// assert!(val.is_err());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>from_str(src: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;HeaderValue, InvalidHeaderValue&gt; {
         HeaderValue::try_from_generic(src, |s| Bytes::copy_from_slice(s.as_bytes()))
     }
@@ -933,7 +933,7 @@
     /// let val = HeaderValue::from_name(ACCEPT);
     /// assert_eq!(val, HeaderValue::from_bytes(b&quot;accept&quot;).unwrap());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>from_name(name: HeaderName) -&gt; HeaderValue {
         name.into()
     }
@@ -962,7 +962,7 @@
     /// let val = HeaderValue::from_bytes(b&quot;\n&quot;);
     /// assert!(val.is_err());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>from_bytes(src: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;HeaderValue, InvalidHeaderValue&gt; {
         HeaderValue::try_from_generic(src, Bytes::copy_from_slice)
     }
@@ -1066,7 +1066,7 @@
     /// let val = HeaderValue::from_static(&quot;hello&quot;);
     /// assert_eq!(val.len(), 5);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.as_ref().len()
     }
@@ -1083,7 +1083,7 @@
     /// let val = HeaderValue::from_static(&quot;hello&quot;);
     /// assert!(!val.is_empty());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_empty(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.len() == <span class="number">0
     </span>}
@@ -1097,7 +1097,7 @@
     /// let val = HeaderValue::from_static(&quot;hello&quot;);
     /// assert_eq!(val.as_bytes(), b&quot;hello&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>as_bytes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8] {
         <span class="self">self</span>.as_ref()
     }
@@ -1116,7 +1116,7 @@
     /// val.set_sensitive(false);
     /// assert!(!val.is_sensitive());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_sensitive(<span class="kw-2">&amp;mut </span><span class="self">self</span>, val: bool) {
         <span class="self">self</span>.is_sensitive = val;
     }
@@ -1147,14 +1147,14 @@
     /// val.set_sensitive(false);
     /// assert!(!val.is_sensitive());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_sensitive(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.is_sensitive
     }
 }
 
 <span class="kw">impl </span>AsRef&lt;[u8]&gt; <span class="kw">for </span>HeaderValue {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>as_ref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8] {
         <span class="self">self</span>.inner.as_ref()
     }
@@ -1189,7 +1189,7 @@
 }
 
 <span class="kw">impl </span>From&lt;HeaderName&gt; <span class="kw">for </span>HeaderValue {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(h: HeaderName) -&gt; HeaderValue {
         HeaderValue {
             inner: h.into_bytes(),
@@ -1231,7 +1231,7 @@
             }
         }
 
-        <span class="attribute">#[test]
+        <span class="attr">#[test]
         </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>() {
             <span class="kw">let </span>n: <span class="macro-nonterminal">$t </span>= <span class="number">55</span>;
             <span class="kw">let </span>val = HeaderValue::from(n);
@@ -1256,31 +1256,31 @@
     from_i64: i64 =&gt; <span class="number">20
 </span>}
 
-<span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;16&quot;</span>)]
+<span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;16&quot;</span>)]
 </span><span class="macro">from_integers! </span>{
     from_usize: usize =&gt; <span class="number">5</span>,
     from_isize: isize =&gt; <span class="number">6
 </span>}
 
-<span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
+<span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
 </span><span class="macro">from_integers! </span>{
     from_usize: usize =&gt; <span class="number">10</span>,
     from_isize: isize =&gt; <span class="number">11
 </span>}
 
-<span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
+<span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
 </span><span class="macro">from_integers! </span>{
     from_usize: usize =&gt; <span class="number">20</span>,
     from_isize: isize =&gt; <span class="number">20
 </span>}
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>from_header_name_tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::header::map::HeaderMap;
     <span class="kw">use </span><span class="kw">crate</span>::header::name;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>it_can_insert_header_name_as_header_value() {
         <span class="kw">let </span><span class="kw-2">mut </span>map = HeaderMap::new();
         map.insert(name::UPGRADE, name::SEC_WEBSOCKET_PROTOCOL.into());
@@ -1304,14 +1304,14 @@
 <span class="kw">impl </span>FromStr <span class="kw">for </span>HeaderValue {
     <span class="kw">type </span><span class="prelude-val">Err </span>= InvalidHeaderValue;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from_str(s: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;HeaderValue, <span class="self">Self</span>::Err&gt; {
         HeaderValue::from_str(s)
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; From&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>HeaderValue&gt; <span class="kw">for </span>HeaderValue {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(t: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>HeaderValue) -&gt; <span class="self">Self </span>{
         t.clone()
     }
@@ -1320,7 +1320,7 @@
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; TryFrom&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt; <span class="kw">for </span>HeaderValue {
     <span class="kw">type </span>Error = InvalidHeaderValue;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_from(t: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
         t.parse()
     }
@@ -1328,7 +1328,7 @@
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; TryFrom&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>String&gt; <span class="kw">for </span>HeaderValue {
     <span class="kw">type </span>Error = InvalidHeaderValue;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_from(s: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>String) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
         <span class="self">Self</span>::from_bytes(s.as_bytes())
     }
@@ -1337,7 +1337,7 @@
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; TryFrom&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]&gt; <span class="kw">for </span>HeaderValue {
     <span class="kw">type </span>Error = InvalidHeaderValue;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_from(t: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
         HeaderValue::from_bytes(t)
     }
@@ -1346,7 +1346,7 @@
 <span class="kw">impl </span>TryFrom&lt;String&gt; <span class="kw">for </span>HeaderValue {
     <span class="kw">type </span>Error = InvalidHeaderValue;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_from(t: String) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
         HeaderValue::from_shared(t.into())
     }
@@ -1355,18 +1355,18 @@
 <span class="kw">impl </span>TryFrom&lt;Vec&lt;u8&gt;&gt; <span class="kw">for </span>HeaderValue {
     <span class="kw">type </span>Error = InvalidHeaderValue;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_from(vec: Vec&lt;u8&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
         HeaderValue::from_shared(vec.into())
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>try_from_header_name_tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::header::name;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>it_converts_using_try_from() {
         <span class="macro">assert_eq!</span>(
             HeaderValue::try_from(name::UPGRADE).unwrap(),
@@ -1379,7 +1379,7 @@
     b &gt;= <span class="number">32 </span>&amp;&amp; b &lt; <span class="number">127 </span>|| b == <span class="string">b&#39;\t&#39;
 </span>}
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>is_valid(b: u8) -&gt; bool {
     b &gt;= <span class="number">32 </span>&amp;&amp; b != <span class="number">127 </span>|| b == <span class="string">b&#39;\t&#39;
 </span>}
@@ -1411,7 +1411,7 @@
 <span class="comment">// ===== PartialEq / PartialOrd =====
 
 </span><span class="kw">impl </span>PartialEq <span class="kw">for </span>HeaderValue {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>HeaderValue) -&gt; bool {
         <span class="self">self</span>.inner == other.inner
     }
@@ -1420,112 +1420,112 @@
 <span class="kw">impl </span>Eq <span class="kw">for </span>HeaderValue {}
 
 <span class="kw">impl </span>PartialOrd <span class="kw">for </span>HeaderValue {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>HeaderValue) -&gt; <span class="prelude-ty">Option</span>&lt;cmp::Ordering&gt; {
         <span class="self">self</span>.inner.partial_cmp(<span class="kw-2">&amp;</span>other.inner)
     }
 }
 
 <span class="kw">impl </span>Ord <span class="kw">for </span>HeaderValue {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; cmp::Ordering {
         <span class="self">self</span>.inner.cmp(<span class="kw-2">&amp;</span>other.inner)
     }
 }
 
 <span class="kw">impl </span>PartialEq&lt;str&gt; <span class="kw">for </span>HeaderValue {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>str) -&gt; bool {
         <span class="self">self</span>.inner == other.as_bytes()
     }
 }
 
 <span class="kw">impl </span>PartialEq&lt;[u8]&gt; <span class="kw">for </span>HeaderValue {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>[u8]) -&gt; bool {
         <span class="self">self</span>.inner == other
     }
 }
 
 <span class="kw">impl </span>PartialOrd&lt;str&gt; <span class="kw">for </span>HeaderValue {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;cmp::Ordering&gt; {
         (<span class="kw-2">*</span><span class="self">self</span>.inner).partial_cmp(other.as_bytes())
     }
 }
 
 <span class="kw">impl </span>PartialOrd&lt;[u8]&gt; <span class="kw">for </span>HeaderValue {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;cmp::Ordering&gt; {
         (<span class="kw-2">*</span><span class="self">self</span>.inner).partial_cmp(other)
     }
 }
 
 <span class="kw">impl </span>PartialEq&lt;HeaderValue&gt; <span class="kw">for </span>str {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>HeaderValue) -&gt; bool {
         <span class="kw-2">*</span>other == <span class="kw-2">*</span><span class="self">self
     </span>}
 }
 
 <span class="kw">impl </span>PartialEq&lt;HeaderValue&gt; <span class="kw">for </span>[u8] {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>HeaderValue) -&gt; bool {
         <span class="kw-2">*</span>other == <span class="kw-2">*</span><span class="self">self
     </span>}
 }
 
 <span class="kw">impl </span>PartialOrd&lt;HeaderValue&gt; <span class="kw">for </span>str {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>HeaderValue) -&gt; <span class="prelude-ty">Option</span>&lt;cmp::Ordering&gt; {
         <span class="self">self</span>.as_bytes().partial_cmp(other.as_bytes())
     }
 }
 
 <span class="kw">impl </span>PartialOrd&lt;HeaderValue&gt; <span class="kw">for </span>[u8] {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>HeaderValue) -&gt; <span class="prelude-ty">Option</span>&lt;cmp::Ordering&gt; {
         <span class="self">self</span>.partial_cmp(other.as_bytes())
     }
 }
 
 <span class="kw">impl </span>PartialEq&lt;String&gt; <span class="kw">for </span>HeaderValue {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>String) -&gt; bool {
         <span class="kw-2">*</span><span class="self">self </span>== <span class="kw-2">&amp;</span>other[..]
     }
 }
 
 <span class="kw">impl </span>PartialOrd&lt;String&gt; <span class="kw">for </span>HeaderValue {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>String) -&gt; <span class="prelude-ty">Option</span>&lt;cmp::Ordering&gt; {
         <span class="self">self</span>.inner.partial_cmp(other.as_bytes())
     }
 }
 
 <span class="kw">impl </span>PartialEq&lt;HeaderValue&gt; <span class="kw">for </span>String {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>HeaderValue) -&gt; bool {
         <span class="kw-2">*</span>other == <span class="kw-2">*</span><span class="self">self
     </span>}
 }
 
 <span class="kw">impl </span>PartialOrd&lt;HeaderValue&gt; <span class="kw">for </span>String {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>HeaderValue) -&gt; <span class="prelude-ty">Option</span>&lt;cmp::Ordering&gt; {
         <span class="self">self</span>.as_bytes().partial_cmp(other.as_bytes())
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; PartialEq&lt;HeaderValue&gt; <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>HeaderValue {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>HeaderValue) -&gt; bool {
         <span class="kw-2">**</span><span class="self">self </span>== <span class="kw-2">*</span>other
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; PartialOrd&lt;HeaderValue&gt; <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>HeaderValue {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>HeaderValue) -&gt; <span class="prelude-ty">Option</span>&lt;cmp::Ordering&gt; {
         (<span class="kw-2">**</span><span class="self">self</span>).partial_cmp(other)
     }
@@ -1535,7 +1535,7 @@
 <span class="kw">where
     </span>HeaderValue: PartialEq&lt;T&gt;,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: &amp;&amp;<span class="lifetime">&#39;a </span>T) -&gt; bool {
         <span class="kw-2">*</span><span class="self">self </span>== <span class="kw-2">**</span>other
     }
@@ -1545,32 +1545,32 @@
 <span class="kw">where
     </span>HeaderValue: PartialOrd&lt;T&gt;,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: &amp;&amp;<span class="lifetime">&#39;a </span>T) -&gt; <span class="prelude-ty">Option</span>&lt;cmp::Ordering&gt; {
         <span class="self">self</span>.partial_cmp(<span class="kw-2">*</span>other)
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; PartialEq&lt;HeaderValue&gt; <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>HeaderValue) -&gt; bool {
         <span class="kw-2">*</span>other == <span class="kw-2">*</span><span class="self">self
     </span>}
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; PartialOrd&lt;HeaderValue&gt; <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>HeaderValue) -&gt; <span class="prelude-ty">Option</span>&lt;cmp::Ordering&gt; {
         <span class="self">self</span>.as_bytes().partial_cmp(other.as_bytes())
     }
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_try_from() {
     HeaderValue::try_from(<span class="macro">vec!</span>[<span class="number">127</span>]).unwrap_err();
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_debug() {
     <span class="kw">let </span>cases = <span class="kw-2">&amp;</span>[
         (<span class="string">&quot;hello&quot;</span>, <span class="string">&quot;\&quot;hello\&quot;&quot;</span>),
@@ -1589,4 +1589,4 @@
     <span class="macro">assert_eq!</span>(<span class="string">&quot;Sensitive&quot;</span>, <span class="macro">format!</span>(<span class="string">&quot;{:?}&quot;</span>, sensitive));
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="http" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="http" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -1072,13 +1072,13 @@
 <span id="1072">1072</span>
 <span id="1073">1073</span>
 <span id="1074">1074</span>
-</pre><pre class="rust"><code><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+</pre><pre class="rust"><code><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::buf::{reader, Reader};
 <span class="kw">use </span><span class="kw">crate</span>::buf::{take, Chain, Take};
 
 <span class="kw">use </span>core::{cmp, mem, ptr};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">use </span>std::io::IoSlice;
 
 <span class="kw">use </span>alloc::boxed::Box;
@@ -1203,7 +1203,7 @@
     /// empty slice.
     </span><span class="comment">// The `chunk` method was previously called `bytes`. This alias makes the rename
     // more easily discoverable.
-    </span><span class="attribute">#[cfg_attr(docsrs, doc(alias = <span class="string">&quot;bytes&quot;</span>))]
+    </span><span class="attr">#[cfg_attr(docsrs, doc(alias = <span class="string">&quot;bytes&quot;</span>))]
     </span><span class="kw">fn </span>chunk(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8];
 
     <span class="doccomment">/// Fills `dst` with potentially multiple slices starting at `self`&#39;s
@@ -1233,7 +1233,7 @@
     /// with `dst` being a zero length slice.
     ///
     /// [`writev`]: http://man7.org/linux/man-pages/man2/readv.2.html
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     </span><span class="kw">fn </span>chunks_vectored&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>, dst: <span class="kw-2">&amp;mut </span>[IoSlice&lt;<span class="lifetime">&#39;a</span>&gt;]) -&gt; usize {
         <span class="kw">if </span>dst.is_empty() {
             <span class="kw">return </span><span class="number">0</span>;
@@ -1970,7 +1970,7 @@
     /// assert_eq!(11, num);
     /// assert_eq!(&amp;dst[..11], &amp;b&quot;hello world&quot;[..]);
     /// ```
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     </span><span class="kw">fn </span>reader(<span class="self">self</span>) -&gt; Reader&lt;<span class="self">Self</span>&gt;
     <span class="kw">where
         </span><span class="self">Self</span>: Sized,
@@ -1989,7 +1989,7 @@
             (<span class="kw-2">**</span><span class="self">self</span>).chunk()
         }
 
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
         </span><span class="kw">fn </span>chunks_vectored&lt;<span class="lifetime">&#39;b</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span><span class="self">self</span>, dst: <span class="kw-2">&amp;mut </span>[IoSlice&lt;<span class="lifetime">&#39;b</span>&gt;]) -&gt; usize {
             (<span class="kw-2">**</span><span class="self">self</span>).chunks_vectored(dst)
         }
@@ -2093,23 +2093,23 @@
 }
 
 <span class="kw">impl </span>Buf <span class="kw">for </span><span class="kw-2">&amp;</span>[u8] {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>remaining(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.len()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>chunk(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8] {
         <span class="self">self
     </span>}
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>advance(<span class="kw-2">&amp;mut </span><span class="self">self</span>, cnt: usize) {
         <span class="kw-2">*</span><span class="self">self </span>= <span class="kw-2">&amp;</span><span class="self">self</span>[cnt..];
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl</span>&lt;T: AsRef&lt;[u8]&gt;&gt; Buf <span class="kw">for </span>std::io::Cursor&lt;T&gt; {
     <span class="kw">fn </span>remaining(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="kw">let </span>len = <span class="self">self</span>.get_ref().as_ref().len();
@@ -2147,4 +2147,4 @@
 // trait is &quot;object-safe&quot; or not.
 </span><span class="kw">fn </span>_assert_trait_object(_b: <span class="kw-2">&amp;</span><span class="kw">dyn </span>Buf) {}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="bytes" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="bytes" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -142,7 +142,7 @@
 <span id="142">142</span>
 <span id="143">143</span>
 <span id="144">144</span>
-</pre><pre class="rust"><code><span class="attribute">#![cfg(not(loom))]
+</pre><pre class="rust"><code><span class="attr">#![cfg(not(loom))]
 
 </span><span class="doccomment">//! Asynchronous file and standard stream adaptation.
 //!
@@ -246,18 +246,18 @@
 <span class="kw">mod </span>copy;
 <span class="kw">pub use </span><span class="self">self</span>::copy::copy;
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>mocks;
 
 <span class="macro">feature! </span>{
-    <span class="attribute">#![unix]
+    <span class="attr">#![unix]
 
     </span><span class="kw">mod </span>symlink;
     <span class="kw">pub use </span><span class="self">self</span>::symlink::symlink;
 }
 
 <span class="macro">feature! </span>{
-    <span class="attribute">#![windows]
+    <span class="attr">#![windows]
 
     </span><span class="kw">mod </span>symlink_dir;
     <span class="kw">pub use </span><span class="self">self</span>::symlink_dir::symlink_dir;
@@ -268,9 +268,9 @@
 
 <span class="kw">use </span>std::io;
 
-<span class="attribute">#[cfg(not(test))]
+<span class="attr">#[cfg(not(test))]
 </span><span class="kw">use </span><span class="kw">crate</span>::blocking::spawn_blocking;
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">use </span>mocks::spawn_blocking;
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>asyncify&lt;F, T&gt;(f: F) -&gt; io::Result&lt;T&gt;
@@ -287,4 +287,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -1082,7 +1082,7 @@
 <span class="comment">// Rust 1.14.0 requires the following despite the asterisk above.
 </span><span class="kw">use </span><span class="kw">super</span>::in_inclusive_range16;
 
-<span class="attribute">#[derive(Copy, Clone, PartialEq)]
+<span class="attr">#[derive(Copy, Clone, PartialEq)]
 </span><span class="kw">enum </span>Iso2022JpDecoderState {
     Ascii,
     Roman,
@@ -1432,7 +1432,7 @@
     );
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;fast-kanji-encode&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;fast-kanji-encode&quot;</span>)]
 #[inline(always)]
 </span><span class="kw">fn </span>is_kanji_mapped(bmp: u16) -&gt; bool {
     <span class="comment">// Use the shift_jis variant, because we don&#39;t care about the
@@ -1440,7 +1440,7 @@
     </span>jis0208_kanji_shift_jis_encode(bmp).is_some()
 }
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;fast-kanji-encode&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;fast-kanji-encode&quot;</span>))]
 #[cfg_attr(
     feature = <span class="string">&quot;cargo-clippy&quot;</span>,
     allow(if_let_redundant_pattern_matching, if_same_then_else)
@@ -1462,7 +1462,7 @@
     </span>}
 }
 
-<span class="attribute">#[cfg_attr(
+<span class="attr">#[cfg_attr(
     feature = <span class="string">&quot;cargo-clippy&quot;</span>,
     allow(if_let_redundant_pattern_matching, if_same_then_else)
 )]
@@ -1503,13 +1503,13 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;fast-kanji-encode&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;fast-kanji-encode&quot;</span>)]
 #[inline(always)]
 </span><span class="kw">fn </span>encode_kanji(bmp: u16) -&gt; <span class="prelude-ty">Option</span>&lt;(u8, u8)&gt; {
     jis0208_kanji_iso_2022_jp_encode(bmp)
 }
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;fast-kanji-encode&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;fast-kanji-encode&quot;</span>))]
 #[inline(always)]
 </span><span class="kw">fn </span>encode_kanji(bmp: u16) -&gt; <span class="prelude-ty">Option</span>&lt;(u8, u8)&gt; {
     <span class="kw">if </span><span class="number">0x4EDD </span>== bmp {
@@ -1822,7 +1822,7 @@
 <span class="comment">// Any copyright to the test code below this comment is dedicated to the
 // Public Domain. http://creativecommons.org/publicdomain/zero/1.0/
 
-</span><span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
+</span><span class="attr">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::testing::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::<span class="kw-2">*</span>;
@@ -1835,7 +1835,7 @@
         encode(ISO_2022_JP, string, expect);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_iso_2022_jp_decode() {
         <span class="comment">// Empty
         </span>decode_iso_2022_jp(<span class="string">b&quot;&quot;</span>, <span class="kw-2">&amp;</span><span class="string">&quot;&quot;</span>);
@@ -1996,7 +1996,7 @@
         decode_iso_2022_jp(<span class="string">b&quot;\x1B$B\x54\x64\x1B$B\x54\x64&quot;</span>, <span class="string">&quot;\u{58FA}\u{58FA}&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_iso_2022_jp_encode() {
         <span class="comment">// Empty
         </span>encode_iso_2022_jp(<span class="string">&quot;&quot;</span>, <span class="string">b&quot;&quot;</span>);
@@ -2048,7 +2048,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(miri, ignore)] </span><span class="comment">// Miri is too slow
     </span><span class="kw">fn </span>test_iso_2022_jp_decode_all() {
         <span class="kw">let </span>input = <span class="macro">include_bytes!</span>(<span class="string">&quot;test_data/iso_2022_jp_in.txt&quot;</span>);
@@ -2058,7 +2058,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>cow[..], expectation);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(miri, ignore)] </span><span class="comment">// Miri is too slow
     </span><span class="kw">fn </span>test_iso_2022_jp_encode_all() {
         <span class="kw">let </span>input = <span class="macro">include_str!</span>(<span class="string">&quot;test_data/iso_2022_jp_out.txt&quot;</span>);
@@ -2069,7 +2069,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>cow[..], <span class="kw-2">&amp;</span>expectation[..]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_iso_2022_jp_half_width_katakana_length() {
         <span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0u8</span>; <span class="number">20</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = ISO_2022_JP.new_decoder();
@@ -2095,7 +2095,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_iso_2022_jp_length_after_escape() {
         <span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0u16</span>; <span class="number">20</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = ISO_2022_JP.new_decoder();
@@ -2120,7 +2120,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_iso_2022_jp_encode_from_two_low_surrogates() {
         <span class="kw">let </span>expectation = <span class="string">b&quot;&amp;#65533;&amp;#65533;&quot;</span>;
         <span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0u8</span>; <span class="number">40</span>];
@@ -2135,4 +2135,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="encoding_rs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="encoding_rs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

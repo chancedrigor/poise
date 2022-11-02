@@ -115,34 +115,34 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::parse_attribute_to_meta_list;
     <span class="kw">use </span>syn::{parse_quote, spanned::Spanned, Ident};
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>parse_list() {
-        <span class="kw">let </span>meta = parse_attribute_to_meta_list(<span class="kw-2">&amp;</span><span class="macro">parse_quote!</span>(<span class="attribute">#[bar(baz = <span class="number">4</span>)]</span>)).unwrap();
+        <span class="kw">let </span>meta = parse_attribute_to_meta_list(<span class="kw-2">&amp;</span><span class="macro">parse_quote!</span>(<span class="attr">#[bar(baz = <span class="number">4</span>)]</span>)).unwrap();
         <span class="macro">assert_eq!</span>(meta.nested.len(), <span class="number">1</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>parse_path_returns_empty_list() {
-        <span class="kw">let </span>meta = parse_attribute_to_meta_list(<span class="kw-2">&amp;</span><span class="macro">parse_quote!</span>(<span class="attribute">#[bar]</span>)).unwrap();
+        <span class="kw">let </span>meta = parse_attribute_to_meta_list(<span class="kw-2">&amp;</span><span class="macro">parse_quote!</span>(<span class="attr">#[bar]</span>)).unwrap();
         <span class="macro">assert!</span>(meta.path.is_ident(<span class="kw-2">&amp;</span>Ident::new(<span class="string">&quot;bar&quot;</span>, meta.path.span())));
         <span class="macro">assert!</span>(meta.nested.is_empty());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>parse_name_value_returns_error() {
-        parse_attribute_to_meta_list(<span class="kw-2">&amp;</span><span class="macro">parse_quote!</span>(<span class="attribute">#[bar = <span class="number">4</span>]</span>)).unwrap_err();
+        parse_attribute_to_meta_list(<span class="kw-2">&amp;</span><span class="macro">parse_quote!</span>(<span class="attr">#[bar = <span class="number">4</span>]</span>)).unwrap_err();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>parse_name_value_error_includes_example() {
-        <span class="kw">let </span>err = parse_attribute_to_meta_list(<span class="kw-2">&amp;</span><span class="macro">parse_quote!</span>(<span class="attribute">#[bar = <span class="number">4</span>]</span>)).unwrap_err();
+        <span class="kw">let </span>err = parse_attribute_to_meta_list(<span class="kw-2">&amp;</span><span class="macro">parse_quote!</span>(<span class="attr">#[bar = <span class="number">4</span>]</span>)).unwrap_err();
         <span class="macro">assert!</span>(err.to_string().contains(<span class="string">&quot;#[bar(...)]&quot;</span>));
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="darling_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="darling_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

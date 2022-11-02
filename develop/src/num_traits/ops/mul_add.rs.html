@@ -185,21 +185,21 @@
     </span><span class="kw">fn </span>mul_add_assign(<span class="kw-2">&amp;mut </span><span class="self">self</span>, a: A, b: B);
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, feature = <span class="string">&quot;libm&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, feature = <span class="string">&quot;libm&quot;</span>))]
 </span><span class="kw">impl </span>MulAdd&lt;f32, f32&gt; <span class="kw">for </span>f32 {
     <span class="kw">type </span>Output = <span class="self">Self</span>;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>mul_add(<span class="self">self</span>, a: <span class="self">Self</span>, b: <span class="self">Self</span>) -&gt; <span class="self">Self</span>::Output {
         &lt;<span class="self">Self </span><span class="kw">as </span>::Float&gt;::mul_add(<span class="self">self</span>, a, b)
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, feature = <span class="string">&quot;libm&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, feature = <span class="string">&quot;libm&quot;</span>))]
 </span><span class="kw">impl </span>MulAdd&lt;f64, f64&gt; <span class="kw">for </span>f64 {
     <span class="kw">type </span>Output = <span class="self">Self</span>;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>mul_add(<span class="self">self</span>, a: <span class="self">Self</span>, b: <span class="self">Self</span>) -&gt; <span class="self">Self</span>::Output {
         &lt;<span class="self">Self </span><span class="kw">as </span>::Float&gt;::mul_add(<span class="self">self</span>, a, b)
     }
@@ -210,7 +210,7 @@
         <span class="kw">impl </span><span class="macro-nonterminal">$trait_name </span><span class="kw">for </span><span class="macro-nonterminal">$t </span>{
             <span class="kw">type </span>Output = <span class="self">Self</span>;
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>mul_add(<span class="self">self</span>, a: <span class="self">Self</span>, b: <span class="self">Self</span>) -&gt; <span class="self">Self</span>::Output {
                 (<span class="self">self </span>* a) + b
             }
@@ -219,20 +219,20 @@
 }
 
 <span class="macro">mul_add_impl!</span>(MulAdd <span class="kw">for </span>isize usize i8 u8 i16 u16 i32 u32 i64 u64);
-<span class="attribute">#[cfg(has_i128)]
+<span class="attr">#[cfg(has_i128)]
 </span><span class="macro">mul_add_impl!</span>(MulAdd <span class="kw">for </span>i128 u128);
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, feature = <span class="string">&quot;libm&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, feature = <span class="string">&quot;libm&quot;</span>))]
 </span><span class="kw">impl </span>MulAddAssign&lt;f32, f32&gt; <span class="kw">for </span>f32 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>mul_add_assign(<span class="kw-2">&amp;mut </span><span class="self">self</span>, a: <span class="self">Self</span>, b: <span class="self">Self</span>) {
         <span class="kw-2">*</span><span class="self">self </span>= &lt;<span class="self">Self </span><span class="kw">as </span>::Float&gt;::mul_add(<span class="kw-2">*</span><span class="self">self</span>, a, b)
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, feature = <span class="string">&quot;libm&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, feature = <span class="string">&quot;libm&quot;</span>))]
 </span><span class="kw">impl </span>MulAddAssign&lt;f64, f64&gt; <span class="kw">for </span>f64 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>mul_add_assign(<span class="kw-2">&amp;mut </span><span class="self">self</span>, a: <span class="self">Self</span>, b: <span class="self">Self</span>) {
         <span class="kw-2">*</span><span class="self">self </span>= &lt;<span class="self">Self </span><span class="kw">as </span>::Float&gt;::mul_add(<span class="kw-2">*</span><span class="self">self</span>, a, b)
     }
@@ -241,7 +241,7 @@
 <span class="macro">macro_rules! </span>mul_add_assign_impl {
     (<span class="macro-nonterminal">$trait_name</span>:ident <span class="kw">for </span>$(<span class="macro-nonterminal">$t</span>:ty)<span class="kw-2">*</span>) =&gt; {$(
         <span class="kw">impl </span><span class="macro-nonterminal">$trait_name </span><span class="kw">for </span><span class="macro-nonterminal">$t </span>{
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>mul_add_assign(<span class="kw-2">&amp;mut </span><span class="self">self</span>, a: <span class="self">Self</span>, b: <span class="self">Self</span>) {
                 <span class="kw-2">*</span><span class="self">self </span>= (<span class="kw-2">*</span><span class="self">self </span>* a) + b
             }
@@ -250,14 +250,14 @@
 }
 
 <span class="macro">mul_add_assign_impl!</span>(MulAddAssign <span class="kw">for </span>isize usize i8 u8 i16 u16 i32 u32 i64 u64);
-<span class="attribute">#[cfg(has_i128)]
+<span class="attr">#[cfg(has_i128)]
 </span><span class="macro">mul_add_assign_impl!</span>(MulAddAssign <span class="kw">for </span>i128 u128);
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>mul_add_integer() {
         <span class="macro">macro_rules! </span>test_mul_add {
             ($(<span class="macro-nonterminal">$t</span>:ident)+) =&gt; {
@@ -276,7 +276,7 @@
         <span class="macro">test_mul_add!</span>(usize u8 u16 u32 u64 isize i8 i16 i32 i64);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     </span><span class="kw">fn </span>mul_add_float() {
         <span class="macro">macro_rules! </span>test_mul_add {
@@ -301,4 +301,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="num_traits" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="num_traits" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

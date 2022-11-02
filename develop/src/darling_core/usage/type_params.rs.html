@@ -601,7 +601,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>proc_macro2::Span;
     <span class="kw">use </span>syn::{DeriveInput, Ident};
@@ -617,7 +617,7 @@
             .collect()
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>finds_simple() {
         <span class="kw">let </span>input: DeriveInput = <span class="macro">parse_quote! </span>{ <span class="kw">struct </span>Foo&lt;T, U&gt;(T, i32, A, U); };
         <span class="kw">let </span>generics = ident_set(<span class="macro">vec!</span>[<span class="string">&quot;T&quot;</span>, <span class="string">&quot;U&quot;</span>, <span class="string">&quot;X&quot;</span>]);
@@ -629,7 +629,7 @@
         <span class="macro">assert!</span>(!matches.contains::&lt;Ident&gt;(<span class="kw-2">&amp;</span><span class="macro">parse_quote!</span>(A)));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>finds_named() {
         <span class="kw">let </span>input: DeriveInput = <span class="macro">parse_quote! </span>{
             <span class="kw">struct </span>Foo&lt;T, U = usize&gt; {
@@ -649,7 +649,7 @@
         <span class="macro">assert!</span>(!matches.contains::&lt;Ident&gt;(<span class="kw-2">&amp;</span><span class="macro">parse_quote!</span>(A)));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>finds_as_type_arg() {
         <span class="kw">let </span>input: DeriveInput = <span class="macro">parse_quote! </span>{
             <span class="kw">struct </span>Foo&lt;T, U&gt; {
@@ -669,7 +669,7 @@
         <span class="macro">assert!</span>(!matches.contains::&lt;Ident&gt;(<span class="kw-2">&amp;</span><span class="macro">parse_quote!</span>(A)));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>associated_type() {
         <span class="kw">let </span>input: DeriveInput =
             <span class="macro">parse_quote! </span>{ <span class="kw">struct </span>Foo&lt;<span class="lifetime">&#39;a</span>, T&gt; <span class="kw">where </span>T: Iterator { peek: T::Item } };
@@ -678,7 +678,7 @@
         <span class="macro">assert_eq!</span>(matches.len(), <span class="number">1</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>box_fn_output() {
         <span class="kw">let </span>input: DeriveInput = <span class="macro">parse_quote! </span>{ <span class="kw">struct </span>Foo&lt;T&gt;(Box&lt;Fn() -&gt; T&gt;); };
         <span class="kw">let </span>generics = ident_set(<span class="macro">vec!</span>[<span class="string">&quot;T&quot;</span>]);
@@ -687,7 +687,7 @@
         <span class="macro">assert!</span>(matches.contains::&lt;Ident&gt;(<span class="kw-2">&amp;</span><span class="macro">parse_quote!</span>(T)));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>box_fn_input() {
         <span class="kw">let </span>input: DeriveInput = <span class="macro">parse_quote! </span>{ <span class="kw">struct </span>Foo&lt;T&gt;(Box&lt;Fn(<span class="kw-2">&amp;</span>T) -&gt; ()&gt;); };
         <span class="kw">let </span>generics = ident_set(<span class="macro">vec!</span>[<span class="string">&quot;T&quot;</span>]);
@@ -698,7 +698,7 @@
 
     <span class="doccomment">/// Test that `syn::TypePath` is correctly honoring the different modes a
     /// search can execute in.
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>qself_vec() {
         <span class="kw">let </span>input: DeriveInput =
             <span class="macro">parse_quote! </span>{ <span class="kw">struct </span>Foo&lt;T&gt;(&lt;Vec&lt;T&gt; <span class="kw">as </span>a::b::Trait&gt;::AssociatedItem); };
@@ -713,4 +713,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="darling_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="darling_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

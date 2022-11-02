@@ -92,13 +92,13 @@
 // than we&#39;d like.)
 
 </span><span class="doccomment">/// Returns true if and only if needle is a prefix of haystack.
-</span><span class="attribute">#[inline(always)]
+</span><span class="attr">#[inline(always)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>is_prefix(haystack: <span class="kw-2">&amp;</span>[u8], needle: <span class="kw-2">&amp;</span>[u8]) -&gt; bool {
     needle.len() &lt;= haystack.len() &amp;&amp; memcmp(<span class="kw-2">&amp;</span>haystack[..needle.len()], needle)
 }
 
 <span class="doccomment">/// Returns true if and only if needle is a suffix of haystack.
-</span><span class="attribute">#[inline(always)]
+</span><span class="attr">#[inline(always)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>is_suffix(haystack: <span class="kw-2">&amp;</span>[u8], needle: <span class="kw-2">&amp;</span>[u8]) -&gt; bool {
     needle.len() &lt;= haystack.len()
         &amp;&amp; memcmp(<span class="kw-2">&amp;</span>haystack[haystack.len() - needle.len()..], needle)
@@ -116,7 +116,7 @@
 /// We mark this as inline always, although, some callers may not want it
 /// inlined for better codegen (like Rabin-Karp). In that case, callers are
 /// advised to create a non-inlineable wrapper routine that calls memcmp.
-</span><span class="attribute">#[inline(always)]
+</span><span class="attr">#[inline(always)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>memcmp(x: <span class="kw-2">&amp;</span>[u8], y: <span class="kw-2">&amp;</span>[u8]) -&gt; bool {
     <span class="kw">if </span>x.len() != y.len() {
         <span class="kw">return </span><span class="bool-val">false</span>;
@@ -175,4 +175,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="memchr" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="memchr" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -247,19 +247,19 @@
 <span id="247">247</span>
 <span id="248">248</span>
 </pre><pre class="rust"><code><span class="kw">use </span>std::net::{<span class="self">self</span>, SocketAddr};
-<span class="attribute">#[cfg(unix)]
+<span class="attr">#[cfg(unix)]
 </span><span class="kw">use </span>std::os::unix::io::{AsRawFd, FromRawFd, IntoRawFd, RawFd};
-<span class="attribute">#[cfg(target_os = <span class="string">&quot;wasi&quot;</span>)]
+<span class="attr">#[cfg(target_os = <span class="string">&quot;wasi&quot;</span>)]
 </span><span class="kw">use </span>std::os::wasi::io::{AsRawFd, FromRawFd, IntoRawFd, RawFd};
-<span class="attribute">#[cfg(windows)]
+<span class="attr">#[cfg(windows)]
 </span><span class="kw">use </span>std::os::windows::io::{AsRawSocket, FromRawSocket, IntoRawSocket, RawSocket};
 <span class="kw">use </span>std::{fmt, io};
 
 <span class="kw">use </span><span class="kw">crate</span>::io_source::IoSource;
 <span class="kw">use </span><span class="kw">crate</span>::net::TcpStream;
-<span class="attribute">#[cfg(unix)]
+<span class="attr">#[cfg(unix)]
 </span><span class="kw">use </span><span class="kw">crate</span>::sys::tcp::set_reuseaddr;
-<span class="attribute">#[cfg(not(target_os = <span class="string">&quot;wasi&quot;</span>))]
+<span class="attr">#[cfg(not(target_os = <span class="string">&quot;wasi&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::sys::tcp::{bind, listen, new_for_addr};
 <span class="kw">use crate</span>::{event, sys, Interest, Registry, Token};
 
@@ -267,7 +267,7 @@
 ///
 /// # Examples
 ///
-</span><span class="attribute">#[cfg_attr(feature = <span class="string">&quot;os-poll&quot;</span>, doc = <span class="string">&quot;```&quot;</span>)]
+</span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;os-poll&quot;</span>, doc = <span class="string">&quot;```&quot;</span>)]
 #[cfg_attr(not(feature = <span class="string">&quot;os-poll&quot;</span>), doc = <span class="string">&quot;```ignore&quot;</span>)]
 </span><span class="doccomment">/// # use std::error::Error;
 /// # fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
@@ -303,12 +303,12 @@
     /// 2. Set the `SO_REUSEADDR` option on the socket on Unix.
     /// 3. Bind the socket to the specified address.
     /// 4. Calls `listen` on the socket to prepare it to receive new connections.
-    </span><span class="attribute">#[cfg(not(target_os = <span class="string">&quot;wasi&quot;</span>))]
+    </span><span class="attr">#[cfg(not(target_os = <span class="string">&quot;wasi&quot;</span>))]
     </span><span class="kw">pub fn </span>bind(addr: SocketAddr) -&gt; io::Result&lt;TcpListener&gt; {
         <span class="kw">let </span>socket = new_for_addr(addr)<span class="question-mark">?</span>;
-        <span class="attribute">#[cfg(unix)]
+        <span class="attr">#[cfg(unix)]
         </span><span class="kw">let </span>listener = <span class="kw">unsafe </span>{ TcpListener::from_raw_fd(socket) };
-        <span class="attribute">#[cfg(windows)]
+        <span class="attr">#[cfg(windows)]
         </span><span class="kw">let </span>listener = <span class="kw">unsafe </span>{ TcpListener::from_raw_socket(socket <span class="kw">as _</span>) };
 
         <span class="comment">// On platforms with Berkeley-derived sockets, this allows to quickly
@@ -318,7 +318,7 @@
         // On Windows, this allows rebinding sockets which are actively in use,
         // which allows “socket hijacking”, so we explicitly don&#39;t set it here.
         // https://docs.microsoft.com/en-us/windows/win32/winsock/using-so-reuseaddr-and-so-exclusiveaddruse
-        </span><span class="attribute">#[cfg(not(windows))]
+        </span><span class="attr">#[cfg(not(windows))]
         </span>set_reuseaddr(<span class="kw-2">&amp;</span>listener.inner, <span class="bool-val">true</span>)<span class="question-mark">?</span>;
 
         bind(<span class="kw-2">&amp;</span>listener.inner, addr)<span class="question-mark">?</span>;
@@ -414,21 +414,21 @@
     }
 }
 
-<span class="attribute">#[cfg(unix)]
+<span class="attr">#[cfg(unix)]
 </span><span class="kw">impl </span>IntoRawFd <span class="kw">for </span>TcpListener {
     <span class="kw">fn </span>into_raw_fd(<span class="self">self</span>) -&gt; RawFd {
         <span class="self">self</span>.inner.into_inner().into_raw_fd()
     }
 }
 
-<span class="attribute">#[cfg(unix)]
+<span class="attr">#[cfg(unix)]
 </span><span class="kw">impl </span>AsRawFd <span class="kw">for </span>TcpListener {
     <span class="kw">fn </span>as_raw_fd(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; RawFd {
         <span class="self">self</span>.inner.as_raw_fd()
     }
 }
 
-<span class="attribute">#[cfg(unix)]
+<span class="attr">#[cfg(unix)]
 </span><span class="kw">impl </span>FromRawFd <span class="kw">for </span>TcpListener {
     <span class="doccomment">/// Converts a `RawFd` to a `TcpListener`.
     ///
@@ -441,21 +441,21 @@
     }
 }
 
-<span class="attribute">#[cfg(windows)]
+<span class="attr">#[cfg(windows)]
 </span><span class="kw">impl </span>IntoRawSocket <span class="kw">for </span>TcpListener {
     <span class="kw">fn </span>into_raw_socket(<span class="self">self</span>) -&gt; RawSocket {
         <span class="self">self</span>.inner.into_inner().into_raw_socket()
     }
 }
 
-<span class="attribute">#[cfg(windows)]
+<span class="attr">#[cfg(windows)]
 </span><span class="kw">impl </span>AsRawSocket <span class="kw">for </span>TcpListener {
     <span class="kw">fn </span>as_raw_socket(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; RawSocket {
         <span class="self">self</span>.inner.as_raw_socket()
     }
 }
 
-<span class="attribute">#[cfg(windows)]
+<span class="attr">#[cfg(windows)]
 </span><span class="kw">impl </span>FromRawSocket <span class="kw">for </span>TcpListener {
     <span class="doccomment">/// Converts a `RawSocket` to a `TcpListener`.
     ///
@@ -468,21 +468,21 @@
     }
 }
 
-<span class="attribute">#[cfg(target_os = <span class="string">&quot;wasi&quot;</span>)]
+<span class="attr">#[cfg(target_os = <span class="string">&quot;wasi&quot;</span>)]
 </span><span class="kw">impl </span>IntoRawFd <span class="kw">for </span>TcpListener {
     <span class="kw">fn </span>into_raw_fd(<span class="self">self</span>) -&gt; RawFd {
         <span class="self">self</span>.inner.into_inner().into_raw_fd()
     }
 }
 
-<span class="attribute">#[cfg(target_os = <span class="string">&quot;wasi&quot;</span>)]
+<span class="attr">#[cfg(target_os = <span class="string">&quot;wasi&quot;</span>)]
 </span><span class="kw">impl </span>AsRawFd <span class="kw">for </span>TcpListener {
     <span class="kw">fn </span>as_raw_fd(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; RawFd {
         <span class="self">self</span>.inner.as_raw_fd()
     }
 }
 
-<span class="attribute">#[cfg(target_os = <span class="string">&quot;wasi&quot;</span>)]
+<span class="attr">#[cfg(target_os = <span class="string">&quot;wasi&quot;</span>)]
 </span><span class="kw">impl </span>FromRawFd <span class="kw">for </span>TcpListener {
     <span class="doccomment">/// Converts a `RawFd` to a `TcpListener`.
     ///
@@ -495,4 +495,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="mio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="mio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

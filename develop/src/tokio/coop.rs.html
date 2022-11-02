@@ -282,7 +282,7 @@
 <span id="282">282</span>
 <span id="283">283</span>
 <span id="284">284</span>
-</pre><pre class="rust"><code><span class="attribute">#![cfg_attr(not(feature = <span class="string">&quot;full&quot;</span>), allow(dead_code))]
+</pre><pre class="rust"><code><span class="attr">#![cfg_attr(not(feature = <span class="string">&quot;full&quot;</span>), allow(dead_code))]
 
 </span><span class="doccomment">//! Yield points for improved cooperative scheduling.
 //!
@@ -321,7 +321,7 @@
 
 <span class="doccomment">/// Opaque type tracking the amount of &quot;work&quot; a task may still do before
 /// yielding back to the scheduler.
-</span><span class="attribute">#[derive(Debug, Copy, Clone)]
+</span><span class="attr">#[derive(Debug, Copy, Clone)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Budget(<span class="prelude-ty">Option</span>&lt;u8&gt;);
 
 <span class="kw">impl </span>Budget {
@@ -351,19 +351,19 @@
 
 <span class="doccomment">/// Runs the given closure with a cooperative task budget. When the function
 /// returns, the budget is reset to the value prior to calling the function.
-</span><span class="attribute">#[inline(always)]
+</span><span class="attr">#[inline(always)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>budget&lt;R&gt;(f: <span class="kw">impl </span>FnOnce() -&gt; R) -&gt; R {
     with_budget(Budget::initial(), f)
 }
 
 <span class="doccomment">/// Runs the given closure with an unconstrained task budget. When the function returns, the budget
 /// is reset to the value prior to calling the function.
-</span><span class="attribute">#[inline(always)]
+</span><span class="attr">#[inline(always)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>with_unconstrained&lt;R&gt;(f: <span class="kw">impl </span>FnOnce() -&gt; R) -&gt; R {
     with_budget(Budget::unconstrained(), f)
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">fn </span>with_budget&lt;R&gt;(budget: Budget, f: <span class="kw">impl </span>FnOnce() -&gt; R) -&gt; R {
     <span class="kw">struct </span>ResetGuard&lt;<span class="lifetime">&#39;a</span>&gt; {
         cell: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Cell&lt;Budget&gt;,
@@ -387,7 +387,7 @@
     })
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>has_budget_remaining() -&gt; bool {
     CURRENT.with(|cell| cell.get().has_remaining())
 }
@@ -415,7 +415,7 @@
 <span class="macro">cfg_coop! </span>{
     <span class="kw">use </span>std::task::{Context, Poll};
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>RestoreOnPending(Cell&lt;Budget&gt;);
 
     <span class="kw">impl </span>RestoreOnPending {
@@ -449,7 +449,7 @@
     /// Therefore, if the budget is _further_ adjusted between when `poll_proceed` returns and
     /// `RestRestoreOnPending` is dropped, those adjustments are erased unless the caller indicates
     /// that progress was made.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>poll_proceed(cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;RestoreOnPending&gt; {
         CURRENT.with(|cell| {
             <span class="kw">let </span><span class="kw-2">mut </span>budget = cell.get();
@@ -487,18 +487,18 @@
     }
 }
 
-<span class="attribute">#[cfg(all(test, not(loom)))]
+<span class="attr">#[cfg(all(test, not(loom)))]
 </span><span class="kw">mod </span>test {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[cfg(tokio_wasm_not_wasi)]
+    <span class="attr">#[cfg(tokio_wasm_not_wasi)]
     </span><span class="kw">use </span>wasm_bindgen_test::wasm_bindgen_test <span class="kw">as </span>test;
 
     <span class="kw">fn </span>get() -&gt; Budget {
         CURRENT.with(|cell| cell.get())
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>budgeting() {
         <span class="kw">use </span>futures::future::poll_fn;
         <span class="kw">use </span>tokio_test::<span class="kw-2">*</span>;
@@ -567,4 +567,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -967,10 +967,10 @@
 <span id="967">967</span>
 <span id="968">968</span>
 <span id="969">969</span>
-</pre><pre class="rust"><code><span class="attribute">#![cfg_attr(not(feature = <span class="string">&quot;sync&quot;</span>), allow(unreachable_pub, dead_code))]
+</pre><pre class="rust"><code><span class="attr">#![cfg_attr(not(feature = <span class="string">&quot;sync&quot;</span>), allow(unreachable_pub, dead_code))]
 
 </span><span class="kw">use </span><span class="kw">crate</span>::sync::batch_semaphore <span class="kw">as </span>semaphore;
-<span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+<span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::util::trace;
 
 <span class="kw">use </span>std::cell::UnsafeCell;
@@ -1095,7 +1095,7 @@
 /// [`Send`]: trait@std::marker::Send
 /// [`lock`]: method@Mutex::lock
 </span><span class="kw">pub struct </span>Mutex&lt;T: <span class="question-mark">?</span>Sized&gt; {
-    <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+    <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
     </span>resource_span: tracing::Span,
     s: semaphore::Semaphore,
     c: UnsafeCell&lt;T&gt;,
@@ -1110,9 +1110,9 @@
 ///
 /// The lock is automatically released whenever the guard is dropped, at which
 /// point `lock` will succeed yet again.
-</span><span class="attribute">#[must_use = <span class="string">&quot;if unused the Mutex will immediately unlock&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;if unused the Mutex will immediately unlock&quot;</span>]
 </span><span class="kw">pub struct </span>MutexGuard&lt;<span class="lifetime">&#39;a</span>, T: <span class="question-mark">?</span>Sized&gt; {
-    <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+    <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
     </span>resource_span: tracing::Span,
     lock: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Mutex&lt;T&gt;,
 }
@@ -1133,7 +1133,7 @@
 ///
 /// [`Arc`]: std::sync::Arc
 </span><span class="kw">pub struct </span>OwnedMutexGuard&lt;T: <span class="question-mark">?</span>Sized&gt; {
-    <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+    <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
     </span>resource_span: tracing::Span,
     lock: Arc&lt;Mutex&lt;T&gt;&gt;,
 }
@@ -1143,7 +1143,7 @@
 /// This can be used to hold a subfield of the protected data.
 ///
 /// [`MutexGuard::map`]: method@MutexGuard::map
-</span><span class="attribute">#[must_use = <span class="string">&quot;if unused the Mutex will immediately unlock&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;if unused the Mutex will immediately unlock&quot;</span>]
 </span><span class="kw">pub struct </span>MappedMutexGuard&lt;<span class="lifetime">&#39;a</span>, T: <span class="question-mark">?</span>Sized&gt; {
     s: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>semaphore::Semaphore,
     data: <span class="kw-2">*mut </span>T,
@@ -1175,7 +1175,7 @@
 /// [`Mutex::try_lock`]: Mutex::try_lock
 /// [`RwLock::try_read`]: fn@super::RwLock::try_read
 /// [`RwLock::try_write`]: fn@super::RwLock::try_write
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>TryLockError(<span class="kw">pub</span>(<span class="kw">super</span>) ());
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>TryLockError {
@@ -1186,7 +1186,7 @@
 
 <span class="kw">impl </span>Error <span class="kw">for </span>TryLockError {}
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 #[cfg(not(loom))]
 </span><span class="kw">fn </span>bounds() {
     <span class="kw">fn </span>check_send&lt;T: Send&gt;() {}
@@ -1220,12 +1220,12 @@
     ///
     /// let lock = Mutex::new(5);
     /// ```
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>new(t: T) -&gt; <span class="self">Self
     </span><span class="kw">where
         </span>T: Sized,
     {
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>resource_span = {
             <span class="kw">let </span>location = std::panic::Location::caller();
 
@@ -1239,7 +1239,7 @@
             )
         };
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>s = resource_span.in_scope(|| {
             <span class="macro">tracing::trace!</span>(
                 target: <span class="string">&quot;runtime::resource::state_update&quot;</span>,
@@ -1248,13 +1248,13 @@
             semaphore::Semaphore::new(<span class="number">1</span>)
         });
 
-        <span class="attribute">#[cfg(any(not(tokio_unstable), not(feature = <span class="string">&quot;tracing&quot;</span>)))]
+        <span class="attr">#[cfg(any(not(tokio_unstable), not(feature = <span class="string">&quot;tracing&quot;</span>)))]
         </span><span class="kw">let </span>s = semaphore::Semaphore::new(<span class="number">1</span>);
 
         <span class="self">Self </span>{
             c: UnsafeCell::new(t),
             s,
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span>resource_span,
         }
     }
@@ -1268,7 +1268,7 @@
     ///
     /// static LOCK: Mutex&lt;i32&gt; = Mutex::const_new(5);
     /// ```
-    </span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;parking_lot&quot;</span>, not(all(loom, test)),))]
+    </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;parking_lot&quot;</span>, not(all(loom, test)),))]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;parking_lot&quot;</span>)))]
     </span><span class="kw">pub const fn </span>const_new(t: T) -&gt; <span class="self">Self
     </span><span class="kw">where
@@ -1277,7 +1277,7 @@
         <span class="self">Self </span>{
             c: UnsafeCell::new(t),
             s: semaphore::Semaphore::const_new(<span class="number">1</span>),
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span>resource_span: tracing::Span::none(),
         }
     }
@@ -1306,7 +1306,7 @@
     /// }
     /// ```
     </span><span class="kw">pub async fn </span>lock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; MutexGuard&lt;<span class="lifetime">&#39;_</span>, T&gt; {
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span>trace::async_op(
             || <span class="self">self</span>.acquire(),
             <span class="self">self</span>.resource_span.clone(),
@@ -1316,7 +1316,7 @@
         )
         .<span class="kw">await</span>;
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="self">self</span>.resource_span.in_scope(|| {
             <span class="macro">tracing::trace!</span>(
                 target: <span class="string">&quot;runtime::resource::state_update&quot;</span>,
@@ -1324,12 +1324,12 @@
             );
         });
 
-        <span class="attribute">#[cfg(any(not(tokio_unstable), not(feature = <span class="string">&quot;tracing&quot;</span>)))]
+        <span class="attr">#[cfg(any(not(tokio_unstable), not(feature = <span class="string">&quot;tracing&quot;</span>)))]
         </span><span class="self">self</span>.acquire().<span class="kw">await</span>;
 
         MutexGuard {
             lock: <span class="self">self</span>,
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span>resource_span: <span class="self">self</span>.resource_span.clone(),
         }
     }
@@ -1381,7 +1381,7 @@
     /// }
     ///
     /// ```
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     #[cfg(feature = <span class="string">&quot;sync&quot;</span>)]
     </span><span class="kw">pub fn </span>blocking_lock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; MutexGuard&lt;<span class="lifetime">&#39;_</span>, T&gt; {
         <span class="kw">crate</span>::future::block_on(<span class="self">self</span>.lock())
@@ -1420,7 +1420,7 @@
     ///
     /// [`Arc`]: std::sync::Arc
     </span><span class="kw">pub async fn </span>lock_owned(<span class="self">self</span>: Arc&lt;<span class="self">Self</span>&gt;) -&gt; OwnedMutexGuard&lt;T&gt; {
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span>trace::async_op(
             || <span class="self">self</span>.acquire(),
             <span class="self">self</span>.resource_span.clone(),
@@ -1430,7 +1430,7 @@
         )
         .<span class="kw">await</span>;
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="self">self</span>.resource_span.in_scope(|| {
             <span class="macro">tracing::trace!</span>(
                 target: <span class="string">&quot;runtime::resource::state_update&quot;</span>,
@@ -1438,15 +1438,15 @@
             );
         });
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>resource_span = <span class="self">self</span>.resource_span.clone();
 
-        <span class="attribute">#[cfg(any(not(tokio_unstable), not(feature = <span class="string">&quot;tracing&quot;</span>)))]
+        <span class="attr">#[cfg(any(not(tokio_unstable), not(feature = <span class="string">&quot;tracing&quot;</span>)))]
         </span><span class="self">self</span>.acquire().<span class="kw">await</span>;
 
         OwnedMutexGuard {
             lock: <span class="self">self</span>,
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span>resource_span,
         }
     }
@@ -1479,7 +1479,7 @@
     </span><span class="kw">pub fn </span>try_lock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;MutexGuard&lt;<span class="lifetime">&#39;_</span>, T&gt;, TryLockError&gt; {
         <span class="kw">match </span><span class="self">self</span>.s.try_acquire(<span class="number">1</span>) {
             <span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; {
-                <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+                <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
                 </span><span class="self">self</span>.resource_span.in_scope(|| {
                     <span class="macro">tracing::trace!</span>(
                         target: <span class="string">&quot;runtime::resource::state_update&quot;</span>,
@@ -1489,7 +1489,7 @@
 
                 <span class="prelude-val">Ok</span>(MutexGuard {
                     lock: <span class="self">self</span>,
-                    <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+                    <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
                     </span>resource_span: <span class="self">self</span>.resource_span.clone(),
                 })
             }
@@ -1548,7 +1548,7 @@
     </span><span class="kw">pub fn </span>try_lock_owned(<span class="self">self</span>: Arc&lt;<span class="self">Self</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;OwnedMutexGuard&lt;T&gt;, TryLockError&gt; {
         <span class="kw">match </span><span class="self">self</span>.s.try_acquire(<span class="number">1</span>) {
             <span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; {
-                <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+                <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
                 </span><span class="self">self</span>.resource_span.in_scope(|| {
                     <span class="macro">tracing::trace!</span>(
                         target: <span class="string">&quot;runtime::resource::state_update&quot;</span>,
@@ -1556,12 +1556,12 @@
                     );
                 });
 
-                <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+                <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
                 </span><span class="kw">let </span>resource_span = <span class="self">self</span>.resource_span.clone();
 
                 <span class="prelude-val">Ok</span>(OwnedMutexGuard {
                     lock: <span class="self">self</span>,
-                    <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+                    <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
                     </span>resource_span,
                 })
             }
@@ -1653,7 +1653,7 @@
     ///
     /// [`MutexGuard`]: struct@MutexGuard
     /// [`MappedMutexGuard`]: struct@MappedMutexGuard
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>map&lt;U, F&gt;(<span class="kw-2">mut </span>this: <span class="self">Self</span>, f: F) -&gt; MappedMutexGuard&lt;<span class="lifetime">&#39;a</span>, U&gt;
     <span class="kw">where
         </span>F: FnOnce(<span class="kw-2">&amp;mut </span>T) -&gt; <span class="kw-2">&amp;mut </span>U,
@@ -1700,7 +1700,7 @@
     ///
     /// [`MutexGuard`]: struct@MutexGuard
     /// [`MappedMutexGuard`]: struct@MappedMutexGuard
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>try_map&lt;U, F&gt;(<span class="kw-2">mut </span>this: <span class="self">Self</span>, f: F) -&gt; <span class="prelude-ty">Result</span>&lt;MappedMutexGuard&lt;<span class="lifetime">&#39;a</span>, U&gt;, <span class="self">Self</span>&gt;
     <span class="kw">where
         </span>F: FnOnce(<span class="kw-2">&amp;mut </span>T) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>U&gt;,
@@ -1739,7 +1739,7 @@
     /// #     let _guard = unlock_and_relock(guard).await;
     /// # }
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>mutex(this: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Mutex&lt;T&gt; {
         this.lock
     }
@@ -1747,7 +1747,7 @@
 
 <span class="kw">impl</span>&lt;T: <span class="question-mark">?</span>Sized&gt; Drop <span class="kw">for </span>MutexGuard&lt;<span class="lifetime">&#39;_</span>, T&gt; {
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="self">self</span>.resource_span.in_scope(|| {
             <span class="macro">tracing::trace!</span>(
                 target: <span class="string">&quot;runtime::resource::state_update&quot;</span>,
@@ -1808,7 +1808,7 @@
     /// #     unlock_and_relock(guard).await;
     /// # }
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>mutex(this: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="kw-2">&amp;</span>Arc&lt;Mutex&lt;T&gt;&gt; {
         <span class="kw-2">&amp;</span>this.lock
     }
@@ -1816,7 +1816,7 @@
 
 <span class="kw">impl</span>&lt;T: <span class="question-mark">?</span>Sized&gt; Drop <span class="kw">for </span>OwnedMutexGuard&lt;T&gt; {
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="self">self</span>.resource_span.in_scope(|| {
             <span class="macro">tracing::trace!</span>(
                 target: <span class="string">&quot;runtime::resource::state_update&quot;</span>,
@@ -1863,7 +1863,7 @@
     /// method would interfere with methods of the same name on the contents of the locked data.
     ///
     /// [`MappedMutexGuard`]: struct@MappedMutexGuard
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>map&lt;U, F&gt;(<span class="kw-2">mut </span>this: <span class="self">Self</span>, f: F) -&gt; MappedMutexGuard&lt;<span class="lifetime">&#39;a</span>, U&gt;
     <span class="kw">where
         </span>F: FnOnce(<span class="kw-2">&amp;mut </span>T) -&gt; <span class="kw-2">&amp;mut </span>U,
@@ -1887,7 +1887,7 @@
     /// method would interfere with methods of the same name on the contents of the locked data.
     ///
     /// [`MappedMutexGuard`]: struct@MappedMutexGuard
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>try_map&lt;U, F&gt;(<span class="kw-2">mut </span>this: <span class="self">Self</span>, f: F) -&gt; <span class="prelude-ty">Result</span>&lt;MappedMutexGuard&lt;<span class="lifetime">&#39;a</span>, U&gt;, <span class="self">Self</span>&gt;
     <span class="kw">where
         </span>F: FnOnce(<span class="kw-2">&amp;mut </span>T) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>U&gt;,
@@ -1937,4 +1937,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

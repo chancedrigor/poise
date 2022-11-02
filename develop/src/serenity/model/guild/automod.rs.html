@@ -680,7 +680,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::model::id::{ChannelId, GuildId, MessageId, RoleId, RuleId, UserId};
 
 <span class="doccomment">/// Configured auto moderation rule.
-</span><span class="attribute">#[derive(Clone, Debug, PartialEq, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, PartialEq, Deserialize, Serialize)]
 </span><span class="kw">pub struct </span>Rule {
     <span class="doccomment">/// ID of the rule.
     </span><span class="kw">pub </span>id: RuleId,
@@ -693,7 +693,7 @@
     <span class="doccomment">/// Event context in which the rule should be checked.
     </span><span class="kw">pub </span>event_type: EventType,
     <span class="doccomment">/// Characterizes the type of content which can trigger the rule.
-    </span><span class="attribute">#[serde(flatten)]
+    </span><span class="attr">#[serde(flatten)]
     </span><span class="kw">pub </span>trigger: Trigger,
     <span class="doccomment">/// Actions which will execute when the rule is triggered.
     </span><span class="kw">pub </span>actions: Vec&lt;Action&gt;,
@@ -710,7 +710,7 @@
 }
 
 <span class="doccomment">/// Indicates in what event context a rule should be checked.
-</span><span class="attribute">#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Deserialize, Serialize)]
 #[serde(from = <span class="string">&quot;u8&quot;</span>, into = <span class="string">&quot;u8&quot;</span>)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>EventType {
@@ -737,7 +737,7 @@
 }
 
 <span class="doccomment">/// Characterizes the type of content which can trigger the rule.
-</span><span class="attribute">#[derive(Clone, Debug, PartialEq)]
+</span><span class="attr">#[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>Trigger {
     Keyword(Vec&lt;String&gt;),
@@ -748,22 +748,22 @@
 }
 
 <span class="doccomment">/// Helper struct for the (de)serialization of `Trigger`.
-</span><span class="attribute">#[derive(Deserialize, Serialize)]
+</span><span class="attr">#[derive(Deserialize, Serialize)]
 #[serde(rename = <span class="string">&quot;Trigger&quot;</span>)]
 </span><span class="kw">struct </span>InterimTrigger&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="attribute">#[serde(rename = <span class="string">&quot;trigger_type&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">&quot;trigger_type&quot;</span>)]
     </span>kind: TriggerType,
-    <span class="attribute">#[serde(rename = <span class="string">&quot;trigger_metadata&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">&quot;trigger_metadata&quot;</span>)]
     </span>metadata: InterimTriggerMetadata&lt;<span class="lifetime">&#39;a</span>&gt;,
 }
 
 <span class="doccomment">/// Helper struct for the (de)serialization of `Trigger`.
-</span><span class="attribute">#[derive(Deserialize, Serialize)]
+</span><span class="attr">#[derive(Deserialize, Serialize)]
 #[serde(rename = <span class="string">&quot;TriggerMetadata&quot;</span>)]
 </span><span class="kw">struct </span>InterimTriggerMetadata&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="attribute">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
     </span>keyword_filter: <span class="prelude-ty">Option</span>&lt;Cow&lt;<span class="lifetime">&#39;a</span>, [String]&gt;&gt;,
-    <span class="attribute">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
     </span>presets: <span class="prelude-ty">Option</span>&lt;Cow&lt;<span class="lifetime">&#39;a</span>, [KeywordPresetType]&gt;&gt;,
 }
 
@@ -810,7 +810,7 @@
 }
 
 <span class="kw">impl </span>Trigger {
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>kind(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TriggerType {
         <span class="kw">match </span><span class="self">self </span>{
             <span class="self">Self</span>::Keyword(<span class="kw">_</span>) =&gt; TriggerType::Keyword,
@@ -823,7 +823,7 @@
 }
 
 <span class="doccomment">/// Type of [`Trigger`].
-</span><span class="attribute">#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Deserialize, Serialize)]
 #[serde(from = <span class="string">&quot;u8&quot;</span>, into = <span class="string">&quot;u8&quot;</span>)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>TriggerType {
@@ -864,14 +864,14 @@
 /// See [`Change::TriggerMetadata`].
 ///
 /// [`Change::TriggerMetadata`]: crate::model::guild::audit_log::Change::TriggerMetadata
-</span><span class="attribute">#[derive(Clone, Debug, PartialEq, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, PartialEq, Deserialize, Serialize)]
 </span><span class="kw">pub struct </span>TriggerMetadata {
     keyword_filter: <span class="prelude-ty">Option</span>&lt;Vec&lt;String&gt;&gt;,
     presets: <span class="prelude-ty">Option</span>&lt;Vec&lt;KeywordPresetType&gt;&gt;,
 }
 
 <span class="doccomment">/// Internally pre-defined wordsets which will be searched for in content.
-</span><span class="attribute">#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Deserialize, Serialize)]
 #[serde(from = <span class="string">&quot;u8&quot;</span>, into = <span class="string">&quot;u8&quot;</span>)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>KeywordPresetType {
@@ -904,7 +904,7 @@
 }
 
 <span class="doccomment">/// An action which will execute whenever a rule is triggered.
-</span><span class="attribute">#[derive(Clone, Debug, PartialEq)]
+</span><span class="attr">#[derive(Clone, Debug, PartialEq)]
 </span><span class="kw">pub enum </span>Action {
     <span class="doccomment">/// Blocks the content of a message according to the rule.
     </span>BlockMessage,
@@ -927,7 +927,7 @@
 /// blocked).
 ///
 /// [Discord docs](https://discord.com/developers/docs/topics/gateway#auto-moderation-action-execution)
-</span><span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 </span><span class="kw">pub struct </span>ActionExecution {
     <span class="doccomment">/// ID of the guild in which the action was executed.
     </span><span class="kw">pub </span>guild_id: GuildId,
@@ -936,7 +936,7 @@
     <span class="doccomment">/// ID of the rule which action belongs to.
     </span><span class="kw">pub </span>rule_id: RuleId,
     <span class="doccomment">/// Trigger type of rule which was triggered.
-    </span><span class="attribute">#[serde(rename = <span class="string">&quot;rule_trigger_type&quot;</span>)]
+    </span><span class="attr">#[serde(rename = <span class="string">&quot;rule_trigger_type&quot;</span>)]
     </span><span class="kw">pub </span>trigger_type: TriggerType,
     <span class="doccomment">/// ID of the user which generated the content which triggered the rule.
     </span><span class="kw">pub </span>user_id: UserId,
@@ -967,17 +967,17 @@
 }
 
 <span class="doccomment">/// Helper struct for the (de)serialization of `Action`.
-</span><span class="attribute">#[derive(Deserialize, Serialize)]
+</span><span class="attr">#[derive(Deserialize, Serialize)]
 #[serde(rename = <span class="string">&quot;ActionMetadata&quot;</span>)]
 </span><span class="kw">struct </span>Alert {
     channel_id: ChannelId,
 }
 
 <span class="doccomment">/// Helper struct for the (de)serialization of `Action`.
-</span><span class="attribute">#[derive(Deserialize, Serialize)]
+</span><span class="attr">#[derive(Deserialize, Serialize)]
 #[serde(rename = <span class="string">&quot;ActionMetadata&quot;</span>)]
 </span><span class="kw">struct </span>Timeout {
-    <span class="attribute">#[serde(rename = <span class="string">&quot;duration_seconds&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">&quot;duration_seconds&quot;</span>)]
     </span>duration: u64,
 }
 
@@ -988,7 +988,7 @@
 // enums](https://github.com/serde-rs/serde/pull/2056).
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;de</span>&gt; Deserialize&lt;<span class="lifetime">&#39;de</span>&gt; <span class="kw">for </span>Action {
     <span class="kw">fn </span>deserialize&lt;D: Deserializer&lt;<span class="lifetime">&#39;de</span>&gt;&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, D::Error&gt; {
-        <span class="attribute">#[derive(Deserialize)]
+        <span class="attr">#[derive(Deserialize)]
         #[serde(field_identifier, rename_all = <span class="string">&quot;snake_case&quot;</span>)]
         </span><span class="kw">enum </span>Field {
             Type,
@@ -1081,7 +1081,7 @@
 }
 
 <span class="kw">impl </span>Action {
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>kind(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ActionType {
         <span class="kw">match </span><span class="self">self </span>{
             <span class="self">Self</span>::BlockMessage =&gt; ActionType::BlockMessage,
@@ -1093,7 +1093,7 @@
 }
 
 <span class="doccomment">/// Type of [`Action`].
-</span><span class="attribute">#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Deserialize, Serialize)]
 #[serde(from = <span class="string">&quot;u8&quot;</span>, into = <span class="string">&quot;u8&quot;</span>)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>ActionType {
@@ -1134,7 +1134,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>std::time::Duration;
 
@@ -1142,11 +1142,11 @@
 
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>rule_trigger_serde() {
-        <span class="attribute">#[derive(Debug, PartialEq, Deserialize, Serialize)]
+        <span class="attr">#[derive(Debug, PartialEq, Deserialize, Serialize)]
         </span><span class="kw">struct </span>Rule {
-            <span class="attribute">#[serde(flatten)]
+            <span class="attr">#[serde(flatten)]
             </span>trigger: Trigger,
         }
 
@@ -1263,7 +1263,7 @@
         ]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>action_serde() {
         <span class="kw">let </span>value = Action::BlockMessage;
 
@@ -1331,4 +1331,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

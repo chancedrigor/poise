@@ -654,7 +654,7 @@
 ///
 /// assert_eq!(percent_encode(b&quot;foo bar?&quot;, NON_ALPHANUMERIC).to_string(), &quot;foo%20bar%3F&quot;);
 /// ```
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>percent_encode&lt;<span class="lifetime">&#39;a</span>&gt;(input: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8], ascii_set: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>AsciiSet) -&gt; PercentEncode&lt;<span class="lifetime">&#39;a</span>&gt; {
     PercentEncode {
         bytes: input,
@@ -673,13 +673,13 @@
 ///
 /// assert_eq!(utf8_percent_encode(&quot;foo bar?&quot;, NON_ALPHANUMERIC).to_string(), &quot;foo%20bar%3F&quot;);
 /// ```
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>utf8_percent_encode&lt;<span class="lifetime">&#39;a</span>&gt;(input: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str, ascii_set: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>AsciiSet) -&gt; PercentEncode&lt;<span class="lifetime">&#39;a</span>&gt; {
     percent_encode(input.as_bytes(), ascii_set)
 }
 
 <span class="doccomment">/// The return type of [`percent_encode`] and [`utf8_percent_encode`].
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>PercentEncode&lt;<span class="lifetime">&#39;a</span>&gt; {
     bytes: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8],
     ascii_set: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>AsciiSet,
@@ -751,7 +751,7 @@
 /// &lt;https://url.spec.whatwg.org/#string-percent-decode&gt;
 ///
 /// See [`percent_decode`] regarding the return type.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>percent_decode_str(input: <span class="kw-2">&amp;</span>str) -&gt; PercentDecode {
     percent_decode(input.as_bytes())
 }
@@ -774,7 +774,7 @@
 ///
 /// assert_eq!(percent_decode(b&quot;foo%20bar%3f&quot;).decode_utf8().unwrap(), &quot;foo bar?&quot;);
 /// ```
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>percent_decode(input: <span class="kw-2">&amp;</span>[u8]) -&gt; PercentDecode {
     PercentDecode {
         bytes: input.iter(),
@@ -782,7 +782,7 @@
 }
 
 <span class="doccomment">/// The return type of [`percent_decode`].
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>PercentDecode&lt;<span class="lifetime">&#39;a</span>&gt; {
     bytes: slice::Iter&lt;<span class="lifetime">&#39;a</span>, u8&gt;,
 }
@@ -883,4 +883,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="percent_encoding" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="percent_encoding" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

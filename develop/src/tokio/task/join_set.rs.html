@@ -515,7 +515,7 @@
 <span class="kw">use </span>std::task::{Context, Poll};
 
 <span class="kw">use </span><span class="kw">crate</span>::runtime::Handle;
-<span class="attribute">#[cfg(tokio_unstable)]
+<span class="attr">#[cfg(tokio_unstable)]
 </span><span class="kw">use </span><span class="kw">crate</span>::task::Id;
 <span class="kw">use </span><span class="kw">crate</span>::task::{AbortHandle, JoinError, JoinHandle, LocalSet};
 <span class="kw">use </span><span class="kw">crate</span>::util::IdleNotifiedSet;
@@ -556,7 +556,7 @@
 ///     }
 /// }
 /// ```
-</span><span class="attribute">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;rt&quot;</span>)))]
+</span><span class="attr">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;rt&quot;</span>)))]
 </span><span class="kw">pub struct </span>JoinSet&lt;T&gt; {
     inner: IdleNotifiedSet&lt;JoinHandle&lt;T&gt;&gt;,
 }
@@ -565,7 +565,7 @@
 /// than on the current default runtime.
 ///
 /// [`task::Builder`]: crate::task::Builder
-</span><span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+</span><span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
 #[cfg_attr(docsrs, doc(cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))))]
 #[must_use = <span class="string">&quot;builders do nothing unless used to spawn a task&quot;</span>]
 </span><span class="kw">pub struct </span>Builder&lt;<span class="lifetime">&#39;a</span>, T&gt; {
@@ -613,7 +613,7 @@
     ///     Ok(())
     /// }
     /// ```
-    </span><span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+    </span><span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
     #[cfg_attr(docsrs, doc(cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))))]
     </span><span class="kw">pub fn </span>build_task(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; Builder&lt;<span class="lifetime">&#39;_</span>, T&gt; {
         Builder {
@@ -630,7 +630,7 @@
     /// This method panics if called outside of a Tokio runtime.
     ///
     /// [`AbortHandle`]: crate::task::AbortHandle
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>spawn&lt;F&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, task: F) -&gt; AbortHandle
     <span class="kw">where
         </span>F: Future&lt;Output = T&gt;,
@@ -645,7 +645,7 @@
     /// cancel the task.
     ///
     /// [`AbortHandle`]: crate::task::AbortHandle
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>spawn_on&lt;F&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, task: F, handle: <span class="kw-2">&amp;</span>Handle) -&gt; AbortHandle
     <span class="kw">where
         </span>F: Future&lt;Output = T&gt;,
@@ -665,7 +665,7 @@
     ///
     /// [`LocalSet`]: crate::task::LocalSet
     /// [`AbortHandle`]: crate::task::AbortHandle
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>spawn_local&lt;F&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, task: F) -&gt; AbortHandle
     <span class="kw">where
         </span>F: Future&lt;Output = T&gt;,
@@ -680,7 +680,7 @@
     ///
     /// [`LocalSet`]: crate::task::LocalSet
     /// [`AbortHandle`]: crate::task::AbortHandle
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>spawn_local_on&lt;F&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, task: F, local_set: <span class="kw-2">&amp;</span>LocalSet) -&gt; AbortHandle
     <span class="kw">where
         </span>F: Future&lt;Output = T&gt;,
@@ -727,7 +727,7 @@
     ///
     /// [task ID]: crate::task::Id
     /// [`JoinError::id`]: fn@crate::task::JoinError::id
-    </span><span class="attribute">#[cfg(tokio_unstable)]
+    </span><span class="attr">#[cfg(tokio_unstable)]
     #[cfg_attr(docsrs, doc(cfg(tokio_unstable)))]
     </span><span class="kw">pub async fn </span>join_next_with_id(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="prelude-ty">Result</span>&lt;(Id, T), JoinError&gt;&gt; {
         <span class="kw">crate</span>::future::poll_fn(|cx| <span class="self">self</span>.poll_join_next_with_id(cx)).<span class="kw">await
@@ -845,7 +845,7 @@
     ///
     /// [coop budget]: crate::task#cooperative-scheduling
     /// [task ID]: crate::task::Id
-    </span><span class="attribute">#[cfg(tokio_unstable)]
+    </span><span class="attr">#[cfg(tokio_unstable)]
     </span><span class="kw">fn </span>poll_join_next_with_id(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;,
@@ -901,7 +901,7 @@
 
 <span class="comment">// === impl Builder ===
 
-</span><span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+</span><span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
 #[cfg_attr(docsrs, doc(cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))))]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, T: <span class="lifetime">&#39;static</span>&gt; Builder&lt;<span class="lifetime">&#39;a</span>, T&gt; {
     <span class="doccomment">/// Assigns a name to the task which will be spawned.
@@ -923,7 +923,7 @@
     /// This method panics if called outside of a Tokio runtime.
     ///
     /// [`AbortHandle`]: crate::task::AbortHandle
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>spawn&lt;F&gt;(<span class="self">self</span>, future: F) -&gt; std::io::Result&lt;AbortHandle&gt;
     <span class="kw">where
         </span>F: Future&lt;Output = T&gt;,
@@ -943,7 +943,7 @@
     ///
     /// [`AbortHandle`]: crate::task::AbortHandle
     /// [runtime handle]: crate::runtime::Handle
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>spawn_on&lt;F&gt;(<span class="self">self</span>, future: F, handle: <span class="kw-2">&amp;</span>Handle) -&gt; std::io::Result&lt;AbortHandle&gt;
     <span class="kw">where
         </span>F: Future&lt;Output = T&gt;,
@@ -966,7 +966,7 @@
     ///
     /// [`LocalSet`]: crate::task::LocalSet
     /// [`AbortHandle`]: crate::task::AbortHandle
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>spawn_local&lt;F&gt;(<span class="self">self</span>, future: F) -&gt; std::io::Result&lt;AbortHandle&gt;
     <span class="kw">where
         </span>F: Future&lt;Output = T&gt;,
@@ -984,7 +984,7 @@
     ///
     /// [`LocalSet`]: crate::task::LocalSet
     /// [`AbortHandle`]: crate::task::AbortHandle
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>spawn_local_on&lt;F&gt;(<span class="self">self</span>, future: F, local_set: <span class="kw-2">&amp;</span>LocalSet) -&gt; std::io::Result&lt;AbortHandle&gt;
     <span class="kw">where
         </span>F: Future&lt;Output = T&gt;,
@@ -998,7 +998,7 @@
 
 <span class="comment">// Manual `Debug` impl so that `Builder` is `Debug` regardless of whether `T` is
 // `Debug`.
-</span><span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+</span><span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
 #[cfg_attr(docsrs, doc(cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))))]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, T&gt; fmt::Debug <span class="kw">for </span>Builder&lt;<span class="lifetime">&#39;a</span>, T&gt; {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
@@ -1009,4 +1009,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

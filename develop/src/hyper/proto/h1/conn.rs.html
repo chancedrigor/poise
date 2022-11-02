@@ -1426,7 +1426,7 @@
 </pre><pre class="rust"><code><span class="kw">use </span>std::fmt;
 <span class="kw">use </span>std::io;
 <span class="kw">use </span>std::marker::PhantomData;
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
 </span><span class="kw">use </span>std::time::Duration;
 
 <span class="kw">use </span>bytes::{Buf, Bytes};
@@ -1434,7 +1434,7 @@
 <span class="kw">use </span>http::{HeaderMap, Method, Version};
 <span class="kw">use </span>httparse::ParserConfig;
 <span class="kw">use </span>tokio::io::{AsyncRead, AsyncWrite};
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
 </span><span class="kw">use </span>tokio::time::Sleep;
 <span class="kw">use </span>tracing::{debug, error, trace};
 
@@ -1476,18 +1476,18 @@
                 keep_alive: KA::Busy,
                 method: <span class="prelude-val">None</span>,
                 h1_parser_config: ParserConfig::default(),
-                <span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
+                <span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
                 </span>h1_header_read_timeout: <span class="prelude-val">None</span>,
-                <span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
+                <span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
                 </span>h1_header_read_timeout_fut: <span class="prelude-val">None</span>,
-                <span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
+                <span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
                 </span>h1_header_read_timeout_running: <span class="bool-val">false</span>,
                 preserve_header_case: <span class="bool-val">false</span>,
                 title_case_headers: <span class="bool-val">false</span>,
                 h09_responses: <span class="bool-val">false</span>,
-                <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                 </span>on_informational: <span class="prelude-val">None</span>,
-                <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                 </span>raw_headers: <span class="bool-val">false</span>,
                 notify_read: <span class="bool-val">false</span>,
                 reading: Reading::Init,
@@ -1501,7 +1501,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>set_flush_pipeline(<span class="kw-2">&amp;mut </span><span class="self">self</span>, enabled: bool) {
         <span class="self">self</span>.io.set_flush_pipeline(enabled);
     }
@@ -1514,7 +1514,7 @@
         <span class="self">self</span>.io.set_max_buf_size(max);
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;client&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;client&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>set_read_buf_exact_size(<span class="kw-2">&amp;mut </span><span class="self">self</span>, sz: usize) {
         <span class="self">self</span>.io.set_read_buf_exact_size(sz);
     }
@@ -1523,7 +1523,7 @@
         <span class="self">self</span>.io.set_write_strategy_flatten();
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;client&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;client&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>set_h1_parser_config(<span class="kw-2">&amp;mut </span><span class="self">self</span>, parser_config: ParserConfig) {
         <span class="self">self</span>.state.h1_parser_config = parser_config;
     }
@@ -1536,22 +1536,22 @@
         <span class="self">self</span>.state.preserve_header_case = <span class="bool-val">true</span>;
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;client&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;client&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>set_h09_responses(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.state.h09_responses = <span class="bool-val">true</span>;
     }
 
-    <span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
+    <span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>set_http1_header_read_timeout(<span class="kw-2">&amp;mut </span><span class="self">self</span>, val: Duration) {
         <span class="self">self</span>.state.h1_header_read_timeout = <span class="prelude-val">Some</span>(val);
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>set_allow_half_close(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.state.allow_half_close = <span class="bool-val">true</span>;
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>set_raw_headers(<span class="kw-2">&amp;mut </span><span class="self">self</span>, enabled: bool) {
         <span class="self">self</span>.state.raw_headers = enabled;
     }
@@ -1618,17 +1618,17 @@
                 cached_headers: <span class="kw-2">&amp;mut </span><span class="self">self</span>.state.cached_headers,
                 req_method: <span class="kw-2">&amp;mut </span><span class="self">self</span>.state.method,
                 h1_parser_config: <span class="self">self</span>.state.h1_parser_config.clone(),
-                <span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
+                <span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
                 </span>h1_header_read_timeout: <span class="self">self</span>.state.h1_header_read_timeout,
-                <span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
+                <span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
                 </span>h1_header_read_timeout_fut: <span class="kw-2">&amp;mut </span><span class="self">self</span>.state.h1_header_read_timeout_fut,
-                <span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
+                <span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
                 </span>h1_header_read_timeout_running: <span class="kw-2">&amp;mut </span><span class="self">self</span>.state.h1_header_read_timeout_running,
                 preserve_header_case: <span class="self">self</span>.state.preserve_header_case,
                 h09_responses: <span class="self">self</span>.state.h09_responses,
-                <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                 </span>on_informational: <span class="kw-2">&amp;mut </span><span class="self">self</span>.state.on_informational,
-                <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                 </span>raw_headers: <span class="self">self</span>.state.raw_headers,
             }
         )) {
@@ -1645,7 +1645,7 @@
         </span><span class="self">self</span>.state.h09_responses = <span class="bool-val">false</span>;
 
         <span class="comment">// Drop any OnInformational callbacks, we&#39;re done there!
-        </span><span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+        </span><span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
         </span>{
             <span class="self">self</span>.state.on_informational = <span class="prelude-val">None</span>;
         }
@@ -1979,7 +1979,7 @@
             Encode {
                 head: <span class="kw-2">&amp;mut </span>head,
                 body,
-                <span class="attribute">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
+                <span class="attr">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
                 </span>keep_alive: <span class="self">self</span>.state.wants_keep_alive(),
                 req_method: <span class="kw-2">&amp;mut </span><span class="self">self</span>.state.method,
                 title_case_headers: <span class="self">self</span>.state.title_case_headers,
@@ -1991,7 +1991,7 @@
                 <span class="macro">debug_assert!</span>(head.headers.is_empty());
                 <span class="self">self</span>.state.cached_headers = <span class="prelude-val">Some</span>(head.headers);
 
-                <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                 </span>{
                     <span class="self">self</span>.state.on_informational =
                         head.extensions.remove::&lt;<span class="kw">crate</span>::ffi::OnInformational&gt;();
@@ -2190,7 +2190,7 @@
         <span class="self">self</span>.state.close_write();
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>disable_keep_alive(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="kw">if </span><span class="self">self</span>.state.is_idle() {
             <span class="macro">trace!</span>(<span class="string">&quot;disable_keep_alive; closing idle connection&quot;</span>);
@@ -2242,11 +2242,11 @@
     /// a body or not.
     </span>method: <span class="prelude-ty">Option</span>&lt;Method&gt;,
     h1_parser_config: ParserConfig,
-    <span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
+    <span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
     </span>h1_header_read_timeout: <span class="prelude-ty">Option</span>&lt;Duration&gt;,
-    <span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
+    <span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
     </span>h1_header_read_timeout_fut: <span class="prelude-ty">Option</span>&lt;Pin&lt;Box&lt;Sleep&gt;&gt;&gt;,
-    <span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
+    <span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
     </span>h1_header_read_timeout_running: bool,
     preserve_header_case: bool,
     title_case_headers: bool,
@@ -2254,9 +2254,9 @@
     <span class="doccomment">/// If set, called with each 1xx informational response received for
     /// the current request. MUST be unset after a non-1xx response is
     /// received.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
     </span>on_informational: <span class="prelude-ty">Option</span>&lt;<span class="kw">crate</span>::ffi::OnInformational&gt;,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
     </span>raw_headers: bool,
     <span class="doccomment">/// Set to true when the Dispatcher should poll read operations
     /// again. See the `maybe_notify` method for more.
@@ -2271,7 +2271,7 @@
     </span>version: Version,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">enum </span>Reading {
     Init,
     Continue(Decoder),
@@ -2330,7 +2330,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Copy, Debug)]
+<span class="attr">#[derive(Clone, Copy, Debug)]
 </span><span class="kw">enum </span>KA {
     Idle,
     Busy,
@@ -2472,9 +2472,9 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
     #[bench]
     </span><span class="kw">fn </span>bench_read_head_short(b: <span class="kw-2">&amp;mut </span>::test::Bencher) {
         <span class="kw">use super</span>::<span class="kw-2">*</span>;
@@ -2849,4 +2849,4 @@
     */
 </span>}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

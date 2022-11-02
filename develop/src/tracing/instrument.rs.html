@@ -488,7 +488,7 @@
     /// [entered]: super::Span::enter()
     /// [`Span`]: crate::Span
     /// [`Future`]: std::future::Future
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>in_current_span(<span class="self">self</span>) -&gt; Instrumented&lt;<span class="self">Self</span>&gt; {
         <span class="self">self</span>.instrument(Span::current())
     }
@@ -496,7 +496,7 @@
 
 <span class="doccomment">/// Extension trait allowing futures to be instrumented with
 /// a `tracing` [`Subscriber`](crate::Subscriber).
-</span><span class="attribute">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;std&quot;</span>)))]
+</span><span class="attr">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;std&quot;</span>)))]
 </span><span class="kw">pub trait </span>WithSubscriber: Sized {
     <span class="doccomment">/// Attaches the provided [`Subscriber`] to this type, returning a
     /// [`WithDispatch`] wrapper.
@@ -588,7 +588,7 @@
     /// [`Subscriber`]: super::Subscriber
     /// [default]: crate::dispatcher#setting-the-default-subscriber
     /// [`Future`]: std::future::Future
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>with_current_subscriber(<span class="self">self</span>) -&gt; WithDispatch&lt;<span class="self">Self</span>&gt; {
         WithDispatch {
             inner: <span class="self">self</span>,
@@ -605,11 +605,11 @@
     ///
     /// [`Future`]: std::future::Future
     /// [`Subscriber`]: crate::Subscriber
-    </span><span class="attribute">#[derive(Clone, Debug)]
+    </span><span class="attr">#[derive(Clone, Debug)]
     #[must_use = <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;std&quot;</span>)))]
     </span><span class="kw">pub struct </span>WithDispatch&lt;T&gt; {
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span>inner: T,
         dispatcher: Dispatch,
     }
@@ -623,10 +623,10 @@
     ///
     /// [`Future`]: std::future::Future
     /// [`Span`]: crate::Span
-    </span><span class="attribute">#[derive(Debug, Clone)]
+    </span><span class="attr">#[derive(Debug, Clone)]
     #[must_use = <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]
     </span><span class="kw">pub struct </span>Instrumented&lt;T&gt; {
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span>inner: T,
         span: Span,
     }
@@ -687,7 +687,7 @@
 
 <span class="comment">// === impl WithDispatch ===
 
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;std&quot;</span>)))]
 </span><span class="kw">impl</span>&lt;T: Future&gt; Future <span class="kw">for </span>WithDispatch&lt;T&gt; {
     <span class="kw">type </span>Output = T::Output;
@@ -701,10 +701,10 @@
     }
 }
 
-<span class="attribute">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;std&quot;</span>)))]
+<span class="attr">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;std&quot;</span>)))]
 </span><span class="kw">impl</span>&lt;T: Sized&gt; WithSubscriber <span class="kw">for </span>T {}
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;std&quot;</span>)))]
 </span><span class="kw">impl</span>&lt;T&gt; WithDispatch&lt;T&gt; {
     <span class="doccomment">/// Borrows the [`Dispatch`] that is entered when this type is polled.
@@ -740,4 +740,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -119,7 +119,7 @@
 
 <span class="kw">impl</span>&lt;F: FnMut(<span class="kw-2">&amp;</span>str)&gt; LossyDecoder&lt;F&gt; {
     <span class="doccomment">/// Create a new decoder from a callback.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new(push_str: F) -&gt; <span class="self">Self </span>{
         LossyDecoder {
             push_str: push_str,
@@ -175,7 +175,7 @@
 }
 
 <span class="kw">impl</span>&lt;F: FnMut(<span class="kw-2">&amp;</span>str)&gt; Drop <span class="kw">for </span>LossyDecoder&lt;F&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="kw">if </span><span class="self">self</span>.incomplete.buffer_len &gt; <span class="number">0 </span>{
             (<span class="self">self</span>.push_str)(REPLACEMENT_CHARACTER)
@@ -183,4 +183,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="utf8" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="utf8" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

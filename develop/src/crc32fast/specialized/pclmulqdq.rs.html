@@ -223,18 +223,18 @@
 <span id="223">223</span>
 <span id="224">224</span>
 <span id="225">225</span>
-</pre><pre class="rust"><code><span class="attribute">#[cfg(target_arch = <span class="string">&quot;x86&quot;</span>)]
+</pre><pre class="rust"><code><span class="attr">#[cfg(target_arch = <span class="string">&quot;x86&quot;</span>)]
 </span><span class="kw">use </span>core::arch::x86 <span class="kw">as </span>arch;
-<span class="attribute">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
+<span class="attr">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
 </span><span class="kw">use </span>core::arch::x86_64 <span class="kw">as </span>arch;
 
-<span class="attribute">#[derive(Clone)]
+<span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>State {
     state: u32,
 }
 
 <span class="kw">impl </span>State {
-    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
+    <span class="attr">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
     </span><span class="kw">pub fn </span>new(state: u32) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="self">Self</span>&gt; {
         <span class="kw">if </span><span class="macro">cfg!</span>(target_feature = <span class="string">&quot;pclmulqdq&quot;</span>)
             &amp;&amp; <span class="macro">cfg!</span>(target_feature = <span class="string">&quot;sse2&quot;</span>)
@@ -248,7 +248,7 @@
         </span>}
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     </span><span class="kw">pub fn </span>new(state: u32) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="self">Self</span>&gt; {
         <span class="kw">if </span><span class="macro">is_x86_feature_detected!</span>(<span class="string">&quot;pclmulqdq&quot;</span>)
             &amp;&amp; <span class="macro">is_x86_feature_detected!</span>(<span class="string">&quot;sse2&quot;</span>)
@@ -291,7 +291,7 @@
 <span class="kw">const </span>P_X: i64 = <span class="number">0x1DB710641</span>;
 <span class="kw">const </span>U_PRIME: i64 = <span class="number">0x1F7011641</span>;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">unsafe fn </span>debug(s: <span class="kw-2">&amp;</span>str, a: arch::__m128i) -&gt; arch::__m128i {
     <span class="kw">if </span><span class="bool-val">false </span>{
         <span class="kw">union </span>A {
@@ -308,12 +308,12 @@
     <span class="kw">return </span>a;
 }
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
 </span><span class="kw">unsafe fn </span>debug(_s: <span class="kw-2">&amp;</span>str, a: arch::__m128i) -&gt; arch::__m128i {
     a
 }
 
-<span class="attribute">#[target_feature(enable = <span class="string">&quot;pclmulqdq&quot;</span>, enable = <span class="string">&quot;sse2&quot;</span>, enable = <span class="string">&quot;sse4.1&quot;</span>)]
+<span class="attr">#[target_feature(enable = <span class="string">&quot;pclmulqdq&quot;</span>, enable = <span class="string">&quot;sse2&quot;</span>, enable = <span class="string">&quot;sse4.1&quot;</span>)]
 </span><span class="kw">unsafe fn </span>calculate(crc: u32, <span class="kw-2">mut </span>data: <span class="kw-2">&amp;</span>[u8]) -&gt; u32 {
     <span class="comment">// In theory we can accelerate smaller chunks too, but for now just rely on
     // the fallback implementation as it&#39;s too much hassle and doesn&#39;t seem too
@@ -427,7 +427,7 @@
     <span class="kw">return </span>r;
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="macro">quickcheck! </span>{
         <span class="kw">fn </span>check_against_baseline(init: u32, chunks: Vec&lt;(Vec&lt;u8&gt;, usize)&gt;) -&gt; bool {
@@ -449,4 +449,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="crc32fast" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="crc32fast" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

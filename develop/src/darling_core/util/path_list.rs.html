@@ -120,7 +120,7 @@
 ///     derive: PathList(vec![syn::Path::new(&quot;serde::Debug&quot;), syn::Path::new(&quot;Clone&quot;)])
 /// }
 /// ```
-</span><span class="attribute">#[derive(Debug, Default, Clone, PartialEq, Eq)]
+</span><span class="attr">#[derive(Debug, Default, Clone, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>PathList(Vec&lt;Path&gt;);
 
 <span class="kw">impl </span>PathList {
@@ -164,7 +164,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::PathList;
     <span class="kw">use </span><span class="kw">crate</span>::FromMeta;
@@ -173,7 +173,7 @@
 
     <span class="doccomment">/// parse a string as a syn::Meta instance.
     </span><span class="kw">fn </span>pm(tokens: TokenStream) -&gt; ::std::result::Result&lt;Meta, String&gt; {
-        <span class="kw">let </span>attribute: Attribute = <span class="macro">parse_quote!</span>(<span class="attribute">#[#tokens]</span>);
+        <span class="kw">let </span>attribute: Attribute = <span class="macro">parse_quote!</span>(<span class="attr">#[#tokens]</span>);
         attribute.parse_meta().map_err(|<span class="kw">_</span>| <span class="string">&quot;Unable to parse&quot;</span>.into())
     }
 
@@ -182,7 +182,7 @@
             .expect(<span class="string">&quot;Tests should pass valid input&quot;</span>)
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>succeeds() {
         <span class="kw">let </span>paths = fm::&lt;PathList&gt;(<span class="macro">quote!</span>(ignore(Debug, Clone, Eq)));
         <span class="macro">assert_eq!</span>(
@@ -197,7 +197,7 @@
 
     <span class="doccomment">/// Check that the parser rejects non-word members of the list, and that the error
     /// has an associated span.
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>fails_non_word() {
         <span class="kw">let </span>input = PathList::from_meta(<span class="kw-2">&amp;</span>pm(<span class="macro">quote!</span>(ignore(Debug, Clone = <span class="bool-val">false</span>))).unwrap());
         <span class="kw">let </span>err = input.unwrap_err();
@@ -205,4 +205,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="darling_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="darling_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

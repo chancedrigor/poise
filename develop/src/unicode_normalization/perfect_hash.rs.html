@@ -63,7 +63,7 @@
 
 </span><span class="comment">// This function is based on multiplication being fast and is &quot;good enough&quot;. Also
 // it can share some work between the unsalted and salted versions.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>my_hash(key: u32, salt: u32, n: usize) -&gt; usize {
     <span class="kw">let </span>y = key.wrapping_add(salt).wrapping_mul(<span class="number">2654435769</span>);
     <span class="kw">let </span>y = y ^ key.wrapping_mul(<span class="number">0x31415926</span>);
@@ -77,7 +77,7 @@
 /// The first hash retrieves a salt value that makes the second hash unique.
 /// The hash function doesn&#39;t have to be very good, just good enough that the
 /// resulting map is unique.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>mph_lookup&lt;KV, V, FK, FV&gt;(
     x: u32,
     salt: <span class="kw-2">&amp;</span>[u16],
@@ -100,4 +100,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="unicode_normalization" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="unicode_normalization" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

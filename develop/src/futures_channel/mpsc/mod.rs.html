@@ -1399,16 +1399,16 @@
 <span class="kw">use </span><span class="kw">crate</span>::mpsc::queue::Queue;
 
 <span class="kw">mod </span>queue;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
 </span><span class="kw">mod </span>sink_impl;
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>UnboundedSenderInner&lt;T&gt; {
     <span class="comment">// Channel state shared between the sender and receiver.
     </span>inner: Arc&lt;UnboundedInner&lt;T&gt;&gt;,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>BoundedSenderInner&lt;T&gt; {
     <span class="comment">// Channel state shared between the sender and receiver.
     </span>inner: Arc&lt;BoundedInner&lt;T&gt;&gt;,
@@ -1430,13 +1430,13 @@
 <span class="doccomment">/// The transmission end of a bounded mpsc channel.
 ///
 /// This value is created by the [`channel`](channel) function.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Sender&lt;T&gt;(<span class="prelude-ty">Option</span>&lt;BoundedSenderInner&lt;T&gt;&gt;);
 
 <span class="doccomment">/// The transmission end of an unbounded mpsc channel.
 ///
 /// This value is created by the [`unbounded`](unbounded) function.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>UnboundedSender&lt;T&gt;(<span class="prelude-ty">Option</span>&lt;UnboundedSenderInner&lt;T&gt;&gt;);
 
 <span class="kw">trait </span>AssertKinds: Send + Sync + Clone {}
@@ -1445,7 +1445,7 @@
 <span class="doccomment">/// The receiving end of a bounded mpsc channel.
 ///
 /// This value is created by the [`channel`](channel) function.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Receiver&lt;T&gt; {
     inner: <span class="prelude-ty">Option</span>&lt;Arc&lt;BoundedInner&lt;T&gt;&gt;&gt;,
 }
@@ -1453,7 +1453,7 @@
 <span class="doccomment">/// The receiving end of an unbounded mpsc channel.
 ///
 /// This value is created by the [`unbounded`](unbounded) function.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>UnboundedReceiver&lt;T&gt; {
     inner: <span class="prelude-ty">Option</span>&lt;Arc&lt;UnboundedInner&lt;T&gt;&gt;&gt;,
 }
@@ -1462,19 +1462,19 @@
 </span><span class="kw">impl</span>&lt;T&gt; Unpin <span class="kw">for </span>UnboundedReceiver&lt;T&gt; {}
 
 <span class="doccomment">/// The error type for [`Sender`s](Sender) used as `Sink`s.
-</span><span class="attribute">#[derive(Clone, Debug, PartialEq, Eq)]
+</span><span class="attr">#[derive(Clone, Debug, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>SendError {
     kind: SendErrorKind,
 }
 
 <span class="doccomment">/// The error type returned from [`try_send`](Sender::try_send).
-</span><span class="attribute">#[derive(Clone, PartialEq, Eq)]
+</span><span class="attr">#[derive(Clone, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>TrySendError&lt;T&gt; {
     err: SendError,
     val: T,
 }
 
-<span class="attribute">#[derive(Clone, Debug, PartialEq, Eq)]
+<span class="attr">#[derive(Clone, Debug, PartialEq, Eq)]
 </span><span class="kw">enum </span>SendErrorKind {
     Full,
     Disconnected,
@@ -1569,7 +1569,7 @@
 
 <span class="kw">impl </span>std::error::Error <span class="kw">for </span>TryRecvError {}
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>UnboundedInner&lt;T&gt; {
     <span class="comment">// Internal channel state. Consists of the number of messages stored in the
     // channel as well as a flag signalling that the channel is closed.
@@ -1585,7 +1585,7 @@
     </span>recv_task: AtomicWaker,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>BoundedInner&lt;T&gt; {
     <span class="comment">// Max buffer size of the channel. If `None` then the channel is unbounded.
     </span>buffer: usize,
@@ -1608,7 +1608,7 @@
 }
 
 <span class="comment">// Struct representation of `Inner::state`.
-</span><span class="attribute">#[derive(Debug, Clone, Copy)]
+</span><span class="attr">#[derive(Debug, Clone, Copy)]
 </span><span class="kw">struct </span>State {
     <span class="comment">// `true` when the channel is open
     </span>is_open: bool,
@@ -1632,7 +1632,7 @@
 </span><span class="kw">const </span>MAX_BUFFER: usize = MAX_CAPACITY &gt;&gt; <span class="number">1</span>;
 
 <span class="comment">// Sent to the consumer to wake up blocked producers
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>SenderTask {
     task: <span class="prelude-ty">Option</span>&lt;Waker&gt;,
     is_parked: bool,
@@ -2615,4 +2615,4 @@
     num
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_channel" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_channel" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -130,16 +130,16 @@
 }
 
 <span class="doccomment">/// A write or read IV.
-</span><span class="attribute">#[derive(Default)]
+</span><span class="attr">#[derive(Default)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Iv(<span class="kw">pub</span>(<span class="kw">crate</span>) [u8; ring::aead::NONCE_LEN]);
 
 <span class="kw">impl </span>Iv {
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
     </span><span class="kw">fn </span>new(value: [u8; ring::aead::NONCE_LEN]) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>(value)
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>copy(value: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="self">Self </span>{
         <span class="macro">debug_assert_eq!</span>(value.len(), ring::aead::NONCE_LEN);
         <span class="kw">let </span><span class="kw-2">mut </span>iv = <span class="self">Self</span>::new(Default::default());
@@ -147,7 +147,7 @@
         iv
     }
 
-    <span class="attribute">#[cfg(test)]
+    <span class="attr">#[cfg(test)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8; <span class="number">12</span>] {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0
     </span>}
@@ -201,4 +201,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

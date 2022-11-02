@@ -547,12 +547,12 @@
 <span class="kw">use </span><span class="kw">crate</span>::msgs::handshake::SessionID;
 <span class="kw">use </span><span class="kw">crate</span>::suites::SupportedCipherSuite;
 <span class="kw">use </span><span class="kw">crate</span>::ticketer::TimeBase;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::tls12::Tls12CipherSuite;
 <span class="kw">use </span><span class="kw">crate</span>::tls13::Tls13CipherSuite;
 
 <span class="kw">use </span>std::cmp;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
 </span><span class="kw">use </span>std::mem;
 
 <span class="comment">// These are the keys and values we store in session storage.
@@ -560,7 +560,7 @@
 // --- Client types ---
 </span><span class="doccomment">/// Keys for session resumption and tickets.
 /// Matching value is a `ClientSessionValue`.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ClientSessionKey {
     kind: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[u8],
     name: Vec&lt;u8&gt;,
@@ -594,10 +594,10 @@
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub enum </span>ClientSessionValue {
     Tls13(Tls13ClientSessionValue),
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
     </span>Tls12(Tls12ClientSessionValue),
 }
 
@@ -614,7 +614,7 @@
             SupportedCipherSuite::Tls13(inner) =&gt; {
                 Tls13ClientSessionValue::read(inner, reader).map(ClientSessionValue::Tls13)
             }
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
             </span>SupportedCipherSuite::Tls12(inner) =&gt; {
                 Tls12ClientSessionValue::read(inner, reader).map(ClientSessionValue::Tls12)
             }
@@ -624,7 +624,7 @@
     <span class="kw">fn </span>common(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>ClientSessionCommon {
         <span class="kw">match </span><span class="self">self </span>{
             ClientSessionValue::Tls13(inner) =&gt; <span class="kw-2">&amp;</span>inner.common,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
             </span>ClientSessionValue::Tls12(inner) =&gt; <span class="kw-2">&amp;</span>inner.common,
         }
     }
@@ -636,7 +636,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
 </span><span class="kw">impl </span>From&lt;Tls12ClientSessionValue&gt; <span class="kw">for </span>ClientSessionValue {
     <span class="kw">fn </span>from(v: Tls12ClientSessionValue) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::Tls12(v)
@@ -672,7 +672,7 @@
     <span class="kw">pub fn </span>tls13(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Retrieved&lt;<span class="kw-2">&amp;</span>Tls13ClientSessionValue&gt;&gt; {
         <span class="kw">match </span><span class="kw-2">&amp;</span><span class="self">self</span>.value {
             ClientSessionValue::Tls13(value) =&gt; <span class="prelude-val">Some</span>(Retrieved::new(value, <span class="self">self</span>.retrieved_at)),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
             </span>ClientSessionValue::Tls12(<span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
         }
     }
@@ -692,7 +692,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Tls13ClientSessionValue {
     suite: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Tls13CipherSuite,
     age_add: u32,
@@ -771,7 +771,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
 #[derive(Debug)]
 </span><span class="kw">pub struct </span>Tls12ClientSessionValue {
     suite: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Tls12CipherSuite,
@@ -780,7 +780,7 @@
     <span class="kw">pub </span>common: ClientSessionCommon,
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
 </span><span class="kw">impl </span>Tls12ClientSessionValue {
     <span class="kw">pub fn </span>new(
         suite: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Tls12CipherSuite,
@@ -847,7 +847,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
 </span><span class="kw">impl </span>std::ops::Deref <span class="kw">for </span>Tls12ClientSessionValue {
     <span class="kw">type </span>Target = ClientSessionCommon;
 
@@ -856,7 +856,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ClientSessionCommon {
     ticket: PayloadU16,
     secret: PayloadU8,
@@ -935,7 +935,7 @@
 <span class="comment">// --- Server types ---
 </span><span class="kw">pub type </span>ServerSessionKey = SessionID;
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ServerSessionValue {
     <span class="kw">pub </span>sni: <span class="prelude-ty">Option</span>&lt;webpki::DnsName&gt;,
     <span class="kw">pub </span>version: ProtocolVersion,
@@ -1079,4 +1079,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -104,15 +104,15 @@
 <span id="104">104</span>
 </pre><pre class="rust"><code><span class="kw">use </span>url::Url;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::http::client::Http;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::internal::prelude::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::model::application::oauth::Scope;
 <span class="kw">use </span><span class="kw">crate</span>::model::prelude::<span class="kw-2">*</span>;
 
 <span class="doccomment">/// A builder for constructing an invite link with custom OAuth2 scopes.
-</span><span class="attribute">#[derive(Debug, Clone, Default)]
+</span><span class="attr">#[derive(Debug, Clone, Default)]
 </span><span class="kw">pub struct </span>CreateBotAuthParameters {
     client_id: ApplicationId,
     scopes: Vec&lt;Scope&gt;,
@@ -123,7 +123,7 @@
 
 <span class="kw">impl </span>CreateBotAuthParameters {
     <span class="doccomment">/// Builds the url with the provided data.
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; String {
         <span class="kw">let </span><span class="kw-2">mut </span>valid_data = <span class="macro">vec!</span>[];
         <span class="kw">let </span>bits = <span class="self">self</span>.permissions.bits();
@@ -172,7 +172,7 @@
     /// If the user is not authorized for this endpoint.
     ///
     /// [`HttpError::UnsuccessfulRequest`]: crate::http::HttpError::UnsuccessfulRequest
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
     </span><span class="kw">pub async fn </span>auto_client_id(<span class="kw-2">&amp;mut </span><span class="self">self</span>, http: <span class="kw">impl </span>AsRef&lt;Http&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt; {
         <span class="self">self</span>.client_id = http.as_ref().get_current_application_info().<span class="kw">await</span>.map(|v| v.id)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(<span class="self">self</span>)
@@ -207,4 +207,4 @@
     </span>}
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

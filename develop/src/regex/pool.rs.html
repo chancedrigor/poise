@@ -500,7 +500,7 @@
 ///
 /// The purpose of the guard is to use RAII to automatically put the value back
 /// in the pool once it&#39;s dropped.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>PoolGuard&lt;<span class="lifetime">&#39;a</span>, T: Send&gt; {
     <span class="doccomment">/// The pool that this guard is attached to.
     </span>pool: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Pool&lt;T&gt;,
@@ -525,7 +525,7 @@
     /// pool is returned. That is, calling get, dropping the guard (causing
     /// the value to go back into the pool) and then calling get again is NOT
     /// guaranteed to return the same value received in the first get call.
-    </span><span class="attribute">#[cfg_attr(feature = <span class="string">&quot;perf-inline&quot;</span>, inline(always))]
+    </span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;perf-inline&quot;</span>, inline(always))]
     </span><span class="kw">pub fn </span>get(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PoolGuard&lt;<span class="lifetime">&#39;_</span>, T&gt; {
         <span class="comment">// Our fast path checks if the caller is the thread that &quot;owns&quot; this
         // pool. Or stated differently, whether it is the first thread that
@@ -549,7 +549,7 @@
     /// is empty, a new value is created.)
     ///
     /// If the pool has no owner, then this will set the owner.
-    </span><span class="attribute">#[cold]
+    </span><span class="attr">#[cold]
     </span><span class="kw">fn </span>get_slow(<span class="kw-2">&amp;</span><span class="self">self</span>, caller: usize, owner: usize) -&gt; PoolGuard&lt;<span class="lifetime">&#39;_</span>, T&gt; {
         <span class="kw">use </span>std::sync::atomic::Ordering::Relaxed;
 
@@ -601,7 +601,7 @@
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, T: Send&gt; Drop <span class="kw">for </span>PoolGuard&lt;<span class="lifetime">&#39;a</span>, T&gt; {
-    <span class="attribute">#[cfg_attr(feature = <span class="string">&quot;perf-inline&quot;</span>, inline(always))]
+    <span class="attr">#[cfg_attr(feature = <span class="string">&quot;perf-inline&quot;</span>, inline(always))]
     </span><span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(value) = <span class="self">self</span>.value.take() {
             <span class="self">self</span>.pool.put(value);
@@ -609,13 +609,13 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>std::panic::{RefUnwindSafe, UnwindSafe};
 
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>oibits() {
         <span class="kw">use </span><span class="kw">crate</span>::exec::ProgramCache;
 
@@ -626,7 +626,7 @@
     <span class="comment">// Tests that Pool implements the &quot;single owner&quot; optimization. That is, the
     // thread that first accesses the pool gets its own copy, while all other
     // threads get distinct copies.
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>thread_owner_optimization() {
         <span class="kw">use </span>std::cell::RefCell;
         <span class="kw">use </span>std::sync::Arc;
@@ -665,4 +665,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="regex" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="regex" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -562,7 +562,7 @@
     {
         body_tx: SendStream&lt;SendBuf&lt;S::Data&gt;&gt;,
         data_done: bool,
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span>stream: S,
     }
 }
@@ -710,7 +710,7 @@
     }
 }
 
-<span class="attribute">#[repr(usize)]
+<span class="attr">#[repr(usize)]
 </span><span class="kw">enum </span>SendBuf&lt;B&gt; {
     Buf(B),
     Cursor(Cursor&lt;Box&lt;[u8]&gt;&gt;),
@@ -718,7 +718,7 @@
 }
 
 <span class="kw">impl</span>&lt;B: Buf&gt; Buf <span class="kw">for </span>SendBuf&lt;B&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>remaining(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             <span class="self">Self</span>::Buf(<span class="kw-2">ref </span>b) =&gt; b.remaining(),
@@ -727,7 +727,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>chunk(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8] {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             <span class="self">Self</span>::Buf(<span class="kw-2">ref </span>b) =&gt; b.chunk(),
@@ -736,7 +736,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>advance(<span class="kw-2">&amp;mut </span><span class="self">self</span>, cnt: usize) {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             <span class="self">Self</span>::Buf(<span class="kw-2">ref mut </span>b) =&gt; b.advance(cnt),
@@ -917,7 +917,7 @@
     }
 }
 
-<span class="attribute">#[repr(transparent)]
+<span class="attr">#[repr(transparent)]
 </span><span class="kw">struct </span>Neutered&lt;B&gt; {
     _inner: B,
     impossible: Impossible,
@@ -941,4 +941,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

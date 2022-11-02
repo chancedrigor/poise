@@ -477,7 +477,7 @@
 
 <span class="comment">// Re-export some types from `std::io` so that users don&#39;t have to deal
 // with conflicts when `use`ing `tokio::io` and `std::io`.
-</span><span class="attribute">#[doc(no_inline)]
+</span><span class="attr">#[doc(no_inline)]
 </span><span class="kw">pub use </span>std::io::{Error, ErrorKind, <span class="prelude-ty">Result</span>, SeekFrom};
 
 <span class="macro">cfg_io_driver_impl! </span>{
@@ -489,10 +489,10 @@
         <span class="kw">pub use </span>ready::Ready;
     }
 
-    <span class="attribute">#[cfg_attr(tokio_wasi, allow(unused_imports))]
+    <span class="attr">#[cfg_attr(tokio_wasi, allow(unused_imports))]
     </span><span class="kw">mod </span>poll_evented;
 
-    <span class="attribute">#[cfg(not(loom))]
+    <span class="attr">#[cfg(not(loom))]
     #[cfg_attr(tokio_wasi, allow(unused_imports))]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>poll_evented::PollEvented;
 }
@@ -555,4 +555,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

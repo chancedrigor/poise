@@ -44,10 +44,10 @@
 </span><span class="kw">struct </span>Data {}
 
 <span class="doccomment">/// Displays your or another user&#39;s account creation date
-</span><span class="attribute">#[poise::command(slash_command, prefix_command)]
+</span><span class="attr">#[poise::command(slash_command, prefix_command)]
 </span><span class="kw">async fn </span>age(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Selected user&quot;</span>] </span>user: <span class="prelude-ty">Option</span>&lt;serenity::User&gt;,
+    <span class="attr">#[description = <span class="string">&quot;Selected user&quot;</span>] </span>user: <span class="prelude-ty">Option</span>&lt;serenity::User&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>u = user.as_ref().unwrap_or_else(|| ctx.author());
     <span class="kw">let </span>response = <span class="macro">format!</span>(<span class="string">&quot;{}&#39;s account was created at {}&quot;</span>, u.name, u.created_at());
@@ -55,13 +55,13 @@
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(prefix_command)]
+<span class="attr">#[poise::command(prefix_command)]
 </span><span class="kw">async fn </span>register(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     poise::builtins::register_application_commands_buttons(ctx).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() {
     <span class="kw">let </span>framework = poise::Framework::builder()
         .options(poise::FrameworkOptions {
@@ -75,4 +75,4 @@
     framework.run().<span class="kw">await</span>.unwrap();
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="quickstart" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="quickstart" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

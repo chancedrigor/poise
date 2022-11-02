@@ -376,7 +376,7 @@
 </span><span class="kw">pub type </span>Response = HttpResponse&lt;()&gt;;
 
 <span class="doccomment">/// Client handshake role.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ClientHandshake&lt;S&gt; {
     verify_data: VerifyData,
     config: <span class="prelude-ty">Option</span>&lt;WebSocketConfig&gt;,
@@ -514,7 +514,7 @@
 }
 
 <span class="doccomment">/// Information for handshake verification.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>VerifyData {
     <span class="doccomment">/// Accepted server key.
     </span>accept_key: String,
@@ -617,12 +617,12 @@
     base64::encode(<span class="kw-2">&amp;</span>r)
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::{<span class="kw">super</span>::machine::TryParse, generate_key, generate_request, Response};
     <span class="kw">use </span><span class="kw">crate</span>::client::IntoClientRequest;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>random_keys() {
         <span class="kw">let </span>k1 = generate_key();
         <span class="macro">println!</span>(<span class="string">&quot;Generated random key 1: {}&quot;</span>, k1);
@@ -654,7 +654,7 @@
         .into_bytes()
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>request_formatting() {
         <span class="kw">let </span>request = <span class="string">&quot;ws://localhost/getCaseCount&quot;</span>.into_client_request().unwrap();
         <span class="kw">let </span>(request, key) = generate_request(request).unwrap();
@@ -662,7 +662,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>request[..], <span class="kw-2">&amp;</span>correct[..]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>request_formatting_with_host() {
         <span class="kw">let </span>request = <span class="string">&quot;wss://localhost:9001/getCaseCount&quot;</span>.into_client_request().unwrap();
         <span class="kw">let </span>(request, key) = generate_request(request).unwrap();
@@ -670,7 +670,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>request[..], <span class="kw-2">&amp;</span>correct[..]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>request_formatting_with_at() {
         <span class="kw">let </span>request = <span class="string">&quot;wss://user:pass@localhost:9001/getCaseCount&quot;</span>.into_client_request().unwrap();
         <span class="kw">let </span>(request, key) = generate_request(request).unwrap();
@@ -678,7 +678,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>request[..], <span class="kw-2">&amp;</span>correct[..]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>response_parsing() {
         <span class="kw">const </span>DATA: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n&quot;</span>;
         <span class="kw">let </span>(<span class="kw">_</span>, resp) = Response::try_parse(DATA).unwrap().unwrap();
@@ -686,11 +686,11 @@
         <span class="macro">assert_eq!</span>(resp.headers().get(<span class="string">&quot;Content-Type&quot;</span>).unwrap(), <span class="kw-2">&amp;</span><span class="string">b&quot;text/html&quot;</span>[..],);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>invalid_custom_request() {
         <span class="kw">let </span>request = http::Request::builder().method(<span class="string">&quot;GET&quot;</span>).body(()).unwrap();
         <span class="macro">assert!</span>(generate_request(request).is_err());
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

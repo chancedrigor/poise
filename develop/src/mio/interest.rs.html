@@ -192,14 +192,14 @@
 /// [`Poll`]: struct.Poll.html
 /// [readable]: struct.Interest.html#associatedconstant.READABLE
 /// [`poll`]: struct.Poll.html#method.poll
-</span><span class="attribute">#[derive(Copy, PartialEq, Eq, Clone, PartialOrd, Ord)]
+</span><span class="attr">#[derive(Copy, PartialEq, Eq, Clone, PartialOrd, Ord)]
 </span><span class="kw">pub struct </span>Interest(NonZeroU8);
 
 <span class="comment">// These must be unique.
 </span><span class="kw">const </span>READABLE: u8 = <span class="number">0b0001</span>;
 <span class="kw">const </span>WRITABLE: u8 = <span class="number">0b0010</span>;
 <span class="comment">// The following are not available on all platforms.
-</span><span class="attribute">#[cfg_attr(
+</span><span class="attr">#[cfg_attr(
     not(any(
         target_os = <span class="string">&quot;dragonfly&quot;</span>,
         target_os = <span class="string">&quot;freebsd&quot;</span>,
@@ -209,7 +209,7 @@
     allow(dead_code)
 )]
 </span><span class="kw">const </span>AIO: u8 = <span class="number">0b0100</span>;
-<span class="attribute">#[cfg_attr(not(target_os = <span class="string">&quot;freebsd&quot;</span>), allow(dead_code))]
+<span class="attr">#[cfg_attr(not(target_os = <span class="string">&quot;freebsd&quot;</span>), allow(dead_code))]
 </span><span class="kw">const </span>LIO: u8 = <span class="number">0b1000</span>;
 
 <span class="kw">impl </span>Interest {
@@ -220,7 +220,7 @@
     </span><span class="kw">pub const </span>WRITABLE: Interest = Interest(<span class="kw">unsafe </span>{ NonZeroU8::new_unchecked(WRITABLE) });
 
     <span class="doccomment">/// Returns a `Interest` set representing AIO completion interests.
-    </span><span class="attribute">#[cfg(any(
+    </span><span class="attr">#[cfg(any(
         target_os = <span class="string">&quot;dragonfly&quot;</span>,
         target_os = <span class="string">&quot;freebsd&quot;</span>,
         target_os = <span class="string">&quot;ios&quot;</span>,
@@ -229,7 +229,7 @@
     </span><span class="kw">pub const </span>AIO: Interest = Interest(<span class="kw">unsafe </span>{ NonZeroU8::new_unchecked(AIO) });
 
     <span class="doccomment">/// Returns a `Interest` set representing LIO completion interests.
-    </span><span class="attribute">#[cfg(target_os = <span class="string">&quot;freebsd&quot;</span>)]
+    </span><span class="attr">#[cfg(target_os = <span class="string">&quot;freebsd&quot;</span>)]
     </span><span class="kw">pub const </span>LIO: Interest = Interest(<span class="kw">unsafe </span>{ NonZeroU8::new_unchecked(LIO) });
 
     <span class="doccomment">/// Add together two `Interest`.
@@ -244,7 +244,7 @@
     /// # fn silent_dead_code_warning(_: Interest) { }
     /// # silent_dead_code_warning(INTERESTS)
     /// ```
-    </span><span class="attribute">#[allow(clippy::should_implement_trait)]
+    </span><span class="attr">#[allow(clippy::should_implement_trait)]
     </span><span class="kw">pub const fn </span>add(<span class="self">self</span>, other: Interest) -&gt; Interest {
         Interest(<span class="kw">unsafe </span>{ NonZeroU8::new_unchecked(<span class="self">self</span>.<span class="number">0</span>.get() | other.<span class="number">0</span>.get()) })
     }
@@ -297,14 +297,14 @@
 <span class="kw">impl </span>ops::BitOr <span class="kw">for </span>Interest {
     <span class="kw">type </span>Output = <span class="self">Self</span>;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>bitor(<span class="self">self</span>, other: <span class="self">Self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.add(other)
     }
 }
 
 <span class="kw">impl </span>ops::BitOrAssign <span class="kw">for </span>Interest {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>bitor_assign(<span class="kw-2">&amp;mut </span><span class="self">self</span>, other: <span class="self">Self</span>) {
         <span class="self">self</span>.<span class="number">0 </span>= (<span class="kw-2">*</span><span class="self">self </span>| other).<span class="number">0</span>;
     }
@@ -327,7 +327,7 @@
             <span class="macro">write!</span>(fmt, <span class="string">&quot;WRITABLE&quot;</span>)<span class="question-mark">?</span>;
             one = <span class="bool-val">true
         </span>}
-        <span class="attribute">#[cfg(any(
+        <span class="attr">#[cfg(any(
             target_os = <span class="string">&quot;dragonfly&quot;</span>,
             target_os = <span class="string">&quot;freebsd&quot;</span>,
             target_os = <span class="string">&quot;ios&quot;</span>,
@@ -342,7 +342,7 @@
                 one = <span class="bool-val">true
             </span>}
         }
-        <span class="attribute">#[cfg(any(target_os = <span class="string">&quot;freebsd&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;freebsd&quot;</span>))]
         </span>{
             <span class="kw">if </span><span class="self">self</span>.is_lio() {
                 <span class="kw">if </span>one {
@@ -357,4 +357,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="mio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="mio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

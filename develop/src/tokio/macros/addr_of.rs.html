@@ -54,18 +54,18 @@
 </pre><pre class="rust"><code><span class="doccomment">//! This module defines a macro that lets you go from a raw pointer to a struct
 //! to a raw pointer to a field of the struct.
 
-</span><span class="attribute">#[cfg(not(tokio_no_addr_of))]
+</span><span class="attr">#[cfg(not(tokio_no_addr_of))]
 </span><span class="macro">macro_rules! </span>generate_addr_of_methods {
     (
     <span class="kw">impl</span>&lt;$(<span class="macro-nonterminal">$gen</span>:ident)<span class="kw-2">*</span>&gt; <span class="macro-nonterminal">$struct_name</span>:ty {$(
-        $(<span class="attribute">#[<span class="macro-nonterminal">$attrs</span>:meta]</span>)*
+        $(<span class="attr">#[<span class="macro-nonterminal">$attrs</span>:meta]</span>)*
         <span class="macro-nonterminal">$vis</span>:vis <span class="kw">unsafe fn </span><span class="macro-nonterminal">$fn_name</span>:ident(<span class="self">self</span>: NonNull&lt;<span class="self">Self</span>&gt;) -&gt; NonNull&lt;<span class="macro-nonterminal">$field_type</span>:ty&gt; {
             <span class="kw-2">&amp;</span><span class="self">self</span>$(.<span class="macro-nonterminal">$field_name</span>:tt)+
         }
     )<span class="kw-2">*</span>}
     ) =&gt; {
         <span class="kw">impl</span>&lt;$(<span class="macro-nonterminal">$gen</span>)<span class="kw-2">*</span>&gt; <span class="macro-nonterminal">$struct_name </span>{$(
-            $(<span class="attribute">#[<span class="macro-nonterminal">$attrs</span>]</span>)*
+            $(<span class="attr">#[<span class="macro-nonterminal">$attrs</span>]</span>)*
             <span class="macro-nonterminal">$vis </span><span class="kw">unsafe fn </span><span class="macro-nonterminal">$fn_name</span>(me: ::core::ptr::NonNull&lt;<span class="self">Self</span>&gt;) -&gt; ::core::ptr::NonNull&lt;<span class="macro-nonterminal">$field_type</span>&gt; {
                 <span class="kw">let </span>me = me.as_ptr();
                 <span class="kw">let </span>field = <span class="macro">::std::ptr::addr_of_mut!</span>((<span class="kw-2">*</span>me) $(.<span class="macro-nonterminal">$field_name</span>)+ );
@@ -77,18 +77,18 @@
 
 <span class="comment">// The `addr_of_mut!` macro is only available for MSRV at least 1.51.0. This
 // version of the macro uses a workaround for older versions of rustc.
-</span><span class="attribute">#[cfg(tokio_no_addr_of)]
+</span><span class="attr">#[cfg(tokio_no_addr_of)]
 </span><span class="macro">macro_rules! </span>generate_addr_of_methods {
     (
     <span class="kw">impl</span>&lt;$(<span class="macro-nonterminal">$gen</span>:ident)<span class="kw-2">*</span>&gt; <span class="macro-nonterminal">$struct_name</span>:ty {$(
-        $(<span class="attribute">#[<span class="macro-nonterminal">$attrs</span>:meta]</span>)*
+        $(<span class="attr">#[<span class="macro-nonterminal">$attrs</span>:meta]</span>)*
         <span class="macro-nonterminal">$vis</span>:vis <span class="kw">unsafe fn </span><span class="macro-nonterminal">$fn_name</span>:ident(<span class="self">self</span>: NonNull&lt;<span class="self">Self</span>&gt;) -&gt; NonNull&lt;<span class="macro-nonterminal">$field_type</span>:ty&gt; {
             <span class="kw-2">&amp;</span><span class="self">self</span>$(.<span class="macro-nonterminal">$field_name</span>:tt)+
         }
     )<span class="kw-2">*</span>}
     ) =&gt; {
         <span class="kw">impl</span>&lt;$(<span class="macro-nonterminal">$gen</span>)<span class="kw-2">*</span>&gt; <span class="macro-nonterminal">$struct_name </span>{$(
-            $(<span class="attribute">#[<span class="macro-nonterminal">$attrs</span>]</span>)*
+            $(<span class="attr">#[<span class="macro-nonterminal">$attrs</span>]</span>)*
             <span class="macro-nonterminal">$vis </span><span class="kw">unsafe fn </span><span class="macro-nonterminal">$fn_name</span>(me: ::core::ptr::NonNull&lt;<span class="self">Self</span>&gt;) -&gt; ::core::ptr::NonNull&lt;<span class="macro-nonterminal">$field_type</span>&gt; {
                 <span class="kw">let </span>me = me.as_ptr();
                 <span class="kw">let </span>me_u8 = me <span class="kw">as </span><span class="kw-2">*mut </span>u8;
@@ -105,4 +105,4 @@
     };
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -583,7 +583,7 @@
 <span id="583">583</span>
 <span id="584">584</span>
 <span id="585">585</span>
-</pre><pre class="rust"><code><span class="attribute">#![doc(html_root_url = <span class="string">&quot;https://docs.rs/want/0.3.0&quot;</span>)]
+</pre><pre class="rust"><code><span class="attr">#![doc(html_root_url = <span class="string">&quot;https://docs.rs/want/0.3.0&quot;</span>)]
 #![deny(warnings)]
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
@@ -665,7 +665,7 @@
 //! # fn main() {}
 //! ```
 
-</span><span class="attribute">#[macro_use]
+</span><span class="attr">#[macro_use]
 </span><span class="kw">extern crate </span>log;
 
 <span class="kw">use </span>std::fmt;
@@ -713,7 +713,7 @@
 ///
 /// It differs from `Giver` in that you cannot poll for `want`. It&#39;s only
 /// usable as a cancellation watcher.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>SharedGiver {
     inner: Arc&lt;Inner&gt;,
 }
@@ -723,7 +723,7 @@
     _inner: (),
 }
 
-<span class="attribute">#[derive(Clone, Copy, Debug)]
+<span class="attr">#[derive(Clone, Copy, Debug)]
 </span><span class="kw">enum </span>State {
     Idle,
     Want,
@@ -832,7 +832,7 @@
     <span class="doccomment">/// Mark the state as idle, if the Taker currently is wanting.
     ///
     /// Returns true if Taker was wanting, false otherwise.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>give(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="comment">// only set to IDLE if it is still Want
         </span><span class="self">self</span>.inner.state.compare_and_swap(
@@ -846,20 +846,20 @@
     ///
     /// This is safe to call outside of a futures task context, but other
     /// means of being notified is left to the user.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_wanting(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.inner.state.load(SeqCst) == State::Want.into()
     }
 
 
     <span class="doccomment">/// Check if the `Taker` has canceled interest without parking a task.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_canceled(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.inner.state.load(SeqCst) == State::Closed.into()
     }
 
     <span class="doccomment">/// Converts this into a `SharedGiver`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>shared(<span class="self">self</span>) -&gt; SharedGiver {
         SharedGiver {
             inner: <span class="self">self</span>.inner,
@@ -882,14 +882,14 @@
     ///
     /// This is safe to call outside of a futures task context, but other
     /// means of being notified is left to the user.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_wanting(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.inner.state.load(SeqCst) == State::Want.into()
     }
 
 
     <span class="doccomment">/// Check if the `Taker` has canceled interest without parking a task.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_canceled(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.inner.state.load(SeqCst) == State::Closed.into()
     }
@@ -910,14 +910,14 @@
     ///
     /// This is useful to tell that the channel is closed if you cannot
     /// drop the value yet.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>cancel(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="macro">trace!</span>(<span class="string">&quot;signal: {:?}&quot;</span>, State::Closed);
         <span class="self">self</span>.signal(State::Closed)
     }
 
     <span class="doccomment">/// Signal to the `Giver` that a value is wanted.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>want(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="macro">debug_assert!</span>(
             <span class="self">self</span>.inner.state.load(SeqCst) != State::Closed.into(),
@@ -927,7 +927,7 @@
         <span class="self">self</span>.signal(State::Want)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>signal(<span class="kw-2">&amp;mut </span><span class="self">self</span>, state: State) {
         <span class="kw">let </span>old_state = <span class="self">self</span>.inner.state.swap(state.into(), SeqCst).into();
         <span class="kw">match </span>old_state {
@@ -954,7 +954,7 @@
 }
 
 <span class="kw">impl </span>Drop <span class="kw">for </span>Taker {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.signal(State::Closed);
     }
@@ -980,7 +980,7 @@
 <span class="comment">// ===== impl Inner ======
 
 </span><span class="kw">impl </span>Inner {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>state(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; State {
         <span class="self">self</span>.state.load(SeqCst).into()
     }
@@ -999,7 +999,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>std::thread;
     <span class="kw">use </span>tokio_sync::oneshot;
@@ -1011,7 +1011,7 @@
             .block_on(f)
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>want_ready() {
         <span class="kw">let </span>(<span class="kw-2">mut </span>gv, <span class="kw-2">mut </span>tk) = new();
 
@@ -1020,7 +1020,7 @@
         block_on(gv.want()).unwrap();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>want_notify_0() {
         <span class="kw">let </span>(<span class="kw-2">mut </span>gv, <span class="kw-2">mut </span>tk) = new();
         <span class="kw">let </span>(tx, rx) = oneshot::channel();
@@ -1084,7 +1084,7 @@
     }
     */
 
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>cancel() {
         <span class="comment">// explicit
         </span><span class="kw">let </span>(<span class="kw-2">mut </span>gv, <span class="kw-2">mut </span>tk) = new();
@@ -1169,4 +1169,4 @@
     */
 </span>}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="want" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="want" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

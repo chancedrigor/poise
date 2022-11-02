@@ -280,9 +280,9 @@
     /// Note that you can create a ready-made `SelectAll` via the
     /// `select_all` function in the `stream` module, or you can start with an
     /// empty set with the `SelectAll::new` constructor.
-    </span><span class="attribute">#[must_use = <span class="string">&quot;streams do nothing unless polled&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;streams do nothing unless polled&quot;</span>]
     </span><span class="kw">pub struct </span>SelectAll&lt;St&gt; {
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span>inner: FuturesUnordered&lt;StreamFuture&lt;St&gt;&gt;,
     }
 }
@@ -442,15 +442,15 @@
 }
 
 <span class="doccomment">/// Immutable iterator over all streams in the unordered set.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Iter&lt;<span class="lifetime">&#39;a</span>, St: Unpin&gt;(futures_unordered::Iter&lt;<span class="lifetime">&#39;a</span>, StreamFuture&lt;St&gt;&gt;);
 
 <span class="doccomment">/// Mutable iterator over all streams in the unordered set.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>IterMut&lt;<span class="lifetime">&#39;a</span>, St: Unpin&gt;(futures_unordered::IterMut&lt;<span class="lifetime">&#39;a</span>, StreamFuture&lt;St&gt;&gt;);
 
 <span class="doccomment">/// Owned iterator over all streams in the unordered set.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>IntoIter&lt;St: Unpin&gt;(futures_unordered::IntoIter&lt;StreamFuture&lt;St&gt;&gt;);
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, St: Stream + Unpin&gt; Iterator <span class="kw">for </span>Iter&lt;<span class="lifetime">&#39;a</span>, St&gt; {
@@ -507,4 +507,4 @@
 
 <span class="kw">impl</span>&lt;St: Stream + Unpin&gt; ExactSizeIterator <span class="kw">for </span>IntoIter&lt;St&gt; {}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

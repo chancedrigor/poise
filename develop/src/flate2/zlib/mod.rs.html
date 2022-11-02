@@ -161,7 +161,7 @@
 <span class="kw">pub mod </span>read;
 <span class="kw">pub mod </span>write;
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>std::io;
     <span class="kw">use </span>std::io::prelude::<span class="kw-2">*</span>;
@@ -171,7 +171,7 @@
     <span class="kw">use </span><span class="kw">crate</span>::zlib::{read, write};
     <span class="kw">use </span><span class="kw">crate</span>::Compression;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>roundtrip() {
         <span class="kw">let </span><span class="kw-2">mut </span>real = Vec::new();
         <span class="kw">let </span><span class="kw-2">mut </span>w = write::ZlibEncoder::new(Vec::new(), Compression::default());
@@ -188,7 +188,7 @@
         <span class="macro">assert!</span>(ret == real);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>drop_writes() {
         <span class="kw">let </span><span class="kw-2">mut </span>data = Vec::new();
         write::ZlibEncoder::new(<span class="kw-2">&amp;mut </span>data, Compression::default())
@@ -200,7 +200,7 @@
         <span class="macro">assert!</span>(ret == <span class="string">b&quot;foo&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>total_in() {
         <span class="kw">let </span><span class="kw-2">mut </span>real = Vec::new();
         <span class="kw">let </span><span class="kw-2">mut </span>w = write::ZlibEncoder::new(Vec::new(), Compression::default());
@@ -225,7 +225,7 @@
         <span class="macro">assert_eq!</span>(r.total_in(), result_len <span class="kw">as </span>u64);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>roundtrip2() {
         <span class="kw">let </span>v = <span class="kw">crate</span>::random_bytes().take(<span class="number">1024 </span>* <span class="number">1024</span>).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
         <span class="kw">let </span><span class="kw-2">mut </span>r = read::ZlibDecoder::new(read::ZlibEncoder::new(<span class="kw-2">&amp;</span>v[..], Compression::default()));
@@ -234,7 +234,7 @@
         <span class="macro">assert_eq!</span>(ret, v);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>roundtrip3() {
         <span class="kw">let </span>v = <span class="kw">crate</span>::random_bytes().take(<span class="number">1024 </span>* <span class="number">1024</span>).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
         <span class="kw">let </span><span class="kw-2">mut </span>w =
@@ -244,7 +244,7 @@
         <span class="macro">assert!</span>(w == v);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>reset_decoder() {
         <span class="kw">let </span>v = <span class="kw">crate</span>::random_bytes().take(<span class="number">1024 </span>* <span class="number">1024</span>).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
         <span class="kw">let </span><span class="kw-2">mut </span>w = write::ZlibEncoder::new(Vec::new(), Compression::default());
@@ -277,7 +277,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>bad_input() {
         <span class="comment">// regress tests: previously caused a panic on drop
         </span><span class="kw">let </span><span class="kw-2">mut </span>out: Vec&lt;u8&gt; = Vec::new();
@@ -289,7 +289,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>qc_reader() {
         ::quickcheck::quickcheck(test <span class="kw">as fn</span>(<span class="kw">_</span>) -&gt; <span class="kw">_</span>);
 
@@ -302,7 +302,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>qc_writer() {
         ::quickcheck::quickcheck(test <span class="kw">as fn</span>(<span class="kw">_</span>) -&gt; <span class="kw">_</span>);
 
@@ -317,4 +317,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="flate2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="flate2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

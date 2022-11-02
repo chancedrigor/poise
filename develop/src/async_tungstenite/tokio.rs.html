@@ -535,11 +535,11 @@
 
 <span class="kw">use </span>futures_io::{AsyncRead, AsyncWrite};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;tokio-native-tls&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;tokio-native-tls&quot;</span>)]
 #[path = <span class="string">&quot;tokio/native_tls.rs&quot;</span>]
 </span><span class="kw">mod </span>tls;
 
-<span class="attribute">#[cfg(all(
+<span class="attr">#[cfg(all(
     any(
         feature = <span class="string">&quot;tokio-rustls-native-certs&quot;</span>,
         feature = <span class="string">&quot;tokio-rustls-webpki-roots&quot;
@@ -549,7 +549,7 @@
 #[path = <span class="string">&quot;tokio/rustls.rs&quot;</span>]
 </span><span class="kw">mod </span>tls;
 
-<span class="attribute">#[cfg(all(
+<span class="attr">#[cfg(all(
     feature = <span class="string">&quot;tokio-openssl&quot;</span>,
     not(any(
         feature = <span class="string">&quot;tokio-native-tls&quot;</span>,
@@ -560,7 +560,7 @@
 #[path = <span class="string">&quot;tokio/openssl.rs&quot;</span>]
 </span><span class="kw">mod </span>tls;
 
-<span class="attribute">#[cfg(all(
+<span class="attr">#[cfg(all(
     feature = <span class="string">&quot;async-tls&quot;</span>,
     not(any(
         feature = <span class="string">&quot;tokio-native-tls&quot;</span>,
@@ -572,7 +572,7 @@
 #[path = <span class="string">&quot;tokio/async_tls.rs&quot;</span>]
 </span><span class="kw">mod </span>tls;
 
-<span class="attribute">#[cfg(not(any(
+<span class="attr">#[cfg(not(any(
     feature = <span class="string">&quot;tokio-native-tls&quot;</span>,
     feature = <span class="string">&quot;tokio-rustls-native-certs&quot;</span>,
     feature = <span class="string">&quot;tokio-rustls-webpki-roots&quot;</span>,
@@ -582,7 +582,7 @@
 #[path = <span class="string">&quot;tokio/dummy_tls.rs&quot;</span>]
 </span><span class="kw">mod </span>tls;
 
-<span class="attribute">#[cfg(any(
+<span class="attr">#[cfg(any(
     feature = <span class="string">&quot;tokio-native-tls&quot;</span>,
     feature = <span class="string">&quot;tokio-rustls-native-certs&quot;</span>,
     feature = <span class="string">&quot;tokio-rustls-webpki-roots&quot;</span>,
@@ -590,7 +590,7 @@
     feature = <span class="string">&quot;async-tls&quot;</span>,
 ))]
 </span><span class="kw">pub use </span><span class="self">self</span>::tls::client_async_tls_with_connector_and_config;
-<span class="attribute">#[cfg(any(
+<span class="attr">#[cfg(any(
     feature = <span class="string">&quot;tokio-native-tls&quot;</span>,
     feature = <span class="string">&quot;tokio-rustls-native-certs&quot;</span>,
     feature = <span class="string">&quot;tokio-rustls-webpki-roots&quot;</span>,
@@ -599,7 +599,7 @@
 </span>))]
 </span><span class="kw">use </span><span class="self">self</span>::tls::{AutoStream, Connector};
 
-<span class="attribute">#[cfg(not(any(
+<span class="attr">#[cfg(not(any(
     feature = <span class="string">&quot;tokio-native-tls&quot;</span>,
     feature = <span class="string">&quot;tokio-rustls-native-certs&quot;</span>,
     feature = <span class="string">&quot;tokio-rustls-webpki-roots&quot;</span>,
@@ -607,7 +607,7 @@
     feature = <span class="string">&quot;async-tls&quot;
 </span>)))]
 </span><span class="kw">pub use </span><span class="self">self</span>::tls::client_async_tls_with_connector_and_config;
-<span class="attribute">#[cfg(not(any(
+<span class="attr">#[cfg(not(any(
     feature = <span class="string">&quot;tokio-native-tls&quot;</span>,
     feature = <span class="string">&quot;tokio-rustls-native-certs&quot;</span>,
     feature = <span class="string">&quot;tokio-rustls-webpki-roots&quot;</span>,
@@ -716,7 +716,7 @@
 <span class="doccomment">/// Type alias for the stream type of the `client_async()` functions.
 </span><span class="kw">pub type </span>ClientStream&lt;S&gt; = AutoStream&lt;S&gt;;
 
-<span class="attribute">#[cfg(any(
+<span class="attr">#[cfg(any(
     feature = <span class="string">&quot;tokio-native-tls&quot;</span>,
     feature = <span class="string">&quot;tokio-rustls-native-certs&quot;</span>,
     feature = <span class="string">&quot;tokio-rustls-webpki-roots&quot;</span>,
@@ -736,7 +736,7 @@
     client_async_tls_with_connector_and_config(request, stream, <span class="prelude-val">None</span>, <span class="prelude-val">None</span>).<span class="kw">await
 </span>}
 
-<span class="attribute">#[cfg(any(
+<span class="attr">#[cfg(any(
     feature = <span class="string">&quot;tokio-native-tls&quot;</span>,
     feature = <span class="string">&quot;tokio-rustls-native-certs&quot;</span>,
     feature = <span class="string">&quot;tokio-rustls-webpki-roots&quot;</span>,
@@ -758,7 +758,7 @@
     client_async_tls_with_connector_and_config(request, stream, <span class="prelude-val">None</span>, config).<span class="kw">await
 </span>}
 
-<span class="attribute">#[cfg(any(
+<span class="attr">#[cfg(any(
     feature = <span class="string">&quot;tokio-native-tls&quot;</span>,
     feature = <span class="string">&quot;tokio-rustls-native-certs&quot;</span>,
     feature = <span class="string">&quot;tokio-rustls-webpki-roots&quot;</span>,
@@ -780,7 +780,7 @@
     client_async_tls_with_connector_and_config(request, stream, connector, <span class="prelude-val">None</span>).<span class="kw">await
 </span>}
 
-<span class="attribute">#[cfg(all(
+<span class="attr">#[cfg(all(
     feature = <span class="string">&quot;tokio-openssl&quot;</span>,
     not(any(
         feature = <span class="string">&quot;tokio-native-tls&quot;</span>,
@@ -808,7 +808,7 @@
     client_async_tls_with_connector_and_config(request, stream, <span class="prelude-val">None</span>, <span class="prelude-val">None</span>).<span class="kw">await
 </span>}
 
-<span class="attribute">#[cfg(all(
+<span class="attr">#[cfg(all(
     feature = <span class="string">&quot;tokio-openssl&quot;</span>,
     not(any(
         feature = <span class="string">&quot;tokio-native-tls&quot;</span>,
@@ -838,7 +838,7 @@
     client_async_tls_with_connector_and_config(request, stream, <span class="prelude-val">None</span>, config).<span class="kw">await
 </span>}
 
-<span class="attribute">#[cfg(all(
+<span class="attr">#[cfg(all(
     feature = <span class="string">&quot;tokio-openssl&quot;</span>,
     not(any(
         feature = <span class="string">&quot;tokio-native-tls&quot;</span>,
@@ -899,7 +899,7 @@
     client_async_tls_with_connector_and_config(request, socket, <span class="prelude-val">None</span>, config).<span class="kw">await
 </span>}
 
-<span class="attribute">#[cfg(any(
+<span class="attr">#[cfg(any(
     feature = <span class="string">&quot;async-tls&quot;</span>,
     feature = <span class="string">&quot;tokio-native-tls&quot;</span>,
     feature = <span class="string">&quot;tokio-rustls-native-certs&quot;</span>,
@@ -917,7 +917,7 @@
     connect_async_with_tls_connector_and_config(request, connector, <span class="prelude-val">None</span>).<span class="kw">await
 </span>}
 
-<span class="attribute">#[cfg(any(
+<span class="attr">#[cfg(any(
     feature = <span class="string">&quot;async-tls&quot;</span>,
     feature = <span class="string">&quot;tokio-native-tls&quot;</span>,
     feature = <span class="string">&quot;tokio-rustls-native-certs&quot;</span>,
@@ -949,9 +949,9 @@
 <span class="macro">pin_project_lite::pin_project! </span>{
     <span class="doccomment">/// Adapter for `tokio::io::AsyncRead` and `tokio::io::AsyncWrite` to provide
     /// the variants from the `futures` crate and the other way around.
-    </span><span class="attribute">#[derive(Debug, Clone)]
+    </span><span class="attr">#[derive(Debug, Clone)]
     </span><span class="kw">pub struct </span>TokioAdapter&lt;T&gt; {
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span>inner: T,
     }
 }
@@ -1047,4 +1047,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="async_tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="async_tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -873,12 +873,12 @@
 <span id="873">873</span>
 </pre><pre class="rust"><code><span class="kw">use crate</span>::{tables, Config, PAD_BYTE};
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">use </span><span class="kw">crate</span>::STANDARD;
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">use </span>alloc::vec::Vec;
 <span class="kw">use </span>core::fmt;
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">use </span>std::error;
 
 <span class="comment">// decode logic operates on chunks of 8 input bytes without padding
@@ -897,7 +897,7 @@
     CHUNKS_PER_FAST_LOOP_BLOCK * DECODED_CHUNK_LEN + DECODED_CHUNK_SUFFIX;
 
 <span class="doccomment">/// Errors that can occur while decoding.
-</span><span class="attribute">#[derive(Clone, Debug, PartialEq, Eq)]
+</span><span class="attr">#[derive(Clone, Debug, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>DecodeError {
     <span class="doccomment">/// An invalid byte was found in the input. The offset and offending byte are provided.
     </span>InvalidByte(usize, u8),
@@ -928,7 +928,7 @@
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">impl </span>error::Error <span class="kw">for </span>DecodeError {
     <span class="kw">fn </span>description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
@@ -957,7 +957,7 @@
 ///    println!(&quot;{:?}&quot;, bytes);
 ///}
 ///```
-</span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+</span><span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">pub fn </span>decode&lt;T: AsRef&lt;[u8]&gt;&gt;(input: T) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;u8&gt;, DecodeError&gt; {
     decode_config(input, STANDARD)
 }
@@ -978,7 +978,7 @@
 ///    println!(&quot;{:?}&quot;, bytes_url);
 ///}
 ///```
-</span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+</span><span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">pub fn </span>decode_config&lt;T: AsRef&lt;[u8]&gt;&gt;(input: T, config: Config) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;u8&gt;, DecodeError&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>buffer = Vec::&lt;u8&gt;::with_capacity(input.as_ref().len() * <span class="number">4 </span>/ <span class="number">3</span>);
 
@@ -1006,7 +1006,7 @@
 ///    println!(&quot;{:?}&quot;, buffer);
 ///}
 ///```
-</span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+</span><span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">pub fn </span>decode_config_buf&lt;T: AsRef&lt;[u8]&gt;&gt;(
     input: T,
     config: Config,
@@ -1067,7 +1067,7 @@
 </span><span class="comment">// We&#39;re on the fragile edge of compiler heuristics here. If this is not inlined, slow. If this is
 // inlined(always), a different slow. plain ol&#39; inline makes the benchmarks happiest at the moment,
 // but this is fragile and the best setting changes with only minor code modifications.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>decode_helper(
     input: <span class="kw-2">&amp;</span>[u8],
     num_chunks: usize,
@@ -1312,7 +1312,7 @@
     <span class="prelude-val">Ok</span>(output_index)
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>write_u64(output: <span class="kw-2">&amp;mut </span>[u8], value: u64) {
     output[..<span class="number">8</span>].copy_from_slice(<span class="kw-2">&amp;</span>value.to_be_bytes());
 }
@@ -1327,7 +1327,7 @@
 /// `output` will have its first 8 bytes overwritten, of which only the first 6 are valid decoded
 /// data.
 </span><span class="comment">// yes, really inline (worth 30-50% speedup)
-</span><span class="attribute">#[inline(always)]
+</span><span class="attr">#[inline(always)]
 </span><span class="kw">fn </span>decode_chunk(
     input: <span class="kw-2">&amp;</span>[u8],
     index_at_start_of_input: usize,
@@ -1412,7 +1412,7 @@
 
 <span class="doccomment">/// Decode an 8-byte chunk, but only write the 6 bytes actually decoded instead of including 2
 /// trailing garbage bytes.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>decode_chunk_precise(
     input: <span class="kw-2">&amp;</span>[u8],
     index_at_start_of_input: usize,
@@ -1433,7 +1433,7 @@
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use crate</span>::{
@@ -1447,7 +1447,7 @@
         FromEntropy, Rng,
     };
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>decode_chunk_precise_writes_only_6_bytes() {
         <span class="kw">let </span>input = <span class="string">b&quot;Zm9vYmFy&quot;</span>; <span class="comment">// &quot;foobar&quot;
         </span><span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0_u8</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>];
@@ -1455,7 +1455,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span><span class="macro">vec!</span>[<span class="string">b&#39;f&#39;</span>, <span class="string">b&#39;o&#39;</span>, <span class="string">b&#39;o&#39;</span>, <span class="string">b&#39;b&#39;</span>, <span class="string">b&#39;a&#39;</span>, <span class="string">b&#39;r&#39;</span>, <span class="number">6</span>, <span class="number">7</span>], <span class="kw-2">&amp;</span>output);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>decode_chunk_writes_8_bytes() {
         <span class="kw">let </span>input = <span class="string">b&quot;Zm9vYmFy&quot;</span>; <span class="comment">// &quot;foobar&quot;
         </span><span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0_u8</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>];
@@ -1463,7 +1463,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span><span class="macro">vec!</span>[<span class="string">b&#39;f&#39;</span>, <span class="string">b&#39;o&#39;</span>, <span class="string">b&#39;o&#39;</span>, <span class="string">b&#39;b&#39;</span>, <span class="string">b&#39;a&#39;</span>, <span class="string">b&#39;r&#39;</span>, <span class="number">0</span>, <span class="number">0</span>], <span class="kw-2">&amp;</span>output);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>decode_into_nonempty_vec_doesnt_clobber_existing_prefix() {
         <span class="kw">let </span><span class="kw-2">mut </span>orig_data = Vec::new();
         <span class="kw">let </span><span class="kw-2">mut </span>encoded_data = String::new();
@@ -1521,7 +1521,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>decode_into_slice_doesnt_clobber_existing_prefix_or_suffix() {
         <span class="kw">let </span><span class="kw-2">mut </span>orig_data = Vec::new();
         <span class="kw">let </span><span class="kw-2">mut </span>encoded_data = String::new();
@@ -1575,7 +1575,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>decode_into_slice_fits_in_precisely_sized_slice() {
         <span class="kw">let </span><span class="kw-2">mut </span>orig_data = Vec::new();
         <span class="kw">let </span><span class="kw-2">mut </span>encoded_data = String::new();
@@ -1611,7 +1611,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>detect_invalid_last_symbol_two_bytes() {
         <span class="kw">let </span>decode =
             |input, forgiving| decode_config(input, STANDARD.decode_allow_trailing_bits(forgiving));
@@ -1645,7 +1645,7 @@
         <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(<span class="macro">vec!</span>[<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">137</span>, <span class="number">133</span>]), decode(<span class="string">&quot;AAAAiYX=&quot;</span>, <span class="bool-val">true</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>detect_invalid_last_symbol_one_byte() {
         <span class="comment">// 0xFF -&gt; &quot;/w==&quot;, so all letters &gt; w, 0-9, and &#39;+&#39;, &#39;/&#39; should get InvalidLastSymbol
 
@@ -1665,7 +1665,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>detect_invalid_last_symbol_every_possible_three_symbols() {
         <span class="kw">let </span><span class="kw-2">mut </span>base64_to_bytes = ::std::collections::HashMap::new();
 
@@ -1708,7 +1708,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>detect_invalid_last_symbol_every_possible_two_symbols() {
         <span class="kw">let </span><span class="kw-2">mut </span>base64_to_bytes = ::std::collections::HashMap::new();
 
@@ -1745,4 +1745,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="base64" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="base64" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

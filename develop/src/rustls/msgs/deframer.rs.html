@@ -523,7 +523,7 @@
         }
     }
 
-    <span class="attribute">#[allow(clippy::comparison_chain)]
+    <span class="attr">#[allow(clippy::comparison_chain)]
     </span><span class="kw">fn </span>buf_consume(<span class="kw-2">&amp;mut </span><span class="self">self</span>, taken: usize) {
         <span class="kw">if </span>taken &lt; <span class="self">self</span>.used {
             <span class="comment">/* Before:
@@ -548,7 +548,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::MessageDeframer;
     <span class="kw">use </span><span class="kw">crate</span>::msgs;
@@ -678,7 +678,7 @@
         Message::try_from(m.into_plain_message()).unwrap();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>check_incremental() {
         <span class="kw">let </span><span class="kw-2">mut </span>d = MessageDeframer::new();
         <span class="macro">assert!</span>(!d.has_pending());
@@ -690,7 +690,7 @@
         <span class="macro">assert!</span>(!d.desynced);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>check_incremental_2() {
         <span class="kw">let </span><span class="kw-2">mut </span>d = MessageDeframer::new();
         <span class="macro">assert!</span>(!d.has_pending());
@@ -706,7 +706,7 @@
         <span class="macro">assert!</span>(!d.desynced);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>check_whole() {
         <span class="kw">let </span><span class="kw-2">mut </span>d = MessageDeframer::new();
         <span class="macro">assert!</span>(!d.has_pending());
@@ -718,7 +718,7 @@
         <span class="macro">assert!</span>(!d.desynced);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>check_whole_2() {
         <span class="kw">let </span><span class="kw-2">mut </span>d = MessageDeframer::new();
         <span class="macro">assert!</span>(!d.has_pending());
@@ -731,7 +731,7 @@
         <span class="macro">assert!</span>(!d.desynced);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_two_in_one_read() {
         <span class="kw">let </span><span class="kw-2">mut </span>d = MessageDeframer::new();
         <span class="macro">assert!</span>(!d.has_pending());
@@ -746,7 +746,7 @@
         <span class="macro">assert!</span>(!d.desynced);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_two_in_one_read_shortest_first() {
         <span class="kw">let </span><span class="kw-2">mut </span>d = MessageDeframer::new();
         <span class="macro">assert!</span>(!d.has_pending());
@@ -761,7 +761,7 @@
         <span class="macro">assert!</span>(!d.desynced);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_incremental_with_nonfatal_read_error() {
         <span class="kw">let </span><span class="kw-2">mut </span>d = MessageDeframer::new();
         assert_len(<span class="number">3</span>, input_bytes(<span class="kw-2">&amp;mut </span>d, <span class="kw-2">&amp;</span>FIRST_MESSAGE[..<span class="number">3</span>]));
@@ -776,7 +776,7 @@
         <span class="macro">assert!</span>(!d.desynced);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_invalid_contenttype_errors() {
         <span class="kw">let </span><span class="kw-2">mut </span>d = MessageDeframer::new();
         assert_len(
@@ -786,7 +786,7 @@
         <span class="macro">assert!</span>(d.desynced);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_invalid_version_errors() {
         <span class="kw">let </span><span class="kw-2">mut </span>d = MessageDeframer::new();
         assert_len(
@@ -796,7 +796,7 @@
         <span class="macro">assert!</span>(d.desynced);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_invalid_length_errors() {
         <span class="kw">let </span><span class="kw-2">mut </span>d = MessageDeframer::new();
         assert_len(
@@ -806,7 +806,7 @@
         <span class="macro">assert!</span>(d.desynced);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_empty_applicationdata() {
         <span class="kw">let </span><span class="kw-2">mut </span>d = MessageDeframer::new();
         assert_len(
@@ -820,7 +820,7 @@
         <span class="macro">assert!</span>(!d.desynced);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_invalid_empty_errors() {
         <span class="kw">let </span><span class="kw-2">mut </span>d = MessageDeframer::new();
         assert_len(
@@ -831,4 +831,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

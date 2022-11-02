@@ -417,7 +417,7 @@
 
 <span class="kw">impl </span>TypeMap {
     <span class="doccomment">/// Creates a new instance of `TypeMap`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>(HashMap::new())
     }
@@ -438,7 +438,7 @@
     /// map.insert::&lt;Number&gt;(42);
     /// assert!(map.contains_key::&lt;Number&gt;());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>contains_key&lt;T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool
     <span class="kw">where
         </span>T: TypeMapKey
@@ -466,7 +466,7 @@
     /// ```
     ///
     /// [`TypeMapKey`]: trait.TypeMapKey.html
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>insert&lt;T&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: T::Value)
     <span class="kw">where
         </span>T: TypeMapKey
@@ -477,7 +477,7 @@
     <span class="doccomment">/// Retrieve the entry based on its [`TypeMapKey`]
     ///
     /// [`TypeMapKey`]: trait.TypeMapKey.html
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>entry&lt;T&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; Entry&lt;<span class="lifetime">&#39;_</span>, T&gt;
     <span class="kw">where
         </span>T: TypeMapKey
@@ -513,7 +513,7 @@
     /// ```
     ///
     /// [`TypeMapKey`]: trait.TypeMapKey.html
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>get&lt;T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>T::Value&gt;
     <span class="kw">where
         </span>T: TypeMapKey
@@ -544,7 +544,7 @@
     /// ```
     ///
     /// [`TypeMapKey`]: trait.TypeMapKey.html
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>get_mut&lt;T&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>T::Value&gt;
     <span class="kw">where
         </span>T: TypeMapKey
@@ -571,7 +571,7 @@
     /// assert!(map.remove::&lt;Text&gt;().is_some());
     /// assert!(map.get::&lt;Text&gt;().is_none());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>remove&lt;T&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;T::Value&gt;
     <span class="kw">where
         </span>T: TypeMapKey
@@ -610,7 +610,7 @@
 <span class="kw">where
     </span>K: TypeMapKey,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>or_insert(<span class="self">self</span>, value: K::Value) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>K::Value {
         <span class="kw">match </span><span class="self">self </span>{
             Entry::Occupied(entry) =&gt; entry.into_mut(),
@@ -618,7 +618,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>or_insert_with&lt;F&gt;(<span class="self">self</span>, f: F) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>K::Value
     <span class="kw">where
         </span>F: FnOnce() -&gt; K::Value
@@ -629,7 +629,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>and_modify&lt;F&gt;(<span class="self">self</span>, f: F) -&gt; <span class="self">Self
     </span><span class="kw">where
         </span>F: FnOnce(<span class="kw-2">&amp;mut </span>K::Value)
@@ -649,7 +649,7 @@
     </span>K: TypeMapKey,
     K::Value: Default
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>or_default(<span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>K::Value {
         <span class="self">self</span>.or_insert_with(&lt;K::Value <span class="kw">as </span>Default&gt;::default)
     }
@@ -667,27 +667,27 @@
 <span class="kw">where
     </span>K: TypeMapKey,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>get(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>K::Value {
         <span class="self">self</span>.entry.get().downcast_ref().unwrap()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>get_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>K::Value {
         <span class="self">self</span>.entry.get_mut().downcast_mut().unwrap()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>into_mut(<span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>K::Value {
         <span class="self">self</span>.entry.into_mut().downcast_mut().unwrap()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>insert(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: K::Value) {
         <span class="self">self</span>.entry.insert(Box::new(value));
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>remove(<span class="self">self</span>) {
         <span class="self">self</span>.entry.remove();
     }
@@ -705,13 +705,13 @@
 <span class="kw">where
     </span>K: TypeMapKey,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>insert(<span class="self">self</span>, value: K::Value) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>K::Value {
         <span class="self">self</span>.entry.insert(Box::new(value)).downcast_mut().unwrap()
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
@@ -721,7 +721,7 @@
         <span class="kw">type </span>Value = u64;
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>typemap_counter() {
         <span class="kw">let </span><span class="kw-2">mut </span>map = TypeMap::new();
 
@@ -736,7 +736,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">*</span>map.get::&lt;Counter&gt;().unwrap(), <span class="number">100</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>typemap_entry() {
         <span class="kw">let </span><span class="kw-2">mut </span>map = TypeMap::new();
 
@@ -751,7 +751,7 @@
         <span class="kw">type </span>Value = String;
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>typemap_remove() {
         <span class="kw">let </span><span class="kw-2">mut </span>map = TypeMap::new();
 
@@ -768,7 +768,7 @@
         </span><span class="macro">assert!</span>(map.get::&lt;Text&gt;().is_none());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>typemap_default() {
         <span class="kw">fn </span>ensure_default&lt;T: Default&gt;() {}
 
@@ -779,4 +779,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="typemap_rev" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="typemap_rev" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

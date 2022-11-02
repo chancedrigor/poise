@@ -1080,7 +1080,7 @@
 <span id="1080">1080</span>
 </pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::sync::batch_semaphore::{Semaphore, TryAcquireError};
 <span class="kw">use </span><span class="kw">crate</span>::sync::mutex::TryLockError;
-<span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+<span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::util::trace;
 <span class="kw">use </span>std::cell::UnsafeCell;
 <span class="kw">use </span>std::marker;
@@ -1101,10 +1101,10 @@
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>write_guard::RwLockWriteGuard;
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>write_guard_mapped::RwLockMappedWriteGuard;
 
-<span class="attribute">#[cfg(not(loom))]
+<span class="attr">#[cfg(not(loom))]
 </span><span class="kw">const </span>MAX_READS: u32 = std::u32::MAX &gt;&gt; <span class="number">3</span>;
 
-<span class="attribute">#[cfg(loom)]
+<span class="attr">#[cfg(loom)]
 </span><span class="kw">const </span>MAX_READS: u32 = <span class="number">10</span>;
 
 <span class="doccomment">/// An asynchronous reader-writer lock.
@@ -1166,9 +1166,9 @@
 /// [`RwLockWriteGuard`]: struct@RwLockWriteGuard
 /// [`Send`]: trait@std::marker::Send
 /// [_write-preferring_]: https://en.wikipedia.org/wiki/Readers%E2%80%93writer_lock#Priority_policies
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>RwLock&lt;T: <span class="question-mark">?</span>Sized&gt; {
-    <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+    <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
     </span>resource_span: tracing::Span,
 
     <span class="comment">// maximum number of concurrent readers
@@ -1181,7 +1181,7 @@
     </span>c: UnsafeCell&lt;T&gt;,
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 #[cfg(not(loom))]
 </span><span class="kw">fn </span>bounds() {
     <span class="kw">fn </span>check_send&lt;T: Send&gt;() {}
@@ -1282,12 +1282,12 @@
     ///
     /// let lock = RwLock::new(5);
     /// ```
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>new(value: T) -&gt; RwLock&lt;T&gt;
     <span class="kw">where
         </span>T: Sized,
     {
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>resource_span = {
             <span class="kw">let </span>location = std::panic::Location::caller();
             <span class="kw">let </span>resource_span = <span class="macro">tracing::trace_span!</span>(
@@ -1319,17 +1319,17 @@
             resource_span
         };
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>s = resource_span.in_scope(|| Semaphore::new(MAX_READS <span class="kw">as </span>usize));
 
-        <span class="attribute">#[cfg(any(not(tokio_unstable), not(feature = <span class="string">&quot;tracing&quot;</span>)))]
+        <span class="attr">#[cfg(any(not(tokio_unstable), not(feature = <span class="string">&quot;tracing&quot;</span>)))]
         </span><span class="kw">let </span>s = Semaphore::new(MAX_READS <span class="kw">as </span>usize);
 
         RwLock {
             mr: MAX_READS,
             c: UnsafeCell::new(value),
             s,
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span>resource_span,
         }
     }
@@ -1348,7 +1348,7 @@
     /// # Panics
     ///
     /// Panics if `max_reads` is more than `u32::MAX &gt;&gt; 3`.
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>with_max_readers(value: T, max_reads: u32) -&gt; RwLock&lt;T&gt;
     <span class="kw">where
         </span>T: Sized,
@@ -1359,7 +1359,7 @@
             MAX_READS
         );
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>resource_span = {
             <span class="kw">let </span>location = std::panic::Location::caller();
 
@@ -1392,17 +1392,17 @@
             resource_span
         };
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>s = resource_span.in_scope(|| Semaphore::new(max_reads <span class="kw">as </span>usize));
 
-        <span class="attribute">#[cfg(any(not(tokio_unstable), not(feature = <span class="string">&quot;tracing&quot;</span>)))]
+        <span class="attr">#[cfg(any(not(tokio_unstable), not(feature = <span class="string">&quot;tracing&quot;</span>)))]
         </span><span class="kw">let </span>s = Semaphore::new(max_reads <span class="kw">as </span>usize);
 
         RwLock {
             mr: max_reads,
             c: UnsafeCell::new(value),
             s,
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span>resource_span,
         }
     }
@@ -1416,7 +1416,7 @@
     ///
     /// static LOCK: RwLock&lt;i32&gt; = RwLock::const_new(5);
     /// ```
-    </span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;parking_lot&quot;</span>, not(all(loom, test))))]
+    </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;parking_lot&quot;</span>, not(all(loom, test))))]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;parking_lot&quot;</span>)))]
     </span><span class="kw">pub const fn </span>const_new(value: T) -&gt; RwLock&lt;T&gt;
     <span class="kw">where
@@ -1426,7 +1426,7 @@
             mr: MAX_READS,
             c: UnsafeCell::new(value),
             s: Semaphore::const_new(MAX_READS <span class="kw">as </span>usize),
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span>resource_span: tracing::Span::none(),
         }
     }
@@ -1441,7 +1441,7 @@
     ///
     /// static LOCK: RwLock&lt;i32&gt; = RwLock::const_with_max_readers(5, 1024);
     /// ```
-    </span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;parking_lot&quot;</span>, not(all(loom, test))))]
+    </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;parking_lot&quot;</span>, not(all(loom, test))))]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;parking_lot&quot;</span>)))]
     </span><span class="kw">pub const fn </span>const_with_max_readers(value: T, <span class="kw-2">mut </span>max_reads: u32) -&gt; RwLock&lt;T&gt;
     <span class="kw">where
@@ -1452,7 +1452,7 @@
             mr: max_reads,
             c: UnsafeCell::new(value),
             s: Semaphore::const_new(max_reads <span class="kw">as </span>usize),
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span>resource_span: tracing::Span::none(),
         }
     }
@@ -1503,7 +1503,7 @@
     /// }
     /// ```
     </span><span class="kw">pub async fn </span>read(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; RwLockReadGuard&lt;<span class="lifetime">&#39;_</span>, T&gt; {
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>inner = trace::async_op(
             || <span class="self">self</span>.s.acquire(<span class="number">1</span>),
             <span class="self">self</span>.resource_span.clone(),
@@ -1512,7 +1512,7 @@
             <span class="bool-val">false</span>,
         );
 
-        <span class="attribute">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
+        <span class="attr">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
         </span><span class="kw">let </span>inner = <span class="self">self</span>.s.acquire(<span class="number">1</span>);
 
         inner.<span class="kw">await</span>.unwrap_or_else(|<span class="kw">_</span>| {
@@ -1521,7 +1521,7 @@
             </span><span class="macro">unreachable!</span>()
         });
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="self">self</span>.resource_span.in_scope(|| {
             <span class="macro">tracing::trace!</span>(
             target: <span class="string">&quot;runtime::resource::state_update&quot;</span>,
@@ -1534,7 +1534,7 @@
             s: <span class="kw-2">&amp;</span><span class="self">self</span>.s,
             data: <span class="self">self</span>.c.get(),
             marker: marker::PhantomData,
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span>resource_span: <span class="self">self</span>.resource_span.clone(),
         }
     }
@@ -1586,7 +1586,7 @@
     ///     assert!(rwlock.try_write().is_ok());
     /// }
     /// ```
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     #[cfg(feature = <span class="string">&quot;sync&quot;</span>)]
     </span><span class="kw">pub fn </span>blocking_read(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; RwLockReadGuard&lt;<span class="lifetime">&#39;_</span>, T&gt; {
         <span class="kw">crate</span>::future::block_on(<span class="self">self</span>.read())
@@ -1644,7 +1644,7 @@
     ///}
     /// ```
     </span><span class="kw">pub async fn </span>read_owned(<span class="self">self</span>: Arc&lt;<span class="self">Self</span>&gt;) -&gt; OwnedRwLockReadGuard&lt;T&gt; {
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>inner = trace::async_op(
             || <span class="self">self</span>.s.acquire(<span class="number">1</span>),
             <span class="self">self</span>.resource_span.clone(),
@@ -1653,7 +1653,7 @@
             <span class="bool-val">false</span>,
         );
 
-        <span class="attribute">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
+        <span class="attr">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
         </span><span class="kw">let </span>inner = <span class="self">self</span>.s.acquire(<span class="number">1</span>);
 
         inner.<span class="kw">await</span>.unwrap_or_else(|<span class="kw">_</span>| {
@@ -1662,7 +1662,7 @@
             </span><span class="macro">unreachable!</span>()
         });
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="self">self</span>.resource_span.in_scope(|| {
             <span class="macro">tracing::trace!</span>(
             target: <span class="string">&quot;runtime::resource::state_update&quot;</span>,
@@ -1671,14 +1671,14 @@
             )
         });
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>resource_span = <span class="self">self</span>.resource_span.clone();
 
         OwnedRwLockReadGuard {
             data: <span class="self">self</span>.c.get(),
             lock: ManuallyDrop::new(<span class="self">self</span>),
             _p: PhantomData,
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span>resource_span,
         }
     }
@@ -1722,7 +1722,7 @@
             <span class="prelude-val">Err</span>(TryAcquireError::Closed) =&gt; <span class="macro">unreachable!</span>(),
         }
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="self">self</span>.resource_span.in_scope(|| {
             <span class="macro">tracing::trace!</span>(
             target: <span class="string">&quot;runtime::resource::state_update&quot;</span>,
@@ -1735,7 +1735,7 @@
             s: <span class="kw-2">&amp;</span><span class="self">self</span>.s,
             data: <span class="self">self</span>.c.get(),
             marker: marker::PhantomData,
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span>resource_span: <span class="self">self</span>.resource_span.clone(),
         })
     }
@@ -1785,7 +1785,7 @@
             <span class="prelude-val">Err</span>(TryAcquireError::Closed) =&gt; <span class="macro">unreachable!</span>(),
         }
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="self">self</span>.resource_span.in_scope(|| {
             <span class="macro">tracing::trace!</span>(
             target: <span class="string">&quot;runtime::resource::state_update&quot;</span>,
@@ -1794,14 +1794,14 @@
             )
         });
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>resource_span = <span class="self">self</span>.resource_span.clone();
 
         <span class="prelude-val">Ok</span>(OwnedRwLockReadGuard {
             data: <span class="self">self</span>.c.get(),
             lock: ManuallyDrop::new(<span class="self">self</span>),
             _p: PhantomData,
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span>resource_span,
         })
     }
@@ -1835,7 +1835,7 @@
     ///}
     /// ```
     </span><span class="kw">pub async fn </span>write(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; RwLockWriteGuard&lt;<span class="lifetime">&#39;_</span>, T&gt; {
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>inner = trace::async_op(
             || <span class="self">self</span>.s.acquire(<span class="self">self</span>.mr),
             <span class="self">self</span>.resource_span.clone(),
@@ -1844,7 +1844,7 @@
             <span class="bool-val">false</span>,
         );
 
-        <span class="attribute">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
+        <span class="attr">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
         </span><span class="kw">let </span>inner = <span class="self">self</span>.s.acquire(<span class="self">self</span>.mr);
 
         inner.<span class="kw">await</span>.unwrap_or_else(|<span class="kw">_</span>| {
@@ -1853,7 +1853,7 @@
             </span><span class="macro">unreachable!</span>()
         });
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="self">self</span>.resource_span.in_scope(|| {
             <span class="macro">tracing::trace!</span>(
             target: <span class="string">&quot;runtime::resource::state_update&quot;</span>,
@@ -1867,7 +1867,7 @@
             s: <span class="kw-2">&amp;</span><span class="self">self</span>.s,
             data: <span class="self">self</span>.c.get(),
             marker: marker::PhantomData,
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span>resource_span: <span class="self">self</span>.resource_span.clone(),
         }
     }
@@ -1921,7 +1921,7 @@
     ///     assert_eq!(*read_lock, 2);
     /// }
     /// ```
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     #[cfg(feature = <span class="string">&quot;sync&quot;</span>)]
     </span><span class="kw">pub fn </span>blocking_write(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; RwLockWriteGuard&lt;<span class="lifetime">&#39;_</span>, T&gt; {
         <span class="kw">crate</span>::future::block_on(<span class="self">self</span>.write())
@@ -1963,7 +1963,7 @@
     ///}
     /// ```
     </span><span class="kw">pub async fn </span>write_owned(<span class="self">self</span>: Arc&lt;<span class="self">Self</span>&gt;) -&gt; OwnedRwLockWriteGuard&lt;T&gt; {
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>inner = trace::async_op(
             || <span class="self">self</span>.s.acquire(<span class="self">self</span>.mr),
             <span class="self">self</span>.resource_span.clone(),
@@ -1972,7 +1972,7 @@
             <span class="bool-val">false</span>,
         );
 
-        <span class="attribute">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
+        <span class="attr">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
         </span><span class="kw">let </span>inner = <span class="self">self</span>.s.acquire(<span class="self">self</span>.mr);
 
         inner.<span class="kw">await</span>.unwrap_or_else(|<span class="kw">_</span>| {
@@ -1981,7 +1981,7 @@
             </span><span class="macro">unreachable!</span>()
         });
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="self">self</span>.resource_span.in_scope(|| {
             <span class="macro">tracing::trace!</span>(
             target: <span class="string">&quot;runtime::resource::state_update&quot;</span>,
@@ -1990,7 +1990,7 @@
             )
         });
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>resource_span = <span class="self">self</span>.resource_span.clone();
 
         OwnedRwLockWriteGuard {
@@ -1998,7 +1998,7 @@
             data: <span class="self">self</span>.c.get(),
             lock: ManuallyDrop::new(<span class="self">self</span>),
             _p: PhantomData,
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span>resource_span,
         }
     }
@@ -2033,7 +2033,7 @@
             <span class="prelude-val">Err</span>(TryAcquireError::Closed) =&gt; <span class="macro">unreachable!</span>(),
         }
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="self">self</span>.resource_span.in_scope(|| {
             <span class="macro">tracing::trace!</span>(
             target: <span class="string">&quot;runtime::resource::state_update&quot;</span>,
@@ -2047,7 +2047,7 @@
             s: <span class="kw-2">&amp;</span><span class="self">self</span>.s,
             data: <span class="self">self</span>.c.get(),
             marker: marker::PhantomData,
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span>resource_span: <span class="self">self</span>.resource_span.clone(),
         })
     }
@@ -2089,7 +2089,7 @@
             <span class="prelude-val">Err</span>(TryAcquireError::Closed) =&gt; <span class="macro">unreachable!</span>(),
         }
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="self">self</span>.resource_span.in_scope(|| {
             <span class="macro">tracing::trace!</span>(
             target: <span class="string">&quot;runtime::resource::state_update&quot;</span>,
@@ -2098,7 +2098,7 @@
             )
         });
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>resource_span = <span class="self">self</span>.resource_span.clone();
 
         <span class="prelude-val">Ok</span>(OwnedRwLockWriteGuard {
@@ -2106,7 +2106,7 @@
             data: <span class="self">self</span>.c.get(),
             lock: ManuallyDrop::new(<span class="self">self</span>),
             _p: PhantomData,
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span>resource_span,
         })
     }
@@ -2159,4 +2159,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

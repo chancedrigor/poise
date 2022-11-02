@@ -186,7 +186,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::model::gateway::GatewayIntents;
 <span class="kw">use </span><span class="kw">crate</span>::model::id::GuildId;
 
-<span class="attribute">#[async_trait]
+<span class="attr">#[async_trait]
 </span><span class="kw">pub trait </span>WebSocketGatewayClientExt {
     <span class="kw">async fn </span>send_chunk_guild(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
@@ -221,9 +221,9 @@
     ) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;;
 }
 
-<span class="attribute">#[async_trait]
+<span class="attr">#[async_trait]
 </span><span class="kw">impl </span>WebSocketGatewayClientExt <span class="kw">for </span>WsStream {
-    <span class="attribute">#[instrument(skip(<span class="self">self</span>))]
+    <span class="attr">#[instrument(skip(<span class="self">self</span>))]
     </span><span class="kw">async fn </span>send_chunk_guild(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         guild_id: GuildId,
@@ -255,7 +255,7 @@
         <span class="self">self</span>.send_json(<span class="kw-2">&amp;</span>payload).<span class="kw">await</span>.map_err(From::from)
     }
 
-    <span class="attribute">#[instrument(skip(<span class="self">self</span>))]
+    <span class="attr">#[instrument(skip(<span class="self">self</span>))]
     </span><span class="kw">async fn </span>send_heartbeat(<span class="kw-2">&amp;mut </span><span class="self">self</span>, shard_info: <span class="kw-2">&amp;</span>[u64; <span class="number">2</span>], seq: <span class="prelude-ty">Option</span>&lt;u64&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="macro">trace!</span>(<span class="string">&quot;[Shard {:?}] Sending heartbeat d: {:?}&quot;</span>, shard_info, seq);
 
@@ -267,7 +267,7 @@
         </span>.map_err(From::from)
     }
 
-    <span class="attribute">#[instrument(skip(<span class="self">self</span>, token))]
+    <span class="attr">#[instrument(skip(<span class="self">self</span>, token))]
     </span><span class="kw">async fn </span>send_identify(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         shard_info: <span class="kw-2">&amp;</span>[u64; <span class="number">2</span>],
@@ -295,7 +295,7 @@
         .<span class="kw">await
     </span>}
 
-    <span class="attribute">#[instrument(skip(<span class="self">self</span>))]
+    <span class="attr">#[instrument(skip(<span class="self">self</span>))]
     </span><span class="kw">async fn </span>send_presence_update(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         shard_info: <span class="kw-2">&amp;</span>[u64; <span class="number">2</span>],
@@ -322,7 +322,7 @@
         .<span class="kw">await
     </span>}
 
-    <span class="attribute">#[instrument(skip(<span class="self">self</span>, token))]
+    <span class="attr">#[instrument(skip(<span class="self">self</span>, token))]
     </span><span class="kw">async fn </span>send_resume(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         shard_info: <span class="kw-2">&amp;</span>[u64; <span class="number">2</span>],
@@ -345,4 +345,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

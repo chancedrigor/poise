@@ -6120,7 +6120,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-</span><span class="attribute">#![cfg_attr(
+</span><span class="attr">#![cfg_attr(
     feature = <span class="string">&quot;cargo-clippy&quot;</span>,
     allow(doc_markdown, inline_always, new_ret_no_self)
 )]
@@ -6794,7 +6794,7 @@
 //! See the section [_UTF-16LE, UTF-16BE and Unicode Encoding Schemes_](#utf-16le-utf-16be-and-unicode-encoding-schemes)
 //! for discussion about the UTF-16 family.
 
-</span><span class="attribute">#![no_std]
+</span><span class="attr">#![no_std]
 #![cfg_attr(feature = <span class="string">&quot;simd-accel&quot;</span>, feature(stdsimd, core_intrinsics))]
 
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
@@ -6802,10 +6802,10 @@
 </span><span class="kw">extern crate </span>alloc;
 
 <span class="kw">extern crate </span>core;
-<span class="attribute">#[macro_use]
+<span class="attr">#[macro_use]
 </span><span class="kw">extern crate </span>cfg_if;
 
-<span class="attribute">#[cfg(all(
+<span class="attr">#[cfg(all(
     feature = <span class="string">&quot;simd-accel&quot;</span>,
     any(
         target_feature = <span class="string">&quot;sse2&quot;</span>,
@@ -6816,21 +6816,21 @@
 #[macro_use(shuffle)]
 </span><span class="kw">extern crate </span>packed_simd;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">extern crate </span>serde;
 
-<span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;serde&quot;</span>))]
+<span class="attr">#[cfg(all(test, feature = <span class="string">&quot;serde&quot;</span>))]
 </span><span class="kw">extern crate </span>bincode;
-<span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;serde&quot;</span>))]
+<span class="attr">#[cfg(all(test, feature = <span class="string">&quot;serde&quot;</span>))]
 #[macro_use]
 </span><span class="kw">extern crate </span>serde_derive;
-<span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;serde&quot;</span>))]
+<span class="attr">#[cfg(all(test, feature = <span class="string">&quot;serde&quot;</span>))]
 </span><span class="kw">extern crate </span>serde_json;
 
-<span class="attribute">#[macro_use]
+<span class="attr">#[macro_use]
 </span><span class="kw">mod </span>macros;
 
-<span class="attribute">#[cfg(all(
+<span class="attr">#[cfg(all(
     feature = <span class="string">&quot;simd-accel&quot;</span>,
     any(
         target_feature = <span class="string">&quot;sse2&quot;</span>,
@@ -6840,7 +6840,7 @@
 ))]
 </span><span class="kw">mod </span>simd_funcs;
 
-<span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
+<span class="attr">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
 </span><span class="kw">mod </span>testing;
 
 <span class="kw">mod </span>big5;
@@ -6867,19 +6867,19 @@
 <span class="kw">use </span><span class="kw">crate</span>::utf_8::utf8_valid_up_to;
 <span class="kw">use </span><span class="kw">crate</span>::variant::<span class="kw-2">*</span>;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span>alloc::borrow::Cow;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span>alloc::string::String;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span>alloc::vec::Vec;
 <span class="kw">use </span>core::cmp::Ordering;
 <span class="kw">use </span>core::hash::Hash;
 <span class="kw">use </span>core::hash::Hasher;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">use </span>serde::de::Visitor;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">use </span>serde::{Deserialize, Deserializer, Serialize, Serializer};
 
 <span class="doccomment">/// This has to be the max length of an NCR instead of max
@@ -8945,7 +8945,7 @@
     /// unsafe fallback for labels that `for_label()` maps to `Some(REPLACEMENT)`.
     ///
     /// Available via the C wrapper.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>for_label_no_replacement(label: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Encoding&gt; {
         <span class="kw">match </span>Encoding::for_label(label) {
             <span class="prelude-val">None </span>=&gt; <span class="prelude-val">None</span>,
@@ -8970,7 +8970,7 @@
     /// or UTF-16BE BOM or `None` otherwise.
     ///
     /// Available via the C wrapper.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>for_bom(buffer: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Encoding, usize)&gt; {
         <span class="kw">if </span>buffer.starts_with(<span class="string">b&quot;\xEF\xBB\xBF&quot;</span>) {
             <span class="prelude-val">Some</span>((UTF_8, <span class="number">3</span>))
@@ -8989,7 +8989,7 @@
     /// `document.characterSet` property.
     ///
     /// Available via the C wrapper.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>name(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str {
         <span class="self">self</span>.name
     }
@@ -8998,7 +8998,7 @@
     /// `char`. (Only true if the output encoding is UTF-8.)
     ///
     /// Available via the C wrapper.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>can_encode_everything(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.output_encoding() == UTF_8
     }
@@ -9007,7 +9007,7 @@
     /// U+0000...U+007F and vice versa.
     ///
     /// Available via the C wrapper.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_ascii_compatible(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><span class="self">self</span>) -&gt; bool {
         !(<span class="self">self </span>== REPLACEMENT || <span class="self">self </span>== UTF_16BE || <span class="self">self </span>== UTF_16LE || <span class="self">self </span>== ISO_2022_JP)
     }
@@ -9021,14 +9021,14 @@
     /// in the spec or x-user-defined.
     ///
     /// Available via the C wrapper.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_single_byte(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.variant.is_single_byte()
     }
 
     <span class="doccomment">/// Checks whether the bytes 0x00...0x7F map mostly to the characters
     /// U+0000...U+007F and vice versa.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     #[inline]
     </span><span class="kw">fn </span>is_potentially_borrowable(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><span class="self">self</span>) -&gt; bool {
         !(<span class="self">self </span>== REPLACEMENT || <span class="self">self </span>== UTF_16BE || <span class="self">self </span>== UTF_16LE)
@@ -9038,7 +9038,7 @@
     /// UTF-16BE, UTF-16LE and replacement and the encoding itself otherwise.
     ///
     /// Available via the C wrapper.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>output_encoding(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Encoding {
         <span class="kw">if </span><span class="self">self </span>== REPLACEMENT || <span class="self">self </span>== UTF_16BE || <span class="self">self </span>== UTF_16LE {
             UTF_8
@@ -9082,7 +9082,7 @@
     ///
     /// Available to Rust only and only with the `alloc` feature enabled (enabled
     /// by default).
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     #[inline]
     </span><span class="kw">pub fn </span>decode&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><span class="self">self</span>, bytes: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]) -&gt; (Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;, <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Encoding, bool) {
         <span class="kw">let </span>(encoding, without_bom) = <span class="kw">match </span>Encoding::for_bom(bytes) {
@@ -9127,7 +9127,7 @@
     ///
     /// Available to Rust only and only with the `alloc` feature enabled (enabled
     /// by default).
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     #[inline]
     </span><span class="kw">pub fn </span>decode_with_bom_removal&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><span class="self">self</span>, bytes: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]) -&gt; (Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;, bool) {
         <span class="kw">let </span>without_bom = <span class="kw">if </span><span class="self">self </span>== UTF_8 &amp;&amp; bytes.starts_with(<span class="string">b&quot;\xEF\xBB\xBF&quot;</span>) {
@@ -9176,7 +9176,7 @@
     ///
     /// Available to Rust only and only with the `alloc` feature enabled (enabled
     /// by default).
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">pub fn </span>decode_without_bom_handling&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><span class="self">self</span>, bytes: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]) -&gt; (Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;, bool) {
         <span class="kw">let </span>(<span class="kw-2">mut </span>decoder, <span class="kw-2">mut </span>string, <span class="kw-2">mut </span>total_read) = <span class="kw">if </span><span class="self">self</span>.is_potentially_borrowable() {
             <span class="kw">let </span>valid_up_to = <span class="kw">if </span><span class="self">self </span>== UTF_8 {
@@ -9273,7 +9273,7 @@
     ///
     /// Available to Rust only and only with the `alloc` feature enabled (enabled
     /// by default).
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">pub fn </span>decode_without_bom_handling_and_without_replacement&lt;<span class="lifetime">&#39;a</span>&gt;(
         <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><span class="self">self</span>,
         bytes: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8],
@@ -9370,7 +9370,7 @@
     ///
     /// Available to Rust only and only with the `alloc` feature enabled (enabled
     /// by default).
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">pub fn </span>encode&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><span class="self">self</span>, string: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; (Cow&lt;<span class="lifetime">&#39;a</span>, [u8]&gt;, <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Encoding, bool) {
         <span class="kw">let </span>output_encoding = <span class="self">self</span>.output_encoding();
         <span class="kw">if </span>output_encoding == UTF_8 {
@@ -9436,7 +9436,7 @@
     /// for UTF-8, UTF-16LE or UTF-16BE instead of this encoding.
     ///
     /// Available via the C wrapper.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new_decoder(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><span class="self">self</span>) -&gt; Decoder {
         Decoder::new(<span class="self">self</span>, <span class="self">self</span>.new_variant_decoder(), BomHandling::Sniff)
     }
@@ -9450,7 +9450,7 @@
     /// encoding.
     ///
     /// Available via the C wrapper.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new_decoder_with_bom_removal(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><span class="self">self</span>) -&gt; Decoder {
         Decoder::new(<span class="self">self</span>, <span class="self">self</span>.new_variant_decoder(), BomHandling::Remove)
     }
@@ -9466,7 +9466,7 @@
     /// instead of this method to cause the BOM to be removed.
     ///
     /// Available via the C wrapper.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new_decoder_without_bom_handling(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><span class="self">self</span>) -&gt; Decoder {
         Decoder::new(<span class="self">self</span>, <span class="self">self</span>.new_variant_decoder(), BomHandling::Off)
     }
@@ -9474,7 +9474,7 @@
     <span class="doccomment">/// Instantiates a new encoder for the output encoding of this encoding.
     ///
     /// Available via the C wrapper.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new_encoder(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><span class="self">self</span>) -&gt; Encoder {
         <span class="kw">let </span>enc = <span class="self">self</span>.output_encoding();
         enc.variant.new_encoder(enc)
@@ -9518,7 +9518,7 @@
 }
 
 <span class="kw">impl </span>PartialEq <span class="kw">for </span>Encoding {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Encoding) -&gt; bool {
         (<span class="self">self </span><span class="kw">as </span><span class="kw-2">*const </span>Encoding) == (other <span class="kw">as </span><span class="kw-2">*const </span>Encoding)
     }
@@ -9526,14 +9526,14 @@
 
 <span class="kw">impl </span>Eq <span class="kw">for </span>Encoding {}
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">impl </span>PartialOrd <span class="kw">for </span>Encoding {
     <span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Ordering&gt; {
         (<span class="self">self </span><span class="kw">as </span><span class="kw-2">*const </span>Encoding <span class="kw">as </span>usize).partial_cmp(<span class="kw-2">&amp;</span>(other <span class="kw">as </span><span class="kw-2">*const </span>Encoding <span class="kw">as </span>usize))
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">impl </span>Ord <span class="kw">for </span>Encoding {
     <span class="kw">fn </span>cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; Ordering {
         (<span class="self">self </span><span class="kw">as </span><span class="kw-2">*const </span>Encoding <span class="kw">as </span>usize).cmp(<span class="kw-2">&amp;</span>(other <span class="kw">as </span><span class="kw-2">*const </span>Encoding <span class="kw">as </span>usize))
@@ -9541,22 +9541,22 @@
 }
 
 <span class="kw">impl </span>Hash <span class="kw">for </span>Encoding {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>hash&lt;H: Hasher&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, state: <span class="kw-2">&amp;mut </span>H) {
         (<span class="self">self </span><span class="kw">as </span><span class="kw-2">*const </span>Encoding).hash(state);
     }
 }
 
 <span class="kw">impl </span>core::fmt::Debug <span class="kw">for </span>Encoding {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>core::fmt::Formatter) -&gt; core::fmt::Result {
         <span class="macro">write!</span>(f, <span class="string">&quot;Encoding {{ {} }}&quot;</span>, <span class="self">self</span>.name)
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">impl </span>Serialize <span class="kw">for </span>Encoding {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize&lt;S&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt;
     <span class="kw">where
         </span>S: Serializer,
@@ -9565,10 +9565,10 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">struct </span>EncodingVisitor;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;de</span>&gt; Visitor&lt;<span class="lifetime">&#39;de</span>&gt; <span class="kw">for </span>EncodingVisitor {
     <span class="kw">type </span>Value = <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Encoding;
 
@@ -9591,7 +9591,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;de</span>&gt; Deserialize&lt;<span class="lifetime">&#39;de</span>&gt; <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Encoding {
     <span class="kw">fn </span>deserialize&lt;D&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Encoding, D::Error&gt;
     <span class="kw">where
@@ -9602,7 +9602,7 @@
 }
 
 <span class="doccomment">/// Tracks the life cycle of a decoder from BOM sniffing to conversion to end.
-</span><span class="attribute">#[derive(PartialEq, Debug, Copy, Clone)]
+</span><span class="attr">#[derive(PartialEq, Debug, Copy, Clone)]
 </span><span class="kw">enum </span>DecoderLifeCycle {
     <span class="doccomment">/// The decoder has seen no input yet.
     </span>AtStart,
@@ -9631,7 +9631,7 @@
 }
 
 <span class="doccomment">/// Communicate the BOM handling mode.
-</span><span class="attribute">#[derive(Debug, Copy, Clone)]
+</span><span class="attr">#[derive(Debug, Copy, Clone)]
 </span><span class="kw">enum </span>BomHandling {
     <span class="doccomment">/// Don&#39;t handle the BOM
     </span>Off,
@@ -9643,7 +9643,7 @@
 
 <span class="doccomment">/// Result of a (potentially partial) decode or encode operation with
 /// replacement.
-</span><span class="attribute">#[must_use]
+</span><span class="attr">#[must_use]
 #[derive(Debug, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>CoderResult {
     <span class="doccomment">/// The input was exhausted.
@@ -9662,7 +9662,7 @@
 }
 
 <span class="doccomment">/// Result of a (potentially partial) decode operation without replacement.
-</span><span class="attribute">#[must_use]
+</span><span class="attr">#[must_use]
 #[derive(Debug, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>DecoderResult {
     <span class="doccomment">/// The input was exhausted.
@@ -9830,7 +9830,7 @@
     /// of the decoder.
     ///
     /// Available via the C wrapper.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>encoding(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Encoding {
         <span class="self">self</span>.encoding
     }
@@ -10135,7 +10135,7 @@
     ///
     /// Available to Rust only and only with the `alloc` feature enabled (enabled
     /// by default).
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">pub fn </span>decode_to_string(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         src: <span class="kw-2">&amp;</span>[u8],
@@ -10225,7 +10225,7 @@
     ///
     /// Available to Rust only and only with the `alloc` feature enabled (enabled
     /// by default).
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">pub fn </span>decode_to_string_without_replacement(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         src: <span class="kw-2">&amp;</span>[u8],
@@ -10430,7 +10430,7 @@
 }
 
 <span class="doccomment">/// Result of a (potentially partial) encode operation without replacement.
-</span><span class="attribute">#[must_use]
+</span><span class="attr">#[must_use]
 #[derive(Debug, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>EncoderResult {
     <span class="doccomment">/// The input was exhausted.
@@ -10585,14 +10585,14 @@
     }
 
     <span class="doccomment">/// The `Encoding` this `Encoder` is for.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>encoding(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Encoding {
         <span class="self">self</span>.encoding
     }
 
     <span class="doccomment">/// Returns `true` if this is an ISO-2022-JP encoder that&#39;s not in the
     /// ASCII state and `false` otherwise.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>has_pending_state(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.variant.has_pending_state()
     }
@@ -10726,7 +10726,7 @@
     ///
     /// Available to Rust only and only with the `alloc` feature enabled (enabled
     /// by default).
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">pub fn </span>encode_from_utf8_to_vec(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         src: <span class="kw-2">&amp;</span>str,
@@ -10766,7 +10766,7 @@
     ///
     /// Available to Rust only and only with the `alloc` feature enabled (enabled
     /// by default).
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">pub fn </span>encode_from_utf8_to_vec_without_replacement(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         src: <span class="kw-2">&amp;</span>str,
@@ -10966,37 +10966,37 @@
     len
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">fn </span>in_range16(i: u16, start: u16, end: u16) -&gt; bool {
     i.wrapping_sub(start) &lt; (end - start)
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">fn </span>in_range32(i: u32, start: u32, end: u32) -&gt; bool {
     i.wrapping_sub(start) &lt; (end - start)
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">fn </span>in_inclusive_range8(i: u8, start: u8, end: u8) -&gt; bool {
     i.wrapping_sub(start) &lt;= (end - start)
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">fn </span>in_inclusive_range16(i: u16, start: u16, end: u16) -&gt; bool {
     i.wrapping_sub(start) &lt;= (end - start)
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">fn </span>in_inclusive_range32(i: u32, start: u32, end: u32) -&gt; bool {
     i.wrapping_sub(start) &lt;= (end - start)
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">fn </span>in_inclusive_range(i: usize, start: usize, end: usize) -&gt; bool {
     i.wrapping_sub(start) &lt;= (end - start)
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">fn </span>checked_add(num: usize, opt: <span class="prelude-ty">Option</span>&lt;usize&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
     <span class="kw">if let </span><span class="prelude-val">Some</span>(n) = opt {
         n.checked_add(num)
@@ -11005,7 +11005,7 @@
     </span>}
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">fn </span>checked_add_opt(one: <span class="prelude-ty">Option</span>&lt;usize&gt;, other: <span class="prelude-ty">Option</span>&lt;usize&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
     <span class="kw">if let </span><span class="prelude-val">Some</span>(n) = one {
         checked_add(n, other)
@@ -11014,7 +11014,7 @@
     </span>}
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">fn </span>checked_mul(num: usize, opt: <span class="prelude-ty">Option</span>&lt;usize&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
     <span class="kw">if let </span><span class="prelude-val">Some</span>(n) = opt {
         n.checked_mul(num)
@@ -11023,7 +11023,7 @@
     </span>}
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">fn </span>checked_div(opt: <span class="prelude-ty">Option</span>&lt;usize&gt;, num: usize) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
     <span class="kw">if let </span><span class="prelude-val">Some</span>(n) = opt {
         n.checked_div(num)
@@ -11032,13 +11032,13 @@
     </span>}
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 #[inline(always)]
 </span><span class="kw">fn </span>checked_next_power_of_two(opt: <span class="prelude-ty">Option</span>&lt;usize&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
     opt.map(|n| n.next_power_of_two())
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 #[inline(always)]
 </span><span class="kw">fn </span>checked_min(one: <span class="prelude-ty">Option</span>&lt;usize&gt;, other: <span class="prelude-ty">Option</span>&lt;usize&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
     <span class="kw">if let </span><span class="prelude-val">Some</span>(a) = one {
@@ -11054,7 +11054,7 @@
 
 <span class="comment">// ############## TESTS ###############
 
-</span><span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;serde&quot;</span>))]
+</span><span class="attr">#[cfg(all(test, feature = <span class="string">&quot;serde&quot;</span>))]
 #[derive(Serialize, Deserialize, Debug, PartialEq)]
 </span><span class="kw">struct </span>Demo {
     num: u32,
@@ -11062,10 +11062,10 @@
     enc: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Encoding,
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test_labels_names;
 
-<span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
+<span class="attr">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span>alloc::borrow::Cow;
@@ -11117,7 +11117,7 @@
     <span class="comment">// Any copyright to the test code below this comment is dedicated to the
     // Public Domain. http://creativecommons.org/publicdomain/zero/1.0/
 
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>test_bom_sniffing() {
         <span class="comment">// ASCII
         </span>sniff_to_utf16(
@@ -11274,7 +11274,7 @@
         sniff_to_utf16(WINDOWS_1252, UTF_16LE, <span class="string">b&quot;\xFF\xFE&quot;</span>, <span class="kw-2">&amp;</span>[], <span class="kw-2">&amp;</span>[<span class="number">1</span>]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_output_encoding() {
         <span class="macro">assert_eq!</span>(REPLACEMENT.output_encoding(), UTF_8);
         <span class="macro">assert_eq!</span>(UTF_16BE.output_encoding(), UTF_8);
@@ -11288,7 +11288,7 @@
         <span class="macro">assert_eq!</span>(WINDOWS_1252.new_encoder().encoding(), WINDOWS_1252);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_label_resolution() {
         <span class="macro">assert_eq!</span>(Encoding::for_label(<span class="string">b&quot;utf-8&quot;</span>), <span class="prelude-val">Some</span>(UTF_8));
         <span class="macro">assert_eq!</span>(Encoding::for_label(<span class="string">b&quot;UTF-8&quot;</span>), <span class="prelude-val">Some</span>(UTF_8));
@@ -11301,7 +11301,7 @@
         <span class="macro">assert_eq!</span>(Encoding::for_label(<span class="string">b&quot;bogusbogusbogusbogus&quot;</span>), <span class="prelude-val">None</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_valid_windows_1257_to_cow() {
         <span class="kw">let </span>(cow, encoding, had_errors) = WINDOWS_1257.decode(<span class="string">b&quot;abc\x80\xE4&quot;</span>);
         <span class="kw">match </span>cow {
@@ -11314,7 +11314,7 @@
         <span class="macro">assert!</span>(!had_errors);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_invalid_windows_1257_to_cow() {
         <span class="kw">let </span>(cow, encoding, had_errors) = WINDOWS_1257.decode(<span class="string">b&quot;abc\x80\xA1\xE4&quot;</span>);
         <span class="kw">match </span>cow {
@@ -11327,7 +11327,7 @@
         <span class="macro">assert!</span>(had_errors);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_ascii_only_windows_1257_to_cow() {
         <span class="kw">let </span>(cow, encoding, had_errors) = WINDOWS_1257.decode(<span class="string">b&quot;abc&quot;</span>);
         <span class="kw">match </span>cow {
@@ -11340,7 +11340,7 @@
         <span class="macro">assert!</span>(!had_errors);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_bomful_valid_utf8_as_windows_1257_to_cow() {
         <span class="kw">let </span>(cow, encoding, had_errors) = WINDOWS_1257.decode(<span class="string">b&quot;\xEF\xBB\xBF\xE2\x82\xAC\xC3\xA4&quot;</span>);
         <span class="kw">match </span>cow {
@@ -11353,7 +11353,7 @@
         <span class="macro">assert!</span>(!had_errors);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_bomful_invalid_utf8_as_windows_1257_to_cow() {
         <span class="kw">let </span>(cow, encoding, had_errors) =
             WINDOWS_1257.decode(<span class="string">b&quot;\xEF\xBB\xBF\xE2\x82\xAC\x80\xC3\xA4&quot;</span>);
@@ -11367,7 +11367,7 @@
         <span class="macro">assert!</span>(had_errors);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_bomful_valid_utf8_as_utf_8_to_cow() {
         <span class="kw">let </span>(cow, encoding, had_errors) = UTF_8.decode(<span class="string">b&quot;\xEF\xBB\xBF\xE2\x82\xAC\xC3\xA4&quot;</span>);
         <span class="kw">match </span>cow {
@@ -11380,7 +11380,7 @@
         <span class="macro">assert!</span>(!had_errors);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_bomful_invalid_utf8_as_utf_8_to_cow() {
         <span class="kw">let </span>(cow, encoding, had_errors) = UTF_8.decode(<span class="string">b&quot;\xEF\xBB\xBF\xE2\x82\xAC\x80\xC3\xA4&quot;</span>);
         <span class="kw">match </span>cow {
@@ -11393,7 +11393,7 @@
         <span class="macro">assert!</span>(had_errors);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_bomful_valid_utf8_as_utf_8_to_cow_with_bom_removal() {
         <span class="kw">let </span>(cow, had_errors) = UTF_8.decode_with_bom_removal(<span class="string">b&quot;\xEF\xBB\xBF\xE2\x82\xAC\xC3\xA4&quot;</span>);
         <span class="kw">match </span>cow {
@@ -11405,7 +11405,7 @@
         <span class="macro">assert!</span>(!had_errors);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_bomful_valid_utf8_as_windows_1257_to_cow_with_bom_removal() {
         <span class="kw">let </span>(cow, had_errors) =
             WINDOWS_1257.decode_with_bom_removal(<span class="string">b&quot;\xEF\xBB\xBF\xE2\x82\xAC\xC3\xA4&quot;</span>);
@@ -11421,7 +11421,7 @@
         <span class="macro">assert!</span>(!had_errors);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_valid_windows_1257_to_cow_with_bom_removal() {
         <span class="kw">let </span>(cow, had_errors) = WINDOWS_1257.decode_with_bom_removal(<span class="string">b&quot;abc\x80\xE4&quot;</span>);
         <span class="kw">match </span>cow {
@@ -11433,7 +11433,7 @@
         <span class="macro">assert!</span>(!had_errors);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_invalid_windows_1257_to_cow_with_bom_removal() {
         <span class="kw">let </span>(cow, had_errors) = WINDOWS_1257.decode_with_bom_removal(<span class="string">b&quot;abc\x80\xA1\xE4&quot;</span>);
         <span class="kw">match </span>cow {
@@ -11445,7 +11445,7 @@
         <span class="macro">assert!</span>(had_errors);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_ascii_only_windows_1257_to_cow_with_bom_removal() {
         <span class="kw">let </span>(cow, had_errors) = WINDOWS_1257.decode_with_bom_removal(<span class="string">b&quot;abc&quot;</span>);
         <span class="kw">match </span>cow {
@@ -11457,7 +11457,7 @@
         <span class="macro">assert!</span>(!had_errors);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_bomful_valid_utf8_to_cow_without_bom_handling() {
         <span class="kw">let </span>(cow, had_errors) =
             UTF_8.decode_without_bom_handling(<span class="string">b&quot;\xEF\xBB\xBF\xE2\x82\xAC\xC3\xA4&quot;</span>);
@@ -11470,7 +11470,7 @@
         <span class="macro">assert!</span>(!had_errors);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_bomful_invalid_utf8_to_cow_without_bom_handling() {
         <span class="kw">let </span>(cow, had_errors) =
             UTF_8.decode_without_bom_handling(<span class="string">b&quot;\xEF\xBB\xBF\xE2\x82\xAC\x80\xC3\xA4&quot;</span>);
@@ -11483,7 +11483,7 @@
         <span class="macro">assert!</span>(had_errors);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_valid_windows_1257_to_cow_without_bom_handling() {
         <span class="kw">let </span>(cow, had_errors) = WINDOWS_1257.decode_without_bom_handling(<span class="string">b&quot;abc\x80\xE4&quot;</span>);
         <span class="kw">match </span>cow {
@@ -11495,7 +11495,7 @@
         <span class="macro">assert!</span>(!had_errors);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_invalid_windows_1257_to_cow_without_bom_handling() {
         <span class="kw">let </span>(cow, had_errors) = WINDOWS_1257.decode_without_bom_handling(<span class="string">b&quot;abc\x80\xA1\xE4&quot;</span>);
         <span class="kw">match </span>cow {
@@ -11507,7 +11507,7 @@
         <span class="macro">assert!</span>(had_errors);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_ascii_only_windows_1257_to_cow_without_bom_handling() {
         <span class="kw">let </span>(cow, had_errors) = WINDOWS_1257.decode_without_bom_handling(<span class="string">b&quot;abc&quot;</span>);
         <span class="kw">match </span>cow {
@@ -11519,7 +11519,7 @@
         <span class="macro">assert!</span>(!had_errors);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_bomful_valid_utf8_to_cow_without_bom_handling_and_without_replacement() {
         <span class="kw">match </span>UTF_8.decode_without_bom_handling_and_without_replacement(
             <span class="string">b&quot;\xEF\xBB\xBF\xE2\x82\xAC\xC3\xA4&quot;</span>,
@@ -11534,7 +11534,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_bomful_invalid_utf8_to_cow_without_bom_handling_and_without_replacement() {
         <span class="macro">assert!</span>(UTF_8
             .decode_without_bom_handling_and_without_replacement(
@@ -11543,7 +11543,7 @@
             .is_none());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_valid_windows_1257_to_cow_without_bom_handling_and_without_replacement() {
         <span class="kw">match </span>WINDOWS_1257.decode_without_bom_handling_and_without_replacement(<span class="string">b&quot;abc\x80\xE4&quot;</span>) {
             <span class="prelude-val">Some</span>(cow) =&gt; <span class="kw">match </span>cow {
@@ -11556,14 +11556,14 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_invalid_windows_1257_to_cow_without_bom_handling_and_without_replacement() {
         <span class="macro">assert!</span>(WINDOWS_1257
             .decode_without_bom_handling_and_without_replacement(<span class="string">b&quot;abc\x80\xA1\xE4&quot;</span>)
             .is_none());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_ascii_only_windows_1257_to_cow_without_bom_handling_and_without_replacement() {
         <span class="kw">match </span>WINDOWS_1257.decode_without_bom_handling_and_without_replacement(<span class="string">b&quot;abc&quot;</span>) {
             <span class="prelude-val">Some</span>(cow) =&gt; <span class="kw">match </span>cow {
@@ -11576,7 +11576,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_encode_ascii_only_windows_1257_to_cow() {
         <span class="kw">let </span>(cow, encoding, had_errors) = WINDOWS_1257.encode(<span class="string">&quot;abc&quot;</span>);
         <span class="kw">match </span>cow {
@@ -11589,7 +11589,7 @@
         <span class="macro">assert!</span>(!had_errors);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_encode_valid_windows_1257_to_cow() {
         <span class="kw">let </span>(cow, encoding, had_errors) = WINDOWS_1257.encode(<span class="string">&quot;abc\u{20AC}\u{00E4}&quot;</span>);
         <span class="kw">match </span>cow {
@@ -11602,7 +11602,7 @@
         <span class="macro">assert!</span>(!had_errors);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_utf16_space_with_one_bom_byte() {
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = UTF_16LE.new_decoder();
         <span class="kw">let </span><span class="kw-2">mut </span>dst = [<span class="number">0u16</span>; <span class="number">12</span>];
@@ -11618,7 +11618,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_utf8_space_with_one_bom_byte() {
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = UTF_8.new_decoder();
         <span class="kw">let </span><span class="kw-2">mut </span>dst = [<span class="number">0u16</span>; <span class="number">12</span>];
@@ -11634,7 +11634,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_utf16_space_with_two_bom_bytes() {
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = UTF_16LE.new_decoder();
         <span class="kw">let </span><span class="kw-2">mut </span>dst = [<span class="number">0u16</span>; <span class="number">12</span>];
@@ -11655,7 +11655,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_utf8_space_with_two_bom_bytes() {
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = UTF_8.new_decoder();
         <span class="kw">let </span><span class="kw-2">mut </span>dst = [<span class="number">0u16</span>; <span class="number">12</span>];
@@ -11676,7 +11676,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_utf16_space_with_one_bom_byte_and_a_second_byte_in_same_call() {
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = UTF_16LE.new_decoder();
         <span class="kw">let </span><span class="kw-2">mut </span>dst = [<span class="number">0u16</span>; <span class="number">12</span>];
@@ -11687,7 +11687,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_too_short_buffer_with_iso_2022_jp_ascii_from_utf8() {
         <span class="kw">let </span><span class="kw-2">mut </span>dst = [<span class="number">0u8</span>; <span class="number">8</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>encoder = ISO_2022_JP.new_encoder();
@@ -11701,7 +11701,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_too_short_buffer_with_iso_2022_jp_roman_from_utf8() {
         <span class="kw">let </span><span class="kw-2">mut </span>dst = [<span class="number">0u8</span>; <span class="number">16</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>encoder = ISO_2022_JP.new_encoder();
@@ -11719,7 +11719,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_buffer_end_iso_2022_jp_from_utf8() {
         <span class="kw">let </span><span class="kw-2">mut </span>dst = [<span class="number">0u8</span>; <span class="number">18</span>];
         {
@@ -11745,7 +11745,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_too_short_buffer_with_iso_2022_jp_ascii_from_utf16() {
         <span class="kw">let </span><span class="kw-2">mut </span>dst = [<span class="number">0u8</span>; <span class="number">8</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>encoder = ISO_2022_JP.new_encoder();
@@ -11759,7 +11759,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_too_short_buffer_with_iso_2022_jp_roman_from_utf16() {
         <span class="kw">let </span><span class="kw-2">mut </span>dst = [<span class="number">0u8</span>; <span class="number">16</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>encoder = ISO_2022_JP.new_encoder();
@@ -11777,7 +11777,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_buffer_end_iso_2022_jp_from_utf16() {
         <span class="kw">let </span><span class="kw-2">mut </span>dst = [<span class="number">0u8</span>; <span class="number">18</span>];
         {
@@ -11806,7 +11806,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_buffer_end_utf16be() {
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = UTF_16BE.new_decoder_without_bom_handling();
         <span class="kw">let </span><span class="kw-2">mut </span>dest = [<span class="number">0u8</span>; <span class="number">4</span>];
@@ -11819,7 +11819,7 @@
         <span class="kw">let _ </span>= decoder.decode_to_utf8(<span class="kw-2">&amp;</span>[<span class="number">0xD8</span>, <span class="number">0x00</span>], <span class="kw-2">&amp;mut </span>dest, <span class="bool-val">true</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_hash() {
         <span class="kw">let </span><span class="kw-2">mut </span>encodings = ::alloc::collections::btree_set::BTreeSet::new();
         encodings.insert(UTF_8);
@@ -11831,7 +11831,7 @@
         <span class="macro">assert!</span>(!encodings.contains(ISO_2022_JP));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_iso_2022_jp_ncr_extra_from_utf16() {
         <span class="kw">let </span><span class="kw-2">mut </span>dst = [<span class="number">0u8</span>; <span class="number">17</span>];
         {
@@ -11842,7 +11842,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_iso_2022_jp_ncr_extra_from_utf8() {
         <span class="kw">let </span><span class="kw-2">mut </span>dst = [<span class="number">0u8</span>; <span class="number">17</span>];
         {
@@ -11853,7 +11853,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_max_length_with_bom_to_utf8() {
         <span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0u8</span>; <span class="number">20</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = REPLACEMENT.new_decoder();
@@ -11871,7 +11871,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
     #[test]
     </span><span class="kw">fn </span>test_serde() {
         <span class="kw">let </span>demo = Demo {
@@ -11890,7 +11890,7 @@
         <span class="macro">assert_eq!</span>(debincoded, demo);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_is_single_byte() {
         <span class="macro">assert!</span>(!BIG5.is_single_byte());
         <span class="macro">assert!</span>(!EUC_JP.is_single_byte());
@@ -11935,7 +11935,7 @@
         <span class="macro">assert!</span>(X_USER_DEFINED.is_single_byte());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_latin1_byte_compatible_up_to() {
         <span class="kw">let </span>buffer = <span class="string">b&quot;a\x81\xB6\xF6\xF0\x82\xB4&quot;</span>;
         <span class="macro">assert_eq!</span>(
@@ -12225,4 +12225,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="encoding_rs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="encoding_rs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

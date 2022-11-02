@@ -437,24 +437,24 @@
 </pre><pre class="rust"><code><span class="doccomment">//! Models for server and channel invites.
 
 </span><span class="kw">use </span><span class="kw">super</span>::prelude::<span class="kw-2">*</span>;
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
 </span><span class="kw">use super</span>::{utils <span class="kw">as </span>model_utils, Permissions};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::builder::CreateInvite;
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::cache::Cache;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::http::{CacheHttp, Http};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::internal::prelude::<span class="kw-2">*</span>;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::json;
 <span class="kw">use </span><span class="kw">crate</span>::model::Timestamp;
 
 <span class="doccomment">/// Information about an invite code.
 ///
 /// Information can not be accessed for guilds the current user is banned from.
-</span><span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>Invite {
     <span class="doccomment">/// The approximate number of [`Member`]s in the related [`Guild`].
@@ -498,7 +498,7 @@
     </span><span class="kw">pub </span>stage_instance: <span class="prelude-ty">Option</span>&lt;InviteStageInstance&gt;,
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">impl </span>Invite {
     <span class="doccomment">/// Creates an invite for a [`GuildChannel`], providing a builder so that
     /// fields may optionally be set.
@@ -515,7 +515,7 @@
     ///
     /// [Create Instant Invite]: Permissions::CREATE_INSTANT_INVITE
     /// [permission]: super::permissions
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>create&lt;F&gt;(
         cache_http: <span class="kw">impl </span>CacheHttp,
         channel_id: <span class="kw">impl </span>Into&lt;ChannelId&gt;,
@@ -526,7 +526,7 @@
     {
         <span class="kw">let </span>channel_id = channel_id.into();
 
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
         </span>{
             <span class="kw">if let </span><span class="prelude-val">Some</span>(cache) = cache_http.cache() {
                 model_utils::user_has_perms_cache(
@@ -558,7 +558,7 @@
     /// [Manage Guild]: Permissions::MANAGE_GUILD
     /// [permission]: super::permissions
     </span><span class="kw">pub async fn </span>delete(<span class="kw-2">&amp;</span><span class="self">self</span>, cache_http: <span class="kw">impl </span>CacheHttp) -&gt; <span class="prelude-ty">Result</span>&lt;Invite&gt; {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
         </span>{
             <span class="kw">if let </span><span class="prelude-val">Some</span>(cache) = cache_http.cache() {
                 <span class="kw">let </span>guild_id = <span class="self">self</span>.guild.as_ref().map(|g| g.id);
@@ -601,7 +601,7 @@
     ) -&gt; <span class="prelude-ty">Result</span>&lt;Invite&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>invite = code;
 
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;utils&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;utils&quot;</span>)]
         </span>{
             invite = <span class="kw">crate</span>::utils::parse_invite(invite);
         }
@@ -648,24 +648,24 @@
     /// assert_eq!(invite.url(), &quot;https://discord.gg/WxZumR&quot;);
     /// # }
     /// ```
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>url(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
         <span class="macro">format!</span>(<span class="string">&quot;https://discord.gg/{}&quot;</span>, <span class="self">self</span>.code)
     }
 }
 
 <span class="doccomment">/// A minimal amount of information about the channel an invite points to.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[derive(Clone, Debug, Deserialize, Serialize)]
 </span><span class="kw">pub struct </span>InviteChannel {
     <span class="kw">pub </span>id: ChannelId,
     <span class="kw">pub </span>name: String,
-    <span class="attribute">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
     </span><span class="kw">pub </span>kind: ChannelType,
 }
 
 <span class="doccomment">/// A minimal amount of information about the guild an invite points to.
-</span><span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>InviteGuild {
     <span class="kw">pub </span>id: GuildId,
@@ -676,7 +676,7 @@
     <span class="kw">pub </span>voice_channel_count: <span class="prelude-ty">Option</span>&lt;u64&gt;,
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">impl </span>InviteGuild {
     <span class="doccomment">/// Returns the Id of the shard associated with the guild.
     ///
@@ -688,7 +688,7 @@
     /// total, consider using [`utils::shard_id`].
     ///
     /// [`utils::shard_id`]: crate::utils::shard_id
-    </span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+    </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
     #[inline]
     </span><span class="kw">pub fn </span>shard_id(<span class="kw-2">&amp;</span><span class="self">self</span>, cache: <span class="kw">impl </span>AsRef&lt;Cache&gt;) -&gt; u64 {
         <span class="self">self</span>.id.shard_id(<span class="kw-2">&amp;</span>cache)
@@ -714,7 +714,7 @@
     ///
     /// assert_eq!(guild.shard_id(17), 7);
     /// ```
-    </span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;utils&quot;</span>, not(feature = <span class="string">&quot;cache&quot;</span>)))]
+    </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;utils&quot;</span>, not(feature = <span class="string">&quot;cache&quot;</span>)))]
     #[inline]
     </span><span class="kw">pub fn </span>shard_id(<span class="kw-2">&amp;</span><span class="self">self</span>, shard_count: u64) -&gt; u64 {
         <span class="self">self</span>.id.shard_id(shard_count)
@@ -727,7 +727,7 @@
 /// the [`Invite`] struct.
 ///
 /// [Manage Guild]: Permissions::MANAGE_GUILD
-</span><span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>RichInvite {
     <span class="doccomment">/// A representation of the minimal amount of information needed about the
@@ -759,7 +759,7 @@
     </span><span class="kw">pub </span>uses: u64,
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">impl </span>RichInvite {
     <span class="doccomment">/// Deletes the invite.
     ///
@@ -776,7 +776,7 @@
     /// [Manage Guild]: Permissions::MANAGE_GUILD
     /// [permission]: super::permissions
     </span><span class="kw">pub async fn </span>delete(<span class="kw-2">&amp;</span><span class="self">self</span>, cache_http: <span class="kw">impl </span>CacheHttp) -&gt; <span class="prelude-ty">Result</span>&lt;Invite&gt; {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
         </span>{
             <span class="kw">if let </span><span class="prelude-val">Some</span>(cache) = cache_http.cache() {
                 <span class="kw">let </span>guild_id = <span class="self">self</span>.guild.as_ref().map(|g| g.id);
@@ -837,13 +837,13 @@
     /// assert_eq!(invite.url(), &quot;https://discord.gg/WxZumR&quot;);
     /// # }
     /// ```
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>url(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
         <span class="macro">format!</span>(<span class="string">&quot;https://discord.gg/{}&quot;</span>, <span class="self">self</span>.code)
     }
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>InviteStageInstance {
     <span class="doccomment">/// The members speaking in the Stage
@@ -856,7 +856,7 @@
     </span>topic: String,
 }
 
-<span class="attribute">#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
+<span class="attr">#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>InviteTargetType {
     Normal = <span class="number">0</span>,
@@ -871,4 +871,4 @@
     EmmbeddedApplication,
 });
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

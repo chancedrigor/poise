@@ -1039,7 +1039,7 @@
 }
 
 <span class="doccomment">/// A serialized RSA public key.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>RsaSubjectPublicKey(Box&lt;[u8]&gt;);
 
 <span class="kw">impl </span>AsRef&lt;[u8]&gt; <span class="kw">for </span>RsaSubjectPublicKey {
@@ -1129,13 +1129,13 @@
 <span class="comment">// Type-level representations of the different moduli used in RSA signing, in
 // addition to `super::N`. See `super::bigint`&#39;s modulue-level documentation.
 
-</span><span class="attribute">#[derive(Copy, Clone)]
+</span><span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">enum </span>P {}
 <span class="kw">unsafe impl </span>Prime <span class="kw">for </span>P {}
 <span class="kw">unsafe impl </span>bigint::SmallerModulus&lt;N&gt; <span class="kw">for </span>P {}
 <span class="kw">unsafe impl </span>bigint::NotMuchSmallerModulus&lt;N&gt; <span class="kw">for </span>P {}
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">enum </span>QQ {}
 <span class="kw">unsafe impl </span>bigint::SmallerModulus&lt;N&gt; <span class="kw">for </span>QQ {}
 <span class="kw">unsafe impl </span>bigint::NotMuchSmallerModulus&lt;N&gt; <span class="kw">for </span>QQ {}
@@ -1147,7 +1147,7 @@
 //                      q**2 &lt;  n  &lt; 2*(q**2).
 </span><span class="kw">unsafe impl </span>bigint::SlightlySmallerModulus&lt;N&gt; <span class="kw">for </span>QQ {}
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">enum </span>Q {}
 <span class="kw">unsafe impl </span>Prime <span class="kw">for </span>Q {}
 <span class="kw">unsafe impl </span>bigint::SmallerModulus&lt;N&gt; <span class="kw">for </span>Q {}
@@ -1249,7 +1249,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="comment">// We intentionally avoid `use super::*` so that we are sure to use only
     // the public API; this ensures that enough of the API is public.
@@ -1258,7 +1258,7 @@
 
     <span class="comment">// `KeyPair::sign` requires that the output buffer is the same length as
     // the public key modulus. Test what happens when it isn&#39;t the same length.
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>test_signature_rsa_pkcs1_sign_output_buffer_len() {
         <span class="comment">// Sign the message &quot;hello, world&quot;, using PKCS#1 v1.5 padding and the
         // SHA256 digest algorithm.
@@ -1289,4 +1289,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

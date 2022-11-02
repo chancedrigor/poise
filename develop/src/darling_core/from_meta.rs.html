@@ -950,7 +950,7 @@
     }
 
     <span class="doccomment">/// Create an instance from a list of nested meta items.
-    </span><span class="attribute">#[allow(unused_variables)]
+    </span><span class="attr">#[allow(unused_variables)]
     </span><span class="kw">fn </span>from_list(items: <span class="kw-2">&amp;</span>[NestedMeta]) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
         <span class="prelude-val">Err</span>(Error::unsupported_format(<span class="string">&quot;list&quot;</span>))
     }
@@ -973,19 +973,19 @@
     }
 
     <span class="doccomment">/// Create an instance from a char literal in a value position.
-    </span><span class="attribute">#[allow(unused_variables)]
+    </span><span class="attr">#[allow(unused_variables)]
     </span><span class="kw">fn </span>from_char(value: char) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
         <span class="prelude-val">Err</span>(Error::unexpected_type(<span class="string">&quot;char&quot;</span>))
     }
 
     <span class="doccomment">/// Create an instance from a string literal in a value position.
-    </span><span class="attribute">#[allow(unused_variables)]
+    </span><span class="attr">#[allow(unused_variables)]
     </span><span class="kw">fn </span>from_string(value: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
         <span class="prelude-val">Err</span>(Error::unexpected_type(<span class="string">&quot;string&quot;</span>))
     }
 
     <span class="doccomment">/// Create an instance from a bool literal in a value position.
-    </span><span class="attribute">#[allow(unused_variables)]
+    </span><span class="attr">#[allow(unused_variables)]
     </span><span class="kw">fn </span>from_bool(value: bool) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
         <span class="prelude-val">Err</span>(Error::unexpected_type(<span class="string">&quot;bool&quot;</span>))
     }
@@ -1004,7 +1004,7 @@
         <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>)
     }
 
-    <span class="attribute">#[allow(clippy::wrong_self_convention)] </span><span class="comment">// false positive
+    <span class="attr">#[allow(clippy::wrong_self_convention)] </span><span class="comment">// false positive
     </span><span class="kw">fn </span>from_bool(value: bool) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
         <span class="prelude-val">Ok</span>(value)
     }
@@ -1023,7 +1023,7 @@
 }
 
 <span class="kw">impl </span>FromMeta <span class="kw">for </span>char {
-    <span class="attribute">#[allow(clippy::wrong_self_convention)] </span><span class="comment">// false positive
+    <span class="attr">#[allow(clippy::wrong_self_convention)] </span><span class="comment">// false positive
     </span><span class="kw">fn </span>from_char(value: char) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
         <span class="prelude-val">Ok</span>(value)
     }
@@ -1453,7 +1453,7 @@
 
 <span class="doccomment">/// Tests for `FromMeta` implementations. Wherever the word `ignore` appears in test input,
 /// it should not be considered by the parsing.
-</span><span class="attribute">#[cfg(test)]
+</span><span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>proc_macro2::TokenStream;
 
@@ -1461,7 +1461,7 @@
 
     <span class="doccomment">/// parse a string as a syn::Meta instance.
     </span><span class="kw">fn </span>pm(tokens: TokenStream) -&gt; ::std::result::Result&lt;syn::Meta, String&gt; {
-        <span class="kw">let </span>attribute: syn::Attribute = <span class="macro">parse_quote!</span>(<span class="attribute">#[#tokens]</span>);
+        <span class="kw">let </span>attribute: syn::Attribute = <span class="macro">parse_quote!</span>(<span class="attr">#[#tokens]</span>);
         attribute.parse_meta().map_err(|<span class="kw">_</span>| <span class="string">&quot;Unable to parse&quot;</span>.into())
     }
 
@@ -1470,12 +1470,12 @@
             .expect(<span class="string">&quot;Tests should pass valid input&quot;</span>)
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>unit_succeeds() {
         <span class="kw">let </span>() = fm::&lt;()&gt;(<span class="macro">quote!</span>(ignore));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[allow(clippy::bool_assert_comparison)]
     </span><span class="kw">fn </span>bool_succeeds() {
         <span class="comment">// word format
@@ -1490,7 +1490,7 @@
         <span class="macro">assert_eq!</span>(fm::&lt;bool&gt;(<span class="macro">quote!</span>(ignore = <span class="string">&quot;false&quot;</span>)), <span class="bool-val">false</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>char_succeeds() {
         <span class="comment">// char literal
         </span><span class="macro">assert_eq!</span>(fm::&lt;char&gt;(<span class="macro">quote!</span>(ignore = <span class="string">&#39;😬&#39;</span>)), <span class="string">&#39;😬&#39;</span>);
@@ -1499,7 +1499,7 @@
         </span><span class="macro">assert_eq!</span>(fm::&lt;char&gt;(<span class="macro">quote!</span>(ignore = <span class="string">&quot;😬&quot;</span>)), <span class="string">&#39;😬&#39;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>string_succeeds() {
         <span class="comment">// cooked form
         </span><span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>fm::&lt;String&gt;(<span class="macro">quote!</span>(ignore = <span class="string">&quot;world&quot;</span>)), <span class="string">&quot;world&quot;</span>);
@@ -1508,7 +1508,7 @@
         </span><span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>fm::&lt;String&gt;(<span class="macro">quote!</span>(ignore = <span class="string">r#&quot;world&quot;#</span>)), <span class="string">&quot;world&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[allow(clippy::float_cmp)] </span><span class="comment">// we want exact equality
     </span><span class="kw">fn </span>number_succeeds() {
         <span class="macro">assert_eq!</span>(fm::&lt;u8&gt;(<span class="macro">quote!</span>(ignore = <span class="string">&quot;2&quot;</span>)), <span class="number">2u8</span>);
@@ -1516,7 +1516,7 @@
         <span class="macro">assert_eq!</span>(fm::&lt;f64&gt;(<span class="macro">quote!</span>(ignore = <span class="string">&quot;1.4e10&quot;</span>)), <span class="number">1.4e10</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>int_without_quotes() {
         <span class="macro">assert_eq!</span>(fm::&lt;u8&gt;(<span class="macro">quote!</span>(ignore = <span class="number">2</span>)), <span class="number">2u8</span>);
         <span class="macro">assert_eq!</span>(fm::&lt;u16&gt;(<span class="macro">quote!</span>(ignore = <span class="number">255</span>)), <span class="number">255u16</span>);
@@ -1526,7 +1526,7 @@
         </span><span class="macro">assert_eq!</span>(fm::&lt;u32&gt;(<span class="macro">quote!</span>(ignore = <span class="number">5000i32</span>)), <span class="number">5000u32</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[allow(clippy::float_cmp)] </span><span class="comment">// we want exact equality
     </span><span class="kw">fn </span>float_without_quotes() {
         <span class="macro">assert_eq!</span>(fm::&lt;f32&gt;(<span class="macro">quote!</span>(ignore = <span class="number">2.</span>)), <span class="number">2.0f32</span>);
@@ -1534,7 +1534,7 @@
         <span class="macro">assert_eq!</span>(fm::&lt;f64&gt;(<span class="macro">quote!</span>(ignore = <span class="number">1.4e10</span>)), <span class="number">1.4e10f64</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>meta_succeeds() {
         <span class="kw">use </span>syn::Meta;
 
@@ -1544,7 +1544,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>hash_map_succeeds() {
         <span class="kw">use </span>std::collections::HashMap;
 
@@ -1564,7 +1564,7 @@
 
     <span class="doccomment">/// Check that a `HashMap` cannot have duplicate keys, and that the generated error
     /// is assigned a span to correctly target the diagnostic message.
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>hash_map_duplicate() {
         <span class="kw">use </span>std::collections::HashMap;
 
@@ -1577,7 +1577,7 @@
         <span class="macro">assert_eq!</span>(err.to_string(), Error::duplicate_field(<span class="string">&quot;hello&quot;</span>).to_string());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>hash_map_multiple_errors() {
         <span class="kw">use </span>std::collections::HashMap;
 
@@ -1593,7 +1593,7 @@
         <span class="macro">assert!</span>(errors[<span class="number">2</span>].has_span());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>hash_map_ident_succeeds() {
         <span class="kw">use </span>std::collections::HashMap;
         <span class="kw">use </span>syn::parse_quote;
@@ -1611,7 +1611,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>hash_map_ident_rejects_non_idents() {
         <span class="kw">use </span>std::collections::HashMap;
 
@@ -1621,7 +1621,7 @@
         err.unwrap_err();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>hash_map_path_succeeds() {
         <span class="kw">use </span>std::collections::HashMap;
         <span class="kw">use </span>syn::parse_quote;
@@ -1641,14 +1641,14 @@
 
     <span class="doccomment">/// Tests that fallible parsing will always produce an outer `Ok` (from `fm`),
     /// and will accurately preserve the inner contents.
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>darling_result_succeeds() {
         fm::&lt;<span class="prelude-ty">Result</span>&lt;()&gt;&gt;(<span class="macro">quote!</span>(ignore)).unwrap();
         fm::&lt;<span class="prelude-ty">Result</span>&lt;()&gt;&gt;(<span class="macro">quote!</span>(ignore(world))).unwrap_err();
     }
 
     <span class="doccomment">/// Test punctuated
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>test_punctuated() {
         fm::&lt;syn::punctuated::Punctuated&lt;syn::FnArg, syn::token::Comma&gt;&gt;(<span class="macro">quote!</span>(
             ignore = <span class="string">&quot;a: u8, b: Type&quot;
@@ -1656,27 +1656,27 @@
         fm::&lt;syn::punctuated::Punctuated&lt;syn::Expr, syn::token::Comma&gt;&gt;(<span class="macro">quote!</span>(ignore = <span class="string">&quot;a, b, c&quot;</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_expr_array() {
         fm::&lt;syn::ExprArray&gt;(<span class="macro">quote!</span>(ignore = <span class="string">&quot;[0x1, 0x2]&quot;</span>));
         fm::&lt;syn::ExprArray&gt;(<span class="macro">quote!</span>(ignore = <span class="string">&quot;[\&quot;Hello World\&quot;, \&quot;Test Array\&quot;]&quot;</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_expr() {
         fm::&lt;syn::Expr&gt;(<span class="macro">quote!</span>(ignore = <span class="string">&quot;x + y&quot;</span>));
         fm::&lt;syn::Expr&gt;(<span class="macro">quote!</span>(ignore = <span class="string">&quot;an_object.method_call()&quot;</span>));
         fm::&lt;syn::Expr&gt;(<span class="macro">quote!</span>(ignore = <span class="string">&quot;{ a_statement(); in_a_block }&quot;</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_expr_path() {
         fm::&lt;syn::ExprPath&gt;(<span class="macro">quote!</span>(ignore = <span class="string">&quot;std::mem::replace&quot;</span>));
         fm::&lt;syn::ExprPath&gt;(<span class="macro">quote!</span>(ignore = <span class="string">&quot;x&quot;</span>));
         fm::&lt;syn::ExprPath&gt;(<span class="macro">quote!</span>(ignore = <span class="string">&quot;example::&lt;Test&gt;&quot;</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_number_array() {
         <span class="macro">assert_eq!</span>(
             fm::&lt;Vec&lt;u8&gt;&gt;(<span class="macro">quote!</span>(ignore = <span class="string">&quot;[16, 0xff]&quot;</span>)),
@@ -1701,4 +1701,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="darling_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="darling_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

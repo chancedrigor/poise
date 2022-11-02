@@ -402,14 +402,14 @@
 <span id="402">402</span>
 <span id="403">403</span>
 <span id="404">404</span>
-</pre><pre class="rust"><code><span class="attribute">#![cfg_attr(doc_nightly, feature(doc_cfg, doc_auto_cfg))]
+</pre><pre class="rust"><code><span class="attr">#![cfg_attr(doc_nightly, feature(doc_cfg, doc_auto_cfg))]
 #![doc(test(attr(deny(deprecated))))]
 #![warn(rust_2018_idioms)]
 #![warn(missing_docs)]
 #![warn(clippy::missing_docs_in_private_items)]
 #![allow(clippy::type_complexity)]
 </span><span class="comment">// native #[non_exhaustive] is awful because you can&#39;t do struct update syntax with it (??)
-</span><span class="attribute">#![allow(clippy::manual_non_exhaustive)]
+</span><span class="attr">#![allow(clippy::manual_non_exhaustive)]
 
 </span><span class="doccomment">/*!
 Poise is an opinionated Discord bot framework with a few distinctive features:
@@ -421,7 +421,7 @@ Poise is an opinionated Discord bot framework with a few distinctive features:
 ```rust,no_run
 */
 </span><span class="comment">// Nested cfg_attr is needed for some reason
-</span><span class="attribute">#![cfg_attr(doc_nightly, cfg_attr(doc_nightly, doc = <span class="macro">include_str!</span>(<span class="string">&quot;../examples/quickstart/main.rs&quot;</span>)))]
+</span><span class="attr">#![cfg_attr(doc_nightly, cfg_attr(doc_nightly, doc = <span class="macro">include_str!</span>(<span class="string">&quot;../examples/quickstart/main.rs&quot;</span>)))]
 #![cfg_attr(not(doc_nightly), doc = <span class="string">&quot;// See ../examples/quickstart/main.rs&quot;</span>)]
 </span><span class="doccomment">/*!
 ```
@@ -736,23 +736,23 @@ Also, poise is a stat in Dark Souls
 <span class="kw">mod </span>util;
 <span class="kw">pub mod </span>macros {
     <span class="doccomment">//! Procedural macros used in poise, like [`command`]
-    </span><span class="attribute">#[doc(inline)]
+    </span><span class="attr">#[doc(inline)]
     </span><span class="kw">pub use </span>poise_macros::<span class="kw-2">*</span>;
 }
 
-<span class="attribute">#[doc(no_inline)]
+<span class="attr">#[doc(no_inline)]
 </span><span class="kw">pub use </span>{
     cooldown::<span class="kw-2">*</span>, dispatch::<span class="kw-2">*</span>, event::<span class="kw-2">*</span>, framework::<span class="kw-2">*</span>, macros::<span class="kw-2">*</span>, modal::<span class="kw-2">*</span>, prefix_argument::<span class="kw-2">*</span>,
     reply::<span class="kw-2">*</span>, slash_argument::<span class="kw-2">*</span>, structs::<span class="kw-2">*</span>, track_edits::<span class="kw-2">*</span>,
 };
 
 <span class="doccomment">/// See [`builtins`]
-</span><span class="attribute">#[deprecated = <span class="string">&quot;`samples` module was renamed to `builtins`&quot;</span>]
+</span><span class="attr">#[deprecated = <span class="string">&quot;`samples` module was renamed to `builtins`&quot;</span>]
 </span><span class="kw">pub mod </span>samples {
     <span class="kw">pub use </span><span class="kw">crate</span>::builtins::<span class="kw-2">*</span>;
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">pub use </span>{async_trait::async_trait, futures_util};
 
 <span class="doccomment">/// This module re-exports a bunch of items from all over serenity. Useful if you can&#39;t
@@ -763,7 +763,7 @@ Also, poise is a stat in Dark Souls
 /// use poise::serenity_prelude as serenity;
 /// ```
 </span><span class="kw">pub mod </span>serenity_prelude {
-    <span class="attribute">#[doc(no_inline)]
+    <span class="attr">#[doc(no_inline)]
     </span><span class="kw">pub use </span>serenity::{
         async_trait,
         builder::<span class="kw-2">*</span>,
@@ -807,4 +807,4 @@ Also, poise is a stat in Dark Souls
 /// An owned future has the `&#39;static` lifetime.
 </span><span class="kw">pub type </span>BoxFuture&lt;<span class="lifetime">&#39;a</span>, T&gt; = std::pin::Pin&lt;Box&lt;<span class="kw">dyn </span>std::future::Future&lt;Output = T&gt; + Send + <span class="lifetime">&#39;a</span>&gt;&gt;;
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

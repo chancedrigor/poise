@@ -697,7 +697,7 @@
 </span><span class="kw">use </span>core::ops::{Add, Div, Mul, Neg, Sub};
 <span class="kw">use </span>core::time::Duration <span class="kw">as </span>StdDuration;
 <span class="kw">use </span>core::{fmt, i64};
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">use </span>std::error::Error;
 
 <span class="doccomment">/// The number of nanoseconds in a microsecond.
@@ -730,7 +730,7 @@
 
 <span class="doccomment">/// ISO 8601 time duration with nanosecond precision.
 /// This also allows for the negative duration; see individual methods for details.
-</span><span class="attribute">#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Debug)]
+</span><span class="attr">#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Debug)]
 </span><span class="kw">pub struct </span>Duration {
     secs: i64,
     nanos: i32, <span class="comment">// Always 0 &lt;= nanos &lt; NANOS_PER_SEC
@@ -752,7 +752,7 @@
     <span class="doccomment">/// Makes a new `Duration` with given number of weeks.
     /// Equivalent to `Duration::seconds(weeks * 7 * 24 * 60 * 60)` with overflow checks.
     /// Panics when the duration is out of bounds.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>weeks(weeks: i64) -&gt; Duration {
         <span class="kw">let </span>secs = weeks.checked_mul(SECS_PER_WEEK).expect(<span class="string">&quot;Duration::weeks out of bounds&quot;</span>);
         Duration::seconds(secs)
@@ -761,7 +761,7 @@
     <span class="doccomment">/// Makes a new `Duration` with given number of days.
     /// Equivalent to `Duration::seconds(days * 24 * 60 * 60)` with overflow checks.
     /// Panics when the duration is out of bounds.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>days(days: i64) -&gt; Duration {
         <span class="kw">let </span>secs = days.checked_mul(SECS_PER_DAY).expect(<span class="string">&quot;Duration::days out of bounds&quot;</span>);
         Duration::seconds(secs)
@@ -770,7 +770,7 @@
     <span class="doccomment">/// Makes a new `Duration` with given number of hours.
     /// Equivalent to `Duration::seconds(hours * 60 * 60)` with overflow checks.
     /// Panics when the duration is out of bounds.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>hours(hours: i64) -&gt; Duration {
         <span class="kw">let </span>secs = hours.checked_mul(SECS_PER_HOUR).expect(<span class="string">&quot;Duration::hours ouf of bounds&quot;</span>);
         Duration::seconds(secs)
@@ -779,7 +779,7 @@
     <span class="doccomment">/// Makes a new `Duration` with given number of minutes.
     /// Equivalent to `Duration::seconds(minutes * 60)` with overflow checks.
     /// Panics when the duration is out of bounds.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>minutes(minutes: i64) -&gt; Duration {
         <span class="kw">let </span>secs = minutes.checked_mul(SECS_PER_MINUTE).expect(<span class="string">&quot;Duration::minutes out of bounds&quot;</span>);
         Duration::seconds(secs)
@@ -788,7 +788,7 @@
     <span class="doccomment">/// Makes a new `Duration` with given number of seconds.
     /// Panics when the duration is more than `i64::MAX` seconds
     /// or less than `i64::MIN` seconds.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>seconds(seconds: i64) -&gt; Duration {
         <span class="kw">let </span>d = Duration { secs: seconds, nanos: <span class="number">0 </span>};
         <span class="kw">if </span>d &lt; MIN || d &gt; MAX {
@@ -798,7 +798,7 @@
     }
 
     <span class="doccomment">/// Makes a new `Duration` with given number of milliseconds.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>milliseconds(milliseconds: i64) -&gt; Duration {
         <span class="kw">let </span>(secs, millis) = div_mod_floor_64(milliseconds, MILLIS_PER_SEC);
         <span class="kw">let </span>nanos = millis <span class="kw">as </span>i32 * NANOS_PER_MILLI;
@@ -806,7 +806,7 @@
     }
 
     <span class="doccomment">/// Makes a new `Duration` with given number of microseconds.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>microseconds(microseconds: i64) -&gt; Duration {
         <span class="kw">let </span>(secs, micros) = div_mod_floor_64(microseconds, MICROS_PER_SEC);
         <span class="kw">let </span>nanos = micros <span class="kw">as </span>i32 * NANOS_PER_MICRO;
@@ -814,14 +814,14 @@
     }
 
     <span class="doccomment">/// Makes a new `Duration` with given number of nanoseconds.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>nanoseconds(nanos: i64) -&gt; Duration {
         <span class="kw">let </span>(secs, nanos) = div_mod_floor_64(nanos, NANOS_PER_SEC <span class="kw">as </span>i64);
         Duration { secs: secs, nanos: nanos <span class="kw">as </span>i32 }
     }
 
     <span class="doccomment">/// Returns the total number of whole weeks in the duration.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>num_weeks(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i64 {
         <span class="self">self</span>.num_days() / <span class="number">7
     </span>}
@@ -832,13 +832,13 @@
     }
 
     <span class="doccomment">/// Returns the total number of whole hours in the duration.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>num_hours(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i64 {
         <span class="self">self</span>.num_seconds() / SECS_PER_HOUR
     }
 
     <span class="doccomment">/// Returns the total number of whole minutes in the duration.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>num_minutes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i64 {
         <span class="self">self</span>.num_seconds() / SECS_PER_MINUTE
     }
@@ -926,31 +926,31 @@
     }
 
     <span class="doccomment">/// Returns the duration as an absolute (non-negative) value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>abs(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Duration {
         Duration { secs: <span class="self">self</span>.secs.abs(), nanos: <span class="self">self</span>.nanos }
     }
 
     <span class="doccomment">/// The minimum possible `Duration`: `i64::MIN` milliseconds.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>min_value() -&gt; Duration {
         MIN
     }
 
     <span class="doccomment">/// The maximum possible `Duration`: `i64::MAX` milliseconds.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>max_value() -&gt; Duration {
         MAX
     }
 
     <span class="doccomment">/// A duration where the stored seconds and nanoseconds are equal to zero.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>zero() -&gt; Duration {
         Duration { secs: <span class="number">0</span>, nanos: <span class="number">0 </span>}
     }
 
     <span class="doccomment">/// Returns `true` if the duration equals `Duration::zero()`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_zero(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.secs == <span class="number">0 </span>&amp;&amp; <span class="self">self</span>.nanos == <span class="number">0
     </span>}
@@ -986,7 +986,7 @@
 <span class="kw">impl </span>Neg <span class="kw">for </span>Duration {
     <span class="kw">type </span>Output = Duration;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>neg(<span class="self">self</span>) -&gt; Duration {
         <span class="kw">if </span><span class="self">self</span>.nanos == <span class="number">0 </span>{
             Duration { secs: -<span class="self">self</span>.secs, nanos: <span class="number">0 </span>}
@@ -1093,7 +1093,7 @@
 /// The `std::time::Duration` supports a range from zero to `u64::MAX`
 /// *seconds*, while this module supports signed range of up to
 /// `i64::MAX` of *milliseconds*.
-</span><span class="attribute">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+</span><span class="attr">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>OutOfRangeError(());
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>OutOfRangeError {
@@ -1102,21 +1102,21 @@
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">impl </span>Error <span class="kw">for </span>OutOfRangeError {
-    <span class="attribute">#[allow(deprecated)]
+    <span class="attr">#[allow(deprecated)]
     </span><span class="kw">fn </span>description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="string">&quot;out of range error&quot;
     </span>}
 }
 
 <span class="comment">// Copied from libnum
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>div_mod_floor_64(this: i64, other: i64) -&gt; (i64, i64) {
     (div_floor_64(this, other), mod_floor_64(this, other))
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>div_floor_64(this: i64, other: i64) -&gt; i64 {
     <span class="kw">match </span>div_rem_64(this, other) {
         (d, r) <span class="kw">if </span>(r &gt; <span class="number">0 </span>&amp;&amp; other &lt; <span class="number">0</span>) || (r &lt; <span class="number">0 </span>&amp;&amp; other &gt; <span class="number">0</span>) =&gt; d - <span class="number">1</span>,
@@ -1124,7 +1124,7 @@
     }
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>mod_floor_64(this: i64, other: i64) -&gt; i64 {
     <span class="kw">match </span>this % other {
         r <span class="kw">if </span>(r &gt; <span class="number">0 </span>&amp;&amp; other &lt; <span class="number">0</span>) || (r &lt; <span class="number">0 </span>&amp;&amp; other &gt; <span class="number">0</span>) =&gt; r + other,
@@ -1132,18 +1132,18 @@
     }
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>div_rem_64(this: i64, other: i64) -&gt; (i64, i64) {
     (this / other, this % other)
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::{Duration, OutOfRangeError, MAX, MIN};
     <span class="kw">use </span>std::time::Duration <span class="kw">as </span>StdDuration;
     <span class="kw">use </span>std::{i32, i64};
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_duration() {
         <span class="macro">assert!</span>(Duration::seconds(<span class="number">1</span>) != Duration::zero());
         <span class="macro">assert_eq!</span>(Duration::seconds(<span class="number">1</span>) + Duration::seconds(<span class="number">2</span>), Duration::seconds(<span class="number">3</span>));
@@ -1164,7 +1164,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_duration_num_days() {
         <span class="macro">assert_eq!</span>(Duration::zero().num_days(), <span class="number">0</span>);
         <span class="macro">assert_eq!</span>(Duration::days(<span class="number">1</span>).num_days(), <span class="number">1</span>);
@@ -1177,7 +1177,7 @@
         <span class="macro">assert_eq!</span>(Duration::days(i32::MIN <span class="kw">as </span>i64).num_days(), i32::MIN <span class="kw">as </span>i64);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_duration_num_seconds() {
         <span class="macro">assert_eq!</span>(Duration::zero().num_seconds(), <span class="number">0</span>);
         <span class="macro">assert_eq!</span>(Duration::seconds(<span class="number">1</span>).num_seconds(), <span class="number">1</span>);
@@ -1188,7 +1188,7 @@
         <span class="macro">assert_eq!</span>(Duration::milliseconds(-<span class="number">1001</span>).num_seconds(), -<span class="number">1</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_duration_num_milliseconds() {
         <span class="macro">assert_eq!</span>(Duration::zero().num_milliseconds(), <span class="number">0</span>);
         <span class="macro">assert_eq!</span>(Duration::milliseconds(<span class="number">1</span>).num_milliseconds(), <span class="number">1</span>);
@@ -1203,7 +1203,7 @@
         <span class="macro">assert_eq!</span>(MIN.num_milliseconds(), i64::MIN);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_duration_num_microseconds() {
         <span class="macro">assert_eq!</span>(Duration::zero().num_microseconds(), <span class="prelude-val">Some</span>(<span class="number">0</span>));
         <span class="macro">assert_eq!</span>(Duration::microseconds(<span class="number">1</span>).num_microseconds(), <span class="prelude-val">Some</span>(<span class="number">1</span>));
@@ -1231,7 +1231,7 @@
         <span class="macro">assert_eq!</span>(Duration::days(i64::MIN / MICROS_PER_DAY - <span class="number">1</span>).num_microseconds(), <span class="prelude-val">None</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_duration_num_nanoseconds() {
         <span class="macro">assert_eq!</span>(Duration::zero().num_nanoseconds(), <span class="prelude-val">Some</span>(<span class="number">0</span>));
         <span class="macro">assert_eq!</span>(Duration::nanoseconds(<span class="number">1</span>).num_nanoseconds(), <span class="prelude-val">Some</span>(<span class="number">1</span>));
@@ -1255,7 +1255,7 @@
         <span class="macro">assert_eq!</span>(Duration::days(i64::MIN / NANOS_PER_DAY - <span class="number">1</span>).num_nanoseconds(), <span class="prelude-val">None</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_duration_checked_ops() {
         <span class="macro">assert_eq!</span>(
             Duration::milliseconds(i64::MAX - <span class="number">1</span>).checked_add(<span class="kw-2">&amp;</span>Duration::microseconds(<span class="number">999</span>)),
@@ -1272,7 +1272,7 @@
         <span class="macro">assert!</span>(Duration::milliseconds(i64::MIN).checked_sub(<span class="kw-2">&amp;</span>Duration::milliseconds(<span class="number">1</span>)).is_none());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_duration_mul() {
         <span class="macro">assert_eq!</span>(Duration::zero() * i32::MAX, Duration::zero());
         <span class="macro">assert_eq!</span>(Duration::zero() * i32::MIN, Duration::zero());
@@ -1293,7 +1293,7 @@
         <span class="macro">assert_eq!</span>(Duration::milliseconds(-<span class="number">1500</span>) * <span class="number">2</span>, Duration::seconds(-<span class="number">3</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_duration_div() {
         <span class="macro">assert_eq!</span>(Duration::zero() / i32::MAX, Duration::zero());
         <span class="macro">assert_eq!</span>(Duration::zero() / i32::MIN, Duration::zero());
@@ -1310,7 +1310,7 @@
         <span class="macro">assert_eq!</span>(Duration::seconds(-<span class="number">4</span>) / -<span class="number">3</span>, Duration::nanoseconds(<span class="number">1_333_333_333</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_duration_fmt() {
         <span class="macro">assert_eq!</span>(Duration::zero().to_string(), <span class="string">&quot;PT0S&quot;</span>);
         <span class="macro">assert_eq!</span>(Duration::days(<span class="number">42</span>).to_string(), <span class="string">&quot;P42D&quot;</span>);
@@ -1330,7 +1330,7 @@
         </span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_to_std() {
         <span class="macro">assert_eq!</span>(Duration::seconds(<span class="number">1</span>).to_std(), <span class="prelude-val">Ok</span>(StdDuration::new(<span class="number">1</span>, <span class="number">0</span>)));
         <span class="macro">assert_eq!</span>(Duration::seconds(<span class="number">86401</span>).to_std(), <span class="prelude-val">Ok</span>(StdDuration::new(<span class="number">86401</span>, <span class="number">0</span>)));
@@ -1342,7 +1342,7 @@
         <span class="macro">assert_eq!</span>(Duration::milliseconds(-<span class="number">1</span>).to_std(), <span class="prelude-val">Err</span>(OutOfRangeError(())));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_from_std() {
         <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(Duration::seconds(<span class="number">1</span>)), Duration::from_std(StdDuration::new(<span class="number">1</span>, <span class="number">0</span>)));
         <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(Duration::seconds(<span class="number">86401</span>)), Duration::from_std(StdDuration::new(<span class="number">86401</span>, <span class="number">0</span>)));
@@ -1367,4 +1367,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

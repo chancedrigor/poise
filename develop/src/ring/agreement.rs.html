@@ -442,7 +442,7 @@
     }
 
     <span class="doccomment">/// Computes the public key from the private key.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>compute_public_key(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;PublicKey, error::Unspecified&gt; {
         <span class="comment">// NSA Guide Step 1.
         //
@@ -458,19 +458,19 @@
     }
 
     <span class="doccomment">/// The algorithm for the private key.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>algorithm(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Algorithm {
         <span class="self">self</span>.algorithm
     }
 
-    <span class="attribute">#[cfg(test)]
+    <span class="attr">#[cfg(test)]
     </span><span class="kw">pub fn </span>bytes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8] {
         <span class="self">self</span>.private_key.bytes_less_safe()
     }
 }
 
 <span class="doccomment">/// A public key for key agreement.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>PublicKey {
     algorithm: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Algorithm,
     bytes: ec::PublicKey,
@@ -493,7 +493,7 @@
 
 <span class="kw">impl </span>PublicKey {
     <span class="doccomment">/// The algorithm for the public key.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>algorithm(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Algorithm {
         <span class="self">self</span>.algorithm
     }
@@ -538,13 +538,13 @@
     }
 
     <span class="doccomment">/// TODO: doc
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>algorithm(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Algorithm {
         <span class="self">self</span>.algorithm
     }
 
     <span class="doccomment">/// TODO: doc
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>bytes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>B {
         <span class="kw-2">&amp;</span><span class="self">self</span>.bytes
     }
@@ -571,7 +571,7 @@
 /// After the key agreement is done, `agree_ephemeral` calls `kdf` with the raw
 /// key material from the key agreement operation and then returns what `kdf`
 /// returns.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>agree_ephemeral&lt;B: AsRef&lt;[u8]&gt;, F, R, E&gt;(
     my_private_key: EphemeralPrivateKey,
     peer_public_key: <span class="kw-2">&amp;</span>UnparsedPublicKey&lt;B&gt;,
@@ -639,4 +639,4 @@
     </span>kdf(shared_key)
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

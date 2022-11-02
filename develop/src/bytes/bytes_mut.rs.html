@@ -1611,7 +1611,7 @@
 
 <span class="kw">use </span><span class="kw">crate</span>::buf::{IntoIter, UninitSlice};
 <span class="kw">use </span><span class="kw">crate</span>::bytes::Vtable;
-<span class="attribute">#[allow(unused)]
+<span class="attr">#[allow(unused)]
 </span><span class="kw">use </span><span class="kw">crate</span>::loom::sync::atomic::AtomicMut;
 <span class="kw">use </span><span class="kw">crate</span>::loom::sync::atomic::{<span class="self">self</span>, AtomicPtr, AtomicUsize, Ordering};
 <span class="kw">use crate</span>::{Buf, BufMut, Bytes};
@@ -1701,9 +1701,9 @@
 <span class="kw">const </span>MAX_VEC_POS: usize = usize::MAX &gt;&gt; VEC_POS_OFFSET;
 <span class="kw">const </span>NOT_VEC_POS_MASK: usize = <span class="number">0b11111</span>;
 
-<span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
+<span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
 </span><span class="kw">const </span>PTR_WIDTH: usize = <span class="number">64</span>;
-<span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
+<span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
 </span><span class="kw">const </span>PTR_WIDTH: usize = <span class="number">32</span>;
 
 <span class="comment">/*
@@ -1735,7 +1735,7 @@
     ///
     /// assert_eq!(&amp;bytes[..], b&quot;hello world&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>with_capacity(capacity: usize) -&gt; BytesMut {
         BytesMut::from_vec(Vec::with_capacity(capacity))
     }
@@ -1759,7 +1759,7 @@
     ///
     /// assert_eq!(&amp;b&quot;xy&quot;[..], &amp;bytes[..]);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new() -&gt; BytesMut {
         BytesMut::with_capacity(<span class="number">0</span>)
     }
@@ -1774,7 +1774,7 @@
     /// let b = BytesMut::from(&amp;b&quot;hello&quot;[..]);
     /// assert_eq!(b.len(), 5);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.len
     }
@@ -1789,7 +1789,7 @@
     /// let b = BytesMut::with_capacity(64);
     /// assert!(b.is_empty());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_empty(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.len == <span class="number">0
     </span>}
@@ -1804,7 +1804,7 @@
     /// let b = BytesMut::with_capacity(64);
     /// assert_eq!(b.capacity(), 64);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>capacity(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.cap
     }
@@ -1833,7 +1833,7 @@
     /// assert_eq!(&amp;b2[..], b&quot;hello world&quot;);
     /// th.join().unwrap();
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>freeze(<span class="kw-2">mut </span><span class="self">self</span>) -&gt; Bytes {
         <span class="kw">if </span><span class="self">self</span>.kind() == KIND_VEC {
             <span class="comment">// Just re-use `Bytes` internal Vec vtable
@@ -1882,7 +1882,7 @@
     /// # Panics
     ///
     /// Panics if `at &gt; capacity`.
-    </span><span class="attribute">#[must_use = <span class="string">&quot;consider BytesMut::truncate if you don&#39;t need the other half&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;consider BytesMut::truncate if you don&#39;t need the other half&quot;</span>]
     </span><span class="kw">pub fn </span>split_off(<span class="kw-2">&amp;mut </span><span class="self">self</span>, at: usize) -&gt; BytesMut {
         <span class="macro">assert!</span>(
             at &lt;= <span class="self">self</span>.capacity(),
@@ -1923,7 +1923,7 @@
     ///
     /// assert_eq!(other, b&quot;hello world&quot;[..]);
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;consider BytesMut::advance(len()) if you don&#39;t need the other half&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;consider BytesMut::advance(len()) if you don&#39;t need the other half&quot;</span>]
     </span><span class="kw">pub fn </span>split(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; BytesMut {
         <span class="kw">let </span>len = <span class="self">self</span>.len();
         <span class="self">self</span>.split_to(len)
@@ -1955,7 +1955,7 @@
     /// # Panics
     ///
     /// Panics if `at &gt; len`.
-    </span><span class="attribute">#[must_use = <span class="string">&quot;consider BytesMut::advance if you don&#39;t need the other half&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;consider BytesMut::advance if you don&#39;t need the other half&quot;</span>]
     </span><span class="kw">pub fn </span>split_to(<span class="kw-2">&amp;mut </span><span class="self">self</span>, at: usize) -&gt; BytesMut {
         <span class="macro">assert!</span>(
             at &lt;= <span class="self">self</span>.len(),
@@ -2079,7 +2079,7 @@
     ///
     /// assert_eq!(&amp;b[..], b&quot;hello world&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub unsafe fn </span>set_len(<span class="kw-2">&amp;mut </span><span class="self">self</span>, len: usize) {
         <span class="macro">debug_assert!</span>(len &lt;= <span class="self">self</span>.cap, <span class="string">&quot;set_len out of bounds&quot;</span>);
         <span class="self">self</span>.len = len;
@@ -2134,7 +2134,7 @@
     /// # Panics
     ///
     /// Panics if the new capacity overflows `usize`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>reserve(<span class="kw-2">&amp;mut </span><span class="self">self</span>, additional: usize) {
         <span class="kw">let </span>len = <span class="self">self</span>.len();
         <span class="kw">let </span>rem = <span class="self">self</span>.capacity() - len;
@@ -2338,7 +2338,7 @@
     // Thus, we don&#39;t expose an easy way to construct from a `Vec` since an
     // internal change could make a simple pattern (`BytesMut::from(vec)`)
     // suddenly a lot more expensive.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>from_vec(<span class="kw-2">mut </span>vec: Vec&lt;u8&gt;) -&gt; BytesMut {
         <span class="kw">let </span>ptr = vptr(vec.as_mut_ptr());
         <span class="kw">let </span>len = vec.len();
@@ -2356,12 +2356,12 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>as_slice(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8] {
         <span class="kw">unsafe </span>{ slice::from_raw_parts(<span class="self">self</span>.ptr.as_ptr(), <span class="self">self</span>.len) }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>as_slice_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>[u8] {
         <span class="kw">unsafe </span>{ slice::from_raw_parts_mut(<span class="self">self</span>.ptr.as_ptr(), <span class="self">self</span>.len) }
     }
@@ -2438,7 +2438,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>kind(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.data <span class="kw">as </span>usize &amp; KIND_MASK
     }
@@ -2482,7 +2482,7 @@
     /// because the clone will have the same offsets. You must
     /// be sure the returned value to the user doesn&#39;t allow
     /// two views into the same range.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>shallow_clone(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; BytesMut {
         <span class="kw">if </span><span class="self">self</span>.kind() == KIND_ARC {
             increment_shared(<span class="self">self</span>.data);
@@ -2493,7 +2493,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>get_vec_pos(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; (usize, usize) {
         <span class="macro">debug_assert_eq!</span>(<span class="self">self</span>.kind(), KIND_VEC);
 
@@ -2501,7 +2501,7 @@
         (prev &gt;&gt; VEC_POS_OFFSET, prev)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>set_vec_pos(<span class="kw-2">&amp;mut </span><span class="self">self</span>, pos: usize, prev: usize) {
         <span class="macro">debug_assert_eq!</span>(<span class="self">self</span>.kind(), KIND_VEC);
         <span class="macro">debug_assert!</span>(pos &lt;= MAX_VEC_POS);
@@ -2509,7 +2509,7 @@
         <span class="self">self</span>.data = ((pos &lt;&lt; VEC_POS_OFFSET) | (prev &amp; NOT_VEC_POS_MASK)) <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>;
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>uninit_slice(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>UninitSlice {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>ptr = <span class="self">self</span>.ptr.as_ptr().offset(<span class="self">self</span>.len <span class="kw">as </span>isize);
@@ -2538,17 +2538,17 @@
 }
 
 <span class="kw">impl </span>Buf <span class="kw">for </span>BytesMut {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>remaining(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.len()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>chunk(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8] {
         <span class="self">self</span>.as_slice()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>advance(<span class="kw-2">&amp;mut </span><span class="self">self</span>, cnt: usize) {
         <span class="macro">assert!</span>(
             cnt &lt;= <span class="self">self</span>.remaining(),
@@ -2567,12 +2567,12 @@
 }
 
 <span class="kw">unsafe impl </span>BufMut <span class="kw">for </span>BytesMut {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>remaining_mut(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         usize::MAX - <span class="self">self</span>.len()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>advance_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>, cnt: usize) {
         <span class="kw">let </span>new_len = <span class="self">self</span>.len() + cnt;
         <span class="macro">assert!</span>(
@@ -2584,7 +2584,7 @@
         <span class="self">self</span>.len = new_len;
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>chunk_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>UninitSlice {
         <span class="kw">if </span><span class="self">self</span>.capacity() == <span class="self">self</span>.len() {
             <span class="self">self</span>.reserve(<span class="number">64</span>);
@@ -2626,7 +2626,7 @@
 }
 
 <span class="kw">impl </span>AsRef&lt;[u8]&gt; <span class="kw">for </span>BytesMut {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>as_ref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8] {
         <span class="self">self</span>.as_slice()
     }
@@ -2635,21 +2635,21 @@
 <span class="kw">impl </span>Deref <span class="kw">for </span>BytesMut {
     <span class="kw">type </span>Target = [u8];
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>deref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8] {
         <span class="self">self</span>.as_ref()
     }
 }
 
 <span class="kw">impl </span>AsMut&lt;[u8]&gt; <span class="kw">for </span>BytesMut {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>as_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>[u8] {
         <span class="self">self</span>.as_slice_mut()
     }
 }
 
 <span class="kw">impl </span>DerefMut <span class="kw">for </span>BytesMut {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>deref_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>[u8] {
         <span class="self">self</span>.as_mut()
     }
@@ -2694,7 +2694,7 @@
 <span class="kw">impl </span>Eq <span class="kw">for </span>BytesMut {}
 
 <span class="kw">impl </span>Default <span class="kw">for </span>BytesMut {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>default() -&gt; BytesMut {
         BytesMut::new()
     }
@@ -2723,7 +2723,7 @@
 }
 
 <span class="kw">impl </span>fmt::Write <span class="kw">for </span>BytesMut {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_str(<span class="kw-2">&amp;mut </span><span class="self">self</span>, s: <span class="kw-2">&amp;</span>str) -&gt; fmt::Result {
         <span class="kw">if </span><span class="self">self</span>.remaining_mut() &gt;= s.len() {
             <span class="self">self</span>.put_slice(s.as_bytes());
@@ -2733,7 +2733,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_fmt(<span class="kw-2">&amp;mut </span><span class="self">self</span>, args: fmt::Arguments&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
         fmt::write(<span class="self">self</span>, args)
     }
@@ -2863,7 +2863,7 @@
     </span>}
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>original_capacity_to_repr(cap: usize) -&gt; usize {
     <span class="kw">let </span>width = PTR_WIDTH - ((cap &gt;&gt; MIN_ORIGINAL_CAPACITY_WIDTH).leading_zeros() <span class="kw">as </span>usize);
     cmp::min(
@@ -3090,7 +3090,7 @@ fn test_original_capacity_from_repr() {
     }
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>vptr(ptr: <span class="kw-2">*mut </span>u8) -&gt; NonNull&lt;u8&gt; {
     <span class="kw">if </span><span class="macro">cfg!</span>(debug_assertions) {
         NonNull::new(ptr).expect(<span class="string">&quot;Vec pointer should be non-null&quot;</span>)
@@ -3161,7 +3161,7 @@ fn test_original_capacity_from_repr() {
 </span><span class="kw">fn </span>_split_must_use() {}
 
 <span class="comment">// fuzz tests
-</span><span class="attribute">#[cfg(all(test, loom))]
+</span><span class="attr">#[cfg(all(test, loom))]
 </span><span class="kw">mod </span>fuzz {
     <span class="kw">use </span>loom::sync::Arc;
     <span class="kw">use </span>loom::thread;
@@ -3169,7 +3169,7 @@ fn test_original_capacity_from_repr() {
     <span class="kw">use </span><span class="kw">super</span>::BytesMut;
     <span class="kw">use </span><span class="kw">crate</span>::Bytes;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>bytes_mut_cloning_frozen() {
         loom::model(|| {
             <span class="kw">let </span>a = BytesMut::from(<span class="kw-2">&amp;</span><span class="string">b&quot;abcdefgh&quot;</span>[..]).split().freeze();
@@ -3195,4 +3195,4 @@ fn test_original_capacity_from_repr() {
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="bytes" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="bytes" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

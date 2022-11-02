@@ -323,7 +323,7 @@
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; ReadBuf&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="doccomment">/// Creates a new `ReadBuf` from a fully initialized buffer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new(buf: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>[u8]) -&gt; ReadBuf&lt;<span class="lifetime">&#39;a</span>&gt; {
         <span class="kw">let </span>initialized = buf.len();
         <span class="kw">let </span>buf = <span class="kw">unsafe </span>{ slice_to_uninit_mut(buf) };
@@ -337,7 +337,7 @@
     <span class="doccomment">/// Creates a new `ReadBuf` from a fully uninitialized buffer.
     ///
     /// Use `assume_init` if part of the buffer is known to be already initialized.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>uninit(buf: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>[MaybeUninit&lt;u8&gt;]) -&gt; ReadBuf&lt;<span class="lifetime">&#39;a</span>&gt; {
         ReadBuf {
             buf,
@@ -347,13 +347,13 @@
     }
 
     <span class="doccomment">/// Returns the total capacity of the buffer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>capacity(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.buf.len()
     }
 
     <span class="doccomment">/// Returns a shared reference to the filled portion of the buffer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>filled(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8] {
         <span class="kw">let </span>slice = <span class="kw-2">&amp;</span><span class="self">self</span>.buf[..<span class="self">self</span>.filled];
         <span class="comment">// safety: filled describes how far into the buffer that the
@@ -362,7 +362,7 @@
     }
 
     <span class="doccomment">/// Returns a mutable reference to the filled portion of the buffer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>filled_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>[u8] {
         <span class="kw">let </span>slice = <span class="kw-2">&amp;mut </span><span class="self">self</span>.buf[..<span class="self">self</span>.filled];
         <span class="comment">// safety: filled describes how far into the buffer that the
@@ -371,7 +371,7 @@
     }
 
     <span class="doccomment">/// Returns a new `ReadBuf` comprised of the unfilled section up to `n`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>take(<span class="kw-2">&amp;mut </span><span class="self">self</span>, n: usize) -&gt; ReadBuf&lt;<span class="lifetime">&#39;_</span>&gt; {
         <span class="kw">let </span>max = std::cmp::min(<span class="self">self</span>.remaining(), n);
         <span class="comment">// Safety: We don&#39;t set any of the `unfilled_mut` with `MaybeUninit::uninit`.
@@ -381,7 +381,7 @@
     <span class="doccomment">/// Returns a shared reference to the initialized portion of the buffer.
     ///
     /// This includes the filled portion.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>initialized(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8] {
         <span class="kw">let </span>slice = <span class="kw-2">&amp;</span><span class="self">self</span>.buf[..<span class="self">self</span>.initialized];
         <span class="comment">// safety: initialized describes how far into the buffer that the
@@ -392,7 +392,7 @@
     <span class="doccomment">/// Returns a mutable reference to the initialized portion of the buffer.
     ///
     /// This includes the filled portion.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>initialized_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>[u8] {
         <span class="kw">let </span>slice = <span class="kw-2">&amp;mut </span><span class="self">self</span>.buf[..<span class="self">self</span>.initialized];
         <span class="comment">// safety: initialized describes how far into the buffer that the
@@ -414,7 +414,7 @@
     ///
     /// The caller must not de-initialize portions of the buffer that have already been initialized.
     /// This includes any bytes in the region marked as uninitialized by `ReadBuf`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub unsafe fn </span>inner_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>[MaybeUninit&lt;u8&gt;] {
         <span class="self">self</span>.buf
     }
@@ -426,7 +426,7 @@
     ///
     /// The caller must not de-initialize portions of the buffer that have already been initialized.
     /// This includes any bytes in the region marked as uninitialized by `ReadBuf`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub unsafe fn </span>unfilled_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>[MaybeUninit&lt;u8&gt;] {
         <span class="kw-2">&amp;mut </span><span class="self">self</span>.buf[<span class="self">self</span>.filled..]
     }
@@ -435,7 +435,7 @@
     ///
     /// Since `ReadBuf` tracks the region of the buffer that has been initialized, this is effectively &quot;free&quot; after
     /// the first use.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>initialize_unfilled(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>[u8] {
         <span class="self">self</span>.initialize_unfilled_to(<span class="self">self</span>.remaining())
     }
@@ -446,7 +446,7 @@
     /// # Panics
     ///
     /// Panics if `self.remaining()` is less than `n`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[track_caller]
     </span><span class="kw">pub fn </span>initialize_unfilled_to(<span class="kw-2">&amp;mut </span><span class="self">self</span>, n: usize) -&gt; <span class="kw-2">&amp;mut </span>[u8] {
         <span class="macro">assert!</span>(<span class="self">self</span>.remaining() &gt;= n, <span class="string">&quot;n overflows remaining&quot;</span>);
@@ -470,7 +470,7 @@
     }
 
     <span class="doccomment">/// Returns the number of bytes at the end of the slice that have not yet been filled.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>remaining(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.capacity() - <span class="self">self</span>.filled
     }
@@ -478,7 +478,7 @@
     <span class="doccomment">/// Clears the buffer, resetting the filled region to empty.
     ///
     /// The number of initialized bytes is not changed, and the contents of the buffer are not modified.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>clear(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.filled = <span class="number">0</span>;
     }
@@ -490,7 +490,7 @@
     /// # Panics
     ///
     /// Panics if the filled region of the buffer would become larger than the initialized region.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[track_caller]
     </span><span class="kw">pub fn </span>advance(<span class="kw-2">&amp;mut </span><span class="self">self</span>, n: usize) {
         <span class="kw">let </span>new = <span class="self">self</span>.filled.checked_add(n).expect(<span class="string">&quot;filled overflow&quot;</span>);
@@ -507,7 +507,7 @@
     /// # Panics
     ///
     /// Panics if the filled region of the buffer would become larger than the initialized region.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[track_caller]
     </span><span class="kw">pub fn </span>set_filled(<span class="kw-2">&amp;mut </span><span class="self">self</span>, n: usize) {
         <span class="macro">assert!</span>(
@@ -525,7 +525,7 @@
     /// # Safety
     ///
     /// The caller must ensure that `n` unfilled bytes of the buffer have already been initialized.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub unsafe fn </span>assume_init(<span class="kw-2">&amp;mut </span><span class="self">self</span>, n: usize) {
         <span class="kw">let </span>new = <span class="self">self</span>.filled + n;
         <span class="kw">if </span>new &gt; <span class="self">self</span>.initialized {
@@ -538,7 +538,7 @@
     /// # Panics
     ///
     /// Panics if `self.remaining()` is less than `buf.len()`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[track_caller]
     </span><span class="kw">pub fn </span>put_slice(<span class="kw-2">&amp;mut </span><span class="self">self</span>, buf: <span class="kw-2">&amp;</span>[u8]) {
         <span class="macro">assert!</span>(
@@ -589,4 +589,4 @@
     <span class="kw-2">&amp;mut *</span>(slice <span class="kw">as </span><span class="kw-2">*mut </span>[MaybeUninit&lt;u8&gt;] <span class="kw">as </span><span class="kw-2">*mut </span>[u8])
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

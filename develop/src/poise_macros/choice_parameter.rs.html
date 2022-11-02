@@ -149,13 +149,13 @@
 <span class="kw">use </span>syn::spanned::Spanned <span class="kw">as _</span>;
 
 <span class="doccomment">/// Representation of the function parameter attribute arguments
-</span><span class="attribute">#[derive(Debug, darling::FromMeta)]
+</span><span class="attr">#[derive(Debug, darling::FromMeta)]
 #[darling(allow_unknown_fields)]
 </span><span class="kw">struct </span>VariantAttribute {
     <span class="comment">// Note to self: when adding an attribute here, add it to #[proc_macro_derive]!
-    </span><span class="attribute">#[darling(multiple)]
+    </span><span class="attr">#[darling(multiple)]
     </span>name: Vec&lt;String&gt;,
-    <span class="attribute">#[darling(multiple)]
+    <span class="attr">#[darling(multiple)]
     </span>name_localized: Vec&lt;<span class="kw">crate</span>::util::Tuple2&lt;String&gt;&gt;,
 }
 
@@ -211,7 +211,7 @@
     <span class="kw">let </span>enum_ident = <span class="kw-2">&amp;</span>input.ident;
     <span class="kw">let </span>indices = <span class="number">0_u64</span>..(variant_idents.len() <span class="kw">as _</span>);
     <span class="prelude-val">Ok</span>(<span class="macro">quote::quote! </span>{
-        <span class="attribute">#[poise::async_trait]
+        <span class="attr">#[poise::async_trait]
         </span><span class="kw">impl </span>poise::SlashArgument <span class="kw">for </span>#enum_ident {
             <span class="kw">async fn </span>extract(
                 <span class="kw">_</span>: <span class="kw-2">&amp;</span>poise::serenity_prelude::Context,
@@ -289,4 +289,4 @@
     .into())
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise_macros" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise_macros" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

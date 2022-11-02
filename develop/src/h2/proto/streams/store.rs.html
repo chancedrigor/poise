@@ -436,7 +436,7 @@
 <span class="kw">use </span>std::ops;
 
 <span class="doccomment">/// Storage for streams
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>Store {
     slab: slab::Slab&lt;Stream&gt;,
     ids: IndexMap&lt;StreamId, SlabIndex&gt;,
@@ -449,7 +449,7 @@
 }
 
 <span class="doccomment">/// References an entry in the store.
-</span><span class="attribute">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+</span><span class="attr">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Key {
     index: SlabIndex,
     <span class="doccomment">/// Keep the stream ID in the key as an ABA guard, since slab indices
@@ -459,10 +459,10 @@
 
 <span class="comment">// We can never have more than `StreamId::MAX` streams in the store,
 // so we can save a smaller index (u32 vs usize).
-</span><span class="attribute">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+</span><span class="attr">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">struct </span>SlabIndex(u32);
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>Queue&lt;N&gt; {
     indices: <span class="prelude-ty">Option</span>&lt;store::Indices&gt;,
     _p: PhantomData&lt;N&gt;,
@@ -481,7 +481,7 @@
 }
 
 <span class="doccomment">/// A linked list
-</span><span class="attribute">#[derive(Debug, Clone, Copy)]
+</span><span class="attr">#[derive(Debug, Clone, Copy)]
 </span><span class="kw">struct </span>Indices {
     <span class="kw">pub </span>head: Key,
     <span class="kw">pub </span>tail: Key,
@@ -633,12 +633,12 @@
 }
 
 <span class="kw">impl </span>Store {
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
     </span><span class="kw">pub fn </span>num_active_streams(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.ids.len()
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
     </span><span class="kw">pub fn </span>num_wired_streams(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.slab.len()
     }
@@ -649,7 +649,7 @@
 // In practice, we don&#39;t need to ensure this. But the integration tests
 // help to make sure we&#39;ve cleaned up in cases where we could (like, the
 // runtime isn&#39;t suddenly dropping the task for unknown reasons).
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
 </span><span class="kw">impl </span>Drop <span class="kw">for </span>Store {
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="kw">use </span>std::thread;
@@ -851,4 +851,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

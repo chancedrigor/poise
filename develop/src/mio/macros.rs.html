@@ -71,13 +71,13 @@
 </pre><pre class="rust"><code><span class="doccomment">//! Macros to ease conditional code based on enabled features.
 
 </span><span class="comment">// Depending on the features not all macros are used.
-</span><span class="attribute">#![allow(unused_macros)]
+</span><span class="attr">#![allow(unused_macros)]
 
 </span><span class="doccomment">/// The `os-poll` feature is enabled.
 </span><span class="macro">macro_rules! </span>cfg_os_poll {
     ($(<span class="macro-nonterminal">$item</span>:item)<span class="kw-2">*</span>) =&gt; {
         $(
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;os-poll&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;os-poll&quot;</span>)]
             #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;os-poll&quot;</span>)))]
             </span><span class="macro-nonterminal">$item
         </span>)*
@@ -88,7 +88,7 @@
 </span><span class="macro">macro_rules! </span>cfg_not_os_poll {
     ($(<span class="macro-nonterminal">$item</span>:item)<span class="kw-2">*</span>) =&gt; {
         $(
-            <span class="attribute">#[cfg(not(feature = <span class="string">&quot;os-poll&quot;</span>))]
+            <span class="attr">#[cfg(not(feature = <span class="string">&quot;os-poll&quot;</span>))]
             </span><span class="macro-nonterminal">$item
         </span>)*
     }
@@ -98,7 +98,7 @@
 </span><span class="macro">macro_rules! </span>cfg_os_ext {
     ($(<span class="macro-nonterminal">$item</span>:item)<span class="kw-2">*</span>) =&gt; {
         $(
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;os-ext&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;os-ext&quot;</span>)]
             #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;os-ext&quot;</span>)))]
             </span><span class="macro-nonterminal">$item
         </span>)*
@@ -109,7 +109,7 @@
 </span><span class="macro">macro_rules! </span>cfg_net {
     ($(<span class="macro-nonterminal">$item</span>:item)<span class="kw-2">*</span>) =&gt; {
         $(
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;net&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;net&quot;</span>)]
             #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;net&quot;</span>)))]
             </span><span class="macro-nonterminal">$item
         </span>)*
@@ -121,7 +121,7 @@
 </span><span class="macro">macro_rules! </span>cfg_io_source {
     ($(<span class="macro-nonterminal">$item</span>:item)<span class="kw-2">*</span>) =&gt; {
         $(
-            <span class="attribute">#[cfg(any(feature = <span class="string">&quot;net&quot;</span>, all(unix, feature = <span class="string">&quot;os-ext&quot;</span>)))]
+            <span class="attr">#[cfg(any(feature = <span class="string">&quot;net&quot;</span>, all(unix, feature = <span class="string">&quot;os-ext&quot;</span>)))]
             #[cfg_attr(docsrs, doc(cfg(any(feature = <span class="string">&quot;net&quot;</span>, all(unix, feature = <span class="string">&quot;os-ext&quot;</span>)))))]
             </span><span class="macro-nonterminal">$item
         </span>)*
@@ -132,11 +132,11 @@
 </span><span class="macro">macro_rules! </span>cfg_any_os_ext {
     ($(<span class="macro-nonterminal">$item</span>:item)<span class="kw-2">*</span>) =&gt; {
         $(
-            <span class="attribute">#[cfg(any(feature = <span class="string">&quot;os-ext&quot;</span>, feature = <span class="string">&quot;net&quot;</span>))]
+            <span class="attr">#[cfg(any(feature = <span class="string">&quot;os-ext&quot;</span>, feature = <span class="string">&quot;net&quot;</span>))]
             #[cfg_attr(docsrs, doc(cfg(any(feature = <span class="string">&quot;os-ext&quot;</span>, feature = <span class="string">&quot;net&quot;</span>))))]
             </span><span class="macro-nonterminal">$item
         </span>)*
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="mio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="mio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

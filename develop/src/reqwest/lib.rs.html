@@ -329,7 +329,7 @@
 <span id="329">329</span>
 <span id="330">330</span>
 <span id="331">331</span>
-</pre><pre class="rust"><code><span class="attribute">#![deny(missing_docs)]
+</pre><pre class="rust"><code><span class="attr">#![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 #![cfg_attr(docsrs, feature(doc_cfg))]
 #![cfg_attr(test, deny(warnings))]
@@ -536,14 +536,14 @@
 
 </span><span class="macro">macro_rules! </span>if_wasm {
     ($(<span class="macro-nonterminal">$item</span>:item)<span class="kw-2">*</span>) =&gt; {$(
-        <span class="attribute">#[cfg(target_arch = <span class="string">&quot;wasm32&quot;</span>)]
+        <span class="attr">#[cfg(target_arch = <span class="string">&quot;wasm32&quot;</span>)]
         </span><span class="macro-nonterminal">$item
     </span>)<span class="kw-2">*</span>}
 }
 
 <span class="macro">macro_rules! </span>if_hyper {
     ($(<span class="macro-nonterminal">$item</span>:item)<span class="kw-2">*</span>) =&gt; {$(
-        <span class="attribute">#[cfg(not(target_arch = <span class="string">&quot;wasm32&quot;</span>))]
+        <span class="attr">#[cfg(not(target_arch = <span class="string">&quot;wasm32&quot;</span>))]
         </span><span class="macro-nonterminal">$item
     </span>)<span class="kw-2">*</span>}
 }
@@ -554,7 +554,7 @@
 <span class="kw">pub use </span>url::Url;
 
 <span class="comment">// universal mods
-</span><span class="attribute">#[macro_use]
+</span><span class="attr">#[macro_use]
 </span><span class="kw">mod </span>error;
 <span class="kw">mod </span>into_url;
 <span class="kw">mod </span>response;
@@ -606,7 +606,7 @@
     assert_send::&lt;Request&gt;();
     assert_send::&lt;RequestBuilder&gt;();
 
-    <span class="attribute">#[cfg(not(target_arch = <span class="string">&quot;wasm32&quot;</span>))]
+    <span class="attr">#[cfg(not(target_arch = <span class="string">&quot;wasm32&quot;</span>))]
     </span>{
         assert_send::&lt;Response&gt;();
     }
@@ -616,38 +616,38 @@
 }
 
 <span class="macro">if_hyper! </span>{
-    <span class="attribute">#[cfg(test)]
+    <span class="attr">#[cfg(test)]
     #[macro_use]
     </span><span class="kw">extern crate </span>doc_comment;
 
-    <span class="attribute">#[macro_use]
+    <span class="attr">#[macro_use]
     </span><span class="kw">extern crate </span>lazy_static;
 
-    <span class="attribute">#[cfg(test)]
+    <span class="attr">#[cfg(test)]
     </span><span class="macro">doctest!</span>(<span class="string">&quot;../README.md&quot;</span>);
 
     <span class="kw">pub use </span><span class="self">self</span>::async_impl::{
         Body, Client, ClientBuilder, Request, RequestBuilder, Response,
     };
     <span class="kw">pub use </span><span class="self">self</span>::proxy::Proxy;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;__tls&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;__tls&quot;</span>)]
     </span><span class="comment">// Re-exports, to be removed in a future release
     </span><span class="kw">pub use </span>tls::{Certificate, Identity};
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;multipart&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;multipart&quot;</span>)]
     </span><span class="kw">pub use </span><span class="self">self</span>::async_impl::multipart;
 
 
     <span class="kw">mod </span>async_impl;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;blocking&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;blocking&quot;</span>)]
     </span><span class="kw">pub mod </span>blocking;
     <span class="kw">mod </span>connect;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;cookies&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;cookies&quot;</span>)]
     </span><span class="kw">pub mod </span>cookie;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
     </span><span class="kw">mod </span>dns;
     <span class="kw">mod </span>proxy;
     <span class="kw">pub mod </span>redirect;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;__tls&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;__tls&quot;</span>)]
     </span><span class="kw">pub mod </span>tls;
     <span class="kw">mod </span>util;
 }
@@ -657,8 +657,8 @@
     <span class="kw">mod </span>util;
 
     <span class="kw">pub use </span><span class="self">self</span>::wasm::{Body, Client, ClientBuilder, Request, RequestBuilder, Response};
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;multipart&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;multipart&quot;</span>)]
     </span><span class="kw">pub use </span><span class="self">self</span>::wasm::multipart;
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="reqwest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="reqwest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

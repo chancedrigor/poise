@@ -162,7 +162,7 @@
 /// must be careful with regard to unwind safety because the thread in which the future
 /// is polled will keep running after the panic and the thread running the [RemoteHandle]
 /// will unwind.
-</span><span class="attribute">#[must_use = <span class="string">&quot;dropping a remote handle cancels the underlying future&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;dropping a remote handle cancels the underlying future&quot;</span>]
 #[derive(Debug)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;channel&quot;</span>)))]
 </span><span class="kw">pub struct </span>RemoteHandle&lt;T&gt; {
@@ -199,12 +199,12 @@
 <span class="macro">pin_project! </span>{
     <span class="doccomment">/// A future which sends its output to the corresponding `RemoteHandle`.
     /// Created by [`remote_handle`](crate::future::FutureExt::remote_handle).
-    </span><span class="attribute">#[must_use = <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;channel&quot;</span>)))]
     </span><span class="kw">pub struct </span>Remote&lt;Fut: Future&gt; {
         tx: <span class="prelude-ty">Option</span>&lt;Sender&lt;SendMsg&lt;Fut&gt;&gt;&gt;,
         keep_running: Arc&lt;AtomicBool&gt;,
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span>future: CatchUnwind&lt;AssertUnwindSafe&lt;Fut&gt;&gt;,
     }
 }
@@ -251,4 +251,4 @@
     (wrapped, RemoteHandle { rx, keep_running })
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

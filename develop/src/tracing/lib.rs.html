@@ -2059,7 +2059,7 @@
 //! [static verbosity level]: level_filters/index.html#compile-time-filters
 //! [instrument]: https://docs.rs/tracing-attributes/latest/tracing_attributes/attr.instrument.html
 //! [flags]: #crate-feature-flags
-</span><span class="attribute">#![cfg_attr(not(feature = <span class="string">&quot;std&quot;</span>), no_std)]
+</span><span class="attr">#![cfg_attr(not(feature = <span class="string">&quot;std&quot;</span>), no_std)]
 #![cfg_attr(docsrs, feature(doc_cfg), deny(rustdoc::broken_intra_doc_links))]
 #![doc(html_root_url = <span class="string">&quot;https://docs.rs/tracing/0.1.33&quot;</span>)]
 #![doc(
@@ -2092,38 +2092,38 @@
 #[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
 </span><span class="kw">extern crate </span>alloc;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
 #[doc(hidden)]
 </span><span class="kw">pub use </span>log;
 
 <span class="comment">// Somehow this `use` statement is necessary for us to re-export the `core`
 // macros on Rust 1.26.0. I&#39;m not sure how this makes it work, but it does.
-</span><span class="attribute">#[allow(unused_imports)]
+</span><span class="attr">#[allow(unused_imports)]
 #[doc(hidden)]
 </span><span class="kw">use </span>tracing_core::<span class="kw-2">*</span>;
 
-<span class="attribute">#[doc(inline)]
+<span class="attr">#[doc(inline)]
 </span><span class="kw">pub use </span><span class="self">self</span>::instrument::Instrument;
 <span class="kw">pub use </span><span class="self">self</span>::{dispatcher::Dispatch, event::Event, field::Value, subscriber::Subscriber};
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">pub use </span><span class="self">self</span>::span::Id;
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">pub use </span>tracing_core::{
     callsite::{<span class="self">self</span>, Callsite},
     metadata,
 };
 <span class="kw">pub use </span>tracing_core::{event, Level, Metadata};
 
-<span class="attribute">#[doc(inline)]
+<span class="attr">#[doc(inline)]
 </span><span class="kw">pub use </span><span class="self">self</span>::span::Span;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;attributes&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;attributes&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;attributes&quot;</span>)))]
 #[doc(inline)]
 </span><span class="kw">pub use </span>tracing_attributes::instrument;
 
-<span class="attribute">#[macro_use]
+<span class="attr">#[macro_use]
 </span><span class="kw">mod </span>macros;
 
 <span class="kw">pub mod </span>dispatcher;
@@ -2135,7 +2135,7 @@
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>stdlib;
 <span class="kw">pub mod </span>subscriber;
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">pub mod </span>__macro_support {
     <span class="kw">pub use </span><span class="kw">crate</span>::callsite::Callsite;
     <span class="kw">use </span><span class="kw">crate</span>::stdlib::{
@@ -2187,9 +2187,9 @@
         /// by the `tracing` macros, but it is not part of the stable versioned API.
         /// Breaking changes to this module may occur in small-numbered versions
         /// without warning.
-        </span><span class="attribute">#[inline(never)]
+        </span><span class="attr">#[inline(never)]
         </span><span class="comment">// This only happens once (or if the cached interest value was corrupted).
-        </span><span class="attribute">#[cold]
+        </span><span class="attr">#[cold]
         </span><span class="kw">pub fn </span>register(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><span class="self">self</span>) -&gt; Interest {
             <span class="self">self</span>.registration
                 .call_once(|| <span class="kw">crate</span>::callsite::register(<span class="self">self</span>));
@@ -2209,7 +2209,7 @@
         /// by the `tracing` macros, but it is not part of the stable versioned API.
         /// Breaking changes to this module may occur in small-numbered versions
         /// without warning.
-        </span><span class="attribute">#[inline]
+        </span><span class="attr">#[inline]
         </span><span class="kw">pub fn </span>interest(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><span class="self">self</span>) -&gt; Interest {
             <span class="kw">match </span><span class="self">self</span>.interest.load(Ordering::Relaxed) {
                 <span class="number">0 </span>=&gt; Interest::never(),
@@ -2224,13 +2224,13 @@
                 || <span class="kw">crate</span>::dispatcher::get_default(|default| default.enabled(<span class="self">self</span>.meta))
         }
 
-        <span class="attribute">#[inline]
+        <span class="attr">#[inline]
         #[cfg(feature = <span class="string">&quot;log&quot;</span>)]
         </span><span class="kw">pub fn </span>disabled_span(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw">crate</span>::Span {
             <span class="kw">crate</span>::Span::new_disabled(<span class="self">self</span>.meta)
         }
 
-        <span class="attribute">#[inline]
+        <span class="attr">#[inline]
         #[cfg(not(feature = <span class="string">&quot;log&quot;</span>))]
         </span><span class="kw">pub fn </span>disabled_span(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw">crate</span>::Span {
             <span class="kw">crate</span>::Span::none()
@@ -2247,7 +2247,7 @@
             <span class="self">self</span>.interest.store(interest, Ordering::SeqCst);
         }
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>metadata(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Metadata&lt;<span class="lifetime">&#39;static</span>&gt; {
             <span class="self">self</span>.meta
         }
@@ -2263,7 +2263,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
     </span><span class="kw">use </span>tracing_core::field::{Field, ValueSet, Visit};
 
     <span class="doccomment">/// Utility to format [`ValueSet`] for logging, used by macro-generated code.
@@ -2274,11 +2274,11 @@
     /// by the `tracing` macros, but it is not part of the stable versioned API.
     /// Breaking changes to this module may occur in small-numbered versions
     /// without warning.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
     #[allow(missing_debug_implementations)]
     </span><span class="kw">pub struct </span>LogValueSet&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw">pub </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>ValueSet&lt;<span class="lifetime">&#39;a</span>&gt;);
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
     </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; fmt::Display <span class="kw">for </span>LogValueSet&lt;<span class="lifetime">&#39;a</span>&gt; {
         <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
             <span class="kw">let </span><span class="kw-2">mut </span>visit = LogVisitor {
@@ -2291,14 +2291,14 @@
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
     </span><span class="kw">struct </span>LogVisitor&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>&gt; {
         f: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;b</span>&gt;,
         is_first: bool,
         result: fmt::Result,
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
     </span><span class="kw">impl </span>Visit <span class="kw">for </span>LogVisitor&lt;<span class="lifetime">&#39;_</span>, <span class="lifetime">&#39;_</span>&gt; {
         <span class="kw">fn </span>record_debug(<span class="kw-2">&amp;mut </span><span class="self">self</span>, field: <span class="kw-2">&amp;</span>Field, value: <span class="kw-2">&amp;</span><span class="kw">dyn </span>fmt::Debug) {
             <span class="kw">let </span>res = <span class="kw">if </span><span class="self">self</span>.is_first {
@@ -2330,4 +2330,4 @@
     <span class="kw">pub trait </span>Sealed {}
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -325,7 +325,7 @@
 <span id="324">324</span>
 <span id="325">325</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Fixed size buffer for block processing of data.
-</span><span class="attribute">#![no_std]
+</span><span class="attr">#![no_std]
 #![doc(
     html_logo_url = <span class="string">&quot;https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg&quot;</span>,
     html_favicon_url = <span class="string">&quot;https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg&quot;</span>,
@@ -351,12 +351,12 @@
 
 <span class="doccomment">/// Eager block buffer kind, which guarantees that buffer position
 /// always lies in the range of `0..BlockSize`.
-</span><span class="attribute">#[derive(Copy, Clone, Debug, Default)]
+</span><span class="attr">#[derive(Copy, Clone, Debug, Default)]
 </span><span class="kw">pub struct </span>Eager {}
 
 <span class="doccomment">/// Lazy block buffer kind, which guarantees that buffer position
 /// always lies in the range of `0..=BlockSize`.
-</span><span class="attribute">#[derive(Copy, Clone, Debug, Default)]
+</span><span class="attr">#[derive(Copy, Clone, Debug, Default)]
 </span><span class="kw">pub struct </span>Lazy {}
 
 <span class="kw">impl </span>BufferKind <span class="kw">for </span>Eager {}
@@ -368,7 +368,7 @@
 </span><span class="kw">pub type </span>LazyBuffer&lt;B&gt; = BlockBuffer&lt;B, Lazy&gt;;
 
 <span class="doccomment">/// Buffer for block processing of data.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>BlockBuffer&lt;BlockSize, Kind&gt;
 <span class="kw">where
     </span>BlockSize: ArrayLength&lt;u8&gt; + IsLess&lt;U256&gt;,
@@ -420,7 +420,7 @@
     ///
     /// # Panics
     /// If slice length is not valid for used buffer kind.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>new(buf: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="self">Self </span>{
         <span class="kw">let </span>pos = buf.len();
         <span class="macro">assert!</span>(Kind::invariant(pos, BlockSize::USIZE));
@@ -435,7 +435,7 @@
 
     <span class="doccomment">/// Digest data in `input` in blocks of size `BlockSize` using
     /// the `compress` function, which accepts slice of blocks.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>digest_blocks(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         <span class="kw-2">mut </span>input: <span class="kw-2">&amp;</span>[u8],
@@ -477,13 +477,13 @@
     }
 
     <span class="doccomment">/// Reset buffer by setting cursor position to zero.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>reset(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.set_pos_unchecked(<span class="number">0</span>);
     }
 
     <span class="doccomment">/// Pad remaining data with zeros and return resulting block.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>pad_with_zeros(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>Block&lt;BlockSize&gt; {
         <span class="kw">let </span>pos = <span class="self">self</span>.get_pos();
         <span class="self">self</span>.buffer[pos..].iter_mut().for_each(|b| <span class="kw-2">*</span>b = <span class="number">0</span>);
@@ -492,7 +492,7 @@
     }
 
     <span class="doccomment">/// Return current cursor position.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>get_pos(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="kw">let </span>pos = <span class="self">self</span>.pos <span class="kw">as </span>usize;
         <span class="kw">if </span>!Kind::invariant(pos, BlockSize::USIZE) {
@@ -506,7 +506,7 @@
     }
 
     <span class="doccomment">/// Return slice of data stored inside the buffer.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>get_data(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8] {
         <span class="kw-2">&amp;</span><span class="self">self</span>.buffer[..<span class="self">self</span>.get_pos()]
     }
@@ -515,7 +515,7 @@
     ///
     /// # Panics
     /// If `pos` is bigger or equal to block size.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set(<span class="kw-2">&amp;mut </span><span class="self">self</span>, buf: Block&lt;BlockSize&gt;, pos: usize) {
         <span class="macro">assert!</span>(Kind::invariant(pos, BlockSize::USIZE));
         <span class="self">self</span>.buffer = buf;
@@ -523,18 +523,18 @@
     }
 
     <span class="doccomment">/// Return size of the internall buffer in bytes.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         BlockSize::USIZE
     }
 
     <span class="doccomment">/// Return number of remaining bytes in the internall buffer.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>remaining(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.size() - <span class="self">self</span>.get_pos()
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>set_pos_unchecked(<span class="kw-2">&amp;mut </span><span class="self">self</span>, pos: usize) {
         <span class="macro">debug_assert!</span>(Kind::invariant(pos, BlockSize::USIZE));
         <span class="self">self</span>.pos = pos <span class="kw">as </span>u8;
@@ -547,7 +547,7 @@
     Le&lt;BlockSize, U256&gt;: NonZero,
 {
     <span class="doccomment">/// Set `data` to generated blocks.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_data(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         <span class="kw-2">mut </span>data: <span class="kw-2">&amp;mut </span>[u8],
@@ -587,7 +587,7 @@
     ///
     /// # Panics
     /// If suffix length is bigger than block size.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>digest_pad(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         delim: u8,
@@ -618,28 +618,28 @@
 
     <span class="doccomment">/// Pad message with 0x80, zeros and 64-bit message length using
     /// big-endian byte order.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>len64_padding_be(<span class="kw-2">&amp;mut </span><span class="self">self</span>, data_len: u64, compress: <span class="kw">impl </span>FnMut(<span class="kw-2">&amp;</span>Block&lt;BlockSize&gt;)) {
         <span class="self">self</span>.digest_pad(<span class="number">0x80</span>, <span class="kw-2">&amp;</span>data_len.to_be_bytes(), compress);
     }
 
     <span class="doccomment">/// Pad message with 0x80, zeros and 64-bit message length using
     /// little-endian byte order.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>len64_padding_le(<span class="kw-2">&amp;mut </span><span class="self">self</span>, data_len: u64, compress: <span class="kw">impl </span>FnMut(<span class="kw-2">&amp;</span>Block&lt;BlockSize&gt;)) {
         <span class="self">self</span>.digest_pad(<span class="number">0x80</span>, <span class="kw-2">&amp;</span>data_len.to_le_bytes(), compress);
     }
 
     <span class="doccomment">/// Pad message with 0x80, zeros and 128-bit message length using
     /// big-endian byte order.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>len128_padding_be(<span class="kw-2">&amp;mut </span><span class="self">self</span>, data_len: u128, compress: <span class="kw">impl </span>FnMut(<span class="kw-2">&amp;</span>Block&lt;BlockSize&gt;)) {
         <span class="self">self</span>.digest_pad(<span class="number">0x80</span>, <span class="kw-2">&amp;</span>data_len.to_be_bytes(), compress);
     }
 }
 
 <span class="doccomment">/// Split message into mutable slice of parallel blocks, blocks, and leftover bytes.
-</span><span class="attribute">#[inline(always)]
+</span><span class="attr">#[inline(always)]
 </span><span class="kw">fn </span>to_blocks_mut&lt;N: ArrayLength&lt;u8&gt;&gt;(data: <span class="kw-2">&amp;mut </span>[u8]) -&gt; (<span class="kw-2">&amp;mut </span>[Block&lt;N&gt;], <span class="kw-2">&amp;mut </span>[u8]) {
     <span class="kw">let </span>nb = data.len() / N::USIZE;
     <span class="kw">let </span>(left, right) = data.split_at_mut(nb * N::USIZE);
@@ -650,4 +650,4 @@
     (blocks, right)
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="block_buffer" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="block_buffer" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

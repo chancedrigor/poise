@@ -159,7 +159,7 @@
 </span><span class="kw">use super</span>::<span class="kw-2">*</span>;
 
 <span class="doccomment">/// Error thrown when parsing a malformed [`CodeBlock`] ([`CodeBlock::pop_from`])
-</span><span class="attribute">#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+</span><span class="attr">#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 </span><span class="kw">pub struct </span>CodeBlockError;
 <span class="kw">impl </span>std::fmt::Display <span class="kw">for </span>CodeBlockError {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>std::fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; std::fmt::Result {
@@ -183,7 +183,7 @@
 /// ```
 ///
 /// Can be used as a command parameter. For more information, see [`Self::pop_from`].
-</span><span class="attribute">#[derive(Debug, PartialEq, Eq, Clone, Hash)]
+</span><span class="attr">#[derive(Debug, PartialEq, Eq, Clone, Hash)]
 </span><span class="kw">pub struct </span>CodeBlock {
     <span class="doccomment">/// The text inside the code block
     </span><span class="kw">pub </span>code: String,
@@ -258,7 +258,7 @@
     }
 }
 
-<span class="attribute">#[async_trait::async_trait]
+<span class="attr">#[async_trait::async_trait]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; PopArgument&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>CodeBlock {
     <span class="doccomment">/// Parse a single-line or multi-line code block. The output of `Self::code` should mirror what
     /// the official Discord client renders, and the output of `Self::language` should mirror the
@@ -276,7 +276,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 #[test]
 </span><span class="kw">fn </span>test_pop_code_block() {
     <span class="kw">for </span><span class="kw-2">&amp;</span>(string, code, language) <span class="kw">in </span><span class="kw-2">&amp;</span>[
@@ -311,4 +311,4 @@
     <span class="macro">assert_eq!</span>(pop_from(<span class="string">&quot;``````&quot;</span>), <span class="prelude-val">Err</span>(CodeBlockError));
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

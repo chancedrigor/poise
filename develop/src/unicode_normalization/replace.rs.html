@@ -73,7 +73,7 @@
 <span class="kw">use </span>tinyvec::ArrayVec;
 
 <span class="doccomment">/// External iterator for replacements for a string&#39;s characters.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>Replacements&lt;I&gt; {
     iter: I,
     <span class="comment">// At this time, the longest replacement sequence has length 2, so we just
@@ -81,7 +81,7 @@
     </span>buffer: <span class="prelude-ty">Option</span>&lt;char&gt;,
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">pub fn </span>new_cjk_compat_variants&lt;I: Iterator&lt;Item = char&gt;&gt;(iter: I) -&gt; Replacements&lt;I&gt; {
     Replacements { iter, buffer: <span class="prelude-val">None </span>}
 }
@@ -89,7 +89,7 @@
 <span class="kw">impl</span>&lt;I: Iterator&lt;Item = char&gt;&gt; Iterator <span class="kw">for </span>Replacements&lt;I&gt; {
     <span class="kw">type </span>Item = char;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>next(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;char&gt; {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(c) = <span class="self">self</span>.buffer.take() {
             <span class="kw">return </span><span class="prelude-val">Some</span>(c);
@@ -122,4 +122,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="unicode_normalization" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="unicode_normalization" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

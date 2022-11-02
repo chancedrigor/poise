@@ -2510,7 +2510,7 @@
 
 </span><span class="doccomment">//! ISO 8601 date and time without timezone.
 
-</span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+</span><span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">use </span>core::borrow::Borrow;
 <span class="kw">use </span>core::ops::{Add, AddAssign, Sub, SubAssign};
 <span class="kw">use </span>core::{fmt, hash, str};
@@ -2518,7 +2518,7 @@
 <span class="kw">use </span>oldtime::Duration <span class="kw">as </span>OldDuration;
 
 <span class="kw">use </span>div::div_mod_floor;
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">use </span>format::DelayedFormat;
 <span class="kw">use </span>format::{parse, ParseError, ParseResult, Parsed, StrftimeItems};
 <span class="kw">use </span>format::{Fixed, Item, Numeric, Pad};
@@ -2565,7 +2565,7 @@
 /// assert_eq!(dt.weekday(), Weekday::Fri);
 /// assert_eq!(dt.num_seconds_from_midnight(), 33011);
 /// ~~~~
-</span><span class="attribute">#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone)]
+</span><span class="attr">#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone)]
 </span><span class="kw">pub struct </span>NaiveDateTime {
     date: NaiveDate,
     time: NaiveTime,
@@ -2588,7 +2588,7 @@
     /// assert_eq!(dt.date(), d);
     /// assert_eq!(dt.time(), t);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new(date: NaiveDate, time: NaiveTime) -&gt; NaiveDateTime {
         NaiveDateTime { date: date, time: time }
     }
@@ -2618,7 +2618,7 @@
     /// let dt = NaiveDateTime::from_timestamp(1_000_000_000, 0);
     /// assert_eq!(dt, NaiveDate::from_ymd(2001, 9, 9).and_hms(1, 46, 40));
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>from_timestamp(secs: i64, nsecs: u32) -&gt; NaiveDateTime {
         <span class="kw">let </span>datetime = NaiveDateTime::from_timestamp_opt(secs, nsecs);
         datetime.expect(<span class="string">&quot;invalid or out-of-range datetime&quot;</span>)
@@ -2649,7 +2649,7 @@
     /// assert!(from_timestamp_opt(0, 2_000_000_000).is_none());
     /// assert!(from_timestamp_opt(i64::MAX, 0).is_none());
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>from_timestamp_opt(secs: i64, nsecs: u32) -&gt; <span class="prelude-ty">Option</span>&lt;NaiveDateTime&gt; {
         <span class="kw">let </span>(days, secs) = div_mod_floor(secs, <span class="number">86_400</span>);
         <span class="kw">let </span>date = days
@@ -2740,7 +2740,7 @@
     /// let dt = NaiveDate::from_ymd(2016, 7, 8).and_hms(9, 10, 11);
     /// assert_eq!(dt.date(), NaiveDate::from_ymd(2016, 7, 8));
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>date(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; NaiveDate {
         <span class="self">self</span>.date
     }
@@ -2755,7 +2755,7 @@
     /// let dt = NaiveDate::from_ymd(2016, 7, 8).and_hms(9, 10, 11);
     /// assert_eq!(dt.time(), NaiveTime::from_hms(9, 10, 11));
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>time(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; NaiveTime {
         <span class="self">self</span>.time
     }
@@ -2782,7 +2782,7 @@
     /// let dt = NaiveDate::from_ymd(-1, 1, 1).and_hms(0, 0, 0);
     /// assert_eq!(dt.timestamp(), -62198755200);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>timestamp(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i64 {
         <span class="kw">const </span>UNIX_EPOCH_DAY: i64 = <span class="number">719_163</span>;
         <span class="kw">let </span>gregorian_day = i64::from(<span class="self">self</span>.date.num_days_from_ce());
@@ -2814,7 +2814,7 @@
     /// let dt = NaiveDate::from_ymd(1969, 12, 31).and_hms_milli(23, 59, 59, 100);
     /// assert_eq!(dt.timestamp_millis(), -900);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>timestamp_millis(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i64 {
         <span class="kw">let </span>as_ms = <span class="self">self</span>.timestamp() * <span class="number">1000</span>;
         as_ms + i64::from(<span class="self">self</span>.timestamp_subsec_millis())
@@ -2853,7 +2853,7 @@
     ///     NaiveDateTime::from_timestamp(nanos / A_BILLION, (nanos % A_BILLION) as u32)
     /// );
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>timestamp_nanos(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i64 {
         <span class="kw">let </span>as_ns = <span class="self">self</span>.timestamp() * <span class="number">1_000_000_000</span>;
         as_ns + i64::from(<span class="self">self</span>.timestamp_subsec_nanos())
@@ -2875,7 +2875,7 @@
     /// let dt = NaiveDate::from_ymd(2015, 7, 1).and_hms_nano(8, 59, 59, 1_234_567_890);
     /// assert_eq!(dt.timestamp_subsec_millis(), 1_234);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>timestamp_subsec_millis(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.timestamp_subsec_nanos() / <span class="number">1_000_000
     </span>}
@@ -2896,7 +2896,7 @@
     /// let dt = NaiveDate::from_ymd(2015, 7, 1).and_hms_nano(8, 59, 59, 1_234_567_890);
     /// assert_eq!(dt.timestamp_subsec_micros(), 1_234_567);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>timestamp_subsec_micros(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.timestamp_subsec_nanos() / <span class="number">1_000
     </span>}
@@ -2917,7 +2917,7 @@
     /// let dt = NaiveDate::from_ymd(2015, 7, 1).and_hms_nano(8, 59, 59, 1_234_567_890);
     /// assert_eq!(dt.timestamp_subsec_nanos(), 1_234_567_890);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>timestamp_subsec_nanos(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.time.nanosecond()
     }
@@ -3157,7 +3157,7 @@
     /// # let dt = NaiveDate::from_ymd(2015, 9, 5).and_hms(23, 56, 4);
     /// assert_eq!(format!(&quot;{}&quot;, dt.format_with_items(fmt)), &quot;2015-09-05 23:56:04&quot;);
     /// ~~~~
-    </span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
     #[inline]
     </span><span class="kw">pub fn </span>format_with_items&lt;<span class="lifetime">&#39;a</span>, I, B&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, items: I) -&gt; DelayedFormat&lt;I&gt;
     <span class="kw">where
@@ -3199,7 +3199,7 @@
     /// assert_eq!(format!(&quot;{}&quot;, dt.format(&quot;%Y-%m-%d %H:%M:%S&quot;)), &quot;2015-09-05 23:56:04&quot;);
     /// assert_eq!(format!(&quot;{}&quot;, dt.format(&quot;around %l %p on %b %-d&quot;)), &quot;around 11 PM on Sep 5&quot;);
     /// ~~~~
-    </span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
     #[inline]
     </span><span class="kw">pub fn </span>format&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, fmt: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; DelayedFormat&lt;StrftimeItems&lt;<span class="lifetime">&#39;a</span>&gt;&gt; {
         <span class="self">self</span>.format_with_items(StrftimeItems::new(fmt))
@@ -3219,7 +3219,7 @@
     /// let dt: NaiveDateTime = NaiveDate::from_ymd(2015, 9, 25).and_hms(12, 34, 56);
     /// assert_eq!(dt.year(), 2015);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>year(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="self">self</span>.date.year()
     }
@@ -3238,7 +3238,7 @@
     /// let dt: NaiveDateTime = NaiveDate::from_ymd(2015, 9, 25).and_hms(12, 34, 56);
     /// assert_eq!(dt.month(), 9);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>month(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.date.month()
     }
@@ -3257,7 +3257,7 @@
     /// let dt: NaiveDateTime = NaiveDate::from_ymd(2015, 9, 25).and_hms(12, 34, 56);
     /// assert_eq!(dt.month0(), 8);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>month0(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.date.month0()
     }
@@ -3276,7 +3276,7 @@
     /// let dt: NaiveDateTime = NaiveDate::from_ymd(2015, 9, 25).and_hms(12, 34, 56);
     /// assert_eq!(dt.day(), 25);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>day(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.date.day()
     }
@@ -3295,7 +3295,7 @@
     /// let dt: NaiveDateTime = NaiveDate::from_ymd(2015, 9, 25).and_hms(12, 34, 56);
     /// assert_eq!(dt.day0(), 24);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>day0(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.date.day0()
     }
@@ -3314,7 +3314,7 @@
     /// let dt: NaiveDateTime = NaiveDate::from_ymd(2015, 9, 25).and_hms(12, 34, 56);
     /// assert_eq!(dt.ordinal(), 268);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>ordinal(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.date.ordinal()
     }
@@ -3333,7 +3333,7 @@
     /// let dt: NaiveDateTime = NaiveDate::from_ymd(2015, 9, 25).and_hms(12, 34, 56);
     /// assert_eq!(dt.ordinal0(), 267);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>ordinal0(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.date.ordinal0()
     }
@@ -3350,12 +3350,12 @@
     /// let dt: NaiveDateTime = NaiveDate::from_ymd(2015, 9, 25).and_hms(12, 34, 56);
     /// assert_eq!(dt.weekday(), Weekday::Fri);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>weekday(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Weekday {
         <span class="self">self</span>.date.weekday()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>iso_week(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; IsoWeek {
         <span class="self">self</span>.date.iso_week()
     }
@@ -3376,7 +3376,7 @@
     /// assert_eq!(dt.with_year(2016), Some(NaiveDate::from_ymd(2016, 9, 25).and_hms(12, 34, 56)));
     /// assert_eq!(dt.with_year(-308), Some(NaiveDate::from_ymd(-308, 9, 25).and_hms(12, 34, 56)));
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>with_year(<span class="kw-2">&amp;</span><span class="self">self</span>, year: i32) -&gt; <span class="prelude-ty">Option</span>&lt;NaiveDateTime&gt; {
         <span class="self">self</span>.date.with_year(year).map(|d| NaiveDateTime { date: d, ..<span class="kw-2">*</span><span class="self">self </span>})
     }
@@ -3398,7 +3398,7 @@
     /// assert_eq!(dt.with_month(13), None); // no month 13
     /// assert_eq!(dt.with_month(2), None); // no February 30
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>with_month(<span class="kw-2">&amp;</span><span class="self">self</span>, month: u32) -&gt; <span class="prelude-ty">Option</span>&lt;NaiveDateTime&gt; {
         <span class="self">self</span>.date.with_month(month).map(|d| NaiveDateTime { date: d, ..<span class="kw-2">*</span><span class="self">self </span>})
     }
@@ -3420,7 +3420,7 @@
     /// assert_eq!(dt.with_month0(12), None); // no month 13
     /// assert_eq!(dt.with_month0(1), None); // no February 30
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>with_month0(<span class="kw-2">&amp;</span><span class="self">self</span>, month0: u32) -&gt; <span class="prelude-ty">Option</span>&lt;NaiveDateTime&gt; {
         <span class="self">self</span>.date.with_month0(month0).map(|d| NaiveDateTime { date: d, ..<span class="kw-2">*</span><span class="self">self </span>})
     }
@@ -3441,7 +3441,7 @@
     /// assert_eq!(dt.with_day(30), Some(NaiveDate::from_ymd(2015, 9, 30).and_hms(12, 34, 56)));
     /// assert_eq!(dt.with_day(31), None); // no September 31
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>with_day(<span class="kw-2">&amp;</span><span class="self">self</span>, day: u32) -&gt; <span class="prelude-ty">Option</span>&lt;NaiveDateTime&gt; {
         <span class="self">self</span>.date.with_day(day).map(|d| NaiveDateTime { date: d, ..<span class="kw-2">*</span><span class="self">self </span>})
     }
@@ -3462,7 +3462,7 @@
     /// assert_eq!(dt.with_day0(29), Some(NaiveDate::from_ymd(2015, 9, 30).and_hms(12, 34, 56)));
     /// assert_eq!(dt.with_day0(30), None); // no September 31
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>with_day0(<span class="kw-2">&amp;</span><span class="self">self</span>, day0: u32) -&gt; <span class="prelude-ty">Option</span>&lt;NaiveDateTime&gt; {
         <span class="self">self</span>.date.with_day0(day0).map(|d| NaiveDateTime { date: d, ..<span class="kw-2">*</span><span class="self">self </span>})
     }
@@ -3490,7 +3490,7 @@
     /// assert_eq!(dt.with_ordinal(366),
     ///            Some(NaiveDate::from_ymd(2016, 12, 31).and_hms(12, 34, 56)));
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>with_ordinal(<span class="kw-2">&amp;</span><span class="self">self</span>, ordinal: u32) -&gt; <span class="prelude-ty">Option</span>&lt;NaiveDateTime&gt; {
         <span class="self">self</span>.date.with_ordinal(ordinal).map(|d| NaiveDateTime { date: d, ..<span class="kw-2">*</span><span class="self">self </span>})
     }
@@ -3518,7 +3518,7 @@
     /// assert_eq!(dt.with_ordinal0(365),
     ///            Some(NaiveDate::from_ymd(2016, 12, 31).and_hms(12, 34, 56)));
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>with_ordinal0(<span class="kw-2">&amp;</span><span class="self">self</span>, ordinal0: u32) -&gt; <span class="prelude-ty">Option</span>&lt;NaiveDateTime&gt; {
         <span class="self">self</span>.date.with_ordinal0(ordinal0).map(|d| NaiveDateTime { date: d, ..<span class="kw-2">*</span><span class="self">self </span>})
     }
@@ -3537,7 +3537,7 @@
     /// let dt: NaiveDateTime = NaiveDate::from_ymd(2015, 9, 8).and_hms_milli(12, 34, 56, 789);
     /// assert_eq!(dt.hour(), 12);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>hour(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.time.hour()
     }
@@ -3554,7 +3554,7 @@
     /// let dt: NaiveDateTime = NaiveDate::from_ymd(2015, 9, 8).and_hms_milli(12, 34, 56, 789);
     /// assert_eq!(dt.minute(), 34);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>minute(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.time.minute()
     }
@@ -3571,7 +3571,7 @@
     /// let dt: NaiveDateTime = NaiveDate::from_ymd(2015, 9, 8).and_hms_milli(12, 34, 56, 789);
     /// assert_eq!(dt.second(), 56);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>second(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.time.second()
     }
@@ -3591,7 +3591,7 @@
     /// let dt: NaiveDateTime = NaiveDate::from_ymd(2015, 9, 8).and_hms_milli(12, 34, 56, 789);
     /// assert_eq!(dt.nanosecond(), 789_000_000);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>nanosecond(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.time.nanosecond()
     }
@@ -3613,7 +3613,7 @@
     ///            Some(NaiveDate::from_ymd(2015, 9, 8).and_hms_milli(7, 34, 56, 789)));
     /// assert_eq!(dt.with_hour(24), None);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>with_hour(<span class="kw-2">&amp;</span><span class="self">self</span>, hour: u32) -&gt; <span class="prelude-ty">Option</span>&lt;NaiveDateTime&gt; {
         <span class="self">self</span>.time.with_hour(hour).map(|t| NaiveDateTime { time: t, ..<span class="kw-2">*</span><span class="self">self </span>})
     }
@@ -3635,7 +3635,7 @@
     ///            Some(NaiveDate::from_ymd(2015, 9, 8).and_hms_milli(12, 45, 56, 789)));
     /// assert_eq!(dt.with_minute(60), None);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>with_minute(<span class="kw-2">&amp;</span><span class="self">self</span>, min: u32) -&gt; <span class="prelude-ty">Option</span>&lt;NaiveDateTime&gt; {
         <span class="self">self</span>.time.with_minute(min).map(|t| NaiveDateTime { time: t, ..<span class="kw-2">*</span><span class="self">self </span>})
     }
@@ -3659,7 +3659,7 @@
     ///            Some(NaiveDate::from_ymd(2015, 9, 8).and_hms_milli(12, 34, 17, 789)));
     /// assert_eq!(dt.with_second(60), None);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>with_second(<span class="kw-2">&amp;</span><span class="self">self</span>, sec: u32) -&gt; <span class="prelude-ty">Option</span>&lt;NaiveDateTime&gt; {
         <span class="self">self</span>.time.with_second(sec).map(|t| NaiveDateTime { time: t, ..<span class="kw-2">*</span><span class="self">self </span>})
     }
@@ -3686,7 +3686,7 @@
     ///            Some(NaiveDate::from_ymd(2015, 9, 8).and_hms_nano(12, 34, 56, 1_333_333_333)));
     /// assert_eq!(dt.with_nanosecond(2_000_000_000), None);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>with_nanosecond(<span class="kw-2">&amp;</span><span class="self">self</span>, nano: u32) -&gt; <span class="prelude-ty">Option</span>&lt;NaiveDateTime&gt; {
         <span class="self">self</span>.time.with_nanosecond(nano).map(|t| NaiveDateTime { time: t, ..<span class="kw-2">*</span><span class="self">self </span>})
     }
@@ -3759,14 +3759,14 @@
 </span><span class="kw">impl </span>Add&lt;OldDuration&gt; <span class="kw">for </span>NaiveDateTime {
     <span class="kw">type </span>Output = NaiveDateTime;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>add(<span class="self">self</span>, rhs: OldDuration) -&gt; NaiveDateTime {
         <span class="self">self</span>.checked_add_signed(rhs).expect(<span class="string">&quot;`NaiveDateTime + Duration` overflowed&quot;</span>)
     }
 }
 
 <span class="kw">impl </span>AddAssign&lt;OldDuration&gt; <span class="kw">for </span>NaiveDateTime {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>add_assign(<span class="kw-2">&amp;mut </span><span class="self">self</span>, rhs: OldDuration) {
         <span class="kw-2">*</span><span class="self">self </span>= <span class="self">self</span>.add(rhs);
     }
@@ -3827,14 +3827,14 @@
 </span><span class="kw">impl </span>Sub&lt;OldDuration&gt; <span class="kw">for </span>NaiveDateTime {
     <span class="kw">type </span>Output = NaiveDateTime;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sub(<span class="self">self</span>, rhs: OldDuration) -&gt; NaiveDateTime {
         <span class="self">self</span>.checked_sub_signed(rhs).expect(<span class="string">&quot;`NaiveDateTime - Duration` overflowed&quot;</span>)
     }
 }
 
 <span class="kw">impl </span>SubAssign&lt;OldDuration&gt; <span class="kw">for </span>NaiveDateTime {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sub_assign(<span class="kw-2">&amp;mut </span><span class="self">self</span>, rhs: OldDuration) {
         <span class="kw-2">*</span><span class="self">self </span>= <span class="self">self</span>.sub(rhs);
     }
@@ -3887,7 +3887,7 @@
 </span><span class="kw">impl </span>Sub&lt;NaiveDateTime&gt; <span class="kw">for </span>NaiveDateTime {
     <span class="kw">type </span>Output = OldDuration;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sub(<span class="self">self</span>, rhs: NaiveDateTime) -&gt; OldDuration {
         <span class="self">self</span>.signed_duration_since(rhs)
     }
@@ -4004,7 +4004,7 @@
     }
 }
 
-<span class="attribute">#[cfg(all(test, any(feature = <span class="string">&quot;rustc-serialize&quot;</span>, feature = <span class="string">&quot;serde&quot;</span>)))]
+<span class="attr">#[cfg(all(test, any(feature = <span class="string">&quot;rustc-serialize&quot;</span>, feature = <span class="string">&quot;serde&quot;</span>)))]
 </span><span class="kw">fn </span>test_encodable_json&lt;F, E&gt;(to_string: F)
 <span class="kw">where
     </span>F: Fn(<span class="kw-2">&amp;</span>NaiveDateTime) -&gt; <span class="prelude-ty">Result</span>&lt;String, E&gt;,
@@ -4038,7 +4038,7 @@
     );
 }
 
-<span class="attribute">#[cfg(all(test, any(feature = <span class="string">&quot;rustc-serialize&quot;</span>, feature = <span class="string">&quot;serde&quot;</span>)))]
+<span class="attr">#[cfg(all(test, any(feature = <span class="string">&quot;rustc-serialize&quot;</span>, feature = <span class="string">&quot;serde&quot;</span>)))]
 </span><span class="kw">fn </span>test_decodable_json&lt;F, E&gt;(from_str: F)
 <span class="kw">where
     </span>F: Fn(<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;NaiveDateTime, E&gt;,
@@ -4102,7 +4102,7 @@
     <span class="macro">assert!</span>(from_str(<span class="string">r#&quot;null&quot;#</span>).is_err());
 }
 
-<span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;rustc-serialize&quot;</span>))]
+<span class="attr">#[cfg(all(test, feature = <span class="string">&quot;rustc-serialize&quot;</span>))]
 </span><span class="kw">fn </span>test_decodable_json_timestamp&lt;F, E&gt;(from_str: F)
 <span class="kw">where
     </span>F: Fn(<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;rustc_serialize::TsSeconds, E&gt;,
@@ -4120,7 +4120,7 @@
     </span>);
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;rustc-serialize&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;rustc-serialize&quot;</span>)]
 </span><span class="kw">pub mod </span>rustc_serialize {
     <span class="kw">use </span><span class="kw">super</span>::NaiveDateTime;
     <span class="kw">use </span>rustc_serialize::{Decodable, Decoder, Encodable, Encoder};
@@ -4139,35 +4139,35 @@
     }
 
     <span class="doccomment">/// A `DateTime` that can be deserialized from a seconds-based timestamp
-    </span><span class="attribute">#[derive(Debug)]
+    </span><span class="attr">#[derive(Debug)]
     #[deprecated(
         since = <span class="string">&quot;1.4.2&quot;</span>,
         note = <span class="string">&quot;RustcSerialize will be removed before chrono 1.0, use Serde instead&quot;
     </span>)]
     </span><span class="kw">pub struct </span>TsSeconds(NaiveDateTime);
 
-    <span class="attribute">#[allow(deprecated)]
+    <span class="attr">#[allow(deprecated)]
     </span><span class="kw">impl </span>From&lt;TsSeconds&gt; <span class="kw">for </span>NaiveDateTime {
         <span class="doccomment">/// Pull the internal NaiveDateTime out
-        </span><span class="attribute">#[allow(deprecated)]
+        </span><span class="attr">#[allow(deprecated)]
         </span><span class="kw">fn </span>from(obj: TsSeconds) -&gt; NaiveDateTime {
             obj.<span class="number">0
         </span>}
     }
 
-    <span class="attribute">#[allow(deprecated)]
+    <span class="attr">#[allow(deprecated)]
     </span><span class="kw">impl </span>Deref <span class="kw">for </span>TsSeconds {
         <span class="kw">type </span>Target = NaiveDateTime;
 
-        <span class="attribute">#[allow(deprecated)]
+        <span class="attr">#[allow(deprecated)]
         </span><span class="kw">fn </span>deref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="self">Self</span>::Target {
             <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0
         </span>}
     }
 
-    <span class="attribute">#[allow(deprecated)]
+    <span class="attr">#[allow(deprecated)]
     </span><span class="kw">impl </span>Decodable <span class="kw">for </span>TsSeconds {
-        <span class="attribute">#[allow(deprecated)]
+        <span class="attr">#[allow(deprecated)]
         </span><span class="kw">fn </span>decode&lt;D: Decoder&gt;(d: <span class="kw-2">&amp;mut </span>D) -&gt; <span class="prelude-ty">Result</span>&lt;TsSeconds, D::Error&gt; {
             <span class="prelude-val">Ok</span>(TsSeconds(
                 NaiveDateTime::from_timestamp_opt(d.read_i64()<span class="question-mark">?</span>, <span class="number">0</span>)
@@ -4176,27 +4176,27 @@
         }
     }
 
-    <span class="attribute">#[cfg(test)]
+    <span class="attr">#[cfg(test)]
     </span><span class="kw">use </span>rustc_serialize::json;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_encodable() {
         <span class="kw">super</span>::test_encodable_json(json::encode);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decodable() {
         <span class="kw">super</span>::test_decodable_json(json::decode);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decodable_timestamps() {
         <span class="kw">super</span>::test_decodable_json_timestamp(json::decode);
     }
 }
 
 <span class="doccomment">/// Tools to help serializing/deserializing `NaiveDateTime`s
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">pub mod </span>serde {
     <span class="kw">use </span><span class="kw">super</span>::NaiveDateTime;
     <span class="kw">use </span>core::fmt;
@@ -4698,26 +4698,26 @@
         }
     }
 
-    <span class="attribute">#[cfg(test)]
+    <span class="attr">#[cfg(test)]
     </span><span class="kw">extern crate </span>bincode;
-    <span class="attribute">#[cfg(test)]
+    <span class="attr">#[cfg(test)]
     </span><span class="kw">extern crate </span>serde_derive;
-    <span class="attribute">#[cfg(test)]
+    <span class="attr">#[cfg(test)]
     </span><span class="kw">extern crate </span>serde_json;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_serde_serialize() {
         <span class="kw">super</span>::test_encodable_json(<span class="self">self</span>::serde_json::to_string);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_serde_deserialize() {
         <span class="kw">super</span>::test_decodable_json(|input| <span class="self">self</span>::serde_json::from_str(<span class="kw-2">&amp;</span>input));
     }
 
     <span class="comment">// Bincode is relevant to test separately from JSON because
     // it is not self-describing.
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>test_serde_bincode() {
         <span class="kw">use </span><span class="self">self</span>::bincode::{deserialize, serialize, Infinite};
         <span class="kw">use </span>naive::NaiveDate;
@@ -4728,17 +4728,17 @@
         <span class="macro">assert_eq!</span>(dt, decoded);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_serde_bincode_optional() {
         <span class="kw">use </span><span class="self">self</span>::bincode::{deserialize, serialize, Infinite};
         <span class="kw">use </span><span class="self">self</span>::serde_derive::{Deserialize, Serialize};
         <span class="kw">use </span>prelude::<span class="kw-2">*</span>;
         <span class="kw">use </span>serde::ts_nanoseconds_option;
 
-        <span class="attribute">#[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
+        <span class="attr">#[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
         </span><span class="kw">struct </span>Test {
             one: <span class="prelude-ty">Option</span>&lt;i64&gt;,
-            <span class="attribute">#[serde(with = <span class="string">&quot;ts_nanoseconds_option&quot;</span>)]
+            <span class="attr">#[serde(with = <span class="string">&quot;ts_nanoseconds_option&quot;</span>)]
             </span>two: <span class="prelude-ty">Option</span>&lt;DateTime&lt;Utc&gt;&gt;,
         }
 
@@ -4750,7 +4750,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::NaiveDateTime;
     <span class="kw">use </span>naive::{NaiveDate, MAX_DATE, MIN_DATE};
@@ -4758,7 +4758,7 @@
     <span class="kw">use </span>std::i64;
     <span class="kw">use </span>Datelike;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_datetime_from_timestamp() {
         <span class="kw">let </span>from_timestamp = |secs| NaiveDateTime::from_timestamp_opt(secs, <span class="number">0</span>);
         <span class="kw">let </span>ymdhms = |y, m, d, h, n, s| NaiveDate::from_ymd(y, m, d).and_hms(h, n, s);
@@ -4771,7 +4771,7 @@
         <span class="macro">assert_eq!</span>(from_timestamp(i64::MAX), <span class="prelude-val">None</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_datetime_add() {
         <span class="kw">fn </span>check(
             (y, m, d, h, n, s): (i32, u32, u32, u32, u32, u32),
@@ -4819,7 +4819,7 @@
         check((<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>), Duration::min_value(), <span class="prelude-val">None</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_datetime_sub() {
         <span class="kw">let </span>ymdhms = |y, m, d, h, n, s| NaiveDate::from_ymd(y, m, d).and_hms(h, n, s);
         <span class="kw">let </span>since = NaiveDateTime::signed_duration_since;
@@ -4845,7 +4845,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_datetime_addassignment() {
         <span class="kw">let </span>ymdhms = |y, m, d, h, n, s| NaiveDate::from_ymd(y, m, d).and_hms(h, n, s);
         <span class="kw">let </span><span class="kw-2">mut </span>date = ymdhms(<span class="number">2016</span>, <span class="number">10</span>, <span class="number">1</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>);
@@ -4855,7 +4855,7 @@
         <span class="macro">assert_eq!</span>(date, ymdhms(<span class="number">2035</span>, <span class="number">10</span>, <span class="number">16</span>, <span class="number">20</span>, <span class="number">50</span>, <span class="number">10</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_datetime_subassignment() {
         <span class="kw">let </span>ymdhms = |y, m, d, h, n, s| NaiveDate::from_ymd(y, m, d).and_hms(h, n, s);
         <span class="kw">let </span><span class="kw-2">mut </span>date = ymdhms(<span class="number">2016</span>, <span class="number">10</span>, <span class="number">1</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>);
@@ -4865,7 +4865,7 @@
         <span class="macro">assert_eq!</span>(date, ymdhms(<span class="number">1997</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">23</span>, <span class="number">30</span>, <span class="number">10</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_datetime_timestamp() {
         <span class="kw">let </span>to_timestamp =
             |y, m, d, h, n, s| NaiveDate::from_ymd(y, m, d).and_hms(h, n, s).timestamp();
@@ -4876,7 +4876,7 @@
         <span class="macro">assert_eq!</span>(to_timestamp(<span class="number">2038</span>, <span class="number">1</span>, <span class="number">19</span>, <span class="number">3</span>, <span class="number">14</span>, <span class="number">7</span>), <span class="number">0x7fffffff</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_datetime_from_str() {
         <span class="comment">// valid cases
         </span><span class="kw">let </span>valid = [
@@ -4921,7 +4921,7 @@
         <span class="macro">assert!</span>(<span class="string">&quot;+802701-123-12T12:12:12&quot;</span>.parse::&lt;NaiveDateTime&gt;().is_err()); <span class="comment">// out-of-bound
     </span>}
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_datetime_parse_from_str() {
         <span class="kw">let </span>ymdhms = |y, m, d, h, n, s| NaiveDate::from_ymd(y, m, d).and_hms(h, n, s);
         <span class="kw">let </span>ymdhmsn =
@@ -4970,7 +4970,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_datetime_format() {
         <span class="kw">let </span>dt = NaiveDate::from_ymd(<span class="number">2010</span>, <span class="number">9</span>, <span class="number">8</span>).and_hms_milli(<span class="number">7</span>, <span class="number">6</span>, <span class="number">54</span>, <span class="number">321</span>);
         <span class="macro">assert_eq!</span>(dt.format(<span class="string">&quot;%c&quot;</span>).to_string(), <span class="string">&quot;Wed Sep  8 07:06:54 2010&quot;</span>);
@@ -4983,7 +4983,7 @@
         <span class="macro">assert_eq!</span>(dt.format(<span class="string">&quot;%s&quot;</span>).to_string(), <span class="string">&quot;1341100799&quot;</span>); <span class="comment">// not 1341100800, it&#39;s intentional.
     </span>}
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_datetime_add_sub_invariant() {
         <span class="comment">// issue #37
         </span><span class="kw">let </span>base = NaiveDate::from_ymd(<span class="number">2000</span>, <span class="number">1</span>, <span class="number">1</span>).and_hms(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);
@@ -4992,7 +4992,7 @@
         <span class="macro">assert_eq!</span>(t, time.signed_duration_since(base).num_microseconds().unwrap());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_nanosecond_range() {
         <span class="kw">const </span>A_BILLION: i64 = <span class="number">1_000_000_000</span>;
         <span class="kw">let </span>maximum = <span class="string">&quot;2262-04-11T23:47:16.854775804&quot;</span>;
@@ -5013,4 +5013,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

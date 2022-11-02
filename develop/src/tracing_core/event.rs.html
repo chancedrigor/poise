@@ -148,7 +148,7 @@
 ///
 /// [span]: ../span
 /// [fields]: ../field
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Event&lt;<span class="lifetime">&#39;a</span>&gt; {
     fields: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>field::ValueSet&lt;<span class="lifetime">&#39;a</span>&gt;,
     metadata: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Metadata&lt;<span class="lifetime">&#39;static</span>&gt;,
@@ -167,7 +167,7 @@
 
     <span class="doccomment">/// Returns a new `Event` in the current span, with the specified metadata
     /// and set of values.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new(metadata: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Metadata&lt;<span class="lifetime">&#39;static</span>&gt;, fields: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>field::ValueSet&lt;<span class="lifetime">&#39;a</span>&gt;) -&gt; <span class="self">Self </span>{
         Event {
             fields,
@@ -178,7 +178,7 @@
 
     <span class="doccomment">/// Returns a new `Event` as a child of the specified span, with the
     /// provided metadata and set of values.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new_child_of(
         parent: <span class="kw">impl </span>Into&lt;<span class="prelude-ty">Option</span>&lt;Id&gt;&gt;,
         metadata: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Metadata&lt;<span class="lifetime">&#39;static</span>&gt;,
@@ -211,7 +211,7 @@
     <span class="doccomment">/// Visits all the fields on this `Event` with the specified [visitor].
     ///
     /// [visitor]: ../field/trait.Visit.html
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>record(<span class="kw-2">&amp;</span><span class="self">self</span>, visitor: <span class="kw-2">&amp;mut </span><span class="kw">dyn </span>field::Visit) {
         <span class="self">self</span>.fields.record(visitor);
     }
@@ -256,4 +256,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

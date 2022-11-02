@@ -1573,7 +1573,7 @@
 <span id="1573">1573</span>
 <span id="1574">1574</span>
 <span id="1575">1575</span>
-</pre><pre class="rust"><code><span class="attribute">#![cfg_attr(not(feature = <span class="string">&quot;std&quot;</span>), no_std)]
+</pre><pre class="rust"><code><span class="attr">#![cfg_attr(not(feature = <span class="string">&quot;std&quot;</span>), no_std)]
 #![warn(
     missing_debug_implementations,
     missing_docs,
@@ -1685,12 +1685,12 @@
 //!
 //! [`Slab::with_capacity`]: struct.Slab.html#with_capacity
 
-</span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
+</span><span class="attr">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
 </span><span class="kw">extern crate </span>alloc;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">extern crate </span>std <span class="kw">as </span>alloc;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">mod </span>serde;
 
 <span class="kw">use </span>alloc::vec::{<span class="self">self</span>, Vec};
@@ -1702,7 +1702,7 @@
 /// See the [module documentation] for more details.
 ///
 /// [module documentation]: index.html
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>Slab&lt;T&gt; {
     <span class="comment">// Chunk of memory
     </span>entries: Vec&lt;Entry&lt;T&gt;&gt;,
@@ -1743,7 +1743,7 @@
 /// assert_eq!(hello, slab[hello].0);
 /// assert_eq!(&quot;hello&quot;, slab[hello].1);
 /// ```
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>VacantEntry&lt;<span class="lifetime">&#39;a</span>, T&gt; {
     slab: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Slab&lt;T&gt;,
     key: usize,
@@ -1782,7 +1782,7 @@
     len: usize,
 }
 
-<span class="attribute">#[derive(Clone)]
+<span class="attr">#[derive(Clone)]
 </span><span class="kw">enum </span>Entry&lt;T&gt; {
     Vacant(usize),
     Occupied(T),
@@ -3149,4 +3149,4 @@
 
 <span class="kw">impl</span>&lt;T&gt; FusedIterator <span class="kw">for </span>Drain&lt;<span class="lifetime">&#39;_</span>, T&gt; {}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="slab" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="slab" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

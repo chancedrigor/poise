@@ -64,7 +64,7 @@
 <span class="kw">use </span>std::pin::Pin;
 
 <span class="doccomment">/// Reader for the [`empty()`] function.
-</span><span class="attribute">#[must_use = <span class="string">&quot;readers do nothing unless polled&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;readers do nothing unless polled&quot;</span>]
 </span><span class="kw">pub struct </span>Empty {
     _priv: (),
 }
@@ -92,7 +92,7 @@
 }
 
 <span class="kw">impl </span>AsyncRead <span class="kw">for </span>Empty {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>poll_read(
         <span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;,
         <span class="kw">_</span>: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;,
@@ -103,11 +103,11 @@
 }
 
 <span class="kw">impl </span>AsyncBufRead <span class="kw">for </span>Empty {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>poll_fill_buf(<span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, <span class="kw">_</span>: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;io::Result&lt;<span class="kw-2">&amp;</span>[u8]&gt;&gt; {
         Poll::Ready(<span class="prelude-val">Ok</span>(<span class="kw-2">&amp;</span>[]))
     }
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>consume(<span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, <span class="kw">_</span>: usize) {}
 }
 
@@ -117,4 +117,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -1025,14 +1025,14 @@
 <span class="kw">use </span><span class="kw">crate</span>::model::sticker::StickerFormatType;
 <span class="kw">use </span><span class="kw">crate</span>::model::{Permissions, Timestamp};
 
-<span class="attribute">#[derive(Debug, PartialEq, Deserialize, Serialize)]
+<span class="attr">#[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>AffectedRole {
     <span class="kw">pub </span>id: RoleId,
     <span class="kw">pub </span>name: String,
 }
 
-<span class="attribute">#[derive(Debug, PartialEq, Deserialize, Serialize)]
+<span class="attr">#[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(untagged)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>EntityType {
@@ -1040,7 +1040,7 @@
     Str(String),
 }
 
-<span class="attribute">#[derive(Debug, PartialEq)]
+<span class="attr">#[derive(Debug, PartialEq)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>Change {
     Actions {
@@ -1434,7 +1434,7 @@
 }
 
 <span class="kw">impl </span>Change {
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>key(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Cow&lt;<span class="lifetime">&#39;_</span>, str&gt; {
         <span class="macro">macro_rules! </span>variant_keys {
             ($(<span class="macro-nonterminal">$Variant</span>:ident: <span class="macro-nonterminal">$key</span>:literal,)<span class="kw-2">*</span>) =&gt; {
@@ -1658,7 +1658,7 @@
     }
 
     <span class="kw">fn </span>visit_map&lt;A: MapAccess&lt;<span class="lifetime">&#39;de</span>&gt;&gt;(<span class="self">self</span>, <span class="kw-2">mut </span>map: A) -&gt; <span class="prelude-ty">Result</span>&lt;Change, A::Error&gt; {
-        <span class="attribute">#[derive(Deserialize)]
+        <span class="attr">#[derive(Deserialize)]
         #[serde(field_identifier, rename_all = <span class="string">&quot;snake_case&quot;</span>)]
         </span><span class="kw">enum </span>Field {
             Key,
@@ -1798,14 +1798,14 @@
     }
 }
 
-<span class="attribute">#[derive(Deserialize)]
+<span class="attr">#[derive(Deserialize)]
 #[serde(untagged)]
 </span><span class="kw">enum </span>MaybeUnknown&lt;T&gt; {
     Known(T),
     Unknown(String),
 }
 
-<span class="attribute">#[derive(Deserialize)]
+<span class="attr">#[derive(Deserialize)]
 #[serde(field_identifier, rename_all = <span class="string">&quot;snake_case&quot;</span>)]
 </span><span class="kw">enum </span>Key {
     Actions,
@@ -1822,7 +1822,7 @@
     Bitrate,
     ChannelId,
     Code,
-    <span class="attribute">#[serde(rename = <span class="string">&quot;color&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">&quot;color&quot;</span>)]
     </span>Colour,
     CommunicationDisabledUntil,
     Deaf,
@@ -1885,19 +1885,19 @@
     VerificationLevel,
     WidgetChannelId,
     WidgetEnabled,
-    <span class="attribute">#[serde(rename = <span class="string">&quot;$add&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">&quot;$add&quot;</span>)]
     </span>RolesAdded,
-    <span class="attribute">#[serde(rename = <span class="string">&quot;$remove&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">&quot;$remove&quot;</span>)]
     </span>RolesRemove,
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>serde_test::{assert_tokens, Token};
 
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>afk_channel_id_variant() {
         <span class="kw">let </span>value = Change::AfkChannelId {
             old: <span class="prelude-val">Some</span>(ChannelId(<span class="number">1</span>)),
@@ -1926,7 +1926,7 @@
         ]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>skip_serializing_if_none() {
         <span class="kw">let </span>value = Change::AfkChannelId {
             old: <span class="prelude-val">None</span>,
@@ -1968,7 +1968,7 @@
         ]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>entity_type_variant() {
         <span class="kw">let </span>value = Change::Type {
             old: <span class="prelude-val">Some</span>(EntityType::Int(<span class="number">123</span>)),
@@ -1991,7 +1991,7 @@
         ]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>permissions_variant() {
         <span class="kw">let </span>value = Change::Permissions {
             old: <span class="prelude-val">Some</span>(Permissions::default()),
@@ -2015,4 +2015,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -208,9 +208,9 @@
 <span class="kw">use </span>std::fmt;
 <span class="kw">use </span>std::marker::PhantomData;
 
-<span class="attribute">#[derive(Debug, Clone, Copy)]
+<span class="attr">#[derive(Debug, Clone, Copy)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>EnterContext {
-    <span class="attribute">#[cfg_attr(not(feature = <span class="string">&quot;rt&quot;</span>), allow(dead_code))]
+    <span class="attr">#[cfg_attr(not(feature = <span class="string">&quot;rt&quot;</span>), allow(dead_code))]
     </span>Entered {
         allow_blocking: bool,
     },
@@ -237,7 +237,7 @@
 
     <span class="doccomment">/// Marks the current thread as being within the dynamic extent of an
     /// executor.
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>enter(allow_blocking: bool) -&gt; Enter {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(enter) = try_enter(allow_blocking) {
             <span class="kw">return </span>enter;
@@ -411,4 +411,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

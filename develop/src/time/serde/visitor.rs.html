@@ -334,16 +334,16 @@
 <span class="kw">use </span>core::marker::PhantomData;
 
 <span class="kw">use </span>serde::de;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde-well-known&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde-well-known&quot;</span>)]
 </span><span class="kw">use </span>serde::Deserializer;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">use super</span>::{
     DATE_FORMAT, OFFSET_DATE_TIME_FORMAT, PRIMITIVE_DATE_TIME_FORMAT, TIME_FORMAT,
     UTC_OFFSET_FORMAT,
 };
 <span class="kw">use </span><span class="kw">crate</span>::error::ComponentRange;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde-well-known&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde-well-known&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::format_description::well_known;
 <span class="kw">use crate</span>::{Date, Duration, Month, OffsetDateTime, PrimitiveDateTime, Time, UtcOffset, Weekday};
 
@@ -357,7 +357,7 @@
         formatter.write_str(<span class="string">&quot;a `Date`&quot;</span>)
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
     </span><span class="kw">fn </span>visit_str&lt;E: de::Error&gt;(<span class="self">self</span>, value: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;Date, E&gt; {
         Date::parse(value, <span class="kw-2">&amp;</span>DATE_FORMAT).map_err(E::custom)
     }
@@ -409,7 +409,7 @@
         formatter.write_str(<span class="string">&quot;an `OffsetDateTime`&quot;</span>)
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
     </span><span class="kw">fn </span>visit_str&lt;E: de::Error&gt;(<span class="self">self</span>, value: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;OffsetDateTime, E&gt; {
         OffsetDateTime::parse(value, <span class="kw-2">&amp;</span>OFFSET_DATE_TIME_FORMAT).map_err(E::custom)
     }
@@ -442,7 +442,7 @@
         formatter.write_str(<span class="string">&quot;a `PrimitiveDateTime`&quot;</span>)
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
     </span><span class="kw">fn </span>visit_str&lt;E: de::Error&gt;(<span class="self">self</span>, value: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;PrimitiveDateTime, E&gt; {
         PrimitiveDateTime::parse(value, <span class="kw-2">&amp;</span>PRIMITIVE_DATE_TIME_FORMAT).map_err(E::custom)
     }
@@ -468,7 +468,7 @@
         formatter.write_str(<span class="string">&quot;a `Time`&quot;</span>)
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
     </span><span class="kw">fn </span>visit_str&lt;E: de::Error&gt;(<span class="self">self</span>, value: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;Time, E&gt; {
         Time::parse(value, <span class="kw-2">&amp;</span>TIME_FORMAT).map_err(E::custom)
     }
@@ -490,7 +490,7 @@
         formatter.write_str(<span class="string">&quot;a `UtcOffset`&quot;</span>)
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
     </span><span class="kw">fn </span>visit_str&lt;E: de::Error&gt;(<span class="self">self</span>, value: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;UtcOffset, E&gt; {
         UtcOffset::parse(value, <span class="kw-2">&amp;</span>UTC_OFFSET_FORMAT).map_err(E::custom)
     }
@@ -588,7 +588,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde-well-known&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde-well-known&quot;</span>)]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; de::Visitor&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>Visitor&lt;well_known::Rfc2822&gt; {
     <span class="kw">type </span>Value = OffsetDateTime;
 
@@ -601,7 +601,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde-well-known&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde-well-known&quot;</span>)]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; de::Visitor&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>Visitor&lt;<span class="prelude-ty">Option</span>&lt;well_known::Rfc2822&gt;&gt; {
     <span class="kw">type </span>Value = <span class="prelude-ty">Option</span>&lt;OffsetDateTime&gt;;
 
@@ -623,7 +623,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde-well-known&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde-well-known&quot;</span>)]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; de::Visitor&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>Visitor&lt;well_known::Rfc3339&gt; {
     <span class="kw">type </span>Value = OffsetDateTime;
 
@@ -636,7 +636,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde-well-known&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde-well-known&quot;</span>)]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; de::Visitor&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>Visitor&lt;<span class="prelude-ty">Option</span>&lt;well_known::Rfc3339&gt;&gt; {
     <span class="kw">type </span>Value = <span class="prelude-ty">Option</span>&lt;OffsetDateTime&gt;;
 
@@ -658,4 +658,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

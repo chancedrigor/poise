@@ -102,7 +102,7 @@
 <span class="kw">use </span><span class="kw">super</span>::user::User;
 
 <span class="doccomment">/// Partial information about the given application.
-</span><span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 </span><span class="kw">pub struct </span>PartialCurrentApplicationInfo {
     <span class="doccomment">/// The unique Id of the user.
     </span><span class="kw">pub </span>id: ApplicationId,
@@ -111,7 +111,7 @@
 }
 
 <span class="doccomment">/// Information about the current application and its owner.
-</span><span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>CurrentApplicationInfo {
     <span class="kw">pub </span>description: String,
@@ -119,7 +119,7 @@
     <span class="kw">pub </span>id: ApplicationId,
     <span class="kw">pub </span>name: String,
     <span class="kw">pub </span>owner: User,
-    <span class="attribute">#[serde(default)]
+    <span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>rpc_origins: Vec&lt;String&gt;,
     <span class="kw">pub </span>bot_public: bool,
     <span class="kw">pub </span>bot_require_code_grant: bool,
@@ -127,12 +127,12 @@
 }
 
 <span class="doccomment">/// Information about the Team group of the application.
-</span><span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 </span><span class="kw">pub struct </span>Team {
     <span class="doccomment">/// The icon of the team.
     </span><span class="kw">pub </span>icon: <span class="prelude-ty">Option</span>&lt;String&gt;,
     <span class="doccomment">/// The snowflake ID of the team.
-    </span><span class="attribute">#[serde(with = <span class="string">&quot;snowflake&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">&quot;snowflake&quot;</span>)]
     </span><span class="kw">pub </span>id: u64,
     <span class="doccomment">/// The name of the team.
     </span><span class="kw">pub </span>name: String,
@@ -143,7 +143,7 @@
 }
 
 <span class="doccomment">/// Information about a Member on a Team.
-</span><span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 </span><span class="kw">pub struct </span>TeamMember {
     <span class="doccomment">/// The member&#39;s membership state.
     </span><span class="kw">pub </span>membership_state: MembershipState,
@@ -152,13 +152,13 @@
     /// NOTE: Will always be [&quot;*&quot;] for now.
     </span><span class="kw">pub </span>permissions: Vec&lt;String&gt;,
     <span class="doccomment">/// The ID of the team they are a member of.
-    </span><span class="attribute">#[serde(with = <span class="string">&quot;snowflake&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">&quot;snowflake&quot;</span>)]
     </span><span class="kw">pub </span>team_id: u64,
     <span class="doccomment">/// The user type of the team member.
     </span><span class="kw">pub </span>user: User,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Copy, PartialEq)]
+<span class="attr">#[derive(Clone, Debug, Copy, PartialEq)]
 </span><span class="kw">pub enum </span>MembershipState {
     Invited = <span class="number">1</span>,
     Accepted = <span class="number">2</span>,
@@ -172,7 +172,7 @@
 
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// The flags of the application.
-    </span><span class="attribute">#[derive(Default)]
+    </span><span class="attr">#[derive(Default)]
     </span><span class="kw">pub struct </span>ApplicationFlags: u64 {
         <span class="kw">const </span>GATEWAY_PRESENCE = <span class="number">1 </span>&lt;&lt; <span class="number">12</span>;
         <span class="kw">const </span>GATEWAY_PRESENCE_LIMITED = <span class="number">1 </span>&lt;&lt; <span class="number">13</span>;
@@ -185,4 +185,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -322,7 +322,7 @@
 //! feature-gated behind `std` feature, which is usually enabled by default
 //! by hash implementation crates.
 
-</span><span class="attribute">#![no_std]
+</span><span class="attr">#![no_std]
 #![cfg_attr(docsrs, feature(doc_cfg))]
 #![forbid(unsafe_code)]
 #![doc(
@@ -336,37 +336,37 @@
 #[macro_use]
 </span><span class="kw">extern crate </span>alloc;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">extern crate </span>std;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;rand_core&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;rand_core&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;rand_core&quot;</span>)))]
 </span><span class="kw">pub use </span>crypto_common::rand_core;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span>alloc::boxed::Box;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;dev&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;dev&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;dev&quot;</span>)))]
 </span><span class="kw">pub mod </span>dev;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;core-api&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;core-api&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;core-api&quot;</span>)))]
 </span><span class="kw">pub mod </span>core_api;
 <span class="kw">mod </span>digest;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;mac&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;mac&quot;</span>)]
 </span><span class="kw">mod </span>mac;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;core-api&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;core-api&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;core-api&quot;</span>)))]
 </span><span class="kw">pub use </span>block_buffer;
 <span class="kw">pub use </span>crypto_common;
 
 <span class="kw">pub use </span><span class="kw">crate</span>::digest::{Digest, DynDigest, HashMarker};
 <span class="kw">pub use </span>crypto_common::{generic_array, typenum, typenum::consts, Output, OutputSizeUser, Reset};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;mac&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;mac&quot;</span>)]
 </span><span class="kw">pub use </span>crypto_common::{InnerInit, InvalidLength, Key, KeyInit};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;mac&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;mac&quot;</span>)]
 </span><span class="kw">pub use </span>mac::{CtOutput, Mac, MacError, MacMarker};
 
 <span class="kw">use </span>core::fmt;
@@ -377,7 +377,7 @@
     </span><span class="kw">fn </span>update(<span class="kw-2">&amp;mut </span><span class="self">self</span>, data: <span class="kw-2">&amp;</span>[u8]);
 
     <span class="doccomment">/// Digest input data in a chained manner.
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">fn </span>chain(<span class="kw-2">mut </span><span class="self">self</span>, data: <span class="kw">impl </span>AsRef&lt;[u8]&gt;) -&gt; <span class="self">Self
     </span><span class="kw">where
         </span><span class="self">Self</span>: Sized,
@@ -393,7 +393,7 @@
     </span><span class="kw">fn </span>finalize_into(<span class="self">self</span>, out: <span class="kw-2">&amp;mut </span>Output&lt;<span class="self">Self</span>&gt;);
 
     <span class="doccomment">/// Retrieve result and consume the hasher instance.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>finalize_fixed(<span class="self">self</span>) -&gt; Output&lt;<span class="self">Self</span>&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>out = Default::default();
         <span class="self">self</span>.finalize_into(<span class="kw-2">&amp;mut </span>out);
@@ -407,7 +407,7 @@
     </span><span class="kw">fn </span>finalize_into_reset(<span class="kw-2">&amp;mut </span><span class="self">self</span>, out: <span class="kw-2">&amp;mut </span>Output&lt;<span class="self">Self</span>&gt;);
 
     <span class="doccomment">/// Retrieve result and reset the hasher state.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>finalize_fixed_reset(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; Output&lt;<span class="self">Self</span>&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>out = Default::default();
         <span class="self">self</span>.finalize_into_reset(<span class="kw-2">&amp;mut </span>out);
@@ -427,7 +427,7 @@
     ///
     /// `Box&lt;[u8]&gt;` is used instead of `Vec&lt;u8&gt;` to save stack space, since
     /// they have size of 2 and 3 words respectively.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;alloc&quot;</span>)))]
     </span><span class="kw">fn </span>read_boxed(<span class="kw-2">&amp;mut </span><span class="self">self</span>, n: usize) -&gt; Box&lt;[u8]&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = <span class="macro">vec!</span>[<span class="number">0u8</span>; n].into_boxed_slice();
@@ -464,7 +464,7 @@
     ///
     /// `Box&lt;[u8]&gt;` is used instead of `Vec&lt;u8&gt;` to save stack space, since
     /// they have size of 2 and 3 words respectively.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;alloc&quot;</span>)))]
     </span><span class="kw">fn </span>finalize_boxed(<span class="self">self</span>, output_size: usize) -&gt; Box&lt;[u8]&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = <span class="macro">vec!</span>[<span class="number">0u8</span>; output_size].into_boxed_slice();
@@ -488,7 +488,7 @@
     ///
     /// `Box&lt;[u8]&gt;` is used instead of `Vec&lt;u8&gt;` to save stack space, since
     /// they have size of 2 and 3 words respectively.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;alloc&quot;</span>)))]
     </span><span class="kw">fn </span>finalize_boxed_reset(<span class="kw-2">&amp;mut </span><span class="self">self</span>, output_size: usize) -&gt; Box&lt;[u8]&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = <span class="macro">vec!</span>[<span class="number">0u8</span>; output_size].into_boxed_slice();
@@ -537,7 +537,7 @@
     ///
     /// `Box&lt;[u8]&gt;` is used instead of `Vec&lt;u8&gt;` to save stack space, since
     /// they have size of 2 and 3 words respectively.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;alloc&quot;</span>)))]
     </span><span class="kw">fn </span>finalize_boxed(<span class="self">self</span>) -&gt; Box&lt;[u8]&gt; {
         <span class="kw">let </span>n = <span class="self">self</span>.output_size();
@@ -560,7 +560,7 @@
     ///
     /// `Box&lt;[u8]&gt;` is used instead of `Vec&lt;u8&gt;` to save stack space, since
     /// they have size of 2 and 3 words respectively.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;alloc&quot;</span>)))]
     </span><span class="kw">fn </span>finalize_boxed_reset(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; Box&lt;[u8]&gt; {
         <span class="kw">let </span>n = <span class="self">self</span>.output_size();
@@ -572,7 +572,7 @@
 }
 
 <span class="doccomment">/// The error type used in variable hash traits.
-</span><span class="attribute">#[derive(Clone, Copy, Debug, Default)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, Default)]
 </span><span class="kw">pub struct </span>InvalidOutputSize;
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>InvalidOutputSize {
@@ -581,12 +581,12 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;std&quot;</span>)))]
 </span><span class="kw">impl </span>std::error::Error <span class="kw">for </span>InvalidOutputSize {}
 
 <span class="doccomment">/// Buffer length is not equal to hash output size.
-</span><span class="attribute">#[derive(Default, Debug, Copy, Clone, Eq, PartialEq)]
+</span><span class="attr">#[derive(Default, Debug, Copy, Clone, Eq, PartialEq)]
 </span><span class="kw">pub struct </span>InvalidBufferSize;
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>InvalidBufferSize {
@@ -595,7 +595,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>std::error::Error <span class="kw">for </span>InvalidBufferSize {}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="digest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="digest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

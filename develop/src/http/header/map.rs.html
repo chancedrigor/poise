@@ -3561,7 +3561,7 @@
 ///
 /// assert!(!headers.contains_key(HOST));
 /// ```
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>HeaderMap&lt;T = HeaderValue&gt; {
     <span class="comment">// Used to mask values to get an index
     </span>mask: Size,
@@ -3600,7 +3600,7 @@
 ///
 /// Yields `(&amp;HeaderName, &amp;value)` tuples. The same header name may be yielded
 /// more than once if it has more than one associated value.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Iter&lt;<span class="lifetime">&#39;a</span>, T&gt; {
     inner: IterMut&lt;<span class="lifetime">&#39;a</span>, T&gt;,
 }
@@ -3609,7 +3609,7 @@
 ///
 /// Yields `(&amp;HeaderName, &amp;mut value)` tuples. The same header name may be
 /// yielded more than once if it has more than one associated value.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>IterMut&lt;<span class="lifetime">&#39;a</span>, T&gt; {
     map: <span class="kw-2">*mut </span>HeaderMap&lt;T&gt;,
     entry: usize,
@@ -3620,7 +3620,7 @@
 <span class="doccomment">/// An owning iterator over the entries of a `HeaderMap`.
 ///
 /// This struct is created by the `into_iter` method on `HeaderMap`.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>IntoIter&lt;T&gt; {
     <span class="comment">// If None, pull from `entries`
     </span>next: <span class="prelude-ty">Option</span>&lt;usize&gt;,
@@ -3632,7 +3632,7 @@
 ///
 /// Each header name is yielded only once, even if it has more than one
 /// associated value.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Keys&lt;<span class="lifetime">&#39;a</span>, T&gt; {
     inner: ::std::slice::Iter&lt;<span class="lifetime">&#39;a</span>, Bucket&lt;T&gt;&gt;,
 }
@@ -3640,19 +3640,19 @@
 <span class="doccomment">/// `HeaderMap` value iterator.
 ///
 /// Each value contained in the `HeaderMap` will be yielded.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Values&lt;<span class="lifetime">&#39;a</span>, T&gt; {
     inner: Iter&lt;<span class="lifetime">&#39;a</span>, T&gt;,
 }
 
 <span class="doccomment">/// `HeaderMap` mutable value iterator
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ValuesMut&lt;<span class="lifetime">&#39;a</span>, T&gt; {
     inner: IterMut&lt;<span class="lifetime">&#39;a</span>, T&gt;,
 }
 
 <span class="doccomment">/// A drain iterator for `HeaderMap`.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Drain&lt;<span class="lifetime">&#39;a</span>, T&gt; {
     idx: usize,
     len: usize,
@@ -3666,14 +3666,14 @@
 <span class="doccomment">/// A view to all values stored in a single entry.
 ///
 /// This struct is returned by `HeaderMap::get_all`.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>GetAll&lt;<span class="lifetime">&#39;a</span>, T&gt; {
     map: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>HeaderMap&lt;T&gt;,
     index: <span class="prelude-ty">Option</span>&lt;usize&gt;,
 }
 
 <span class="doccomment">/// A view into a single location in a `HeaderMap`, which may be vacant or occupied.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub enum </span>Entry&lt;<span class="lifetime">&#39;a</span>, T: <span class="lifetime">&#39;a</span>&gt; {
     <span class="doccomment">/// An occupied entry
     </span>Occupied(OccupiedEntry&lt;<span class="lifetime">&#39;a</span>, T&gt;),
@@ -3685,7 +3685,7 @@
 <span class="doccomment">/// A view into a single empty location in a `HeaderMap`.
 ///
 /// This struct is returned as part of the `Entry` enum.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>VacantEntry&lt;<span class="lifetime">&#39;a</span>, T&gt; {
     map: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>HeaderMap&lt;T&gt;,
     key: HeaderName,
@@ -3697,7 +3697,7 @@
 <span class="doccomment">/// A view into a single occupied location in a `HeaderMap`.
 ///
 /// This struct is returned as part of the `Entry` enum.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>OccupiedEntry&lt;<span class="lifetime">&#39;a</span>, T&gt; {
     map: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>HeaderMap&lt;T&gt;,
     probe: usize,
@@ -3705,7 +3705,7 @@
 }
 
 <span class="doccomment">/// An iterator of all values associated with a single header name.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ValueIter&lt;<span class="lifetime">&#39;a</span>, T&gt; {
     map: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>HeaderMap&lt;T&gt;,
     index: usize,
@@ -3714,7 +3714,7 @@
 }
 
 <span class="doccomment">/// A mutable iterator of all values associated with a single header name.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ValueIterMut&lt;<span class="lifetime">&#39;a</span>, T&gt; {
     map: <span class="kw-2">*mut </span>HeaderMap&lt;T&gt;,
     index: usize,
@@ -3724,7 +3724,7 @@
 }
 
 <span class="doccomment">/// An drain iterator of all values associated with a single header name.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ValueDrain&lt;<span class="lifetime">&#39;a</span>, T&gt; {
     first: <span class="prelude-ty">Option</span>&lt;T&gt;,
     next: <span class="prelude-ty">Option</span>&lt;::std::vec::IntoIter&lt;T&gt;&gt;,
@@ -3732,7 +3732,7 @@
 }
 
 <span class="doccomment">/// Tracks the value iterator state
-</span><span class="attribute">#[derive(Debug, Copy, Clone, Eq, PartialEq)]
+</span><span class="attr">#[derive(Debug, Copy, Clone, Eq, PartialEq)]
 </span><span class="kw">enum </span>Cursor {
     Head,
     Values(usize),
@@ -3757,7 +3757,7 @@
 
 <span class="doccomment">/// An entry in the hash table. This represents the full hash code for an entry
 /// as well as the position of the entry in the `entries` vector.
-</span><span class="attribute">#[derive(Copy, Clone)]
+</span><span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">struct </span>Pos {
     <span class="comment">// Index in the `entries` vec
     </span>index: Size,
@@ -3769,7 +3769,7 @@
 /// return `usize` hash codes, limiting the effective hash code to the lower 16
 /// bits is fine since we know that the `indices` vector will never grow beyond
 /// that size.
-</span><span class="attribute">#[derive(Debug, Copy, Clone, Eq, PartialEq)]
+</span><span class="attr">#[derive(Debug, Copy, Clone, Eq, PartialEq)]
 </span><span class="kw">struct </span>HashValue(u16);
 
 <span class="doccomment">/// Stores the data associated with a `HeaderMap` entry. Only the first value is
@@ -3778,7 +3778,7 @@
 /// linked list of entries is maintained. The doubly linked list is used so that
 /// removing a value is constant time. This also has the nice property of
 /// enabling double ended iteration.
-</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone)]
 </span><span class="kw">struct </span>Bucket&lt;T&gt; {
     hash: HashValue,
     key: HeaderName,
@@ -3787,7 +3787,7 @@
 }
 
 <span class="doccomment">/// The head and tail of the value linked list.
-</span><span class="attribute">#[derive(Debug, Copy, Clone)]
+</span><span class="attr">#[derive(Debug, Copy, Clone)]
 </span><span class="kw">struct </span>Links {
     next: usize,
     tail: usize,
@@ -3797,11 +3797,11 @@
 ///
 /// It&#39;s important that no other field is accessed, since it may have been
 /// freed in a `Drain` iterator.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>RawLinks&lt;T&gt;(<span class="kw-2">*mut </span>[Bucket&lt;T&gt;]);
 
 <span class="doccomment">/// Node in doubly-linked list of header value entries
-</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone)]
 </span><span class="kw">struct </span>ExtraValue&lt;T&gt; {
     value: T,
     prev: Link,
@@ -3811,7 +3811,7 @@
 <span class="doccomment">/// A header value node is either linked to another node in the `extra_values`
 /// list or it points to an entry in `entries`. The entry in `entries` is the
 /// start of the list and holds the associated header name.
-</span><span class="attribute">#[derive(Debug, Copy, Clone, Eq, PartialEq)]
+</span><span class="attr">#[derive(Debug, Copy, Clone, Eq, PartialEq)]
 </span><span class="kw">enum </span>Link {
     Entry(usize),
     Extra(usize),
@@ -3825,7 +3825,7 @@
 ///
 /// When in the red state, a safe hashing algorithm is used and all values in
 /// the header map have to be rehashed.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">enum </span>Danger {
     Green,
     Yellow,
@@ -4655,7 +4655,7 @@
         key.insert(<span class="self">self</span>, val)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>insert2&lt;K&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, key: K, value: T) -&gt; <span class="prelude-ty">Option</span>&lt;T&gt;
     <span class="kw">where
         </span>K: Hash + Into&lt;HeaderName&gt;,
@@ -4689,7 +4689,7 @@
     }
 
     <span class="doccomment">/// Set an occupied bucket to the given value
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>insert_occupied(<span class="kw-2">&amp;mut </span><span class="self">self</span>, index: usize, value: T) -&gt; T {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(links) = <span class="self">self</span>.entries[index].links {
             <span class="self">self</span>.remove_all_extra_values(links.next);
@@ -4758,7 +4758,7 @@
         key.append(<span class="self">self</span>, value)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>append2&lt;K&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, key: K, value: T) -&gt; bool
     <span class="kw">where
         </span>K: Hash + Into&lt;HeaderName&gt;,
@@ -4795,7 +4795,7 @@
         )
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>find&lt;K: <span class="question-mark">?</span>Sized&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>K) -&gt; <span class="prelude-ty">Option</span>&lt;(usize, usize)&gt;
     <span class="kw">where
         </span>K: Hash + Into&lt;HeaderName&gt;,
@@ -4827,7 +4827,7 @@
     }
 
     <span class="doccomment">/// phase 2 is post-insert where we forward-shift `Pos` in the indices.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>insert_phase_two(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         key: HeaderName,
@@ -4893,7 +4893,7 @@
     /// Warning: To avoid inconsistent state, extra values _must_ be removed
     /// for the `found` index (via `remove_all_extra_values` or similar)
     /// _before_ this method is called.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>remove_found(<span class="kw-2">&amp;mut </span><span class="self">self</span>, probe: usize, found: usize) -&gt; Bucket&lt;T&gt; {
         <span class="comment">// index `probe` and entry `found` is to be removed
         // use swap_remove, but then we need to update the index that points
@@ -4950,7 +4950,7 @@
     }
 
     <span class="doccomment">/// Removes the `ExtraValue` at the given index.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>remove_extra_value(<span class="kw-2">&amp;mut </span><span class="self">self</span>, idx: usize) -&gt; ExtraValue&lt;T&gt; {
         <span class="kw">let </span>raw_links = <span class="self">self</span>.raw_links();
         remove_extra_value(raw_links, <span class="kw-2">&amp;mut </span><span class="self">self</span>.extra_values, idx)
@@ -4968,7 +4968,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>insert_entry(<span class="kw-2">&amp;mut </span><span class="self">self</span>, hash: HashValue, key: HeaderName, value: T) {
         <span class="macro">assert!</span>(<span class="self">self</span>.entries.len() &lt; MAX_SIZE, <span class="string">&quot;header map at capacity&quot;</span>);
 
@@ -5065,7 +5065,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>grow(<span class="kw-2">&amp;mut </span><span class="self">self</span>, new_raw_cap: usize) {
         <span class="macro">assert!</span>(new_raw_cap &lt;= MAX_SIZE, <span class="string">&quot;requested capacity too large&quot;</span>);
         <span class="comment">// This path can never be reached when handling the first allocation in
@@ -5104,14 +5104,14 @@
         <span class="self">self</span>.entries.reserve_exact(more);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>raw_links(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; RawLinks&lt;T&gt; {
         RawLinks(<span class="kw-2">&amp;mut </span><span class="self">self</span>.entries[..] <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>)
     }
 }
 
 <span class="doccomment">/// Removes the `ExtraValue` at the given index.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>remove_extra_value&lt;T&gt;(
     <span class="kw-2">mut </span>raw_links: RawLinks&lt;T&gt;,
     extra_values: <span class="kw-2">&amp;mut </span>Vec&lt;ExtraValue&lt;T&gt;&gt;,
@@ -5515,7 +5515,7 @@
 
     <span class="doccomment">/// # Panics
     /// Using the index operator will cause a panic if the header you&#39;re querying isn&#39;t set.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>index(<span class="kw-2">&amp;</span><span class="self">self</span>, index: K) -&gt; <span class="kw-2">&amp;</span>T {
         <span class="kw">match </span><span class="self">self</span>.get2(<span class="kw-2">&amp;</span>index) {
             <span class="prelude-val">Some</span>(val) =&gt; val,
@@ -5527,7 +5527,7 @@
 <span class="doccomment">/// phase 2 is post-insert where we forward-shift `Pos` in the indices.
 ///
 /// returns the number of displaced elements
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>do_insert_phase_two(indices: <span class="kw-2">&amp;mut </span>[Pos], <span class="kw-2">mut </span>probe: usize, <span class="kw-2">mut </span>old_pos: Pos) -&gt; usize {
     <span class="kw">let </span><span class="kw-2">mut </span>num_displaced = <span class="number">0</span>;
 
@@ -5546,7 +5546,7 @@
     num_displaced
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>append_value&lt;T&gt;(
     entry_idx: usize,
     entry: <span class="kw-2">&amp;mut </span>Bucket&lt;T&gt;,
@@ -6657,7 +6657,7 @@
 <span class="comment">// ===== impl Pos =====
 
 </span><span class="kw">impl </span>Pos {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>new(index: usize, hash: HashValue) -&gt; <span class="self">Self </span>{
         <span class="macro">debug_assert!</span>(index &lt; MAX_SIZE);
         Pos {
@@ -6666,7 +6666,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>none() -&gt; <span class="self">Self </span>{
         Pos {
             index: !<span class="number">0</span>,
@@ -6674,17 +6674,17 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_some(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         !<span class="self">self</span>.is_none()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_none(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.index == !<span class="number">0
     </span>}
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>resolve(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(usize, HashValue)&gt; {
         <span class="kw">if </span><span class="self">self</span>.is_some() {
             <span class="prelude-val">Some</span>((<span class="self">self</span>.index <span class="kw">as </span>usize, <span class="self">self</span>.hash))
@@ -6731,23 +6731,23 @@
 
 <span class="comment">// ===== impl Utils =====
 
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>usable_capacity(cap: usize) -&gt; usize {
     cap - cap / <span class="number">4
 </span>}
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>to_raw_capacity(n: usize) -&gt; usize {
     n + n / <span class="number">3
 </span>}
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>desired_pos(mask: Size, hash: HashValue) -&gt; usize {
     (hash.<span class="number">0 </span>&amp; mask) <span class="kw">as </span>usize
 }
 
 <span class="doccomment">/// The number of steps that `current` is forward of the desired position for hash
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>probe_distance(mask: Size, hash: HashValue, current: usize) -&gt; usize {
     current.wrapping_sub(desired_pos(mask, hash)) &amp; mask <span class="kw">as </span>usize
 }
@@ -6800,32 +6800,32 @@
     // Ultimately, this allows us to adjust the signatures of these methods
     // without breaking any external crate.
     </span><span class="kw">pub trait </span>Sealed {
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         </span><span class="kw">fn </span>insert&lt;T&gt;(<span class="self">self</span>, map: <span class="kw-2">&amp;mut </span>HeaderMap&lt;T&gt;, val: T) -&gt; <span class="prelude-ty">Option</span>&lt;T&gt;;
 
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         </span><span class="kw">fn </span>append&lt;T&gt;(<span class="self">self</span>, map: <span class="kw-2">&amp;mut </span>HeaderMap&lt;T&gt;, val: T) -&gt; bool;
 
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         </span><span class="kw">fn </span>entry&lt;T&gt;(<span class="self">self</span>, map: <span class="kw-2">&amp;mut </span>HeaderMap&lt;T&gt;) -&gt; Entry&lt;<span class="lifetime">&#39;_</span>, T&gt;;
     }
 
     <span class="comment">// ==== impls ====
 
     </span><span class="kw">impl </span>Sealed <span class="kw">for </span>HeaderName {
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         #[inline]
         </span><span class="kw">fn </span>insert&lt;T&gt;(<span class="self">self</span>, map: <span class="kw-2">&amp;mut </span>HeaderMap&lt;T&gt;, val: T) -&gt; <span class="prelude-ty">Option</span>&lt;T&gt; {
             map.insert2(<span class="self">self</span>, val)
         }
 
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         #[inline]
         </span><span class="kw">fn </span>append&lt;T&gt;(<span class="self">self</span>, map: <span class="kw-2">&amp;mut </span>HeaderMap&lt;T&gt;, val: T) -&gt; bool {
             map.append2(<span class="self">self</span>, val)
         }
 
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         #[inline]
         </span><span class="kw">fn </span>entry&lt;T&gt;(<span class="self">self</span>, map: <span class="kw-2">&amp;mut </span>HeaderMap&lt;T&gt;) -&gt; Entry&lt;<span class="lifetime">&#39;_</span>, T&gt; {
             map.entry2(<span class="self">self</span>)
@@ -6835,18 +6835,18 @@
     <span class="kw">impl </span>IntoHeaderName <span class="kw">for </span>HeaderName {}
 
     <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Sealed <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>HeaderName {
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         #[inline]
         </span><span class="kw">fn </span>insert&lt;T&gt;(<span class="self">self</span>, map: <span class="kw-2">&amp;mut </span>HeaderMap&lt;T&gt;, val: T) -&gt; <span class="prelude-ty">Option</span>&lt;T&gt; {
             map.insert2(<span class="self">self</span>, val)
         }
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         #[inline]
         </span><span class="kw">fn </span>append&lt;T&gt;(<span class="self">self</span>, map: <span class="kw-2">&amp;mut </span>HeaderMap&lt;T&gt;, val: T) -&gt; bool {
             map.append2(<span class="self">self</span>, val)
         }
 
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         #[inline]
         </span><span class="kw">fn </span>entry&lt;T&gt;(<span class="self">self</span>, map: <span class="kw-2">&amp;mut </span>HeaderMap&lt;T&gt;) -&gt; Entry&lt;<span class="lifetime">&#39;_</span>, T&gt; {
             map.entry2(<span class="self">self</span>)
@@ -6856,18 +6856,18 @@
     <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; IntoHeaderName <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>HeaderName {}
 
     <span class="kw">impl </span>Sealed <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str {
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         #[inline]
         </span><span class="kw">fn </span>insert&lt;T&gt;(<span class="self">self</span>, map: <span class="kw-2">&amp;mut </span>HeaderMap&lt;T&gt;, val: T) -&gt; <span class="prelude-ty">Option</span>&lt;T&gt; {
             HdrName::from_static(<span class="self">self</span>, <span class="kw">move </span>|hdr| map.insert2(hdr, val))
         }
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         #[inline]
         </span><span class="kw">fn </span>append&lt;T&gt;(<span class="self">self</span>, map: <span class="kw-2">&amp;mut </span>HeaderMap&lt;T&gt;, val: T) -&gt; bool {
             HdrName::from_static(<span class="self">self</span>, <span class="kw">move </span>|hdr| map.append2(hdr, val))
         }
 
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         #[inline]
         </span><span class="kw">fn </span>entry&lt;T&gt;(<span class="self">self</span>, map: <span class="kw-2">&amp;mut </span>HeaderMap&lt;T&gt;) -&gt; Entry&lt;<span class="lifetime">&#39;_</span>, T&gt; {
             HdrName::from_static(<span class="self">self</span>, <span class="kw">move </span>|hdr| map.entry2(hdr))
@@ -6893,32 +6893,32 @@
     // Ultimately, this allows us to adjust the signatures of these methods
     // without breaking any external crate.
     </span><span class="kw">pub trait </span>Sealed {
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         </span><span class="kw">fn </span>try_entry&lt;T&gt;(<span class="self">self</span>, map: <span class="kw-2">&amp;mut </span>HeaderMap&lt;T&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Entry&lt;<span class="lifetime">&#39;_</span>, T&gt;, InvalidHeaderName&gt;;
 
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         </span><span class="kw">fn </span>find&lt;T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, map: <span class="kw-2">&amp;</span>HeaderMap&lt;T&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;(usize, usize)&gt;;
 
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         </span><span class="kw">fn </span>as_str(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str;
     }
 
     <span class="comment">// ==== impls ====
 
     </span><span class="kw">impl </span>Sealed <span class="kw">for </span>HeaderName {
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         #[inline]
         </span><span class="kw">fn </span>try_entry&lt;T&gt;(<span class="self">self</span>, map: <span class="kw-2">&amp;mut </span>HeaderMap&lt;T&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Entry&lt;<span class="lifetime">&#39;_</span>, T&gt;, InvalidHeaderName&gt; {
             <span class="prelude-val">Ok</span>(map.entry2(<span class="self">self</span>))
         }
 
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         #[inline]
         </span><span class="kw">fn </span>find&lt;T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, map: <span class="kw-2">&amp;</span>HeaderMap&lt;T&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;(usize, usize)&gt; {
             map.find(<span class="self">self</span>)
         }
 
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         </span><span class="kw">fn </span>as_str(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
             &lt;HeaderName&gt;::as_str(<span class="self">self</span>)
         }
@@ -6927,19 +6927,19 @@
     <span class="kw">impl </span>AsHeaderName <span class="kw">for </span>HeaderName {}
 
     <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Sealed <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>HeaderName {
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         #[inline]
         </span><span class="kw">fn </span>try_entry&lt;T&gt;(<span class="self">self</span>, map: <span class="kw-2">&amp;mut </span>HeaderMap&lt;T&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Entry&lt;<span class="lifetime">&#39;_</span>, T&gt;, InvalidHeaderName&gt; {
             <span class="prelude-val">Ok</span>(map.entry2(<span class="self">self</span>))
         }
 
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         #[inline]
         </span><span class="kw">fn </span>find&lt;T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, map: <span class="kw-2">&amp;</span>HeaderMap&lt;T&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;(usize, usize)&gt; {
             map.find(<span class="kw-2">*</span><span class="self">self</span>)
         }
 
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         </span><span class="kw">fn </span>as_str(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
             &lt;HeaderName&gt;::as_str(<span class="kw-2">*</span><span class="self">self</span>)
         }
@@ -6948,19 +6948,19 @@
     <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; AsHeaderName <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>HeaderName {}
 
     <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Sealed <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str {
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         #[inline]
         </span><span class="kw">fn </span>try_entry&lt;T&gt;(<span class="self">self</span>, map: <span class="kw-2">&amp;mut </span>HeaderMap&lt;T&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Entry&lt;<span class="lifetime">&#39;_</span>, T&gt;, InvalidHeaderName&gt; {
             HdrName::from_bytes(<span class="self">self</span>.as_bytes(), <span class="kw">move </span>|hdr| map.entry2(hdr))
         }
 
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         #[inline]
         </span><span class="kw">fn </span>find&lt;T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, map: <span class="kw-2">&amp;</span>HeaderMap&lt;T&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;(usize, usize)&gt; {
             HdrName::from_bytes(<span class="self">self</span>.as_bytes(), <span class="kw">move </span>|hdr| map.find(<span class="kw-2">&amp;</span>hdr)).unwrap_or(<span class="prelude-val">None</span>)
         }
 
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         </span><span class="kw">fn </span>as_str(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
             <span class="self">self
         </span>}
@@ -6969,19 +6969,19 @@
     <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; AsHeaderName <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str {}
 
     <span class="kw">impl </span>Sealed <span class="kw">for </span>String {
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         #[inline]
         </span><span class="kw">fn </span>try_entry&lt;T&gt;(<span class="self">self</span>, map: <span class="kw-2">&amp;mut </span>HeaderMap&lt;T&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Entry&lt;<span class="lifetime">&#39;_</span>, T&gt;, InvalidHeaderName&gt; {
             <span class="self">self</span>.as_str().try_entry(map)
         }
 
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         #[inline]
         </span><span class="kw">fn </span>find&lt;T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, map: <span class="kw-2">&amp;</span>HeaderMap&lt;T&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;(usize, usize)&gt; {
             Sealed::find(<span class="kw-2">&amp;</span><span class="self">self</span>.as_str(), map)
         }
 
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         </span><span class="kw">fn </span>as_str(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
             <span class="self">self
         </span>}
@@ -6990,19 +6990,19 @@
     <span class="kw">impl </span>AsHeaderName <span class="kw">for </span>String {}
 
     <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Sealed <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>String {
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         #[inline]
         </span><span class="kw">fn </span>try_entry&lt;T&gt;(<span class="self">self</span>, map: <span class="kw-2">&amp;mut </span>HeaderMap&lt;T&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Entry&lt;<span class="lifetime">&#39;_</span>, T&gt;, InvalidHeaderName&gt; {
             <span class="self">self</span>.as_str().try_entry(map)
         }
 
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         #[inline]
         </span><span class="kw">fn </span>find&lt;T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, map: <span class="kw-2">&amp;</span>HeaderMap&lt;T&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;(usize, usize)&gt; {
             Sealed::find(<span class="kw-2">*</span><span class="self">self</span>, map)
         }
 
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         </span><span class="kw">fn </span>as_str(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
             <span class="kw-2">*</span><span class="self">self
         </span>}
@@ -7011,7 +7011,7 @@
     <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; AsHeaderName <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>String {}
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_bounds() {
     <span class="kw">fn </span>check_bounds&lt;T: Send + Send&gt;() {}
 
@@ -7031,7 +7031,7 @@
     check_bounds::&lt;ValueDrain&lt;<span class="lifetime">&#39;static</span>, ()&gt;&gt;();
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>skip_duplicates_during_key_iteration() {
     <span class="kw">let </span><span class="kw-2">mut </span>map = HeaderMap::new();
     map.append(<span class="string">&quot;a&quot;</span>, HeaderValue::from_static(<span class="string">&quot;a&quot;</span>));
@@ -7039,4 +7039,4 @@
     <span class="macro">assert_eq!</span>(map.keys().count(), map.keys_len());
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="http" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="http" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

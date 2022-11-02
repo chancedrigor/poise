@@ -806,7 +806,7 @@
 ///
 /// [`Read`]: https://doc.rust-lang.org/std/io/trait.Read.html
 /// [`Write`]: https://doc.rust-lang.org/std/io/trait.Write.html
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Compress {
     inner: Deflate,
 }
@@ -823,12 +823,12 @@
 ///
 /// [`Read`]: https://doc.rust-lang.org/std/io/trait.Read.html
 /// [`Write`]: https://doc.rust-lang.org/std/io/trait.Write.html
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Decompress {
     inner: Inflate,
 }
 
-<span class="attribute">#[derive(Copy, Clone, PartialEq, Eq, Debug)]
+<span class="attr">#[derive(Copy, Clone, PartialEq, Eq, Debug)]
 </span><span class="doccomment">/// Values which indicate the form of flushing to be used when compressing
 /// in-memory data.
 </span><span class="kw">pub enum </span>FlushCompress {
@@ -869,11 +869,11 @@
     /// data has yet to be processed.
     </span>Finish = ffi::MZ_FINISH <span class="kw">as </span>isize,
 
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span>_Nonexhaustive,
 }
 
-<span class="attribute">#[derive(Copy, Clone, PartialEq, Eq, Debug)]
+<span class="attr">#[derive(Copy, Clone, PartialEq, Eq, Debug)]
 </span><span class="doccomment">/// Values which indicate the form of flushing to be used when
 /// decompressing in-memory data.
 </span><span class="kw">pub enum </span>FlushDecompress {
@@ -897,12 +897,12 @@
     /// data has yet to be processed.
     </span>Finish = ffi::MZ_FINISH <span class="kw">as </span>isize,
 
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span>_Nonexhaustive,
 }
 
 <span class="doccomment">/// The inner state for an error when decompressing
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>DecompressErrorInner {
     General { msg: ErrorMessage },
     NeedsDictionary(u32),
@@ -910,7 +910,7 @@
 
 <span class="doccomment">/// Error returned when a decompression object finds that the input stream of
 /// bytes was not a valid input stream of bytes.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>DecompressError(<span class="kw">pub</span>(<span class="kw">crate</span>) DecompressErrorInner);
 
 <span class="kw">impl </span>DecompressError {
@@ -926,12 +926,12 @@
     }
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>decompress_failed&lt;T&gt;(msg: ErrorMessage) -&gt; <span class="prelude-ty">Result</span>&lt;T, DecompressError&gt; {
     <span class="prelude-val">Err</span>(DecompressError(DecompressErrorInner::General { msg }))
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>decompress_need_dict&lt;T&gt;(adler: u32) -&gt; <span class="prelude-ty">Result</span>&lt;T, DecompressError&gt; {
     <span class="prelude-val">Err</span>(DecompressError(DecompressErrorInner::NeedsDictionary(
         adler,
@@ -940,19 +940,19 @@
 
 <span class="doccomment">/// Error returned when a compression object is used incorrectly or otherwise
 /// generates an error.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>CompressError {
     <span class="kw">pub</span>(<span class="kw">crate</span>) msg: ErrorMessage,
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>compress_failed&lt;T&gt;(msg: ErrorMessage) -&gt; <span class="prelude-ty">Result</span>&lt;T, CompressError&gt; {
     <span class="prelude-val">Err</span>(CompressError { msg })
 }
 
 <span class="doccomment">/// Possible status results of compressing some data or successfully
 /// decompressing a block of data.
-</span><span class="attribute">#[derive(Copy, Clone, PartialEq, Eq, Debug)]
+</span><span class="attr">#[derive(Copy, Clone, PartialEq, Eq, Debug)]
 </span><span class="kw">pub enum </span>Status {
     <span class="doccomment">/// Indicates success.
     ///
@@ -1008,7 +1008,7 @@
     ///
     /// This constructor is only available when the `zlib` feature is used.
     /// Other backends currently do not support custom window bits.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
     </span><span class="kw">pub fn </span>new_with_window_bits(
         level: Compression,
         zlib_header: bool,
@@ -1040,7 +1040,7 @@
     ///
     /// This constructor is only available when the `zlib` feature is used.
     /// Other backends currently do not support gzip headers for Compress.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
     </span><span class="kw">pub fn </span>new_gzip(level: Compression, window_bits: u8) -&gt; Compress {
         <span class="macro">assert!</span>(
             window_bits &gt; <span class="number">8 </span>&amp;&amp; window_bits &lt; <span class="number">16</span>,
@@ -1066,7 +1066,7 @@
     <span class="doccomment">/// Specifies the compression dictionary to use.
     ///
     /// Returns the Adler-32 checksum of the dictionary.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
     </span><span class="kw">pub fn </span>set_dictionary(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dictionary: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;u32, CompressError&gt; {
         <span class="kw">let </span>stream = <span class="kw-2">&amp;mut *</span><span class="self">self</span>.inner.inner.stream_wrapper;
         stream.msg = std::ptr::null_mut();
@@ -1099,7 +1099,7 @@
     /// the compression of the available input data before changing the
     /// compression level. Flushing the stream before calling this method
     /// ensures that the function will succeed on the first call.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
     </span><span class="kw">pub fn </span>set_level(<span class="kw-2">&amp;mut </span><span class="self">self</span>, level: Compression) -&gt; <span class="prelude-ty">Result</span>&lt;(), CompressError&gt; {
         <span class="kw">use </span>libc::c_int;
         <span class="kw">let </span>stream = <span class="kw-2">&amp;mut *</span><span class="self">self</span>.inner.inner.stream_wrapper;
@@ -1186,7 +1186,7 @@
     ///
     /// This constructor is only available when the `zlib` feature is used.
     /// Other backends currently do not support custom window bits.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
     </span><span class="kw">pub fn </span>new_with_window_bits(zlib_header: bool, window_bits: u8) -&gt; Decompress {
         <span class="macro">assert!</span>(
             window_bits &gt; <span class="number">8 </span>&amp;&amp; window_bits &lt; <span class="number">16</span>,
@@ -1211,7 +1211,7 @@
     ///
     /// This constructor is only available when the `zlib` feature is used.
     /// Other backends currently do not support gzip headers for Decompress.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
     </span><span class="kw">pub fn </span>new_gzip(window_bits: u8) -&gt; Decompress {
         <span class="macro">assert!</span>(
             window_bits &gt; <span class="number">8 </span>&amp;&amp; window_bits &lt; <span class="number">16</span>,
@@ -1301,7 +1301,7 @@
     }
 
     <span class="doccomment">/// Specifies the decompression dictionary to use.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
     </span><span class="kw">pub fn </span>set_dictionary(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dictionary: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;u32, DecompressError&gt; {
         <span class="kw">let </span>stream = <span class="kw-2">&amp;mut *</span><span class="self">self</span>.inner.inner.stream_wrapper;
         stream.msg = std::ptr::null_mut();
@@ -1386,17 +1386,17 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>std::io::Write;
 
     <span class="kw">use </span><span class="kw">crate</span>::write;
     <span class="kw">use crate</span>::{Compression, Decompress, FlushDecompress};
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
     </span><span class="kw">use crate</span>::{Compress, FlushCompress};
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>issue51() {
         <span class="kw">let </span>data = <span class="macro">vec!</span>[
             <span class="number">0x1f</span>, <span class="number">0x8b</span>, <span class="number">0x08</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x03</span>, <span class="number">0xb3</span>, <span class="number">0xc9</span>, <span class="number">0x28</span>, <span class="number">0xc9</span>,
@@ -1424,7 +1424,7 @@
         </span>drop(d.decompress_vec(<span class="kw-2">&amp;</span>[<span class="number">0</span>], <span class="kw-2">&amp;mut </span>decoded, FlushDecompress::None));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>reset() {
         <span class="kw">let </span>string = <span class="string">&quot;hello world&quot;</span>.as_bytes();
         <span class="kw">let </span><span class="kw-2">mut </span>zlib = Vec::new();
@@ -1454,7 +1454,7 @@
         <span class="macro">assert!</span>(dst.starts_with(string));
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
     #[test]
     </span><span class="kw">fn </span>set_dictionary_with_zlib_header() {
         <span class="kw">let </span>string = <span class="string">&quot;hello, hello!&quot;</span>.as_bytes();
@@ -1503,7 +1503,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>decoded[..decoder.total_out() <span class="kw">as </span>usize], string);
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
     #[test]
     </span><span class="kw">fn </span>set_dictionary_raw() {
         <span class="kw">let </span>string = <span class="string">&quot;hello, hello!&quot;</span>.as_bytes();
@@ -1534,7 +1534,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>decoded[..decoder.total_out() <span class="kw">as </span>usize], string);
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
     #[test]
     </span><span class="kw">fn </span>test_gzip_flate() {
         <span class="kw">let </span>string = <span class="string">&quot;hello, hello!&quot;</span>.as_bytes();
@@ -1560,7 +1560,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>decoded[..decoder.total_out() <span class="kw">as </span>usize], string);
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;any_zlib&quot;</span>)]
     #[test]
     </span><span class="kw">fn </span>test_error_message() {
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = Decompress::new(<span class="bool-val">false</span>);
@@ -1575,4 +1575,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="flate2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="flate2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

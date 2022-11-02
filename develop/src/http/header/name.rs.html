@@ -2372,28 +2372,28 @@
 ///
 /// [`HeaderMap`]: struct.HeaderMap.html
 /// [`header`]: index.html
-</span><span class="attribute">#[derive(Clone, Eq, PartialEq, Hash)]
+</span><span class="attr">#[derive(Clone, Eq, PartialEq, Hash)]
 </span><span class="kw">pub struct </span>HeaderName {
     inner: Repr&lt;Custom&gt;,
 }
 
 <span class="comment">// Almost a full `HeaderName`
-</span><span class="attribute">#[derive(Debug, Hash)]
+</span><span class="attr">#[derive(Debug, Hash)]
 </span><span class="kw">pub struct </span>HdrName&lt;<span class="lifetime">&#39;a</span>&gt; {
     inner: Repr&lt;MaybeLower&lt;<span class="lifetime">&#39;a</span>&gt;&gt;,
 }
 
-<span class="attribute">#[derive(Debug, Clone, Eq, PartialEq, Hash)]
+<span class="attr">#[derive(Debug, Clone, Eq, PartialEq, Hash)]
 </span><span class="kw">enum </span>Repr&lt;T&gt; {
     Standard(StandardHeader),
     Custom(T),
 }
 
 <span class="comment">// Used to hijack the Hash impl
-</span><span class="attribute">#[derive(Debug, Clone, Eq, PartialEq)]
+</span><span class="attr">#[derive(Debug, Clone, Eq, PartialEq)]
 </span><span class="kw">struct </span>Custom(ByteStr);
 
-<span class="attribute">#[derive(Debug, Clone)]
+<span class="attr">#[derive(Debug, Clone)]
 </span><span class="kw">struct </span>MaybeLower&lt;<span class="lifetime">&#39;a</span>&gt; {
     buf: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8],
     lower: bool,
@@ -2407,11 +2407,11 @@
 <span class="macro">macro_rules! </span>standard_headers {
     (
         $(
-            $(<span class="attribute">#[<span class="macro-nonterminal">$docs</span>:meta]</span>)*
+            $(<span class="attr">#[<span class="macro-nonterminal">$docs</span>:meta]</span>)*
             (<span class="macro-nonterminal">$konst</span>:ident, <span class="macro-nonterminal">$upcase</span>:ident, <span class="macro-nonterminal">$name</span>:expr);
         )+
     ) =&gt; {
-        <span class="attribute">#[derive(Debug, Clone, Copy, Eq, PartialEq, Hash)]
+        <span class="attr">#[derive(Debug, Clone, Copy, Eq, PartialEq, Hash)]
         </span><span class="kw">enum </span>StandardHeader {
             $(
                 <span class="macro-nonterminal">$konst</span>,
@@ -2419,14 +2419,14 @@
         }
 
         $(
-            $(<span class="attribute">#[<span class="macro-nonterminal">$docs</span>]</span>)*
+            $(<span class="attr">#[<span class="macro-nonterminal">$docs</span>]</span>)*
             <span class="kw">pub const </span><span class="macro-nonterminal">$upcase</span>: HeaderName = HeaderName {
                 inner: Repr::Standard(StandardHeader::<span class="macro-nonterminal">$konst</span>),
             };
         )+
 
         <span class="kw">impl </span>StandardHeader {
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>as_str(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str {
                 <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
                     $(
@@ -2436,14 +2436,14 @@
             }
         }
 
-        <span class="attribute">#[cfg(test)]
+        <span class="attr">#[cfg(test)]
         </span><span class="kw">const </span>TEST_HEADERS: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[(StandardHeader, <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str)] = <span class="kw-2">&amp;</span>[
             $(
             (StandardHeader::<span class="macro-nonterminal">$konst</span>, <span class="macro-nonterminal">$name</span>),
             )+
         ];
 
-        <span class="attribute">#[test]
+        <span class="attr">#[test]
         </span><span class="kw">fn </span>test_parse_standard_headers() {
             <span class="kw">for </span><span class="kw-2">&amp;</span>(std, name) <span class="kw">in </span>TEST_HEADERS {
                 <span class="comment">// Test lower case
@@ -2455,7 +2455,7 @@
             }
         }
 
-        <span class="attribute">#[test]
+        <span class="attr">#[test]
         </span><span class="kw">fn </span>test_standard_headers_into_bytes() {
             <span class="kw">for </span><span class="kw-2">&amp;</span>(std, name) <span class="kw">in </span>TEST_HEADERS {
                 <span class="kw">let </span>std = HeaderName::from(std);
@@ -3383,7 +3383,7 @@
         </span><span class="number">0</span>,     <span class="number">0</span>,     <span class="number">0</span>,     <span class="number">0</span>,     <span class="number">0</span>,     <span class="number">0                              </span><span class="comment">// 25x
 </span>];
 
-<span class="attribute">#[cfg(any(not(debug_assertions), not(target_arch = <span class="string">&quot;wasm32&quot;</span>)))]
+<span class="attr">#[cfg(any(not(debug_assertions), not(target_arch = <span class="string">&quot;wasm32&quot;</span>)))]
 </span><span class="macro">macro_rules! </span>eq {
     (($(<span class="macro-nonterminal">$cmp</span>:expr,)<span class="kw-2">*</span>) <span class="macro-nonterminal">$v</span>:ident[<span class="macro-nonterminal">$n</span>:expr] ==) =&gt; {
         $(<span class="macro-nonterminal">$cmp</span>) &amp;&amp; *
@@ -3399,7 +3399,7 @@
     };
 }
 
-<span class="attribute">#[cfg(any(not(debug_assertions), not(target_arch = <span class="string">&quot;wasm32&quot;</span>)))]
+<span class="attr">#[cfg(any(not(debug_assertions), not(target_arch = <span class="string">&quot;wasm32&quot;</span>)))]
 </span><span class="doccomment">/// This version is best under optimized mode, however in a wasm debug compile,
 /// the `eq` macro expands to 1 + 1 + 1 + 1... and wasm explodes when this chain gets too long
 /// See https://github.com/DenisKolodin/yew/issues/478
@@ -3862,7 +3862,7 @@
     }
 }
 
-<span class="attribute">#[cfg(all(debug_assertions, target_arch = <span class="string">&quot;wasm32&quot;</span>))]
+<span class="attr">#[cfg(all(debug_assertions, target_arch = <span class="string">&quot;wasm32&quot;</span>))]
 </span><span class="doccomment">/// This version works best in debug mode in wasm
 </span><span class="kw">fn </span>parse_hdr&lt;<span class="lifetime">&#39;a</span>&gt;(
     data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8],
@@ -3994,9 +3994,9 @@
     <span class="doccomment">/// Converts a slice of bytes to an HTTP header name.
     ///
     /// This function normalizes the input.
-    </span><span class="attribute">#[allow(deprecated)]
+    </span><span class="attr">#[allow(deprecated)]
     </span><span class="kw">pub fn </span>from_bytes(src: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;HeaderName, InvalidHeaderName&gt; {
-        <span class="attribute">#[allow(deprecated)]
+        <span class="attr">#[allow(deprecated)]
         </span><span class="kw">let </span><span class="kw-2">mut </span>buf = <span class="kw">unsafe </span>{ mem::uninitialized() };
         <span class="kw">match </span>parse_hdr(src, <span class="kw-2">&amp;mut </span>buf, <span class="kw-2">&amp;</span>HEADER_CHARS)<span class="question-mark">?</span>.inner {
             Repr::Standard(std) =&gt; <span class="prelude-val">Ok</span>(std.into()),
@@ -4044,9 +4044,9 @@
     /// // Parsing a header that contains uppercase characters
     /// assert!(HeaderName::from_lowercase(b&quot;Content-Length&quot;).is_err());
     /// ```
-    </span><span class="attribute">#[allow(deprecated)]
+    </span><span class="attr">#[allow(deprecated)]
     </span><span class="kw">pub fn </span>from_lowercase(src: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;HeaderName, InvalidHeaderName&gt; {
-        <span class="attribute">#[allow(deprecated)]
+        <span class="attr">#[allow(deprecated)]
         </span><span class="kw">let </span><span class="kw-2">mut </span>buf = <span class="kw">unsafe </span>{ mem::uninitialized() };
         <span class="kw">match </span>parse_hdr(src, <span class="kw-2">&amp;mut </span>buf, <span class="kw-2">&amp;</span>HEADER_CHARS_H2)<span class="question-mark">?</span>.inner {
             Repr::Standard(std) =&gt; <span class="prelude-val">Ok</span>(std.into()),
@@ -4104,10 +4104,10 @@
     /// let a = HeaderName::from_static(&quot;foobar&quot;);
     /// let b = HeaderName::from_static(&quot;FOOBAR&quot;); // This line panics!
     /// ```
-    </span><span class="attribute">#[allow(deprecated)]
+    </span><span class="attr">#[allow(deprecated)]
     </span><span class="kw">pub fn </span>from_static(src: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str) -&gt; HeaderName {
         <span class="kw">let </span>bytes = src.as_bytes();
-        <span class="attribute">#[allow(deprecated)]
+        <span class="attr">#[allow(deprecated)]
         </span><span class="kw">let </span><span class="kw-2">mut </span>buf = <span class="kw">unsafe </span>{ mem::uninitialized() };
         <span class="kw">match </span>parse_hdr(bytes, <span class="kw-2">&amp;mut </span>buf, <span class="kw-2">&amp;</span>HEADER_CHARS_H2) {
             <span class="prelude-val">Ok</span>(hdr_name) =&gt; <span class="kw">match </span>hdr_name.inner {
@@ -4137,7 +4137,7 @@
     <span class="doccomment">/// Returns a `str` representation of the header.
     ///
     /// The returned string will always be lower case.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>as_str(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="kw">match </span><span class="self">self</span>.inner {
             Repr::Standard(v) =&gt; v.as_str(),
@@ -4200,7 +4200,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl</span>&lt;T&gt; From&lt;Repr&lt;T&gt;&gt; <span class="kw">for </span>Bytes
 <span class="kw">where
     </span>T: Into&lt;Bytes&gt;,
@@ -4214,7 +4214,7 @@
 }
 
 <span class="kw">impl </span>From&lt;Custom&gt; <span class="kw">for </span>Bytes {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(Custom(inner): Custom) -&gt; Bytes {
         Bytes::from(inner)
     }
@@ -4222,7 +4222,7 @@
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; TryFrom&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt; <span class="kw">for </span>HeaderName {
     <span class="kw">type </span>Error = InvalidHeaderName;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_from(s: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
         <span class="self">Self</span>::from_bytes(s.as_bytes())
     }
@@ -4230,7 +4230,7 @@
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; TryFrom&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>String&gt; <span class="kw">for </span>HeaderName {
     <span class="kw">type </span>Error = InvalidHeaderName;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_from(s: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>String) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
         <span class="self">Self</span>::from_bytes(s.as_bytes())
     }
@@ -4238,7 +4238,7 @@
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; TryFrom&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]&gt; <span class="kw">for </span>HeaderName {
     <span class="kw">type </span>Error = InvalidHeaderName;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_from(s: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
         <span class="self">Self</span>::from_bytes(s)
     }
@@ -4247,7 +4247,7 @@
 <span class="kw">impl </span>TryFrom&lt;String&gt; <span class="kw">for </span>HeaderName {
     <span class="kw">type </span>Error = InvalidHeaderName;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_from(s: String) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
         <span class="self">Self</span>::from_bytes(s.as_bytes())
     }
@@ -4256,13 +4256,13 @@
 <span class="kw">impl </span>TryFrom&lt;Vec&lt;u8&gt;&gt; <span class="kw">for </span>HeaderName {
     <span class="kw">type </span>Error = InvalidHeaderName;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_from(vec: Vec&lt;u8&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
         <span class="self">Self</span>::from_bytes(<span class="kw-2">&amp;</span>vec)
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>From&lt;StandardHeader&gt; <span class="kw">for </span>HeaderName {
     <span class="kw">fn </span>from(src: StandardHeader) -&gt; HeaderName {
         HeaderName {
@@ -4271,7 +4271,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>From&lt;Custom&gt; <span class="kw">for </span>HeaderName {
     <span class="kw">fn </span>from(src: Custom) -&gt; HeaderName {
         HeaderName {
@@ -4281,14 +4281,14 @@
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; PartialEq&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>HeaderName&gt; <span class="kw">for </span>HeaderName {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: &amp;&amp;<span class="lifetime">&#39;a </span>HeaderName) -&gt; bool {
         <span class="kw-2">*</span><span class="self">self </span>== <span class="kw-2">**</span>other
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; PartialEq&lt;HeaderName&gt; <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>HeaderName {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>HeaderName) -&gt; bool {
         <span class="kw-2">*</span>other == <span class="kw-2">*</span><span class="self">self
     </span>}
@@ -4307,7 +4307,7 @@
     /// assert_eq!(CONTENT_LENGTH, &quot;Content-Length&quot;);
     /// assert_ne!(CONTENT_LENGTH, &quot;content length&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>str) -&gt; bool {
         eq_ignore_ascii_case(<span class="self">self</span>.as_ref(), other.as_bytes())
     }
@@ -4326,7 +4326,7 @@
     /// assert_eq!(CONTENT_LENGTH, &quot;Content-Length&quot;);
     /// assert_ne!(CONTENT_LENGTH, &quot;content length&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>HeaderName) -&gt; bool {
         <span class="kw-2">*</span>other == <span class="kw-2">*</span><span class="self">self
     </span>}
@@ -4335,7 +4335,7 @@
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; PartialEq&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt; <span class="kw">for </span>HeaderName {
     <span class="doccomment">/// Performs a case-insensitive comparison of the string against the header
     /// name
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: &amp;&amp;<span class="lifetime">&#39;a </span>str) -&gt; bool {
         <span class="kw-2">*</span><span class="self">self </span>== <span class="kw-2">**</span>other
     }
@@ -4344,7 +4344,7 @@
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; PartialEq&lt;HeaderName&gt; <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str {
     <span class="doccomment">/// Performs a case-insensitive comparison of the string against the header
     /// name
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>HeaderName) -&gt; bool {
         <span class="kw-2">*</span>other == <span class="kw-2">*</span><span class="self">self
     </span>}
@@ -4378,22 +4378,22 @@
         }
     }
 
-    <span class="attribute">#[allow(deprecated)]
+    <span class="attr">#[allow(deprecated)]
     </span><span class="kw">pub fn </span>from_bytes&lt;F, U&gt;(hdr: <span class="kw-2">&amp;</span>[u8], f: F) -&gt; <span class="prelude-ty">Result</span>&lt;U, InvalidHeaderName&gt;
         <span class="kw">where </span>F: FnOnce(HdrName&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; U,
     {
-        <span class="attribute">#[allow(deprecated)]
+        <span class="attr">#[allow(deprecated)]
         </span><span class="kw">let </span><span class="kw-2">mut </span>buf = <span class="kw">unsafe </span>{ mem::uninitialized() };
         <span class="kw">let </span>hdr = parse_hdr(hdr, <span class="kw-2">&amp;mut </span>buf, <span class="kw-2">&amp;</span>HEADER_CHARS)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(f(hdr))
     }
 
-    <span class="attribute">#[allow(deprecated)]
+    <span class="attr">#[allow(deprecated)]
     </span><span class="kw">pub fn </span>from_static&lt;F, U&gt;(hdr: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str, f: F) -&gt; U
     <span class="kw">where
         </span>F: FnOnce(HdrName&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; U,
     {
-        <span class="attribute">#[allow(deprecated)]
+        <span class="attr">#[allow(deprecated)]
         </span><span class="kw">let </span><span class="kw-2">mut </span>buf = <span class="kw">unsafe </span>{ mem::uninitialized() };
         <span class="kw">let </span>hdr =
             parse_hdr(hdr.as_bytes(), <span class="kw-2">&amp;mut </span>buf, <span class="kw-2">&amp;</span>HEADER_CHARS).expect(<span class="string">&quot;static str is invalid name&quot;</span>);
@@ -4401,7 +4401,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; From&lt;HdrName&lt;<span class="lifetime">&#39;a</span>&gt;&gt; <span class="kw">for </span>HeaderName {
     <span class="kw">fn </span>from(src: HdrName&lt;<span class="lifetime">&#39;a</span>&gt;) -&gt; HeaderName {
         <span class="kw">match </span>src.inner {
@@ -4435,9 +4435,9 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; PartialEq&lt;HdrName&lt;<span class="lifetime">&#39;a</span>&gt;&gt; <span class="kw">for </span>HeaderName {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>HdrName&lt;<span class="lifetime">&#39;a</span>&gt;) -&gt; bool {
         <span class="kw">match </span><span class="self">self</span>.inner {
             Repr::Standard(a) =&gt; <span class="kw">match </span>other.inner {
@@ -4461,7 +4461,7 @@
 <span class="comment">// ===== Custom =====
 
 </span><span class="kw">impl </span>Hash <span class="kw">for </span>Custom {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>hash&lt;H: Hasher&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, hasher: <span class="kw-2">&amp;mut </span>H) {
         hasher.write(<span class="self">self</span>.<span class="number">0</span>.as_bytes())
     }
@@ -4470,7 +4470,7 @@
 <span class="comment">// ===== MaybeLower =====
 
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Hash <span class="kw">for </span>MaybeLower&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>hash&lt;H: Hasher&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, hasher: <span class="kw-2">&amp;mut </span>H) {
         <span class="kw">if </span><span class="self">self</span>.lower {
             hasher.write(<span class="self">self</span>.buf);
@@ -4483,7 +4483,7 @@
 }
 
 <span class="comment">// Assumes that the left hand side is already lower case
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>eq_ignore_ascii_case(lower: <span class="kw-2">&amp;</span>[u8], s: <span class="kw-2">&amp;</span>[u8]) -&gt; bool {
     <span class="kw">if </span>lower.len() != s.len() {
         <span class="kw">return </span><span class="bool-val">false</span>;
@@ -4494,18 +4494,18 @@
     })
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="self">self</span>::StandardHeader::Vary;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_bounds() {
         <span class="kw">fn </span>check_bounds&lt;T: Sync + Send&gt;() {}
         check_bounds::&lt;HeaderName&gt;();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_parse_invalid_headers() {
         <span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..<span class="number">128 </span>{
             <span class="kw">let </span>hdr = <span class="macro">vec!</span>[<span class="number">1u8</span>; i];
@@ -4513,7 +4513,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_invalid_name_lengths() {
         <span class="macro">assert!</span>(
             HeaderName::from_bytes(<span class="kw-2">&amp;</span>[]).is_err(),
@@ -4531,7 +4531,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_from_hdr_name() {
         <span class="kw">use </span><span class="self">self</span>::StandardHeader::Vary;
 
@@ -4560,7 +4560,7 @@
         <span class="macro">assert_eq!</span>(name.inner, Repr::Custom(Custom(ByteStr::from_static(<span class="string">&quot;hello-world&quot;</span>))));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_eq_hdr_name() {
         <span class="kw">use </span><span class="self">self</span>::StandardHeader::Vary;
 
@@ -4597,7 +4597,7 @@
         <span class="macro">assert_ne!</span>(a, b);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_from_static_std() {
         <span class="kw">let </span>a = HeaderName { inner: Repr::Standard(Vary) };
 
@@ -4608,40 +4608,40 @@
         <span class="macro">assert_ne!</span>(a, b);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[should_panic]
     </span><span class="kw">fn </span>test_from_static_std_uppercase() {
         HeaderName::from_static(<span class="string">&quot;Vary&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[should_panic]
     </span><span class="kw">fn </span>test_from_static_std_symbol() {
         HeaderName::from_static(<span class="string">&quot;vary{}&quot;</span>);
     }
 
     <span class="comment">// MaybeLower { lower: true }
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>test_from_static_custom_short() {
         <span class="kw">let </span>a = HeaderName { inner: Repr::Custom(Custom(ByteStr::from_static(<span class="string">&quot;customheader&quot;</span>))) };
         <span class="kw">let </span>b = HeaderName::from_static(<span class="string">&quot;customheader&quot;</span>);
         <span class="macro">assert_eq!</span>(a, b);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[should_panic]
     </span><span class="kw">fn </span>test_from_static_custom_short_uppercase() {
         HeaderName::from_static(<span class="string">&quot;custom header&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[should_panic]
     </span><span class="kw">fn </span>test_from_static_custom_short_symbol() {
         HeaderName::from_static(<span class="string">&quot;CustomHeader&quot;</span>);
     }
 
     <span class="comment">// MaybeLower { lower: false }
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>test_from_static_custom_long() {
         <span class="kw">let </span>a = HeaderName { inner: Repr::Custom(Custom(ByteStr::from_static(
             <span class="string">&quot;longer-than-63--thisheaderislongerthansixtythreecharactersandthushandleddifferent&quot;
@@ -4652,7 +4652,7 @@
         <span class="macro">assert_eq!</span>(a, b);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[should_panic]
     </span><span class="kw">fn </span>test_from_static_custom_long_uppercase() {
         HeaderName::from_static(
@@ -4660,7 +4660,7 @@
         </span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[should_panic]
     </span><span class="kw">fn </span>test_from_static_custom_long_symbol() {
         HeaderName::from_static(
@@ -4668,23 +4668,23 @@
         </span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_from_static_custom_single_char() {
         <span class="kw">let </span>a = HeaderName { inner: Repr::Custom(Custom(ByteStr::from_static(<span class="string">&quot;a&quot;</span>))) };
         <span class="kw">let </span>b = HeaderName::from_static(<span class="string">&quot;a&quot;</span>);
         <span class="macro">assert_eq!</span>(a, b);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[should_panic]
     </span><span class="kw">fn </span>test_from_static_empty() {
         HeaderName::from_static(<span class="string">&quot;&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_all_tokens() {
         HeaderName::from_static(<span class="string">&quot;!#$%&amp;&#39;*+-.^_`|~0123456789abcdefghijklmnopqrstuvwxyz&quot;</span>);
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="http" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="http" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

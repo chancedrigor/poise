@@ -36,27 +36,27 @@
 <span id="36">36</span>
 <span id="37">37</span>
 </pre><pre class="rust"><code><span class="comment">// not all are used in all features configurations
-</span><span class="attribute">#![allow(unused)]
+</span><span class="attr">#![allow(unused)]
 
 </span><span class="doccomment">/// Forward a method to an inherent method or a base trait method.
 </span><span class="macro">macro_rules! </span>forward {
     ($( <span class="self">Self </span>:: <span class="macro-nonterminal">$method</span>:ident ( <span class="self">self </span>$( , <span class="macro-nonterminal">$arg</span>:ident : <span class="macro-nonterminal">$ty</span>:ty )* ) -&gt; <span class="macro-nonterminal">$ret</span>:ty ; )<span class="kw-2">*</span>)
         =&gt; {$(
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$method</span>(<span class="self">self </span>$( , <span class="macro-nonterminal">$arg </span>: <span class="macro-nonterminal">$ty </span>)* ) -&gt; <span class="macro-nonterminal">$ret </span>{
                 <span class="self">Self</span>::<span class="macro-nonterminal">$method</span>(<span class="self">self </span>$( , <span class="macro-nonterminal">$arg </span>)* )
             }
         )<span class="kw-2">*</span>};
     ($( <span class="macro-nonterminal">$base</span>:ident :: <span class="macro-nonterminal">$method</span>:ident ( <span class="self">self </span>$( , <span class="macro-nonterminal">$arg</span>:ident : <span class="macro-nonterminal">$ty</span>:ty )* ) -&gt; <span class="macro-nonterminal">$ret</span>:ty ; )<span class="kw-2">*</span>)
         =&gt; {$(
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$method</span>(<span class="self">self </span>$( , <span class="macro-nonterminal">$arg </span>: <span class="macro-nonterminal">$ty </span>)* ) -&gt; <span class="macro-nonterminal">$ret </span>{
                 &lt;<span class="self">Self </span><span class="kw">as </span><span class="macro-nonterminal">$base</span>&gt;::<span class="macro-nonterminal">$method</span>(<span class="self">self </span>$( , <span class="macro-nonterminal">$arg </span>)* )
             }
         )<span class="kw-2">*</span>};
     ($( <span class="macro-nonterminal">$base</span>:ident :: <span class="macro-nonterminal">$method</span>:ident ( $( <span class="macro-nonterminal">$arg</span>:ident : <span class="macro-nonterminal">$ty</span>:ty ),* ) -&gt; <span class="macro-nonterminal">$ret</span>:ty ; )<span class="kw-2">*</span>)
         =&gt; {$(
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$method</span>( $( <span class="macro-nonterminal">$arg </span>: <span class="macro-nonterminal">$ty </span>),* ) -&gt; <span class="macro-nonterminal">$ret </span>{
                 &lt;<span class="self">Self </span><span class="kw">as </span><span class="macro-nonterminal">$base</span>&gt;::<span class="macro-nonterminal">$method</span>( $( <span class="macro-nonterminal">$arg </span>),* )
             }
@@ -66,11 +66,11 @@
 <span class="macro">macro_rules! </span>constant {
     ($( <span class="macro-nonterminal">$method</span>:ident () -&gt; <span class="macro-nonterminal">$ret</span>:expr ; )<span class="kw-2">*</span>)
         =&gt; {$(
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$method</span>() -&gt; <span class="self">Self </span>{
                 <span class="macro-nonterminal">$ret
             </span>}
         )<span class="kw-2">*</span>};
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="num_traits" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="num_traits" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -152,13 +152,13 @@
 //! - Top-level stream constructors like [`iter`](iter()) which creates a
 //!   stream from an iterator.
 
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub use </span>futures_core::stream::{BoxStream, LocalBoxStream};
 <span class="kw">pub use </span>futures_core::stream::{FusedStream, Stream, TryStream};
 
 <span class="comment">// Extension traits and combinators
 
-</span><span class="attribute">#[allow(clippy::module_inception)]
+</span><span class="attr">#[allow(clippy::module_inception)]
 </span><span class="kw">mod </span>stream;
 <span class="kw">pub use </span><span class="self">self</span>::stream::{
     Chain, Collect, Concat, Cycle, Enumerate, Filter, FilterMap, FlatMap, Flatten, Fold, ForEach,
@@ -166,24 +166,24 @@
     Skip, SkipWhile, StreamExt, StreamFuture, Take, TakeUntil, TakeWhile, Then, Unzip, Zip,
 };
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">pub use </span><span class="self">self</span>::stream::CatchUnwind;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub use </span><span class="self">self</span>::stream::Chunks;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub use </span><span class="self">self</span>::stream::ReadyChunks;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;sink&quot;</span>)))]
 </span><span class="kw">pub use </span><span class="self">self</span>::stream::Forward;
 
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub use </span><span class="self">self</span>::stream::{BufferUnordered, Buffered, ForEachConcurrent};
 
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;sink&quot;</span>)))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
@@ -196,16 +196,16 @@
     TrySkipWhile, TryStreamExt, TryTakeWhile, TryUnfold,
 };
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;io&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;io&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;io&quot;</span>)))]
 #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">pub use </span><span class="self">self</span>::try_stream::IntoAsyncRead;
 
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub use </span><span class="self">self</span>::try_stream::{TryBufferUnordered, TryBuffered, TryForEachConcurrent};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub use </span><span class="self">self</span>::try_stream::{TryChunks, TryChunksError};
 
 <span class="comment">// Primitive streams
@@ -243,36 +243,36 @@
 <span class="kw">mod </span>unfold;
 <span class="kw">pub use </span><span class="self">self</span>::unfold::{unfold, Unfold};
 
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">mod </span>futures_ordered;
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub use </span><span class="self">self</span>::futures_ordered::FuturesOrdered;
 
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub mod </span>futures_unordered;
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 #[doc(inline)]
 </span><span class="kw">pub use </span><span class="self">self</span>::futures_unordered::FuturesUnordered;
 
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub mod </span>select_all;
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 #[doc(inline)]
 </span><span class="kw">pub use </span><span class="self">self</span>::select_all::{select_all, SelectAll};
 
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">mod </span>abortable;
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub use </span><span class="kw">crate</span>::abortable::{AbortHandle, AbortRegistration, Abortable, Aborted};
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub use </span>abortable::abortable;
 
@@ -285,4 +285,4 @@
     stream
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

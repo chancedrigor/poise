@@ -383,7 +383,7 @@
 
     <span class="kw">use </span><span class="kw">crate</span>::error::{Error, <span class="prelude-ty">Result</span>};
 
-    <span class="attribute">#[derive(Debug)]
+    <span class="attr">#[derive(Debug)]
     </span><span class="kw">pub struct </span>StringCollector {
         data: String,
         incomplete: <span class="prelude-ty">Option</span>&lt;utf8::Incomplete&gt;,
@@ -451,12 +451,12 @@
 <span class="kw">use </span><span class="self">self</span>::string_collect::StringCollector;
 
 <span class="doccomment">/// A struct representing the incomplete message.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>IncompleteMessage {
     collector: IncompleteMessageCollector,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">enum </span>IncompleteMessageCollector {
     Text(StringCollector),
     Binary(Vec&lt;u8&gt;),
@@ -526,7 +526,7 @@
 }
 
 <span class="doccomment">/// An enum representing the various forms of a WebSocket message.
-</span><span class="attribute">#[derive(Debug, Eq, PartialEq, Clone)]
+</span><span class="attr">#[derive(Debug, Eq, PartialEq, Clone)]
 </span><span class="kw">pub enum </span>Message {
     <span class="doccomment">/// A text WebSocket message
     </span>Text(String),
@@ -693,11 +693,11 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>display() {
         <span class="kw">let </span>t = Message::text(<span class="string">&quot;test&quot;</span>.to_owned());
         <span class="macro">assert_eq!</span>(t.to_string(), <span class="string">&quot;test&quot;</span>.to_owned());
@@ -706,7 +706,7 @@
         <span class="macro">assert_eq!</span>(bin.to_string(), <span class="string">&quot;Binary Data&lt;length=5&gt;&quot;</span>.to_owned());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>binary_convert() {
         <span class="kw">let </span>bin = [<span class="number">6u8</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">241</span>];
         <span class="kw">let </span>msg = Message::from(<span class="kw-2">&amp;</span>bin[..]);
@@ -714,7 +714,7 @@
         <span class="macro">assert!</span>(msg.into_text().is_err());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>binary_convert_vec() {
         <span class="kw">let </span>bin = <span class="macro">vec!</span>[<span class="number">6u8</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">241</span>];
         <span class="kw">let </span>msg = Message::from(bin);
@@ -722,7 +722,7 @@
         <span class="macro">assert!</span>(msg.into_text().is_err());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>binary_convert_into_vec() {
         <span class="kw">let </span>bin = <span class="macro">vec!</span>[<span class="number">6u8</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">241</span>];
         <span class="kw">let </span>bin_copy = bin.clone();
@@ -731,7 +731,7 @@
         <span class="macro">assert_eq!</span>(bin_copy, serialized);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>text_convert() {
         <span class="kw">let </span>s = <span class="string">&quot;kiwotsukete&quot;</span>;
         <span class="kw">let </span>msg = Message::from(s);
@@ -739,4 +739,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

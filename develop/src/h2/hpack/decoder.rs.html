@@ -952,7 +952,7 @@
 <span class="kw">use </span>std::str::Utf8Error;
 
 <span class="doccomment">/// Decodes headers using HPACK
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Decoder {
     <span class="comment">// Protocol indicated that the max table size will update
     </span>max_size_update: <span class="prelude-ty">Option</span>&lt;usize&gt;,
@@ -963,7 +963,7 @@
 
 <span class="doccomment">/// Represents all errors that can be encountered while performing the decoding
 /// of an HPACK header set.
-</span><span class="attribute">#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+</span><span class="attr">#[derive(Debug, Copy, Clone, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>DecoderError {
     InvalidRepresentation,
     InvalidIntegerPrefix,
@@ -977,7 +977,7 @@
     NeedMore(NeedMore),
 }
 
-<span class="attribute">#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+<span class="attr">#[derive(Debug, Copy, Clone, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>NeedMore {
     UnexpectedEndOfStream,
     IntegerUnderflow,
@@ -1075,7 +1075,7 @@
     </span>SizeUpdate,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>Table {
     entries: VecDeque&lt;Header&gt;,
     size: usize,
@@ -1102,7 +1102,7 @@
     }
 
     <span class="doccomment">/// Queues a potential size update
-    </span><span class="attribute">#[allow(dead_code)]
+    </span><span class="attr">#[allow(dead_code)]
     </span><span class="kw">pub fn </span>queue_size_update(<span class="kw-2">&amp;mut </span><span class="self">self</span>, size: usize) {
         <span class="kw">let </span>size = <span class="kw">match </span><span class="self">self</span>.max_size_update {
             <span class="prelude-val">Some</span>(v) =&gt; cmp::max(v, size),
@@ -1766,12 +1766,12 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::hpack::Header;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_peek_u8() {
         <span class="kw">let </span>b = <span class="number">0xff</span>;
         <span class="kw">let </span><span class="kw-2">mut </span>buf = Cursor::new(<span class="macro">vec!</span>[b]);
@@ -1780,7 +1780,7 @@
         <span class="macro">assert_eq!</span>(peek_u8(<span class="kw-2">&amp;mut </span>buf), <span class="prelude-val">None</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_string_empty() {
         <span class="kw">let </span><span class="kw-2">mut </span>de = Decoder::new(<span class="number">0</span>);
         <span class="kw">let </span><span class="kw-2">mut </span>buf = BytesMut::new();
@@ -1788,7 +1788,7 @@
         <span class="macro">assert_eq!</span>(err, DecoderError::NeedMore(NeedMore::UnexpectedEndOfStream));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_empty() {
         <span class="kw">let </span><span class="kw-2">mut </span>de = Decoder::new(<span class="number">0</span>);
         <span class="kw">let </span><span class="kw-2">mut </span>buf = BytesMut::new();
@@ -1796,7 +1796,7 @@
         <span class="macro">assert_eq!</span>(empty, ());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_indexed_larger_than_table() {
         <span class="kw">let </span><span class="kw-2">mut </span>de = Decoder::new(<span class="number">0</span>);
 
@@ -1834,7 +1834,7 @@
         buf
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_continuation_header_with_non_huff_encoded_name() {
         <span class="kw">let </span><span class="kw-2">mut </span>de = Decoder::new(<span class="number">0</span>);
         <span class="kw">let </span>value = huff_encode(<span class="string">b&quot;bar&quot;</span>);
@@ -1879,4 +1879,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

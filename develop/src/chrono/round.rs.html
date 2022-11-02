@@ -463,7 +463,7 @@
 <span class="kw">use </span>core::ops::{Add, Sub};
 <span class="kw">use </span>datetime::DateTime;
 <span class="kw">use </span>oldtime::Duration;
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">use </span>std;
 <span class="kw">use </span>TimeZone;
 <span class="kw">use </span>Timelike;
@@ -557,11 +557,11 @@
 /// will also fail if the `Duration` is bigger than the timestamp.
 </span><span class="kw">pub trait </span>DurationRound: Sized {
     <span class="doccomment">/// Error that can occur in rounding or truncating
-    </span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
+    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
     </span><span class="kw">type </span><span class="prelude-val">Err</span>: std::error::Error;
 
     <span class="doccomment">/// Error that can occur in rounding or truncating
-    </span><span class="attribute">#[cfg(not(any(feature = <span class="string">&quot;std&quot;</span>, test)))]
+    </span><span class="attr">#[cfg(not(any(feature = <span class="string">&quot;std&quot;</span>, test)))]
     </span><span class="kw">type </span><span class="prelude-val">Err</span>: fmt::Debug + fmt::Display;
 
     <span class="doccomment">/// Return a copy rounded by Duration.
@@ -658,7 +658,7 @@
 <span class="doccomment">/// An error from rounding by `Duration`
 ///
 /// See: [`DurationRound`]
-</span><span class="attribute">#[derive(Debug, Clone, PartialEq, Eq, Copy)]
+</span><span class="attr">#[derive(Debug, Clone, PartialEq, Eq, Copy)]
 </span><span class="kw">pub enum </span>RoundingError {
     <span class="doccomment">/// Error when the Duration exceeds the Duration from or until the Unix epoch.
     ///
@@ -713,21 +713,21 @@
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">impl </span>std::error::Error <span class="kw">for </span>RoundingError {
-    <span class="attribute">#[allow(deprecated)]
+    <span class="attr">#[allow(deprecated)]
     </span><span class="kw">fn </span>description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="string">&quot;error from rounding or truncating with DurationRound&quot;
     </span>}
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::{Duration, DurationRound, SubsecRound};
     <span class="kw">use </span>offset::{FixedOffset, TimeZone, Utc};
     <span class="kw">use </span>Timelike;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_round_subsecs() {
         <span class="kw">let </span>pst = FixedOffset::east(<span class="number">8 </span>* <span class="number">60 </span>* <span class="number">60</span>);
         <span class="kw">let </span>dt = pst.ymd(<span class="number">2018</span>, <span class="number">1</span>, <span class="number">11</span>).and_hms_nano(<span class="number">10</span>, <span class="number">5</span>, <span class="number">13</span>, <span class="number">084_660_684</span>);
@@ -757,7 +757,7 @@
         <span class="macro">assert_eq!</span>(dt.round_subsecs(<span class="number">0</span>).second(), <span class="number">28</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_round_leap_nanos() {
         <span class="kw">let </span>dt = Utc.ymd(<span class="number">2016</span>, <span class="number">12</span>, <span class="number">31</span>).and_hms_nano(<span class="number">23</span>, <span class="number">59</span>, <span class="number">59</span>, <span class="number">1_750_500_000</span>);
         <span class="macro">assert_eq!</span>(dt.round_subsecs(<span class="number">9</span>), dt);
@@ -770,7 +770,7 @@
         <span class="macro">assert_eq!</span>(dt.round_subsecs(<span class="number">0</span>).second(), <span class="number">0</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_trunc_subsecs() {
         <span class="kw">let </span>pst = FixedOffset::east(<span class="number">8 </span>* <span class="number">60 </span>* <span class="number">60</span>);
         <span class="kw">let </span>dt = pst.ymd(<span class="number">2018</span>, <span class="number">1</span>, <span class="number">11</span>).and_hms_nano(<span class="number">10</span>, <span class="number">5</span>, <span class="number">13</span>, <span class="number">084_660_684</span>);
@@ -800,7 +800,7 @@
         <span class="macro">assert_eq!</span>(dt.trunc_subsecs(<span class="number">0</span>).second(), <span class="number">27</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_trunc_leap_nanos() {
         <span class="kw">let </span>dt = Utc.ymd(<span class="number">2016</span>, <span class="number">12</span>, <span class="number">31</span>).and_hms_nano(<span class="number">23</span>, <span class="number">59</span>, <span class="number">59</span>, <span class="number">1_750_500_000</span>);
         <span class="macro">assert_eq!</span>(dt.trunc_subsecs(<span class="number">9</span>), dt);
@@ -813,7 +813,7 @@
         <span class="macro">assert_eq!</span>(dt.trunc_subsecs(<span class="number">0</span>).second(), <span class="number">59</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_duration_round() {
         <span class="kw">let </span>dt = Utc.ymd(<span class="number">2016</span>, <span class="number">12</span>, <span class="number">31</span>).and_hms_nano(<span class="number">23</span>, <span class="number">59</span>, <span class="number">59</span>, <span class="number">175_500_000</span>);
 
@@ -853,7 +853,7 @@
         </span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_duration_round_pre_epoch() {
         <span class="kw">let </span>dt = Utc.ymd(<span class="number">1969</span>, <span class="number">12</span>, <span class="number">12</span>).and_hms(<span class="number">12</span>, <span class="number">12</span>, <span class="number">12</span>);
         <span class="macro">assert_eq!</span>(
@@ -862,7 +862,7 @@
         </span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_duration_trunc() {
         <span class="kw">let </span>dt = Utc.ymd(<span class="number">2016</span>, <span class="number">12</span>, <span class="number">31</span>).and_hms_nano(<span class="number">23</span>, <span class="number">59</span>, <span class="number">59</span>, <span class="number">1_75_500_000</span>);
 
@@ -901,7 +901,7 @@
         </span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_duration_trunc_pre_epoch() {
         <span class="kw">let </span>dt = Utc.ymd(<span class="number">1969</span>, <span class="number">12</span>, <span class="number">12</span>).and_hms(<span class="number">12</span>, <span class="number">12</span>, <span class="number">12</span>);
         <span class="macro">assert_eq!</span>(
@@ -911,4 +911,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

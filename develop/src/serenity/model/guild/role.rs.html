@@ -402,23 +402,23 @@
 <span id="402">402</span>
 <span id="403">403</span>
 </pre><pre class="rust"><code><span class="kw">use </span>std::cmp::Ordering;
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 </span><span class="kw">use </span>std::error::Error <span class="kw">as </span>StdError;
 <span class="kw">use </span>std::fmt;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::builder::EditRole;
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::cache::Cache;
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::cache::FromStrAndCache;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::http::Http;
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::internal::prelude::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::model::prelude::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::model::utils::is_false;
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::utils::parse_role;
 
 <span class="doccomment">/// Information about a role within a guild. A role represents a set of
@@ -427,7 +427,7 @@
 /// are unique per guild and do not cross over to other guilds in any way, and
 /// can have channel-specific permission overrides in addition to guild-level
 /// permissions.
-</span><span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>Role {
     <span class="doccomment">/// The Id of the role. Can be used to calculate the role&#39;s creation date.
@@ -436,11 +436,11 @@
     </span><span class="kw">pub </span>guild_id: GuildId,
     <span class="doccomment">/// The colour of the role. This is an ergonomic representation of the inner
     /// value.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;utils&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;utils&quot;</span>)]
     #[serde(rename = <span class="string">&quot;color&quot;</span>)]
     </span><span class="kw">pub </span>colour: Colour,
     <span class="doccomment">/// The colour of the role.
-    </span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;utils&quot;</span>))]
+    </span><span class="attr">#[cfg(not(feature = <span class="string">&quot;utils&quot;</span>))]
     #[serde(rename = <span class="string">&quot;color&quot;</span>)]
     </span><span class="kw">pub </span>colour: u32,
     <span class="doccomment">/// Indicator of whether the role is pinned above lesser roles.
@@ -455,7 +455,7 @@
     ///
     /// Only members of the role will be notified if a role is mentioned with
     /// this set to `true`.
-    </span><span class="attribute">#[serde(default)]
+    </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>mentionable: bool,
     <span class="doccomment">/// The name of the role.
     </span><span class="kw">pub </span>name: String,
@@ -474,7 +474,7 @@
     /// such as guild subscriber role, or if the role is linked to an [`Integration`] or a bot.
     ///
     /// [`Integration`]: super::Integration
-    </span><span class="attribute">#[serde(default)]
+    </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>tags: RoleTags,
     <span class="doccomment">/// Role icon image hash.
     ///
@@ -488,25 +488,25 @@
 <span class="doccomment">/// Helper for deserialization without a `GuildId` but then later updated to the correct `GuildId`.
 ///
 /// The only difference to `Role` is `#[serde(default)]` on `guild_id`.
-</span><span class="attribute">#[derive(Deserialize)]
+</span><span class="attr">#[derive(Deserialize)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>InterimRole {
     <span class="kw">pub </span>id: RoleId,
-    <span class="attribute">#[serde(default)]
+    <span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>guild_id: GuildId,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;utils&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;utils&quot;</span>)]
     #[serde(rename = <span class="string">&quot;color&quot;</span>)]
     </span><span class="kw">pub </span>colour: Colour,
-    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;utils&quot;</span>))]
+    <span class="attr">#[cfg(not(feature = <span class="string">&quot;utils&quot;</span>))]
     #[serde(rename = <span class="string">&quot;color&quot;</span>)]
     </span><span class="kw">pub </span>colour: u32,
     <span class="kw">pub </span>hoist: bool,
     <span class="kw">pub </span>managed: bool,
-    <span class="attribute">#[serde(default)]
+    <span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>mentionable: bool,
     <span class="kw">pub </span>name: String,
     <span class="kw">pub </span>permissions: Permissions,
     <span class="kw">pub </span>position: i64,
-    <span class="attribute">#[serde(default)]
+    <span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>tags: RoleTags,
 }
 
@@ -529,7 +529,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">impl </span>Role {
     <span class="doccomment">/// Deletes the role.
     ///
@@ -541,7 +541,7 @@
     /// delete this role.
     ///
     /// [Manage Roles]: Permissions::MANAGE_ROLES
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>delete(<span class="kw-2">&amp;mut </span><span class="self">self</span>, http: <span class="kw">impl </span>AsRef&lt;Http&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         http.as_ref().delete_role(<span class="self">self</span>.guild_id.<span class="number">0</span>, <span class="self">self</span>.id.<span class="number">0</span>).<span class="kw">await
     </span>}
@@ -567,7 +567,7 @@
     /// have permission to Manage Roles.
     ///
     /// [Manage Roles]: Permissions::MANAGE_ROLES
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>edit(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         http: <span class="kw">impl </span>AsRef&lt;Http&gt;,
@@ -577,7 +577,7 @@
     </span>}
 
     <span class="doccomment">/// Check that the role has the given permission.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[must_use]
     </span><span class="kw">pub fn </span>has_permission(<span class="kw-2">&amp;</span><span class="self">self</span>, permission: Permissions) -&gt; bool {
         <span class="self">self</span>.permissions.contains(permission)
@@ -588,7 +588,7 @@
     /// The &#39;precise&#39; argument is used to check if the role&#39;s permissions are
     /// precisely equivalent to the given permissions. If you need only check
     /// that the role has at least the given permissions, pass `false`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[must_use]
     </span><span class="kw">pub fn </span>has_permissions(<span class="kw-2">&amp;</span><span class="self">self</span>, permissions: Permissions, precise: bool) -&gt; bool {
         <span class="kw">if </span>precise {
@@ -631,10 +631,10 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">impl </span>RoleId {
     <span class="doccomment">/// Tries to find the [`Role`] by its Id in the cache.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span><span class="kw">pub fn </span>to_role_cached(<span class="self">self</span>, cache: <span class="kw">impl </span>AsRef&lt;Cache&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;Role&gt; {
         <span class="kw">for </span>guild_entry <span class="kw">in </span>cache.as_ref().guilds.iter() {
             <span class="kw">let </span>guild = guild_entry.value();
@@ -666,14 +666,14 @@
     }
 }
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 #[derive(Debug)]
 </span><span class="kw">pub enum </span>RoleParseError {
     NotPresentInCache,
     InvalidRole,
 }
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 </span><span class="kw">impl </span>fmt::Display <span class="kw">for </span>RoleParseError {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="self">self </span>{
@@ -683,10 +683,10 @@
     }
 }
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 </span><span class="kw">impl </span>StdError <span class="kw">for </span>RoleParseError {}
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 </span><span class="kw">impl </span>FromStrAndCache <span class="kw">for </span>Role {
     <span class="kw">type </span><span class="prelude-val">Err </span>= RoleParseError;
 
@@ -705,7 +705,7 @@
 }
 
 <span class="doccomment">/// The tags of a [`Role`].
-</span><span class="attribute">#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 #[cfg_attr(test, derive(PartialEq))]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>RoleTags {
@@ -714,7 +714,7 @@
     <span class="doccomment">/// The Id of the integration the [`Role`] belongs to.
     </span><span class="kw">pub </span>integration_id: <span class="prelude-ty">Option</span>&lt;IntegrationId&gt;,
     <span class="doccomment">/// Whether this is the guild&#39;s premium subscriber role.
-    </span><span class="attribute">#[serde(default, skip_serializing_if = <span class="string">&quot;is_false&quot;</span>, with = <span class="string">&quot;premium_subscriber&quot;</span>)]
+    </span><span class="attr">#[serde(default, skip_serializing_if = <span class="string">&quot;is_false&quot;</span>, with = <span class="string">&quot;premium_subscriber&quot;</span>)]
     </span><span class="kw">pub </span>premium_subscriber: bool,
 }
 
@@ -729,7 +729,7 @@
         deserializer.deserialize_option(NullValueVisitor)
     }
 
-    <span class="attribute">#[allow(clippy::trivially_copy_pass_by_ref)]
+    <span class="attr">#[allow(clippy::trivially_copy_pass_by_ref)]
     </span><span class="kw">pub fn </span>serialize&lt;S: Serializer&gt;(<span class="kw">_</span>: <span class="kw-2">&amp;</span>bool, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt; {
         serializer.serialize_none()
     }
@@ -754,13 +754,13 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>serde_test::{assert_tokens, Token};
 
     <span class="kw">use </span><span class="kw">super</span>::RoleTags;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>premium_subscriber_role_serde() {
         <span class="kw">let </span>value = RoleTags {
             bot_id: <span class="prelude-val">None</span>,
@@ -783,7 +783,7 @@
         ]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>non_premium_subscriber_role_serde() {
         <span class="kw">let </span>value = RoleTags {
             bot_id: <span class="prelude-val">None</span>,
@@ -805,4 +805,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

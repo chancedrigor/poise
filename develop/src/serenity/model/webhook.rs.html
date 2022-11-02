@@ -541,27 +541,27 @@
 
 </span><span class="kw">use </span>std::fmt;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">super</span>::channel::Message;
 <span class="kw">use </span><span class="kw">super</span>::id::{ChannelId, GuildId, WebhookId};
 <span class="kw">use </span><span class="kw">super</span>::user::User;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::builder::{EditWebhookMessage, ExecuteWebhook};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::http::Http;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::internal::prelude::<span class="kw-2">*</span>;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::json::{<span class="self">self</span>, NULL};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::model::prelude::<span class="kw-2">*</span>;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::model::ModelError;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::utils::encode_image;
 
 <span class="doccomment">/// A representation of a type of webhook.
-</span><span class="attribute">#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>WebhookType {
     <span class="doccomment">/// An indicator that the webhook can post messages to channels with
@@ -583,7 +583,7 @@
 });
 
 <span class="kw">impl </span>WebhookType {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     #[must_use]
     </span><span class="kw">pub fn </span>name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="kw">match </span><span class="self">self </span>{
@@ -598,7 +598,7 @@
 <span class="doccomment">/// A representation of a webhook, which is a low-effort way to post messages to
 /// channels. They do not necessarily require a bot user or authentication to
 /// use.
-</span><span class="attribute">#[derive(Clone, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>Webhook {
     <span class="doccomment">/// The unique Id.
@@ -606,7 +606,7 @@
     /// Can be used to calculate the creation date of the webhook.
     </span><span class="kw">pub </span>id: WebhookId,
     <span class="doccomment">/// The type of the webhook.
-    </span><span class="attribute">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
+    </span><span class="attr">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
     </span><span class="kw">pub </span>kind: WebhookType,
     <span class="doccomment">/// The default avatar.
     ///
@@ -642,7 +642,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">impl </span>Webhook {
     <span class="doccomment">/// Retrieves a webhook given its Id.
     ///
@@ -751,7 +751,7 @@
     /// May also return an [`Error::Http`] if the webhook does not exist,
     /// the token is invalid, or if the webhook could not otherwise
     /// be deleted.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>delete(<span class="kw-2">&amp;</span><span class="self">self</span>, http: <span class="kw">impl </span>AsRef&lt;Http&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">let </span>token = <span class="self">self</span>.token.as_ref().ok_or(ModelError::NoTokenSet)<span class="question-mark">?</span>;
         http.as_ref().delete_webhook_with_token(<span class="self">self</span>.id.<span class="number">0</span>, token).<span class="kw">await
@@ -931,7 +931,7 @@
     /// May also return an [`Error::Http`] if the content is malformed, or if the webhook&#39;s token is invalid.
     ///
     /// Or may return an [`Error::Json`] if there is an error deserialising Discord&#39;s response.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>execute&lt;<span class="lifetime">&#39;a</span>, F&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         http: <span class="kw">impl </span>AsRef&lt;Http&gt;,
@@ -1057,7 +1057,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">impl </span>WebhookId {
     <span class="doccomment">/// Requests [`Webhook`] over REST API.
     ///
@@ -1071,10 +1071,10 @@
     /// May also return an [`Error::Json`] if there is an error in deserialising the response.
     ///
     /// [Manage Webhooks]: super::permissions::Permissions::MANAGE_WEBHOOKS
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>to_webhook(<span class="self">self</span>, http: <span class="kw">impl </span>AsRef&lt;Http&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Webhook&gt; {
         http.as_ref().get_webhook(<span class="self">self</span>.<span class="number">0</span>).<span class="kw">await
     </span>}
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

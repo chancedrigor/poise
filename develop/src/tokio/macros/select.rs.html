@@ -1395,7 +1395,7 @@
 ///     }
 /// }
 /// ```
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;macros&quot;</span>)))]
 </span><span class="macro">macro_rules! </span>select {
     <span class="comment">// Uses a declarative macro to do **most** of the work. While it is possible
@@ -1436,7 +1436,7 @@
         //
         // This module is defined within a scope and should not leak out of this
         // macro.
-        </span><span class="attribute">#[doc(hidden)]
+        </span><span class="attr">#[doc(hidden)]
         </span><span class="kw">mod </span>__tokio_select_util {
             <span class="comment">// Generate an enum with one variant per select branch
             </span><span class="macro-nonterminal">$</span><span class="macro">crate::select_priv_declare_output_enum!</span>( ( $(<span class="macro-nonterminal">$count</span>)* ) );
@@ -1482,13 +1482,13 @@
 
                 <span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..BRANCHES {
                     <span class="kw">let </span>branch;
-                    <span class="attribute">#[allow(clippy::modulo_one)]
+                    <span class="attr">#[allow(clippy::modulo_one)]
                     </span>{
                         branch = (start + i) % BRANCHES;
                     }
                     <span class="kw">match </span>branch {
                         $(
-                            <span class="attribute">#[allow(unreachable_code)]
+                            <span class="attr">#[allow(unreachable_code)]
                             </span><span class="macro-nonterminal">$</span><span class="macro">crate::count!</span>( $(<span class="macro-nonterminal">$skip</span>)* ) =&gt; {
                                 <span class="comment">// First, if the future has previously been
                                 // disabled, do not poll it again. This is done
@@ -1525,7 +1525,7 @@
 
                                 <span class="comment">// The future returned a value, check if matches
                                 // the specified pattern.
-                                </span><span class="attribute">#[allow(unused_variables)]
+                                </span><span class="attr">#[allow(unused_variables)]
                                 #[allow(unused_mut)]
                                 </span><span class="kw">match </span><span class="kw-2">&amp;</span>out {
                                     <span class="macro-nonterminal">$</span><span class="macro">crate::select_priv_clean_pattern!</span>(<span class="macro-nonterminal">$bind</span>) =&gt; {}
@@ -1614,7 +1614,7 @@
 <span class="comment">// And here... we manually list out matches for up to 64 branches... I&#39;m not
 // happy about it either, but this is how we manage to use a declarative macro!
 
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 #[doc(hidden)]
 </span><span class="macro">macro_rules! </span>count {
     () =&gt; {
@@ -1814,7 +1814,7 @@
     </span>};
 }
 
-<span class="attribute">#[macro_export]
+<span class="attr">#[macro_export]
 #[doc(hidden)]
 </span><span class="macro">macro_rules! </span>select_variant {
     ($(<span class="macro-nonterminal">$p</span>:ident)::<span class="kw-2">*</span>, () $(<span class="macro-nonterminal">$t</span>:tt)<span class="kw-2">*</span>) =&gt; {
@@ -2011,4 +2011,4 @@
     };
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

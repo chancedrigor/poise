@@ -333,7 +333,7 @@
 <span class="kw">pub const </span>CONSTRUCTED: u8 = <span class="number">1 </span>&lt;&lt; <span class="number">5</span>;
 <span class="kw">pub const </span>CONTEXT_SPECIFIC: u8 = <span class="number">2 </span>&lt;&lt; <span class="number">6</span>;
 
-<span class="attribute">#[derive(Clone, Copy, PartialEq)]
+<span class="attr">#[derive(Clone, Copy, PartialEq)]
 #[repr(u8)]
 </span><span class="kw">pub enum </span>Tag {
     Boolean = <span class="number">0x01</span>,
@@ -499,7 +499,7 @@
 
 <span class="doccomment">/// Parse as integer with a value in the in the range [0, 255], returning its
 /// numeric value. This is typically used for parsing version numbers.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>small_nonnegative_integer(input: <span class="kw-2">&amp;mut </span>untrusted::Reader) -&gt; <span class="prelude-ty">Result</span>&lt;u8, error::Unspecified&gt; {
     <span class="kw">let </span>value = nonnegative_integer(input, <span class="number">0</span>)<span class="question-mark">?</span>;
     value.read_all(error::Unspecified, |input| {
@@ -518,7 +518,7 @@
     ))
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::error;
@@ -576,7 +576,7 @@
         <span class="kw-2">&amp;</span>[<span class="number">0x02</span>, <span class="number">0x02</span>, <span class="number">0x00</span>, <span class="number">0x7f</span>],
     ];
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_small_nonnegative_integer() {
         with_good_i(ZERO_INTEGER, |input| {
             <span class="macro">assert_eq!</span>(small_nonnegative_integer(input)<span class="question-mark">?</span>, <span class="number">0x00</span>);
@@ -596,7 +596,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_positive_integer() {
         with_bad_i(ZERO_INTEGER, |input| {
             <span class="kw">let _ </span>= positive_integer(input)<span class="question-mark">?</span>;
@@ -621,4 +621,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

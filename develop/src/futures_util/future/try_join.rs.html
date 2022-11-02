@@ -254,7 +254,7 @@
 <span id="254">254</span>
 <span id="255">255</span>
 <span id="256">256</span>
-</pre><pre class="rust"><code><span class="attribute">#![allow(non_snake_case)]
+</pre><pre class="rust"><code><span class="attr">#![allow(non_snake_case)]
 
 </span><span class="kw">use </span><span class="kw">crate</span>::future::{assert_future, try_maybe_done, TryMaybeDone};
 <span class="kw">use </span>core::fmt;
@@ -265,15 +265,15 @@
 
 <span class="macro">macro_rules! </span>generate {
     ($(
-        $(<span class="attribute">#[<span class="macro-nonterminal">$doc</span>:meta]</span>)*
+        $(<span class="attr">#[<span class="macro-nonterminal">$doc</span>:meta]</span>)*
         (<span class="macro-nonterminal">$Join</span>:ident, &lt;Fut1, $(<span class="macro-nonterminal">$Fut</span>:ident),<span class="kw-2">*</span>&gt;),
     )<span class="kw-2">*</span>) =&gt; ($(
         <span class="macro">pin_project! </span>{
-            $(<span class="attribute">#[<span class="macro-nonterminal">$doc</span>]</span>)*
-            <span class="attribute">#[must_use = <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]
+            $(<span class="attr">#[<span class="macro-nonterminal">$doc</span>]</span>)*
+            <span class="attr">#[must_use = <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]
             </span><span class="kw">pub struct </span><span class="macro-nonterminal">$Join</span>&lt;Fut1: TryFuture, $(<span class="macro-nonterminal">$Fut</span>: TryFuture),<span class="kw-2">*</span>&gt; {
-                <span class="attribute">#[pin] </span>Fut1: TryMaybeDone&lt;Fut1&gt;,
-                $(<span class="attribute">#[pin] </span><span class="macro-nonterminal">$Fut</span>: TryMaybeDone&lt;<span class="macro-nonterminal">$Fut</span>&gt;,)*
+                <span class="attr">#[pin] </span>Fut1: TryMaybeDone&lt;Fut1&gt;,
+                $(<span class="attr">#[pin] </span><span class="macro-nonterminal">$Fut</span>: TryMaybeDone&lt;<span class="macro-nonterminal">$Fut</span>&gt;,)*
             }
         }
 
@@ -511,4 +511,4 @@
     )
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

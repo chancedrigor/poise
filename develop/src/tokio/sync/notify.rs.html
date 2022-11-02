@@ -967,7 +967,7 @@
 // When this module is compiled with `sync` enabled we will warn on
 // this lint. When `rt` is enabled we use `pub(crate)` which
 // triggers this warning but it is safe to ignore in this case.
-</span><span class="attribute">#![cfg_attr(not(feature = <span class="string">&quot;sync&quot;</span>), allow(unreachable_pub, dead_code))]
+</span><span class="attr">#![cfg_attr(not(feature = <span class="string">&quot;sync&quot;</span>), allow(unreachable_pub, dead_code))]
 
 </span><span class="kw">use </span><span class="kw">crate</span>::loom::sync::atomic::AtomicUsize;
 <span class="kw">use </span><span class="kw">crate</span>::loom::sync::Mutex;
@@ -1159,7 +1159,7 @@
 /// [`notify_one()`]: Notify::notify_one()
 /// [`enable`]: Notified::enable()
 /// [`Semaphore`]: crate::sync::Semaphore
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Notify {
     <span class="comment">// This uses 2 bits to store one of `EMPTY`,
     // `WAITING` or `NOTIFIED`. The rest of the bits
@@ -1169,7 +1169,7 @@
     waiters: Mutex&lt;WaitList&gt;,
 }
 
-<span class="attribute">#[derive(Debug, Clone, Copy)]
+<span class="attr">#[derive(Debug, Clone, Copy)]
 </span><span class="kw">enum </span>NotificationType {
     <span class="comment">// Notification triggered by calling `notify_waiters`
     </span>AllWaiters,
@@ -1177,7 +1177,7 @@
     </span>OneWaiter,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>Waiter {
     <span class="doccomment">/// Intrusive linked-list pointers.
     </span>pointers: linked_list::Pointers&lt;Waiter&gt;,
@@ -1204,7 +1204,7 @@
 ///
 /// This future is fused, so once it has completed, any future calls to poll
 /// will immediately return `Poll::Ready`.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Notified&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="doccomment">/// The `Notify` being received on.
     </span>notify: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Notify,
@@ -1219,7 +1219,7 @@
 <span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Send <span class="kw">for </span>Notified&lt;<span class="lifetime">&#39;a</span>&gt; {}
 <span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Sync <span class="kw">for </span>Notified&lt;<span class="lifetime">&#39;a</span>&gt; {}
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">enum </span>State {
     Init(usize),
     Waiting,
@@ -1285,7 +1285,7 @@
     ///
     /// static NOTIFY: Notify = Notify::const_new();
     /// ```
-    </span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;parking_lot&quot;</span>, not(all(loom, test))))]
+    </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;parking_lot&quot;</span>, not(all(loom, test))))]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;parking_lot&quot;</span>)))]
     </span><span class="kw">pub const fn </span>const_new() -&gt; Notify {
         Notify {
@@ -1395,7 +1395,7 @@
     /// }
     /// ```
     </span><span class="comment">// Alias for old name in 0.x
-    </span><span class="attribute">#[cfg_attr(docsrs, doc(alias = <span class="string">&quot;notify&quot;</span>))]
+    </span><span class="attr">#[cfg_attr(docsrs, doc(alias = <span class="string">&quot;notify&quot;</span>))]
     </span><span class="kw">pub fn </span>notify_one(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="comment">// Load the current state
         </span><span class="kw">let </span><span class="kw-2">mut </span>curr = <span class="self">self</span>.state.load(SeqCst);
@@ -1927,4 +1927,4 @@
 
 <span class="kw">fn </span>is_unpin&lt;T: Unpin&gt;() {}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

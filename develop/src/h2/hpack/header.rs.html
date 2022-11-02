@@ -315,7 +315,7 @@
 <span class="kw">use </span>std::fmt;
 
 <span class="doccomment">/// HTTP/2 Header
-</span><span class="attribute">#[derive(Debug, Clone, Eq, PartialEq)]
+</span><span class="attr">#[derive(Debug, Clone, Eq, PartialEq)]
 </span><span class="kw">pub enum </span>Header&lt;T = HeaderName&gt; {
     Field { name: T, value: HeaderValue },
     <span class="comment">// TODO: Change these types to `http::uri` types.
@@ -328,7 +328,7 @@
 }
 
 <span class="doccomment">/// The header field name
-</span><span class="attribute">#[derive(Debug, Clone, Eq, PartialEq, Hash)]
+</span><span class="attr">#[derive(Debug, Clone, Eq, PartialEq, Hash)]
 </span><span class="kw">pub enum </span>Name&lt;<span class="lifetime">&#39;a</span>&gt; {
     Field(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>HeaderName),
     Authority,
@@ -339,7 +339,7 @@
     Status,
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 #[derive(Clone, Eq, PartialEq, Default)]
 </span><span class="kw">pub struct </span>BytesStr(Bytes);
 
@@ -580,7 +580,7 @@
         BytesStr(Bytes::copy_from_slice(value.as_bytes()))
     }
 
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span><span class="kw">pub fn </span>try_from(bytes: Bytes) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, std::str::Utf8Error&gt; {
         std::str::from_utf8(bytes.as_ref())<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(BytesStr(bytes))
@@ -615,4 +615,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

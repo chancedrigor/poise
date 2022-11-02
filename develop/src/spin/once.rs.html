@@ -458,7 +458,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>std::prelude::v1::<span class="kw-2">*</span>;
 
@@ -466,7 +466,7 @@
     <span class="kw">use </span>std::thread;
     <span class="kw">use </span><span class="kw">super</span>::Once;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>smoke_once() {
         <span class="kw">static </span>O: Once&lt;()&gt; = Once::new();
         <span class="kw">let </span><span class="kw-2">mut </span>a = <span class="number">0</span>;
@@ -476,7 +476,7 @@
         <span class="macro">assert_eq!</span>(a, <span class="number">1</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>smoke_once_value() {
         <span class="kw">static </span>O: Once&lt;usize&gt; = Once::new();
         <span class="kw">let </span>a = O.call_once(|| <span class="number">1</span>);
@@ -485,7 +485,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">*</span>b, <span class="number">1</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>stampede_once() {
         <span class="kw">static </span>O: Once&lt;()&gt; = Once::new();
         <span class="kw">static </span><span class="kw-2">mut </span>RUN: bool = <span class="bool-val">false</span>;
@@ -519,7 +519,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn try</span>() {
         <span class="kw">static </span>INIT: Once&lt;usize&gt; = Once::new();
 
@@ -528,7 +528,7 @@
         <span class="macro">assert_eq!</span>(INIT.<span class="kw">try</span>().map(|r| <span class="kw-2">*</span>r), <span class="prelude-val">Some</span>(<span class="number">2</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>try_no_wait() {
         <span class="kw">static </span>INIT: Once&lt;usize&gt; = Once::new();
 
@@ -540,7 +540,7 @@
     }
 
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>wait() {
         <span class="kw">static </span>INIT: Once&lt;usize&gt; = Once::new();
 
@@ -549,7 +549,7 @@
         <span class="macro">assert_eq!</span>(INIT.wait().map(|r| <span class="kw-2">*</span>r), <span class="prelude-val">Some</span>(<span class="number">3</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>panic() {
         <span class="kw">use </span>::std::panic;
 
@@ -568,7 +568,7 @@
         <span class="macro">assert!</span>(t.is_err());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>init_constant() {
         <span class="kw">static </span>O: Once&lt;()&gt; = Once::INIT;
         <span class="kw">let </span><span class="kw-2">mut </span>a = <span class="number">0</span>;
@@ -579,4 +579,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="spin" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="spin" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

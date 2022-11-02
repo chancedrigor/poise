@@ -597,13 +597,13 @@
         <span class="bool-val">false</span>);
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;fast-kanji-encode&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;fast-kanji-encode&quot;</span>)]
 #[inline(always)]
 </span><span class="kw">fn </span>encode_kanji(bmp: u16) -&gt; <span class="prelude-ty">Option</span>&lt;(u8, u8)&gt; {
     jis0208_kanji_shift_jis_encode(bmp)
 }
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;fast-kanji-encode&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;fast-kanji-encode&quot;</span>))]
 #[inline(always)]
 </span><span class="kw">fn </span>encode_kanji(bmp: u16) -&gt; <span class="prelude-ty">Option</span>&lt;(u8, u8)&gt; {
     <span class="kw">if let </span><span class="prelude-val">Some</span>((lead, trail)) = jis0208_level1_kanji_shift_jis_encode(bmp) {
@@ -731,7 +731,7 @@
 <span class="comment">// Any copyright to the test code below this comment is dedicated to the
 // Public Domain. http://creativecommons.org/publicdomain/zero/1.0/
 
-</span><span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
+</span><span class="attr">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::testing::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::<span class="kw-2">*</span>;
@@ -744,7 +744,7 @@
         encode(SHIFT_JIS, string, expect);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_shift_jis_decode() {
         <span class="comment">// Empty
         </span>decode_shift_jis(<span class="string">b&quot;&quot;</span>, <span class="kw-2">&amp;</span><span class="string">&quot;&quot;</span>);
@@ -778,7 +778,7 @@
         <span class="comment">//
     </span>}
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_shift_jis_encode() {
         <span class="comment">// Empty
         </span>encode_shift_jis(<span class="string">&quot;&quot;</span>, <span class="string">b&quot;&quot;</span>);
@@ -810,7 +810,7 @@
         encode_shift_jis(<span class="string">&quot;\u{9ED1}&quot;</span>, <span class="string">b&quot;\xFC\x4B&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(miri, ignore)] </span><span class="comment">// Miri is too slow
     </span><span class="kw">fn </span>test_shift_jis_decode_all() {
         <span class="kw">let </span>input = <span class="macro">include_bytes!</span>(<span class="string">&quot;test_data/shift_jis_in.txt&quot;</span>);
@@ -820,7 +820,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>cow[..], expectation);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(miri, ignore)] </span><span class="comment">// Miri is too slow
     </span><span class="kw">fn </span>test_shift_jis_encode_all() {
         <span class="kw">let </span>input = <span class="macro">include_str!</span>(<span class="string">&quot;test_data/shift_jis_out.txt&quot;</span>);
@@ -831,7 +831,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>cow[..], <span class="kw-2">&amp;</span>expectation[..]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_shift_jis_half_width_katakana_length() {
         <span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0u8</span>; <span class="number">20</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = SHIFT_JIS.new_decoder();
@@ -851,4 +851,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="encoding_rs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="encoding_rs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

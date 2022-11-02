@@ -644,7 +644,7 @@
 <span id="644">644</span>
 <span id="645">645</span>
 <span id="646">646</span>
-</pre><pre class="rust"><code><span class="attribute">#![allow(
+</pre><pre class="rust"><code><span class="attr">#![allow(
     clippy::cognitive_complexity,
     clippy::large_enum_variant,
     clippy::needless_doctest_main
@@ -1067,7 +1067,7 @@
 // least 32 bits, which a lot of components in Tokio currently assumes.
 //
 // TODO: improve once we have MSRV access to const eval to make more flexible.
-</span><span class="attribute">#[cfg(not(any(
+</span><span class="attr">#[cfg(not(any(
     target_pointer_width = <span class="string">&quot;32&quot;</span>,
     target_pointer_width = <span class="string">&quot;64&quot;</span>,
     target_pointer_width = <span class="string">&quot;128&quot;
@@ -1080,7 +1080,7 @@
 //
 // Each condition is written all(a, not(b)). This should be read as
 // &quot;if a, then we must also have b&quot;.
-</span><span class="attribute">#[cfg(any(
+</span><span class="attr">#[cfg(any(
     all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(tokio_wasm)),
     all(target_arch = <span class="string">&quot;wasm64&quot;</span>, not(tokio_wasm)),
     all(target_family = <span class="string">&quot;wasm&quot;</span>, not(tokio_wasm)),
@@ -1093,7 +1093,7 @@
 ))]
 </span><span class="macro">compile_error!</span>(<span class="string">&quot;Tokio&#39;s build script has incorrectly detected wasm.&quot;</span>);
 
-<span class="attribute">#[cfg(all(
+<span class="attr">#[cfg(all(
     not(tokio_unstable),
     tokio_wasm,
     any(
@@ -1111,7 +1111,7 @@
 //
 // This module is not intended to be part of the public API. In general, any
 // `doc(hidden)` code is not part of Tokio&#39;s public and stable API.
-</span><span class="attribute">#[macro_use]
+</span><span class="attr">#[macro_use]
 #[doc(hidden)]
 </span><span class="kw">pub mod </span>macros;
 
@@ -1131,7 +1131,7 @@
     <span class="kw">pub mod </span>process;
 }
 
-<span class="attribute">#[cfg(any(
+<span class="attr">#[cfg(any(
     feature = <span class="string">&quot;fs&quot;</span>,
     feature = <span class="string">&quot;io-std&quot;</span>,
     feature = <span class="string">&quot;net&quot;</span>,
@@ -1155,7 +1155,7 @@
 }
 
 <span class="macro">cfg_signal_internal! </span>{
-    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;signal&quot;</span>))]
+    <span class="attr">#[cfg(not(feature = <span class="string">&quot;signal&quot;</span>))]
     #[allow(dead_code)]
     #[allow(unreachable_pub)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>signal;
@@ -1221,22 +1221,22 @@
 <span class="comment">// local re-exports of platform specific things, allowing for decent
 // documentation to be shimmed in on docs.rs
 
-</span><span class="attribute">#[cfg(docsrs)]
+</span><span class="attr">#[cfg(docsrs)]
 </span><span class="kw">pub mod </span>doc;
 
-<span class="attribute">#[cfg(docsrs)]
+<span class="attr">#[cfg(docsrs)]
 #[allow(unused)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span><span class="self">self</span>::doc::os;
 
-<span class="attribute">#[cfg(not(docsrs))]
+<span class="attr">#[cfg(not(docsrs))]
 #[allow(unused)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>std::os;
 
-<span class="attribute">#[cfg(docsrs)]
+<span class="attr">#[cfg(docsrs)]
 #[allow(unused)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span><span class="self">self</span>::doc::winapi;
 
-<span class="attribute">#[cfg(all(not(docsrs), windows, feature = <span class="string">&quot;net&quot;</span>))]
+<span class="attr">#[cfg(all(not(docsrs), windows, feature = <span class="string">&quot;net&quot;</span>))]
 #[allow(unused)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>winapi;
 
@@ -1244,51 +1244,51 @@
     <span class="doccomment">/// Implementation detail of the `select!` macro. This macro is **not**
     /// intended to be used as part of the public API and is permitted to
     /// change.
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     </span><span class="kw">pub use </span>tokio_macros::select_priv_declare_output_enum;
 
     <span class="doccomment">/// Implementation detail of the `select!` macro. This macro is **not**
     /// intended to be used as part of the public API and is permitted to
     /// change.
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     </span><span class="kw">pub use </span>tokio_macros::select_priv_clean_pattern;
 
     <span class="macro">cfg_rt! </span>{
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;rt-multi-thread&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;rt-multi-thread&quot;</span>)]
         #[cfg(not(test))] </span><span class="comment">// Work around for rust-lang/rust#62127
-        </span><span class="attribute">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;macros&quot;</span>)))]
+        </span><span class="attr">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;macros&quot;</span>)))]
         #[doc(inline)]
         </span><span class="kw">pub use </span>tokio_macros::main;
 
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;rt-multi-thread&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;rt-multi-thread&quot;</span>)]
         #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;macros&quot;</span>)))]
         #[doc(inline)]
         </span><span class="kw">pub use </span>tokio_macros::test;
 
         <span class="macro">cfg_not_rt_multi_thread! </span>{
-            <span class="attribute">#[cfg(not(test))] </span><span class="comment">// Work around for rust-lang/rust#62127
-            </span><span class="attribute">#[doc(inline)]
+            <span class="attr">#[cfg(not(test))] </span><span class="comment">// Work around for rust-lang/rust#62127
+            </span><span class="attr">#[doc(inline)]
             </span><span class="kw">pub use </span>tokio_macros::main_rt <span class="kw">as </span>main;
 
-            <span class="attribute">#[doc(inline)]
+            <span class="attr">#[doc(inline)]
             </span><span class="kw">pub use </span>tokio_macros::test_rt <span class="kw">as </span>test;
         }
     }
 
     <span class="comment">// Always fail if rt is not enabled.
     </span><span class="macro">cfg_not_rt! </span>{
-        <span class="attribute">#[cfg(not(test))]
+        <span class="attr">#[cfg(not(test))]
         #[doc(inline)]
         </span><span class="kw">pub use </span>tokio_macros::main_fail <span class="kw">as </span>main;
 
-        <span class="attribute">#[doc(inline)]
+        <span class="attr">#[doc(inline)]
         </span><span class="kw">pub use </span>tokio_macros::test_fail <span class="kw">as </span>test;
     }
 }
 
 <span class="comment">// TODO: rm
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;io-util&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;io-util&quot;</span>)]
 #[cfg(test)]
 </span><span class="kw">fn </span>is_unpin&lt;T: Unpin&gt;() {}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

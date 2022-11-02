@@ -392,7 +392,7 @@
 //!
 //! &lt;br&gt;
 
-</span><span class="attribute">#![allow(
+</span><span class="attr">#![allow(
     clippy::cast_lossless,
     clippy::cast_possible_truncation,
     clippy::derive_partial_eq_without_eq,
@@ -431,54 +431,54 @@
 
 <span class="kw">const </span>RUSTVERSION: Version = <span class="macro">include!</span>(<span class="macro">concat!</span>(<span class="macro">env!</span>(<span class="string">&quot;OUT_DIR&quot;</span>), <span class="string">&quot;/version.expr&quot;</span>));
 
-<span class="attribute">#[proc_macro_attribute]
+<span class="attr">#[proc_macro_attribute]
 </span><span class="kw">pub fn </span>stable(args: TokenStream, input: TokenStream) -&gt; TokenStream {
     expand::cfg(<span class="string">&quot;stable&quot;</span>, args, input)
 }
 
-<span class="attribute">#[proc_macro_attribute]
+<span class="attr">#[proc_macro_attribute]
 </span><span class="kw">pub fn </span>beta(args: TokenStream, input: TokenStream) -&gt; TokenStream {
     expand::cfg(<span class="string">&quot;beta&quot;</span>, args, input)
 }
 
-<span class="attribute">#[proc_macro_attribute]
+<span class="attr">#[proc_macro_attribute]
 </span><span class="kw">pub fn </span>nightly(args: TokenStream, input: TokenStream) -&gt; TokenStream {
     expand::cfg(<span class="string">&quot;nightly&quot;</span>, args, input)
 }
 
-<span class="attribute">#[proc_macro_attribute]
+<span class="attr">#[proc_macro_attribute]
 </span><span class="kw">pub fn </span>since(args: TokenStream, input: TokenStream) -&gt; TokenStream {
     expand::cfg(<span class="string">&quot;since&quot;</span>, args, input)
 }
 
-<span class="attribute">#[proc_macro_attribute]
+<span class="attr">#[proc_macro_attribute]
 </span><span class="kw">pub fn </span>before(args: TokenStream, input: TokenStream) -&gt; TokenStream {
     expand::cfg(<span class="string">&quot;before&quot;</span>, args, input)
 }
 
-<span class="attribute">#[proc_macro_attribute]
+<span class="attr">#[proc_macro_attribute]
 </span><span class="kw">pub fn </span>not(args: TokenStream, input: TokenStream) -&gt; TokenStream {
     expand::cfg(<span class="string">&quot;not&quot;</span>, args, input)
 }
 
-<span class="attribute">#[proc_macro_attribute]
+<span class="attr">#[proc_macro_attribute]
 </span><span class="kw">pub fn </span>any(args: TokenStream, input: TokenStream) -&gt; TokenStream {
     expand::cfg(<span class="string">&quot;any&quot;</span>, args, input)
 }
 
-<span class="attribute">#[proc_macro_attribute]
+<span class="attr">#[proc_macro_attribute]
 </span><span class="kw">pub fn </span>all(args: TokenStream, input: TokenStream) -&gt; TokenStream {
     expand::cfg(<span class="string">&quot;all&quot;</span>, args, input)
 }
 
-<span class="attribute">#[proc_macro_attribute]
+<span class="attr">#[proc_macro_attribute]
 </span><span class="kw">pub fn </span>attr(args: TokenStream, input: TokenStream) -&gt; TokenStream {
     attr::parse(args)
         .and_then(|args| expand::try_attr(args, input))
         .unwrap_or_else(Error::into_compile_error)
 }
 
-<span class="attribute">#[cfg(not(cfg_macro_not_allowed))]
+<span class="attr">#[cfg(not(cfg_macro_not_allowed))]
 #[proc_macro]
 </span><span class="kw">pub fn </span>cfg(input: TokenStream) -&gt; TokenStream {
     <span class="kw">use </span>proc_macro::{Ident, Span, TokenTree};
@@ -493,4 +493,4 @@
     .unwrap_or_else(Error::into_compile_error)
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustversion" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustversion" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

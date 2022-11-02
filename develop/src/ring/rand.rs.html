@@ -470,7 +470,7 @@
 <span class="kw">where
     </span>T: sealed::SecureRandom,
 {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>fill(<span class="kw-2">&amp;</span><span class="self">self</span>, dest: <span class="kw-2">&amp;mut </span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;(), error::Unspecified&gt; {
         <span class="self">self</span>.fill_impl(dest)
     }
@@ -484,14 +484,14 @@
 
 <span class="kw">impl</span>&lt;T: RandomlyConstructable&gt; Random&lt;T&gt; {
     <span class="doccomment">/// Expose the random value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>expose(<span class="self">self</span>) -&gt; T {
         <span class="self">self</span>.<span class="number">0
     </span>}
 }
 
 <span class="doccomment">/// Generate the new random value using `rng`.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>generate&lt;T: RandomlyConstructable&gt;(
     rng: <span class="kw-2">&amp;</span><span class="kw">dyn </span>SecureRandom,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;Random&lt;T&gt;, error::Unspecified&gt;
@@ -520,10 +520,10 @@
         [ $(<span class="macro-nonterminal">$len</span>:expr)+ ] =&gt; {
             $(
                 <span class="kw">impl </span>RandomlyConstructable <span class="kw">for </span>[u8; <span class="macro-nonterminal">$len</span>] {
-                    <span class="attribute">#[inline]
+                    <span class="attr">#[inline]
                     </span><span class="kw">fn </span>zero() -&gt; <span class="self">Self </span>{ [<span class="number">0</span>; <span class="macro-nonterminal">$len</span>] }
 
-                    <span class="attribute">#[inline]
+                    <span class="attr">#[inline]
                     </span><span class="kw">fn </span>as_mut_bytes(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>[u8] { <span class="kw-2">&amp;mut </span><span class="self">self</span>[..] }
                 }
             )+
@@ -576,19 +576,19 @@
 /// random number generation.
 ///
 /// [`getrandom`]: http://man7.org/linux/man-pages/man2/getrandom.2.html
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>SystemRandom(());
 
 <span class="kw">impl </span>SystemRandom {
     <span class="doccomment">/// Constructs a new `SystemRandom`.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>(())
     }
 }
 
 <span class="kw">impl </span>sealed::SecureRandom <span class="kw">for </span>SystemRandom {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>fill_impl(<span class="kw-2">&amp;</span><span class="self">self</span>, dest: <span class="kw-2">&amp;mut </span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;(), error::Unspecified&gt; {
         fill_impl(dest)
     }
@@ -596,7 +596,7 @@
 
 <span class="kw">impl </span><span class="kw">crate</span>::sealed::Sealed <span class="kw">for </span>SystemRandom {}
 
-<span class="attribute">#[cfg(any(
+<span class="attr">#[cfg(any(
     all(
         any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>),
         not(feature = <span class="string">&quot;dev_urandom_fallback&quot;</span>)
@@ -606,13 +606,13 @@
 ))]
 </span><span class="kw">use </span><span class="self">self</span>::sysrand::fill <span class="kw">as </span>fill_impl;
 
-<span class="attribute">#[cfg(all(
+<span class="attr">#[cfg(all(
     any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>),
     feature = <span class="string">&quot;dev_urandom_fallback&quot;
 </span>))]
 </span><span class="kw">use </span><span class="self">self</span>::sysrand_or_urandom::fill <span class="kw">as </span>fill_impl;
 
-<span class="attribute">#[cfg(any(
+<span class="attr">#[cfg(any(
     target_os = <span class="string">&quot;dragonfly&quot;</span>,
     target_os = <span class="string">&quot;freebsd&quot;</span>,
     target_os = <span class="string">&quot;illumos&quot;</span>,
@@ -622,32 +622,32 @@
 ))]
 </span><span class="kw">use </span><span class="self">self</span>::urandom::fill <span class="kw">as </span>fill_impl;
 
-<span class="attribute">#[cfg(any(target_os = <span class="string">&quot;macos&quot;</span>, target_os = <span class="string">&quot;ios&quot;</span>))]
+<span class="attr">#[cfg(any(target_os = <span class="string">&quot;macos&quot;</span>, target_os = <span class="string">&quot;ios&quot;</span>))]
 </span><span class="kw">use </span><span class="self">self</span>::darwin::fill <span class="kw">as </span>fill_impl;
 
-<span class="attribute">#[cfg(any(target_os = <span class="string">&quot;fuchsia&quot;</span>))]
+<span class="attr">#[cfg(any(target_os = <span class="string">&quot;fuchsia&quot;</span>))]
 </span><span class="kw">use </span><span class="self">self</span>::fuchsia::fill <span class="kw">as </span>fill_impl;
 
-<span class="attribute">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+<span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
 </span><span class="kw">mod </span>sysrand_chunk {
     <span class="kw">use crate</span>::{c, error};
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>chunk(dest: <span class="kw-2">&amp;mut </span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;usize, error::Unspecified&gt; {
         <span class="kw">use </span>libc::c_long;
 
         <span class="comment">// See `SYS_getrandom` in #include &lt;sys/syscall.h&gt;.
 
-        </span><span class="attribute">#[cfg(target_arch = <span class="string">&quot;aarch64&quot;</span>)]
+        </span><span class="attr">#[cfg(target_arch = <span class="string">&quot;aarch64&quot;</span>)]
         </span><span class="kw">const </span>SYS_GETRANDOM: c_long = <span class="number">278</span>;
 
-        <span class="attribute">#[cfg(target_arch = <span class="string">&quot;arm&quot;</span>)]
+        <span class="attr">#[cfg(target_arch = <span class="string">&quot;arm&quot;</span>)]
         </span><span class="kw">const </span>SYS_GETRANDOM: c_long = <span class="number">384</span>;
 
-        <span class="attribute">#[cfg(target_arch = <span class="string">&quot;x86&quot;</span>)]
+        <span class="attr">#[cfg(target_arch = <span class="string">&quot;x86&quot;</span>)]
         </span><span class="kw">const </span>SYS_GETRANDOM: c_long = <span class="number">355</span>;
 
-        <span class="attribute">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
+        <span class="attr">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
         </span><span class="kw">const </span>SYS_GETRANDOM: c_long = <span class="number">318</span>;
 
         <span class="kw">let </span>chunk_len: c::size_t = dest.len();
@@ -655,12 +655,12 @@
         <span class="kw">if </span>r &lt; <span class="number">0 </span>{
             <span class="kw">let </span>errno;
 
-            <span class="attribute">#[cfg(target_os = <span class="string">&quot;linux&quot;</span>)]
+            <span class="attr">#[cfg(target_os = <span class="string">&quot;linux&quot;</span>)]
             </span>{
                 errno = <span class="kw">unsafe </span>{ <span class="kw-2">*</span>libc::__errno_location() };
             }
 
-            <span class="attribute">#[cfg(target_os = <span class="string">&quot;android&quot;</span>)]
+            <span class="attr">#[cfg(target_os = <span class="string">&quot;android&quot;</span>)]
             </span>{
                 errno = <span class="kw">unsafe </span>{ <span class="kw-2">*</span>libc::__errno() };
             }
@@ -677,7 +677,7 @@
     }
 }
 
-<span class="attribute">#[cfg(all(
+<span class="attr">#[cfg(all(
     target_arch = <span class="string">&quot;wasm32&quot;</span>,
     target_vendor = <span class="string">&quot;unknown&quot;</span>,
     target_os = <span class="string">&quot;unknown&quot;</span>,
@@ -705,11 +705,11 @@
     }
 }
 
-<span class="attribute">#[cfg(windows)]
+<span class="attr">#[cfg(windows)]
 </span><span class="kw">mod </span>sysrand_chunk {
     <span class="kw">use crate</span>::{error, polyfill};
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>chunk(dest: <span class="kw-2">&amp;mut </span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;usize, error::Unspecified&gt; {
         <span class="kw">use </span>winapi::shared::wtypesbase::ULONG;
 
@@ -729,7 +729,7 @@
     }
 }
 
-<span class="attribute">#[cfg(any(
+<span class="attr">#[cfg(any(
     target_os = <span class="string">&quot;android&quot;</span>,
     target_os = <span class="string">&quot;linux&quot;</span>,
     target_arch = <span class="string">&quot;wasm32&quot;</span>,
@@ -750,7 +750,7 @@
 }
 
 <span class="comment">// Keep the `cfg` conditions in sync with the conditions in lib.rs.
-</span><span class="attribute">#[cfg(all(
+</span><span class="attr">#[cfg(all(
     any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>),
     feature = <span class="string">&quot;dev_urandom_fallback&quot;
 </span>))]
@@ -762,7 +762,7 @@
         DevURandom,
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>fill(dest: <span class="kw-2">&amp;mut </span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;(), error::Unspecified&gt; {
         <span class="kw">use </span>once_cell::sync::Lazy;
         <span class="kw">static </span>MECHANISM: Lazy&lt;Mechanism&gt; = Lazy::new(|| {
@@ -781,7 +781,7 @@
     }
 }
 
-<span class="attribute">#[cfg(any(
+<span class="attr">#[cfg(any(
     all(
         any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>),
         feature = <span class="string">&quot;dev_urandom_fallback&quot;
@@ -796,7 +796,7 @@
 </span><span class="kw">mod </span>urandom {
     <span class="kw">use </span><span class="kw">crate</span>::error;
 
-    <span class="attribute">#[cfg_attr(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>), cold, inline(never))]
+    <span class="attr">#[cfg_attr(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>), cold, inline(never))]
     </span><span class="kw">pub fn </span>fill(dest: <span class="kw-2">&amp;mut </span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;(), error::Unspecified&gt; {
         <span class="kw">extern crate </span>std;
 
@@ -815,7 +815,7 @@
     }
 }
 
-<span class="attribute">#[cfg(any(target_os = <span class="string">&quot;macos&quot;</span>, target_os = <span class="string">&quot;ios&quot;</span>))]
+<span class="attr">#[cfg(any(target_os = <span class="string">&quot;macos&quot;</span>, target_os = <span class="string">&quot;ios&quot;</span>))]
 </span><span class="kw">mod </span>darwin {
     <span class="kw">use crate</span>::{c, error};
 
@@ -831,15 +831,15 @@
     // this when
     // https://github.com/rust-lang/rfcs/pull/1861#issuecomment-274613536 is
     // resolved.
-    </span><span class="attribute">#[repr(C)]
+    </span><span class="attr">#[repr(C)]
     </span><span class="kw">struct </span>SecRandomRef([u8; <span class="number">0</span>]);
 
-    <span class="attribute">#[link(name = <span class="string">&quot;Security&quot;</span>, kind = <span class="string">&quot;framework&quot;</span>)]
+    <span class="attr">#[link(name = <span class="string">&quot;Security&quot;</span>, kind = <span class="string">&quot;framework&quot;</span>)]
     </span><span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
         <span class="kw">static </span>kSecRandomDefault: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>SecRandomRef;
 
         <span class="comment">// For now `rnd` must be `kSecRandomDefault`.
-        </span><span class="attribute">#[must_use]
+        </span><span class="attr">#[must_use]
         </span><span class="kw">fn </span>SecRandomCopyBytes(
             rnd: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>SecRandomRef,
             count: c::size_t,
@@ -848,7 +848,7 @@
     }
 }
 
-<span class="attribute">#[cfg(any(target_os = <span class="string">&quot;fuchsia&quot;</span>))]
+<span class="attr">#[cfg(any(target_os = <span class="string">&quot;fuchsia&quot;</span>))]
 </span><span class="kw">mod </span>fuchsia {
     <span class="kw">use </span><span class="kw">crate</span>::error;
 
@@ -859,10 +859,10 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="attribute">#[link(name = <span class="string">&quot;zircon&quot;</span>)]
+    <span class="attr">#[link(name = <span class="string">&quot;zircon&quot;</span>)]
     </span><span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
         <span class="kw">fn </span>zx_cprng_draw(buffer: <span class="kw-2">*mut </span>u8, length: usize);
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

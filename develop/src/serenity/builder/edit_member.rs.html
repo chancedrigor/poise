@@ -138,7 +138,7 @@
 ///
 /// [`Member`]: crate::model::guild::Member
 /// [`Member::edit`]: crate::model::guild::Member::edit
-</span><span class="attribute">#[derive(Clone, Debug, Default)]
+</span><span class="attr">#[derive(Clone, Debug, Default)]
 </span><span class="kw">pub struct </span>EditMember(<span class="kw">pub </span>HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str, Value&gt;);
 
 <span class="kw">impl </span>EditMember {
@@ -194,7 +194,7 @@
     /// Requires the [Move Members] permission.
     ///
     /// [Move Members]: crate::model::permissions::Permissions::MOVE_MEMBERS
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>voice_channel&lt;C: Into&lt;ChannelId&gt;&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, channel_id: C) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>._voice_channel(channel_id.into());
 
@@ -225,7 +225,7 @@
     /// Requires the [Moderate Members] permission.
     ///
     /// [Moderate Members]: crate::model::permissions::Permissions::MODERATE_MEMBERS
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;timeout&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;timeout&quot;</span>)]
     </span><span class="kw">pub fn </span>disable_communication_until(<span class="kw-2">&amp;mut </span><span class="self">self</span>, time: String) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;communication_disabled_until&quot;</span>, Value::from(time));
         <span class="self">self
@@ -237,7 +237,7 @@
     /// Requires the [Moderate Members] permission.
     ///
     /// [Moderate Members]: crate::model::permissions::Permissions::MODERATE_MEMBERS
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;timeout&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;timeout&quot;</span>)]
     </span><span class="kw">pub fn </span>disable_communication_until_datetime(<span class="kw-2">&amp;mut </span><span class="self">self</span>, time: Timestamp) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;communication_disabled_until&quot;</span>, Value::from(time.to_string()));
         <span class="self">self
@@ -248,11 +248,11 @@
     /// Requires the [Moderate Members] permission.
     ///
     /// [Moderate Members]: crate::model::permissions::Permissions::MODERATE_MEMBERS
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;timeout&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;timeout&quot;</span>)]
     </span><span class="kw">pub fn </span>enable_communication(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;communication_disabled_until&quot;</span>, NULL);
         <span class="self">self
     </span>}
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

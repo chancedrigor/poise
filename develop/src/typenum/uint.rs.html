@@ -2645,13 +2645,13 @@
 
 <span class="doccomment">/// The terminating type for `UInt`; it always comes after the most significant
 /// bit. `UTerm` by itself represents zero, which is aliased to `U0`.
-</span><span class="attribute">#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug, Default)]
+</span><span class="attr">#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug, Default)]
 #[cfg_attr(feature = <span class="string">&quot;scale_info&quot;</span>, derive(scale_info::TypeInfo))]
 </span><span class="kw">pub struct </span>UTerm;
 
 <span class="kw">impl </span>UTerm {
     <span class="doccomment">/// Instantiates a singleton representing this unsigned integer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new() -&gt; UTerm {
         UTerm
     }
@@ -2662,7 +2662,7 @@
     <span class="kw">const </span>U16: u16 = <span class="number">0</span>;
     <span class="kw">const </span>U32: u32 = <span class="number">0</span>;
     <span class="kw">const </span>U64: u64 = <span class="number">0</span>;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
     </span><span class="kw">const </span>U128: u128 = <span class="number">0</span>;
     <span class="kw">const </span>USIZE: usize = <span class="number">0</span>;
 
@@ -2670,58 +2670,58 @@
     <span class="kw">const </span>I16: i16 = <span class="number">0</span>;
     <span class="kw">const </span>I32: i32 = <span class="number">0</span>;
     <span class="kw">const </span>I64: i64 = <span class="number">0</span>;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
     </span><span class="kw">const </span>I128: i128 = <span class="number">0</span>;
     <span class="kw">const </span>ISIZE: isize = <span class="number">0</span>;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_u8() -&gt; u8 {
         <span class="number">0
     </span>}
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_u16() -&gt; u16 {
         <span class="number">0
     </span>}
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_u32() -&gt; u32 {
         <span class="number">0
     </span>}
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_u64() -&gt; u64 {
         <span class="number">0
     </span>}
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
     #[inline]
     </span><span class="kw">fn </span>to_u128() -&gt; u128 {
         <span class="number">0
     </span>}
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_usize() -&gt; usize {
         <span class="number">0
     </span>}
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_i8() -&gt; i8 {
         <span class="number">0
     </span>}
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_i16() -&gt; i16 {
         <span class="number">0
     </span>}
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_i32() -&gt; i32 {
         <span class="number">0
     </span>}
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_i64() -&gt; i64 {
         <span class="number">0
     </span>}
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
     #[inline]
     </span><span class="kw">fn </span>to_i128() -&gt; i128 {
         <span class="number">0
     </span>}
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_isize() -&gt; isize {
         <span class="number">0
     </span>}
@@ -2743,7 +2743,7 @@
 /// # #[allow(dead_code)]
 /// type U6 = UInt&lt;UInt&lt;UInt&lt;UTerm, B1&gt;, B1&gt;, B0&gt;;
 /// ```
-</span><span class="attribute">#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug, Default)]
+</span><span class="attr">#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug, Default)]
 #[cfg_attr(feature = <span class="string">&quot;scale_info&quot;</span>, derive(scale_info::TypeInfo))]
 </span><span class="kw">pub struct </span>UInt&lt;U, B&gt; {
     <span class="doccomment">/// The more significant bits of `Self`.
@@ -2754,7 +2754,7 @@
 
 <span class="kw">impl</span>&lt;U: Unsigned, B: Bit&gt; UInt&lt;U, B&gt; {
     <span class="doccomment">/// Instantiates a singleton representing this unsigned integer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new() -&gt; UInt&lt;U, B&gt; {
         UInt::default()
     }
@@ -2765,7 +2765,7 @@
     <span class="kw">const </span>U16: u16 = B::U8 <span class="kw">as </span>u16 | U::U16 &lt;&lt; <span class="number">1</span>;
     <span class="kw">const </span>U32: u32 = B::U8 <span class="kw">as </span>u32 | U::U32 &lt;&lt; <span class="number">1</span>;
     <span class="kw">const </span>U64: u64 = B::U8 <span class="kw">as </span>u64 | U::U64 &lt;&lt; <span class="number">1</span>;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
     </span><span class="kw">const </span>U128: u128 = B::U8 <span class="kw">as </span>u128 | U::U128 &lt;&lt; <span class="number">1</span>;
     <span class="kw">const </span>USIZE: usize = B::U8 <span class="kw">as </span>usize | U::USIZE &lt;&lt; <span class="number">1</span>;
 
@@ -2773,58 +2773,58 @@
     <span class="kw">const </span>I16: i16 = B::U8 <span class="kw">as </span>i16 | U::I16 &lt;&lt; <span class="number">1</span>;
     <span class="kw">const </span>I32: i32 = B::U8 <span class="kw">as </span>i32 | U::I32 &lt;&lt; <span class="number">1</span>;
     <span class="kw">const </span>I64: i64 = B::U8 <span class="kw">as </span>i64 | U::I64 &lt;&lt; <span class="number">1</span>;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
     </span><span class="kw">const </span>I128: i128 = B::U8 <span class="kw">as </span>i128 | U::I128 &lt;&lt; <span class="number">1</span>;
     <span class="kw">const </span>ISIZE: isize = B::U8 <span class="kw">as </span>isize | U::ISIZE &lt;&lt; <span class="number">1</span>;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_u8() -&gt; u8 {
         B::to_u8() | U::to_u8() &lt;&lt; <span class="number">1
     </span>}
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_u16() -&gt; u16 {
         u16::from(B::to_u8()) | U::to_u16() &lt;&lt; <span class="number">1
     </span>}
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_u32() -&gt; u32 {
         u32::from(B::to_u8()) | U::to_u32() &lt;&lt; <span class="number">1
     </span>}
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_u64() -&gt; u64 {
         u64::from(B::to_u8()) | U::to_u64() &lt;&lt; <span class="number">1
     </span>}
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
     #[inline]
     </span><span class="kw">fn </span>to_u128() -&gt; u128 {
         u128::from(B::to_u8()) | U::to_u128() &lt;&lt; <span class="number">1
     </span>}
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_usize() -&gt; usize {
         usize::from(B::to_u8()) | U::to_usize() &lt;&lt; <span class="number">1
     </span>}
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_i8() -&gt; i8 {
         B::to_u8() <span class="kw">as </span>i8 | U::to_i8() &lt;&lt; <span class="number">1
     </span>}
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_i16() -&gt; i16 {
         i16::from(B::to_u8()) | U::to_i16() &lt;&lt; <span class="number">1
     </span>}
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_i32() -&gt; i32 {
         i32::from(B::to_u8()) | U::to_i32() &lt;&lt; <span class="number">1
     </span>}
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_i64() -&gt; i64 {
         i64::from(B::to_u8()) | U::to_i64() &lt;&lt; <span class="number">1
     </span>}
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
     #[inline]
     </span><span class="kw">fn </span>to_i128() -&gt; i128 {
         i128::from(B::to_u8()) | U::to_i128() &lt;&lt; <span class="number">1
     </span>}
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_isize() -&gt; isize {
         B::to_u8() <span class="kw">as </span>isize | U::to_isize() &lt;&lt; <span class="number">1
     </span>}
@@ -2842,7 +2842,7 @@
 </span><span class="doccomment">/// Length of `UTerm` by itself is 0
 </span><span class="kw">impl </span>Len <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = U0;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -2856,7 +2856,7 @@
     Add1&lt;Length&lt;U&gt;&gt;: Unsigned,
 {
     <span class="kw">type </span>Output = Add1&lt;Length&lt;U&gt;&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.msb.len() + B1
     }
@@ -2868,7 +2868,7 @@
 </span><span class="doccomment">/// `UTerm + B0 = UTerm`
 </span><span class="kw">impl </span>Add&lt;B0&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = UTerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>add(<span class="self">self</span>, <span class="kw">_</span>: B0) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -2877,7 +2877,7 @@
 <span class="doccomment">/// `U + B0 = U`
 </span><span class="kw">impl</span>&lt;U: Unsigned, B: Bit&gt; Add&lt;B0&gt; <span class="kw">for </span>UInt&lt;U, B&gt; {
     <span class="kw">type </span>Output = UInt&lt;U, B&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>add(<span class="self">self</span>, <span class="kw">_</span>: B0) -&gt; <span class="self">Self</span>::Output {
         UInt::new()
     }
@@ -2886,7 +2886,7 @@
 <span class="doccomment">/// `UTerm + B1 = UInt&lt;UTerm, B1&gt;`
 </span><span class="kw">impl </span>Add&lt;B1&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = UInt&lt;UTerm, B1&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>add(<span class="self">self</span>, <span class="kw">_</span>: B1) -&gt; <span class="self">Self</span>::Output {
         UInt::new()
     }
@@ -2895,7 +2895,7 @@
 <span class="doccomment">/// `UInt&lt;U, B0&gt; + B1 = UInt&lt;U + B1&gt;`
 </span><span class="kw">impl</span>&lt;U: Unsigned&gt; Add&lt;B1&gt; <span class="kw">for </span>UInt&lt;U, B0&gt; {
     <span class="kw">type </span>Output = UInt&lt;U, B1&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>add(<span class="self">self</span>, <span class="kw">_</span>: B1) -&gt; <span class="self">Self</span>::Output {
         UInt::new()
     }
@@ -2908,7 +2908,7 @@
     Add1&lt;U&gt;: Unsigned,
 {
     <span class="kw">type </span>Output = UInt&lt;Add1&lt;U&gt;, B0&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>add(<span class="self">self</span>, <span class="kw">_</span>: B1) -&gt; <span class="self">Self</span>::Output {
         UInt::new()
     }
@@ -2920,7 +2920,7 @@
 </span><span class="doccomment">/// `UTerm + U = U`
 </span><span class="kw">impl</span>&lt;U: Unsigned&gt; Add&lt;U&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = U;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>add(<span class="self">self</span>, rhs: U) -&gt; <span class="self">Self</span>::Output {
         rhs
     }
@@ -2929,7 +2929,7 @@
 <span class="doccomment">/// `UInt&lt;U, B&gt; + UTerm = UInt&lt;U, B&gt;`
 </span><span class="kw">impl</span>&lt;U: Unsigned, B: Bit&gt; Add&lt;UTerm&gt; <span class="kw">for </span>UInt&lt;U, B&gt; {
     <span class="kw">type </span>Output = UInt&lt;U, B&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>add(<span class="self">self</span>, <span class="kw">_</span>: UTerm) -&gt; <span class="self">Self</span>::Output {
         UInt::new()
     }
@@ -2941,7 +2941,7 @@
     </span>Ul: Add&lt;Ur&gt;,
 {
     <span class="kw">type </span>Output = UInt&lt;Sum&lt;Ul, Ur&gt;, B0&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>add(<span class="self">self</span>, rhs: UInt&lt;Ur, B0&gt;) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb + rhs.msb,
@@ -2956,7 +2956,7 @@
     </span>Ul: Add&lt;Ur&gt;,
 {
     <span class="kw">type </span>Output = UInt&lt;Sum&lt;Ul, Ur&gt;, B1&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>add(<span class="self">self</span>, rhs: UInt&lt;Ur, B1&gt;) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb + rhs.msb,
@@ -2971,7 +2971,7 @@
     </span>Ul: Add&lt;Ur&gt;,
 {
     <span class="kw">type </span>Output = UInt&lt;Sum&lt;Ul, Ur&gt;, B1&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>add(<span class="self">self</span>, rhs: UInt&lt;Ur, B0&gt;) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb + rhs.msb,
@@ -2987,7 +2987,7 @@
     Sum&lt;Ul, Ur&gt;: Add&lt;B1&gt;,
 {
     <span class="kw">type </span>Output = UInt&lt;Add1&lt;Sum&lt;Ul, Ur&gt;&gt;, B0&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>add(<span class="self">self</span>, rhs: UInt&lt;Ur, B1&gt;) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb + rhs.msb + B1,
@@ -3002,7 +3002,7 @@
 </span><span class="doccomment">/// `UTerm - B0 = Term`
 </span><span class="kw">impl </span>Sub&lt;B0&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = UTerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sub(<span class="self">self</span>, <span class="kw">_</span>: B0) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -3011,7 +3011,7 @@
 <span class="doccomment">/// `UInt - B0 = UInt`
 </span><span class="kw">impl</span>&lt;U: Unsigned, B: Bit&gt; Sub&lt;B0&gt; <span class="kw">for </span>UInt&lt;U, B&gt; {
     <span class="kw">type </span>Output = UInt&lt;U, B&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sub(<span class="self">self</span>, <span class="kw">_</span>: B0) -&gt; <span class="self">Self</span>::Output {
         UInt::new()
     }
@@ -3020,7 +3020,7 @@
 <span class="doccomment">/// `UInt&lt;U, B1&gt; - B1 = UInt&lt;U, B0&gt;`
 </span><span class="kw">impl</span>&lt;U: Unsigned, B: Bit&gt; Sub&lt;B1&gt; <span class="kw">for </span>UInt&lt;UInt&lt;U, B&gt;, B1&gt; {
     <span class="kw">type </span>Output = UInt&lt;UInt&lt;U, B&gt;, B0&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sub(<span class="self">self</span>, <span class="kw">_</span>: B1) -&gt; <span class="self">Self</span>::Output {
         UInt::new()
     }
@@ -3029,7 +3029,7 @@
 <span class="doccomment">/// `UInt&lt;UTerm, B1&gt; - B1 = UTerm`
 </span><span class="kw">impl </span>Sub&lt;B1&gt; <span class="kw">for </span>UInt&lt;UTerm, B1&gt; {
     <span class="kw">type </span>Output = UTerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sub(<span class="self">self</span>, <span class="kw">_</span>: B1) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -3042,7 +3042,7 @@
     Sub1&lt;U&gt;: Unsigned,
 {
     <span class="kw">type </span>Output = UInt&lt;Sub1&lt;U&gt;, B1&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sub(<span class="self">self</span>, <span class="kw">_</span>: B1) -&gt; <span class="self">Self</span>::Output {
         UInt::new()
     }
@@ -3054,7 +3054,7 @@
 </span><span class="doccomment">/// `UTerm - UTerm = UTerm`
 </span><span class="kw">impl </span>Sub&lt;UTerm&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = UTerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sub(<span class="self">self</span>, <span class="kw">_</span>: UTerm) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -3067,7 +3067,7 @@
     PrivateSubOut&lt;UInt&lt;Ul, Bl&gt;, Ur&gt;: Trim,
 {
     <span class="kw">type </span>Output = TrimOut&lt;PrivateSubOut&lt;UInt&lt;Ul, Bl&gt;, Ur&gt;&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sub(<span class="self">self</span>, rhs: Ur) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.private_sub(rhs).trim()
     }
@@ -3077,7 +3077,7 @@
 </span><span class="kw">impl</span>&lt;U: Unsigned&gt; PrivateSub&lt;UTerm&gt; <span class="kw">for </span>U {
     <span class="kw">type </span>Output = U;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_sub(<span class="self">self</span>, <span class="kw">_</span>: UTerm) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self
     </span>}
@@ -3090,7 +3090,7 @@
 {
     <span class="kw">type </span>Output = UInt&lt;PrivateSubOut&lt;Ul, Ur&gt;, B0&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_sub(<span class="self">self</span>, rhs: UInt&lt;Ur, B0&gt;) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb.private_sub(rhs.msb),
@@ -3107,7 +3107,7 @@
 {
     <span class="kw">type </span>Output = UInt&lt;Sub1&lt;PrivateSubOut&lt;Ul, Ur&gt;&gt;, B1&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_sub(<span class="self">self</span>, rhs: UInt&lt;Ur, B1&gt;) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb.private_sub(rhs.msb) - B1,
@@ -3123,7 +3123,7 @@
 {
     <span class="kw">type </span>Output = UInt&lt;PrivateSubOut&lt;Ul, Ur&gt;, B1&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_sub(<span class="self">self</span>, rhs: UInt&lt;Ur, B0&gt;) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb.private_sub(rhs.msb),
@@ -3139,7 +3139,7 @@
 {
     <span class="kw">type </span>Output = UInt&lt;PrivateSubOut&lt;Ul, Ur&gt;, B0&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_sub(<span class="self">self</span>, rhs: UInt&lt;Ur, B1&gt;) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb.private_sub(rhs.msb),
@@ -3154,7 +3154,7 @@
 </span><span class="doccomment">/// 0 &amp; X = 0
 </span><span class="kw">impl</span>&lt;Ur: Unsigned&gt; BitAnd&lt;Ur&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = UTerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>bitand(<span class="self">self</span>, <span class="kw">_</span>: Ur) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -3168,7 +3168,7 @@
     PrivateAndOut&lt;UInt&lt;Ul, Bl&gt;, Ur&gt;: Trim,
 {
     <span class="kw">type </span>Output = TrimOut&lt;PrivateAndOut&lt;UInt&lt;Ul, Bl&gt;, Ur&gt;&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>bitand(<span class="self">self</span>, rhs: Ur) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.private_and(rhs).trim()
     }
@@ -3178,7 +3178,7 @@
 </span><span class="kw">impl</span>&lt;U: Unsigned&gt; PrivateAnd&lt;U&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = UTerm;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_and(<span class="self">self</span>, <span class="kw">_</span>: U) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -3188,7 +3188,7 @@
 </span><span class="kw">impl</span>&lt;B: Bit, U: Unsigned&gt; PrivateAnd&lt;UTerm&gt; <span class="kw">for </span>UInt&lt;U, B&gt; {
     <span class="kw">type </span>Output = UTerm;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_and(<span class="self">self</span>, <span class="kw">_</span>: UTerm) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -3201,7 +3201,7 @@
 {
     <span class="kw">type </span>Output = UInt&lt;PrivateAndOut&lt;Ul, Ur&gt;, B0&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_and(<span class="self">self</span>, rhs: UInt&lt;Ur, B0&gt;) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb.private_and(rhs.msb),
@@ -3217,7 +3217,7 @@
 {
     <span class="kw">type </span>Output = UInt&lt;PrivateAndOut&lt;Ul, Ur&gt;, B0&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_and(<span class="self">self</span>, rhs: UInt&lt;Ur, B1&gt;) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb.private_and(rhs.msb),
@@ -3233,7 +3233,7 @@
 {
     <span class="kw">type </span>Output = UInt&lt;PrivateAndOut&lt;Ul, Ur&gt;, B0&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_and(<span class="self">self</span>, rhs: UInt&lt;Ur, B0&gt;) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb.private_and(rhs.msb),
@@ -3249,7 +3249,7 @@
 {
     <span class="kw">type </span>Output = UInt&lt;PrivateAndOut&lt;Ul, Ur&gt;, B1&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_and(<span class="self">self</span>, rhs: UInt&lt;Ur, B1&gt;) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb.private_and(rhs.msb),
@@ -3264,7 +3264,7 @@
 </span><span class="doccomment">/// `UTerm | X = X`
 </span><span class="kw">impl</span>&lt;U: Unsigned&gt; BitOr&lt;U&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = U;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>bitor(<span class="self">self</span>, rhs: U) -&gt; <span class="self">Self</span>::Output {
         rhs
     }
@@ -3273,7 +3273,7 @@
 <span class="doccomment">///  `X | UTerm = X`
 </span><span class="kw">impl</span>&lt;B: Bit, U: Unsigned&gt; BitOr&lt;UTerm&gt; <span class="kw">for </span>UInt&lt;U, B&gt; {
     <span class="kw">type </span>Output = <span class="self">Self</span>;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>bitor(<span class="self">self</span>, <span class="kw">_</span>: UTerm) -&gt; <span class="self">Self</span>::Output {
         UInt::new()
     }
@@ -3285,7 +3285,7 @@
     </span>Ul: BitOr&lt;Ur&gt;,
 {
     <span class="kw">type </span>Output = UInt&lt;&lt;Ul <span class="kw">as </span>BitOr&lt;Ur&gt;&gt;::Output, B0&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>bitor(<span class="self">self</span>, rhs: UInt&lt;Ur, B0&gt;) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb.bitor(rhs.msb),
@@ -3300,7 +3300,7 @@
     </span>Ul: BitOr&lt;Ur&gt;,
 {
     <span class="kw">type </span>Output = UInt&lt;Or&lt;Ul, Ur&gt;, B1&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>bitor(<span class="self">self</span>, rhs: UInt&lt;Ur, B1&gt;) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb.bitor(rhs.msb),
@@ -3315,7 +3315,7 @@
     </span>Ul: BitOr&lt;Ur&gt;,
 {
     <span class="kw">type </span>Output = UInt&lt;Or&lt;Ul, Ur&gt;, B1&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>bitor(<span class="self">self</span>, rhs: UInt&lt;Ur, B0&gt;) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb.bitor(rhs.msb),
@@ -3330,7 +3330,7 @@
     </span>Ul: BitOr&lt;Ur&gt;,
 {
     <span class="kw">type </span>Output = UInt&lt;Or&lt;Ul, Ur&gt;, B1&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>bitor(<span class="self">self</span>, rhs: UInt&lt;Ur, B1&gt;) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb.bitor(rhs.msb),
@@ -3345,7 +3345,7 @@
 </span><span class="doccomment">/// 0 ^ X = X
 </span><span class="kw">impl</span>&lt;Ur: Unsigned&gt; BitXor&lt;Ur&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = Ur;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>bitxor(<span class="self">self</span>, rhs: Ur) -&gt; <span class="self">Self</span>::Output {
         rhs
     }
@@ -3359,7 +3359,7 @@
     PrivateXorOut&lt;UInt&lt;Ul, Bl&gt;, Ur&gt;: Trim,
 {
     <span class="kw">type </span>Output = TrimOut&lt;PrivateXorOut&lt;UInt&lt;Ul, Bl&gt;, Ur&gt;&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>bitxor(<span class="self">self</span>, rhs: Ur) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.private_xor(rhs).trim()
     }
@@ -3369,7 +3369,7 @@
 </span><span class="kw">impl</span>&lt;U: Unsigned&gt; PrivateXor&lt;U&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = U;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_xor(<span class="self">self</span>, rhs: U) -&gt; <span class="self">Self</span>::Output {
         rhs
     }
@@ -3379,7 +3379,7 @@
 </span><span class="kw">impl</span>&lt;B: Bit, U: Unsigned&gt; PrivateXor&lt;UTerm&gt; <span class="kw">for </span>UInt&lt;U, B&gt; {
     <span class="kw">type </span>Output = <span class="self">Self</span>;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_xor(<span class="self">self</span>, <span class="kw">_</span>: UTerm) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self
     </span>}
@@ -3392,7 +3392,7 @@
 {
     <span class="kw">type </span>Output = UInt&lt;PrivateXorOut&lt;Ul, Ur&gt;, B0&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_xor(<span class="self">self</span>, rhs: UInt&lt;Ur, B0&gt;) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb.private_xor(rhs.msb),
@@ -3408,7 +3408,7 @@
 {
     <span class="kw">type </span>Output = UInt&lt;PrivateXorOut&lt;Ul, Ur&gt;, B1&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_xor(<span class="self">self</span>, rhs: UInt&lt;Ur, B1&gt;) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb.private_xor(rhs.msb),
@@ -3424,7 +3424,7 @@
 {
     <span class="kw">type </span>Output = UInt&lt;PrivateXorOut&lt;Ul, Ur&gt;, B1&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_xor(<span class="self">self</span>, rhs: UInt&lt;Ur, B0&gt;) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb.private_xor(rhs.msb),
@@ -3440,7 +3440,7 @@
 {
     <span class="kw">type </span>Output = UInt&lt;PrivateXorOut&lt;Ul, Ur&gt;, B0&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_xor(<span class="self">self</span>, rhs: UInt&lt;Ur, B1&gt;) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb.private_xor(rhs.msb),
@@ -3455,7 +3455,7 @@
 </span><span class="doccomment">/// Shifting `UTerm` by a 0 bit: `UTerm &lt;&lt; B0 = UTerm`
 </span><span class="kw">impl </span>Shl&lt;B0&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = UTerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>shl(<span class="self">self</span>, <span class="kw">_</span>: B0) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -3464,7 +3464,7 @@
 <span class="doccomment">/// Shifting `UTerm` by a 1 bit: `UTerm &lt;&lt; B1 = UTerm`
 </span><span class="kw">impl </span>Shl&lt;B1&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = UTerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>shl(<span class="self">self</span>, <span class="kw">_</span>: B1) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -3473,7 +3473,7 @@
 <span class="doccomment">/// Shifting left any unsigned by a zero bit: `U &lt;&lt; B0 = U`
 </span><span class="kw">impl</span>&lt;U: Unsigned, B: Bit&gt; Shl&lt;B0&gt; <span class="kw">for </span>UInt&lt;U, B&gt; {
     <span class="kw">type </span>Output = UInt&lt;U, B&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>shl(<span class="self">self</span>, <span class="kw">_</span>: B0) -&gt; <span class="self">Self</span>::Output {
         UInt::new()
     }
@@ -3482,7 +3482,7 @@
 <span class="doccomment">/// Shifting left a `UInt` by a one bit: `UInt&lt;U, B&gt; &lt;&lt; B1 = UInt&lt;UInt&lt;U, B&gt;, B0&gt;`
 </span><span class="kw">impl</span>&lt;U: Unsigned, B: Bit&gt; Shl&lt;B1&gt; <span class="kw">for </span>UInt&lt;U, B&gt; {
     <span class="kw">type </span>Output = UInt&lt;UInt&lt;U, B&gt;, B0&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>shl(<span class="self">self</span>, <span class="kw">_</span>: B1) -&gt; <span class="self">Self</span>::Output {
         UInt::new()
     }
@@ -3491,7 +3491,7 @@
 <span class="doccomment">/// Shifting left `UInt` by `UTerm`: `UInt&lt;U, B&gt; &lt;&lt; UTerm = UInt&lt;U, B&gt;`
 </span><span class="kw">impl</span>&lt;U: Unsigned, B: Bit&gt; Shl&lt;UTerm&gt; <span class="kw">for </span>UInt&lt;U, B&gt; {
     <span class="kw">type </span>Output = UInt&lt;U, B&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>shl(<span class="self">self</span>, <span class="kw">_</span>: UTerm) -&gt; <span class="self">Self</span>::Output {
         UInt::new()
     }
@@ -3500,7 +3500,7 @@
 <span class="doccomment">/// Shifting left `UTerm` by an unsigned integer: `UTerm &lt;&lt; U = UTerm`
 </span><span class="kw">impl</span>&lt;U: Unsigned&gt; Shl&lt;U&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = UTerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>shl(<span class="self">self</span>, <span class="kw">_</span>: U) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -3513,7 +3513,7 @@
     UInt&lt;UInt&lt;U, B&gt;, B0&gt;: Shl&lt;Sub1&lt;UInt&lt;Ur, Br&gt;&gt;&gt;,
 {
     <span class="kw">type </span>Output = Shleft&lt;UInt&lt;UInt&lt;U, B&gt;, B0&gt;, Sub1&lt;UInt&lt;Ur, Br&gt;&gt;&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>shl(<span class="self">self</span>, rhs: UInt&lt;Ur, Br&gt;) -&gt; <span class="self">Self</span>::Output {
         (UInt { msb: <span class="self">self</span>, lsb: B0 }).shl(rhs - B1)
     }
@@ -3525,7 +3525,7 @@
 </span><span class="doccomment">/// Shifting right a `UTerm` by an unsigned integer: `UTerm &gt;&gt; U = UTerm`
 </span><span class="kw">impl</span>&lt;U: Unsigned&gt; Shr&lt;U&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = UTerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>shr(<span class="self">self</span>, <span class="kw">_</span>: U) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -3534,7 +3534,7 @@
 <span class="doccomment">/// Shifting right `UInt` by `UTerm`: `UInt&lt;U, B&gt; &gt;&gt; UTerm = UInt&lt;U, B&gt;`
 </span><span class="kw">impl</span>&lt;U: Unsigned, B: Bit&gt; Shr&lt;UTerm&gt; <span class="kw">for </span>UInt&lt;U, B&gt; {
     <span class="kw">type </span>Output = UInt&lt;U, B&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>shr(<span class="self">self</span>, <span class="kw">_</span>: UTerm) -&gt; <span class="self">Self</span>::Output {
         UInt::new()
     }
@@ -3543,7 +3543,7 @@
 <span class="doccomment">/// Shifting right `UTerm` by a 0 bit: `UTerm &gt;&gt; B0 = UTerm`
 </span><span class="kw">impl </span>Shr&lt;B0&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = UTerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>shr(<span class="self">self</span>, <span class="kw">_</span>: B0) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -3552,7 +3552,7 @@
 <span class="doccomment">/// Shifting right `UTerm` by a 1 bit: `UTerm &gt;&gt; B1 = UTerm`
 </span><span class="kw">impl </span>Shr&lt;B1&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = UTerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>shr(<span class="self">self</span>, <span class="kw">_</span>: B1) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -3561,7 +3561,7 @@
 <span class="doccomment">/// Shifting right any unsigned by a zero bit: `U &gt;&gt; B0 = U`
 </span><span class="kw">impl</span>&lt;U: Unsigned, B: Bit&gt; Shr&lt;B0&gt; <span class="kw">for </span>UInt&lt;U, B&gt; {
     <span class="kw">type </span>Output = UInt&lt;U, B&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>shr(<span class="self">self</span>, <span class="kw">_</span>: B0) -&gt; <span class="self">Self</span>::Output {
         UInt::new()
     }
@@ -3570,7 +3570,7 @@
 <span class="doccomment">/// Shifting right a `UInt` by a 1 bit: `UInt&lt;U, B&gt; &gt;&gt; B1 = U`
 </span><span class="kw">impl</span>&lt;U: Unsigned, B: Bit&gt; Shr&lt;B1&gt; <span class="kw">for </span>UInt&lt;U, B&gt; {
     <span class="kw">type </span>Output = U;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>shr(<span class="self">self</span>, <span class="kw">_</span>: B1) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.msb
     }
@@ -3583,7 +3583,7 @@
     U: Shr&lt;Sub1&lt;UInt&lt;Ur, Br&gt;&gt;&gt;,
 {
     <span class="kw">type </span>Output = Shright&lt;U, Sub1&lt;UInt&lt;Ur, Br&gt;&gt;&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>shr(<span class="self">self</span>, rhs: UInt&lt;Ur, Br&gt;) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.msb.shr(rhs - B1)
     }
@@ -3595,7 +3595,7 @@
 </span><span class="doccomment">/// `UInt * B0 = UTerm`
 </span><span class="kw">impl</span>&lt;U: Unsigned, B: Bit&gt; Mul&lt;B0&gt; <span class="kw">for </span>UInt&lt;U, B&gt; {
     <span class="kw">type </span>Output = UTerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>mul(<span class="self">self</span>, <span class="kw">_</span>: B0) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -3604,7 +3604,7 @@
 <span class="doccomment">/// `UTerm * B0 = UTerm`
 </span><span class="kw">impl </span>Mul&lt;B0&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = UTerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>mul(<span class="self">self</span>, <span class="kw">_</span>: B0) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -3613,7 +3613,7 @@
 <span class="doccomment">/// `UTerm * B1 = UTerm`
 </span><span class="kw">impl </span>Mul&lt;B1&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = UTerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>mul(<span class="self">self</span>, <span class="kw">_</span>: B1) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -3622,7 +3622,7 @@
 <span class="doccomment">/// `UInt * B1 = UInt`
 </span><span class="kw">impl</span>&lt;U: Unsigned, B: Bit&gt; Mul&lt;B1&gt; <span class="kw">for </span>UInt&lt;U, B&gt; {
     <span class="kw">type </span>Output = UInt&lt;U, B&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>mul(<span class="self">self</span>, <span class="kw">_</span>: B1) -&gt; <span class="self">Self</span>::Output {
         UInt::new()
     }
@@ -3631,7 +3631,7 @@
 <span class="doccomment">/// `UInt&lt;U, B&gt; * UTerm = UTerm`
 </span><span class="kw">impl</span>&lt;U: Unsigned, B: Bit&gt; Mul&lt;UTerm&gt; <span class="kw">for </span>UInt&lt;U, B&gt; {
     <span class="kw">type </span>Output = UTerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>mul(<span class="self">self</span>, <span class="kw">_</span>: UTerm) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -3640,7 +3640,7 @@
 <span class="doccomment">/// `UTerm * U = UTerm`
 </span><span class="kw">impl</span>&lt;U: Unsigned&gt; Mul&lt;U&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = UTerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>mul(<span class="self">self</span>, <span class="kw">_</span>: U) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -3652,7 +3652,7 @@
     </span>Ul: Mul&lt;UInt&lt;Ur, B&gt;&gt;,
 {
     <span class="kw">type </span>Output = UInt&lt;Prod&lt;Ul, UInt&lt;Ur, B&gt;&gt;, B0&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>mul(<span class="self">self</span>, rhs: UInt&lt;Ur, B&gt;) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb * rhs,
@@ -3668,7 +3668,7 @@
     UInt&lt;Prod&lt;Ul, UInt&lt;Ur, B&gt;&gt;, B0&gt;: Add&lt;UInt&lt;Ur, B&gt;&gt;,
 {
     <span class="kw">type </span>Output = Sum&lt;UInt&lt;Prod&lt;Ul, UInt&lt;Ur, B&gt;&gt;, B0&gt;, UInt&lt;Ur, B&gt;&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>mul(<span class="self">self</span>, rhs: UInt&lt;Ur, B&gt;) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb * rhs,
@@ -3684,7 +3684,7 @@
 </span><span class="kw">impl </span>Cmp&lt;UTerm&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = Equal;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>compare&lt;IM: InternalMarker&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span>UTerm) -&gt; <span class="self">Self</span>::Output {
         Equal
     }
@@ -3694,7 +3694,7 @@
 </span><span class="kw">impl</span>&lt;U: Unsigned, B: Bit&gt; Cmp&lt;UTerm&gt; <span class="kw">for </span>UInt&lt;U, B&gt; {
     <span class="kw">type </span>Output = Greater;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>compare&lt;IM: InternalMarker&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span>UTerm) -&gt; <span class="self">Self</span>::Output {
         Greater
     }
@@ -3704,7 +3704,7 @@
 </span><span class="kw">impl</span>&lt;U: Unsigned, B: Bit&gt; Cmp&lt;UInt&lt;U, B&gt;&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = Less;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>compare&lt;IM: InternalMarker&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span>UInt&lt;U, B&gt;) -&gt; <span class="self">Self</span>::Output {
         Less
     }
@@ -3717,7 +3717,7 @@
 {
     <span class="kw">type </span>Output = PrivateCmpOut&lt;Ul, Ur, Equal&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>compare&lt;IM: InternalMarker&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, rhs: <span class="kw-2">&amp;</span>UInt&lt;Ur, B0&gt;) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.msb.private_cmp(<span class="kw-2">&amp;</span>rhs.msb, Equal)
     }
@@ -3730,7 +3730,7 @@
 {
     <span class="kw">type </span>Output = PrivateCmpOut&lt;Ul, Ur, Equal&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>compare&lt;IM: InternalMarker&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, rhs: <span class="kw-2">&amp;</span>UInt&lt;Ur, B1&gt;) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.msb.private_cmp(<span class="kw-2">&amp;</span>rhs.msb, Equal)
     }
@@ -3743,7 +3743,7 @@
 {
     <span class="kw">type </span>Output = PrivateCmpOut&lt;Ul, Ur, Less&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>compare&lt;IM: InternalMarker&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, rhs: <span class="kw-2">&amp;</span>UInt&lt;Ur, B1&gt;) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.msb.private_cmp(<span class="kw-2">&amp;</span>rhs.msb, Less)
     }
@@ -3756,7 +3756,7 @@
 {
     <span class="kw">type </span>Output = PrivateCmpOut&lt;Ul, Ur, Greater&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>compare&lt;IM: InternalMarker&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, rhs: <span class="kw-2">&amp;</span>UInt&lt;Ur, B0&gt;) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.msb.private_cmp(<span class="kw-2">&amp;</span>rhs.msb, Greater)
     }
@@ -3773,7 +3773,7 @@
 {
     <span class="kw">type </span>Output = PrivateCmpOut&lt;Ul, Ur, SoFar&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, rhs: <span class="kw-2">&amp;</span>UInt&lt;Ur, B0&gt;, so_far: SoFar) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.msb.private_cmp(<span class="kw-2">&amp;</span>rhs.msb, so_far)
     }
@@ -3790,7 +3790,7 @@
 {
     <span class="kw">type </span>Output = PrivateCmpOut&lt;Ul, Ur, SoFar&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, rhs: <span class="kw-2">&amp;</span>UInt&lt;Ur, B1&gt;, so_far: SoFar) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.msb.private_cmp(<span class="kw-2">&amp;</span>rhs.msb, so_far)
     }
@@ -3807,7 +3807,7 @@
 {
     <span class="kw">type </span>Output = PrivateCmpOut&lt;Ul, Ur, Less&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, rhs: <span class="kw-2">&amp;</span>UInt&lt;Ur, B1&gt;, <span class="kw">_</span>: SoFar) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.msb.private_cmp(<span class="kw-2">&amp;</span>rhs.msb, Less)
     }
@@ -3824,7 +3824,7 @@
 {
     <span class="kw">type </span>Output = PrivateCmpOut&lt;Ul, Ur, Greater&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, rhs: <span class="kw-2">&amp;</span>UInt&lt;Ur, B0&gt;, <span class="kw">_</span>: SoFar) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.msb.private_cmp(<span class="kw-2">&amp;</span>rhs.msb, Greater)
     }
@@ -3834,7 +3834,7 @@
 </span><span class="kw">impl</span>&lt;U: Unsigned, B: Bit, SoFar: Ord&gt; PrivateCmp&lt;UInt&lt;U, B&gt;, SoFar&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = Less;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span>UInt&lt;U, B&gt;, <span class="kw">_</span>: SoFar) -&gt; <span class="self">Self</span>::Output {
         Less
     }
@@ -3844,7 +3844,7 @@
 </span><span class="kw">impl</span>&lt;U: Unsigned, B: Bit, SoFar: Ord&gt; PrivateCmp&lt;UTerm, SoFar&gt; <span class="kw">for </span>UInt&lt;U, B&gt; {
     <span class="kw">type </span>Output = Greater;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span>UTerm, <span class="kw">_</span>: SoFar) -&gt; <span class="self">Self</span>::Output {
         Greater
     }
@@ -3854,7 +3854,7 @@
 </span><span class="kw">impl</span>&lt;SoFar: Ord&gt; PrivateCmp&lt;UTerm, SoFar&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = SoFar;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span>UTerm, so_far: SoFar) -&gt; <span class="self">Self</span>::Output {
         so_far
     }
@@ -3901,7 +3901,7 @@
     </span>X: PrivatePow&lt;U1, N&gt;,
 {
     <span class="kw">type </span>Output = PrivatePowOut&lt;X, U1, N&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>powi(<span class="self">self</span>, n: N) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.private_pow(U1::new(), n)
     }
@@ -3910,7 +3910,7 @@
 <span class="kw">impl</span>&lt;Y: Unsigned, X: Unsigned&gt; PrivatePow&lt;Y, U0&gt; <span class="kw">for </span>X {
     <span class="kw">type </span>Output = Y;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_pow(<span class="self">self</span>, y: Y, <span class="kw">_</span>: U0) -&gt; <span class="self">Self</span>::Output {
         y
     }
@@ -3922,7 +3922,7 @@
 {
     <span class="kw">type </span>Output = Prod&lt;X, Y&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_pow(<span class="self">self</span>, y: Y, <span class="kw">_</span>: U1) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self </span>* y
     }
@@ -3936,7 +3936,7 @@
 {
     <span class="kw">type </span>Output = PrivatePowOut&lt;Square&lt;X&gt;, Y, UInt&lt;U, B&gt;&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_pow(<span class="self">self</span>, y: Y, n: UInt&lt;UInt&lt;U, B&gt;, B0&gt;) -&gt; <span class="self">Self</span>::Output {
         (<span class="self">self </span>* <span class="self">self</span>).private_pow(y, n.msb)
     }
@@ -3950,7 +3950,7 @@
 {
     <span class="kw">type </span>Output = PrivatePowOut&lt;Square&lt;X&gt;, Prod&lt;X, Y&gt;, UInt&lt;U, B&gt;&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_pow(<span class="self">self</span>, y: Y, n: UInt&lt;UInt&lt;U, B&gt;, B1&gt;) -&gt; <span class="self">Self</span>::Output {
         (<span class="self">self </span>* <span class="self">self</span>).private_pow(<span class="self">self </span>* y, n.msb)
     }
@@ -3960,7 +3960,7 @@
 // Greatest Common Divisor
 
 </span><span class="doccomment">/// The even number 2*N
-</span><span class="attribute">#[allow(unused)] </span><span class="comment">// Silence spurious warning on older versions of rust
+</span><span class="attr">#[allow(unused)] </span><span class="comment">// Silence spurious warning on older versions of rust
 </span><span class="kw">type </span>Even&lt;N&gt; = UInt&lt;N, B0&gt;;
 
 <span class="doccomment">/// The odd number 2*N + 1
@@ -4030,7 +4030,7 @@
         Gcf&lt;Diff&lt;Maximum&lt;Odd&lt;Xp&gt;, Odd&lt;Yp&gt;&gt;, Minimum&lt;Odd&lt;Xp&gt;, Odd&lt;Yp&gt;&gt;&gt;, Minimum&lt;Odd&lt;Xp&gt;, Odd&lt;Yp&gt;&gt;&gt;;
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>gcd_tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::consts::<span class="kw-2">*</span>;
@@ -4046,7 +4046,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>gcd() {
         <span class="macro">gcd_test! </span>{
             U0,   U0    =&gt; U0,
@@ -4063,16 +4063,16 @@
 <span class="comment">// -----------------------------------------
 // GetBit
 
-</span><span class="attribute">#[allow(missing_docs)]
+</span><span class="attr">#[allow(missing_docs)]
 </span><span class="kw">pub trait </span>GetBit&lt;I&gt; {
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">type </span>Output;
 
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span><span class="kw">fn </span>get_bit&lt;IM: InternalMarker&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span>I) -&gt; <span class="self">Self</span>::Output;
 }
 
-<span class="attribute">#[allow(missing_docs)]
+<span class="attr">#[allow(missing_docs)]
 </span><span class="kw">pub type </span>GetBitOut&lt;N, I&gt; = &lt;N <span class="kw">as </span>GetBit&lt;I&gt;&gt;::Output;
 
 <span class="comment">// Base case
@@ -4082,7 +4082,7 @@
 {
     <span class="kw">type </span>Output = Bn;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>get_bit&lt;IM: InternalMarker&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span>U0) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.lsb
     }
@@ -4096,7 +4096,7 @@
 {
     <span class="kw">type </span>Output = GetBitOut&lt;Un, Sub1&lt;UInt&lt;Ui, Bi&gt;&gt;&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>get_bit&lt;IM: InternalMarker&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, i: <span class="kw-2">&amp;</span>UInt&lt;Ui, Bi&gt;) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.msb.get_bit::&lt;Internal&gt;(<span class="kw-2">&amp;</span>(<span class="kw-2">*</span>i - B1))
     }
@@ -4106,13 +4106,13 @@
 </span><span class="kw">impl</span>&lt;I&gt; GetBit&lt;I&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = B0;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>get_bit&lt;IM: InternalMarker&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span>I) -&gt; <span class="self">Self</span>::Output {
         B0
     }
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_get_bit() {
     <span class="kw">use </span><span class="kw">crate</span>::consts::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::Same;
@@ -4131,10 +4131,10 @@
 </span><span class="doccomment">/// A **type operator** that, when implemented for unsigned integer `N`, sets the bit at position
 /// `I` to `B`.
 </span><span class="kw">pub trait </span>SetBit&lt;I, B&gt; {
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">type </span>Output;
 
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span><span class="kw">fn </span>set_bit&lt;IM: InternalMarker&gt;(<span class="self">self</span>, <span class="kw">_</span>: I, <span class="kw">_</span>: B) -&gt; <span class="self">Self</span>::Output;
 }
 <span class="doccomment">/// Alias for the result of calling `SetBit`: `SetBitOut&lt;N, I, B&gt; = &lt;N as SetBit&lt;I, B&gt;&gt;::Output`.
@@ -4150,7 +4150,7 @@
 {
     <span class="kw">type </span>Output = TrimOut&lt;PrivateSetBitOut&lt;N, I, B&gt;&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>set_bit&lt;IM: InternalMarker&gt;(<span class="self">self</span>, i: I, b: B) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.private_set_bit(i, b).trim()
     }
@@ -4160,7 +4160,7 @@
 </span><span class="kw">impl</span>&lt;Un, Bn, B&gt; PrivateSetBit&lt;U0, B&gt; <span class="kw">for </span>UInt&lt;Un, Bn&gt; {
     <span class="kw">type </span>Output = UInt&lt;Un, B&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_set_bit(<span class="self">self</span>, <span class="kw">_</span>: U0, b: B) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb,
@@ -4177,7 +4177,7 @@
 {
     <span class="kw">type </span>Output = UInt&lt;PrivateSetBitOut&lt;Un, Sub1&lt;UInt&lt;Ui, Bi&gt;&gt;, B&gt;, Bn&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_set_bit(<span class="self">self</span>, i: UInt&lt;Ui, Bi&gt;, b: B) -&gt; <span class="self">Self</span>::Output {
         UInt {
             msb: <span class="self">self</span>.msb.private_set_bit(i - B1, b),
@@ -4190,7 +4190,7 @@
 </span><span class="kw">impl</span>&lt;I&gt; PrivateSetBit&lt;I, B0&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = UTerm;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_set_bit(<span class="self">self</span>, <span class="kw">_</span>: I, <span class="kw">_</span>: B0) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -4203,13 +4203,13 @@
 {
     <span class="kw">type </span>Output = Shleft&lt;U1, I&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_set_bit(<span class="self">self</span>, i: I, <span class="kw">_</span>: B1) -&gt; <span class="self">Self</span>::Output {
         &lt;U1 <span class="kw">as </span>Shl&lt;I&gt;&gt;::shl(U1::new(), i)
     }
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_set_bit() {
     <span class="kw">use </span><span class="kw">crate</span>::consts::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::Same;
@@ -4253,7 +4253,7 @@
 //     R -= D
 //     Q[i] = 1
 
-</span><span class="attribute">#[cfg(tests)]
+</span><span class="attr">#[cfg(tests)]
 </span><span class="kw">mod </span>tests {
     <span class="macro">macro_rules! </span>test_div {
         (<span class="macro-nonterminal">$a</span>:ident / <span class="macro-nonterminal">$b</span>:ident = <span class="macro-nonterminal">$c</span>:ident) =&gt; {{
@@ -4261,7 +4261,7 @@
             <span class="macro">assert_eq!</span>(&lt;R <span class="kw">as </span>Unsigned&gt;::to_usize(), <span class="macro-nonterminal">$c::to_usize</span>());
         }};
     }
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_div() {
         <span class="kw">use </span><span class="kw">crate</span>::consts::<span class="kw-2">*</span>;
         <span class="kw">use crate</span>::{Quot, Same};
@@ -4291,7 +4291,7 @@
 <span class="comment">// 0 // N
 </span><span class="kw">impl</span>&lt;Ur: Unsigned, Br: Bit&gt; Div&lt;UInt&lt;Ur, Br&gt;&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = UTerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>div(<span class="self">self</span>, <span class="kw">_</span>: UInt&lt;Ur, Br&gt;) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -4305,7 +4305,7 @@
     (): PrivateDiv&lt;UInt&lt;Ul, Bl&gt;, UInt&lt;Ur, Br&gt;, U0, U0, Sub1&lt;Length&lt;UInt&lt;Ul, Bl&gt;&gt;&gt;&gt;,
 {
     <span class="kw">type </span>Output = PrivateDivQuot&lt;UInt&lt;Ul, Bl&gt;, UInt&lt;Ur, Br&gt;, U0, U0, Sub1&lt;Length&lt;UInt&lt;Ul, Bl&gt;&gt;&gt;&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     #[cfg_attr(feature = <span class="string">&quot;cargo-clippy&quot;</span>, allow(clippy::suspicious_arithmetic_impl))]
     </span><span class="kw">fn </span>div(<span class="self">self</span>, rhs: UInt&lt;Ur, Br&gt;) -&gt; <span class="self">Self</span>::Output {
         ().private_div_quotient(<span class="self">self</span>, rhs, U0::new(), U0::new(), <span class="self">self</span>.len() - B1)
@@ -4319,7 +4319,7 @@
 <span class="comment">// 0 % N
 </span><span class="kw">impl</span>&lt;Ur: Unsigned, Br: Bit&gt; Rem&lt;UInt&lt;Ur, Br&gt;&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = UTerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>rem(<span class="self">self</span>, <span class="kw">_</span>: UInt&lt;Ur, Br&gt;) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -4333,7 +4333,7 @@
     (): PrivateDiv&lt;UInt&lt;Ul, Bl&gt;, UInt&lt;Ur, Br&gt;, U0, U0, Sub1&lt;Length&lt;UInt&lt;Ul, Bl&gt;&gt;&gt;&gt;,
 {
     <span class="kw">type </span>Output = PrivateDivRem&lt;UInt&lt;Ul, Bl&gt;, UInt&lt;Ur, Br&gt;, U0, U0, Sub1&lt;Length&lt;UInt&lt;Ul, Bl&gt;&gt;&gt;&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>rem(<span class="self">self</span>, rhs: UInt&lt;Ur, Br&gt;) -&gt; <span class="self">Self</span>::Output {
         ().private_div_remainder(<span class="self">self</span>, rhs, UTerm, UTerm, <span class="self">self</span>.len() - B1)
     }
@@ -4376,7 +4376,7 @@
         Compare&lt;TrimOut&lt;UInt&lt;UTerm, GetBitOut&lt;N, I&gt;&gt;&gt;, D&gt;,
     &gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_div_quotient(<span class="self">self</span>, n: N, d: D, q: Q, <span class="kw">_</span>: U0, i: I) -&gt; <span class="self">Self</span>::Quotient
 <span class="kw">where </span>{
         <span class="kw">let </span>r = (UInt {
@@ -4388,7 +4388,7 @@
         ().private_div_if_quotient(n, d, q, r, i, r_cmp_d)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_div_remainder(<span class="self">self</span>, n: N, d: D, q: Q, <span class="kw">_</span>: U0, i: I) -&gt; <span class="self">Self</span>::Remainder {
         <span class="kw">let </span>r = (UInt {
             msb: UTerm,
@@ -4431,7 +4431,7 @@
         Compare&lt;UInt&lt;UInt&lt;Ur, Br&gt;, GetBitOut&lt;N, I&gt;&gt;, D&gt;,
     &gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_div_quotient(<span class="self">self</span>, n: N, d: D, q: Q, r: UInt&lt;Ur, Br&gt;, i: I) -&gt; <span class="self">Self</span>::Quotient {
         <span class="kw">let </span>r = UInt {
             msb: r,
@@ -4441,7 +4441,7 @@
         ().private_div_if_quotient(n, d, q, r, i, r_cmp_d)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_div_remainder(<span class="self">self</span>, n: N, d: D, q: Q, r: UInt&lt;Ur, Br&gt;, i: I) -&gt; <span class="self">Self</span>::Remainder {
         <span class="kw">let </span>r = UInt {
             msb: r,
@@ -4466,7 +4466,7 @@
     <span class="kw">type </span>Quotient = PrivateDivQuot&lt;N, D, Q, R, Sub1&lt;UInt&lt;Ui, Bi&gt;&gt;&gt;;
     <span class="kw">type </span>Remainder = PrivateDivRem&lt;N, D, Q, R, Sub1&lt;UInt&lt;Ui, Bi&gt;&gt;&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_div_if_quotient(
         <span class="self">self</span>,
         n: N,
@@ -4480,7 +4480,7 @@
         ().private_div_quotient(n, d, q, r, i - B1)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_div_if_remainder(
         <span class="self">self</span>,
         n: N,
@@ -4505,7 +4505,7 @@
     <span class="kw">type </span>Quotient = PrivateDivQuot&lt;N, D, SetBitOut&lt;Q, UInt&lt;Ui, Bi&gt;, B1&gt;, U0, Sub1&lt;UInt&lt;Ui, Bi&gt;&gt;&gt;;
     <span class="kw">type </span>Remainder = PrivateDivRem&lt;N, D, SetBitOut&lt;Q, UInt&lt;Ui, Bi&gt;, B1&gt;, U0, Sub1&lt;UInt&lt;Ui, Bi&gt;&gt;&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_div_if_quotient(
         <span class="self">self</span>,
         n: N,
@@ -4519,7 +4519,7 @@
         ().private_div_quotient(n, d, q.set_bit::&lt;Internal&gt;(i, B1), U0::new(), i - B1)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_div_if_remainder(
         <span class="self">self</span>,
         n: N,
@@ -4549,7 +4549,7 @@
     <span class="kw">type </span>Remainder =
         PrivateDivRem&lt;N, D, SetBitOut&lt;Q, UInt&lt;Ui, Bi&gt;, B1&gt;, Diff&lt;R, D&gt;, Sub1&lt;UInt&lt;Ui, Bi&gt;&gt;&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_div_if_quotient(
         <span class="self">self</span>,
         n: N,
@@ -4563,7 +4563,7 @@
         ().private_div_quotient(n, d, q.set_bit::&lt;Internal&gt;(i, B1), r - d, i - B1)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_div_if_remainder(
         <span class="self">self</span>,
         n: N,
@@ -4583,12 +4583,12 @@
     <span class="kw">type </span>Quotient = Q;
     <span class="kw">type </span>Remainder = R;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_div_if_quotient(<span class="self">self</span>, <span class="kw">_</span>: N, <span class="kw">_</span>: D, q: Q, <span class="kw">_</span>: R, <span class="kw">_</span>: U0, <span class="kw">_</span>: Less) -&gt; <span class="self">Self</span>::Quotient {
         q
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_div_if_remainder(<span class="self">self</span>, <span class="kw">_</span>: N, <span class="kw">_</span>: D, <span class="kw">_</span>: Q, r: R, <span class="kw">_</span>: U0, <span class="kw">_</span>: Less) -&gt; <span class="self">Self</span>::Remainder {
         r
     }
@@ -4602,12 +4602,12 @@
     <span class="kw">type </span>Quotient = SetBitOut&lt;Q, U0, B1&gt;;
     <span class="kw">type </span>Remainder = U0;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_div_if_quotient(<span class="self">self</span>, <span class="kw">_</span>: N, <span class="kw">_</span>: D, q: Q, <span class="kw">_</span>: R, i: U0, <span class="kw">_</span>: Equal) -&gt; <span class="self">Self</span>::Quotient {
         q.set_bit::&lt;Internal&gt;(i, B1)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_div_if_remainder(<span class="self">self</span>, <span class="kw">_</span>: N, <span class="kw">_</span>: D, <span class="kw">_</span>: Q, <span class="kw">_</span>: R, i: U0, <span class="kw">_</span>: Equal) -&gt; <span class="self">Self</span>::Remainder {
         i
     }
@@ -4622,12 +4622,12 @@
     <span class="kw">type </span>Quotient = SetBitOut&lt;Q, U0, B1&gt;;
     <span class="kw">type </span>Remainder = Diff&lt;R, D&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_div_if_quotient(<span class="self">self</span>, <span class="kw">_</span>: N, <span class="kw">_</span>: D, q: Q, <span class="kw">_</span>: R, i: U0, <span class="kw">_</span>: Greater) -&gt; <span class="self">Self</span>::Quotient {
         q.set_bit::&lt;Internal&gt;(i, B1)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_div_if_remainder(
         <span class="self">self</span>,
         <span class="kw">_</span>: N,
@@ -4646,7 +4646,7 @@
 </span><span class="kw">use crate</span>::{PartialDiv, Quot};
 <span class="kw">impl</span>&lt;Ur: Unsigned, Br: Bit&gt; PartialDiv&lt;UInt&lt;Ur, Br&gt;&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = UTerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_div(<span class="self">self</span>, <span class="kw">_</span>: UInt&lt;Ur, Br&gt;) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -4658,7 +4658,7 @@
     </span>UInt&lt;Ul, Bl&gt;: Div&lt;UInt&lt;Ur, Br&gt;&gt; + Rem&lt;UInt&lt;Ur, Br&gt;, Output = U0&gt;,
 {
     <span class="kw">type </span>Output = Quot&lt;UInt&lt;Ul, Bl&gt;, UInt&lt;Ur, Br&gt;&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_div(<span class="self">self</span>, rhs: UInt&lt;Ur, Br&gt;) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self </span>/ rhs
     }
@@ -4675,7 +4675,7 @@
     B: Bit,
 {
     <span class="kw">type </span>Output = UInt&lt;U, B&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_min(<span class="self">self</span>, <span class="kw">_</span>: Ur) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self
     </span>}
@@ -4688,7 +4688,7 @@
     B: Bit,
 {
     <span class="kw">type </span>Output = UInt&lt;U, B&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_min(<span class="self">self</span>, <span class="kw">_</span>: Ur) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self
     </span>}
@@ -4701,7 +4701,7 @@
     B: Bit,
 {
     <span class="kw">type </span>Output = Ur;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_min(<span class="self">self</span>, rhs: Ur) -&gt; <span class="self">Self</span>::Output {
         rhs
     }
@@ -4716,7 +4716,7 @@
     </span>U: Unsigned,
 {
     <span class="kw">type </span>Output = UTerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>min(<span class="self">self</span>, <span class="kw">_</span>: U) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self
     </span>}
@@ -4730,7 +4730,7 @@
     UInt&lt;U, B&gt;: Cmp&lt;Ur&gt; + PrivateMin&lt;Ur, Compare&lt;UInt&lt;U, B&gt;, Ur&gt;&gt;,
 {
     <span class="kw">type </span>Output = PrivateMinOut&lt;UInt&lt;U, B&gt;, Ur, Compare&lt;UInt&lt;U, B&gt;, Ur&gt;&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>min(<span class="self">self</span>, rhs: Ur) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.private_min(rhs)
     }
@@ -4747,7 +4747,7 @@
     B: Bit,
 {
     <span class="kw">type </span>Output = UInt&lt;U, B&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_max(<span class="self">self</span>, <span class="kw">_</span>: Ur) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self
     </span>}
@@ -4760,7 +4760,7 @@
     B: Bit,
 {
     <span class="kw">type </span>Output = Ur;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_max(<span class="self">self</span>, rhs: Ur) -&gt; <span class="self">Self</span>::Output {
         rhs
     }
@@ -4773,7 +4773,7 @@
     B: Bit,
 {
     <span class="kw">type </span>Output = UInt&lt;U, B&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_max(<span class="self">self</span>, <span class="kw">_</span>: Ur) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self
     </span>}
@@ -4788,7 +4788,7 @@
     </span>U: Unsigned,
 {
     <span class="kw">type </span>Output = U;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>max(<span class="self">self</span>, rhs: U) -&gt; <span class="self">Self</span>::Output {
         rhs
     }
@@ -4802,7 +4802,7 @@
     UInt&lt;U, B&gt;: Cmp&lt;Ur&gt; + PrivateMax&lt;Ur, Compare&lt;UInt&lt;U, B&gt;, Ur&gt;&gt;,
 {
     <span class="kw">type </span>Output = PrivateMaxOut&lt;UInt&lt;U, B&gt;, Ur, Compare&lt;UInt&lt;U, B&gt;, Ur&gt;&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>max(<span class="self">self</span>, rhs: Ur) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.private_max(rhs)
     }
@@ -4854,7 +4854,7 @@
     <span class="kw">type </span>Output = Sum&lt;Double&lt;Sqrt&lt;U&gt;&gt;, GrEq&lt;<span class="self">Self</span>, Square&lt;Add1&lt;Double&lt;Sqrt&lt;U&gt;&gt;&gt;&gt;&gt;&gt;;
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>sqrt_test() {
     <span class="kw">use </span><span class="kw">crate</span>::consts::<span class="kw-2">*</span>;
 
@@ -4922,63 +4922,63 @@
 // ToInt
 
 </span><span class="kw">impl </span>ToInt&lt;i8&gt; <span class="kw">for </span>UTerm {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_int() -&gt; i8 {
         <span class="self">Self</span>::I8
     }
 }
 
 <span class="kw">impl </span>ToInt&lt;i16&gt; <span class="kw">for </span>UTerm {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_int() -&gt; i16 {
         <span class="self">Self</span>::I16
     }
 }
 
 <span class="kw">impl </span>ToInt&lt;i32&gt; <span class="kw">for </span>UTerm {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_int() -&gt; i32 {
         <span class="self">Self</span>::I32
     }
 }
 
 <span class="kw">impl </span>ToInt&lt;i64&gt; <span class="kw">for </span>UTerm {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_int() -&gt; i64 {
         <span class="self">Self</span>::I64
     }
 }
 
 <span class="kw">impl </span>ToInt&lt;u8&gt; <span class="kw">for </span>UTerm {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_int() -&gt; u8 {
         <span class="self">Self</span>::U8
     }
 }
 
 <span class="kw">impl </span>ToInt&lt;u16&gt; <span class="kw">for </span>UTerm {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_int() -&gt; u16 {
         <span class="self">Self</span>::U16
     }
 }
 
 <span class="kw">impl </span>ToInt&lt;u32&gt; <span class="kw">for </span>UTerm {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_int() -&gt; u32 {
         <span class="self">Self</span>::U32
     }
 }
 
 <span class="kw">impl </span>ToInt&lt;u64&gt; <span class="kw">for </span>UTerm {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_int() -&gt; u64 {
         <span class="self">Self</span>::U64
     }
 }
 
 <span class="kw">impl </span>ToInt&lt;usize&gt; <span class="kw">for </span>UTerm {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_int() -&gt; usize {
         <span class="self">Self</span>::USIZE
     }
@@ -4989,7 +4989,7 @@
     </span>U: Unsigned,
     B: Bit,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_int() -&gt; i8 {
         <span class="self">Self</span>::I8
     }
@@ -5000,7 +5000,7 @@
     </span>U: Unsigned,
     B: Bit,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_int() -&gt; i16 {
         <span class="self">Self</span>::I16
     }
@@ -5011,7 +5011,7 @@
     </span>U: Unsigned,
     B: Bit,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_int() -&gt; i32 {
         <span class="self">Self</span>::I32
     }
@@ -5022,7 +5022,7 @@
     </span>U: Unsigned,
     B: Bit,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_int() -&gt; i64 {
         <span class="self">Self</span>::I64
     }
@@ -5033,7 +5033,7 @@
     </span>U: Unsigned,
     B: Bit,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_int() -&gt; u8 {
         <span class="self">Self</span>::U8
     }
@@ -5044,7 +5044,7 @@
     </span>U: Unsigned,
     B: Bit,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_int() -&gt; u16 {
         <span class="self">Self</span>::U16
     }
@@ -5055,7 +5055,7 @@
     </span>U: Unsigned,
     B: Bit,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_int() -&gt; u32 {
         <span class="self">Self</span>::U32
     }
@@ -5066,7 +5066,7 @@
     </span>U: Unsigned,
     B: Bit,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_int() -&gt; u64 {
         <span class="self">Self</span>::U64
     }
@@ -5077,18 +5077,18 @@
     </span>U: Unsigned,
     B: Bit,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_int() -&gt; usize {
         <span class="self">Self</span>::USIZE
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">crate</span>::consts::<span class="kw-2">*</span>;
     <span class="kw">use crate</span>::{Log2, ToInt, Unsigned};
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>log2_test() {
         <span class="macro">assert_eq!</span>(<span class="number">0</span>, &lt;Log2&lt;U1&gt;&gt;::to_u32());
 
@@ -5132,7 +5132,7 @@
         <span class="comment">// ...
     </span>}
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>uint_toint_test() {
         <span class="comment">// i8
         </span><span class="macro">assert_eq!</span>(<span class="number">0_i8</span>, U0::to_int());
@@ -5199,4 +5199,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="typenum" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="typenum" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

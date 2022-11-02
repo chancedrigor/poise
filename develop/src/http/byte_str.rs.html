@@ -87,14 +87,14 @@
 
 <span class="kw">use </span>std::{ops, str};
 
-<span class="attribute">#[derive(Debug, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
+<span class="attr">#[derive(Debug, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>ByteStr {
     <span class="comment">// Invariant: bytes contains valid UTF-8
     </span>bytes: Bytes,
 }
 
 <span class="kw">impl </span>ByteStr {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new() -&gt; ByteStr {
         ByteStr {
             <span class="comment">// Invariant: the empty slice is trivially valid UTF-8.
@@ -102,7 +102,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>from_static(val: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str) -&gt; ByteStr {
         ByteStr {
             <span class="comment">// Invariant: val is a str so contains vaid UTF-8.
@@ -110,7 +110,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="doccomment">/// ## Panics
     /// In a debug build this will panic if `bytes` is not valid UTF-8.
     ///
@@ -135,7 +135,7 @@
 <span class="kw">impl </span>ops::Deref <span class="kw">for </span>ByteStr {
     <span class="kw">type </span>Target = str;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>deref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="kw">let </span>b: <span class="kw-2">&amp;</span>[u8] = <span class="self">self</span>.bytes.as_ref();
         <span class="comment">// Safety: the invariant of `bytes` is that it contains valid UTF-8.
@@ -144,7 +144,7 @@
 }
 
 <span class="kw">impl </span>From&lt;String&gt; <span class="kw">for </span>ByteStr {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(src: String) -&gt; ByteStr {
         ByteStr {
             <span class="comment">// Invariant: src is a String so contains valid UTF-8.
@@ -154,7 +154,7 @@
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; From&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt; <span class="kw">for </span>ByteStr {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(src: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; ByteStr {
         ByteStr {
             <span class="comment">// Invariant: src is a str so contains valid UTF-8.
@@ -169,4 +169,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="http" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="http" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

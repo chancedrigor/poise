@@ -347,7 +347,7 @@
 <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
 <span class="doccomment">/// The terminating type for type arrays.
-</span><span class="attribute">#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug)]
+</span><span class="attr">#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug)]
 #[cfg_attr(feature = <span class="string">&quot;scale_info&quot;</span>, derive(scale_info::TypeInfo))]
 </span><span class="kw">pub struct </span>ATerm;
 
@@ -359,7 +359,7 @@
 ///
 /// This array is only really designed to contain `Integer` types. If you use it with others, you
 /// may find it lacking functionality.
-</span><span class="attribute">#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug)]
+</span><span class="attr">#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug)]
 #[cfg_attr(feature = <span class="string">&quot;scale_info&quot;</span>, derive(scale_info::TypeInfo))]
 </span><span class="kw">pub struct </span>TArr&lt;V, A&gt; {
     first: V,
@@ -380,7 +380,7 @@
 ///
 /// type Array = tarr![P3, N4, Z0, P38];
 /// # fn main() { let _: Array; }
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>tarr {
     () =&gt; ( <span class="macro-nonterminal">$crate::ATerm </span>);
     (<span class="macro-nonterminal">$n</span>:ty) =&gt; ( <span class="macro-nonterminal">$crate::TArr</span>&lt;<span class="macro-nonterminal">$n</span>, <span class="macro-nonterminal">$crate::ATerm</span>&gt; );
@@ -395,7 +395,7 @@
 </span><span class="doccomment">/// Length of `ATerm` by itself is 0
 </span><span class="kw">impl </span>Len <span class="kw">for </span>ATerm {
     <span class="kw">type </span>Output = U0;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -409,7 +409,7 @@
     Sum&lt;Length&lt;A&gt;, B1&gt;: Unsigned,
 {
     <span class="kw">type </span>Output = Add1&lt;Length&lt;A&gt;&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.rest.len() + B1
     }
@@ -421,7 +421,7 @@
 
 </span><span class="kw">impl </span>Add&lt;ATerm&gt; <span class="kw">for </span>ATerm {
     <span class="kw">type </span>Output = ATerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>add(<span class="self">self</span>, <span class="kw">_</span>: ATerm) -&gt; <span class="self">Self</span>::Output {
         ATerm
     }
@@ -433,7 +433,7 @@
     Vl: Add&lt;Vr&gt;,
 {
     <span class="kw">type </span>Output = TArr&lt;Sum&lt;Vl, Vr&gt;, Sum&lt;Al, Ar&gt;&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>add(<span class="self">self</span>, rhs: TArr&lt;Vr, Ar&gt;) -&gt; <span class="self">Self</span>::Output {
         TArr {
             first: <span class="self">self</span>.first + rhs.first,
@@ -448,7 +448,7 @@
 
 </span><span class="kw">impl </span>Sub&lt;ATerm&gt; <span class="kw">for </span>ATerm {
     <span class="kw">type </span>Output = ATerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sub(<span class="self">self</span>, <span class="kw">_</span>: ATerm) -&gt; <span class="self">Self</span>::Output {
         ATerm
     }
@@ -460,7 +460,7 @@
     Al: Sub&lt;Ar&gt;,
 {
     <span class="kw">type </span>Output = TArr&lt;Diff&lt;Vl, Vr&gt;, Diff&lt;Al, Ar&gt;&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sub(<span class="self">self</span>, rhs: TArr&lt;Vr, Ar&gt;) -&gt; <span class="self">Self</span>::Output {
         TArr {
             first: <span class="self">self</span>.first - rhs.first,
@@ -474,7 +474,7 @@
 
 </span><span class="kw">impl</span>&lt;Rhs&gt; Mul&lt;Rhs&gt; <span class="kw">for </span>ATerm {
     <span class="kw">type </span>Output = ATerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>mul(<span class="self">self</span>, <span class="kw">_</span>: Rhs) -&gt; <span class="self">Self</span>::Output {
         ATerm
     }
@@ -487,7 +487,7 @@
     Rhs: Copy,
 {
     <span class="kw">type </span>Output = TArr&lt;Prod&lt;V, Rhs&gt;, Prod&lt;A, Rhs&gt;&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>mul(<span class="self">self</span>, rhs: Rhs) -&gt; <span class="self">Self</span>::Output {
         TArr {
             first: <span class="self">self</span>.first * rhs,
@@ -498,7 +498,7 @@
 
 <span class="kw">impl </span>Mul&lt;ATerm&gt; <span class="kw">for </span>Z0 {
     <span class="kw">type </span>Output = ATerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>mul(<span class="self">self</span>, <span class="kw">_</span>: ATerm) -&gt; <span class="self">Self</span>::Output {
         ATerm
     }
@@ -509,7 +509,7 @@
     </span>U: Unsigned + NonZero,
 {
     <span class="kw">type </span>Output = ATerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>mul(<span class="self">self</span>, <span class="kw">_</span>: ATerm) -&gt; <span class="self">Self</span>::Output {
         ATerm
     }
@@ -520,7 +520,7 @@
     </span>U: Unsigned + NonZero,
 {
     <span class="kw">type </span>Output = ATerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>mul(<span class="self">self</span>, <span class="kw">_</span>: ATerm) -&gt; <span class="self">Self</span>::Output {
         ATerm
     }
@@ -531,7 +531,7 @@
     </span>Z0: Mul&lt;A&gt;,
 {
     <span class="kw">type </span>Output = TArr&lt;Z0, Prod&lt;Z0, A&gt;&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>mul(<span class="self">self</span>, rhs: TArr&lt;V, A&gt;) -&gt; <span class="self">Self</span>::Output {
         TArr {
             first: Z0,
@@ -546,7 +546,7 @@
     PInt&lt;U&gt;: Mul&lt;A&gt; + Mul&lt;V&gt;,
 {
     <span class="kw">type </span>Output = TArr&lt;Prod&lt;PInt&lt;U&gt;, V&gt;, Prod&lt;PInt&lt;U&gt;, A&gt;&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>mul(<span class="self">self</span>, rhs: TArr&lt;V, A&gt;) -&gt; <span class="self">Self</span>::Output {
         TArr {
             first: <span class="self">self </span>* rhs.first,
@@ -561,7 +561,7 @@
     NInt&lt;U&gt;: Mul&lt;A&gt; + Mul&lt;V&gt;,
 {
     <span class="kw">type </span>Output = TArr&lt;Prod&lt;NInt&lt;U&gt;, V&gt;, Prod&lt;NInt&lt;U&gt;, A&gt;&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>mul(<span class="self">self</span>, rhs: TArr&lt;V, A&gt;) -&gt; <span class="self">Self</span>::Output {
         TArr {
             first: <span class="self">self </span>* rhs.first,
@@ -575,7 +575,7 @@
 
 </span><span class="kw">impl</span>&lt;Rhs&gt; Div&lt;Rhs&gt; <span class="kw">for </span>ATerm {
     <span class="kw">type </span>Output = ATerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>div(<span class="self">self</span>, <span class="kw">_</span>: Rhs) -&gt; <span class="self">Self</span>::Output {
         ATerm
     }
@@ -588,7 +588,7 @@
     Rhs: Copy,
 {
     <span class="kw">type </span>Output = TArr&lt;Quot&lt;V, Rhs&gt;, Quot&lt;A, Rhs&gt;&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>div(<span class="self">self</span>, rhs: Rhs) -&gt; <span class="self">Self</span>::Output {
         TArr {
             first: <span class="self">self</span>.first / rhs,
@@ -602,7 +602,7 @@
 
 </span><span class="kw">impl</span>&lt;Rhs&gt; PartialDiv&lt;Rhs&gt; <span class="kw">for </span>ATerm {
     <span class="kw">type </span>Output = ATerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_div(<span class="self">self</span>, <span class="kw">_</span>: Rhs) -&gt; <span class="self">Self</span>::Output {
         ATerm
     }
@@ -615,7 +615,7 @@
     Rhs: Copy,
 {
     <span class="kw">type </span>Output = TArr&lt;PartialQuot&lt;V, Rhs&gt;, PartialQuot&lt;A, Rhs&gt;&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_div(<span class="self">self</span>, rhs: Rhs) -&gt; <span class="self">Self</span>::Output {
         TArr {
             first: <span class="self">self</span>.first.partial_div(rhs),
@@ -630,7 +630,7 @@
 
 <span class="kw">impl</span>&lt;Rhs&gt; Rem&lt;Rhs&gt; <span class="kw">for </span>ATerm {
     <span class="kw">type </span>Output = ATerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>rem(<span class="self">self</span>, <span class="kw">_</span>: Rhs) -&gt; <span class="self">Self</span>::Output {
         ATerm
     }
@@ -643,7 +643,7 @@
     Rhs: Copy,
 {
     <span class="kw">type </span>Output = TArr&lt;Mod&lt;V, Rhs&gt;, Mod&lt;A, Rhs&gt;&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>rem(<span class="self">self</span>, rhs: Rhs) -&gt; <span class="self">Self</span>::Output {
         TArr {
             first: <span class="self">self</span>.first % rhs,
@@ -658,7 +658,7 @@
 
 <span class="kw">impl </span>Neg <span class="kw">for </span>ATerm {
     <span class="kw">type </span>Output = ATerm;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>neg(<span class="self">self</span>) -&gt; <span class="self">Self</span>::Output {
         ATerm
     }
@@ -670,7 +670,7 @@
     A: Neg,
 {
     <span class="kw">type </span>Output = TArr&lt;Negate&lt;V&gt;, Negate&lt;A&gt;&gt;;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>neg(<span class="self">self</span>) -&gt; <span class="self">Self</span>::Output {
         TArr {
             first: -<span class="self">self</span>.first,
@@ -679,4 +679,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="typenum" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="typenum" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

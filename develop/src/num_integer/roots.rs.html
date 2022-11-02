@@ -469,7 +469,7 @@
     /// assert_eq!((x * x + 1).sqrt(), x);
     /// assert_eq!((x * x - 1).sqrt(), x - 1);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>sqrt(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.nth_root(<span class="number">2</span>)
     }
@@ -495,7 +495,7 @@
     /// assert_eq!((-(x * x * x + 1)).cbrt(), -x);
     /// assert_eq!((-(x * x * x - 1)).cbrt(), -(x - 1));
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>cbrt(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.nth_root(<span class="number">3</span>)
     }
@@ -503,21 +503,21 @@
 
 <span class="doccomment">/// Returns the truncated principal square root of an integer --
 /// see [Roots::sqrt](trait.Roots.html#method.sqrt).
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>sqrt&lt;T: Roots&gt;(x: T) -&gt; T {
     x.sqrt()
 }
 
 <span class="doccomment">/// Returns the truncated principal cube root of an integer --
 /// see [Roots::cbrt](trait.Roots.html#method.cbrt).
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>cbrt&lt;T: Roots&gt;(x: T) -&gt; T {
     x.cbrt()
 }
 
 <span class="doccomment">/// Returns the truncated principal `n`th root of an integer --
 /// see [Roots::nth_root](trait.Roots.html#tymethod.nth_root).
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>nth_root&lt;T: Roots&gt;(x: T, n: u32) -&gt; T {
     x.nth_root(n)
 }
@@ -525,7 +525,7 @@
 <span class="macro">macro_rules! </span>signed_roots {
     (<span class="macro-nonterminal">$T</span>:ty, <span class="macro-nonterminal">$U</span>:ty) =&gt; {
         <span class="kw">impl </span>Roots <span class="kw">for </span><span class="macro-nonterminal">$T </span>{
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>nth_root(<span class="kw-2">&amp;</span><span class="self">self</span>, n: u32) -&gt; <span class="self">Self </span>{
                 <span class="kw">if </span><span class="kw-2">*</span><span class="self">self </span>&gt;= <span class="number">0 </span>{
                     (<span class="kw-2">*</span><span class="self">self </span><span class="kw">as </span><span class="macro-nonterminal">$U</span>).nth_root(n) <span class="kw">as </span><span class="self">Self
@@ -535,13 +535,13 @@
                 }
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>sqrt(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
                 <span class="macro">assert!</span>(<span class="kw-2">*</span><span class="self">self </span>&gt;= <span class="number">0</span>, <span class="string">&quot;the square root of a negative is imaginary&quot;</span>);
                 (<span class="kw-2">*</span><span class="self">self </span><span class="kw">as </span><span class="macro-nonterminal">$U</span>).sqrt() <span class="kw">as </span><span class="self">Self
             </span>}
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>cbrt(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
                 <span class="kw">if </span><span class="kw-2">*</span><span class="self">self </span>&gt;= <span class="number">0 </span>{
                     (<span class="kw-2">*</span><span class="self">self </span><span class="kw">as </span><span class="macro-nonterminal">$U</span>).cbrt() <span class="kw">as </span><span class="self">Self
@@ -557,11 +557,11 @@
 <span class="macro">signed_roots!</span>(i16, u16);
 <span class="macro">signed_roots!</span>(i32, u32);
 <span class="macro">signed_roots!</span>(i64, u64);
-<span class="attribute">#[cfg(has_i128)]
+<span class="attr">#[cfg(has_i128)]
 </span><span class="macro">signed_roots!</span>(i128, u128);
 <span class="macro">signed_roots!</span>(isize, usize);
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>fixpoint&lt;T, F&gt;(<span class="kw-2">mut </span>x: T, f: F) -&gt; T
 <span class="kw">where
     </span>T: Integer + Copy,
@@ -579,12 +579,12 @@
     x
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>bits&lt;T&gt;() -&gt; u32 {
     <span class="number">8 </span>* mem::size_of::&lt;T&gt;() <span class="kw">as </span>u32
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>log2&lt;T: PrimInt&gt;(x: T) -&gt; u32 {
     <span class="macro">debug_assert!</span>(x &gt; T::zero());
     bits::&lt;T&gt;() - <span class="number">1 </span>- x.leading_zeros()
@@ -593,7 +593,7 @@
 <span class="macro">macro_rules! </span>unsigned_roots {
     (<span class="macro-nonterminal">$T</span>:ident) =&gt; {
         <span class="kw">impl </span>Roots <span class="kw">for </span><span class="macro-nonterminal">$T </span>{
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>nth_root(<span class="kw-2">&amp;</span><span class="self">self</span>, n: u32) -&gt; <span class="self">Self </span>{
                 <span class="kw">fn </span>go(a: <span class="macro-nonterminal">$T</span>, n: u32) -&gt; <span class="macro-nonterminal">$T </span>{
                     <span class="comment">// Specialize small roots
@@ -634,7 +634,7 @@
                         };
                     }
 
-                    <span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
                     #[inline]
                     </span><span class="kw">fn </span>guess(x: <span class="macro-nonterminal">$T</span>, n: u32) -&gt; <span class="macro-nonterminal">$T </span>{
                         <span class="comment">// for smaller inputs, `f64` doesn&#39;t justify its cost.
@@ -645,7 +645,7 @@
                         </span>}
                     }
 
-                    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
+                    <span class="attr">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
                     #[inline]
                     </span><span class="kw">fn </span>guess(x: <span class="macro-nonterminal">$T</span>, n: u32) -&gt; <span class="macro-nonterminal">$T </span>{
                         <span class="number">1 </span>&lt;&lt; ((log2(x) + n - <span class="number">1</span>) / n)
@@ -665,7 +665,7 @@
                 go(<span class="kw-2">*</span><span class="self">self</span>, n)
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>sqrt(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
                 <span class="kw">fn </span>go(a: <span class="macro-nonterminal">$T</span>) -&gt; <span class="macro-nonterminal">$T </span>{
                     <span class="kw">if </span>bits::&lt;<span class="macro-nonterminal">$T</span>&gt;() &gt; <span class="number">64 </span>{
@@ -687,13 +687,13 @@
                         <span class="kw">return </span>(a &gt; <span class="number">0</span>) <span class="kw">as </span><span class="macro-nonterminal">$T</span>;
                     }
 
-                    <span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
                     #[inline]
                     </span><span class="kw">fn </span>guess(x: <span class="macro-nonterminal">$T</span>) -&gt; <span class="macro-nonterminal">$T </span>{
                         (x <span class="kw">as </span>f64).sqrt() <span class="kw">as </span><span class="macro-nonterminal">$T
                     </span>}
 
-                    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
+                    <span class="attr">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
                     #[inline]
                     </span><span class="kw">fn </span>guess(x: <span class="macro-nonterminal">$T</span>) -&gt; <span class="macro-nonterminal">$T </span>{
                         <span class="number">1 </span>&lt;&lt; ((log2(x) + <span class="number">1</span>) / <span class="number">2</span>)
@@ -706,7 +706,7 @@
                 go(<span class="kw-2">*</span><span class="self">self</span>)
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>cbrt(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
                 <span class="kw">fn </span>go(a: <span class="macro-nonterminal">$T</span>) -&gt; <span class="macro-nonterminal">$T </span>{
                     <span class="kw">if </span>bits::&lt;<span class="macro-nonterminal">$T</span>&gt;() &gt; <span class="number">64 </span>{
@@ -751,13 +751,13 @@
                         <span class="kw">return </span>(a <span class="kw">as </span>u32).cbrt() <span class="kw">as </span><span class="macro-nonterminal">$T</span>;
                     }
 
-                    <span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
                     #[inline]
                     </span><span class="kw">fn </span>guess(x: <span class="macro-nonterminal">$T</span>) -&gt; <span class="macro-nonterminal">$T </span>{
                         (x <span class="kw">as </span>f64).cbrt() <span class="kw">as </span><span class="macro-nonterminal">$T
                     </span>}
 
-                    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
+                    <span class="attr">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
                     #[inline]
                     </span><span class="kw">fn </span>guess(x: <span class="macro-nonterminal">$T</span>) -&gt; <span class="macro-nonterminal">$T </span>{
                         <span class="number">1 </span>&lt;&lt; ((log2(x) + <span class="number">2</span>) / <span class="number">3</span>)
@@ -777,8 +777,8 @@
 <span class="macro">unsigned_roots!</span>(u16);
 <span class="macro">unsigned_roots!</span>(u32);
 <span class="macro">unsigned_roots!</span>(u64);
-<span class="attribute">#[cfg(has_i128)]
+<span class="attr">#[cfg(has_i128)]
 </span><span class="macro">unsigned_roots!</span>(u128);
 <span class="macro">unsigned_roots!</span>(usize);
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="num_integer" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="num_integer" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

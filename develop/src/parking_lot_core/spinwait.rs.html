@@ -84,7 +84,7 @@
 
 <span class="comment">// Wastes some CPU time for the given number of iterations,
 // using a hint to indicate to the CPU that we are spinning.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>cpu_relax(iterations: u32) {
     <span class="kw">for _ in </span><span class="number">0</span>..iterations {
         spin_loop()
@@ -92,20 +92,20 @@
 }
 
 <span class="doccomment">/// A counter used to perform exponential backoff in spin loops.
-</span><span class="attribute">#[derive(Default)]
+</span><span class="attr">#[derive(Default)]
 </span><span class="kw">pub struct </span>SpinWait {
     counter: u32,
 }
 
 <span class="kw">impl </span>SpinWait {
     <span class="doccomment">/// Creates a new `SpinWait`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::default()
     }
 
     <span class="doccomment">/// Resets a `SpinWait` to its initial state.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>reset(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.counter = <span class="number">0</span>;
     }
@@ -118,7 +118,7 @@
     ///
     /// The spin strategy will initially use a CPU-bound loop but will fall back
     /// to yielding the CPU to the OS after a few iterations.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>spin(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; bool {
         <span class="kw">if </span><span class="self">self</span>.counter &gt;= <span class="number">10 </span>{
             <span class="kw">return </span><span class="bool-val">false</span>;
@@ -137,7 +137,7 @@
     /// Instead, the backoff is simply capped at a maximum value. This can be
     /// used to improve throughput in `compare_exchange` loops that have high
     /// contention.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>spin_no_yield(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.counter += <span class="number">1</span>;
         <span class="kw">if </span><span class="self">self</span>.counter &gt; <span class="number">10 </span>{
@@ -147,4 +147,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

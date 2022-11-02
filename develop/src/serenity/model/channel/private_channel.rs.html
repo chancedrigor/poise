@@ -400,21 +400,21 @@
 <span id="400">400</span>
 <span id="401">401</span>
 </pre><pre class="rust"><code><span class="kw">use </span>std::fmt;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span>std::sync::Arc;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::builder::{CreateMessage, EditMessage, GetMessages};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::http::{Http, Typing};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::model::channel::AttachmentType;
 <span class="kw">use </span><span class="kw">crate</span>::model::prelude::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::model::utils::single_recipient;
 <span class="kw">use </span><span class="kw">crate</span>::model::Timestamp;
 
 <span class="doccomment">/// A Direct Message text channel with another user.
-</span><span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>PrivateChannel {
     <span class="doccomment">/// The unique Id of the private channel.
@@ -428,19 +428,19 @@
     <span class="doccomment">/// Indicator of the type of channel this is.
     ///
     /// This should always be [`ChannelType::Private`].
-    </span><span class="attribute">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
+    </span><span class="attr">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
     </span><span class="kw">pub </span>kind: ChannelType,
     <span class="doccomment">/// The recipient to the private channel.
-    </span><span class="attribute">#[serde(with = <span class="string">&quot;single_recipient&quot;</span>, rename = <span class="string">&quot;recipients&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">&quot;single_recipient&quot;</span>, rename = <span class="string">&quot;recipients&quot;</span>)]
     </span><span class="kw">pub </span>recipient: User,
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">impl </span>PrivateChannel {
     <span class="doccomment">/// Broadcasts that the current user is typing to the recipient.
     ///
     /// See [ChannelId::broadcast_typing] for more details.
-    </span><span class="attribute">#[allow(clippy::missing_errors_doc)]
+    </span><span class="attr">#[allow(clippy::missing_errors_doc)]
     #[inline]
     </span><span class="kw">pub async fn </span>broadcast_typing(<span class="kw-2">&amp;</span><span class="self">self</span>, http: <span class="kw">impl </span>AsRef&lt;Http&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="self">self</span>.id.broadcast_typing(<span class="kw-2">&amp;</span>http).<span class="kw">await
@@ -455,7 +455,7 @@
     ///
     /// Returns [`Error::Http`] if the reaction cannot be added,
     /// or if a message with that Id does not exist.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>create_reaction(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         http: <span class="kw">impl </span>AsRef&lt;Http&gt;,
@@ -468,7 +468,7 @@
     <span class="doccomment">/// Deletes the channel. This does not delete the contents of the channel,
     /// and is equivalent to closing a private channel on the client, which can
     /// be re-opened.
-    </span><span class="attribute">#[allow(clippy::missing_errors_doc)]
+    </span><span class="attr">#[allow(clippy::missing_errors_doc)]
     #[inline]
     </span><span class="kw">pub async fn </span>delete(<span class="kw-2">&amp;</span><span class="self">self</span>, http: <span class="kw">impl </span>AsRef&lt;Http&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Channel&gt; {
         <span class="self">self</span>.id.delete(<span class="kw-2">&amp;</span>http).<span class="kw">await
@@ -489,7 +489,7 @@
     /// delete either 0 or more than 100 messages.
     ///
     /// [Manage Messages]: Permissions::MANAGE_MESSAGES
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>delete_messages&lt;T, It&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         http: <span class="kw">impl </span>AsRef&lt;Http&gt;,
@@ -508,7 +508,7 @@
     /// **Note**: Requires the [Manage Channel] permission.
     ///
     /// [Manage Channel]: Permissions::MANAGE_CHANNELS
-    </span><span class="attribute">#[allow(clippy::missing_errors_doc)]
+    </span><span class="attr">#[allow(clippy::missing_errors_doc)]
     #[inline]
     </span><span class="kw">pub async fn </span>delete_permission(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -527,7 +527,7 @@
     ///
     /// Returns [`Error::Http`] if the reaction is not from
     /// the current user.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>delete_reaction(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         http: <span class="kw">impl </span>AsRef&lt;Http&gt;,
@@ -556,7 +556,7 @@
     /// Returns [`Error::Http`] if the current user is not the owner of the message.
     ///
     /// [`the limit`]: crate::builder::EditMessage::content
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>edit_message&lt;<span class="lifetime">&#39;a</span>, F&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         http: <span class="kw">impl </span>AsRef&lt;Http&gt;,
@@ -573,7 +573,7 @@
     ///
     /// **Note**: This method is for consistency. This will always return
     /// `false`, due to DMs not being considered NSFW.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[must_use]
     #[allow(clippy::unused_self)]
     </span><span class="kw">pub fn </span>is_nsfw(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
@@ -586,7 +586,7 @@
     ///
     /// Returns [`Error::Http`] if a message with that Id does not
     /// exist in this channel.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>message(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         http: <span class="kw">impl </span>AsRef&lt;Http&gt;,
@@ -602,7 +602,7 @@
     /// # Errors
     ///
     /// Returns [`Error::Http`] if an invalid value is set in the builder.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>messages&lt;F&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, http: <span class="kw">impl </span>AsRef&lt;Http&gt;, builder: F) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Message&gt;&gt;
     <span class="kw">where
         </span>F: FnOnce(<span class="kw-2">&amp;mut </span>GetMessages) -&gt; <span class="kw-2">&amp;mut </span>GetMessages,
@@ -611,7 +611,7 @@
     </span>}
 
     <span class="doccomment">/// Returns &quot;DM with $username#discriminator&quot;.
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
         <span class="macro">format!</span>(<span class="string">&quot;DM with {}&quot;</span>, <span class="self">self</span>.recipient.tag())
     }
@@ -630,7 +630,7 @@
     ///
     /// Returns [`Error::Http`] if a message with the given Id does not exist
     /// in the channel.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>reaction_users&lt;M, R, U&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         http: <span class="kw">impl </span>AsRef&lt;Http&gt;,
@@ -648,7 +648,7 @@
     ///
     /// Returns [`Error::Http`] if the number of pinned messages
     /// would exceed the 50 message limit.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>pin(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         http: <span class="kw">impl </span>AsRef&lt;Http&gt;,
@@ -659,7 +659,7 @@
 
     <span class="doccomment">/// Retrieves the list of messages that have been pinned in the private
     /// channel.
-    </span><span class="attribute">#[allow(clippy::missing_errors_doc)]
+    </span><span class="attr">#[allow(clippy::missing_errors_doc)]
     #[inline]
     </span><span class="kw">pub async fn </span>pins(<span class="kw-2">&amp;</span><span class="self">self</span>, http: <span class="kw">impl </span>AsRef&lt;Http&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Message&gt;&gt; {
         <span class="self">self</span>.id.pins(<span class="kw-2">&amp;</span>http).<span class="kw">await
@@ -672,7 +672,7 @@
     /// Returns a [`ModelError::MessageTooLong`] if the content of the message
     /// is over the above limit, containing the number of unicode code points
     /// over the limit.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>say(<span class="kw-2">&amp;</span><span class="self">self</span>, http: <span class="kw">impl </span>AsRef&lt;Http&gt;, content: <span class="kw">impl </span>fmt::Display) -&gt; <span class="prelude-ty">Result</span>&lt;Message&gt; {
         <span class="self">self</span>.id.say(<span class="kw-2">&amp;</span>http, content).<span class="kw">await
     </span>}
@@ -692,7 +692,7 @@
     /// of unicode code points over the limit.
     ///
     /// [Send Messages]: Permissions::SEND_MESSAGES
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>send_files&lt;<span class="lifetime">&#39;a</span>, F, T, It&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         http: <span class="kw">impl </span>AsRef&lt;Http&gt;,
@@ -717,7 +717,7 @@
     /// Returns a [`ModelError::MessageTooLong`] if the content of the message
     /// is over the above limit, containing the number of unicode code points
     /// over the limit.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>send_message&lt;<span class="lifetime">&#39;a</span>, F&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, http: <span class="kw">impl </span>AsRef&lt;Http&gt;, f: F) -&gt; <span class="prelude-ty">Result</span>&lt;Message&gt;
     <span class="kw">where
         for</span>&lt;<span class="lifetime">&#39;b</span>&gt; F: FnOnce(<span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span><span class="kw-2">mut </span>CreateMessage&lt;<span class="lifetime">&#39;a</span>&gt;) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span><span class="kw-2">mut </span>CreateMessage&lt;<span class="lifetime">&#39;a</span>&gt;,
@@ -784,7 +784,7 @@
     /// Returns [`Error::Http`] if the current user lacks permission,
     /// if the message was deleted, or if the channel already has the limit of
     /// 50 pinned messages.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>unpin(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         http: <span class="kw">impl </span>AsRef&lt;Http&gt;,
@@ -801,4 +801,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

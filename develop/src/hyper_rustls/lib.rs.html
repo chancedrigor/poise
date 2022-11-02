@@ -88,19 +88,19 @@
 //! # fn main() {}
 //! ```
 
-</span><span class="attribute">#![warn(missing_docs)]
+</span><span class="attr">#![warn(missing_docs)]
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
 </span><span class="kw">mod </span>config;
 <span class="kw">mod </span>connector;
 <span class="kw">mod </span>stream;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
 </span><span class="kw">mod </span>log {
     <span class="kw">pub use </span>log::{debug, trace};
 }
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;logging&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;logging&quot;</span>))]
 </span><span class="kw">mod </span>log {
     <span class="macro">macro_rules! </span>trace    ( ($(<span class="macro-nonterminal">$tt</span>:tt)<span class="kw-2">*</span>) =&gt; {{}} );
     <span class="macro">macro_rules! </span>debug    ( ($(<span class="macro-nonterminal">$tt</span>:tt)<span class="kw-2">*</span>) =&gt; {{}} );
@@ -114,11 +114,11 @@
 
 <span class="doccomment">/// The various states of the [`HttpsConnectorBuilder`]
 </span><span class="kw">pub mod </span>builderstates {
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
     </span><span class="kw">pub use </span><span class="kw">crate</span>::connector::builder::WantsProtocols3;
     <span class="kw">pub use </span><span class="kw">crate</span>::connector::builder::{
         WantsProtocols1, WantsProtocols2, WantsSchemes, WantsTlsConfig,
     };
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="hyper_rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="hyper_rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

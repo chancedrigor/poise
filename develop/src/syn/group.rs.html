@@ -286,28 +286,28 @@
 <span class="kw">use </span>proc_macro2::{Delimiter, Span};
 
 <span class="comment">// Not public API.
-</span><span class="attribute">#[doc(hidden)]
+</span><span class="attr">#[doc(hidden)]
 </span><span class="kw">pub struct </span>Parens&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="kw">pub </span>token: token::Paren,
     <span class="kw">pub </span>content: ParseBuffer&lt;<span class="lifetime">&#39;a</span>&gt;,
 }
 
 <span class="comment">// Not public API.
-</span><span class="attribute">#[doc(hidden)]
+</span><span class="attr">#[doc(hidden)]
 </span><span class="kw">pub struct </span>Braces&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="kw">pub </span>token: token::Brace,
     <span class="kw">pub </span>content: ParseBuffer&lt;<span class="lifetime">&#39;a</span>&gt;,
 }
 
 <span class="comment">// Not public API.
-</span><span class="attribute">#[doc(hidden)]
+</span><span class="attr">#[doc(hidden)]
 </span><span class="kw">pub struct </span>Brackets&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="kw">pub </span>token: token::Bracket,
     <span class="kw">pub </span>content: ParseBuffer&lt;<span class="lifetime">&#39;a</span>&gt;,
 }
 
 <span class="comment">// Not public API.
-</span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;full&quot;</span>, feature = <span class="string">&quot;derive&quot;</span>))]
+</span><span class="attr">#[cfg(any(feature = <span class="string">&quot;full&quot;</span>, feature = <span class="string">&quot;derive&quot;</span>))]
 #[doc(hidden)]
 </span><span class="kw">pub struct </span>Group&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="kw">pub </span>token: token::Group,
@@ -315,7 +315,7 @@
 }
 
 <span class="comment">// Not public API.
-</span><span class="attribute">#[doc(hidden)]
+</span><span class="attr">#[doc(hidden)]
 </span><span class="kw">pub fn </span>parse_parens&lt;<span class="lifetime">&#39;a</span>&gt;(input: <span class="kw-2">&amp;</span>ParseBuffer&lt;<span class="lifetime">&#39;a</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Parens&lt;<span class="lifetime">&#39;a</span>&gt;&gt; {
     parse_delimited(input, Delimiter::Parenthesis).map(|(span, content)| Parens {
         token: token::Paren(span),
@@ -324,7 +324,7 @@
 }
 
 <span class="comment">// Not public API.
-</span><span class="attribute">#[doc(hidden)]
+</span><span class="attr">#[doc(hidden)]
 </span><span class="kw">pub fn </span>parse_braces&lt;<span class="lifetime">&#39;a</span>&gt;(input: <span class="kw-2">&amp;</span>ParseBuffer&lt;<span class="lifetime">&#39;a</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Braces&lt;<span class="lifetime">&#39;a</span>&gt;&gt; {
     parse_delimited(input, Delimiter::Brace).map(|(span, content)| Braces {
         token: token::Brace(span),
@@ -333,7 +333,7 @@
 }
 
 <span class="comment">// Not public API.
-</span><span class="attribute">#[doc(hidden)]
+</span><span class="attr">#[doc(hidden)]
 </span><span class="kw">pub fn </span>parse_brackets&lt;<span class="lifetime">&#39;a</span>&gt;(input: <span class="kw-2">&amp;</span>ParseBuffer&lt;<span class="lifetime">&#39;a</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Brackets&lt;<span class="lifetime">&#39;a</span>&gt;&gt; {
     parse_delimited(input, Delimiter::Bracket).map(|(span, content)| Brackets {
         token: token::Bracket(span),
@@ -341,7 +341,7 @@
     })
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;full&quot;</span>, feature = <span class="string">&quot;derive&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;full&quot;</span>, feature = <span class="string">&quot;derive&quot;</span>))]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>parse_group&lt;<span class="lifetime">&#39;a</span>&gt;(input: <span class="kw-2">&amp;</span>ParseBuffer&lt;<span class="lifetime">&#39;a</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Group&lt;<span class="lifetime">&#39;a</span>&gt;&gt; {
     parse_delimited(input, Delimiter::None).map(|(span, content)| Group {
         token: token::Group(span),
@@ -414,7 +414,7 @@
 /// #     syn::parse2::&lt;TupleStruct&gt;(input).unwrap();
 /// # }
 /// ```
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 #[cfg_attr(doc_cfg, doc(cfg(feature = <span class="string">&quot;parsing&quot;</span>)))]
 </span><span class="macro">macro_rules! </span>parenthesized {
     (<span class="macro-nonterminal">$content</span>:ident <span class="kw">in </span><span class="macro-nonterminal">$cursor</span>:expr) =&gt; {
@@ -492,7 +492,7 @@
 /// #     syn::parse2::&lt;Struct&gt;(input).unwrap();
 /// # }
 /// ```
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 #[cfg_attr(doc_cfg, doc(cfg(feature = <span class="string">&quot;parsing&quot;</span>)))]
 </span><span class="macro">macro_rules! </span>braced {
     (<span class="macro-nonterminal">$content</span>:ident <span class="kw">in </span><span class="macro-nonterminal">$cursor</span>:expr) =&gt; {
@@ -547,7 +547,7 @@
 /// #     syn::parse2::&lt;OuterAttribute&gt;(input).unwrap();
 /// # }
 /// ```
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 #[cfg_attr(doc_cfg, doc(cfg(feature = <span class="string">&quot;parsing&quot;</span>)))]
 </span><span class="macro">macro_rules! </span>bracketed {
     (<span class="macro-nonterminal">$content</span>:ident <span class="kw">in </span><span class="macro-nonterminal">$cursor</span>:expr) =&gt; {
@@ -563,4 +563,4 @@
     };
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="syn" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="syn" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

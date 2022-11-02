@@ -644,7 +644,7 @@
 <span id="644">644</span>
 </pre><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::batch_semaphore <span class="kw">as </span>ll; <span class="comment">// low level implementation
 </span><span class="kw">use super</span>::{AcquireError, TryAcquireError};
-<span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+<span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::util::trace;
 <span class="kw">use </span>std::sync::Arc;
 
@@ -719,11 +719,11 @@
 ///
 /// [`PollSemaphore`]: https://docs.rs/tokio-util/0.6/tokio_util/sync/struct.PollSemaphore.html
 /// [`Semaphore::acquire_owned`]: crate::sync::Semaphore::acquire_owned
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Semaphore {
     <span class="doccomment">/// The low level semaphore
     </span>ll_sem: ll::Semaphore,
-    <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+    <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
     </span>resource_span: tracing::Span,
 }
 
@@ -732,7 +732,7 @@
 /// This type is created by the [`acquire`] method.
 ///
 /// [`acquire`]: crate::sync::Semaphore::acquire()
-</span><span class="attribute">#[must_use]
+</span><span class="attr">#[must_use]
 #[derive(Debug)]
 </span><span class="kw">pub struct </span>SemaphorePermit&lt;<span class="lifetime">&#39;a</span>&gt; {
     sem: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Semaphore,
@@ -744,14 +744,14 @@
 /// This type is created by the [`acquire_owned`] method.
 ///
 /// [`acquire_owned`]: crate::sync::Semaphore::acquire_owned()
-</span><span class="attribute">#[must_use]
+</span><span class="attr">#[must_use]
 #[derive(Debug)]
 </span><span class="kw">pub struct </span>OwnedSemaphorePermit {
     sem: Arc&lt;Semaphore&gt;,
     permits: u32,
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 #[cfg(not(loom))]
 </span><span class="kw">fn </span>bounds() {
     <span class="kw">fn </span>check_unpin&lt;T: Unpin&gt;() {}
@@ -768,9 +768,9 @@
 
 <span class="kw">impl </span>Semaphore {
     <span class="doccomment">/// Creates a new semaphore with the initial number of permits.
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>new(permits: usize) -&gt; <span class="self">Self </span>{
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>resource_span = {
             <span class="kw">let </span>location = std::panic::Location::caller();
 
@@ -785,15 +785,15 @@
             )
         };
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>ll_sem = resource_span.in_scope(|| ll::Semaphore::new(permits));
 
-        <span class="attribute">#[cfg(any(not(tokio_unstable), not(feature = <span class="string">&quot;tracing&quot;</span>)))]
+        <span class="attr">#[cfg(any(not(tokio_unstable), not(feature = <span class="string">&quot;tracing&quot;</span>)))]
         </span><span class="kw">let </span>ll_sem = ll::Semaphore::new(permits);
 
         <span class="self">Self </span>{
             ll_sem,
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span>resource_span,
         }
     }
@@ -808,16 +808,16 @@
     /// static SEM: Semaphore = Semaphore::const_new(10);
     /// ```
     ///
-    </span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;parking_lot&quot;</span>, not(all(loom, test))))]
+    </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;parking_lot&quot;</span>, not(all(loom, test))))]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;parking_lot&quot;</span>)))]
     </span><span class="kw">pub const fn </span>const_new(permits: usize) -&gt; <span class="self">Self </span>{
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">return </span><span class="self">Self </span>{
             ll_sem: ll::Semaphore::const_new(permits),
             resource_span: tracing::Span::none(),
         };
 
-        <span class="attribute">#[cfg(any(not(tokio_unstable), not(feature = <span class="string">&quot;tracing&quot;</span>)))]
+        <span class="attr">#[cfg(any(not(tokio_unstable), not(feature = <span class="string">&quot;tracing&quot;</span>)))]
         </span><span class="kw">return </span><span class="self">Self </span>{
             ll_sem: ll::Semaphore::const_new(permits),
         };
@@ -870,7 +870,7 @@
     /// [`AcquireError`]: crate::sync::AcquireError
     /// [`SemaphorePermit`]: crate::sync::SemaphorePermit
     </span><span class="kw">pub async fn </span>acquire(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;SemaphorePermit&lt;<span class="lifetime">&#39;_</span>&gt;, AcquireError&gt; {
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>inner = trace::async_op(
             || <span class="self">self</span>.ll_sem.acquire(<span class="number">1</span>),
             <span class="self">self</span>.resource_span.clone(),
@@ -878,7 +878,7 @@
             <span class="string">&quot;poll&quot;</span>,
             <span class="bool-val">true</span>,
         );
-        <span class="attribute">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
+        <span class="attr">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
         </span><span class="kw">let </span>inner = <span class="self">self</span>.ll_sem.acquire(<span class="number">1</span>);
 
         inner.<span class="kw">await</span><span class="question-mark">?</span>;
@@ -917,7 +917,7 @@
     /// [`AcquireError`]: crate::sync::AcquireError
     /// [`SemaphorePermit`]: crate::sync::SemaphorePermit
     </span><span class="kw">pub async fn </span>acquire_many(<span class="kw-2">&amp;</span><span class="self">self</span>, n: u32) -&gt; <span class="prelude-ty">Result</span>&lt;SemaphorePermit&lt;<span class="lifetime">&#39;_</span>&gt;, AcquireError&gt; {
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span>trace::async_op(
             || <span class="self">self</span>.ll_sem.acquire(n),
             <span class="self">self</span>.resource_span.clone(),
@@ -927,7 +927,7 @@
         )
         .<span class="kw">await</span><span class="question-mark">?</span>;
 
-        <span class="attribute">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
+        <span class="attr">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
         </span><span class="self">self</span>.ll_sem.acquire(n).<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(SemaphorePermit {
@@ -1052,7 +1052,7 @@
     /// [`AcquireError`]: crate::sync::AcquireError
     /// [`OwnedSemaphorePermit`]: crate::sync::OwnedSemaphorePermit
     </span><span class="kw">pub async fn </span>acquire_owned(<span class="self">self</span>: Arc&lt;<span class="self">Self</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;OwnedSemaphorePermit, AcquireError&gt; {
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>inner = trace::async_op(
             || <span class="self">self</span>.ll_sem.acquire(<span class="number">1</span>),
             <span class="self">self</span>.resource_span.clone(),
@@ -1060,7 +1060,7 @@
             <span class="string">&quot;poll&quot;</span>,
             <span class="bool-val">true</span>,
         );
-        <span class="attribute">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
+        <span class="attr">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
         </span><span class="kw">let </span>inner = <span class="self">self</span>.ll_sem.acquire(<span class="number">1</span>);
 
         inner.<span class="kw">await</span><span class="question-mark">?</span>;
@@ -1116,7 +1116,7 @@
         <span class="self">self</span>: Arc&lt;<span class="self">Self</span>&gt;,
         n: u32,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;OwnedSemaphorePermit, AcquireError&gt; {
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>inner = trace::async_op(
             || <span class="self">self</span>.ll_sem.acquire(n),
             <span class="self">self</span>.resource_span.clone(),
@@ -1124,7 +1124,7 @@
             <span class="string">&quot;poll&quot;</span>,
             <span class="bool-val">true</span>,
         );
-        <span class="attribute">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
+        <span class="attr">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
         </span><span class="kw">let </span>inner = <span class="self">self</span>.ll_sem.acquire(n);
 
         inner.<span class="kw">await</span><span class="question-mark">?</span>;
@@ -1287,4 +1287,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

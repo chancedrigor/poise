@@ -629,7 +629,7 @@
 <span class="kw">mod </span>private_channel;
 <span class="kw">mod </span>reaction;
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 </span><span class="kw">use </span>std::error::Error <span class="kw">as </span>StdError;
 <span class="kw">use </span>std::fmt;
 
@@ -646,21 +646,21 @@
 <span class="kw">pub use </span><span class="self">self</span>::partial_channel::<span class="kw-2">*</span>;
 <span class="kw">pub use </span><span class="self">self</span>::private_channel::<span class="kw-2">*</span>;
 <span class="kw">pub use </span><span class="self">self</span>::reaction::<span class="kw-2">*</span>;
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::cache::Cache;
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::cache::FromStrAndCache;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::http::CacheHttp;
 <span class="kw">use </span><span class="kw">crate</span>::json::prelude::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::model::prelude::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::model::utils::is_false;
 <span class="kw">use </span><span class="kw">crate</span>::model::Timestamp;
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::utils::parse_channel;
 
 <span class="doccomment">/// A container for any channel.
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>Channel {
     <span class="doccomment">/// A [text], [voice], [stage] or [directory] channel within a [`Guild`].
@@ -702,7 +702,7 @@
     /// }
     /// # }
     /// ```
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>guild(<span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;GuildChannel&gt; {
         <span class="kw">match </span><span class="self">self </span>{
             <span class="self">Self</span>::Guild(lock) =&gt; <span class="prelude-val">Some</span>(lock),
@@ -734,7 +734,7 @@
     /// }
     /// # }
     /// ```
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>private(<span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;PrivateChannel&gt; {
         <span class="kw">match </span><span class="self">self </span>{
             <span class="self">Self</span>::Private(lock) =&gt; <span class="prelude-val">Some</span>(lock),
@@ -766,7 +766,7 @@
     /// }
     /// # }
     /// ```
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>category(<span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;ChannelCategory&gt; {
         <span class="kw">match </span><span class="self">self </span>{
             <span class="self">Self</span>::Category(lock) =&gt; <span class="prelude-val">Some</span>(lock),
@@ -783,7 +783,7 @@
     ///
     /// Otherwise will return [`Error::Http`] if the current user does not
     /// have permission.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
     </span><span class="kw">pub async fn </span>delete(<span class="kw-2">&amp;</span><span class="self">self</span>, cache_http: <span class="kw">impl </span>CacheHttp) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">match </span><span class="self">self </span>{
             <span class="self">Self</span>::Guild(public_channel) =&gt; {
@@ -801,7 +801,7 @@
     }
 
     <span class="doccomment">/// Determines if the channel is NSFW.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[must_use]
     #[cfg(feature = <span class="string">&quot;model&quot;</span>)]
     </span><span class="kw">pub fn </span>is_nsfw(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
@@ -814,7 +814,7 @@
 
     <span class="doccomment">/// Retrieves the Id of the inner [`GuildChannel`], or
     /// [`PrivateChannel`].
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[must_use]
     </span><span class="kw">pub fn </span>id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ChannelId {
         <span class="kw">match </span><span class="self">self </span>{
@@ -828,7 +828,7 @@
     /// [`ChannelCategory`].
     ///
     /// If other channel types are used it will return None.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[must_use]
     </span><span class="kw">pub fn </span>position(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;i64&gt; {
         <span class="kw">match </span><span class="self">self </span>{
@@ -902,7 +902,7 @@
 }
 
 <span class="doccomment">/// A representation of a type of channel.
-</span><span class="attribute">#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
 #[non_exhaustive]
 #[repr(u8)]
 </span><span class="kw">pub enum </span>ChannelType {
@@ -931,7 +931,7 @@
     /// [hub]: https://support.discord.com/hc/en-us/articles/4406046651927-Discord-Student-Hubs-FAQ
     </span>Directory = <span class="number">14</span>,
     <span class="doccomment">/// An indicator that the channel is a forum [`GuildChannel`].
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;unstable_discord_api&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;unstable_discord_api&quot;</span>)]
     </span>Forum = <span class="number">15</span>,
     <span class="doccomment">/// An indicator that the channel is of unknown type.
     </span>Unknown = !<span class="number">0</span>,
@@ -948,12 +948,12 @@
     PrivateThread,
     Stage,
     Directory,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;unstable_discord_api&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;unstable_discord_api&quot;</span>)]
     </span>Forum,
 });
 
 <span class="kw">impl </span>ChannelType {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     #[must_use]
     </span><span class="kw">pub fn </span>name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
@@ -967,25 +967,25 @@
             <span class="self">Self</span>::PrivateThread =&gt; <span class="string">&quot;private_thread&quot;</span>,
             <span class="self">Self</span>::Stage =&gt; <span class="string">&quot;stage&quot;</span>,
             <span class="self">Self</span>::Directory =&gt; <span class="string">&quot;directory&quot;</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;unstable_discord_api&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;unstable_discord_api&quot;</span>)]
             </span><span class="self">Self</span>::Forum =&gt; <span class="string">&quot;forum&quot;</span>,
             <span class="self">Self</span>::Unknown =&gt; <span class="string">&quot;unknown&quot;</span>,
         }
     }
 }
 
-<span class="attribute">#[derive(Deserialize, Serialize)]
+<span class="attr">#[derive(Deserialize, Serialize)]
 </span><span class="kw">struct </span>PermissionOverwriteData {
     allow: Permissions,
     deny: Permissions,
-    <span class="attribute">#[serde(with = <span class="string">&quot;snowflake&quot;</span>)]
+    <span class="attr">#[serde(with = <span class="string">&quot;snowflake&quot;</span>)]
     </span>id: u64,
-    <span class="attribute">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
     </span>kind: u8,
 }
 
 <span class="doccomment">/// A channel-specific permission overwrite for a member or role.
-</span><span class="attribute">#[derive(Clone, Debug, PartialEq)]
+</span><span class="attr">#[derive(Clone, Debug, PartialEq)]
 </span><span class="kw">pub struct </span>PermissionOverwrite {
     <span class="kw">pub </span>allow: Permissions,
     <span class="kw">pub </span>deny: Permissions,
@@ -1035,7 +1035,7 @@
 <span class="doccomment">/// The type of edit being made to a Channel&#39;s permissions.
 ///
 /// This is for use with methods such as [`GuildChannel::create_permission`].
-</span><span class="attribute">#[derive(Copy, Clone, Debug, Eq, PartialEq)]
+</span><span class="attr">#[derive(Copy, Clone, Debug, Eq, PartialEq)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>PermissionOverwriteType {
     <span class="doccomment">/// A member which is having its permission overwrites edited.
@@ -1045,7 +1045,7 @@
 }
 
 <span class="doccomment">/// The video quality mode for a voice channel.
-</span><span class="attribute">#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>VideoQualityMode {
     <span class="doccomment">/// An indicator that the video quality is chosen by Discord for optimal
@@ -1062,7 +1062,7 @@
     Full
 });
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>StageInstance {
     <span class="doccomment">/// The Id of the stage instance.
@@ -1076,7 +1076,7 @@
 }
 
 <span class="doccomment">/// A thread data.
-</span><span class="attribute">#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+</span><span class="attr">#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ThreadMetadata {
     <span class="doccomment">/// Whether the thread is archived.
@@ -1088,7 +1088,7 @@
     <span class="doccomment">/// Timestamp when the thread&#39;s archive status was last changed, used for calculating recent activity.
     </span><span class="kw">pub </span>archive_timestamp: <span class="prelude-ty">Option</span>&lt;Timestamp&gt;,
     <span class="doccomment">/// When a thread is locked, only users with `MANAGE_THREADS` permission can unarchive it.
-    </span><span class="attribute">#[serde(default)]
+    </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>locked: bool,
     <span class="doccomment">/// Timestamp when the thread was created.
     ///
@@ -1097,12 +1097,12 @@
     <span class="doccomment">/// Whether non-moderators can add other non-moderators to a thread.
     ///
     /// **Note**: Only available on private threads.
-    </span><span class="attribute">#[serde(default, skip_serializing_if = <span class="string">&quot;is_false&quot;</span>)]
+    </span><span class="attr">#[serde(default, skip_serializing_if = <span class="string">&quot;is_false&quot;</span>)]
     </span><span class="kw">pub </span>invitable: bool,
 }
 
 <span class="doccomment">/// A response to getting several threads channels.
-</span><span class="attribute">#[derive(Debug, Clone, Serialize, Deserialize)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ThreadsData {
     <span class="doccomment">/// The threads channels.
@@ -1110,13 +1110,13 @@
     <span class="doccomment">/// A thread member for each returned thread the current user has joined.
     </span><span class="kw">pub </span>members: Vec&lt;ThreadMember&gt;,
     <span class="doccomment">/// Whether there are potentially additional threads that could be returned on a subsequent call.
-    </span><span class="attribute">#[serde(default)]
+    </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>has_more: bool,
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
-    <span class="attribute">#[cfg(all(feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+    <span class="attr">#[cfg(all(feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
     </span><span class="kw">mod </span>model_utils {
         <span class="kw">use </span><span class="kw">crate</span>::model::prelude::<span class="kw-2">*</span>;
 
@@ -1165,7 +1165,7 @@
             }
         }
 
-        <span class="attribute">#[test]
+        <span class="attr">#[test]
         </span><span class="kw">fn </span>nsfw_checks() {
             <span class="kw">let </span><span class="kw-2">mut </span>channel = guild_channel();
             <span class="macro">assert!</span>(!channel.is_nsfw());
@@ -1197,14 +1197,14 @@
     }
 }
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 #[derive(Debug)]
 </span><span class="kw">pub enum </span>ChannelParseError {
     NotPresentInCache,
     InvalidChannel,
 }
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 </span><span class="kw">impl </span>fmt::Display <span class="kw">for </span>ChannelParseError {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="self">self </span>{
@@ -1214,10 +1214,10 @@
     }
 }
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 </span><span class="kw">impl </span>StdError <span class="kw">for </span>ChannelParseError {}
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 </span><span class="kw">impl </span>FromStrAndCache <span class="kw">for </span>Channel {
     <span class="kw">type </span><span class="prelude-val">Err </span>= ChannelParseError;
 
@@ -1235,4 +1235,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

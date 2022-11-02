@@ -387,7 +387,7 @@
 <span id="387">387</span>
 <span id="388">388</span>
 </pre><pre class="rust"><code><span class="kw">use </span>std::error::Error <span class="kw">as </span>StdError;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
 </span><span class="kw">use </span>std::time::Duration;
 
 <span class="kw">use </span>bytes::Bytes;
@@ -427,17 +427,17 @@
 </span><span class="kw">const </span>DEFAULT_MAX_FRAME_SIZE: u32 = <span class="number">1024 </span>* <span class="number">16</span>; <span class="comment">// 16kb
 </span><span class="kw">const </span>DEFAULT_MAX_SEND_BUF_SIZE: usize = <span class="number">1024 </span>* <span class="number">1024</span>; <span class="comment">// 1mb
 
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Config {
     <span class="kw">pub</span>(<span class="kw">crate</span>) adaptive_window: bool,
     <span class="kw">pub</span>(<span class="kw">crate</span>) initial_conn_window_size: u32,
     <span class="kw">pub</span>(<span class="kw">crate</span>) initial_stream_window_size: u32,
     <span class="kw">pub</span>(<span class="kw">crate</span>) max_frame_size: u32,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) keep_alive_interval: <span class="prelude-ty">Option</span>&lt;Duration&gt;,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) keep_alive_timeout: Duration,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) keep_alive_while_idle: bool,
     <span class="kw">pub</span>(<span class="kw">crate</span>) max_concurrent_reset_streams: <span class="prelude-ty">Option</span>&lt;usize&gt;,
     <span class="kw">pub</span>(<span class="kw">crate</span>) max_send_buffer_size: usize,
@@ -450,11 +450,11 @@
             initial_conn_window_size: DEFAULT_CONN_WINDOW,
             initial_stream_window_size: DEFAULT_STREAM_WINDOW,
             max_frame_size: DEFAULT_MAX_FRAME_SIZE,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
             </span>keep_alive_interval: <span class="prelude-val">None</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
             </span>keep_alive_timeout: Duration::from_secs(<span class="number">20</span>),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
             </span>keep_alive_while_idle: <span class="bool-val">false</span>,
             max_concurrent_reset_streams: <span class="prelude-val">None</span>,
             max_send_buffer_size: DEFAULT_MAX_SEND_BUF_SIZE,
@@ -483,11 +483,11 @@
         } <span class="kw">else </span>{
             <span class="prelude-val">None
         </span>},
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
         </span>keep_alive_interval: config.keep_alive_interval,
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
         </span>keep_alive_timeout: config.keep_alive_timeout,
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
         </span>keep_alive_while_idle: config.keep_alive_while_idle,
     }
 }
@@ -533,7 +533,7 @@
                     conn.set_target_window_size(wnd);
                     conn.set_initial_window_size(wnd)<span class="question-mark">?</span>;
                 }
-                <span class="attribute">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
+                <span class="attr">#[cfg(feature = <span class="string">&quot;runtime&quot;</span>)]
                 </span>Poll::Ready(ping::Ponged::KeepAliveTimedOut) =&gt; {
                     <span class="macro">debug!</span>(<span class="string">&quot;connection keep-alive timed out&quot;</span>);
                     <span class="kw">return </span>Poll::Ready(<span class="prelude-val">Ok</span>(()));
@@ -775,4 +775,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

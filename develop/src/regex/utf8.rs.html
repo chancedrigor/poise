@@ -311,7 +311,7 @@
 /// Note that a UTF-8 sequence is invalid if it is incorrect UTF-8, encodes a
 /// codepoint that is out of range (surrogate codepoints are out of range) or
 /// is not the shortest possible UTF-8 sequence for that codepoint.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>decode_utf8(src: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;(char, usize)&gt; {
     <span class="kw">let </span>b0 = <span class="kw">match </span>src.get(<span class="number">0</span>) {
         <span class="prelude-val">None </span>=&gt; <span class="kw">return </span><span class="prelude-val">None</span>,
@@ -407,7 +407,7 @@
     b &amp; <span class="number">0b11_000000 </span>!= <span class="number">0b1_0000000
 </span>}
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>std::str;
 
@@ -417,7 +417,7 @@
         decode_last_utf8, decode_utf8, TAG_CONT, TAG_FOUR, TAG_THREE, TAG_TWO,
     };
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>prop_roundtrip() {
         <span class="kw">fn </span>p(given_cp: char) -&gt; bool {
             <span class="kw">let </span><span class="kw-2">mut </span>tmp = [<span class="number">0</span>; <span class="number">4</span>];
@@ -428,7 +428,7 @@
         quickcheck(p <span class="kw">as fn</span>(char) -&gt; bool)
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>prop_roundtrip_last() {
         <span class="kw">fn </span>p(given_cp: char) -&gt; bool {
             <span class="kw">let </span><span class="kw-2">mut </span>tmp = [<span class="number">0</span>; <span class="number">4</span>];
@@ -440,7 +440,7 @@
         quickcheck(p <span class="kw">as fn</span>(char) -&gt; bool)
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>prop_encode_matches_std() {
         <span class="kw">fn </span>p(cp: char) -&gt; bool {
             <span class="kw">let </span><span class="kw-2">mut </span>got = [<span class="number">0</span>; <span class="number">4</span>];
@@ -451,7 +451,7 @@
         quickcheck(p <span class="kw">as fn</span>(char) -&gt; bool)
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>prop_decode_matches_std() {
         <span class="kw">fn </span>p(given_cp: char) -&gt; bool {
             <span class="kw">let </span><span class="kw-2">mut </span>tmp = [<span class="number">0</span>; <span class="number">4</span>];
@@ -464,7 +464,7 @@
         quickcheck(p <span class="kw">as fn</span>(char) -&gt; bool)
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>prop_decode_last_matches_std() {
         <span class="kw">fn </span>p(given_cp: char) -&gt; bool {
             <span class="kw">let </span><span class="kw-2">mut </span>tmp = [<span class="number">0</span>; <span class="number">4</span>];
@@ -481,7 +481,7 @@
         quickcheck(p <span class="kw">as fn</span>(char) -&gt; bool)
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>reject_invalid() {
         <span class="comment">// Invalid start byte
         </span><span class="macro">assert_eq!</span>(decode_utf8(<span class="kw-2">&amp;</span>[<span class="number">0xFF</span>]), <span class="prelude-val">None</span>);
@@ -502,7 +502,7 @@
         </span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>reject_invalid_last() {
         <span class="comment">// Invalid start byte
         </span><span class="macro">assert_eq!</span>(decode_last_utf8(<span class="kw-2">&amp;</span>[<span class="number">0xFF</span>]), <span class="prelude-val">None</span>);
@@ -527,4 +527,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="regex" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="regex" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

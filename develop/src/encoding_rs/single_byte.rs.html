@@ -1001,7 +1001,7 @@
         <span class="prelude-val">Some</span>(byte_length)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>encode_u16(<span class="kw-2">&amp;</span><span class="self">self</span>, code_unit: u16) -&gt; <span class="prelude-ty">Option</span>&lt;u8&gt; {
         <span class="comment">// First, we see if the code unit falls into a run of consecutive
         // code units that can be mapped by offset. This is very efficient
@@ -1217,18 +1217,18 @@
 <span class="comment">// Any copyright to the test code below this comment is dedicated to the
 // Public Domain. http://creativecommons.org/publicdomain/zero/1.0/
 
-</span><span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
+</span><span class="attr">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::testing::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_windows_1255_ca() {
         decode(WINDOWS_1255, <span class="string">b&quot;\xCA&quot;</span>, <span class="string">&quot;\u{05BA}&quot;</span>);
         encode(WINDOWS_1255, <span class="string">&quot;\u{05BA}&quot;</span>, <span class="string">b&quot;\xCA&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_ascii_punctuation() {
         <span class="kw">let </span>bytes = <span class="string">b&quot;\xC1\xF5\xF4\xFC \xE5\xDF\xED\xE1\xE9 \xDD\xED\xE1 \xF4\xE5\xF3\xF4. \xC1\xF5\xF4\xFC \xE5\xDF\xED\xE1\xE9 \xDD\xED\xE1 \xF4\xE5\xF3\xF4.&quot;</span>;
         <span class="kw">let </span>characters = <span class="string">&quot;\u{0391}\u{03C5}\u{03C4}\u{03CC} \
@@ -1240,7 +1240,7 @@
         encode(WINDOWS_1253, characters, bytes);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decode_malformed() {
         decode(
             WINDOWS_1253,
@@ -1249,7 +1249,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_encode_unmappables() {
         encode(
             WINDOWS_1253,
@@ -1263,7 +1263,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_encode_unpaired_surrogates() {
         encode_from_utf16(
             WINDOWS_1253,
@@ -1336,7 +1336,7 @@
         encode_from_utf16(encoding, data, <span class="kw-2">&amp;</span>with_zeros[..]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_single_byte_from_two_low_surrogates() {
         <span class="kw">let </span>expectation = <span class="string">b&quot;&amp;#65533;&amp;#65533;&quot;</span>;
         <span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0u8</span>; <span class="number">40</span>];
@@ -1355,7 +1355,7 @@
     // BEGIN GENERATED CODE. PLEASE DO NOT EDIT.
     // Instead, please regenerate using generate-encoding-data.py
 
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>test_single_byte_decode() {
         decode_single_byte(IBM866, <span class="kw-2">&amp;</span>data::SINGLE_BYTE_DATA.ibm866);
         decode_single_byte(ISO_8859_10, <span class="kw-2">&amp;</span>data::SINGLE_BYTE_DATA.iso_8859_10);
@@ -1390,7 +1390,7 @@
         decode_single_byte(X_MAC_CYRILLIC, <span class="kw-2">&amp;</span>data::SINGLE_BYTE_DATA.x_mac_cyrillic);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_single_byte_encode() {
         encode_single_byte(IBM866, <span class="kw-2">&amp;</span>data::SINGLE_BYTE_DATA.ibm866);
         encode_single_byte(ISO_8859_10, <span class="kw-2">&amp;</span>data::SINGLE_BYTE_DATA.iso_8859_10);
@@ -1427,4 +1427,4 @@
     <span class="comment">// END GENERATED CODE
 </span>}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="encoding_rs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="encoding_rs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

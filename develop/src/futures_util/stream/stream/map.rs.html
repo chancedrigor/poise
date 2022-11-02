@@ -80,7 +80,7 @@
 <span class="kw">use </span>futures_core::ready;
 <span class="kw">use </span>futures_core::stream::{FusedStream, Stream};
 <span class="kw">use </span>futures_core::task::{Context, Poll};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
 </span><span class="kw">use </span>futures_sink::Sink;
 <span class="kw">use </span>pin_project_lite::pin_project;
 
@@ -88,9 +88,9 @@
 
 <span class="macro">pin_project! </span>{
     <span class="doccomment">/// Stream for the [`map`](super::StreamExt::map) method.
-    </span><span class="attribute">#[must_use = <span class="string">&quot;streams do nothing unless polled&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;streams do nothing unless polled&quot;</span>]
     </span><span class="kw">pub struct </span>Map&lt;St, F&gt; {
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span>stream: St,
         f: F,
     }
@@ -142,7 +142,7 @@
 }
 
 <span class="comment">// Forwarding impl of Sink from the underlying stream
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
 </span><span class="kw">impl</span>&lt;St, F, Item&gt; Sink&lt;Item&gt; <span class="kw">for </span>Map&lt;St, F&gt;
 <span class="kw">where
     </span>St: Stream + Sink&lt;Item&gt;,
@@ -153,4 +153,4 @@
     <span class="macro">delegate_sink!</span>(stream, Item);
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

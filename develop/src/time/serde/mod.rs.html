@@ -332,16 +332,16 @@
     };
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde-well-known&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde-well-known&quot;</span>)]
 </span><span class="kw">pub mod </span>rfc2822;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde-well-known&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde-well-known&quot;</span>)]
 </span><span class="kw">pub mod </span>rfc3339;
 <span class="kw">pub mod </span>timestamp;
 <span class="kw">mod </span>visitor;
 
 <span class="kw">use </span>core::marker::PhantomData;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde-human-readable&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde-human-readable&quot;</span>)]
 </span><span class="kw">use </span>serde::ser::Error <span class="kw">as _</span>;
 <span class="kw">use </span>serde::{Deserialize, Deserializer, Serialize, Serializer};
 <span class="doccomment">/// Generate a custom serializer and deserializer from the provided string.
@@ -379,17 +379,17 @@
 /// ```
 ///
 /// [`format_description::parse()`]: crate::format_description::parse()
-</span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;macros&quot;</span>, feature = <span class="string">&quot;serde-human-readable&quot;</span>))]
+</span><span class="attr">#[cfg(all(feature = <span class="string">&quot;macros&quot;</span>, feature = <span class="string">&quot;serde-human-readable&quot;</span>))]
 </span><span class="kw">pub use </span>time_macros::serde_format_description <span class="kw">as </span>format_description;
 
 <span class="kw">use </span><span class="self">self</span>::visitor::Visitor;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::format_description::{modifier, Component, FormatItem};
 <span class="kw">use crate</span>::{Date, Duration, Month, OffsetDateTime, PrimitiveDateTime, Time, UtcOffset, Weekday};
 
 <span class="comment">// region: Date
 </span><span class="doccomment">/// The format used when serializing and deserializing a human-readable `Date`.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">const </span>DATE_FORMAT: <span class="kw-2">&amp;</span>[FormatItem&lt;<span class="lifetime">&#39;_</span>&gt;] = <span class="kw-2">&amp;</span>[
     FormatItem::Component(Component::Year(modifier::Year::default())),
     FormatItem::Literal(<span class="string">b&quot;-&quot;</span>),
@@ -400,7 +400,7 @@
 
 <span class="kw">impl </span>Serialize <span class="kw">for </span>Date {
     <span class="kw">fn </span>serialize&lt;S: Serializer&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt; {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;serde-human-readable&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;serde-human-readable&quot;</span>)]
         </span><span class="kw">if </span>serializer.is_human_readable() {
             <span class="kw">return </span>serializer.serialize_str(<span class="kw-2">&amp;</span><span class="kw">match </span><span class="self">self</span>.format(<span class="kw-2">&amp;</span>DATE_FORMAT) {
                 <span class="prelude-val">Ok</span>(s) =&gt; s,
@@ -422,7 +422,7 @@
 // region: Duration
 </span><span class="kw">impl </span>Serialize <span class="kw">for </span>Duration {
     <span class="kw">fn </span>serialize&lt;S: Serializer&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt; {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;serde-human-readable&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;serde-human-readable&quot;</span>)]
         </span><span class="kw">if </span>serializer.is_human_readable() {
             <span class="kw">return </span>serializer.collect_str(<span class="kw-2">&amp;</span><span class="macro">format_args!</span>(
                 <span class="string">&quot;{}.{:&gt;09}&quot;</span>,
@@ -444,7 +444,7 @@
 
 // region: OffsetDateTime
 </span><span class="doccomment">/// The format used when serializing and deserializing a human-readable `OffsetDateTime`.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">const </span>OFFSET_DATE_TIME_FORMAT: <span class="kw-2">&amp;</span>[FormatItem&lt;<span class="lifetime">&#39;_</span>&gt;] = <span class="kw-2">&amp;</span>[
     FormatItem::Compound(DATE_FORMAT),
     FormatItem::Literal(<span class="string">b&quot; &quot;</span>),
@@ -455,7 +455,7 @@
 
 <span class="kw">impl </span>Serialize <span class="kw">for </span>OffsetDateTime {
     <span class="kw">fn </span>serialize&lt;S: Serializer&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt; {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;serde-human-readable&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;serde-human-readable&quot;</span>)]
         </span><span class="kw">if </span>serializer.is_human_readable() {
             <span class="kw">return </span>serializer.serialize_str(<span class="kw-2">&amp;</span><span class="kw">match </span><span class="self">self</span>.format(<span class="kw-2">&amp;</span>OFFSET_DATE_TIME_FORMAT) {
                 <span class="prelude-val">Ok</span>(s) =&gt; s,
@@ -487,7 +487,7 @@
 
 // region: PrimitiveDateTime
 </span><span class="doccomment">/// The format used when serializing and deserializing a human-readable `PrimitiveDateTime`.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">const </span>PRIMITIVE_DATE_TIME_FORMAT: <span class="kw-2">&amp;</span>[FormatItem&lt;<span class="lifetime">&#39;_</span>&gt;] = <span class="kw-2">&amp;</span>[
     FormatItem::Compound(DATE_FORMAT),
     FormatItem::Literal(<span class="string">b&quot; &quot;</span>),
@@ -496,7 +496,7 @@
 
 <span class="kw">impl </span>Serialize <span class="kw">for </span>PrimitiveDateTime {
     <span class="kw">fn </span>serialize&lt;S: Serializer&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt; {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;serde-human-readable&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;serde-human-readable&quot;</span>)]
         </span><span class="kw">if </span>serializer.is_human_readable() {
             <span class="kw">return </span>serializer.serialize_str(<span class="kw-2">&amp;</span><span class="kw">match </span><span class="self">self</span>.format(<span class="kw-2">&amp;</span>PRIMITIVE_DATE_TIME_FORMAT) {
                 <span class="prelude-val">Ok</span>(s) =&gt; s,
@@ -525,7 +525,7 @@
 
 // region: Time
 </span><span class="doccomment">/// The format used when serializing and deserializing a human-readable `Time`.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">const </span>TIME_FORMAT: <span class="kw-2">&amp;</span>[FormatItem&lt;<span class="lifetime">&#39;_</span>&gt;] = <span class="kw-2">&amp;</span>[
     FormatItem::Component(Component::Hour(&lt;modifier::Hour&gt;::default())),
     FormatItem::Literal(<span class="string">b&quot;:&quot;</span>),
@@ -538,7 +538,7 @@
 
 <span class="kw">impl </span>Serialize <span class="kw">for </span>Time {
     <span class="kw">fn </span>serialize&lt;S: Serializer&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt; {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;serde-human-readable&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;serde-human-readable&quot;</span>)]
         </span><span class="kw">if </span>serializer.is_human_readable() {
             <span class="kw">return </span>serializer.serialize_str(<span class="kw-2">&amp;</span><span class="kw">match </span><span class="self">self</span>.format(<span class="kw-2">&amp;</span>TIME_FORMAT) {
                 <span class="prelude-val">Ok</span>(s) =&gt; s,
@@ -559,7 +559,7 @@
 
 // region: UtcOffset
 </span><span class="doccomment">/// The format used when serializing and deserializing a human-readable `UtcOffset`.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">const </span>UTC_OFFSET_FORMAT: <span class="kw-2">&amp;</span>[FormatItem&lt;<span class="lifetime">&#39;_</span>&gt;] = <span class="kw-2">&amp;</span>[
     FormatItem::Component(Component::OffsetHour(modifier::OffsetHour::default())),
     FormatItem::Literal(<span class="string">b&quot;:&quot;</span>),
@@ -570,7 +570,7 @@
 
 <span class="kw">impl </span>Serialize <span class="kw">for </span>UtcOffset {
     <span class="kw">fn </span>serialize&lt;S: Serializer&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt; {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;serde-human-readable&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;serde-human-readable&quot;</span>)]
         </span><span class="kw">if </span>serializer.is_human_readable() {
             <span class="kw">return </span>serializer.serialize_str(<span class="kw-2">&amp;</span><span class="kw">match </span><span class="self">self</span>.format(<span class="kw-2">&amp;</span>UTC_OFFSET_FORMAT) {
                 <span class="prelude-val">Ok</span>(s) =&gt; s,
@@ -597,9 +597,9 @@
 // region: Weekday
 </span><span class="kw">impl </span>Serialize <span class="kw">for </span>Weekday {
     <span class="kw">fn </span>serialize&lt;S: Serializer&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt; {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;serde-human-readable&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;serde-human-readable&quot;</span>)]
         </span><span class="kw">if </span>serializer.is_human_readable() {
-            <span class="attribute">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
+            <span class="attr">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
             </span><span class="kw">use </span>alloc::string::ToString;
             <span class="kw">return </span><span class="self">self</span>.to_string().serialize(serializer);
         }
@@ -618,9 +618,9 @@
 // region: Month
 </span><span class="kw">impl </span>Serialize <span class="kw">for </span>Month {
     <span class="kw">fn </span>serialize&lt;S: Serializer&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt; {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;serde-human-readable&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;serde-human-readable&quot;</span>)]
         </span><span class="kw">if </span>serializer.is_human_readable() {
-            <span class="attribute">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
+            <span class="attr">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
             </span><span class="kw">use </span>alloc::string::String;
             <span class="kw">return </span><span class="self">self</span>.to_string().serialize(serializer);
         }
@@ -636,4 +636,4 @@
 }
 <span class="comment">// endregion Month
 </span></code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -421,13 +421,13 @@
 <span class="kw">use </span>std::pin::Pin;
 <span class="kw">use </span>std::task::{Context, Poll};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;gzip&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;gzip&quot;</span>)]
 </span><span class="kw">use </span>async_compression::tokio::bufread::GzipDecoder;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;brotli&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;brotli&quot;</span>)]
 </span><span class="kw">use </span>async_compression::tokio::bufread::BrotliDecoder;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;deflate&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;deflate&quot;</span>)]
 </span><span class="kw">use </span>async_compression::tokio::bufread::ZlibDecoder;
 
 <span class="kw">use </span>bytes::Bytes;
@@ -436,21 +436,21 @@
 <span class="kw">use </span>http::HeaderMap;
 <span class="kw">use </span>hyper::body::HttpBody;
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;gzip&quot;</span>, feature = <span class="string">&quot;brotli&quot;</span>, feature = <span class="string">&quot;deflate&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;gzip&quot;</span>, feature = <span class="string">&quot;brotli&quot;</span>, feature = <span class="string">&quot;deflate&quot;</span>))]
 </span><span class="kw">use </span>tokio_util::codec::{BytesCodec, FramedRead};
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;gzip&quot;</span>, feature = <span class="string">&quot;brotli&quot;</span>, feature = <span class="string">&quot;deflate&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;gzip&quot;</span>, feature = <span class="string">&quot;brotli&quot;</span>, feature = <span class="string">&quot;deflate&quot;</span>))]
 </span><span class="kw">use </span>tokio_util::io::StreamReader;
 
 <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::Body;
 <span class="kw">use </span><span class="kw">crate</span>::error;
 
-<span class="attribute">#[derive(Clone, Copy, Debug)]
+<span class="attr">#[derive(Clone, Copy, Debug)]
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>Accepts {
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;gzip&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;gzip&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) gzip: bool,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;brotli&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;brotli&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) brotli: bool,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;deflate&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;deflate&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) deflate: bool,
 }
 
@@ -466,19 +466,19 @@
     </span>PlainText(<span class="kw">super</span>::body::ImplStream),
 
     <span class="doccomment">/// A `Gzip` decoder will uncompress the gzipped response content before returning it.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;gzip&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;gzip&quot;</span>)]
     </span>Gzip(FramedRead&lt;GzipDecoder&lt;StreamReader&lt;Peekable&lt;IoStream&gt;, Bytes&gt;&gt;, BytesCodec&gt;),
 
     <span class="doccomment">/// A `Brotli` decoder will uncompress the brotlied response content before returning it.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;brotli&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;brotli&quot;</span>)]
     </span>Brotli(FramedRead&lt;BrotliDecoder&lt;StreamReader&lt;Peekable&lt;IoStream&gt;, Bytes&gt;&gt;, BytesCodec&gt;),
 
     <span class="doccomment">/// A `Deflate` decoder will uncompress the deflated response content before returning it.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;deflate&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;deflate&quot;</span>)]
     </span>Deflate(FramedRead&lt;ZlibDecoder&lt;StreamReader&lt;Peekable&lt;IoStream&gt;, Bytes&gt;&gt;, BytesCodec&gt;),
 
     <span class="doccomment">/// A decoder that doesn&#39;t have a value yet.
-    </span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;brotli&quot;</span>, feature = <span class="string">&quot;gzip&quot;</span>, feature = <span class="string">&quot;deflate&quot;</span>))]
+    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;brotli&quot;</span>, feature = <span class="string">&quot;gzip&quot;</span>, feature = <span class="string">&quot;deflate&quot;</span>))]
     </span>Pending(Pending),
 }
 
@@ -488,11 +488,11 @@
 <span class="kw">struct </span>IoStream(<span class="kw">super</span>::body::ImplStream);
 
 <span class="kw">enum </span>DecoderType {
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;gzip&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;gzip&quot;</span>)]
     </span>Gzip,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;brotli&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;brotli&quot;</span>)]
     </span>Brotli,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;deflate&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;deflate&quot;</span>)]
     </span>Deflate,
 }
 
@@ -503,7 +503,7 @@
 }
 
 <span class="kw">impl </span>Decoder {
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;blocking&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;blocking&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>empty() -&gt; Decoder {
         Decoder {
             inner: Inner::PlainText(Body::empty().into_stream()),
@@ -522,7 +522,7 @@
     <span class="doccomment">/// A gzip decoder.
     ///
     /// This decoder will buffer and decompress chunks that are gzipped.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;gzip&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;gzip&quot;</span>)]
     </span><span class="kw">fn </span>gzip(body: Body) -&gt; Decoder {
         <span class="kw">use </span>futures_util::StreamExt;
 
@@ -537,7 +537,7 @@
     <span class="doccomment">/// A brotli decoder.
     ///
     /// This decoder will buffer and decompress chunks that are brotlied.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;brotli&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;brotli&quot;</span>)]
     </span><span class="kw">fn </span>brotli(body: Body) -&gt; Decoder {
         <span class="kw">use </span>futures_util::StreamExt;
 
@@ -552,7 +552,7 @@
     <span class="doccomment">/// A deflate decoder.
     ///
     /// This decoder will buffer and decompress chunks that are deflated.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;deflate&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;deflate&quot;</span>)]
     </span><span class="kw">fn </span>deflate(body: Body) -&gt; Decoder {
         <span class="kw">use </span>futures_util::StreamExt;
 
@@ -564,7 +564,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;brotli&quot;</span>, feature = <span class="string">&quot;gzip&quot;</span>, feature = <span class="string">&quot;deflate&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;brotli&quot;</span>, feature = <span class="string">&quot;gzip&quot;</span>, feature = <span class="string">&quot;deflate&quot;</span>))]
     </span><span class="kw">fn </span>detect_encoding(headers: <span class="kw-2">&amp;mut </span>HeaderMap, encoding_str: <span class="kw-2">&amp;</span>str) -&gt; bool {
         <span class="kw">use </span>http::header::{CONTENT_ENCODING, CONTENT_LENGTH, TRANSFER_ENCODING};
         <span class="kw">use </span>log::warn;
@@ -601,21 +601,21 @@
     ///
     /// Uses the correct variant by inspecting the Content-Encoding header.
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>detect(_headers: <span class="kw-2">&amp;mut </span>HeaderMap, body: Body, _accepts: Accepts) -&gt; Decoder {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;gzip&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;gzip&quot;</span>)]
         </span>{
             <span class="kw">if </span>_accepts.gzip &amp;&amp; Decoder::detect_encoding(_headers, <span class="string">&quot;gzip&quot;</span>) {
                 <span class="kw">return </span>Decoder::gzip(body);
             }
         }
 
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;brotli&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;brotli&quot;</span>)]
         </span>{
             <span class="kw">if </span>_accepts.brotli &amp;&amp; Decoder::detect_encoding(_headers, <span class="string">&quot;br&quot;</span>) {
                 <span class="kw">return </span>Decoder::brotli(body);
             }
         }
 
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;deflate&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;deflate&quot;</span>)]
         </span>{
             <span class="kw">if </span>_accepts.deflate &amp;&amp; Decoder::detect_encoding(_headers, <span class="string">&quot;deflate&quot;</span>) {
                 <span class="kw">return </span>Decoder::deflate(body);
@@ -632,7 +632,7 @@
     <span class="kw">fn </span>poll_next(<span class="kw-2">mut </span><span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, cx: <span class="kw-2">&amp;mut </span>Context) -&gt; Poll&lt;<span class="prelude-ty">Option</span>&lt;<span class="self">Self</span>::Item&gt;&gt; {
         <span class="comment">// Do a read or poll for a pending decoder value.
         </span><span class="kw">match </span><span class="self">self</span>.inner {
-            <span class="attribute">#[cfg(any(feature = <span class="string">&quot;brotli&quot;</span>, feature = <span class="string">&quot;gzip&quot;</span>, feature = <span class="string">&quot;deflate&quot;</span>))]
+            <span class="attr">#[cfg(any(feature = <span class="string">&quot;brotli&quot;</span>, feature = <span class="string">&quot;gzip&quot;</span>, feature = <span class="string">&quot;deflate&quot;</span>))]
             </span>Inner::Pending(<span class="kw-2">ref mut </span>future) =&gt; <span class="kw">match </span>Pin::new(future).poll(cx) {
                 Poll::Ready(<span class="prelude-val">Ok</span>(inner)) =&gt; {
                     <span class="self">self</span>.inner = inner;
@@ -644,7 +644,7 @@
                 Poll::Pending =&gt; <span class="kw">return </span>Poll::Pending,
             },
             Inner::PlainText(<span class="kw-2">ref mut </span>body) =&gt; Pin::new(body).poll_next(cx),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;gzip&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;gzip&quot;</span>)]
             </span>Inner::Gzip(<span class="kw-2">ref mut </span>decoder) =&gt; {
                 <span class="kw">return match </span><span class="macro">futures_core::ready!</span>(Pin::new(decoder).poll_next(cx)) {
                     <span class="prelude-val">Some</span>(<span class="prelude-val">Ok</span>(bytes)) =&gt; Poll::Ready(<span class="prelude-val">Some</span>(<span class="prelude-val">Ok</span>(bytes.freeze()))),
@@ -652,7 +652,7 @@
                     <span class="prelude-val">None </span>=&gt; Poll::Ready(<span class="prelude-val">None</span>),
                 };
             }
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;brotli&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;brotli&quot;</span>)]
             </span>Inner::Brotli(<span class="kw-2">ref mut </span>decoder) =&gt; {
                 <span class="kw">return match </span><span class="macro">futures_core::ready!</span>(Pin::new(decoder).poll_next(cx)) {
                     <span class="prelude-val">Some</span>(<span class="prelude-val">Ok</span>(bytes)) =&gt; Poll::Ready(<span class="prelude-val">Some</span>(<span class="prelude-val">Ok</span>(bytes.freeze()))),
@@ -660,7 +660,7 @@
                     <span class="prelude-val">None </span>=&gt; Poll::Ready(<span class="prelude-val">None</span>),
                 };
             }
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;deflate&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;deflate&quot;</span>)]
             </span>Inner::Deflate(<span class="kw-2">ref mut </span>decoder) =&gt; {
                 <span class="kw">return match </span><span class="macro">futures_core::ready!</span>(Pin::new(decoder).poll_next(cx)) {
                     <span class="prelude-val">Some</span>(<span class="prelude-val">Ok</span>(bytes)) =&gt; Poll::Ready(<span class="prelude-val">Some</span>(<span class="prelude-val">Ok</span>(bytes.freeze()))),
@@ -694,7 +694,7 @@
         <span class="kw">match </span><span class="self">self</span>.inner {
             Inner::PlainText(<span class="kw-2">ref </span>body) =&gt; HttpBody::size_hint(body),
             <span class="comment">// the rest are &quot;unknown&quot;, so default
-            </span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;brotli&quot;</span>, feature = <span class="string">&quot;gzip&quot;</span>, feature = <span class="string">&quot;deflate&quot;</span>))]
+            </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;brotli&quot;</span>, feature = <span class="string">&quot;gzip&quot;</span>, feature = <span class="string">&quot;deflate&quot;</span>))]
             </span><span class="kw">_ </span>=&gt; http_body::SizeHint::default(),
         }
     }
@@ -727,17 +727,17 @@
         );
 
         <span class="kw">match </span><span class="self">self</span>.<span class="number">1 </span>{
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;brotli&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;brotli&quot;</span>)]
             </span>DecoderType::Brotli =&gt; Poll::Ready(<span class="prelude-val">Ok</span>(Inner::Brotli(FramedRead::new(
                 BrotliDecoder::new(StreamReader::new(_body)),
                 BytesCodec::new(),
             )))),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;gzip&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;gzip&quot;</span>)]
             </span>DecoderType::Gzip =&gt; Poll::Ready(<span class="prelude-val">Ok</span>(Inner::Gzip(FramedRead::new(
                 GzipDecoder::new(StreamReader::new(_body)),
                 BytesCodec::new(),
             )))),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;deflate&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;deflate&quot;</span>)]
             </span>DecoderType::Deflate =&gt; Poll::Ready(<span class="prelude-val">Ok</span>(Inner::Deflate(FramedRead::new(
                 ZlibDecoder::new(StreamReader::new(_body)),
                 BytesCodec::new(),
@@ -763,11 +763,11 @@
 </span><span class="kw">impl </span>Accepts {
     <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>none() -&gt; <span class="self">Self </span>{
         Accepts {
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;gzip&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;gzip&quot;</span>)]
             </span>gzip: <span class="bool-val">false</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;brotli&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;brotli&quot;</span>)]
             </span>brotli: <span class="bool-val">false</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;deflate&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;deflate&quot;</span>)]
             </span>deflate: <span class="bool-val">false</span>,
         }
     }
@@ -786,36 +786,36 @@
     }
 
     <span class="kw">fn </span>is_gzip(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;gzip&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;gzip&quot;</span>)]
         </span>{
             <span class="self">self</span>.gzip
         }
 
-        <span class="attribute">#[cfg(not(feature = <span class="string">&quot;gzip&quot;</span>))]
+        <span class="attr">#[cfg(not(feature = <span class="string">&quot;gzip&quot;</span>))]
         </span>{
             <span class="bool-val">false
         </span>}
     }
 
     <span class="kw">fn </span>is_brotli(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;brotli&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;brotli&quot;</span>)]
         </span>{
             <span class="self">self</span>.brotli
         }
 
-        <span class="attribute">#[cfg(not(feature = <span class="string">&quot;brotli&quot;</span>))]
+        <span class="attr">#[cfg(not(feature = <span class="string">&quot;brotli&quot;</span>))]
         </span>{
             <span class="bool-val">false
         </span>}
     }
 
     <span class="kw">fn </span>is_deflate(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;deflate&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;deflate&quot;</span>)]
         </span>{
             <span class="self">self</span>.deflate
         }
 
-        <span class="attribute">#[cfg(not(feature = <span class="string">&quot;deflate&quot;</span>))]
+        <span class="attr">#[cfg(not(feature = <span class="string">&quot;deflate&quot;</span>))]
         </span>{
             <span class="bool-val">false
         </span>}
@@ -825,14 +825,14 @@
 <span class="kw">impl </span>Default <span class="kw">for </span>Accepts {
     <span class="kw">fn </span>default() -&gt; Accepts {
         Accepts {
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;gzip&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;gzip&quot;</span>)]
             </span>gzip: <span class="bool-val">true</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;brotli&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;brotli&quot;</span>)]
             </span>brotli: <span class="bool-val">true</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;deflate&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;deflate&quot;</span>)]
             </span>deflate: <span class="bool-val">true</span>,
         }
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="reqwest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="reqwest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

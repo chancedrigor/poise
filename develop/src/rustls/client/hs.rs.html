@@ -826,17 +826,17 @@
 <span id="826">826</span>
 <span id="827">827</span>
 <span id="828">828</span>
-</pre><pre class="rust"><code><span class="attribute">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
+</pre><pre class="rust"><code><span class="attr">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::bs_debug;
 <span class="kw">use </span><span class="kw">crate</span>::check::inappropriate_handshake_message;
 <span class="kw">use </span><span class="kw">crate</span>::conn::{CommonState, ConnectionRandoms, State};
 <span class="kw">use </span><span class="kw">crate</span>::error::Error;
 <span class="kw">use </span><span class="kw">crate</span>::hash_hs::HandshakeHashBuffer;
 <span class="kw">use </span><span class="kw">crate</span>::kx;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::log::{debug, trace};
 <span class="kw">use </span><span class="kw">crate</span>::msgs::base::Payload;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::msgs::base::PayloadU16;
 <span class="kw">use </span><span class="kw">crate</span>::msgs::codec::{Codec, Reader};
 <span class="kw">use </span><span class="kw">crate</span>::msgs::enums::{
@@ -857,7 +857,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::tls13::key_schedule::KeyScheduleEarly;
 <span class="kw">use </span><span class="kw">crate</span>::SupportedCipherSuite;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">super</span>::tls12;
 <span class="kw">use </span><span class="kw">crate</span>::client::client_conn::ClientConnectionData;
 <span class="kw">use </span><span class="kw">crate</span>::client::common::ClientHelloDetails;
@@ -872,7 +872,7 @@
 <span class="kw">fn </span>find_session(
     server_name: <span class="kw-2">&amp;</span>ServerName,
     config: <span class="kw-2">&amp;</span>ClientConfig,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)] </span>cx: <span class="kw-2">&amp;mut </span>ClientContext&lt;<span class="lifetime">&#39;_</span>&gt;,
+    <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)] </span>cx: <span class="kw-2">&amp;mut </span>ClientContext&lt;<span class="lifetime">&#39;_</span>&gt;,
 ) -&gt; <span class="prelude-ty">Option</span>&lt;persist::Retrieved&lt;persist::ClientSessionValue&gt;&gt; {
     <span class="kw">let </span>key = persist::ClientSessionKey::session_for_server_name(server_name);
     <span class="kw">let </span>key_buf = key.get_encoding();
@@ -885,9 +885,9 @@
             <span class="prelude-val">None
         </span>})<span class="question-mark">?</span>;
 
-    <span class="attribute">#[allow(unused_mut)]
+    <span class="attr">#[allow(unused_mut)]
     </span><span class="kw">let </span><span class="kw-2">mut </span>reader = Reader::init(<span class="kw-2">&amp;</span>value[<span class="number">2</span>..]);
-    <span class="attribute">#[allow(clippy::bind_instead_of_map)] </span><span class="comment">// https://github.com/rust-lang/rust-clippy/issues/8082
+    <span class="attr">#[allow(clippy::bind_instead_of_map)] </span><span class="comment">// https://github.com/rust-lang/rust-clippy/issues/8082
     </span>CipherSuite::read_bytes(<span class="kw-2">&amp;</span>value[..<span class="number">2</span>])
         .and_then(|suite| {
             persist::ClientSessionValue::read(<span class="kw-2">&amp;mut </span>reader, suite, <span class="kw-2">&amp;</span>config.cipher_suites)
@@ -900,7 +900,7 @@
             }
         })
         .and_then(|resuming| {
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
             </span><span class="kw">if </span>cx.common.is_quic() {
                 <span class="kw">let </span>params = PayloadU16::read(<span class="kw-2">&amp;mut </span>reader)<span class="question-mark">?</span>;
                 cx.common.quic.params = <span class="prelude-val">Some</span>(params.<span class="number">0</span>);
@@ -929,7 +929,7 @@
     <span class="kw">let </span><span class="kw-2">mut </span>resuming_session = find_session(
         <span class="kw-2">&amp;</span>server_name,
         <span class="kw-2">&amp;</span>config,
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
         </span>cx,
     );
 
@@ -940,7 +940,7 @@
     </span>};
 
     <span class="kw">if let </span><span class="prelude-val">Some</span>(_resuming) = <span class="kw-2">&amp;mut </span>resuming_session {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
         </span><span class="kw">if let </span>persist::ClientSessionValue::Tls12(inner) = <span class="kw-2">&amp;mut </span>_resuming.value {
             <span class="comment">// If we have a ticket, we use the sessionid as a signal that
             // we&#39;re  doing an abbreviated handshake.  See section 3.4 in
@@ -1028,7 +1028,7 @@
             persist::ClientSessionValue::Tls13(inner) =&gt; {
                 (inner.ticket().to_vec(), ProtocolVersion::TLSv1_3)
             }
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
             </span>persist::ClientSessionValue::Tls12(inner) =&gt; {
                 (inner.ticket().to_vec(), ProtocolVersion::TLSv1_2)
             }
@@ -1264,7 +1264,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
     </span>{
         <span class="comment">// RFC 9001 says: &quot;While ALPN only specifies that servers use this alert, QUIC clients MUST
         // use error 0x0178 to terminate a connection when ALPN negotiation fails.&quot; We judge that
@@ -1430,7 +1430,7 @@
                     </span>.resuming_session
                     .and_then(|resuming| <span class="kw">match </span>resuming.value {
                         persist::ClientSessionValue::Tls13(inner) =&gt; <span class="prelude-val">Some</span>(inner),
-                        <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+                        <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
                         </span>persist::ClientSessionValue::Tls12(<span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
                     });
 
@@ -1450,7 +1450,7 @@
                     <span class="self">self</span>.sent_tls13_fake_ccs,
                 )
             }
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
             </span>SupportedCipherSuite::Tls12(suite) =&gt; {
                 <span class="kw">let </span>resuming_session = <span class="self">self
                     </span>.resuming_session
@@ -1655,4 +1655,4 @@
     err
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

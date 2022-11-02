@@ -563,9 +563,9 @@
 </pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::memmem::{rarebytes::RareNeedleBytes, NeedleInfo};
 
 <span class="kw">mod </span>fallback;
-<span class="attribute">#[cfg(all(target_arch = <span class="string">&quot;x86_64&quot;</span>, memchr_runtime_simd))]
+<span class="attr">#[cfg(all(target_arch = <span class="string">&quot;x86_64&quot;</span>, memchr_runtime_simd))]
 </span><span class="kw">mod </span>genericsimd;
-<span class="attribute">#[cfg(all(not(miri), target_arch = <span class="string">&quot;x86_64&quot;</span>, memchr_runtime_simd))]
+<span class="attr">#[cfg(all(not(miri), target_arch = <span class="string">&quot;x86_64&quot;</span>, memchr_runtime_simd))]
 </span><span class="kw">mod </span>x86;
 
 <span class="doccomment">/// The maximum frequency rank permitted for the fallback prefilter. If the
@@ -590,7 +590,7 @@
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Pre&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="doccomment">/// Call this prefilter on the given haystack with the given needle.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>call(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         haystack: <span class="kw-2">&amp;</span>[u8],
@@ -600,7 +600,7 @@
     }
 
     <span class="doccomment">/// Return true if and only if this prefilter should be used.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>should_call(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.state.is_effective()
     }
@@ -630,7 +630,7 @@
 /// may only be called on x86_64 CPUs with the relevant AVX feature enabled.)
 /// Thus, callers must ensure that when a prefilter function is created that it
 /// is safe to call for the current environment.
-</span><span class="attribute">#[derive(Clone, Copy)]
+</span><span class="attr">#[derive(Clone, Copy)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>PrefilterFn(PrefilterFnTy);
 
 <span class="doccomment">/// The type of a prefilter function. All prefilters must satisfy this
@@ -710,7 +710,7 @@
 /// disable its use. Nevertheless, this configuration option gives callers
 /// the ability to disable prefilters if you have knowledge that they won&#39;t be
 /// useful.
-</span><span class="attribute">#[derive(Clone, Copy, Debug)]
+</span><span class="attr">#[derive(Clone, Copy, Debug)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>Prefilter {
     <span class="doccomment">/// Never used a prefilter in substring search.
@@ -745,7 +745,7 @@
 /// iterator is treated as a single search.) A prefilter state should only be
 /// created from a `Freqy`. e.g., An inert `Freqy` will produce an inert
 /// `PrefilterState`.
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>PrefilterState {
     <span class="doccomment">/// The number of skips that has been executed. This is always 1 greater
     /// than the actual number of skips. The special sentinel value of 0
@@ -783,7 +783,7 @@
 
     <span class="doccomment">/// Update this state with the number of bytes skipped on the last
     /// invocation of the prefilter.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>update(<span class="kw-2">&amp;mut </span><span class="self">self</span>, skipped: usize) {
         <span class="self">self</span>.skips = <span class="self">self</span>.skips.saturating_add(<span class="number">1</span>);
         <span class="comment">// We need to do this dance since it&#39;s technically possible for
@@ -798,7 +798,7 @@
 
     <span class="doccomment">/// Return true if and only if this state indicates that a prefilter is
     /// still effective.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>is_effective(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; bool {
         <span class="kw">if </span><span class="self">self</span>.is_inert() {
             <span class="kw">return </span><span class="bool-val">false</span>;
@@ -815,12 +815,12 @@
         <span class="bool-val">false
     </span>}
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_inert(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.skips == <span class="number">0
     </span>}
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>skips(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.skips.saturating_sub(<span class="number">1</span>)
     }
@@ -831,7 +831,7 @@
 /// This only applies to x86_64 when runtime SIMD detection is enabled (which
 /// is the default). In general, we try to use an AVX prefilter, followed by
 /// SSE and then followed by a generic one based on memchr.
-</span><span class="attribute">#[cfg(all(not(miri), target_arch = <span class="string">&quot;x86_64&quot;</span>, memchr_runtime_simd))]
+</span><span class="attr">#[cfg(all(not(miri), target_arch = <span class="string">&quot;x86_64&quot;</span>, memchr_runtime_simd))]
 #[inline(always)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>forward(
     config: <span class="kw-2">&amp;</span>Prefilter,
@@ -842,7 +842,7 @@
         <span class="kw">return </span><span class="prelude-val">None</span>;
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     </span>{
         <span class="kw">if </span><span class="macro">cfg!</span>(memchr_runtime_avx) {
             <span class="kw">if </span><span class="macro">is_x86_feature_detected!</span>(<span class="string">&quot;avx2&quot;</span>) {
@@ -872,7 +872,7 @@
 ///
 /// Since SIMD is currently only supported on x86_64, this will just select
 /// the fallback prefilter if the rare bytes provided have a low enough rank.
-</span><span class="attribute">#[cfg(not(all(not(miri), target_arch = <span class="string">&quot;x86_64&quot;</span>, memchr_runtime_simd)))]
+</span><span class="attr">#[cfg(not(all(not(miri), target_arch = <span class="string">&quot;x86_64&quot;</span>, memchr_runtime_simd)))]
 #[inline(always)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>forward(
     config: <span class="kw-2">&amp;</span>Prefilter,
@@ -900,7 +900,7 @@
 /// meta-searcher level, Rabin-Karp is employed for tiny haystacks anyway.
 ///
 /// We keep it around for now in case we want to bring it back.
-</span><span class="attribute">#[allow(dead_code)]
+</span><span class="attr">#[allow(dead_code)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>minimum_len(_haystack: <span class="kw-2">&amp;</span>[u8], needle: <span class="kw-2">&amp;</span>[u8]) -&gt; usize {
     <span class="comment">// If the haystack length isn&#39;t greater than needle.len() * FACTOR, then
     // no prefilter will be used. The presumption here is that since there
@@ -921,7 +921,7 @@
     </span>min + <span class="number">1
 </span>}
 
-<span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;std&quot;</span>, not(miri)))]
+<span class="attr">#[cfg(all(test, feature = <span class="string">&quot;std&quot;</span>, not(miri)))]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>tests {
     <span class="kw">use </span>std::convert::{TryFrom, TryInto};
 
@@ -1123,4 +1123,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="memchr" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="memchr" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

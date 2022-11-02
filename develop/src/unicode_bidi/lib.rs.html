@@ -956,13 +956,13 @@
 //!
 //! [tr9]: &lt;http://www.unicode.org/reports/tr9/&gt;
 
-</span><span class="attribute">#![forbid(unsafe_code)]
+</span><span class="attr">#![forbid(unsafe_code)]
 
 #![no_std]
 </span><span class="comment">// We need to link to std to make doc tests work on older Rust versions
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">extern crate </span>std;
-<span class="attribute">#[macro_use]
+<span class="attr">#[macro_use]
 </span><span class="kw">extern crate </span>alloc;
 
 <span class="kw">pub mod </span>deprecated;
@@ -989,7 +989,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::format_chars <span class="kw">as </span>chars;
 
 <span class="doccomment">/// Bidi information about a single paragraph
-</span><span class="attribute">#[derive(Debug, PartialEq)]
+</span><span class="attr">#[derive(Debug, PartialEq)]
 </span><span class="kw">pub struct </span>ParagraphInfo {
     <span class="doccomment">/// The paragraphs boundaries within the text, as byte indices.
     ///
@@ -1005,7 +1005,7 @@
 <span class="doccomment">/// Initial bidi information of the text.
 ///
 /// Contains the text paragraphs and `BidiClass` of its characters.
-</span><span class="attribute">#[derive(PartialEq, Debug)]
+</span><span class="attr">#[derive(PartialEq, Debug)]
 </span><span class="kw">pub struct </span>InitialInfo&lt;<span class="lifetime">&#39;text</span>&gt; {
     <span class="doccomment">/// The text
     </span><span class="kw">pub </span>text: <span class="kw-2">&amp;</span><span class="lifetime">&#39;text </span>str,
@@ -1026,7 +1026,7 @@
     /// Also sets the class for each First Strong Isolate initiator (FSI) to LRI or RLI if a strong
     /// character is found before the matching PDI.  If no strong character is found, the class will
     /// remain FSI, and it&#39;s up to later stages to treat these as LRI when needed.
-    </span><span class="attribute">#[cfg_attr(feature = <span class="string">&quot;flame_it&quot;</span>, flamer::flame)]
+    </span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;flame_it&quot;</span>, flamer::flame)]
     </span><span class="kw">pub fn </span>new(text: <span class="kw-2">&amp;</span>str, default_para_level: <span class="prelude-ty">Option</span>&lt;Level&gt;) -&gt; InitialInfo&lt;<span class="lifetime">&#39;_</span>&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>original_classes = Vec::with_capacity(text.len());
 
@@ -1037,16 +1037,16 @@
         <span class="kw">let </span><span class="kw-2">mut </span>para_start = <span class="number">0</span>;
         <span class="kw">let </span><span class="kw-2">mut </span>para_level = default_para_level;
 
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;flame_it&quot;</span>)] </span>flame::start(<span class="string">&quot;InitialInfo::new(): iter text.char_indices()&quot;</span>);
+        <span class="attr">#[cfg(feature = <span class="string">&quot;flame_it&quot;</span>)] </span>flame::start(<span class="string">&quot;InitialInfo::new(): iter text.char_indices()&quot;</span>);
 
         <span class="kw">for </span>(i, c) <span class="kw">in </span>text.char_indices() {
             <span class="kw">let </span>class = bidi_class(c);
 
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;flame_it&quot;</span>)] </span>flame::start(<span class="string">&quot;original_classes.extend()&quot;</span>);
+            <span class="attr">#[cfg(feature = <span class="string">&quot;flame_it&quot;</span>)] </span>flame::start(<span class="string">&quot;original_classes.extend()&quot;</span>);
 
             original_classes.extend(repeat(class).take(c.len_utf8()));
 
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;flame_it&quot;</span>)] </span>flame::end(<span class="string">&quot;original_classes.extend()&quot;</span>);
+            <span class="attr">#[cfg(feature = <span class="string">&quot;flame_it&quot;</span>)] </span>flame::end(<span class="string">&quot;original_classes.extend()&quot;</span>);
 
             <span class="kw">match </span>class {
 
@@ -1111,7 +1111,7 @@
         }
         <span class="macro">assert_eq!</span>(original_classes.len(), text.len());
 
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;flame_it&quot;</span>)] </span>flame::end(<span class="string">&quot;InitialInfo::new(): iter text.char_indices()&quot;</span>);
+        <span class="attr">#[cfg(feature = <span class="string">&quot;flame_it&quot;</span>)] </span>flame::end(<span class="string">&quot;InitialInfo::new(): iter text.char_indices()&quot;</span>);
 
         InitialInfo {
             text,
@@ -1127,7 +1127,7 @@
 /// character is multiple bytes wide, then its class and level will appear multiple times in these
 /// vectors.
 </span><span class="comment">// TODO: Impl `struct StringProperty&lt;T&gt; { values: Vec&lt;T&gt; }` and use instead of Vec&lt;T&gt;
-</span><span class="attribute">#[derive(Debug, PartialEq)]
+</span><span class="attr">#[derive(Debug, PartialEq)]
 </span><span class="kw">pub struct </span>BidiInfo&lt;<span class="lifetime">&#39;text</span>&gt; {
     <span class="doccomment">/// The text
     </span><span class="kw">pub </span>text: <span class="kw-2">&amp;</span><span class="lifetime">&#39;text </span>str,
@@ -1152,7 +1152,7 @@
     /// text that is entirely LTR.  See the `nsBidi` class from Gecko for comparison.
     ///
     /// TODO: Support auto-RTL base direction
-    </span><span class="attribute">#[cfg_attr(feature = <span class="string">&quot;flame_it&quot;</span>, flamer::flame)]
+    </span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;flame_it&quot;</span>, flamer::flame)]
     </span><span class="kw">pub fn </span>new(text: <span class="kw-2">&amp;</span>str, default_para_level: <span class="prelude-ty">Option</span>&lt;Level&gt;) -&gt; BidiInfo&lt;<span class="lifetime">&#39;_</span>&gt; {
         <span class="kw">let </span>InitialInfo {
             original_classes,
@@ -1200,7 +1200,7 @@
 
     <span class="doccomment">/// Re-order a line based on resolved levels and return only the embedding levels, one `Level`
     /// per *byte*.
-    </span><span class="attribute">#[cfg_attr(feature = <span class="string">&quot;flame_it&quot;</span>, flamer::flame)]
+    </span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;flame_it&quot;</span>, flamer::flame)]
     </span><span class="kw">pub fn </span>reordered_levels(<span class="kw-2">&amp;</span><span class="self">self</span>, para: <span class="kw-2">&amp;</span>ParagraphInfo, line: Range&lt;usize&gt;) -&gt; Vec&lt;Level&gt; {
         <span class="kw">let </span>(levels, <span class="kw">_</span>) = <span class="self">self</span>.visual_runs(para, line);
         levels
@@ -1208,7 +1208,7 @@
 
     <span class="doccomment">/// Re-order a line based on resolved levels and return only the embedding levels, one `Level`
     /// per *character*.
-    </span><span class="attribute">#[cfg_attr(feature = <span class="string">&quot;flame_it&quot;</span>, flamer::flame)]
+    </span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;flame_it&quot;</span>, flamer::flame)]
     </span><span class="kw">pub fn </span>reordered_levels_per_char(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         para: <span class="kw-2">&amp;</span>ParagraphInfo,
@@ -1220,7 +1220,7 @@
 
 
     <span class="doccomment">/// Re-order a line based on resolved levels and return the line in display order.
-    </span><span class="attribute">#[cfg_attr(feature = <span class="string">&quot;flame_it&quot;</span>, flamer::flame)]
+    </span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;flame_it&quot;</span>, flamer::flame)]
     </span><span class="kw">pub fn </span>reorder_line(<span class="kw-2">&amp;</span><span class="self">self</span>, para: <span class="kw-2">&amp;</span>ParagraphInfo, line: Range&lt;usize&gt;) -&gt; Cow&lt;<span class="lifetime">&#39;text</span>, str&gt; {
         <span class="kw">let </span>(levels, runs) = <span class="self">self</span>.visual_runs(para, line.clone());
 
@@ -1245,7 +1245,7 @@
     /// `line` is a range of bytes indices within `levels`.
     ///
     /// &lt;http://www.unicode.org/reports/tr9/#Reordering_Resolved_Levels&gt;
-    </span><span class="attribute">#[cfg_attr(feature = <span class="string">&quot;flame_it&quot;</span>, flamer::flame)]
+    </span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;flame_it&quot;</span>, flamer::flame)]
     </span><span class="kw">pub fn </span>visual_runs(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         para: <span class="kw-2">&amp;</span>ParagraphInfo,
@@ -1360,7 +1360,7 @@
     <span class="doccomment">/// If processed text has any computed RTL levels
     ///
     /// This information is usually used to skip re-ordering of text when no RTL level is present
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>has_rtl(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         level::has_rtl(<span class="kw-2">&amp;</span><span class="self">self</span>.levels)
     }
@@ -1370,7 +1370,7 @@
 ///
 /// The levels assigned to these characters are not specified by the algorithm.  This function
 /// assigns each one the level of the previous character, to avoid breaking level runs.
-</span><span class="attribute">#[cfg_attr(feature = <span class="string">&quot;flame_it&quot;</span>, flamer::flame)]
+</span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;flame_it&quot;</span>, flamer::flame)]
 </span><span class="kw">fn </span>assign_levels_to_removed_chars(para_level: Level, classes: <span class="kw-2">&amp;</span>[BidiClass], levels: <span class="kw-2">&amp;mut </span>[Level]) {
     <span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..levels.len() {
         <span class="kw">if </span>prepare::removed_by_x9(classes[i]) {
@@ -1380,11 +1380,11 @@
 }
 
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_initial_text_info() {
         <span class="kw">let </span>text = <span class="string">&quot;a1&quot;</span>;
         <span class="macro">assert_eq!</span>(
@@ -1451,7 +1451,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_process_text() {
         <span class="kw">let </span>text = <span class="string">&quot;abc123&quot;</span>;
         <span class="macro">assert_eq!</span>(
@@ -1570,7 +1570,7 @@
         <span class="macro">assert_eq!</span>(bidi_info.original_classes, <span class="macro">vec!</span>[AL, AL, ET, ET, ET, EN, EN]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_bidi_info_has_rtl() {
         <span class="comment">// ASCII only
         </span><span class="macro">assert_eq!</span>(BidiInfo::new(<span class="string">&quot;123&quot;</span>, <span class="prelude-val">None</span>).has_rtl(), <span class="bool-val">false</span>);
@@ -1603,7 +1603,7 @@
             .collect()
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_reorder_line() {
         <span class="comment">// Bidi_Class: L L L B L L L B L L L
         </span><span class="macro">assert_eq!</span>(
@@ -1700,7 +1700,7 @@
             .collect()
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_reordered_levels() {
 
         <span class="comment">// BidiTest:946 (LRI PDI)
@@ -1745,12 +1745,12 @@
 }
 
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;serde&quot;</span>, test))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;serde&quot;</span>, test))]
 </span><span class="kw">mod </span>serde_tests {
     <span class="kw">use </span>serde_test::{Token, assert_tokens};
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_levels() {
         <span class="kw">let </span>text = <span class="string">&quot;abc אבג&quot;</span>;
         <span class="kw">let </span>bidi_info = BidiInfo::new(text, <span class="prelude-val">None</span>);
@@ -1787,4 +1787,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="unicode_bidi" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="unicode_bidi" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

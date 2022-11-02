@@ -73,7 +73,7 @@
 ///
 /// Note: this type implements [`Deref&lt;Target = Waker&gt;`](std::ops::Deref),
 /// so it can be used to get a `&amp;Waker`.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>WakerRef&lt;<span class="lifetime">&#39;a</span>&gt; {
     waker: ManuallyDrop&lt;Waker&gt;,
     _marker: PhantomData&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>()&gt;,
@@ -111,7 +111,7 @@
 ///
 /// The resulting [`Waker`] will call
 /// [`ArcWake.wake()`](ArcWake::wake) if awoken.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>waker_ref&lt;W&gt;(wake: <span class="kw-2">&amp;</span>Arc&lt;W&gt;) -&gt; WakerRef&lt;<span class="lifetime">&#39;_</span>&gt;
 <span class="kw">where
     </span>W: ArcWake,
@@ -125,4 +125,4 @@
     WakerRef::new_unowned(waker)
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="futures_task" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="futures_task" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -221,7 +221,7 @@
 <span class="doccomment">/// Compute canonical Unicode decomposition for character.
 /// See [Unicode Standard Annex #15](http://www.unicode.org/reports/tr15/)
 /// for more information.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>decompose_canonical&lt;F&gt;(c: char, emit_char: F)
 <span class="kw">where
     </span>F: FnMut(char),
@@ -232,7 +232,7 @@
 <span class="doccomment">/// Compute canonical or compatible Unicode decomposition for character.
 /// See [Unicode Standard Annex #15](http://www.unicode.org/reports/tr15/)
 /// for more information.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>decompose_compatible&lt;F: FnMut(char)&gt;(c: char, emit_char: F) {
     <span class="kw">let </span>decompose_char =
         |c| compatibility_fully_decomposed(c).or_else(|| canonical_fully_decomposed(c));
@@ -248,7 +248,7 @@
 /// &quot;Other Enhancements&quot; section of the
 /// [Unicode 6.3 Release Summary](https://www.unicode.org/versions/Unicode6.3.0/#Summary)
 /// for more information.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>decompose_cjk_compat_variants&lt;F&gt;(c: char, <span class="kw-2">mut </span>emit_char: F)
 <span class="kw">where
     </span>F: FnMut(char),
@@ -272,7 +272,7 @@
     </span>emit_char(c);
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>decompose&lt;D, F&gt;(c: char, decompose_char: D, <span class="kw-2">mut </span>emit_char: F)
 <span class="kw">where
     </span>D: Fn(char) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[char]&gt;,
@@ -334,7 +334,7 @@
 }
 
 <span class="comment">// Decompose a precomposed Hangul syllable
-</span><span class="attribute">#[allow(unsafe_code)]
+</span><span class="attr">#[allow(unsafe_code)]
 #[inline(always)]
 </span><span class="kw">fn </span>decompose_hangul&lt;F&gt;(s: char, <span class="kw-2">mut </span>emit_char: F)
 <span class="kw">where
@@ -355,7 +355,7 @@
     }
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>hangul_decomposition_length(s: char) -&gt; usize {
     <span class="kw">let </span>si = s <span class="kw">as </span>u32 - S_BASE;
     <span class="kw">let </span>ti = si % T_COUNT;
@@ -367,7 +367,7 @@
 }
 
 <span class="comment">// Compose a pair of Hangul Jamo
-</span><span class="attribute">#[allow(unsafe_code)]
+</span><span class="attr">#[allow(unsafe_code)]
 #[inline(always)]
 #[allow(ellipsis_inclusive_range_patterns)]
 </span><span class="kw">fn </span>compose_hangul(a: char, b: char) -&gt; <span class="prelude-ty">Option</span>&lt;char&gt; {
@@ -389,17 +389,17 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::compose_hangul;
 
     <span class="comment">// Regression test from a bugfix where we were composing an LV_Syllable with
     // T_BASE directly. (We should only compose an LV_Syllable with a character
     // in the range `T_BASE + 1 ... T_LAST`.)
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>test_hangul_composition() {
         <span class="macro">assert_eq!</span>(compose_hangul(<span class="string">&#39;\u{c8e0}&#39;</span>, <span class="string">&#39;\u{11a7}&#39;</span>), <span class="prelude-val">None</span>);
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="unicode_normalization" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="unicode_normalization" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

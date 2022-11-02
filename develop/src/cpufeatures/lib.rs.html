@@ -189,7 +189,7 @@
 //! [RFC 2725]: https://github.com/rust-lang/rfcs/pull/2725
 //! [gh]: https://github.com/RustCrypto/utils/issues/new?title=cpufeatures:%20requesting%20support%20for%20CHANGEME%20target%20feature
 
-</span><span class="attribute">#![no_std]
+</span><span class="attr">#![no_std]
 #![doc(
     html_logo_url = <span class="string">&quot;https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg&quot;</span>,
     html_favicon_url = <span class="string">&quot;https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg&quot;
@@ -199,14 +199,14 @@
 #[doc(hidden)]
 </span><span class="kw">pub mod </span>aarch64;
 
-<span class="attribute">#[cfg(any(target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))]
+<span class="attr">#[cfg(any(target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))]
 </span><span class="kw">mod </span>x86;
 
-<span class="attribute">#[cfg(not(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>)))]
+<span class="attr">#[cfg(not(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>)))]
 </span><span class="macro">compile_error!</span>(<span class="string">&quot;This crate works only on `aarch64`, `x86`, and `x86-64` targets.&quot;</span>);
 
 <span class="doccomment">/// Create module with CPU feature detection code.
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>new {
     (<span class="macro-nonterminal">$mod_name</span>:ident, $(<span class="macro-nonterminal">$tf</span>:tt),+ $(,)<span class="question-mark">?</span>) =&gt; {
         <span class="kw">mod </span><span class="macro-nonterminal">$mod_name </span>{
@@ -216,12 +216,12 @@
             <span class="kw">static </span>STORAGE: AtomicU8 = AtomicU8::new(UNINIT);
 
             <span class="doccomment">/// Initialization token
-            </span><span class="attribute">#[derive(Copy, Clone, Debug)]
+            </span><span class="attr">#[derive(Copy, Clone, Debug)]
             </span><span class="kw">pub struct </span>InitToken(());
 
             <span class="kw">impl </span>InitToken {
                 <span class="doccomment">/// Get initialized value
-                </span><span class="attribute">#[inline(always)]
+                </span><span class="attr">#[inline(always)]
                 </span><span class="kw">pub fn </span>get(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
                     <span class="macro-nonterminal">$</span><span class="macro">crate::__unless_target_features! </span>{
                         $(<span class="macro-nonterminal">$tf</span>),+ =&gt; {
@@ -233,7 +233,7 @@
 
             <span class="doccomment">/// Initialize underlying storage if needed and get
             /// stored value and initialization token.
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">pub fn </span>init_get() -&gt; (InitToken, bool) {
                 <span class="kw">let </span>res = <span class="macro-nonterminal">$</span><span class="macro">crate::__unless_target_features! </span>{
                     $(<span class="macro-nonterminal">$tf</span>),+ =&gt; {
@@ -255,14 +255,14 @@
 
             <span class="doccomment">/// Initialize underlying storage if needed and get
             /// initialization token.
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">pub fn </span>init() -&gt; InitToken {
                 init_get().<span class="number">0
             </span>}
 
             <span class="doccomment">/// Initialize underlying storage if needed and get
             /// stored value.
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">pub fn </span>get() -&gt; bool {
                 init_get().<span class="number">1
             </span>}
@@ -270,4 +270,4 @@
     };
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="cpufeatures" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="cpufeatures" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

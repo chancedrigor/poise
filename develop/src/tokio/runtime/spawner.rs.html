@@ -101,16 +101,16 @@
     <span class="kw">use </span><span class="kw">crate</span>::runtime::scheduler::multi_thread;
 }
 
-<span class="attribute">#[derive(Debug, Clone)]
+<span class="attr">#[derive(Debug, Clone)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>Spawner {
     CurrentThread(current_thread::Spawner),
-    <span class="attribute">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
+    <span class="attr">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
     </span>MultiThread(multi_thread::Spawner),
 }
 
 <span class="kw">impl </span>Spawner {
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>shutdown(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="attribute">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
+        <span class="attr">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
         </span>{
             <span class="kw">if let </span>Spawner::MultiThread(spawner) = <span class="self">self </span>{
                 spawner.shutdown();
@@ -125,7 +125,7 @@
     {
         <span class="kw">match </span><span class="self">self </span>{
             Spawner::CurrentThread(spawner) =&gt; spawner.spawn(future, id),
-            <span class="attribute">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
+            <span class="attr">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
             </span>Spawner::MultiThread(spawner) =&gt; spawner.spawn(future, id),
         }
     }
@@ -133,7 +133,7 @@
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>as_handle_inner(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>HandleInner {
         <span class="kw">match </span><span class="self">self </span>{
             Spawner::CurrentThread(spawner) =&gt; spawner.as_handle_inner(),
-            <span class="attribute">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
+            <span class="attr">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
             </span>Spawner::MultiThread(spawner) =&gt; spawner.as_handle_inner(),
         }
     }
@@ -146,7 +146,7 @@
         <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>num_workers(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
             <span class="kw">match </span><span class="self">self </span>{
                 Spawner::CurrentThread(<span class="kw">_</span>) =&gt; <span class="number">1</span>,
-                <span class="attribute">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
+                <span class="attr">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
                 </span>Spawner::MultiThread(spawner) =&gt; spawner.num_workers(),
             }
         }
@@ -154,7 +154,7 @@
         <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>scheduler_metrics(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>SchedulerMetrics {
             <span class="kw">match </span><span class="self">self </span>{
                 Spawner::CurrentThread(spawner) =&gt; spawner.scheduler_metrics(),
-                <span class="attribute">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
+                <span class="attr">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
                 </span>Spawner::MultiThread(spawner) =&gt; spawner.scheduler_metrics(),
             }
         }
@@ -162,7 +162,7 @@
         <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>worker_metrics(<span class="kw-2">&amp;</span><span class="self">self</span>, worker: usize) -&gt; <span class="kw-2">&amp;</span>WorkerMetrics {
             <span class="kw">match </span><span class="self">self </span>{
                 Spawner::CurrentThread(spawner) =&gt; spawner.worker_metrics(worker),
-                <span class="attribute">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
+                <span class="attr">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
                 </span>Spawner::MultiThread(spawner) =&gt; spawner.worker_metrics(worker),
             }
         }
@@ -170,7 +170,7 @@
         <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>injection_queue_depth(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
             <span class="kw">match </span><span class="self">self </span>{
                 Spawner::CurrentThread(spawner) =&gt; spawner.injection_queue_depth(),
-                <span class="attribute">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
+                <span class="attr">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
                 </span>Spawner::MultiThread(spawner) =&gt; spawner.injection_queue_depth(),
             }
         }
@@ -178,11 +178,11 @@
         <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>worker_local_queue_depth(<span class="kw-2">&amp;</span><span class="self">self</span>, worker: usize) -&gt; usize {
             <span class="kw">match </span><span class="self">self </span>{
                 Spawner::CurrentThread(spawner) =&gt; spawner.worker_metrics(worker).queue_depth(),
-                <span class="attribute">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
+                <span class="attr">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
                 </span>Spawner::MultiThread(spawner) =&gt; spawner.worker_local_queue_depth(worker),
             }
         }
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

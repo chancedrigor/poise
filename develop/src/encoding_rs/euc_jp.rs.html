@@ -690,13 +690,13 @@
     );
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;fast-kanji-encode&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;fast-kanji-encode&quot;</span>)]
 #[inline(always)]
 </span><span class="kw">fn </span>encode_kanji(bmp: u16) -&gt; <span class="prelude-ty">Option</span>&lt;(u8, u8)&gt; {
     jis0208_kanji_euc_jp_encode(bmp)
 }
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;fast-kanji-encode&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;fast-kanji-encode&quot;</span>))]
 #[inline(always)]
 </span><span class="kw">fn </span>encode_kanji(bmp: u16) -&gt; <span class="prelude-ty">Option</span>&lt;(u8, u8)&gt; {
     <span class="kw">if </span><span class="number">0x4EDD </span>== bmp {
@@ -815,7 +815,7 @@
 <span class="comment">// Any copyright to the test code below this comment is dedicated to the
 // Public Domain. http://creativecommons.org/publicdomain/zero/1.0/
 
-</span><span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
+</span><span class="attr">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::testing::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::<span class="kw-2">*</span>;
@@ -828,7 +828,7 @@
         encode(EUC_JP, string, expect);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_euc_jp_decode() {
         <span class="comment">// Empty
         </span>decode_euc_jp(<span class="string">b&quot;&quot;</span>, <span class="kw-2">&amp;</span><span class="string">&quot;&quot;</span>);
@@ -880,7 +880,7 @@
         </span>decode_euc_jp(<span class="string">b&quot;\xA1\x40&quot;</span>, <span class="string">&quot;\u{FFFD}\u{0040}&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_euc_jp_encode() {
         <span class="comment">// Empty
         </span>encode_euc_jp(<span class="string">&quot;&quot;</span>, <span class="string">b&quot;&quot;</span>);
@@ -905,7 +905,7 @@
         encode_euc_jp(<span class="string">&quot;\u{FF02}&quot;</span>, <span class="string">b&quot;\xFC\xFE&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(miri, ignore)] </span><span class="comment">// Miri is too slow
     </span><span class="kw">fn </span>test_jis0208_decode_all() {
         <span class="kw">let </span>input = <span class="macro">include_bytes!</span>(<span class="string">&quot;test_data/jis0208_in.txt&quot;</span>);
@@ -915,7 +915,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>cow[..], expectation);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(miri, ignore)] </span><span class="comment">// Miri is too slow
     </span><span class="kw">fn </span>test_jis0208_encode_all() {
         <span class="kw">let </span>input = <span class="macro">include_str!</span>(<span class="string">&quot;test_data/jis0208_out.txt&quot;</span>);
@@ -926,7 +926,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>cow[..], <span class="kw-2">&amp;</span>expectation[..]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(miri, ignore)] </span><span class="comment">// Miri is too slow
     </span><span class="kw">fn </span>test_jis0212_decode_all() {
         <span class="kw">let </span>input = <span class="macro">include_bytes!</span>(<span class="string">&quot;test_data/jis0212_in.txt&quot;</span>);
@@ -937,4 +937,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="encoding_rs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="encoding_rs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

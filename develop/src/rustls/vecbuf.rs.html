@@ -293,7 +293,7 @@
         <span class="prelude-val">Ok</span>(offs)
     }
 
-    <span class="attribute">#[cfg(read_buf)]
+    <span class="attr">#[cfg(read_buf)]
     </span><span class="doccomment">/// Read data out of this object, writing it into `buf`.
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>read_buf(<span class="kw-2">&amp;mut </span><span class="self">self</span>, buf: <span class="kw-2">&amp;mut </span>io::ReadBuf&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; io::Result&lt;()&gt; {
         <span class="kw">while </span>!<span class="self">self</span>.is_empty() &amp;&amp; buf.remaining() &gt; <span class="number">0 </span>{
@@ -335,11 +335,11 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use </span><span class="kw">super</span>::ChunkVecBuffer;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>short_append_copy_with_limit() {
         <span class="kw">let </span><span class="kw-2">mut </span>cvb = ChunkVecBuffer::new(<span class="prelude-val">Some</span>(<span class="number">12</span>));
         <span class="macro">assert_eq!</span>(cvb.append_limited_copy(<span class="string">b&quot;hello&quot;</span>), <span class="number">5</span>);
@@ -352,7 +352,7 @@
         <span class="macro">assert_eq!</span>(buf.to_vec(), <span class="string">b&quot;helloworldhe&quot;</span>.to_vec());
     }
 
-    <span class="attribute">#[cfg(read_buf)]
+    <span class="attr">#[cfg(read_buf)]
     #[test]
     </span><span class="kw">fn </span>read_buf() {
         <span class="kw">use </span>std::{io::ReadBuf, mem::MaybeUninit};
@@ -387,4 +387,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

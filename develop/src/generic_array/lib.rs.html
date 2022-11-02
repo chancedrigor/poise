@@ -738,14 +738,14 @@
 //! # }
 //! ```
 
-</span><span class="attribute">#![deny(missing_docs)]
+</span><span class="attr">#![deny(missing_docs)]
 #![deny(meta_variable_misuse)]
 #![no_std]
 
 #[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">extern crate </span>serde;
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">extern crate </span>bincode;
 
 <span class="kw">pub extern crate </span>typenum;
@@ -753,7 +753,7 @@
 <span class="kw">mod </span>hex;
 <span class="kw">mod </span>impls;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">mod </span>impl_serde;
 
 <span class="kw">use </span>core::iter::FromIterator;
@@ -764,7 +764,7 @@
 <span class="kw">use </span>typenum::bit::{B0, B1};
 <span class="kw">use </span>typenum::uint::{UInt, UTerm, Unsigned};
 
-<span class="attribute">#[cfg_attr(test, macro_use)]
+<span class="attr">#[cfg_attr(test, macro_use)]
 </span><span class="kw">pub mod </span>arr;
 <span class="kw">pub mod </span>functional;
 <span class="kw">pub mod </span>iter;
@@ -781,12 +781,12 @@
 }
 
 <span class="kw">unsafe impl</span>&lt;T&gt; ArrayLength&lt;T&gt; <span class="kw">for </span>UTerm {
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span><span class="kw">type </span>ArrayType = [T; <span class="number">0</span>];
 }
 
 <span class="doccomment">/// Internal type used to generate a struct of appropriate size
-</span><span class="attribute">#[allow(dead_code)]
+</span><span class="attr">#[allow(dead_code)]
 #[repr(C)]
 #[doc(hidden)]
 </span><span class="kw">pub struct </span>GenericArrayImplEven&lt;T, U&gt; {
@@ -808,7 +808,7 @@
 <span class="kw">impl</span>&lt;T: Copy, U: Copy&gt; Copy <span class="kw">for </span>GenericArrayImplEven&lt;T, U&gt; {}
 
 <span class="doccomment">/// Internal type used to generate a struct of appropriate size
-</span><span class="attribute">#[allow(dead_code)]
+</span><span class="attr">#[allow(dead_code)]
 #[repr(C)]
 #[doc(hidden)]
 </span><span class="kw">pub struct </span>GenericArrayImplOdd&lt;T, U&gt; {
@@ -830,17 +830,17 @@
 <span class="kw">impl</span>&lt;T: Copy, U: Copy&gt; Copy <span class="kw">for </span>GenericArrayImplOdd&lt;T, U&gt; {}
 
 <span class="kw">unsafe impl</span>&lt;T, N: ArrayLength&lt;T&gt;&gt; ArrayLength&lt;T&gt; <span class="kw">for </span>UInt&lt;N, B0&gt; {
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span><span class="kw">type </span>ArrayType = GenericArrayImplEven&lt;T, N::ArrayType&gt;;
 }
 
 <span class="kw">unsafe impl</span>&lt;T, N: ArrayLength&lt;T&gt;&gt; ArrayLength&lt;T&gt; <span class="kw">for </span>UInt&lt;N, B1&gt; {
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span><span class="kw">type </span>ArrayType = GenericArrayImplOdd&lt;T, N::ArrayType&gt;;
 }
 
 <span class="doccomment">/// Struct representing a generic array - `GenericArray&lt;T, N&gt;` works like [T; N]
-</span><span class="attribute">#[allow(dead_code)]
+</span><span class="attr">#[allow(dead_code)]
 #[repr(transparent)]
 </span><span class="kw">pub struct </span>GenericArray&lt;T, U: ArrayLength&lt;T&gt;&gt; {
     data: U::ArrayType,
@@ -855,7 +855,7 @@
 {
     <span class="kw">type </span>Target = [T];
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>deref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[T] {
         <span class="kw">unsafe </span>{ slice::from_raw_parts(<span class="self">self </span><span class="kw">as </span><span class="kw-2">*const </span><span class="self">Self </span><span class="kw">as </span><span class="kw-2">*const </span>T, N::USIZE) }
     }
@@ -865,7 +865,7 @@
 <span class="kw">where
     </span>N: ArrayLength&lt;T&gt;,
 {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>deref_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>[T] {
         <span class="kw">unsafe </span>{ slice::from_raw_parts_mut(<span class="self">self </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="self">Self </span><span class="kw">as </span><span class="kw-2">*mut </span>T, N::USIZE) }
     }
@@ -876,14 +876,14 @@
 ///
 /// Incremenent the position while iterating to mark off created elements,
 /// which will be dropped if `into_inner` is not called.
-</span><span class="attribute">#[doc(hidden)]
+</span><span class="attr">#[doc(hidden)]
 </span><span class="kw">pub struct </span>ArrayBuilder&lt;T, N: ArrayLength&lt;T&gt;&gt; {
     array: MaybeUninit&lt;GenericArray&lt;T, N&gt;&gt;,
     position: usize,
 }
 
 <span class="kw">impl</span>&lt;T, N: ArrayLength&lt;T&gt;&gt; ArrayBuilder&lt;T, N&gt; {
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     #[inline]
     </span><span class="kw">pub unsafe fn </span>new() -&gt; ArrayBuilder&lt;T, N&gt; {
         ArrayBuilder {
@@ -896,7 +896,7 @@
     ///
     /// Increment the position value given as a mutable reference as you iterate
     /// to mark how many elements have been created.
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     #[inline]
     </span><span class="kw">pub unsafe fn </span>iter_position(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; (slice::IterMut&lt;T&gt;, <span class="kw-2">&amp;mut </span>usize) {
         ((<span class="kw-2">&amp;mut *</span><span class="self">self</span>.array.as_mut_ptr()).iter_mut(), <span class="kw-2">&amp;mut </span><span class="self">self</span>.position)
@@ -904,7 +904,7 @@
 
     <span class="doccomment">/// When done writing (assuming all elements have been written to),
     /// get the inner array.
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     #[inline]
     </span><span class="kw">pub unsafe fn </span>into_inner(<span class="self">self</span>) -&gt; GenericArray&lt;T, N&gt; {
         <span class="kw">let </span>array = ptr::read(<span class="kw-2">&amp;</span><span class="self">self</span>.array);
@@ -931,14 +931,14 @@
 ///
 /// Increment the position while iterating and any leftover elements
 /// will be dropped if position does not go to N
-</span><span class="attribute">#[doc(hidden)]
+</span><span class="attr">#[doc(hidden)]
 </span><span class="kw">pub struct </span>ArrayConsumer&lt;T, N: ArrayLength&lt;T&gt;&gt; {
     array: ManuallyDrop&lt;GenericArray&lt;T, N&gt;&gt;,
     position: usize,
 }
 
 <span class="kw">impl</span>&lt;T, N: ArrayLength&lt;T&gt;&gt; ArrayConsumer&lt;T, N&gt; {
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     #[inline]
     </span><span class="kw">pub unsafe fn </span>new(array: GenericArray&lt;T, N&gt;) -&gt; ArrayConsumer&lt;T, N&gt; {
         ArrayConsumer {
@@ -951,7 +951,7 @@
     /// to keep track of consumed elements.
     ///
     /// Increment the position as you iterate to mark off consumed elements
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     #[inline]
     </span><span class="kw">pub unsafe fn </span>iter_position(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; (slice::Iter&lt;T&gt;, <span class="kw-2">&amp;mut </span>usize) {
         (<span class="self">self</span>.array.iter(), <span class="kw-2">&amp;mut </span><span class="self">self</span>.position)
@@ -1026,7 +1026,7 @@
     }
 }
 
-<span class="attribute">#[inline(never)]
+<span class="attr">#[inline(never)]
 #[cold]
 </span><span class="kw">fn </span>from_iter_length_fail(length: usize, expected: usize) -&gt; ! {
     <span class="macro">panic!</span>(
@@ -1064,7 +1064,7 @@
         }
     }
 
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span><span class="kw">fn </span>inverted_zip&lt;B, U, F&gt;(
         <span class="self">self</span>,
         lhs: GenericArray&lt;B, <span class="self">Self</span>::Length&gt;,
@@ -1096,7 +1096,7 @@
         }
     }
 
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span><span class="kw">fn </span>inverted_zip2&lt;B, Lhs, U, F&gt;(<span class="self">self</span>, lhs: Lhs, <span class="kw-2">mut </span>f: F) -&gt; MappedSequence&lt;Lhs, B, U&gt;
     <span class="kw">where
         </span>Lhs: GenericSequence&lt;B, Length = <span class="self">Self</span>::Length&gt; + MappedGenericSequence&lt;B, U&gt;,
@@ -1158,7 +1158,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>zip&lt;B, Rhs, U, F&gt;(<span class="self">self</span>, rhs: Rhs, f: F) -&gt; MappedSequence&lt;<span class="self">Self</span>, T, U&gt;
     <span class="kw">where
         </span><span class="self">Self</span>: MappedGenericSequence&lt;T, U&gt;,
@@ -1195,13 +1195,13 @@
     </span>N: ArrayLength&lt;T&gt;,
 {
     <span class="doccomment">/// Extracts a slice containing the entire array.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>as_slice(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[T] {
         <span class="self">self</span>.deref()
     }
 
     <span class="doccomment">/// Extracts a mutable slice containing the entire array.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>as_mut_slice(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>[T] {
         <span class="self">self</span>.deref_mut()
     }
@@ -1209,7 +1209,7 @@
     <span class="doccomment">/// Converts slice to a generic array reference with inferred length;
     ///
     /// Length of the slice must be equal to the length of the array.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>from_slice(slice: <span class="kw-2">&amp;</span>[T]) -&gt; <span class="kw-2">&amp;</span>GenericArray&lt;T, N&gt; {
         slice.into()
     }
@@ -1217,7 +1217,7 @@
     <span class="doccomment">/// Converts mutable slice to a mutable generic array reference
     ///
     /// Length of the slice must be equal to the length of the array.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>from_mut_slice(slice: <span class="kw-2">&amp;mut </span>[T]) -&gt; <span class="kw-2">&amp;mut </span>GenericArray&lt;T, N&gt; {
         slice.into()
     }
@@ -1227,7 +1227,7 @@
     <span class="doccomment">/// Converts slice to a generic array reference with inferred length;
     ///
     /// Length of the slice must be equal to the length of the array.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>from(slice: <span class="kw-2">&amp;</span>[T]) -&gt; <span class="kw-2">&amp;</span>GenericArray&lt;T, N&gt; {
         <span class="macro">assert_eq!</span>(slice.len(), N::USIZE);
 
@@ -1239,7 +1239,7 @@
     <span class="doccomment">/// Converts mutable slice to a mutable generic array reference
     ///
     /// Length of the slice must be equal to the length of the array.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>from(slice: <span class="kw-2">&amp;mut </span>[T]) -&gt; <span class="kw-2">&amp;mut </span>GenericArray&lt;T, N&gt; {
         <span class="macro">assert_eq!</span>(slice.len(), N::USIZE);
 
@@ -1254,7 +1254,7 @@
     <span class="doccomment">/// Construct a `GenericArray` from a slice by cloning its content
     ///
     /// Length of the slice must be equal to the length of the array
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>clone_from_slice(list: <span class="kw-2">&amp;</span>[T]) -&gt; GenericArray&lt;T, N&gt; {
         <span class="self">Self</span>::from_exact_iter(list.iter().cloned())
             .expect(<span class="string">&quot;Slice must be the same length as the array&quot;</span>)
@@ -1304,14 +1304,14 @@
 
 <span class="doccomment">/// A reimplementation of the `transmute` function, avoiding problems
 /// when the compiler can&#39;t prove equal sizes.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 #[doc(hidden)]
 </span><span class="kw">pub unsafe fn </span>transmute&lt;A, B&gt;(a: A) -&gt; B {
     <span class="kw">let </span>a = ManuallyDrop::new(a);
     ::core::ptr::read(<span class="kw-2">&amp;*</span>a <span class="kw">as </span><span class="kw-2">*const </span>A <span class="kw">as </span><span class="kw-2">*const </span>B)
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="comment">// Compile with:
     // cargo rustc --lib --profile test --release --
@@ -1319,7 +1319,7 @@
     // and view the assembly to make sure test_assembly generates
     // SIMD instructions instead of a niave loop.
 
-    </span><span class="attribute">#[inline(never)]
+    </span><span class="attr">#[inline(never)]
     </span><span class="kw">pub fn </span>black_box&lt;T&gt;(val: T) -&gt; T {
         <span class="kw">use </span>core::{mem, ptr};
 
@@ -1328,7 +1328,7 @@
         ret
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assembly() {
         <span class="kw">use </span><span class="kw">crate</span>::functional::<span class="kw-2">*</span>;
 
@@ -1345,4 +1345,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="generic_array" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="generic_array" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

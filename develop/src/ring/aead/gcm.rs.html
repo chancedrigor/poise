@@ -355,7 +355,7 @@
 </span><span class="kw">use super</span>::{Aad, Block, BLOCK_LEN};
 <span class="kw">use </span><span class="kw">crate</span>::cpu;
 
-<span class="attribute">#[cfg(not(target_arch = <span class="string">&quot;aarch64&quot;</span>))]
+<span class="attr">#[cfg(not(target_arch = <span class="string">&quot;aarch64&quot;</span>))]
 </span><span class="kw">mod </span>gcm_nohw;
 
 <span class="kw">pub struct </span>Key(HTable);
@@ -370,7 +370,7 @@
         <span class="kw">let </span>h_table = <span class="kw-2">&amp;mut </span>key.<span class="number">0</span>;
 
         <span class="kw">match </span>detect_implementation(cpu_features) {
-            <span class="attribute">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
+            <span class="attr">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
             </span>Implementation::CLMUL <span class="kw">if </span>has_avx_movbe(cpu_features) =&gt; {
                 <span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
                     <span class="kw">fn </span>GFp_gcm_init_avx(HTable: <span class="kw-2">&amp;mut </span>HTable, h: <span class="kw-2">&amp;</span>[u64; <span class="number">2</span>]);
@@ -380,7 +380,7 @@
                 }
             }
 
-            <span class="attribute">#[cfg(any(
+            <span class="attr">#[cfg(any(
                 target_arch = <span class="string">&quot;aarch64&quot;</span>,
                 target_arch = <span class="string">&quot;arm&quot;</span>,
                 target_arch = <span class="string">&quot;x86_64&quot;</span>,
@@ -395,7 +395,7 @@
                 }
             }
 
-            <span class="attribute">#[cfg(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;arm&quot;</span>))]
+            <span class="attr">#[cfg(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;arm&quot;</span>))]
             </span>Implementation::NEON =&gt; {
                 <span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
                     <span class="kw">fn </span>GFp_gcm_init_neon(Htable: <span class="kw-2">&amp;mut </span>HTable, h: <span class="kw-2">&amp;</span>[u64; <span class="number">2</span>]);
@@ -405,7 +405,7 @@
                 }
             }
 
-            <span class="attribute">#[cfg(not(target_arch = <span class="string">&quot;aarch64&quot;</span>))]
+            <span class="attr">#[cfg(not(target_arch = <span class="string">&quot;aarch64&quot;</span>))]
             </span>Implementation::Fallback =&gt; {
                 h_table.Htable[<span class="number">0</span>] = gcm_nohw::init(h);
             }
@@ -441,7 +441,7 @@
     }
 
     <span class="doccomment">/// Access to `inner` for the integrated AES-GCM implementations only.
-    </span><span class="attribute">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
+    </span><span class="attr">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
     #[inline]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>inner(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>ContextInner {
         <span class="kw-2">&amp;mut </span><span class="self">self</span>.inner
@@ -458,7 +458,7 @@
         <span class="kw">let </span>h_table = <span class="kw-2">&amp;</span><span class="self">self</span>.inner.Htable;
 
         <span class="kw">match </span>detect_implementation(<span class="self">self</span>.cpu_features) {
-            <span class="attribute">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
+            <span class="attr">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
             </span>Implementation::CLMUL <span class="kw">if </span>has_avx_movbe(<span class="self">self</span>.cpu_features) =&gt; {
                 <span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
                     <span class="kw">fn </span>GFp_gcm_ghash_avx(
@@ -473,7 +473,7 @@
                 }
             }
 
-            <span class="attribute">#[cfg(any(
+            <span class="attr">#[cfg(any(
                 target_arch = <span class="string">&quot;aarch64&quot;</span>,
                 target_arch = <span class="string">&quot;arm&quot;</span>,
                 target_arch = <span class="string">&quot;x86_64&quot;</span>,
@@ -493,7 +493,7 @@
                 }
             }
 
-            <span class="attribute">#[cfg(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;arm&quot;</span>))]
+            <span class="attr">#[cfg(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;arm&quot;</span>))]
             </span>Implementation::NEON =&gt; {
                 <span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
                     <span class="kw">fn </span>GFp_gcm_ghash_neon(
@@ -508,7 +508,7 @@
                 }
             }
 
-            <span class="attribute">#[cfg(not(target_arch = <span class="string">&quot;aarch64&quot;</span>))]
+            <span class="attr">#[cfg(not(target_arch = <span class="string">&quot;aarch64&quot;</span>))]
             </span>Implementation::Fallback =&gt; {
                 gcm_nohw::ghash(xi, h_table.Htable[<span class="number">0</span>], input);
             }
@@ -525,7 +525,7 @@
         <span class="kw">let </span>h_table = <span class="kw-2">&amp;</span><span class="self">self</span>.inner.Htable;
 
         <span class="kw">match </span>detect_implementation(<span class="self">self</span>.cpu_features) {
-            <span class="attribute">#[cfg(any(
+            <span class="attr">#[cfg(any(
                 target_arch = <span class="string">&quot;aarch64&quot;</span>,
                 target_arch = <span class="string">&quot;arm&quot;</span>,
                 target_arch = <span class="string">&quot;x86_64&quot;</span>,
@@ -540,7 +540,7 @@
                 }
             }
 
-            <span class="attribute">#[cfg(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;arm&quot;</span>))]
+            <span class="attr">#[cfg(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;arm&quot;</span>))]
             </span>Implementation::NEON =&gt; {
                 <span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
                     <span class="kw">fn </span>GFp_gcm_gmult_neon(xi: <span class="kw-2">&amp;mut </span>Xi, Htable: <span class="kw-2">&amp;</span>HTable);
@@ -550,7 +550,7 @@
                 }
             }
 
-            <span class="attribute">#[cfg(not(target_arch = <span class="string">&quot;aarch64&quot;</span>))]
+            <span class="attr">#[cfg(not(target_arch = <span class="string">&quot;aarch64&quot;</span>))]
             </span>Implementation::Fallback =&gt; {
                 gcm_nohw::gmult(xi, h_table.Htable[<span class="number">0</span>]);
             }
@@ -564,7 +564,7 @@
         f(<span class="self">self</span>.inner.Xi)
     }
 
-    <span class="attribute">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
+    <span class="attr">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>is_avx2(<span class="kw-2">&amp;</span><span class="self">self</span>, cpu_features: cpu::Features) -&gt; bool {
         <span class="kw">match </span>detect_implementation(cpu_features) {
             Implementation::CLMUL =&gt; has_avx_movbe(<span class="self">self</span>.cpu_features),
@@ -574,13 +574,13 @@
 }
 
 <span class="comment">// The alignment is required by non-Rust code that uses `GCM128_CONTEXT`.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 #[repr(C, align(<span class="number">16</span>))]
 </span><span class="kw">struct </span>HTable {
     Htable: [u128; HTABLE_LEN],
 }
 
-<span class="attribute">#[derive(Clone, Copy)]
+<span class="attr">#[derive(Clone, Copy)]
 #[repr(C)]
 </span><span class="kw">struct </span>u128 {
     hi: u64,
@@ -589,18 +589,18 @@
 
 <span class="kw">const </span>HTABLE_LEN: usize = <span class="number">16</span>;
 
-<span class="attribute">#[repr(transparent)]
+<span class="attr">#[repr(transparent)]
 </span><span class="kw">pub struct </span>Xi(Block);
 
 <span class="kw">impl </span>Xi {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>bitxor_assign(<span class="kw-2">&amp;mut </span><span class="self">self</span>, a: Block) {
         <span class="self">self</span>.<span class="number">0</span>.bitxor_assign(a)
     }
 }
 
 <span class="kw">impl </span>From&lt;Xi&gt; <span class="kw">for </span>Block {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(Xi(block): Xi) -&gt; <span class="self">Self </span>{
         block
     }
@@ -609,7 +609,7 @@
 <span class="comment">// This corresponds roughly to the `GCM128_CONTEXT` structure in BoringSSL.
 // Some assembly language code, in particular the MOVEBE+AVX2 X86-64
 // implementation, requires this exact layout.
-</span><span class="attribute">#[repr(C, align(<span class="number">16</span>))]
+</span><span class="attr">#[repr(C, align(<span class="number">16</span>))]
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>ContextInner {
     Xi: Xi,
     _unused: Block,
@@ -617,7 +617,7 @@
 }
 
 <span class="kw">enum </span>Implementation {
-    <span class="attribute">#[cfg(any(
+    <span class="attr">#[cfg(any(
         target_arch = <span class="string">&quot;aarch64&quot;</span>,
         target_arch = <span class="string">&quot;arm&quot;</span>,
         target_arch = <span class="string">&quot;x86_64&quot;</span>,
@@ -625,17 +625,17 @@
     </span>))]
     </span>CLMUL,
 
-    <span class="attribute">#[cfg(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;arm&quot;</span>))]
+    <span class="attr">#[cfg(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;arm&quot;</span>))]
     </span>NEON,
 
-    <span class="attribute">#[cfg(not(target_arch = <span class="string">&quot;aarch64&quot;</span>))]
+    <span class="attr">#[cfg(not(target_arch = <span class="string">&quot;aarch64&quot;</span>))]
     </span>Fallback,
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>detect_implementation(cpu_features: cpu::Features) -&gt; Implementation {
     <span class="comment">// `cpu_features` is only used for specific platforms.
-    </span><span class="attribute">#[cfg(not(any(
+    </span><span class="attr">#[cfg(not(any(
         target_arch = <span class="string">&quot;aarch64&quot;</span>,
         target_arch = <span class="string">&quot;arm&quot;</span>,
         target_arch = <span class="string">&quot;x86_64&quot;</span>,
@@ -643,7 +643,7 @@
     </span>)))]
     </span><span class="kw">let </span>_cpu_features = cpu_features;
 
-    <span class="attribute">#[cfg(any(
+    <span class="attr">#[cfg(any(
         target_arch = <span class="string">&quot;aarch64&quot;</span>,
         target_arch = <span class="string">&quot;arm&quot;</span>,
         target_arch = <span class="string">&quot;x86_64&quot;</span>,
@@ -658,25 +658,25 @@
         }
     }
 
-    <span class="attribute">#[cfg(target_arch = <span class="string">&quot;arm&quot;</span>)]
+    <span class="attr">#[cfg(target_arch = <span class="string">&quot;arm&quot;</span>)]
     </span>{
         <span class="kw">if </span>cpu::arm::NEON.available(cpu_features) {
             <span class="kw">return </span>Implementation::NEON;
         }
     }
 
-    <span class="attribute">#[cfg(target_arch = <span class="string">&quot;aarch64&quot;</span>)]
+    <span class="attr">#[cfg(target_arch = <span class="string">&quot;aarch64&quot;</span>)]
     </span>{
         <span class="kw">return </span>Implementation::NEON;
     }
 
-    <span class="attribute">#[cfg(not(target_arch = <span class="string">&quot;aarch64&quot;</span>))]
+    <span class="attr">#[cfg(not(target_arch = <span class="string">&quot;aarch64&quot;</span>))]
     </span>Implementation::Fallback
 }
 
-<span class="attribute">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
+<span class="attr">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
 </span><span class="kw">fn </span>has_avx_movbe(cpu_features: cpu::Features) -&gt; bool {
     cpu::intel::AVX.available(cpu_features) &amp;&amp; cpu::intel::MOVBE.available(cpu_features)
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

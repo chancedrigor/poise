@@ -449,21 +449,21 @@
 <span class="kw">type </span>StaticBuf = <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[u8];
 
 <span class="doccomment">/// Encoders to handle different Transfer-Encodings.
-</span><span class="attribute">#[derive(Debug, Clone, PartialEq)]
+</span><span class="attr">#[derive(Debug, Clone, PartialEq)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Encoder {
     kind: Kind,
     is_last: bool,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>EncodedBuf&lt;B&gt; {
     kind: BufKind&lt;B&gt;,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>NotEof(u64);
 
-<span class="attribute">#[derive(Debug, PartialEq, Clone)]
+<span class="attr">#[derive(Debug, PartialEq, Clone)]
 </span><span class="kw">enum </span>Kind {
     <span class="doccomment">/// An Encoder for when Transfer-Encoding includes `chunked`.
     </span>Chunked,
@@ -475,11 +475,11 @@
     ///
     /// This is mostly only used with HTTP/1.0 with a length. This kind requires
     /// the connection to be closed when the body is finished.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
     </span>CloseDelimited,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">enum </span>BufKind&lt;B&gt; {
     Exact(B),
     Limited(Take&lt;B&gt;),
@@ -502,7 +502,7 @@
         Encoder::new(Kind::Length(len))
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>close_delimited() -&gt; Encoder {
         Encoder::new(Kind::CloseDelimited)
     }
@@ -511,7 +511,7 @@
         <span class="macro">matches!</span>(<span class="self">self</span>.kind, Kind::Length(<span class="number">0</span>))
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>set_last(<span class="kw-2">mut </span><span class="self">self</span>, is_last: bool) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.is_last = is_last;
         <span class="self">self
@@ -523,7 +523,7 @@
 
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>is_close_delimited(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">match </span><span class="self">self</span>.kind {
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
             </span>Kind::CloseDelimited =&gt; <span class="bool-val">true</span>,
             <span class="kw">_ </span>=&gt; <span class="bool-val">false</span>,
         }
@@ -535,7 +535,7 @@
             Kind::Chunked =&gt; <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(EncodedBuf {
                 kind: BufKind::ChunkedEnd(<span class="string">b&quot;0\r\n\r\n&quot;</span>),
             })),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
             </span>Kind::CloseDelimited =&gt; <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
             Kind::Length(n) =&gt; <span class="prelude-val">Err</span>(NotEof(n)),
         }
@@ -567,7 +567,7 @@
                     BufKind::Exact(msg)
                 }
             }
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
             </span>Kind::CloseDelimited =&gt; {
                 <span class="macro">trace!</span>(<span class="string">&quot;close delimited write {}B&quot;</span>, len);
                 BufKind::Exact(msg)
@@ -611,7 +611,7 @@
                     </span>}
                 }
             }
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
             </span>Kind::CloseDelimited =&gt; {
                 <span class="macro">trace!</span>(<span class="string">&quot;close delimited write {}B&quot;</span>, len);
                 dst.buffer(msg);
@@ -658,7 +658,7 @@
 <span class="kw">where
     </span>B: Buf,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>remaining(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="kw">match </span><span class="self">self</span>.kind {
             BufKind::Exact(<span class="kw-2">ref </span>b) =&gt; b.remaining(),
@@ -668,7 +668,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>chunk(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8] {
         <span class="kw">match </span><span class="self">self</span>.kind {
             BufKind::Exact(<span class="kw-2">ref </span>b) =&gt; b.chunk(),
@@ -678,7 +678,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>advance(<span class="kw-2">&amp;mut </span><span class="self">self</span>, cnt: usize) {
         <span class="kw">match </span><span class="self">self</span>.kind {
             BufKind::Exact(<span class="kw-2">ref mut </span>b) =&gt; b.advance(cnt),
@@ -688,7 +688,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>chunks_vectored&lt;<span class="lifetime">&#39;t</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;t </span><span class="self">self</span>, dst: <span class="kw-2">&amp;mut </span>[IoSlice&lt;<span class="lifetime">&#39;t</span>&gt;]) -&gt; usize {
         <span class="kw">match </span><span class="self">self</span>.kind {
             BufKind::Exact(<span class="kw-2">ref </span>b) =&gt; b.chunks_vectored(dst),
@@ -699,16 +699,16 @@
     }
 }
 
-<span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
+<span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
 </span><span class="kw">const </span>USIZE_BYTES: usize = <span class="number">4</span>;
 
-<span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
+<span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
 </span><span class="kw">const </span>USIZE_BYTES: usize = <span class="number">8</span>;
 
 <span class="comment">// each byte will become 2 hex
 </span><span class="kw">const </span>CHUNK_SIZE_MAX_BYTES: usize = USIZE_BYTES * <span class="number">2</span>;
 
-<span class="attribute">#[derive(Clone, Copy)]
+<span class="attr">#[derive(Clone, Copy)]
 </span><span class="kw">struct </span>ChunkSize {
     bytes: [u8; CHUNK_SIZE_MAX_BYTES + <span class="number">2</span>],
     pos: u8,
@@ -729,17 +729,17 @@
 }
 
 <span class="kw">impl </span>Buf <span class="kw">for </span>ChunkSize {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>remaining(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         (<span class="self">self</span>.len - <span class="self">self</span>.pos).into()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>chunk(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8] {
         <span class="kw-2">&amp;</span><span class="self">self</span>.bytes[<span class="self">self</span>.pos.into()..<span class="self">self</span>.len.into()]
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>advance(<span class="kw-2">&amp;mut </span><span class="self">self</span>, cnt: usize) {
         <span class="macro">assert!</span>(cnt &lt;= <span class="self">self</span>.remaining());
         <span class="self">self</span>.pos += cnt <span class="kw">as </span>u8; <span class="comment">// just asserted cnt fits in u8
@@ -798,14 +798,14 @@
 
 <span class="kw">impl </span>std::error::Error <span class="kw">for </span>NotEof {}
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>bytes::BufMut;
 
     <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::io::Cursor;
     <span class="kw">use </span><span class="kw">super</span>::Encoder;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>chunked() {
         <span class="kw">let </span><span class="kw-2">mut </span>encoder = Encoder::chunked();
         <span class="kw">let </span><span class="kw-2">mut </span>dst = Vec::new();
@@ -830,7 +830,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>length() {
         <span class="kw">let </span>max_len = <span class="number">8</span>;
         <span class="kw">let </span><span class="kw-2">mut </span>encoder = Encoder::length(max_len <span class="kw">as </span>u64);
@@ -854,7 +854,7 @@
         <span class="macro">assert!</span>(encoder.end::&lt;()&gt;().unwrap().is_none());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>eof() {
         <span class="kw">let </span><span class="kw-2">mut </span>encoder = Encoder::close_delimited();
         <span class="kw">let </span><span class="kw-2">mut </span>dst = Vec::new();
@@ -877,4 +877,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

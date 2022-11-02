@@ -297,7 +297,7 @@
 };
 
 <span class="doccomment">/// WebSocket message opcode as in RFC 6455.
-</span><span class="attribute">#[derive(Debug, PartialEq, Eq, Clone, Copy)]
+</span><span class="attr">#[derive(Debug, PartialEq, Eq, Clone, Copy)]
 </span><span class="kw">pub enum </span>OpCode {
     <span class="doccomment">/// Data (text or binary).
     </span>Data(Data),
@@ -306,7 +306,7 @@
 }
 
 <span class="doccomment">/// Data opcodes as in RFC 6455
-</span><span class="attribute">#[derive(Debug, PartialEq, Eq, Clone, Copy)]
+</span><span class="attr">#[derive(Debug, PartialEq, Eq, Clone, Copy)]
 </span><span class="kw">pub enum </span>Data {
     <span class="doccomment">/// 0x0 denotes a continuation frame
     </span>Continue,
@@ -319,7 +319,7 @@
 }
 
 <span class="doccomment">/// Control opcodes as in RFC 6455
-</span><span class="attribute">#[derive(Debug, PartialEq, Eq, Clone, Copy)]
+</span><span class="attr">#[derive(Debug, PartialEq, Eq, Clone, Copy)]
 </span><span class="kw">pub enum </span>Control {
     <span class="doccomment">/// 0x8 denotes a connection close
     </span>Close,
@@ -406,7 +406,7 @@
 
 <span class="kw">use </span><span class="self">self</span>::CloseCode::<span class="kw-2">*</span>;
 <span class="doccomment">/// Status code used to indicate why an endpoint is closing the WebSocket connection.
-</span><span class="attribute">#[derive(Debug, Eq, PartialEq, Clone, Copy)]
+</span><span class="attr">#[derive(Debug, Eq, PartialEq, Clone, Copy)]
 </span><span class="kw">pub enum </span>CloseCode {
     <span class="doccomment">/// Indicates a normal closure, meaning that the purpose for
     /// which the connection was established has been fulfilled.
@@ -466,15 +466,15 @@
     /// to a different IP (when multiple targets exist), or reconnect to the same IP
     /// when a user has performed an action.
     </span>Again,
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span>Tls,
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span>Reserved(u16),
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span>Iana(u16),
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span>Library(u16),
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span>Bad(u16),
 }
 
@@ -549,30 +549,30 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>opcode_from_u8() {
         <span class="kw">let </span>byte = <span class="number">2u8</span>;
         <span class="macro">assert_eq!</span>(OpCode::from(byte), OpCode::Data(Data::Binary));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>opcode_into_u8() {
         <span class="kw">let </span>text = OpCode::Data(Data::Text);
         <span class="kw">let </span>byte: u8 = text.into();
         <span class="macro">assert_eq!</span>(byte, <span class="number">1u8</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>closecode_from_u16() {
         <span class="kw">let </span>byte = <span class="number">1008u16</span>;
         <span class="macro">assert_eq!</span>(CloseCode::from(byte), CloseCode::Policy);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>closecode_into_u16() {
         <span class="kw">let </span>text = CloseCode::Away;
         <span class="kw">let </span>byte: u16 = text.into();
@@ -581,4 +581,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

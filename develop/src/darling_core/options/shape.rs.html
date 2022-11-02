@@ -290,7 +290,7 @@
 /// ```rust,ignore
 /// #[ignore(any, struct_named, enum_newtype)]
 /// ```
-</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone)]
 </span><span class="kw">pub struct </span>Shape {
     enum_values: DataShape,
     struct_values: DataShape,
@@ -376,7 +376,7 @@
         };
 
         tokens.append_all(<span class="macro">quote! </span>{
-            <span class="attribute">#[allow(unused_variables)]
+            <span class="attr">#[allow(unused_variables)]
             </span><span class="kw">fn </span>__validate_body(__body: <span class="kw-2">&amp;</span>::syn::Data) -&gt; ::darling::Result&lt;()&gt; {
                 #fn_body
             }
@@ -386,7 +386,7 @@
 
 <span class="doccomment">/// Receiver for shape information within a struct or enum context. See `Shape` for more information
 /// on valid uses of shape validation.
-</span><span class="attribute">#[derive(Debug, Clone, Default, PartialEq, Eq)]
+</span><span class="attr">#[derive(Debug, Clone, Default, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>DataShape {
     <span class="doccomment">/// The kind of shape being described. This can be `struct_` or `enum_`.
     </span>prefix: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str,
@@ -500,7 +500,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>proc_macro2::TokenStream;
 
@@ -509,7 +509,7 @@
 
     <span class="doccomment">/// parse a string as a syn::Meta instance.
     </span><span class="kw">fn </span>pm(tokens: TokenStream) -&gt; ::std::result::Result&lt;syn::Meta, String&gt; {
-        <span class="kw">let </span>attribute: syn::Attribute = <span class="macro">parse_quote!</span>(<span class="attribute">#[#tokens]</span>);
+        <span class="kw">let </span>attribute: syn::Attribute = <span class="macro">parse_quote!</span>(<span class="attr">#[#tokens]</span>);
         attribute.parse_meta().map_err(|<span class="kw">_</span>| <span class="string">&quot;Unable to parse&quot;</span>.into())
     }
 
@@ -518,20 +518,20 @@
             .expect(<span class="string">&quot;Tests should pass valid input&quot;</span>)
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>supports_any() {
         <span class="kw">let </span>decl = fm::&lt;Shape&gt;(<span class="macro">quote!</span>(ignore(any)));
         <span class="macro">assert!</span>(decl.any);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>supports_struct() {
         <span class="kw">let </span>decl = fm::&lt;Shape&gt;(<span class="macro">quote!</span>(ignore(struct_any, struct_newtype)));
         <span class="macro">assert!</span>(decl.struct_values.any);
         <span class="macro">assert!</span>(decl.struct_values.newtype);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>supports_mixed() {
         <span class="kw">let </span>decl = fm::&lt;Shape&gt;(<span class="macro">quote!</span>(ignore(struct_newtype, enum_newtype, enum_tuple)));
         <span class="macro">assert!</span>(decl.struct_values.newtype);
@@ -541,4 +541,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="darling_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="darling_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

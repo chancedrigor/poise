@@ -354,7 +354,7 @@
     sa_family_t, sockaddr, sockaddr_in, sockaddr_in6, sockaddr_storage, socklen_t, AF_INET,
     AF_INET6,
 };
-<span class="attribute">#[cfg(windows)]
+<span class="attr">#[cfg(windows)]
 </span><span class="kw">use </span>winapi::shared::ws2ipdef::SOCKADDR_IN6_LH_u;
 
 <span class="doccomment">/// The address of a socket.
@@ -366,7 +366,7 @@
     len: socklen_t,
 }
 
-<span class="attribute">#[allow(clippy::len_without_is_empty)]
+<span class="attr">#[allow(clippy::len_without_is_empty)]
 </span><span class="kw">impl </span>SockAddr {
     <span class="doccomment">/// Create a `SockAddr` from the underlying storage and its length.
     ///
@@ -502,7 +502,7 @@
     </span>}
 
     <span class="doccomment">/// Returns a raw pointer to the address storage.
-    </span><span class="attribute">#[cfg(all(unix, not(target_os = <span class="string">&quot;redox&quot;</span>)))]
+    </span><span class="attr">#[cfg(all(unix, not(target_os = <span class="string">&quot;redox&quot;</span>)))]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const fn </span>as_storage_ptr(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">*const </span>sockaddr_storage {
         <span class="kw-2">&amp;</span><span class="self">self</span>.storage
     }
@@ -527,9 +527,9 @@
                 ip,
                 port,
                 addr.sin6_flowinfo,
-                <span class="attribute">#[cfg(unix)]
+                <span class="attr">#[cfg(unix)]
                 </span>addr.sin6_scope_id,
-                <span class="attribute">#[cfg(windows)]
+                <span class="attr">#[cfg(windows)]
                 </span><span class="kw">unsafe </span>{
                     <span class="kw-2">*</span>addr.u.sin6_scope_id()
                 },
@@ -574,7 +574,7 @@
             sin_port: addr.port().to_be(),
             sin_addr: <span class="kw">crate</span>::sys::to_in_addr(addr.ip()),
             sin_zero: Default::default(),
-            <span class="attribute">#[cfg(any(
+            <span class="attr">#[cfg(any(
                 target_os = <span class="string">&quot;dragonfly&quot;</span>,
                 target_os = <span class="string">&quot;freebsd&quot;</span>,
                 target_os = <span class="string">&quot;haiku&quot;</span>,
@@ -597,7 +597,7 @@
 
 <span class="kw">impl </span>From&lt;SocketAddrV6&gt; <span class="kw">for </span>SockAddr {
     <span class="kw">fn </span>from(addr: SocketAddrV6) -&gt; SockAddr {
-        <span class="attribute">#[cfg(windows)]
+        <span class="attr">#[cfg(windows)]
         </span><span class="kw">let </span>u = <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>u = mem::zeroed::&lt;SOCKADDR_IN6_LH_u&gt;();
             <span class="kw-2">*</span>u.sin6_scope_id_mut() = addr.scope_id();
@@ -609,11 +609,11 @@
             sin6_port: addr.port().to_be(),
             sin6_addr: <span class="kw">crate</span>::sys::to_in6_addr(addr.ip()),
             sin6_flowinfo: addr.flowinfo(),
-            <span class="attribute">#[cfg(unix)]
+            <span class="attr">#[cfg(unix)]
             </span>sin6_scope_id: addr.scope_id(),
-            <span class="attribute">#[cfg(windows)]
+            <span class="attr">#[cfg(windows)]
             </span>u,
-            <span class="attribute">#[cfg(any(
+            <span class="attr">#[cfg(any(
                 target_os = <span class="string">&quot;dragonfly&quot;</span>,
                 target_os = <span class="string">&quot;freebsd&quot;</span>,
                 target_os = <span class="string">&quot;haiku&quot;</span>,
@@ -623,7 +623,7 @@
                 target_os = <span class="string">&quot;openbsd&quot;
             </span>))]
             </span>sin6_len: <span class="number">0</span>,
-            <span class="attribute">#[cfg(any(target_os = <span class="string">&quot;solaris&quot;</span>, target_os = <span class="string">&quot;illumos&quot;</span>))]
+            <span class="attr">#[cfg(any(target_os = <span class="string">&quot;solaris&quot;</span>, target_os = <span class="string">&quot;illumos&quot;</span>))]
             </span>__sin6_src_id: <span class="number">0</span>,
         };
         <span class="kw">let </span><span class="kw-2">mut </span>storage = MaybeUninit::&lt;sockaddr_storage&gt;::zeroed();
@@ -639,7 +639,7 @@
 <span class="kw">impl </span>fmt::Debug <span class="kw">for </span>SockAddr {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, fmt: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">let </span><span class="kw-2">mut </span>f = fmt.debug_struct(<span class="string">&quot;SockAddr&quot;</span>);
-        <span class="attribute">#[cfg(any(
+        <span class="attr">#[cfg(any(
             target_os = <span class="string">&quot;dragonfly&quot;</span>,
             target_os = <span class="string">&quot;freebsd&quot;</span>,
             target_os = <span class="string">&quot;haiku&quot;</span>,
@@ -657,7 +657,7 @@
     }
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>ipv4() {
     <span class="kw">use </span>std::net::Ipv4Addr;
     <span class="kw">let </span>std = SocketAddrV4::new(Ipv4Addr::new(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>), <span class="number">9876</span>);
@@ -676,7 +676,7 @@
     <span class="macro">assert!</span>(addr.as_socket_ipv6().is_none());
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>ipv6() {
     <span class="kw">use </span>std::net::Ipv6Addr;
     <span class="kw">let </span>std = SocketAddrV6::new(Ipv6Addr::new(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>), <span class="number">9876</span>, <span class="number">11</span>, <span class="number">12</span>);
@@ -695,4 +695,4 @@
     <span class="macro">assert_eq!</span>(addr.as_socket_ipv6(), <span class="prelude-val">Some</span>(std));
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="socket2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="socket2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

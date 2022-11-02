@@ -409,7 +409,7 @@
 //! the powerset of all feature flags. Use at your own risk. Without this flag, any method that
 //! requires the local offset will return the `Err` variant.
 
-</span><span class="attribute">#![doc(html_playground_url = <span class="string">&quot;https://play.rust-lang.org&quot;</span>)]
+</span><span class="attr">#![doc(html_playground_url = <span class="string">&quot;https://play.rust-lang.org&quot;</span>)]
 #![cfg_attr(__time_03_docs, feature(doc_cfg, doc_auto_cfg, doc_notable_trait))]
 #![cfg_attr(
     __time_03_docs,
@@ -463,9 +463,9 @@
 <span class="comment">// region: macros
 </span><span class="doccomment">/// Helper macro for easily implementing `OpAssign`.
 </span><span class="macro">macro_rules! </span>__impl_assign {
-    (<span class="macro-nonterminal">$sym</span>:tt <span class="macro-nonterminal">$op</span>:ident <span class="macro-nonterminal">$</span><span class="kw">fn</span>:<span class="macro-nonterminal">ident $target</span>:ty : $($(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)* <span class="macro-nonterminal">$t</span>:ty),+) =&gt; {$(
-        <span class="attribute">#[allow(unused_qualifications)]
-        </span>$(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>]</span>)*
+    (<span class="macro-nonterminal">$sym</span>:tt <span class="macro-nonterminal">$op</span>:ident <span class="macro-nonterminal">$</span><span class="kw">fn</span>:<span class="macro-nonterminal">ident $target</span>:ty : $($(<span class="attr">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)* <span class="macro-nonterminal">$t</span>:ty),+) =&gt; {$(
+        <span class="attr">#[allow(unused_qualifications)]
+        </span>$(<span class="attr">#[<span class="macro-nonterminal">$attr</span>]</span>)*
         <span class="kw">impl </span>core::ops::<span class="macro-nonterminal">$op</span>&lt;<span class="macro-nonterminal">$t</span>&gt; <span class="kw">for </span><span class="macro-nonterminal">$target </span>{
             <span class="kw">fn </span><span class="macro-nonterminal">$</span><span class="kw">fn</span>(<span class="kw-2">&amp;mut </span><span class="macro-nonterminal">self</span>, rhs: <span class="macro-nonterminal">$t</span>) {
                 <span class="kw-2">*</span><span class="self">self </span>= <span class="kw-2">*</span><span class="self">self </span><span class="macro-nonterminal">$sym </span>rhs;
@@ -476,29 +476,29 @@
 
 <span class="doccomment">/// Implement `AddAssign` for the provided types.
 </span><span class="macro">macro_rules! </span>impl_add_assign {
-    (<span class="macro-nonterminal">$target</span>:ty : $($(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)* <span class="macro-nonterminal">$t</span>:ty),+ $(,)<span class="question-mark">?</span>) =&gt; {
-        <span class="macro">__impl_assign!</span>(+ AddAssign add_assign <span class="macro-nonterminal">$target </span>: $($(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>]</span>)* <span class="macro-nonterminal">$t</span>),+);
+    (<span class="macro-nonterminal">$target</span>:ty : $($(<span class="attr">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)* <span class="macro-nonterminal">$t</span>:ty),+ $(,)<span class="question-mark">?</span>) =&gt; {
+        <span class="macro">__impl_assign!</span>(+ AddAssign add_assign <span class="macro-nonterminal">$target </span>: $($(<span class="attr">#[<span class="macro-nonterminal">$attr</span>]</span>)* <span class="macro-nonterminal">$t</span>),+);
     };
 }
 
 <span class="doccomment">/// Implement `SubAssign` for the provided types.
 </span><span class="macro">macro_rules! </span>impl_sub_assign {
-    (<span class="macro-nonterminal">$target</span>:ty : $($(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)* <span class="macro-nonterminal">$t</span>:ty),+ $(,)<span class="question-mark">?</span>) =&gt; {
-        <span class="macro">__impl_assign!</span>(- SubAssign sub_assign <span class="macro-nonterminal">$target </span>: $($(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>]</span>)* <span class="macro-nonterminal">$t</span>),+);
+    (<span class="macro-nonterminal">$target</span>:ty : $($(<span class="attr">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)* <span class="macro-nonterminal">$t</span>:ty),+ $(,)<span class="question-mark">?</span>) =&gt; {
+        <span class="macro">__impl_assign!</span>(- SubAssign sub_assign <span class="macro-nonterminal">$target </span>: $($(<span class="attr">#[<span class="macro-nonterminal">$attr</span>]</span>)* <span class="macro-nonterminal">$t</span>),+);
     };
 }
 
 <span class="doccomment">/// Implement `MulAssign` for the provided types.
 </span><span class="macro">macro_rules! </span>impl_mul_assign {
-    (<span class="macro-nonterminal">$target</span>:ty : $($(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)* <span class="macro-nonterminal">$t</span>:ty),+ $(,)<span class="question-mark">?</span>) =&gt; {
-        <span class="macro">__impl_assign!</span>(* MulAssign mul_assign <span class="macro-nonterminal">$target </span>: $($(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>]</span>)* <span class="macro-nonterminal">$t</span>),+);
+    (<span class="macro-nonterminal">$target</span>:ty : $($(<span class="attr">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)* <span class="macro-nonterminal">$t</span>:ty),+ $(,)<span class="question-mark">?</span>) =&gt; {
+        <span class="macro">__impl_assign!</span>(* MulAssign mul_assign <span class="macro-nonterminal">$target </span>: $($(<span class="attr">#[<span class="macro-nonterminal">$attr</span>]</span>)* <span class="macro-nonterminal">$t</span>),+);
     };
 }
 
 <span class="doccomment">/// Implement `DivAssign` for the provided types.
 </span><span class="macro">macro_rules! </span>impl_div_assign {
-    (<span class="macro-nonterminal">$target</span>:ty : $($(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)* <span class="macro-nonterminal">$t</span>:ty),+ $(,)<span class="question-mark">?</span>) =&gt; {
-        <span class="macro">__impl_assign!</span>(/ DivAssign div_assign <span class="macro-nonterminal">$target </span>: $($(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>]</span>)* <span class="macro-nonterminal">$t</span>),+);
+    (<span class="macro-nonterminal">$target</span>:ty : $($(<span class="attr">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)* <span class="macro-nonterminal">$t</span>:ty),+ $(,)<span class="question-mark">?</span>) =&gt; {
+        <span class="macro">__impl_assign!</span>(/ DivAssign div_assign <span class="macro-nonterminal">$target </span>: $($(<span class="attr">#[<span class="macro-nonterminal">$attr</span>]</span>)* <span class="macro-nonterminal">$t</span>),+);
     };
 }
 
@@ -525,7 +525,7 @@
 
     <span class="comment">// Cascade an out-of-bounds value from &quot;from&quot; to &quot;to&quot;.
     </span>(<span class="macro-nonterminal">$from</span>:ident <span class="kw">in </span><span class="macro-nonterminal">$min</span>:literal.. <span class="macro-nonterminal">$max</span>:literal =&gt; <span class="macro-nonterminal">$to</span>:tt) =&gt; {
-        <span class="attribute">#[allow(unused_comparisons, unused_assignments)]
+        <span class="attr">#[allow(unused_comparisons, unused_assignments)]
         </span><span class="kw">if </span><span class="macro-nonterminal">$from </span>&gt;= <span class="macro-nonterminal">$max </span>{
             <span class="macro-nonterminal">$from </span>-= <span class="macro-nonterminal">$max </span>- <span class="macro-nonterminal">$min</span>;
             <span class="macro-nonterminal">$to </span>+= <span class="number">1</span>;
@@ -540,7 +540,7 @@
         <span class="comment">// We need to actually capture the idents. Without this, macro hygiene causes errors.
         </span><span class="macro">cascade!</span>(@ordinal <span class="macro-nonterminal">$ordinal</span>);
         <span class="macro">cascade!</span>(@year <span class="macro-nonterminal">$year</span>);
-        <span class="attribute">#[allow(unused_assignments)]
+        <span class="attr">#[allow(unused_assignments)]
         </span><span class="kw">if </span><span class="macro-nonterminal">$ordinal </span>&gt; <span class="kw">crate</span>::util::days_in_year(<span class="macro-nonterminal">$year</span>) {
             <span class="macro-nonterminal">$year </span>+= <span class="number">1</span>;
             <span class="macro-nonterminal">$ordinal </span>= <span class="number">1</span>;
@@ -556,7 +556,7 @@
     (<span class="macro-nonterminal">$value</span>:ident <span class="kw">in </span><span class="macro-nonterminal">$start</span>:expr =&gt; <span class="macro-nonterminal">$end</span>:expr) =&gt; {{
         <span class="kw">let </span>_start = <span class="macro-nonterminal">$start</span>;
         <span class="kw">let </span>_end = <span class="macro-nonterminal">$end</span>;
-        <span class="attribute">#[allow(trivial_numeric_casts, unused_comparisons)]
+        <span class="attr">#[allow(trivial_numeric_casts, unused_comparisons)]
         </span><span class="kw">if </span><span class="macro-nonterminal">$value </span>&lt; _start || <span class="macro-nonterminal">$value </span>&gt; _end {
             <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="kw">crate</span>::error::ComponentRange {
                 name: <span class="macro">stringify!</span>(<span class="macro-nonterminal">$value</span>),
@@ -571,7 +571,7 @@
     (<span class="macro-nonterminal">$value</span>:ident conditionally <span class="kw">in </span><span class="macro-nonterminal">$start</span>:expr =&gt; <span class="macro-nonterminal">$end</span>:expr) =&gt; {{
         <span class="kw">let </span>_start = <span class="macro-nonterminal">$start</span>;
         <span class="kw">let </span>_end = <span class="macro-nonterminal">$end</span>;
-        <span class="attribute">#[allow(trivial_numeric_casts, unused_comparisons)]
+        <span class="attr">#[allow(trivial_numeric_casts, unused_comparisons)]
         </span><span class="kw">if </span><span class="macro-nonterminal">$value </span>&lt; _start || <span class="macro-nonterminal">$value </span>&gt; _end {
             <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="kw">crate</span>::error::ComponentRange {
                 name: <span class="macro">stringify!</span>(<span class="macro-nonterminal">$value</span>),
@@ -614,31 +614,31 @@
 <span class="kw">mod </span>duration;
 <span class="kw">pub mod </span>error;
 <span class="kw">pub mod </span>ext;
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;formatting&quot;</span>, feature = <span class="string">&quot;parsing&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;formatting&quot;</span>, feature = <span class="string">&quot;parsing&quot;</span>))]
 </span><span class="kw">pub mod </span>format_description;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
 </span><span class="kw">pub mod </span>formatting;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">mod </span>instant;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;macros&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;macros&quot;</span>)]
 </span><span class="kw">pub mod </span>macros;
 <span class="kw">mod </span>month;
 <span class="kw">mod </span>offset_date_time;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">pub mod </span>parsing;
 <span class="kw">mod </span>primitive_date_time;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;quickcheck&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;quickcheck&quot;</span>)]
 #[cfg_attr(__time_03_docs, doc(cfg(feature = <span class="string">&quot;quickcheck&quot;</span>)))]
 </span><span class="kw">mod </span>quickcheck;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;rand&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;rand&quot;</span>)]
 #[cfg_attr(__time_03_docs, doc(cfg(feature = <span class="string">&quot;rand&quot;</span>)))]
 </span><span class="kw">mod </span>rand;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 #[cfg_attr(__time_03_docs, doc(cfg(feature = <span class="string">&quot;serde&quot;</span>)))]
 #[allow(missing_copy_implementations, missing_debug_implementations)]
 </span><span class="kw">pub mod </span>serde;
 <span class="kw">mod </span>sys;
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests;
 <span class="kw">mod </span>time;
 <span class="kw">mod </span>utc_offset;
@@ -648,7 +648,7 @@
 <span class="kw">pub use </span><span class="kw">crate</span>::date::Date;
 <span class="kw">pub use </span><span class="kw">crate</span>::duration::Duration;
 <span class="kw">pub use </span><span class="kw">crate</span>::error::Error;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">pub use </span><span class="kw">crate</span>::instant::Instant;
 <span class="kw">pub use </span><span class="kw">crate</span>::month::Month;
 <span class="kw">pub use </span><span class="kw">crate</span>::offset_date_time::OffsetDateTime;
@@ -660,4 +660,4 @@
 <span class="doccomment">/// An alias for [`std::result::Result`] with a generic error from the time crate.
 </span><span class="kw">pub type </span><span class="prelude-ty">Result</span>&lt;T&gt; = core::result::Result&lt;T, Error&gt;;
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

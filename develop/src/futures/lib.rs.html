@@ -337,7 +337,7 @@
 //! The majority of examples and code snippets in this crate assume that they are
 //! inside an async block as written above.
 
-</span><span class="attribute">#![cfg_attr(not(feature = <span class="string">&quot;std&quot;</span>), no_std)]
+</span><span class="attr">#![cfg_attr(not(feature = <span class="string">&quot;std&quot;</span>), no_std)]
 #![warn(
     missing_debug_implementations,
     missing_docs,
@@ -357,57 +357,57 @@
 #[cfg(all(feature = <span class="string">&quot;bilock&quot;</span>, not(feature = <span class="string">&quot;unstable&quot;</span>)))]
 </span><span class="macro">compile_error!</span>(<span class="string">&quot;The `bilock` feature requires the `unstable` feature as an explicit opt-in to unstable features&quot;</span>);
 
-<span class="attribute">#[doc(no_inline)]
+<span class="attr">#[doc(no_inline)]
 </span><span class="kw">pub use </span>futures_core::future::{Future, TryFuture};
-<span class="attribute">#[doc(no_inline)]
+<span class="attr">#[doc(no_inline)]
 </span><span class="kw">pub use </span>futures_util::future::{FutureExt, TryFutureExt};
 
-<span class="attribute">#[doc(no_inline)]
+<span class="attr">#[doc(no_inline)]
 </span><span class="kw">pub use </span>futures_core::stream::{Stream, TryStream};
-<span class="attribute">#[doc(no_inline)]
+<span class="attr">#[doc(no_inline)]
 </span><span class="kw">pub use </span>futures_util::stream::{StreamExt, TryStreamExt};
 
-<span class="attribute">#[doc(no_inline)]
+<span class="attr">#[doc(no_inline)]
 </span><span class="kw">pub use </span>futures_sink::Sink;
-<span class="attribute">#[doc(no_inline)]
+<span class="attr">#[doc(no_inline)]
 </span><span class="kw">pub use </span>futures_util::sink::SinkExt;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 #[doc(no_inline)]
 </span><span class="kw">pub use </span>futures_io::{AsyncBufRead, AsyncRead, AsyncSeek, AsyncWrite};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 #[doc(no_inline)]
 </span><span class="kw">pub use </span>futures_util::{AsyncBufReadExt, AsyncReadExt, AsyncSeekExt, AsyncWriteExt};
 
 <span class="comment">// Macro reexports
 </span><span class="kw">pub use </span>futures_core::ready; <span class="comment">// Readiness propagation
 </span><span class="kw">pub use </span>futures_util::pin_mut;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 #[cfg(feature = <span class="string">&quot;async-await&quot;</span>)]
 </span><span class="kw">pub use </span>futures_util::select;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;async-await&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;async-await&quot;</span>)]
 </span><span class="kw">pub use </span>futures_util::{join, pending, poll, select_biased, try_join}; <span class="comment">// Async-await
 
 // Module reexports
-</span><span class="attribute">#[doc(inline)]
+</span><span class="attr">#[doc(inline)]
 </span><span class="kw">pub use </span>futures_util::{future, never, sink, stream, task};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 #[cfg(feature = <span class="string">&quot;async-await&quot;</span>)]
 </span><span class="kw">pub use </span>futures_util::stream_select;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 #[doc(inline)]
 </span><span class="kw">pub use </span>futures_channel <span class="kw">as </span>channel;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 #[doc(inline)]
 </span><span class="kw">pub use </span>futures_util::lock;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 #[doc(inline)]
 </span><span class="kw">pub use </span>futures_util::io;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;executor&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;executor&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;executor&quot;</span>)))]
 </span><span class="kw">pub mod </span>executor {
     <span class="doccomment">//! Built-in executors and related tools.
@@ -454,12 +454,12 @@
         LocalSpawner,
     };
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;thread-pool&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;thread-pool&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;thread-pool&quot;</span>)))]
     </span><span class="kw">pub use </span>futures_executor::{ThreadPool, ThreadPoolBuilder};
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;compat&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;compat&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;compat&quot;</span>)))]
 </span><span class="kw">pub mod </span>compat {
     <span class="doccomment">//! Interop between `futures` 0.1 and 0.3.
@@ -472,7 +472,7 @@
         Executor01Future, Future01CompatExt, Sink01CompatExt, Stream01CompatExt,
     };
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;io-compat&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;io-compat&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;io-compat&quot;</span>)))]
     </span><span class="kw">pub use </span>futures_util::compat::{AsyncRead01CompatExt, AsyncWrite01CompatExt};
 }
@@ -495,19 +495,19 @@
     <span class="kw">pub use </span><span class="kw">crate</span>::sink::{<span class="self">self</span>, Sink};
     <span class="kw">pub use </span><span class="kw">crate</span>::stream::{<span class="self">self</span>, Stream, TryStream};
 
-    <span class="attribute">#[doc(no_inline)]
+    <span class="attr">#[doc(no_inline)]
     #[allow(unreachable_pub)]
     </span><span class="kw">pub use </span><span class="kw">crate</span>::future::{FutureExt <span class="kw">as _</span>, TryFutureExt <span class="kw">as _</span>};
-    <span class="attribute">#[doc(no_inline)]
+    <span class="attr">#[doc(no_inline)]
     </span><span class="kw">pub use </span><span class="kw">crate</span>::sink::SinkExt <span class="kw">as _</span>;
-    <span class="attribute">#[doc(no_inline)]
+    <span class="attr">#[doc(no_inline)]
     #[allow(unreachable_pub)]
     </span><span class="kw">pub use </span><span class="kw">crate</span>::stream::{StreamExt <span class="kw">as _</span>, TryStreamExt <span class="kw">as _</span>};
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     </span><span class="kw">pub use </span><span class="kw">crate</span>::io::{AsyncBufRead, AsyncRead, AsyncSeek, AsyncWrite};
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     #[doc(no_inline)]
     #[allow(unreachable_pub)]
     </span><span class="kw">pub use </span><span class="kw">crate</span>::io::{
@@ -515,4 +515,4 @@
     };
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="futures" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="futures" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

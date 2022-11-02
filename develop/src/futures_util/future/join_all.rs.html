@@ -179,7 +179,7 @@
 
 <span class="kw">use super</span>::{assert_future, MaybeDone};
 
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 </span><span class="kw">use </span><span class="kw">crate</span>::stream::{Collect, FuturesOrdered, StreamExt};
 
 <span class="kw">fn </span>iter_pin_mut&lt;T&gt;(slice: Pin&lt;<span class="kw-2">&amp;mut </span>[T]&gt;) -&gt; <span class="kw">impl </span>Iterator&lt;Item = Pin&lt;<span class="kw-2">&amp;mut </span>T&gt;&gt; {
@@ -189,7 +189,7 @@
     </span><span class="kw">unsafe </span>{ slice.get_unchecked_mut() }.iter_mut().map(|t| <span class="kw">unsafe </span>{ Pin::new_unchecked(t) })
 }
 
-<span class="attribute">#[must_use = <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]
+<span class="attr">#[must_use = <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]
 </span><span class="doccomment">/// Future for the [`join_all`] function.
 </span><span class="kw">pub struct </span>JoinAll&lt;F&gt;
 <span class="kw">where
@@ -198,7 +198,7 @@
     kind: JoinAllKind&lt;F&gt;,
 }
 
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 </span><span class="kw">const </span>SMALL: usize = <span class="number">30</span>;
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>JoinAllKind&lt;F&gt;
@@ -208,7 +208,7 @@
     Small {
         elems: Pin&lt;Box&lt;[MaybeDone&lt;F&gt;]&gt;&gt;,
     },
-    <span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+    <span class="attr">#[cfg(not(futures_no_atomic_cas))]
     </span>Big {
         fut: Collect&lt;FuturesOrdered&lt;F&gt;, Vec&lt;F::Output&gt;&gt;,
     },
@@ -224,7 +224,7 @@
             JoinAllKind::Small { <span class="kw-2">ref </span>elems } =&gt; {
                 f.debug_struct(<span class="string">&quot;JoinAll&quot;</span>).field(<span class="string">&quot;elems&quot;</span>, elems).finish()
             }
-            <span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+            <span class="attr">#[cfg(not(futures_no_atomic_cas))]
             </span>JoinAllKind::Big { <span class="kw-2">ref </span>fut, .. } =&gt; fmt::Debug::fmt(fut, f),
         }
     }
@@ -271,13 +271,13 @@
     </span>I: IntoIterator,
     I::Item: Future,
 {
-    <span class="attribute">#[cfg(futures_no_atomic_cas)]
+    <span class="attr">#[cfg(futures_no_atomic_cas)]
     </span>{
         <span class="kw">let </span>elems = iter.into_iter().map(MaybeDone::Future).collect::&lt;Box&lt;[<span class="kw">_</span>]&gt;&gt;().into();
         <span class="kw">let </span>kind = JoinAllKind::Small { elems };
         assert_future::&lt;Vec&lt;&lt;I::Item <span class="kw">as </span>Future&gt;::Output&gt;, <span class="kw">_</span>&gt;(JoinAll { kind })
     }
-    <span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+    <span class="attr">#[cfg(not(futures_no_atomic_cas))]
     </span>{
         <span class="kw">let </span>iter = iter.into_iter();
         <span class="kw">let </span>kind = <span class="kw">match </span>iter.size_hint().<span class="number">1 </span>{
@@ -321,7 +321,7 @@
                     Poll::Pending
                 }
             }
-            <span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+            <span class="attr">#[cfg(not(futures_no_atomic_cas))]
             </span>JoinAllKind::Big { fut } =&gt; Pin::new(fut).poll(cx),
         }
     }
@@ -333,4 +333,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

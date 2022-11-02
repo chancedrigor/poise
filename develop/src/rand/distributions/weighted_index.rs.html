@@ -476,7 +476,7 @@
 <span class="comment">// Note that this whole module is only imported if feature=&quot;alloc&quot; is enabled.
 </span><span class="kw">use </span>alloc::vec::Vec;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde1&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde1&quot;</span>)]
 </span><span class="kw">use </span>serde::{Serialize, Deserialize};
 
 <span class="doccomment">/// A distribution using weighted sampling of discrete items
@@ -534,7 +534,7 @@
 ///
 /// [`Uniform&lt;X&gt;`]: crate::distributions::Uniform
 /// [`RngCore`]: crate::RngCore
-</span><span class="attribute">#[derive(Debug, Clone, PartialEq)]
+</span><span class="attr">#[derive(Debug, Clone, PartialEq)]
 #[cfg_attr(feature = <span class="string">&quot;serde1&quot;</span>, derive(Serialize, Deserialize))]
 #[cfg_attr(doc_cfg, doc(cfg(feature = <span class="string">&quot;alloc&quot;</span>)))]
 </span><span class="kw">pub struct </span>WeightedIndex&lt;X: SampleUniform + PartialOrd&gt; {
@@ -698,11 +698,11 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;serde1&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;serde1&quot;</span>)]
     #[test]
     </span><span class="kw">fn </span>test_weightedindex_serde1() {
         <span class="kw">let </span>weighted_index = WeightedIndex::new(<span class="kw-2">&amp;</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>]).unwrap();
@@ -718,7 +718,7 @@
         <span class="macro">assert_eq!</span>(de_weighted_index.total_weight, weighted_index.total_weight);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_accepting_nan(){
         <span class="macro">assert_eq!</span>(
             WeightedIndex::new(<span class="kw-2">&amp;</span>[core::f32::NAN, <span class="number">0.5</span>]).unwrap_err(),
@@ -743,7 +743,7 @@
     }
 
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(miri, ignore)] </span><span class="comment">// Miri is too slow
     </span><span class="kw">fn </span>test_weightedindex() {
         <span class="kw">let </span><span class="kw-2">mut </span>r = <span class="kw">crate</span>::test::rng(<span class="number">700</span>);
@@ -819,7 +819,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_update_weights() {
         <span class="kw">let </span>data = [
             (
@@ -848,7 +848,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>value_stability() {
         <span class="kw">fn </span>test_samples&lt;X: SampleUniform + PartialOrd, I&gt;(
             weights: I, buf: <span class="kw-2">&amp;mut </span>[usize], expected: <span class="kw-2">&amp;</span>[usize],
@@ -878,14 +878,14 @@
         ]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>weighted_index_distributions_can_be_compared() {
         <span class="macro">assert_eq!</span>(WeightedIndex::new(<span class="kw-2">&amp;</span>[<span class="number">1</span>, <span class="number">2</span>]), WeightedIndex::new(<span class="kw-2">&amp;</span>[<span class="number">1</span>, <span class="number">2</span>]));
     }
 }
 
 <span class="doccomment">/// Error type returned from `WeightedIndex::new`.
-</span><span class="attribute">#[cfg_attr(doc_cfg, doc(cfg(feature = <span class="string">&quot;alloc&quot;</span>)))]
+</span><span class="attr">#[cfg_attr(doc_cfg, doc(cfg(feature = <span class="string">&quot;alloc&quot;</span>)))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>WeightedError {
     <span class="doccomment">/// The provided weight collection contains no items.
@@ -902,7 +902,7 @@
     </span>TooMany,
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>std::error::Error <span class="kw">for </span>WeightedError {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>WeightedError {
@@ -916,4 +916,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rand" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rand" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -292,14 +292,14 @@
 <span id="292">292</span>
 <span id="293">293</span>
 <span id="294">294</span>
-</pre><pre class="rust"><code><span class="attribute">#[cfg(all(feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+</pre><pre class="rust"><code><span class="attr">#[cfg(all(feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 </span><span class="kw">use </span>std::error::Error <span class="kw">as </span>StdError;
 <span class="kw">use </span>std::fmt;
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 </span><span class="kw">use </span>std::str::FromStr;
 
 <span class="kw">use </span><span class="kw">super</span>::prelude::<span class="kw-2">*</span>;
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::utils;
 
 <span class="doccomment">/// Allows something - such as a channel or role - to be mentioned in a message.
@@ -382,7 +382,7 @@
 ///     format!(&quot;{} {} {}&quot;, Mention::from(user), Mention::from(channel), Mention::from(role),),
 /// )
 /// ```
-</span><span class="attribute">#[derive(Debug, Clone, Copy)]
+</span><span class="attr">#[derive(Debug, Clone, Copy)]
 </span><span class="kw">pub enum </span>Mention {
     Channel(ChannelId),
     Role(RoleId),
@@ -393,7 +393,7 @@
 <span class="macro">macro_rules! </span>mention {
     (<span class="macro-nonterminal">$i</span>:ident: $(<span class="macro-nonterminal">$t</span>:ty, <span class="macro-nonterminal">$e</span>:expr;)<span class="kw-2">*</span>) =&gt; {$(
         <span class="kw">impl </span>From&lt;<span class="macro-nonterminal">$t</span>&gt; <span class="kw">for </span>Mention {
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>from(<span class="macro-nonterminal">$i</span>: <span class="macro-nonterminal">$t</span>) -&gt; <span class="self">Self </span>{
                 <span class="macro-nonterminal">$e
             </span>}
@@ -422,23 +422,23 @@
     }
 }
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 #[derive(Debug)]
 </span><span class="kw">pub enum </span>MentionParseError {
     InvalidMention,
 }
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 </span><span class="kw">impl </span>fmt::Display <span class="kw">for </span>MentionParseError {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
         f.write_str(<span class="string">&quot;invalid mention&quot;</span>)
     }
 }
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 </span><span class="kw">impl </span>StdError <span class="kw">for </span>MentionParseError {}
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 </span><span class="kw">impl </span>FromStr <span class="kw">for </span>Mention {
     <span class="kw">type </span><span class="prelude-val">Err </span>= MentionParseError;
 
@@ -471,7 +471,7 @@
 <span class="macro">macro_rules! </span>mentionable {
     (<span class="macro-nonterminal">$i</span>:ident: $(<span class="macro-nonterminal">$t</span>:ty, <span class="macro-nonterminal">$e</span>:expr;)<span class="kw-2">*</span>) =&gt; {$(
         <span class="kw">impl </span>Mentionable <span class="kw">for </span><span class="macro-nonterminal">$t </span>{
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>mention(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Mention {
                 <span class="kw">let </span><span class="macro-nonterminal">$i </span>= <span class="self">self</span>;
                 <span class="macro-nonterminal">$e</span>.into()
@@ -480,7 +480,7 @@
     )<span class="kw-2">*</span>};
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="macro">mentionable!</span>(value: Channel, value.id(););
 
 <span class="macro">mentionable!</span>(value:
@@ -495,13 +495,13 @@
     EmojiIdentifier, (value.id, value.animated);
 );
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;utils&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;utils&quot;</span>)]
 #[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use </span><span class="kw">crate</span>::model::prelude::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::utils::Colour;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_mention() {
         <span class="kw">let </span>channel = Channel::Guild(GuildChannel {
             bitrate: <span class="prelude-val">None</span>,
@@ -576,7 +576,7 @@
         };
 
         <span class="macro">assert_eq!</span>(ChannelId(<span class="number">1</span>).mention().to_string(), <span class="string">&quot;&lt;#1&gt;&quot;</span>);
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
         </span><span class="macro">assert_eq!</span>(channel.mention().to_string(), <span class="string">&quot;&lt;#4&gt;&quot;</span>);
         <span class="macro">assert_eq!</span>(emoji.mention().to_string(), <span class="string">&quot;&lt;:omitted:5&gt;&quot;</span>);
         <span class="macro">assert_eq!</span>(member.mention().to_string(), <span class="string">&quot;&lt;@6&gt;&quot;</span>);
@@ -587,4 +587,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

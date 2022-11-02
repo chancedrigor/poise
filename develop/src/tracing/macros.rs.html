@@ -2523,7 +2523,7 @@
 /// // do work inside the span...
 /// # }
 /// ```
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>span {
     (target: <span class="macro-nonterminal">$target</span>:expr, parent: <span class="macro-nonterminal">$parent</span>:expr, <span class="macro-nonterminal">$lvl</span>:expr, <span class="macro-nonterminal">$name</span>:expr) =&gt; {
         <span class="macro-nonterminal">$</span><span class="macro">crate::span!</span>(<span class="macro-nonterminal">target</span>: <span class="macro-nonterminal">$target</span>, parent: <span class="macro-nonterminal">$parent</span>, <span class="macro-nonterminal">$lvl</span>, <span class="macro-nonterminal">$name</span>,)
@@ -2670,7 +2670,7 @@
 /// });
 /// # }
 /// ```
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>trace_span {
     (target: <span class="macro-nonterminal">$target</span>:expr, parent: <span class="macro-nonterminal">$parent</span>:expr, <span class="macro-nonterminal">$name</span>:expr, $(<span class="macro-nonterminal">$field</span>:tt)<span class="kw-2">*</span>) =&gt; {
         <span class="macro-nonterminal">$</span><span class="macro">crate::span!</span>(
@@ -2751,7 +2751,7 @@
 /// });
 /// # }
 /// ```
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>debug_span {
     (target: <span class="macro-nonterminal">$target</span>:expr, parent: <span class="macro-nonterminal">$parent</span>:expr, <span class="macro-nonterminal">$name</span>:expr, $(<span class="macro-nonterminal">$field</span>:tt)<span class="kw-2">*</span>) =&gt; {
         <span class="macro-nonterminal">$</span><span class="macro">crate::span!</span>(
@@ -2832,7 +2832,7 @@
 /// });
 /// # }
 /// ```
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>info_span {
     (target: <span class="macro-nonterminal">$target</span>:expr, parent: <span class="macro-nonterminal">$parent</span>:expr, <span class="macro-nonterminal">$name</span>:expr, $(<span class="macro-nonterminal">$field</span>:tt)<span class="kw-2">*</span>) =&gt; {
         <span class="macro-nonterminal">$</span><span class="macro">crate::span!</span>(
@@ -2913,7 +2913,7 @@
 /// });
 /// # }
 /// ```
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>warn_span {
     (target: <span class="macro-nonterminal">$target</span>:expr, parent: <span class="macro-nonterminal">$parent</span>:expr, <span class="macro-nonterminal">$name</span>:expr, $(<span class="macro-nonterminal">$field</span>:tt)<span class="kw-2">*</span>) =&gt; {
         <span class="macro-nonterminal">$</span><span class="macro">crate::span!</span>(
@@ -2993,7 +2993,7 @@
 /// });
 /// # }
 /// ```
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>error_span {
     (target: <span class="macro-nonterminal">$target</span>:expr, parent: <span class="macro-nonterminal">$parent</span>:expr, <span class="macro-nonterminal">$name</span>:expr, $(<span class="macro-nonterminal">$field</span>:tt)<span class="kw-2">*</span>) =&gt; {
         <span class="macro-nonterminal">$</span><span class="macro">crate::span!</span>(
@@ -3087,7 +3087,7 @@
 // /// event!(Level::INFO, foo = 5, bad_field, bar = &quot;hello&quot;)
 // /// #}
 // /// ```
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>event {
     (target: <span class="macro-nonterminal">$target</span>:expr, parent: <span class="macro-nonterminal">$parent</span>:expr, <span class="macro-nonterminal">$lvl</span>:expr, { $(<span class="macro-nonterminal">$fields</span>:tt)* } )=&gt; ({
         <span class="kw">use </span><span class="macro-nonterminal">$crate::__macro_support::Callsite </span><span class="kw">as _</span>;
@@ -3339,7 +3339,7 @@
 /// }
 /// ```
 ///
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>event_enabled {
     ($(<span class="macro-nonterminal">$rest</span>:tt)<span class="kw-2">*</span>)=&gt; (
         <span class="macro-nonterminal">$</span><span class="macro">crate::enabled!</span>(<span class="macro-nonterminal">kind</span>: <span class="macro-nonterminal">$crate::metadata::Kind::EVENT</span>, $(<span class="macro-nonterminal">$rest</span>)<span class="kw-2">*</span>)
@@ -3371,7 +3371,7 @@
 /// }
 /// ```
 ///
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>span_enabled {
     ($(<span class="macro-nonterminal">$rest</span>:tt)<span class="kw-2">*</span>)=&gt; (
         <span class="macro-nonterminal">$</span><span class="macro">crate::enabled!</span>(<span class="macro-nonterminal">kind</span>: <span class="macro-nonterminal">$crate::metadata::Kind::SPAN</span>, $(<span class="macro-nonterminal">$rest</span>)<span class="kw-2">*</span>)
@@ -3467,7 +3467,7 @@
 /// [`is_event`]: crate::Metadata::is_event
 /// [`is_span`]: crate::Metadata::is_span
 ///
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>enabled {
     (kind: <span class="macro-nonterminal">$kind</span>:expr, target: <span class="macro-nonterminal">$target</span>:expr, <span class="macro-nonterminal">$lvl</span>:expr, { $(<span class="macro-nonterminal">$fields</span>:tt)* } )=&gt; ({
         <span class="kw">if </span><span class="macro-nonterminal">$</span><span class="macro">crate::level_enabled!</span>(<span class="macro-nonterminal">$lvl</span>) {
@@ -3585,7 +3585,7 @@
 /// );
 /// # }
 /// ```
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>trace {
     (target: <span class="macro-nonterminal">$target</span>:expr, parent: <span class="macro-nonterminal">$parent</span>:expr, { $(<span class="macro-nonterminal">$field</span>:tt)* }, $(<span class="macro-nonterminal">$arg</span>:tt)* ) =&gt; (
         <span class="macro-nonterminal">$</span><span class="macro">crate::event!</span>(<span class="macro-nonterminal">target</span>: <span class="macro-nonterminal">$target</span>, parent: <span class="macro-nonterminal">$parent</span>, <span class="macro-nonterminal">$crate::Level::TRACE</span>, { $(<span class="macro-nonterminal">$field</span>)* }, $(<span class="macro-nonterminal">$arg</span>)<span class="kw-2">*</span>)
@@ -3772,7 +3772,7 @@
 /// debug!(target: &quot;app_events&quot;, position = ?pos, &quot;New position&quot;);
 /// # }
 /// ```
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>debug {
     (target: <span class="macro-nonterminal">$target</span>:expr, parent: <span class="macro-nonterminal">$parent</span>:expr, { $(<span class="macro-nonterminal">$field</span>:tt)* }, $(<span class="macro-nonterminal">$arg</span>:tt)* ) =&gt; (
         <span class="macro-nonterminal">$</span><span class="macro">crate::event!</span>(<span class="macro-nonterminal">target</span>: <span class="macro-nonterminal">$target</span>, parent: <span class="macro-nonterminal">$parent</span>, <span class="macro-nonterminal">$crate::Level::DEBUG</span>, { $(<span class="macro-nonterminal">$field</span>)* }, $(<span class="macro-nonterminal">$arg</span>)<span class="kw-2">*</span>)
@@ -3984,7 +3984,7 @@
 /// );
 /// # }
 /// ```
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>info {
      (target: <span class="macro-nonterminal">$target</span>:expr, parent: <span class="macro-nonterminal">$parent</span>:expr, { $(<span class="macro-nonterminal">$field</span>:tt)* }, $(<span class="macro-nonterminal">$arg</span>:tt)* ) =&gt; (
         <span class="macro-nonterminal">$</span><span class="macro">crate::event!</span>(<span class="macro-nonterminal">target</span>: <span class="macro-nonterminal">$target</span>, parent: <span class="macro-nonterminal">$parent</span>, <span class="macro-nonterminal">$crate::Level::INFO</span>, { $(<span class="macro-nonterminal">$field</span>)* }, $(<span class="macro-nonterminal">$arg</span>)<span class="kw-2">*</span>)
@@ -4189,7 +4189,7 @@
 /// );
 /// # }
 /// ```
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>warn {
      (target: <span class="macro-nonterminal">$target</span>:expr, parent: <span class="macro-nonterminal">$parent</span>:expr, { $(<span class="macro-nonterminal">$field</span>:tt)* }, $(<span class="macro-nonterminal">$arg</span>:tt)* ) =&gt; (
         <span class="macro-nonterminal">$</span><span class="macro">crate::event!</span>(<span class="macro-nonterminal">target</span>: <span class="macro-nonterminal">$target</span>, parent: <span class="macro-nonterminal">$parent</span>, <span class="macro-nonterminal">$crate::Level::WARN</span>, { $(<span class="macro-nonterminal">$field</span>)* }, $(<span class="macro-nonterminal">$arg</span>)<span class="kw-2">*</span>)
@@ -4390,7 +4390,7 @@
 /// error!({ info = err_info }, &quot;error on port: {}&quot;, port);
 /// # }
 /// ```
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>error {
      (target: <span class="macro-nonterminal">$target</span>:expr, parent: <span class="macro-nonterminal">$parent</span>:expr, { $(<span class="macro-nonterminal">$field</span>:tt)* }, $(<span class="macro-nonterminal">$arg</span>:tt)* ) =&gt; (
         <span class="macro-nonterminal">$</span><span class="macro">crate::event!</span>(<span class="macro-nonterminal">target</span>: <span class="macro-nonterminal">$target</span>, parent: <span class="macro-nonterminal">$parent</span>, <span class="macro-nonterminal">$crate::Level::ERROR</span>, { $(<span class="macro-nonterminal">$field</span>)* }, $(<span class="macro-nonterminal">$arg</span>)<span class="kw-2">*</span>)
@@ -4570,7 +4570,7 @@
 }
 
 <span class="doccomment">/// Constructs a new static callsite for a span or event.
-</span><span class="attribute">#[doc(hidden)]
+</span><span class="attr">#[doc(hidden)]
 #[macro_export]
 </span><span class="macro">macro_rules! </span>callsite {
     (name: <span class="macro-nonterminal">$name</span>:expr, kind: <span class="macro-nonterminal">$kind</span>:expr, fields: $(<span class="macro-nonterminal">$fields</span>:tt)<span class="kw-2">*</span>) =&gt; {{
@@ -4621,7 +4621,7 @@
 }
 
 <span class="doccomment">/// Constructs a new static callsite for a span or event.
-</span><span class="attribute">#[doc(hidden)]
+</span><span class="attr">#[doc(hidden)]
 #[macro_export]
 </span><span class="macro">macro_rules! </span>callsite2 {
     (name: <span class="macro-nonterminal">$name</span>:expr, kind: <span class="macro-nonterminal">$kind</span>:expr, fields: $(<span class="macro-nonterminal">$fields</span>:tt)<span class="kw-2">*</span>) =&gt; {{
@@ -4669,9 +4669,9 @@
     }};
 }
 
-<span class="attribute">#[macro_export]
+<span class="attr">#[macro_export]
 </span><span class="comment">// TODO: determine if this ought to be public API?`
-</span><span class="attribute">#[doc(hidden)]
+</span><span class="attr">#[doc(hidden)]
 </span><span class="macro">macro_rules! </span>level_enabled {
     (<span class="macro-nonterminal">$lvl</span>:expr) =&gt; {
         <span class="macro-nonterminal">$lvl </span>&lt;= <span class="macro-nonterminal">$crate::level_filters::STATIC_MAX_LEVEL
@@ -4679,7 +4679,7 @@
     };
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 #[macro_export]
 </span><span class="macro">macro_rules! </span>valueset {
 
@@ -4823,7 +4823,7 @@
     <span class="comment">// === entry ===
     </span>(<span class="macro-nonterminal">$fields</span>:expr, $(<span class="macro-nonterminal">$kvs</span>:tt)+) =&gt; {
         {
-            <span class="attribute">#[allow(unused_imports)]
+            <span class="attr">#[allow(unused_imports)]
             </span><span class="kw">use </span><span class="macro-nonterminal">$crate::field</span>::{debug, display, Value};
             <span class="kw">let </span><span class="kw-2">mut </span>iter = <span class="macro-nonterminal">$fields</span>.iter();
             <span class="macro-nonterminal">$fields</span>.value_set(<span class="macro-nonterminal">$</span><span class="macro">crate::valueset!</span>(
@@ -4840,7 +4840,7 @@
     };
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 #[macro_export]
 </span><span class="macro">macro_rules! </span>fieldset {
     <span class="comment">// == base case ==
@@ -4896,7 +4896,7 @@
 
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
 #[doc(hidden)]
 #[macro_export]
 </span><span class="macro">macro_rules! </span>level_to_log {
@@ -4911,7 +4911,7 @@
     };
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 #[macro_export]
 </span><span class="macro">macro_rules! </span>__tracing_stringify {
     (<span class="macro-nonterminal">$s</span>:expr) =&gt; {
@@ -4919,14 +4919,14 @@
     };
 }
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;log&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;log&quot;</span>))]
 #[doc(hidden)]
 #[macro_export]
 </span><span class="macro">macro_rules! </span>__tracing_log {
     (target: <span class="macro-nonterminal">$target</span>:expr, <span class="macro-nonterminal">$level</span>:expr, <span class="macro-nonterminal">$value_set</span>:expr ) =&gt; {};
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;log&quot;</span>)]
 #[doc(hidden)]
 #[macro_export]
 </span><span class="macro">macro_rules! </span>__tracing_log {
@@ -4954,7 +4954,7 @@
     };
 }
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;log&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;log&quot;</span>))]
 #[doc(hidden)]
 #[macro_export]
 </span><span class="macro">macro_rules! </span>if_log_enabled {
@@ -4969,7 +4969,7 @@
     </span>};
 }
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;log&quot;</span>, not(feature = <span class="string">&quot;log-always&quot;</span>)))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;log&quot;</span>, not(feature = <span class="string">&quot;log-always&quot;</span>)))]
 #[doc(hidden)]
 #[macro_export]
 </span><span class="macro">macro_rules! </span>if_log_enabled {
@@ -4992,7 +4992,7 @@
     };
 }
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;log&quot;</span>, feature = <span class="string">&quot;log-always&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;log&quot;</span>, feature = <span class="string">&quot;log-always&quot;</span>))]
 #[doc(hidden)]
 #[macro_export]
 </span><span class="macro">macro_rules! </span>if_log_enabled {
@@ -5004,7 +5004,7 @@
     };
     (<span class="macro-nonterminal">$lvl</span>:expr, <span class="macro-nonterminal">$if_log</span>:block <span class="kw">else </span><span class="macro-nonterminal">$else_block</span>:block) =&gt; {
         <span class="kw">if </span><span class="macro-nonterminal">$</span><span class="macro">crate::level_to_log!</span>(<span class="macro-nonterminal">$lvl</span>) &lt;= <span class="macro-nonterminal">$crate::log::STATIC_MAX_LEVEL </span>{
-            <span class="attribute">#[allow(unused_braces)]
+            <span class="attr">#[allow(unused_braces)]
             </span><span class="macro-nonterminal">$if_log
         </span>} <span class="kw">else </span>{
             <span class="macro-nonterminal">$else_block
@@ -5012,4 +5012,4 @@
     };
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

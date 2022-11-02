@@ -82,7 +82,7 @@
 /// All possible instances of this class are provided by the library in
 /// the [`ALL_VERSIONS`] array, as well as individually as [`TLS12`]
 /// and [`TLS13`].
-</span><span class="attribute">#[derive(Debug, PartialEq)]
+</span><span class="attr">#[derive(Debug, PartialEq)]
 </span><span class="kw">pub struct </span>SupportedProtocolVersion {
     <span class="doccomment">/// The TLS enumeration naming this version.
     </span><span class="kw">pub </span>version: ProtocolVersion,
@@ -90,7 +90,7 @@
 }
 
 <span class="doccomment">/// TLS1.2
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
 </span><span class="kw">pub static </span>TLS12: SupportedProtocolVersion = SupportedProtocolVersion {
     version: ProtocolVersion::TLSv1_2,
     is_private: (),
@@ -105,7 +105,7 @@
 <span class="doccomment">/// A list of all the protocol versions supported by rustls.
 </span><span class="kw">pub static </span>ALL_VERSIONS: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>SupportedProtocolVersion] = <span class="kw-2">&amp;</span>[
     <span class="kw-2">&amp;</span>TLS13,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
     </span><span class="kw-2">&amp;</span>TLS12,
 ];
 
@@ -116,9 +116,9 @@
 /// versions.
 </span><span class="kw">pub static </span>DEFAULT_VERSIONS: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>SupportedProtocolVersion] = ALL_VERSIONS;
 
-<span class="attribute">#[derive(Debug, Clone)]
+<span class="attr">#[derive(Debug, Clone)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>EnabledVersions {
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
     </span>tls12: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>SupportedProtocolVersion&gt;,
     tls13: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>SupportedProtocolVersion&gt;,
 }
@@ -126,14 +126,14 @@
 <span class="kw">impl </span>EnabledVersions {
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(versions: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>SupportedProtocolVersion]) -&gt; <span class="self">Self </span>{
         <span class="kw">let </span><span class="kw-2">mut </span>ev = <span class="self">Self </span>{
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
             </span>tls12: <span class="prelude-val">None</span>,
             tls13: <span class="prelude-val">None</span>,
         };
 
         <span class="kw">for </span>v <span class="kw">in </span>versions {
             <span class="kw">match </span>v.version {
-                <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+                <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
                 </span>ProtocolVersion::TLSv1_2 =&gt; ev.tls12 = <span class="prelude-val">Some</span>(v),
                 ProtocolVersion::TLSv1_3 =&gt; ev.tls13 = <span class="prelude-val">Some</span>(v),
                 <span class="kw">_ </span>=&gt; {}
@@ -145,7 +145,7 @@
 
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>contains(<span class="kw-2">&amp;</span><span class="self">self</span>, version: ProtocolVersion) -&gt; bool {
         <span class="kw">match </span>version {
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
             </span>ProtocolVersion::TLSv1_2 =&gt; <span class="self">self</span>.tls12.is_some(),
             ProtocolVersion::TLSv1_3 =&gt; <span class="self">self</span>.tls13.is_some(),
             <span class="kw">_ </span>=&gt; <span class="bool-val">false</span>,
@@ -153,4 +153,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

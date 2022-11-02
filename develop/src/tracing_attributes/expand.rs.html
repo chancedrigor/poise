@@ -963,7 +963,7 @@
             (<span class="prelude-val">Some</span>(err_event), <span class="prelude-val">Some</span>(ret_event)) =&gt; <span class="macro">quote_spanned!</span>(block.span()=&gt;
                 <span class="kw">async move </span>{
                     <span class="kw">match async move </span>{ #block }.<span class="kw">await </span>{
-                        <span class="attribute">#[allow(clippy::unit_arg)]
+                        <span class="attr">#[allow(clippy::unit_arg)]
                         </span><span class="prelude-val">Ok</span>(x) =&gt; {
                             #ret_event;
                             <span class="prelude-val">Ok</span>(x)
@@ -978,7 +978,7 @@
             (<span class="prelude-val">Some</span>(err_event), <span class="prelude-val">None</span>) =&gt; <span class="macro">quote_spanned!</span>(block.span()=&gt;
                 <span class="kw">async move </span>{
                     <span class="kw">match async move </span>{ #block }.<span class="kw">await </span>{
-                        <span class="attribute">#[allow(clippy::unit_arg)]
+                        <span class="attr">#[allow(clippy::unit_arg)]
                         </span><span class="prelude-val">Ok</span>(x) =&gt; <span class="prelude-val">Ok</span>(x),
                         <span class="prelude-val">Err</span>(e) =&gt; {
                             #err_event;
@@ -1036,9 +1036,9 @@
     <span class="kw">match </span>(err_event, ret_event) {
         (<span class="prelude-val">Some</span>(err_event), <span class="prelude-val">Some</span>(ret_event)) =&gt; <span class="macro">quote_spanned! </span>{block.span()=&gt;
             #span
-            <span class="attribute">#[allow(clippy::redundant_closure_call)]
+            <span class="attr">#[allow(clippy::redundant_closure_call)]
             </span><span class="kw">match </span>(<span class="kw">move </span>|| #block)() {
-                <span class="attribute">#[allow(clippy::unit_arg)]
+                <span class="attr">#[allow(clippy::unit_arg)]
                 </span><span class="prelude-val">Ok</span>(x) =&gt; {
                     #ret_event;
                     <span class="prelude-val">Ok</span>(x)
@@ -1051,9 +1051,9 @@
         },
         (<span class="prelude-val">Some</span>(err_event), <span class="prelude-val">None</span>) =&gt; <span class="macro">quote_spanned!</span>(block.span()=&gt;
             #span
-            <span class="attribute">#[allow(clippy::redundant_closure_call)]
+            <span class="attr">#[allow(clippy::redundant_closure_call)]
             </span><span class="kw">match </span>(<span class="kw">move </span>|| #block)() {
-                <span class="attribute">#[allow(clippy::unit_arg)]
+                <span class="attr">#[allow(clippy::unit_arg)]
                 </span><span class="prelude-val">Ok</span>(x) =&gt; <span class="prelude-val">Ok</span>(x),
                 <span class="prelude-val">Err</span>(e) =&gt; {
                     #err_event;
@@ -1063,7 +1063,7 @@
         ),
         (<span class="prelude-val">None</span>, <span class="prelude-val">Some</span>(ret_event)) =&gt; <span class="macro">quote_spanned!</span>(block.span()=&gt;
             #span
-            <span class="attribute">#[allow(clippy::redundant_closure_call)]
+            <span class="attr">#[allow(clippy::redundant_closure_call)]
             </span><span class="kw">let </span>x = (<span class="kw">move </span>|| #block)();
             #ret_event;
             x
@@ -1073,11 +1073,11 @@
             // `if` and the block will appear directly next to each other. This
             // generates a clippy lint about suspicious `if/else` formatting.
             // Therefore, suppress the lint inside the generated code...
-            </span><span class="attribute">#[allow(clippy::suspicious_else_formatting)]
+            </span><span class="attr">#[allow(clippy::suspicious_else_formatting)]
             </span>{
                 #span
                 <span class="comment">// ...but turn the lint back on inside the function body.
-                </span><span class="attribute">#[warn(clippy::suspicious_else_formatting)]
+                </span><span class="attr">#[warn(clippy::suspicious_else_formatting)]
                 </span>#block
             }
         ),
@@ -1454,7 +1454,7 @@
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; syn::visit_mut::VisitMut <span class="kw">for </span>IdentAndTypesRenamer&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="comment">// we deliberately compare strings because we want to ignore the spans
     // If we apply clippy&#39;s lint, the behavior changes
-    </span><span class="attribute">#[allow(clippy::cmp_owned)]
+    </span><span class="attr">#[allow(clippy::cmp_owned)]
     </span><span class="kw">fn </span>visit_ident_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>, id: <span class="kw-2">&amp;mut </span>Ident) {
         <span class="kw">for </span>(old_ident, new_ident) <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.idents {
             <span class="kw">if </span>id.to_string() == old_ident.to_string() {
@@ -1488,4 +1488,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing_attributes" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing_attributes" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

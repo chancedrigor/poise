@@ -1184,15 +1184,15 @@
     </span>waker: AtomicWaker,
 
     <span class="doccomment">/// How to respond to unhandled task panics.
-    </span><span class="attribute">#[cfg(tokio_unstable)]
+    </span><span class="attr">#[cfg(tokio_unstable)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) unhandled_panic: <span class="kw">crate</span>::runtime::UnhandledPanic,
 }
 
 <span class="macro">pin_project! </span>{
-    <span class="attribute">#[derive(Debug)]
+    <span class="attr">#[derive(Debug)]
     </span><span class="kw">struct </span>RunUntil&lt;<span class="lifetime">&#39;a</span>, F&gt; {
         local_set: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>LocalSet,
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span>future: F,
     }
 }
@@ -1231,7 +1231,7 @@
     ///     }).await;
     /// }
     /// ```
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>spawn_local&lt;F&gt;(future: F) -&gt; JoinHandle&lt;F::Output&gt;
     <span class="kw">where
         </span>F: Future + <span class="lifetime">&#39;static</span>,
@@ -1241,7 +1241,7 @@
     }
 
 
-    <span class="attribute">#[track_caller]
+    <span class="attr">#[track_caller]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>spawn_local_inner&lt;F&gt;(future: F, name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; JoinHandle&lt;F::Output&gt;
     <span class="kw">where </span>F: Future + <span class="lifetime">&#39;static</span>,
           F::Output: <span class="lifetime">&#39;static
@@ -1294,7 +1294,7 @@
                 shared: Arc::new(Shared {
                     queue: Mutex::new(<span class="prelude-val">Some</span>(VecDeque::with_capacity(INITIAL_CAPACITY))),
                     waker: AtomicWaker::new(),
-                    <span class="attribute">#[cfg(tokio_unstable)]
+                    <span class="attr">#[cfg(tokio_unstable)]
                     </span>unhandled_panic: <span class="kw">crate</span>::runtime::UnhandledPanic::Ignore,
                 }),
                 unhandled_panic: Cell::new(<span class="bool-val">false</span>),
@@ -1352,7 +1352,7 @@
     /// }
     /// ```
     /// [`spawn_local`]: fn@spawn_local
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>spawn_local&lt;F&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, future: F) -&gt; JoinHandle&lt;F::Output&gt;
     <span class="kw">where
         </span>F: Future + <span class="lifetime">&#39;static</span>,
@@ -1423,7 +1423,7 @@
     /// [`Runtime::block_on`]: method@crate::runtime::Runtime::block_on
     /// [in-place blocking]: fn@crate::task::block_in_place
     /// [`spawn_blocking`]: fn@crate::task::spawn_blocking
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     #[cfg(feature = <span class="string">&quot;rt&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;rt&quot;</span>)))]
     </span><span class="kw">pub fn </span>block_on&lt;F&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, rt: <span class="kw-2">&amp;</span><span class="kw">crate</span>::runtime::Runtime, future: F) -&gt; F::Output
@@ -1737,7 +1737,7 @@
 <span class="comment">// === impl Context ===
 
 </span><span class="kw">impl </span>Context {
-    <span class="attribute">#[track_caller]
+    <span class="attr">#[track_caller]
     </span><span class="kw">fn </span>spawn&lt;F&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, future: F, name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; JoinHandle&lt;F::Output&gt;
     <span class="kw">where
         </span>F: Future + <span class="lifetime">&#39;static</span>,
@@ -1871,4 +1871,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

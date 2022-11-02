@@ -324,13 +324,13 @@
 <span id="324">324</span>
 <span id="325">325</span>
 </pre><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;model&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;model&quot;</span>))]
 </span><span class="kw">use </span>std::marker::PhantomData;
 
 <span class="kw">use </span><span class="kw">super</span>::CreateAllowedMentions;
 <span class="kw">use </span><span class="kw">crate</span>::builder::CreateComponents;
 <span class="kw">use </span><span class="kw">crate</span>::json::{<span class="self">self</span>, from_number, Value};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::model::channel::AttachmentType;
 <span class="kw">use </span><span class="kw">crate</span>::model::channel::MessageFlags;
 
@@ -384,11 +384,11 @@
 /// [`Webhook`]: crate::model::webhook::Webhook
 /// [`Webhook::execute`]: crate::model::webhook::Webhook::execute
 /// [`execute_webhook`]: crate::http::client::Http::execute_webhook
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>ExecuteWebhook&lt;<span class="lifetime">&#39;a</span>&gt;(
     <span class="kw">pub </span>HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str, Value&gt;,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)] </span><span class="kw">pub </span>Vec&lt;AttachmentType&lt;<span class="lifetime">&#39;a</span>&gt;&gt;,
-    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;model&quot;</span>))] </span>PhantomData&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>()&gt;,
+    <span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)] </span><span class="kw">pub </span>Vec&lt;AttachmentType&lt;<span class="lifetime">&#39;a</span>&gt;&gt;,
+    <span class="attr">#[cfg(not(feature = <span class="string">&quot;model&quot;</span>))] </span>PhantomData&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>()&gt;,
 );
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; ExecuteWebhook&lt;<span class="lifetime">&#39;a</span>&gt; {
@@ -448,14 +448,14 @@
     </span>}
 
     <span class="doccomment">/// Appends a file to the webhook message.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
     </span><span class="kw">pub fn </span>add_file&lt;T: Into&lt;AttachmentType&lt;<span class="lifetime">&#39;a</span>&gt;&gt;&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, file: T) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.<span class="number">1</span>.push(file.into());
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Appends a list of files to the webhook message.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
     </span><span class="kw">pub fn </span>add_files&lt;T: Into&lt;AttachmentType&lt;<span class="lifetime">&#39;a</span>&gt;&gt;, It: IntoIterator&lt;Item = T&gt;&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         files: It,
@@ -468,7 +468,7 @@
     ///
     /// Calling this multiple times will overwrite the file list.
     /// To append files, call [`Self::add_file`] or [`Self::add_files`] instead.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
     </span><span class="kw">pub fn </span>files&lt;T: Into&lt;AttachmentType&lt;<span class="lifetime">&#39;a</span>&gt;&gt;, It: IntoIterator&lt;Item = T&gt;&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         files: It,
@@ -644,9 +644,9 @@
         map.insert(<span class="string">&quot;tts&quot;</span>, Value::from(<span class="bool-val">false</span>));
 
         <span class="comment">// Necessary because the type of the second field is different without model feature
-        </span><span class="attribute">#[allow(clippy::default_trait_access)]
+        </span><span class="attr">#[allow(clippy::default_trait_access)]
         </span>ExecuteWebhook(map, Default::default())
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

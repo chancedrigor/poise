@@ -84,7 +84,7 @@
 /// Internally this is merely a UNIX timestamp: a count of non-leap
 /// seconds since the start of 1970.  This type exists to assist
 /// unit-of-measure correctness.
-</span><span class="attribute">#[derive(Debug, Clone, Copy, PartialEq, PartialOrd)]
+</span><span class="attr">#[derive(Debug, Clone, Copy, PartialEq, PartialOrd)]
 </span><span class="kw">pub struct </span>Time(u64);
 
 <span class="kw">impl </span>Time {
@@ -94,13 +94,13 @@
     /// `webpki::Time::try_from(time: std::time::SystemTime)` instead when
     /// `std::time::SystemTime` is available (when `#![no_std]` isn&#39;t being
     /// used).
-    </span><span class="attribute">#[allow(clippy::must_use_candidate)]
+    </span><span class="attr">#[allow(clippy::must_use_candidate)]
     </span><span class="kw">pub fn </span>from_seconds_since_unix_epoch(secs: u64) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>(secs)
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>core::convert::TryFrom&lt;std::time::SystemTime&gt; <span class="kw">for </span>Time {
     <span class="kw">type </span>Error = std::time::SystemTimeError;
 
@@ -129,4 +129,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="webpki" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="webpki" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

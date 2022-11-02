@@ -622,7 +622,7 @@
 //! This module contains a number of functions for working with `Future`s,
 //! including the `FutureExt` trait which adds methods to `Future` types.
 
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;compat&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;compat&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::compat::Compat;
 <span class="kw">use </span>core::pin::Pin;
 <span class="kw">use </span>futures_core::{
@@ -630,7 +630,7 @@
     stream::TryStream,
     task::{Context, Poll},
 };
-<span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
 </span><span class="kw">use </span>futures_sink::Sink;
 
 <span class="kw">use </span><span class="kw">crate</span>::fns::{
@@ -668,10 +668,10 @@
     <span class="kw">where </span>Fut: TryFuture
 );
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
 </span><span class="macro">delegate_all!</span>(
     <span class="doccomment">/// Sink for the [`flatten_sink`](TryFutureExt::flatten_sink) method.
-    </span><span class="attribute">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;sink&quot;</span>)))]
+    </span><span class="attr">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;sink&quot;</span>)))]
     </span>FlattenSink&lt;Fut, Si&gt;(
         try_flatten::TryFlatten&lt;Fut, Si&gt;
     ): Debug + Sink + Stream + FusedStream + New[|x: Fut| try_flatten::TryFlatten::new(x)]
@@ -719,7 +719,7 @@
     ): Debug + Future + FusedFuture + New[|x: Fut, f: F| Inspect::new(IntoFuture::new(x), inspect_err_fn(f))]
 );
 
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::into_future::IntoFuture;
 
 <span class="macro">delegate_all!</span>(
@@ -785,7 +785,7 @@
     /// let fut = make_sink_async();
     /// take_sink(fut.flatten_sink())
     /// ```
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;sink&quot;</span>)))]
     </span><span class="kw">fn </span>flatten_sink&lt;Item&gt;(<span class="self">self</span>) -&gt; FlattenSink&lt;<span class="self">Self</span>, <span class="self">Self</span>::Ok&gt;
     <span class="kw">where
@@ -1190,7 +1190,7 @@
 
     <span class="doccomment">/// Wraps a [`TryFuture`] into a future compatible with libraries using
     /// futures 0.1 future definitions. Requires the `compat` feature to enable.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;compat&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;compat&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;compat&quot;</span>)))]
     </span><span class="kw">fn </span>compat(<span class="self">self</span>) -&gt; Compat&lt;<span class="self">Self</span>&gt;
     <span class="kw">where
@@ -1237,4 +1237,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

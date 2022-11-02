@@ -1245,7 +1245,7 @@
 ///     &quot;fd00::3&quot;.parse().unwrap(),
 /// ]);
 /// ```
-</span><span class="attribute">#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug)]
+</span><span class="attr">#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug)]
 </span><span class="kw">pub enum </span>IpAddrRange {
     V4(Ipv4AddrRange),
     V6(Ipv6AddrRange),
@@ -1271,7 +1271,7 @@
 ///     &quot;10.0.0.3&quot;.parse().unwrap(),
 /// ]);
 /// ```
-</span><span class="attribute">#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug)]
+</span><span class="attr">#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug)]
 </span><span class="kw">pub struct </span>Ipv4AddrRange {
     start: Ipv4Addr,
     end: Ipv4Addr,
@@ -1297,7 +1297,7 @@
 ///     &quot;fd00::3&quot;.parse().unwrap(),
 /// ]);
 /// ```
-</span><span class="attribute">#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug)]
+</span><span class="attr">#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug)]
 </span><span class="kw">pub struct </span>Ipv6AddrRange {
     start: Ipv6Addr,
     end: Ipv6Addr,
@@ -1435,7 +1435,7 @@
         }
     }
 
-    <span class="attribute">#[allow(const_err)]
+    <span class="attr">#[allow(const_err)]
     #[allow(arithmetic_overflow)]
     </span><span class="kw">fn </span>count(<span class="self">self</span>) -&gt; usize {
         <span class="kw">match </span><span class="self">self</span>.start.partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>.end) {
@@ -1524,7 +1524,7 @@
         }
     }
 
-    <span class="attribute">#[allow(const_err)]
+    <span class="attr">#[allow(const_err)]
     #[allow(arithmetic_overflow)]
     </span><span class="kw">fn </span>count(<span class="self">self</span>) -&gt; usize {
         <span class="kw">let </span>count = <span class="self">self</span>.count_u128();
@@ -1688,13 +1688,13 @@
 <span class="kw">impl </span>FusedIterator <span class="kw">for </span>Ipv4AddrRange {}
 <span class="kw">impl </span>FusedIterator <span class="kw">for </span>Ipv6AddrRange {}
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
     <span class="kw">use </span>std::str::FromStr;
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_ipaddrrange() {
         <span class="comment">// Next, Next-Back
         </span><span class="kw">let </span>i = Ipv4AddrRange::new(
@@ -1931,4 +1931,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ipnet" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ipnet" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

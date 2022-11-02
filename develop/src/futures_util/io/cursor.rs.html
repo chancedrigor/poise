@@ -239,7 +239,7 @@
 <span id="239">239</span>
 <span id="240">240</span>
 </pre><pre class="rust"><code><span class="kw">use </span>futures_core::task::{Context, Poll};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;read_initializer&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;read_initializer&quot;</span>)]
 </span><span class="kw">use </span>futures_io::Initializer;
 <span class="kw">use </span>futures_io::{AsyncBufRead, AsyncRead, AsyncSeek, AsyncWrite, IoSlice, IoSliceMut, SeekFrom};
 <span class="kw">use </span>std::io;
@@ -261,7 +261,7 @@
 /// [`AsyncRead`]: trait.AsyncRead.html
 /// [`AsyncWrite`]: trait.AsyncWrite.html
 /// [bytes]: https://doc.rust-lang.org/std/primitive.slice.html
-</span><span class="attribute">#[derive(Clone, Debug, Default)]
+</span><span class="attr">#[derive(Clone, Debug, Default)]
 </span><span class="kw">pub struct </span>Cursor&lt;T&gt; {
     inner: io::Cursor&lt;T&gt;,
 }
@@ -399,7 +399,7 @@
 }
 
 <span class="kw">impl</span>&lt;T: AsRef&lt;[u8]&gt; + Unpin&gt; AsyncRead <span class="kw">for </span>Cursor&lt;T&gt; {
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;read_initializer&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;read_initializer&quot;</span>)]
     #[inline]
     </span><span class="kw">unsafe fn </span>initializer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Initializer {
         io::Read::initializer(<span class="kw-2">&amp;</span><span class="self">self</span>.inner)
@@ -479,4 +479,4 @@
     <span class="macro">delegate_async_write_to_stdio!</span>();
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

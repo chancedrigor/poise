@@ -1688,59 +1688,59 @@
 
 </span><span class="kw">use </span><span class="kw">crate</span>::future::{assert_future, Either};
 <span class="kw">use </span><span class="kw">crate</span>::stream::assert_stream;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span>alloc::boxed::Box;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span>alloc::vec::Vec;
 <span class="kw">use </span>core::pin::Pin;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
 </span><span class="kw">use </span>futures_core::stream::TryStream;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span>futures_core::stream::{BoxStream, LocalBoxStream};
 <span class="kw">use </span>futures_core::{
     future::Future,
     stream::{FusedStream, Stream},
     task::{Context, Poll},
 };
-<span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
 </span><span class="kw">use </span>futures_sink::Sink;
 
 <span class="kw">use </span><span class="kw">crate</span>::fns::{inspect_fn, InspectFn};
 
 <span class="kw">mod </span>chain;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::chain::Chain;
 
 <span class="kw">mod </span>collect;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::collect::Collect;
 
 <span class="kw">mod </span>unzip;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::unzip::Unzip;
 
 <span class="kw">mod </span>concat;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::concat::Concat;
 
 <span class="kw">mod </span>count;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::count::Count;
 
 <span class="kw">mod </span>cycle;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::cycle::Cycle;
 
 <span class="kw">mod </span>enumerate;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::enumerate::Enumerate;
 
 <span class="kw">mod </span>filter;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::filter::Filter;
 
 <span class="kw">mod </span>filter_map;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::filter_map::FilterMap;
 
 <span class="kw">mod </span>flatten;
@@ -1754,24 +1754,24 @@
 );
 
 <span class="kw">mod </span>fold;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::fold::Fold;
 
 <span class="kw">mod </span>any;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::any::Any;
 
 <span class="kw">mod </span>all;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::all::All;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
 </span><span class="kw">mod </span>forward;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
 </span><span class="macro">delegate_all!</span>(
     <span class="doccomment">/// Future for the [`forward`](super::StreamExt::forward) method.
-    </span><span class="attribute">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;sink&quot;</span>)))]
+    </span><span class="attr">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;sink&quot;</span>)))]
     </span>Forward&lt;St, Si&gt;(
         forward::Forward&lt;St, Si, St::Ok&gt;
     ): Debug + Future + FusedFuture + New[|x: St, y: Si| forward::Forward::new(x, y)]
@@ -1779,15 +1779,15 @@
 );
 
 <span class="kw">mod </span>for_each;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::for_each::ForEach;
 
 <span class="kw">mod </span>fuse;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::fuse::Fuse;
 
 <span class="kw">mod </span>into_future;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::into_future::StreamFuture;
 
 <span class="macro">delegate_all!</span>(
@@ -1798,7 +1798,7 @@
 );
 
 <span class="kw">mod </span>map;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::map::Map;
 
 <span class="macro">delegate_all!</span>(
@@ -1809,87 +1809,87 @@
 );
 
 <span class="kw">mod </span>next;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::next::Next;
 
 <span class="kw">mod </span>select_next_some;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::select_next_some::SelectNextSome;
 
 <span class="kw">mod </span>peek;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::peek::{NextIf, NextIfEq, Peek, PeekMut, Peekable};
 
 <span class="kw">mod </span>skip;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::skip::Skip;
 
 <span class="kw">mod </span>skip_while;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::skip_while::SkipWhile;
 
 <span class="kw">mod </span>take;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::take::Take;
 
 <span class="kw">mod </span>take_while;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::take_while::TakeWhile;
 
 <span class="kw">mod </span>take_until;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::take_until::TakeUntil;
 
 <span class="kw">mod </span>then;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::then::Then;
 
 <span class="kw">mod </span>zip;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::zip::Zip;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">mod </span>chunks;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 #[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::chunks::Chunks;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">mod </span>ready_chunks;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 #[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::ready_chunks::ReadyChunks;
 
 <span class="kw">mod </span>scan;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::scan::Scan;
 
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">mod </span>buffer_unordered;
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 #[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::buffer_unordered::BufferUnordered;
 
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">mod </span>buffered;
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 #[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::buffered::Buffered;
 
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">mod </span>flatten_unordered;
 
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 #[allow(unreachable_pub)]
 </span><span class="kw">pub use </span><span class="self">self</span>::flatten_unordered::FlattenUnordered;
 
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="macro">delegate_all!</span>(
     <span class="doccomment">/// Stream for the [`flat_map_unordered`](StreamExt::flat_map_unordered) method.
@@ -1899,29 +1899,29 @@
     <span class="kw">where </span>St: Stream, U: Stream, U: Unpin, F: FnMut(St::Item) -&gt; U
 );
 
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">mod </span>for_each_concurrent;
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 #[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::for_each_concurrent::ForEachConcurrent;
 
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;sink&quot;</span>)))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">mod </span>split;
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;sink&quot;</span>)))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 #[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::split::{ReuniteError, SplitSink, SplitStream};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">mod </span>catch_unwind;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 #[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::catch_unwind::CatchUnwind;
 
@@ -2490,7 +2490,7 @@
     /// assert_eq!(output, vec![1, 2, 3, 4]);
     /// # });
     /// ```
-    </span><span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+    </span><span class="attr">#[cfg(not(futures_no_atomic_cas))]
     #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">fn </span>flatten_unordered(<span class="self">self</span>, limit: <span class="kw">impl </span>Into&lt;<span class="prelude-ty">Option</span>&lt;usize&gt;&gt;) -&gt; FlattenUnordered&lt;<span class="self">Self</span>&gt;
     <span class="kw">where
@@ -2572,7 +2572,7 @@
     /// assert_eq!(vec![1usize, 2, 2, 3, 3, 3, 4, 4, 4, 4], values);
     /// # });
     /// ```
-    </span><span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+    </span><span class="attr">#[cfg(not(futures_no_atomic_cas))]
     #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">fn </span>flat_map_unordered&lt;U, F&gt;(
         <span class="self">self</span>,
@@ -2812,7 +2812,7 @@
     /// fut.await;
     /// # })
     /// ```
-    </span><span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+    </span><span class="attr">#[cfg(not(futures_no_atomic_cas))]
     #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">fn </span>for_each_concurrent&lt;Fut, F&gt;(
         <span class="self">self</span>,
@@ -2989,7 +2989,7 @@
     /// assert_eq!(results.len(), 2);
     /// # });
     /// ```
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     </span><span class="kw">fn </span>catch_unwind(<span class="self">self</span>) -&gt; CatchUnwind&lt;<span class="self">Self</span>&gt;
     <span class="kw">where
         </span><span class="self">Self</span>: Sized + std::panic::UnwindSafe,
@@ -3001,7 +3001,7 @@
     ///
     /// This method is only available when the `std` or `alloc` feature of this
     /// library is activated, and it is activated by default.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">fn </span>boxed&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="self">self</span>) -&gt; BoxStream&lt;<span class="lifetime">&#39;a</span>, <span class="self">Self</span>::Item&gt;
     <span class="kw">where
         </span><span class="self">Self</span>: Sized + Send + <span class="lifetime">&#39;a</span>,
@@ -3015,7 +3015,7 @@
     ///
     /// This method is only available when the `std` or `alloc` feature of this
     /// library is activated, and it is activated by default.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">fn </span>boxed_local&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="self">self</span>) -&gt; LocalBoxStream&lt;<span class="lifetime">&#39;a</span>, <span class="self">Self</span>::Item&gt;
     <span class="kw">where
         </span><span class="self">Self</span>: Sized + <span class="lifetime">&#39;a</span>,
@@ -3035,7 +3035,7 @@
     ///
     /// This method is only available when the `std` or `alloc` feature of this
     /// library is activated, and it is activated by default.
-    </span><span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+    </span><span class="attr">#[cfg(not(futures_no_atomic_cas))]
     #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">fn </span>buffered(<span class="self">self</span>, n: usize) -&gt; Buffered&lt;<span class="self">Self</span>&gt;
     <span class="kw">where
@@ -3080,7 +3080,7 @@
     /// assert_eq!(buffered.next().await, None);
     /// # Ok::&lt;(), i32&gt;(()) }).unwrap();
     /// ```
-    </span><span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+    </span><span class="attr">#[cfg(not(futures_no_atomic_cas))]
     #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">fn </span>buffer_unordered(<span class="self">self</span>, n: usize) -&gt; BufferUnordered&lt;<span class="self">Self</span>&gt;
     <span class="kw">where
@@ -3179,7 +3179,7 @@
     /// # Panics
     ///
     /// This method will panic if `capacity` is zero.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">fn </span>chunks(<span class="self">self</span>, capacity: usize) -&gt; Chunks&lt;<span class="self">Self</span>&gt;
     <span class="kw">where
         </span><span class="self">Self</span>: Sized,
@@ -3205,7 +3205,7 @@
     /// # Panics
     ///
     /// This method will panic if `capacity` is zero.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">fn </span>ready_chunks(<span class="self">self</span>, capacity: usize) -&gt; ReadyChunks&lt;<span class="self">Self</span>&gt;
     <span class="kw">where
         </span><span class="self">Self</span>: Sized,
@@ -3224,7 +3224,7 @@
     /// (for example, via `forward(&amp;mut sink)` inside an `async` fn/block) in
     /// order to preserve access to the `Sink`. If the stream produces an error,
     /// that error will be returned by this future without flushing/closing the sink.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;sink&quot;</span>)))]
     </span><span class="kw">fn </span>forward&lt;S&gt;(<span class="self">self</span>, sink: S) -&gt; Forward&lt;<span class="self">Self</span>, S&gt;
     <span class="kw">where
@@ -3246,7 +3246,7 @@
     ///
     /// This method is only available when the `std` or `alloc` feature of this
     /// library is activated, and it is activated by default.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;sink&quot;</span>)))]
     #[cfg(not(futures_no_atomic_cas))]
     #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
@@ -3365,4 +3365,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

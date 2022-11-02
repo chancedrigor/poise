@@ -112,17 +112,17 @@
 <span class="kw">use </span><span class="kw">crate</span>::error::{<span class="self">self</span>, ParseFromDescription, TryFromParsed};
 
 <span class="doccomment">/// An error that occurred at some stage of parsing.
-</span><span class="attribute">#[cfg_attr(__time_03_docs, doc(cfg(feature = <span class="string">&quot;parsing&quot;</span>)))]
+</span><span class="attr">#[cfg_attr(__time_03_docs, doc(cfg(feature = <span class="string">&quot;parsing&quot;</span>)))]
 #[allow(variant_size_differences)]
 #[non_exhaustive]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>Parse {
-    <span class="attribute">#[allow(clippy::missing_docs_in_private_items)]
+    <span class="attr">#[allow(clippy::missing_docs_in_private_items)]
     </span>TryFromParsed(TryFromParsed),
-    <span class="attribute">#[allow(clippy::missing_docs_in_private_items)]
+    <span class="attr">#[allow(clippy::missing_docs_in_private_items)]
     </span>ParseFromDescription(ParseFromDescription),
     <span class="doccomment">/// The input should have ended, but there were characters remaining.
-    </span><span class="attribute">#[non_exhaustive]
+    </span><span class="attr">#[non_exhaustive]
     </span>UnexpectedTrailingCharacters,
 }
 
@@ -136,7 +136,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>std::error::Error <span class="kw">for </span>Parse {
     <span class="kw">fn </span>source(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>(<span class="kw">dyn </span>std::error::Error + <span class="lifetime">&#39;static</span>)&gt; {
         <span class="kw">match </span><span class="self">self </span>{
@@ -147,14 +147,14 @@
     }
 }
 
-<span class="attribute">#[cfg_attr(__time_03_docs, doc(cfg(feature = <span class="string">&quot;parsing&quot;</span>)))]
+<span class="attr">#[cfg_attr(__time_03_docs, doc(cfg(feature = <span class="string">&quot;parsing&quot;</span>)))]
 </span><span class="kw">impl </span>From&lt;TryFromParsed&gt; <span class="kw">for </span>Parse {
     <span class="kw">fn </span>from(err: TryFromParsed) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::TryFromParsed(err)
     }
 }
 
-<span class="attribute">#[cfg_attr(__time_03_docs, doc(cfg(feature = <span class="string">&quot;parsing&quot;</span>)))]
+<span class="attr">#[cfg_attr(__time_03_docs, doc(cfg(feature = <span class="string">&quot;parsing&quot;</span>)))]
 </span><span class="kw">impl </span>TryFrom&lt;Parse&gt; <span class="kw">for </span>TryFromParsed {
     <span class="kw">type </span>Error = error::DifferentVariant;
 
@@ -166,14 +166,14 @@
     }
 }
 
-<span class="attribute">#[cfg_attr(__time_03_docs, doc(cfg(feature = <span class="string">&quot;parsing&quot;</span>)))]
+<span class="attr">#[cfg_attr(__time_03_docs, doc(cfg(feature = <span class="string">&quot;parsing&quot;</span>)))]
 </span><span class="kw">impl </span>From&lt;ParseFromDescription&gt; <span class="kw">for </span>Parse {
     <span class="kw">fn </span>from(err: ParseFromDescription) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::ParseFromDescription(err)
     }
 }
 
-<span class="attribute">#[cfg_attr(__time_03_docs, doc(cfg(feature = <span class="string">&quot;parsing&quot;</span>)))]
+<span class="attr">#[cfg_attr(__time_03_docs, doc(cfg(feature = <span class="string">&quot;parsing&quot;</span>)))]
 </span><span class="kw">impl </span>TryFrom&lt;Parse&gt; <span class="kw">for </span>ParseFromDescription {
     <span class="kw">type </span>Error = error::DifferentVariant;
 
@@ -185,7 +185,7 @@
     }
 }
 
-<span class="attribute">#[cfg_attr(__time_03_docs, doc(cfg(feature = <span class="string">&quot;parsing&quot;</span>)))]
+<span class="attr">#[cfg_attr(__time_03_docs, doc(cfg(feature = <span class="string">&quot;parsing&quot;</span>)))]
 </span><span class="kw">impl </span>From&lt;Parse&gt; <span class="kw">for </span><span class="kw">crate</span>::Error {
     <span class="kw">fn </span>from(err: Parse) -&gt; <span class="self">Self </span>{
         <span class="kw">match </span>err {
@@ -196,7 +196,7 @@
     }
 }
 
-<span class="attribute">#[cfg_attr(__time_03_docs, doc(cfg(feature = <span class="string">&quot;parsing&quot;</span>)))]
+<span class="attr">#[cfg_attr(__time_03_docs, doc(cfg(feature = <span class="string">&quot;parsing&quot;</span>)))]
 </span><span class="kw">impl </span>TryFrom&lt;<span class="kw">crate</span>::Error&gt; <span class="kw">for </span>Parse {
     <span class="kw">type </span>Error = error::DifferentVariant;
 
@@ -210,4 +210,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

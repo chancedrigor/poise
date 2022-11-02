@@ -129,7 +129,7 @@
 <span class="kw">use </span>std::fmt;
 
 <span class="doccomment">/// Error returned by the `Sender`.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>SendError&lt;T&gt;(<span class="kw">pub </span>T);
 
 <span class="kw">impl</span>&lt;T&gt; fmt::Display <span class="kw">for </span>SendError&lt;T&gt; {
@@ -144,7 +144,7 @@
 
 </span><span class="doccomment">/// This enumeration is the list of the possible error outcomes for the
 /// [try_send](super::Sender::try_send) method.
-</span><span class="attribute">#[derive(Debug, Eq, PartialEq)]
+</span><span class="attr">#[derive(Debug, Eq, PartialEq)]
 </span><span class="kw">pub enum </span>TrySendError&lt;T&gt; {
     <span class="doccomment">/// The data could not be sent on the channel because the channel is
     /// currently full and sending would require blocking.
@@ -179,7 +179,7 @@
 <span class="comment">// ===== TryRecvError =====
 
 </span><span class="doccomment">/// Error returned by `try_recv`.
-</span><span class="attribute">#[derive(PartialEq, Eq, Clone, Copy, Debug)]
+</span><span class="attr">#[derive(PartialEq, Eq, Clone, Copy, Debug)]
 </span><span class="kw">pub enum </span>TryRecvError {
     <span class="doccomment">/// This **channel** is currently empty, but the **Sender**(s) have not yet
     /// disconnected, so data may yet become available.
@@ -203,25 +203,25 @@
 <span class="comment">// ===== RecvError =====
 
 </span><span class="doccomment">/// Error returned by `Receiver`.
-</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone)]
 #[doc(hidden)]
 #[deprecated(note = <span class="string">&quot;This type is unused because recv returns an Option.&quot;</span>)]
 </span><span class="kw">pub struct </span>RecvError(());
 
-<span class="attribute">#[allow(deprecated)]
+<span class="attr">#[allow(deprecated)]
 </span><span class="kw">impl </span>fmt::Display <span class="kw">for </span>RecvError {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, fmt: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
         <span class="macro">write!</span>(fmt, <span class="string">&quot;channel closed&quot;</span>)
     }
 }
 
-<span class="attribute">#[allow(deprecated)]
+<span class="attr">#[allow(deprecated)]
 </span><span class="kw">impl </span>Error <span class="kw">for </span>RecvError {}
 
 <span class="macro">cfg_time! </span>{
     <span class="comment">// ===== SendTimeoutError =====
 
-    </span><span class="attribute">#[derive(Debug, Eq, PartialEq)]
+    </span><span class="attr">#[derive(Debug, Eq, PartialEq)]
     </span><span class="doccomment">/// Error returned by [`Sender::send_timeout`](super::Sender::send_timeout)].
     </span><span class="kw">pub enum </span>SendTimeoutError&lt;T&gt; {
         <span class="doccomment">/// The data could not be sent on the channel because the channel is
@@ -249,4 +249,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

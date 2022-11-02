@@ -121,7 +121,7 @@
 //! on std, and instead uses equivalent functions from core.
 //!
 
-</span><span class="attribute">#![forbid(unsafe_code)]
+</span><span class="attr">#![forbid(unsafe_code)]
 #![deny(missing_docs)]
 #![doc(
     html_logo_url = <span class="string">&quot;https://unicode-rs.github.io/unicode-rs_sm.png&quot;</span>,
@@ -134,7 +134,7 @@
 #[macro_use]
 </span><span class="kw">extern crate </span>std;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;bench&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;bench&quot;</span>)]
 </span><span class="kw">extern crate </span>test;
 
 <span class="kw">use </span>tables::derived_property;
@@ -142,7 +142,7 @@
 
 <span class="kw">mod </span>tables;
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests;
 
 <span class="doccomment">/// Methods for determining if a character is a valid identifier character.
@@ -165,7 +165,7 @@
 }
 
 <span class="kw">impl </span>UnicodeXID <span class="kw">for </span>char {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_xid_start(<span class="self">self</span>) -&gt; bool {
         <span class="comment">// Fast-path for ascii idents
         </span>(<span class="string">&#39;a&#39; </span>&lt;= <span class="self">self </span>&amp;&amp; <span class="self">self </span>&lt;= <span class="string">&#39;z&#39;</span>)
@@ -173,7 +173,7 @@
             || (<span class="self">self </span>&gt; <span class="string">&#39;\x7f&#39; </span>&amp;&amp; derived_property::XID_Start(<span class="self">self</span>))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_xid_continue(<span class="self">self</span>) -&gt; bool {
         <span class="comment">// Fast-path for ascii idents
         </span>(<span class="string">&#39;a&#39; </span>&lt;= <span class="self">self </span>&amp;&amp; <span class="self">self </span>&lt;= <span class="string">&#39;z&#39;</span>)
@@ -184,4 +184,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="unicode_xid" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="unicode_xid" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

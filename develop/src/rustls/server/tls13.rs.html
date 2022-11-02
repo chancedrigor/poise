@@ -1369,7 +1369,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::error::Error;
 <span class="kw">use </span><span class="kw">crate</span>::hash_hs::HandshakeHash;
 <span class="kw">use </span><span class="kw">crate</span>::key::Certificate;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::log::{debug, trace, warn};
 <span class="kw">use </span><span class="kw">crate</span>::msgs::codec::Codec;
 <span class="kw">use </span><span class="kw">crate</span>::msgs::enums::{AlertDescription, KeyUpdateRequest};
@@ -1385,7 +1385,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::tls13::key_schedule::{KeyScheduleTraffic, KeyScheduleTrafficWithClientFinishedPending};
 <span class="kw">use </span><span class="kw">crate</span>::tls13::Tls13CipherSuite;
 <span class="kw">use </span><span class="kw">crate</span>::verify;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
 </span><span class="kw">use crate</span>::{check::inappropriate_message, conn::Protocol};
 
 <span class="kw">use </span><span class="kw">super</span>::hs::{<span class="self">self</span>, HandshakeHashOrBuffer, ServerContext};
@@ -1418,7 +1418,7 @@
     <span class="kw">use </span><span class="kw">crate</span>::msgs::handshake::ServerExtension;
     <span class="kw">use </span><span class="kw">crate</span>::msgs::handshake::ServerHelloPayload;
     <span class="kw">use </span><span class="kw">crate</span>::msgs::handshake::SessionID;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
     </span><span class="kw">use </span><span class="kw">crate</span>::quic;
     <span class="kw">use </span><span class="kw">crate</span>::server::common::ActiveCertifiedKey;
     <span class="kw">use </span><span class="kw">crate</span>::sign;
@@ -1428,7 +1428,7 @@
 
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[derive(PartialEq)]
+    <span class="attr">#[derive(PartialEq)]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">enum </span>EarlyDataDecision {
         Disabled,
         RequestedButRejected,
@@ -1586,9 +1586,9 @@
                         <span class="kw">let </span>next = Box::new(hs::ExpectClientHello {
                             config: <span class="self">self</span>.config,
                             transcript: HandshakeHashOrBuffer::Hash(<span class="self">self</span>.transcript),
-                            <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+                            <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
                             </span>session_id: SessionID::empty(),
-                            <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+                            <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
                             </span>using_ems: <span class="bool-val">false</span>,
                             done_retry: <span class="bool-val">true</span>,
                             send_ticket: <span class="self">self</span>.send_ticket,
@@ -1902,7 +1902,7 @@
                 .set_message_decrypter(suite.derive_decrypter(key));
         }
 
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
         </span><span class="kw">if </span>cx.common.is_quic() {
             <span class="comment">// If 0-RTT should be rejected, this will be clobbered by ExtensionProcessing
             // before the application can see.
@@ -2009,7 +2009,7 @@
         <span class="kw">if </span>early_data_configured &amp;&amp; early_data_possible &amp;&amp; !cx.data.early_data.was_rejected() {
             EarlyDataDecision::Accepted
         } <span class="kw">else </span>{
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
             </span><span class="kw">if </span>cx.common.is_quic() {
                 <span class="comment">// Clobber value set in tls13::emit_server_hello
                 </span>cx.common.quic.early_secret = <span class="prelude-val">None</span>;
@@ -2226,7 +2226,7 @@
             .record_layer
             .set_message_encrypter(suite.derive_encrypter(<span class="kw-2">&amp;</span>server_key));
 
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
         </span>{
             cx.common.quic.traffic_secrets =
                 <span class="prelude-val">Some</span>(quic::Secrets::new(_client_key, server_key, suite, <span class="bool-val">false</span>));
@@ -2589,7 +2589,7 @@
         <span class="comment">// Application data may now flow, even if we have client auth enabled.
         </span>cx.common.start_traffic();
 
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
         </span>{
             <span class="kw">if </span>cx.common.protocol == Protocol::Quic {
                 <span class="kw">return </span><span class="prelude-val">Ok</span>(Box::new(ExpectQuicTraffic {
@@ -2622,7 +2622,7 @@
         common: <span class="kw-2">&amp;mut </span>CommonState,
         kur: <span class="kw-2">&amp;</span>KeyUpdateRequest,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
         </span>{
             <span class="kw">if let </span>Protocol::Quic = common.protocol {
                 common.send_fatal_alert(AlertDescription::UnexpectedMessage);
@@ -2707,13 +2707,13 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
 </span><span class="kw">struct </span>ExpectQuicTraffic {
     key_schedule: KeyScheduleTraffic,
     _fin_verified: verify::FinishedMessageVerified,
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
 </span><span class="kw">impl </span>State&lt;ServerConnectionData&gt; <span class="kw">for </span>ExpectQuicTraffic {
     <span class="kw">fn </span>handle(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, _cx: <span class="kw-2">&amp;mut </span>ServerContext&lt;<span class="lifetime">&#39;_</span>&gt;, m: Message) -&gt; hs::NextStateOrError {
         <span class="comment">// reject all messages
@@ -2731,4 +2731,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

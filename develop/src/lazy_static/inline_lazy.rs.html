@@ -69,17 +69,17 @@
 <span class="kw">use </span><span class="self">self</span>::std::cell::Cell;
 <span class="kw">use </span><span class="self">self</span>::std::hint::unreachable_unchecked;
 <span class="kw">use </span><span class="self">self</span>::std::sync::Once;
-<span class="attribute">#[allow(deprecated)]
+<span class="attr">#[allow(deprecated)]
 </span><span class="kw">pub use </span><span class="self">self</span>::std::sync::ONCE_INIT;
 
 <span class="comment">// FIXME: Replace Option&lt;T&gt; with MaybeUninit&lt;T&gt; (stable since 1.36.0)
 </span><span class="kw">pub struct </span>Lazy&lt;T: Sync&gt;(Cell&lt;<span class="prelude-ty">Option</span>&lt;T&gt;&gt;, Once);
 
 <span class="kw">impl</span>&lt;T: Sync&gt; Lazy&lt;T&gt; {
-    <span class="attribute">#[allow(deprecated)]
+    <span class="attr">#[allow(deprecated)]
     </span><span class="kw">pub const </span>INIT: <span class="self">Self </span>= Lazy(Cell::new(<span class="prelude-val">None</span>), ONCE_INIT);
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>get&lt;F&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><span class="self">self</span>, f: F) -&gt; <span class="kw-2">&amp;</span>T
     <span class="kw">where
         </span>F: FnOnce() -&gt; T,
@@ -105,7 +105,7 @@
 
 <span class="kw">unsafe impl</span>&lt;T: Sync&gt; Sync <span class="kw">for </span>Lazy&lt;T&gt; {}
 
-<span class="attribute">#[macro_export]
+<span class="attr">#[macro_export]
 #[doc(hidden)]
 </span><span class="macro">macro_rules! </span>__lazy_static_create {
     (<span class="macro-nonterminal">$NAME</span>:ident, <span class="macro-nonterminal">$T</span>:ty) =&gt; {
@@ -113,4 +113,4 @@
     };
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="lazy_static" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="lazy_static" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

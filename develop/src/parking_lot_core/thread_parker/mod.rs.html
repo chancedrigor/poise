@@ -136,37 +136,37 @@
 }
 
 <span class="macro">cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>))] </span>{
-        <span class="attribute">#[path = <span class="string">&quot;linux.rs&quot;</span>]
+    <span class="kw">if </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>))] </span>{
+        <span class="attr">#[path = <span class="string">&quot;linux.rs&quot;</span>]
         </span><span class="kw">mod </span>imp;
-    } <span class="kw">else if </span><span class="attribute">#[cfg(unix)] </span>{
-        <span class="attribute">#[path = <span class="string">&quot;unix.rs&quot;</span>]
+    } <span class="kw">else if </span><span class="attr">#[cfg(unix)] </span>{
+        <span class="attr">#[path = <span class="string">&quot;unix.rs&quot;</span>]
         </span><span class="kw">mod </span>imp;
-    } <span class="kw">else if </span><span class="attribute">#[cfg(windows)] </span>{
-        <span class="attribute">#[path = <span class="string">&quot;windows/mod.rs&quot;</span>]
+    } <span class="kw">else if </span><span class="attr">#[cfg(windows)] </span>{
+        <span class="attr">#[path = <span class="string">&quot;windows/mod.rs&quot;</span>]
         </span><span class="kw">mod </span>imp;
-    } <span class="kw">else if </span><span class="attribute">#[cfg(target_os = <span class="string">&quot;redox&quot;</span>)] </span>{
-        <span class="attribute">#[path = <span class="string">&quot;redox.rs&quot;</span>]
+    } <span class="kw">else if </span><span class="attr">#[cfg(target_os = <span class="string">&quot;redox&quot;</span>)] </span>{
+        <span class="attr">#[path = <span class="string">&quot;redox.rs&quot;</span>]
         </span><span class="kw">mod </span>imp;
-    } <span class="kw">else if </span><span class="attribute">#[cfg(all(target_env = <span class="string">&quot;sgx&quot;</span>, target_vendor = <span class="string">&quot;fortanix&quot;</span>))] </span>{
-        <span class="attribute">#[path = <span class="string">&quot;sgx.rs&quot;</span>]
+    } <span class="kw">else if </span><span class="attr">#[cfg(all(target_env = <span class="string">&quot;sgx&quot;</span>, target_vendor = <span class="string">&quot;fortanix&quot;</span>))] </span>{
+        <span class="attr">#[path = <span class="string">&quot;sgx.rs&quot;</span>]
         </span><span class="kw">mod </span>imp;
-    } <span class="kw">else if </span><span class="attribute">#[cfg(all(
+    } <span class="kw">else if </span><span class="attr">#[cfg(all(
         feature = <span class="string">&quot;nightly&quot;</span>,
         target_family = <span class="string">&quot;wasm&quot;</span>,
         target_feature = <span class="string">&quot;atomics&quot;
     </span>))] </span>{
-        <span class="attribute">#[path = <span class="string">&quot;wasm_atomic.rs&quot;</span>]
+        <span class="attr">#[path = <span class="string">&quot;wasm_atomic.rs&quot;</span>]
         </span><span class="kw">mod </span>imp;
-    } <span class="kw">else if </span><span class="attribute">#[cfg(target_family = <span class="string">&quot;wasm&quot;</span>)] </span>{
-        <span class="attribute">#[path = <span class="string">&quot;wasm.rs&quot;</span>]
+    } <span class="kw">else if </span><span class="attr">#[cfg(target_family = <span class="string">&quot;wasm&quot;</span>)] </span>{
+        <span class="attr">#[path = <span class="string">&quot;wasm.rs&quot;</span>]
         </span><span class="kw">mod </span>imp;
     } <span class="kw">else </span>{
-        <span class="attribute">#[path = <span class="string">&quot;generic.rs&quot;</span>]
+        <span class="attr">#[path = <span class="string">&quot;generic.rs&quot;</span>]
         </span><span class="kw">mod </span>imp;
     }
 }
 
 <span class="kw">pub use </span><span class="self">self</span>::imp::{thread_yield, ThreadParker, UnparkHandle};
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="parking_lot_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="parking_lot_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

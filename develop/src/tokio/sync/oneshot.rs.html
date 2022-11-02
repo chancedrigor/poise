@@ -1377,7 +1377,7 @@
 <span id="1377">1377</span>
 <span id="1378">1378</span>
 <span id="1379">1379</span>
-</pre><pre class="rust"><code><span class="attribute">#![cfg_attr(not(feature = <span class="string">&quot;sync&quot;</span>), allow(dead_code, unreachable_pub))]
+</pre><pre class="rust"><code><span class="attr">#![cfg_attr(not(feature = <span class="string">&quot;sync&quot;</span>), allow(dead_code, unreachable_pub))]
 
 </span><span class="doccomment">//! A one-shot channel is used for sending a single message between
 //! asynchronous tasks. The [`channel`] function is used to create a
@@ -1501,7 +1501,7 @@
 </span><span class="kw">use </span><span class="kw">crate</span>::loom::cell::UnsafeCell;
 <span class="kw">use </span><span class="kw">crate</span>::loom::sync::atomic::AtomicUsize;
 <span class="kw">use </span><span class="kw">crate</span>::loom::sync::Arc;
-<span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+<span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::util::trace;
 
 <span class="kw">use </span>std::fmt;
@@ -1593,10 +1593,10 @@
 ///
 /// [`Option`]: std::option::Option
 /// [`Option::take`]: std::option::Option::take
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Sender&lt;T&gt; {
     inner: <span class="prelude-ty">Option</span>&lt;Arc&lt;Inner&lt;T&gt;&gt;&gt;,
-    <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+    <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
     </span>resource_span: tracing::Span,
 }
 
@@ -1693,14 +1693,14 @@
 ///     # handle.await.unwrap();
 /// }
 /// ```
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Receiver&lt;T&gt; {
     inner: <span class="prelude-ty">Option</span>&lt;Arc&lt;Inner&lt;T&gt;&gt;&gt;,
-    <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+    <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
     </span>resource_span: tracing::Span,
-    <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+    <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
     </span>async_op_span: tracing::Span,
-    <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+    <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
     </span>async_op_poll_span: tracing::Span,
 }
 
@@ -1710,11 +1710,11 @@
     </span><span class="kw">use </span>std::fmt;
 
     <span class="doccomment">/// Error returned by the `Future` implementation for `Receiver`.
-    </span><span class="attribute">#[derive(Debug, Eq, PartialEq, Clone)]
+    </span><span class="attr">#[derive(Debug, Eq, PartialEq, Clone)]
     </span><span class="kw">pub struct </span>RecvError(<span class="kw">pub</span>(<span class="kw">super</span>) ());
 
     <span class="doccomment">/// Error returned by the `try_recv` function on `Receiver`.
-    </span><span class="attribute">#[derive(Debug, Eq, PartialEq, Clone)]
+    </span><span class="attr">#[derive(Debug, Eq, PartialEq, Clone)]
     </span><span class="kw">pub enum </span>TryRecvError {
         <span class="doccomment">/// The send half of the channel has not yet sent a value.
         </span>Empty,
@@ -1806,7 +1806,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Copy)]
+<span class="attr">#[derive(Clone, Copy)]
 </span><span class="kw">struct </span>State(usize);
 
 <span class="doccomment">/// Creates a new one-shot channel for sending single values across asynchronous
@@ -1839,9 +1839,9 @@
 ///     }
 /// }
 /// ```
-</span><span class="attribute">#[track_caller]
+</span><span class="attr">#[track_caller]
 </span><span class="kw">pub fn </span>channel&lt;T&gt;() -&gt; (Sender&lt;T&gt;, Receiver&lt;T&gt;) {
-    <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+    <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
     </span><span class="kw">let </span>resource_span = {
         <span class="kw">let </span>location = std::panic::Location::caller();
 
@@ -1898,25 +1898,25 @@
 
     <span class="kw">let </span>tx = Sender {
         inner: <span class="prelude-val">Some</span>(inner.clone()),
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span>resource_span: resource_span.clone(),
     };
 
-    <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+    <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
     </span><span class="kw">let </span>async_op_span = resource_span
         .in_scope(|| <span class="macro">tracing::trace_span!</span>(<span class="string">&quot;runtime.resource.async_op&quot;</span>, source = <span class="string">&quot;Receiver::await&quot;</span>));
 
-    <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+    <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
     </span><span class="kw">let </span>async_op_poll_span =
         async_op_span.in_scope(|| <span class="macro">tracing::trace_span!</span>(<span class="string">&quot;runtime.resource.async_op.poll&quot;</span>));
 
     <span class="kw">let </span>rx = Receiver {
         inner: <span class="prelude-val">Some</span>(inner),
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span>resource_span,
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span>async_op_span,
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span>async_op_poll_span,
     };
 
@@ -1990,7 +1990,7 @@
             }
         }
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="self">self</span>.resource_span.in_scope(|| {
             <span class="macro">tracing::trace!</span>(
             target: <span class="string">&quot;runtime::resource::state_update&quot;</span>,
@@ -2072,9 +2072,9 @@
     </span><span class="kw">pub async fn </span>closed(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="kw">use </span><span class="kw">crate</span>::future::poll_fn;
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>resource_span = <span class="self">self</span>.resource_span.clone();
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>closed = trace::async_op(
             || poll_fn(|cx| <span class="self">self</span>.poll_closed(cx)),
             resource_span,
@@ -2082,7 +2082,7 @@
             <span class="string">&quot;poll_closed&quot;</span>,
             <span class="bool-val">false</span>,
         );
-        <span class="attribute">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
+        <span class="attr">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
         </span><span class="kw">let </span>closed = poll_fn(|cx| <span class="self">self</span>.poll_closed(cx));
 
         closed.<span class="kw">await
@@ -2215,7 +2215,7 @@
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(inner) = <span class="self">self</span>.inner.as_ref() {
             inner.complete();
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span><span class="self">self</span>.resource_span.in_scope(|| {
                 <span class="macro">tracing::trace!</span>(
                 target: <span class="string">&quot;runtime::resource::state_update&quot;</span>,
@@ -2290,7 +2290,7 @@
     </span><span class="kw">pub fn </span>close(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(inner) = <span class="self">self</span>.inner.as_ref() {
             inner.close();
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span><span class="self">self</span>.resource_span.in_scope(|| {
                 <span class="macro">tracing::trace!</span>(
                 target: <span class="string">&quot;runtime::resource::state_update&quot;</span>,
@@ -2380,7 +2380,7 @@
                 // cell.
                 </span><span class="kw">match unsafe </span>{ inner.consume_value() } {
                     <span class="prelude-val">Some</span>(value) =&gt; {
-                        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+                        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
                         </span><span class="self">self</span>.resource_span.in_scope(|| {
                             <span class="macro">tracing::trace!</span>(
                             target: <span class="string">&quot;runtime::resource::state_update&quot;</span>,
@@ -2431,7 +2431,7 @@
     ///     sync_code.join().unwrap();
     /// }
     /// ```
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     #[cfg(feature = <span class="string">&quot;sync&quot;</span>)]
     </span><span class="kw">pub fn </span>blocking_recv(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;T, RecvError&gt; {
         <span class="kw">crate</span>::future::block_on(<span class="self">self</span>)
@@ -2442,7 +2442,7 @@
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(inner) = <span class="self">self</span>.inner.as_ref() {
             inner.close();
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span><span class="self">self</span>.resource_span.in_scope(|| {
                 <span class="macro">tracing::trace!</span>(
                 target: <span class="string">&quot;runtime::resource::state_update&quot;</span>,
@@ -2459,18 +2459,18 @@
 
     <span class="kw">fn </span>poll(<span class="kw-2">mut </span><span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;<span class="self">Self</span>::Output&gt; {
         <span class="comment">// If `inner` is `None`, then `poll()` has already completed.
-        </span><span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        </span><span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>_res_span = <span class="self">self</span>.resource_span.clone().entered();
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>_ao_span = <span class="self">self</span>.async_op_span.clone().entered();
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>_ao_poll_span = <span class="self">self</span>.async_op_poll_span.clone().entered();
 
         <span class="kw">let </span>ret = <span class="kw">if let </span><span class="prelude-val">Some</span>(inner) = <span class="self">self</span>.as_ref().get_ref().inner.as_ref() {
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span><span class="kw">let </span>res = <span class="macro">ready!</span>(<span class="macro">trace_poll_op!</span>(<span class="string">&quot;poll_recv&quot;</span>, inner.poll_recv(cx)))<span class="question-mark">?</span>;
 
-            <span class="attribute">#[cfg(any(not(tokio_unstable), not(feature = <span class="string">&quot;tracing&quot;</span>)))]
+            <span class="attr">#[cfg(any(not(tokio_unstable), not(feature = <span class="string">&quot;tracing&quot;</span>)))]
             </span><span class="kw">let </span>res = <span class="macro">ready!</span>(inner.poll_recv(cx))<span class="question-mark">?</span>;
 
             res
@@ -2757,4 +2757,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

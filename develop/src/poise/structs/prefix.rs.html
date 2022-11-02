@@ -186,7 +186,7 @@
 </span><span class="kw">use crate</span>::{serenity_prelude <span class="kw">as </span>serenity, BoxFuture};
 
 <span class="doccomment">/// The event that triggered a prefix command execution
-</span><span class="attribute">#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+</span><span class="attr">#[derive(Copy, Clone, Debug, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>MessageDispatchTrigger {
     <span class="doccomment">/// The invocation message was posted directly (common case)
     </span>MessageCreate,
@@ -200,11 +200,11 @@
 <span class="doccomment">/// Prefix-specific context passed to command invocations.
 ///
 /// Contains the trigger message, the Discord connection management stuff, and the user data.
-</span><span class="attribute">#[derive(derivative::Derivative)]
+</span><span class="attr">#[derive(derivative::Derivative)]
 #[derivative(Debug(bound = <span class="string">&quot;&quot;</span>))]
 </span><span class="kw">pub struct </span>PrefixContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt; {
     <span class="doccomment">/// Serenity&#39;s context, like HTTP or cache
-    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
     </span><span class="kw">pub </span>discord: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context,
     <span class="doccomment">/// The invoking user message
     </span><span class="kw">pub </span>msg: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Message,
@@ -217,7 +217,7 @@
     <span class="doccomment">/// Read-only reference to the framework
     ///
     /// Useful if you need the list of commands, for example for a custom help command
-    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
     </span><span class="kw">pub </span>framework: <span class="kw">crate</span>::FrameworkContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     <span class="doccomment">/// If the invoked command was a subcommand, these are the parent commands, ordered top down.
     </span><span class="kw">pub </span>parent_commands: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;],
@@ -225,20 +225,20 @@
     </span><span class="kw">pub </span>command: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;,
     <span class="doccomment">/// Your custom user data
     </span><span class="comment">// TODO: redundant with framework
-    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
     </span><span class="kw">pub </span>data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>U,
     <span class="doccomment">/// Custom user data carried across a single command invocation
     </span><span class="kw">pub </span>invocation_data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>tokio::sync::Mutex&lt;Box&lt;<span class="kw">dyn </span>std::any::Any + Send + Sync&gt;&gt;,
     <span class="doccomment">/// How this command invocation was triggered
     </span><span class="kw">pub </span>trigger: MessageDispatchTrigger,
     <span class="doccomment">/// The function that is called to execute the actual command
-    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
     </span><span class="kw">pub </span>action: <span class="kw">fn</span>(
         PrefixContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt;,
     ) -&gt; <span class="kw">crate</span>::BoxFuture&lt;<span class="lifetime">&#39;_</span>, <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;_</span>, U, E&gt;&gt;&gt;,
 
     <span class="comment">// #[non_exhaustive] forbids struct update syntax for ?? reason
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     </span><span class="kw">pub </span>__non_exhaustive: (),
 }
 <span class="comment">// manual Copy+Clone implementations because Rust is getting confused about the type parameter
@@ -254,7 +254,7 @@
 }
 
 <span class="doccomment">/// Possible ways to define a command prefix
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub enum </span>Prefix {
     <span class="doccomment">/// A case-sensitive string literal prefix (passed to [`str::strip_prefix`])
     </span>Literal(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str),
@@ -263,7 +263,7 @@
 }
 
 <span class="doccomment">/// Prefix-specific framework configuration
-</span><span class="attribute">#[derive(derivative::Derivative)]
+</span><span class="attr">#[derive(derivative::Derivative)]
 #[derivative(Debug(bound = <span class="string">&quot;&quot;</span>))]
 </span><span class="kw">pub struct </span>PrefixFrameworkOptions&lt;U, E&gt; {
     <span class="doccomment">/// The main bot prefix. Can be set to None if the bot supports only
@@ -278,7 +278,7 @@
     /// Override this field for a simple dynamic prefix which changes depending on the guild or user.
     ///
     /// For more advanced dynamic prefixes, see [`Self::stripped_dynamic_prefix`]
-    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
     </span><span class="kw">pub </span>dynamic_prefix:
         <span class="prelude-ty">Option</span>&lt;<span class="kw">fn</span>(<span class="kw">crate</span>::PartialContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt;) -&gt; BoxFuture&lt;<span class="lifetime">&#39;_</span>, <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;String&gt;, E&gt;&gt;&gt;,
     <span class="doccomment">/// Callback invoked on every message to strip the prefix off an incoming message.
@@ -295,7 +295,7 @@
     /// Ok(None)
     /// # })), ..Default::default() };
     /// ```
-    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
     </span><span class="kw">pub </span>stripped_dynamic_prefix: <span class="prelude-ty">Option</span>&lt;
         <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">fn</span>(
             <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context,
@@ -339,7 +339,7 @@
     // /// single parameter
     // pub command_specific_help_commmand: Option&lt;Command&lt;U, E&gt;&gt;, */
     // #[non_exhaustive] forbids struct update syntax for ?? reason
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     </span><span class="kw">pub </span>__non_exhaustive: (),
 }
 
@@ -365,4 +365,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

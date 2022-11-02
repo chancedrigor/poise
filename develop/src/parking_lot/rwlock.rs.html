@@ -767,7 +767,7 @@
 /// dropped.
 </span><span class="kw">pub type </span>RwLockUpgradableReadGuard&lt;<span class="lifetime">&#39;a</span>, T&gt; = lock_api::RwLockUpgradableReadGuard&lt;<span class="lifetime">&#39;a</span>, RawRwLock, T&gt;;
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use crate</span>::{RwLock, RwLockUpgradableReadGuard, RwLockWriteGuard};
     <span class="kw">use </span>rand::Rng;
@@ -777,13 +777,13 @@
     <span class="kw">use </span>std::thread;
     <span class="kw">use </span>std::time::Duration;
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
     </span><span class="kw">use </span>bincode::{deserialize, serialize};
 
-    <span class="attribute">#[derive(Eq, PartialEq, Debug)]
+    <span class="attr">#[derive(Eq, PartialEq, Debug)]
     </span><span class="kw">struct </span>NonCopy(i32);
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>smoke() {
         <span class="kw">let </span>l = RwLock::new(());
         drop(l.read());
@@ -794,7 +794,7 @@
         drop(l.write());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>frob() {
         <span class="kw">const </span>N: u32 = <span class="number">10</span>;
         <span class="kw">const </span>M: u32 = <span class="number">1000</span>;
@@ -821,7 +821,7 @@
         <span class="kw">let _ </span>= rx.recv();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_rw_arc_no_poison_wr() {
         <span class="kw">let </span>arc = Arc::new(RwLock::new(<span class="number">1</span>));
         <span class="kw">let </span>arc2 = arc.clone();
@@ -834,7 +834,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">*</span>lock, <span class="number">1</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_rw_arc_no_poison_ww() {
         <span class="kw">let </span>arc = Arc::new(RwLock::new(<span class="number">1</span>));
         <span class="kw">let </span>arc2 = arc.clone();
@@ -847,7 +847,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">*</span>lock, <span class="number">1</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_rw_arc_no_poison_rr() {
         <span class="kw">let </span>arc = Arc::new(RwLock::new(<span class="number">1</span>));
         <span class="kw">let </span>arc2 = arc.clone();
@@ -860,7 +860,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">*</span>lock, <span class="number">1</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_rw_arc_no_poison_rw() {
         <span class="kw">let </span>arc = Arc::new(RwLock::new(<span class="number">1</span>));
         <span class="kw">let </span>arc2 = arc.clone();
@@ -873,7 +873,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">*</span>lock, <span class="number">1</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_ruw_arc() {
         <span class="kw">let </span>arc = Arc::new(RwLock::new(<span class="number">0</span>));
         <span class="kw">let </span>arc2 = arc.clone();
@@ -929,7 +929,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">*</span>lock, <span class="number">15</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_rw_arc() {
         <span class="kw">let </span>arc = Arc::new(RwLock::new(<span class="number">0</span>));
         <span class="kw">let </span>arc2 = arc.clone();
@@ -967,7 +967,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">*</span>lock, <span class="number">10</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_rw_arc_access_in_unwind() {
         <span class="kw">let </span>arc = Arc::new(RwLock::new(<span class="number">1</span>));
         <span class="kw">let </span>arc2 = arc.clone();
@@ -989,7 +989,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">*</span>lock, <span class="number">2</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_rwlock_unsized() {
         <span class="kw">let </span>rw: <span class="kw-2">&amp;</span>RwLock&lt;[i32]&gt; = <span class="kw-2">&amp;</span>RwLock::new([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);
         {
@@ -1001,7 +1001,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;*</span>rw.read(), comp);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_rwlock_try_read() {
         <span class="kw">let </span>lock = RwLock::new(<span class="number">0isize</span>);
         {
@@ -1039,7 +1039,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_rwlock_try_write() {
         <span class="kw">let </span>lock = RwLock::new(<span class="number">0isize</span>);
         {
@@ -1083,7 +1083,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_rwlock_try_upgrade() {
         <span class="kw">let </span>lock = RwLock::new(<span class="number">0isize</span>);
         {
@@ -1121,13 +1121,13 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_into_inner() {
         <span class="kw">let </span>m = RwLock::new(NonCopy(<span class="number">10</span>));
         <span class="macro">assert_eq!</span>(m.into_inner(), NonCopy(<span class="number">10</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_into_inner_drop() {
         <span class="kw">struct </span>Foo(Arc&lt;AtomicUsize&gt;);
         <span class="kw">impl </span>Drop <span class="kw">for </span>Foo {
@@ -1145,14 +1145,14 @@
         <span class="macro">assert_eq!</span>(num_drops.load(Ordering::SeqCst), <span class="number">1</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_get_mut() {
         <span class="kw">let </span><span class="kw-2">mut </span>m = RwLock::new(NonCopy(<span class="number">10</span>));
         <span class="kw-2">*</span>m.get_mut() = NonCopy(<span class="number">20</span>);
         <span class="macro">assert_eq!</span>(m.into_inner(), NonCopy(<span class="number">20</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_rwlockguard_sync() {
         <span class="kw">fn </span>sync&lt;T: Sync&gt;(<span class="kw">_</span>: T) {}
 
@@ -1161,7 +1161,7 @@
         sync(rwlock.write());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_rwlock_downgrade() {
         <span class="kw">let </span>x = Arc::new(RwLock::new(<span class="number">0</span>));
         <span class="kw">let </span><span class="kw-2">mut </span>handles = Vec::new();
@@ -1183,7 +1183,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">*</span>x.read(), <span class="number">800</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_rwlock_recursive() {
         <span class="kw">let </span>arc = Arc::new(RwLock::new(<span class="number">1</span>));
         <span class="kw">let </span>arc2 = arc.clone();
@@ -1210,7 +1210,7 @@
         t.join().unwrap();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_rwlock_debug() {
         <span class="kw">let </span>x = RwLock::new(<span class="macro">vec!</span>[<span class="number">0u8</span>, <span class="number">10</span>]);
 
@@ -1219,7 +1219,7 @@
         <span class="macro">assert_eq!</span>(<span class="macro">format!</span>(<span class="string">&quot;{:?}&quot;</span>, x), <span class="string">&quot;RwLock { data: &lt;locked&gt; }&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_clone() {
         <span class="kw">let </span>rwlock = RwLock::new(Arc::new(<span class="number">1</span>));
         <span class="kw">let </span>a = rwlock.read_recursive();
@@ -1227,7 +1227,7 @@
         <span class="macro">assert_eq!</span>(Arc::strong_count(<span class="kw-2">&amp;</span>b), <span class="number">2</span>);
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
     #[test]
     </span><span class="kw">fn </span>test_serde() {
         <span class="kw">let </span>contents: Vec&lt;u8&gt; = <span class="macro">vec!</span>[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>];
@@ -1240,7 +1240,7 @@
         <span class="macro">assert_eq!</span>(contents, <span class="kw-2">*</span>(deserialized.read()));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_issue_203() {
         <span class="kw">struct </span>Bar(RwLock&lt;()&gt;);
 
@@ -1264,7 +1264,7 @@
         .unwrap();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_rw_write_is_locked() {
         <span class="kw">let </span>lock = RwLock::new(<span class="number">0isize</span>);
         {
@@ -1283,4 +1283,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

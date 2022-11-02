@@ -347,18 +347,18 @@
 /// keys.  This is UNIX wall time in seconds.
 ///
 /// This is guaranteed to be on or after the UNIX epoch.
-</span><span class="attribute">#[derive(Clone, Copy, Debug)]
+</span><span class="attr">#[derive(Clone, Copy, Debug)]
 </span><span class="kw">pub struct </span>TimeBase(time::Duration);
 
 <span class="kw">impl </span>TimeBase {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>now() -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, time::SystemTimeError&gt; {
         <span class="prelude-val">Ok</span>(<span class="self">Self</span>(
             time::SystemTime::now().duration_since(time::UNIX_EPOCH)<span class="question-mark">?</span>,
         ))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>as_secs(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u64 {
         <span class="self">self</span>.<span class="number">0</span>.as_secs()
     }
@@ -609,7 +609,7 @@
     }
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>basic_pairwise_test() {
     <span class="kw">let </span>t = Ticketer::new().unwrap();
     <span class="macro">assert!</span>(t.enabled());
@@ -618,7 +618,7 @@
     <span class="macro">assert_eq!</span>(plain, <span class="string">b&quot;hello world&quot;</span>);
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>ticketswitcher_switching_test() {
     <span class="kw">let </span>t = Arc::new(TicketSwitcher::new(<span class="number">1</span>, generate_inner).unwrap());
     <span class="kw">let </span>now = TimeBase::now().unwrap();
@@ -641,12 +641,12 @@
     <span class="macro">assert_eq!</span>(t.decrypt(<span class="kw-2">&amp;</span>cipher3).unwrap(), <span class="string">b&quot;ticket 3&quot;</span>);
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">fn </span>fail_generator() -&gt; <span class="prelude-ty">Result</span>&lt;Box&lt;<span class="kw">dyn </span>ProducesTickets&gt;, rand::GetRandomFailed&gt; {
     <span class="prelude-val">Err</span>(rand::GetRandomFailed)
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>ticketswitcher_recover_test() {
     <span class="kw">let </span><span class="kw-2">mut </span>t = TicketSwitcher::new(<span class="number">1</span>, generate_inner).unwrap();
     <span class="kw">let </span>now = TimeBase::now().unwrap();
@@ -671,4 +671,4 @@
     <span class="macro">assert_eq!</span>(t.decrypt(<span class="kw-2">&amp;</span>cipher3).unwrap(), <span class="string">b&quot;ticket 3&quot;</span>);
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

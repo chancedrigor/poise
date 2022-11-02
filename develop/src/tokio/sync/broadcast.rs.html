@@ -1375,7 +1375,7 @@
     ///
     /// [`send`]: crate::sync::broadcast::Sender::send
     /// [`Sender`]: crate::sync::broadcast::Sender
-    </span><span class="attribute">#[derive(Debug)]
+    </span><span class="attr">#[derive(Debug)]
     </span><span class="kw">pub struct </span>SendError&lt;T&gt;(<span class="kw">pub </span>T);
 
     <span class="kw">impl</span>&lt;T&gt; fmt::Display <span class="kw">for </span>SendError&lt;T&gt; {
@@ -1390,7 +1390,7 @@
     ///
     /// [`recv`]: crate::sync::broadcast::Receiver::recv
     /// [`Receiver`]: crate::sync::broadcast::Receiver
-    </span><span class="attribute">#[derive(Debug, PartialEq, Clone)]
+    </span><span class="attr">#[derive(Debug, PartialEq, Clone)]
     </span><span class="kw">pub enum </span>RecvError {
         <span class="doccomment">/// There are no more active senders implying no further messages will ever
         /// be sent.
@@ -1418,7 +1418,7 @@
     ///
     /// [`try_recv`]: crate::sync::broadcast::Receiver::try_recv
     /// [`Receiver`]: crate::sync::broadcast::Receiver
-    </span><span class="attribute">#[derive(Debug, PartialEq, Clone)]
+    </span><span class="attr">#[derive(Debug, PartialEq, Clone)]
     </span><span class="kw">pub enum </span>TryRecvError {
         <span class="doccomment">/// The channel is currently empty. There are still active
         /// [`Sender`] handles, so data may yet become available.
@@ -1595,7 +1595,7 @@
 ///
 /// This will panic if `capacity` is equal to `0` or larger
 /// than `usize::MAX / 2`.
-</span><span class="attribute">#[track_caller]
+</span><span class="attr">#[track_caller]
 </span><span class="kw">pub fn </span>channel&lt;T: Clone&gt;(<span class="kw-2">mut </span>capacity: usize) -&gt; (Sender&lt;T&gt;, Receiver&lt;T&gt;) {
     <span class="macro">assert!</span>(capacity &gt; <span class="number">0</span>, <span class="string">&quot;capacity is empty&quot;</span>);
     <span class="macro">assert!</span>(capacity &lt;= usize::MAX &gt;&gt; <span class="number">1</span>, <span class="string">&quot;requested capacity too large&quot;</span>);
@@ -2319,4 +2319,4 @@
 
 <span class="kw">fn </span>is_unpin&lt;T: Unpin&gt;() {}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

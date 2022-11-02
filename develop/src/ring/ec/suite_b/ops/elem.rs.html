@@ -140,7 +140,7 @@
 
 <span class="doccomment">/// Elements of ℤ/mℤ for some modulus *m*. Elements are always fully reduced
 /// with respect to *m*; i.e. the 0 &lt;= x &lt; m for every value x.
-</span><span class="attribute">#[derive(Clone, Copy)]
+</span><span class="attr">#[derive(Clone, Copy)]
 </span><span class="kw">pub struct </span>Elem&lt;M, E: Encoding&gt; {
     <span class="comment">// XXX: pub
     </span><span class="kw">pub </span>limbs: [Limb; MAX_LIMBS],
@@ -166,7 +166,7 @@
     }
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">pub fn </span>mul_mont&lt;M, EA: Encoding, EB: Encoding&gt;(
     f: <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(r: <span class="kw-2">*mut </span>Limb, a: <span class="kw-2">*const </span>Limb, b: <span class="kw-2">*const </span>Limb),
     a: <span class="kw-2">&amp;</span>Elem&lt;M, EA&gt;,
@@ -179,7 +179,7 @@
 }
 
 <span class="comment">// let r = f(a, b); return r;
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>binary_op&lt;M, EA: Encoding, EB: Encoding, ER: Encoding&gt;(
     f: <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(r: <span class="kw-2">*mut </span>Limb, a: <span class="kw-2">*const </span>Limb, b: <span class="kw-2">*const </span>Limb),
     a: <span class="kw-2">&amp;</span>Elem&lt;M, EA&gt;,
@@ -195,7 +195,7 @@
 }
 
 <span class="comment">// a := f(a, b);
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>binary_op_assign&lt;M, EA: Encoding, EB: Encoding&gt;(
     f: <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(r: <span class="kw-2">*mut </span>Limb, a: <span class="kw-2">*const </span>Limb, b: <span class="kw-2">*const </span>Limb),
     a: <span class="kw-2">&amp;mut </span>Elem&lt;M, EA&gt;,
@@ -205,7 +205,7 @@
 }
 
 <span class="comment">// let r = f(a); return r;
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>unary_op&lt;M, E: Encoding&gt;(
     f: <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(r: <span class="kw-2">*mut </span>Limb, a: <span class="kw-2">*const </span>Limb),
     a: <span class="kw-2">&amp;</span>Elem&lt;M, E&gt;,
@@ -220,7 +220,7 @@
 }
 
 <span class="comment">// a := f(a);
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>unary_op_assign&lt;M, E: Encoding&gt;(
     f: <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(r: <span class="kw-2">*mut </span>Limb, a: <span class="kw-2">*const </span>Limb),
     a: <span class="kw-2">&amp;mut </span>Elem&lt;M, E&gt;,
@@ -229,7 +229,7 @@
 }
 
 <span class="comment">// a := f(a, a);
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>unary_op_from_binary_op_assign&lt;M, E: Encoding&gt;(
     f: <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(r: <span class="kw-2">*mut </span>Limb, a: <span class="kw-2">*const </span>Limb, b: <span class="kw-2">*const </span>Limb),
     a: <span class="kw-2">&amp;mut </span>Elem&lt;M, E&gt;,
@@ -239,4 +239,4 @@
 
 <span class="kw">pub const </span>MAX_LIMBS: usize = (<span class="number">384 </span>+ (LIMB_BITS - <span class="number">1</span>)) / LIMB_BITS;
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

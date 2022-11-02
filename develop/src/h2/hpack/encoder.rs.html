@@ -725,13 +725,13 @@
 <span class="kw">use </span>bytes::{BufMut, BytesMut};
 <span class="kw">use </span>http::header::{HeaderName, HeaderValue};
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Encoder {
     table: Table,
     size_update: <span class="prelude-ty">Option</span>&lt;SizeUpdate&gt;,
 }
 
-<span class="attribute">#[derive(Debug, Copy, Clone, Eq, PartialEq)]
+<span class="attr">#[derive(Debug, Copy, Clone, Eq, PartialEq)]
 </span><span class="kw">enum </span>SizeUpdate {
     One(usize),
     Two(usize, usize), <span class="comment">// min, max
@@ -1017,13 +1017,13 @@
     buf.len()
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::hpack::Header;
     <span class="kw">use </span>http::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_encode_method_get() {
         <span class="kw">let </span><span class="kw-2">mut </span>encoder = Encoder::default();
         <span class="kw">let </span>res = encode(<span class="kw-2">&amp;mut </span>encoder, <span class="macro">vec!</span>[method(<span class="string">&quot;GET&quot;</span>)]);
@@ -1031,7 +1031,7 @@
         <span class="macro">assert_eq!</span>(encoder.table.len(), <span class="number">0</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_encode_method_post() {
         <span class="kw">let </span><span class="kw-2">mut </span>encoder = Encoder::default();
         <span class="kw">let </span>res = encode(<span class="kw-2">&amp;mut </span>encoder, <span class="macro">vec!</span>[method(<span class="string">&quot;POST&quot;</span>)]);
@@ -1039,7 +1039,7 @@
         <span class="macro">assert_eq!</span>(encoder.table.len(), <span class="number">0</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_encode_method_patch() {
         <span class="kw">let </span><span class="kw-2">mut </span>encoder = Encoder::default();
         <span class="kw">let </span>res = encode(<span class="kw-2">&amp;mut </span>encoder, <span class="macro">vec!</span>[method(<span class="string">&quot;PATCH&quot;</span>)]);
@@ -1056,7 +1056,7 @@
         <span class="macro">assert_eq!</span>(<span class="number">1</span>, res.len());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_encode_indexed_name_literal_value() {
         <span class="kw">let </span><span class="kw-2">mut </span>encoder = Encoder::default();
         <span class="kw">let </span>res = encode(<span class="kw-2">&amp;mut </span>encoder, <span class="macro">vec!</span>[header(<span class="string">&quot;content-language&quot;</span>, <span class="string">&quot;foo&quot;</span>)]);
@@ -1073,7 +1073,7 @@
         </span><span class="macro">assert_eq!</span>(<span class="string">&quot;bar&quot;</span>, huff_decode(<span class="kw-2">&amp;</span>res[<span class="number">2</span>..<span class="number">5</span>]));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_repeated_headers_are_indexed() {
         <span class="kw">let </span><span class="kw-2">mut </span>encoder = Encoder::default();
         <span class="kw">let </span>res = encode(<span class="kw-2">&amp;mut </span>encoder, <span class="macro">vec!</span>[header(<span class="string">&quot;foo&quot;</span>, <span class="string">&quot;hello&quot;</span>)]);
@@ -1092,7 +1092,7 @@
         <span class="macro">assert_eq!</span>(encoder.table.len(), <span class="number">1</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_evicting_headers() {
         <span class="kw">let </span><span class="kw-2">mut </span>encoder = Encoder::default();
 
@@ -1144,7 +1144,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_large_headers_are_not_indexed() {
         <span class="kw">let </span><span class="kw-2">mut </span>encoder = Encoder::new(<span class="number">128</span>, <span class="number">0</span>);
         <span class="kw">let </span>key = <span class="string">&quot;hello-world-hello-world-HELLO-zzz&quot;</span>;
@@ -1157,7 +1157,7 @@
         <span class="macro">assert_eq!</span>(<span class="number">0</span>, encoder.table.size());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_sensitive_headers_are_never_indexed() {
         <span class="kw">use </span>http::header::HeaderValue;
 
@@ -1220,7 +1220,7 @@
         <span class="macro">assert_eq!</span>(<span class="string">&quot;12345&quot;</span>, huff_decode(<span class="kw-2">&amp;</span>res[<span class="number">3</span>..]));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_content_length_value_not_indexed() {
         <span class="kw">let </span><span class="kw-2">mut </span>encoder = Encoder::default();
         <span class="kw">let </span>res = encode(<span class="kw-2">&amp;mut </span>encoder, <span class="macro">vec!</span>[header(<span class="string">&quot;content-length&quot;</span>, <span class="string">&quot;1234&quot;</span>)]);
@@ -1230,7 +1230,7 @@
         <span class="macro">assert_eq!</span>(<span class="number">6</span>, res.len());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_encoding_headers_with_same_name() {
         <span class="kw">let </span><span class="kw-2">mut </span>encoder = Encoder::default();
         <span class="kw">let </span>name = <span class="string">&quot;hello&quot;</span>;
@@ -1253,7 +1253,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>[<span class="number">0x80 </span>| <span class="number">62</span>], <span class="kw-2">&amp;</span>res[..]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_evicting_headers_when_multiple_of_same_name_are_in_table() {
         <span class="comment">// The encoder only has space for 2 headers
         </span><span class="kw">let </span><span class="kw-2">mut </span>encoder = Encoder::new(<span class="number">76</span>, <span class="number">0</span>);
@@ -1276,7 +1276,7 @@
         <span class="macro">assert_eq!</span>(<span class="number">2</span>, encoder.table.len());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_max_size_zero() {
         <span class="comment">// Static table only
         </span><span class="kw">let </span><span class="kw-2">mut </span>encoder = Encoder::new(<span class="number">0</span>, <span class="number">0</span>);
@@ -1297,7 +1297,7 @@
         <span class="macro">assert_eq!</span>(<span class="string">&quot;chunked&quot;</span>, huff_decode(<span class="kw-2">&amp;</span>res[<span class="number">3</span>..]));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_update_max_size_combos() {
         <span class="kw">let </span><span class="kw-2">mut </span>encoder = Encoder::default();
         <span class="macro">assert!</span>(encoder.size_update.is_none());
@@ -1329,7 +1329,7 @@
         <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(SizeUpdate::One(<span class="number">50</span>)), encoder.size_update);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_resizing_table() {
         <span class="kw">let </span><span class="kw-2">mut </span>encoder = Encoder::default();
 
@@ -1355,7 +1355,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>[<span class="number">32</span>, <span class="number">0</span>], <span class="kw-2">&amp;</span>res[..<span class="number">2</span>]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decreasing_table_size_without_eviction() {
         <span class="kw">let </span><span class="kw-2">mut </span>encoder = Encoder::default();
 
@@ -1369,7 +1369,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>[<span class="number">32 </span>| <span class="number">31</span>, <span class="number">69</span>, <span class="number">0x80 </span>| <span class="number">62</span>], <span class="kw-2">&amp;</span>res[..]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_nameless_header() {
         <span class="kw">let </span><span class="kw-2">mut </span>encoder = Encoder::default();
 
@@ -1397,7 +1397,7 @@
         <span class="macro">assert_eq!</span>(<span class="string">&quot;zomg&quot;</span>, huff_decode(<span class="kw-2">&amp;</span>res[<span class="number">14</span>..]));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_large_size_update() {
         <span class="kw">let </span><span class="kw-2">mut </span>encoder = Encoder::default();
 
@@ -1409,7 +1409,7 @@
         <span class="macro">assert_eq!</span>([<span class="number">63</span>, <span class="number">225</span>, <span class="number">129</span>, <span class="number">148</span>, <span class="number">144</span>, <span class="number">7</span>], <span class="kw-2">&amp;</span>dst[..]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[ignore]
     </span><span class="kw">fn </span>test_evicted_overflow() {
         <span class="comment">// Not sure what the best way to do this is.
@@ -1441,4 +1441,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

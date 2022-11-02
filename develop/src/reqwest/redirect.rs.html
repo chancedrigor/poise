@@ -352,7 +352,7 @@
 
 <span class="doccomment">/// A type that holds information on the next request and previous requests
 /// in redirect chain.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Attempt&lt;<span class="lifetime">&#39;a</span>&gt; {
     status: StatusCode,
     next: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Url,
@@ -360,7 +360,7 @@
 }
 
 <span class="doccomment">/// An action to perform when a redirect status code is found.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Action {
     inner: ActionKind,
 }
@@ -549,7 +549,7 @@
 
 <span class="comment">// pub(crate)
 
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>ActionKind {
     Follow,
     Stop,
@@ -570,7 +570,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>TooManyRedirects;
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>TooManyRedirects {
@@ -581,7 +581,7 @@
 
 <span class="kw">impl </span>StdError <span class="kw">for </span>TooManyRedirects {}
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_redirect_policy_limit() {
     <span class="kw">let </span>policy = Policy::default();
     <span class="kw">let </span>next = Url::parse(<span class="string">&quot;http://x.y/z&quot;</span>).unwrap();
@@ -602,7 +602,7 @@
     }
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_redirect_policy_custom() {
     <span class="kw">let </span>policy = Policy::custom(|attempt| {
         <span class="kw">if </span>attempt.url().host_str() == <span class="prelude-val">Some</span>(<span class="string">&quot;foo&quot;</span>) {
@@ -625,7 +625,7 @@
     }
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_remove_sensitive_headers() {
     <span class="kw">use </span>hyper::header::{HeaderValue, ACCEPT, AUTHORIZATION, COOKIE};
 
@@ -649,4 +649,4 @@
     <span class="macro">assert_eq!</span>(headers, filtered_headers);
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="reqwest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="reqwest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

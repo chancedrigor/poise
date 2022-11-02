@@ -348,7 +348,7 @@
 <span id="348">348</span>
 <span id="349">349</span>
 <span id="350">350</span>
-</pre><pre class="rust"><code><span class="attribute">#![cfg_attr(not(feature = <span class="string">&quot;full&quot;</span>), allow(dead_code))]
+</pre><pre class="rust"><code><span class="attr">#![cfg_attr(not(feature = <span class="string">&quot;full&quot;</span>), allow(dead_code))]
 
 </span><span class="kw">use </span><span class="kw">crate</span>::loom::sync::atomic::AtomicUsize;
 <span class="kw">use </span><span class="kw">crate</span>::loom::sync::{Arc, Condvar, Mutex};
@@ -357,7 +357,7 @@
 <span class="kw">use </span>std::sync::atomic::Ordering::SeqCst;
 <span class="kw">use </span>std::time::Duration;
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>ParkThread {
     inner: Arc&lt;Inner&gt;,
 }
@@ -365,12 +365,12 @@
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">type </span>ParkError = ();
 
 <span class="doccomment">/// Unblocks a thread that was blocked by `ParkThread`.
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>UnparkThread {
     inner: Arc&lt;Inner&gt;,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>Inner {
     state: AtomicUsize,
     mutex: Mutex&lt;()&gt;,
@@ -415,9 +415,9 @@
 
     <span class="kw">fn </span>park_timeout(<span class="kw-2">&amp;mut </span><span class="self">self</span>, duration: Duration) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="self">Self</span>::Error&gt; {
         <span class="comment">// Wasm doesn&#39;t have threads, so just sleep.
-        </span><span class="attribute">#[cfg(not(tokio_wasm))]
+        </span><span class="attr">#[cfg(not(tokio_wasm))]
         </span><span class="self">self</span>.inner.park_timeout(duration);
-        <span class="attribute">#[cfg(tokio_wasm)]
+        <span class="attr">#[cfg(tokio_wasm)]
         </span>std::thread::sleep(duration);
         <span class="prelude-val">Ok</span>(())
     }
@@ -575,7 +575,7 @@
 <span class="kw">use </span>std::task::{RawWaker, RawWakerVTable, Waker};
 
 <span class="doccomment">/// Blocks the current thread using a condition variable.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>CachedParkThread {
     _anchor: PhantomData&lt;Rc&lt;()&gt;&gt;,
 }
@@ -656,7 +656,7 @@
 }
 
 <span class="kw">impl </span>Inner {
-    <span class="attribute">#[allow(clippy::wrong_self_convention)]
+    <span class="attr">#[allow(clippy::wrong_self_convention)]
     </span><span class="kw">fn </span>into_raw(this: Arc&lt;Inner&gt;) -&gt; <span class="kw-2">*const </span>() {
         Arc::into_raw(this) <span class="kw">as </span><span class="kw-2">*const </span>()
     }
@@ -699,4 +699,4 @@
     </span>mem::forget(unparker);
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

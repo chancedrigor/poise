@@ -305,20 +305,20 @@
 <span class="kw">use </span>tokio::io::AsyncWrite;
 
 <span class="doccomment">/// Acknowledges ping requests from the remote.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>PingPong {
     pending_ping: <span class="prelude-ty">Option</span>&lt;PendingPing&gt;,
     pending_pong: <span class="prelude-ty">Option</span>&lt;PingPayload&gt;,
     user_pings: <span class="prelude-ty">Option</span>&lt;UserPingsRx&gt;,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>UserPings(Arc&lt;UserPingsInner&gt;);
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>UserPingsRx(Arc&lt;UserPingsInner&gt;);
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>UserPingsInner {
     state: AtomicUsize,
     <span class="doccomment">/// Task to wake up the main `Connection`.
@@ -327,14 +327,14 @@
     </span>pong_task: AtomicWaker,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>PendingPing {
     payload: PingPayload,
     sent: bool,
 }
 
 <span class="doccomment">/// Status returned from `PingPong::recv_ping`.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>ReceivedPing {
     MustAck,
     Unknown,
@@ -587,4 +587,4 @@
     io::ErrorKind::BrokenPipe.into()
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

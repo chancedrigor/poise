@@ -47,7 +47,7 @@
 <span class="doccomment">/// A sticker sent with a message.
 ///
 /// Bots currently can only receive messages with stickers, not send.
-</span><span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>StickerPack {
     <span class="doccomment">/// The unique ID given to this sticker sticker pack.
@@ -66,23 +66,23 @@
     </span><span class="kw">pub </span>banner_asset_id: StickerPackBannerId,
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">impl </span>StickerPack {
     <span class="doccomment">/// Returns the sticker that is shown as the pack&#39;s icon
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>cover_sticker(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Sticker&gt; {
         <span class="self">self</span>.cover_sticker_id.and_then(|id| <span class="self">self</span>.stickers.iter().find(|s| s.id == id))
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>banner_url(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
         banner_url(<span class="self">self</span>.banner_asset_id)
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">fn </span>banner_url(banner_asset_id: StickerPackBannerId) -&gt; String {
     <span class="macro">cdn!</span>(<span class="string">&quot;/app-assets/710982414301790216/store/{}.webp?size=1024&quot;</span>, banner_asset_id.<span class="number">0</span>)
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

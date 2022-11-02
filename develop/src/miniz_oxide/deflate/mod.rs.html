@@ -238,7 +238,7 @@
 <span class="doccomment">/// How much processing the compressor should do to compress the data.
 /// `NoCompression` and `Bestspeed` have special meanings, the other levels determine the number
 /// of checks for matches in the hash chains and whether to use lazy or greedy parsing.
-</span><span class="attribute">#[repr(i32)]
+</span><span class="attr">#[repr(i32)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 </span><span class="kw">pub enum </span>CompressionLevel {
     <span class="doccomment">/// Don&#39;t do any compression, only output uncompressed blocks.
@@ -383,7 +383,7 @@ fn tdefl_compress_mem_to_mem(
     output
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use super</span>::{compress_to_vec, compress_to_vec_inner, CompressionStrategy};
     <span class="kw">use </span><span class="kw">crate</span>::inflate::decompress_to_vec;
@@ -393,7 +393,7 @@ fn tdefl_compress_mem_to_mem(
     ///
     /// Check if the encoder produces the same code as the example given by Mark Adler here:
     /// https://stackoverflow.com/questions/17398931/deflate-encoding-with-static-huffman-codes/17415203
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>compress_small() {
         <span class="kw">let </span>test_data = <span class="string">b&quot;Deflate late&quot;</span>;
         <span class="kw">let </span>check = [
@@ -407,7 +407,7 @@ fn tdefl_compress_mem_to_mem(
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>check[..], res.as_slice());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>compress_huff_only() {
         <span class="kw">let </span>test_data = <span class="string">b&quot;Deflate late&quot;</span>;
 
@@ -417,7 +417,7 @@ fn tdefl_compress_mem_to_mem(
     }
 
     <span class="doccomment">/// Test that a raw block compresses fine.
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>compress_raw() {
         <span class="kw">let </span>text = <span class="string">b&quot;Hello, zlib!&quot;</span>;
         <span class="kw">let </span>encoded = {
@@ -438,7 +438,7 @@ fn tdefl_compress_mem_to_mem(
         <span class="macro">assert_eq!</span>(encoded, res.as_slice());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>short() {
         <span class="kw">let </span>test_data = [<span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">55</span>];
         <span class="kw">let </span>c = compress_to_vec(<span class="kw-2">&amp;</span>test_data, <span class="number">9</span>);
@@ -453,4 +453,4 @@ fn tdefl_compress_mem_to_mem(
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="miniz_oxide" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="miniz_oxide" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

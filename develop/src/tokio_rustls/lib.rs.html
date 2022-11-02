@@ -529,9 +529,9 @@
 <span class="kw">use </span>rustls::{ClientConfig, ClientConnection, CommonState, ServerConfig, ServerConnection};
 <span class="kw">use </span>std::future::Future;
 <span class="kw">use </span>std::io;
-<span class="attribute">#[cfg(unix)]
+<span class="attr">#[cfg(unix)]
 </span><span class="kw">use </span>std::os::unix::io::{AsRawFd, RawFd};
-<span class="attribute">#[cfg(windows)]
+<span class="attr">#[cfg(windows)]
 </span><span class="kw">use </span>std::os::windows::io::{AsRawSocket, RawSocket};
 <span class="kw">use </span>std::pin::Pin;
 <span class="kw">use </span>std::sync::Arc;
@@ -542,15 +542,15 @@
 <span class="kw">pub use </span>webpki;
 
 <span class="doccomment">/// A wrapper around a `rustls::ClientConfig`, providing an async `connect` method.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>TlsConnector {
     inner: Arc&lt;ClientConfig&gt;,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;early-data&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;early-data&quot;</span>)]
     </span>early_data: bool,
 }
 
 <span class="doccomment">/// A wrapper around a `rustls::ServerConfig`, providing an async `accept` method.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>TlsAcceptor {
     inner: Arc&lt;ServerConfig&gt;,
 }
@@ -559,7 +559,7 @@
     <span class="kw">fn </span>from(inner: Arc&lt;ClientConfig&gt;) -&gt; TlsConnector {
         TlsConnector {
             inner,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;early-data&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;early-data&quot;</span>)]
             </span>early_data: <span class="bool-val">false</span>,
         }
     }
@@ -576,13 +576,13 @@
     ///
     /// If you want to use 0-RTT,
     /// You must also set `ClientConfig.enable_early_data` to `true`.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;early-data&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;early-data&quot;</span>)]
     </span><span class="kw">pub fn </span>early_data(<span class="kw-2">mut </span><span class="self">self</span>, flag: bool) -&gt; TlsConnector {
         <span class="self">self</span>.early_data = flag;
         <span class="self">self
     </span>}
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>connect&lt;IO&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, domain: rustls::ServerName, stream: IO) -&gt; Connect&lt;IO&gt;
     <span class="kw">where
         </span>IO: AsyncRead + AsyncWrite + Unpin,
@@ -611,17 +611,17 @@
         Connect(MidHandshake::Handshaking(client::TlsStream {
             io: stream,
 
-            <span class="attribute">#[cfg(not(feature = <span class="string">&quot;early-data&quot;</span>))]
+            <span class="attr">#[cfg(not(feature = <span class="string">&quot;early-data&quot;</span>))]
             </span>state: TlsState::Stream,
 
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;early-data&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;early-data&quot;</span>)]
             </span>state: <span class="kw">if </span><span class="self">self</span>.early_data &amp;&amp; session.early_data().is_some() {
                 TlsState::EarlyData(<span class="number">0</span>, Vec::new())
             } <span class="kw">else </span>{
                 TlsState::Stream
             },
 
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;early-data&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;early-data&quot;</span>)]
             </span>early_waker: <span class="prelude-val">None</span>,
 
             session,
@@ -630,7 +630,7 @@
 }
 
 <span class="kw">impl </span>TlsAcceptor {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>accept&lt;IO&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, stream: IO) -&gt; Accept&lt;IO&gt;
     <span class="kw">where
         </span>IO: AsyncRead + AsyncWrite + Unpin,
@@ -673,7 +673,7 @@
 <span class="kw">where
     </span>IO: AsyncRead + AsyncWrite + Unpin,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new(acceptor: rustls::server::Acceptor, io: IO) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             acceptor,
@@ -780,14 +780,14 @@
 </span><span class="kw">pub struct </span>FallibleAccept&lt;IO&gt;(MidHandshake&lt;server::TlsStream&lt;IO&gt;&gt;);
 
 <span class="kw">impl</span>&lt;IO&gt; Connect&lt;IO&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>into_fallible(<span class="self">self</span>) -&gt; FallibleConnect&lt;IO&gt; {
         FallibleConnect(<span class="self">self</span>.<span class="number">0</span>)
     }
 }
 
 <span class="kw">impl</span>&lt;IO&gt; Accept&lt;IO&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>into_fallible(<span class="self">self</span>) -&gt; FallibleAccept&lt;IO&gt; {
         FallibleAccept(<span class="self">self</span>.<span class="number">0</span>)
     }
@@ -796,7 +796,7 @@
 <span class="kw">impl</span>&lt;IO: AsyncRead + AsyncWrite + Unpin&gt; Future <span class="kw">for </span>Connect&lt;IO&gt; {
     <span class="kw">type </span>Output = io::Result&lt;client::TlsStream&lt;IO&gt;&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>poll(<span class="kw-2">mut </span><span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;<span class="self">Self</span>::Output&gt; {
         Pin::new(<span class="kw-2">&amp;mut </span><span class="self">self</span>.<span class="number">0</span>).poll(cx).map_err(|(err, <span class="kw">_</span>)| err)
     }
@@ -805,7 +805,7 @@
 <span class="kw">impl</span>&lt;IO: AsyncRead + AsyncWrite + Unpin&gt; Future <span class="kw">for </span>Accept&lt;IO&gt; {
     <span class="kw">type </span>Output = io::Result&lt;server::TlsStream&lt;IO&gt;&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>poll(<span class="kw-2">mut </span><span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;<span class="self">Self</span>::Output&gt; {
         Pin::new(<span class="kw-2">&amp;mut </span><span class="self">self</span>.<span class="number">0</span>).poll(cx).map_err(|(err, <span class="kw">_</span>)| err)
     }
@@ -814,7 +814,7 @@
 <span class="kw">impl</span>&lt;IO: AsyncRead + AsyncWrite + Unpin&gt; Future <span class="kw">for </span>FallibleConnect&lt;IO&gt; {
     <span class="kw">type </span>Output = <span class="prelude-ty">Result</span>&lt;client::TlsStream&lt;IO&gt;, (io::Error, IO)&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>poll(<span class="kw-2">mut </span><span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;<span class="self">Self</span>::Output&gt; {
         Pin::new(<span class="kw-2">&amp;mut </span><span class="self">self</span>.<span class="number">0</span>).poll(cx)
     }
@@ -823,7 +823,7 @@
 <span class="kw">impl</span>&lt;IO: AsyncRead + AsyncWrite + Unpin&gt; Future <span class="kw">for </span>FallibleAccept&lt;IO&gt; {
     <span class="kw">type </span>Output = <span class="prelude-ty">Result</span>&lt;server::TlsStream&lt;IO&gt;, (io::Error, IO)&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>poll(<span class="kw-2">mut </span><span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;<span class="self">Self</span>::Output&gt; {
         Pin::new(<span class="kw-2">&amp;mut </span><span class="self">self</span>.<span class="number">0</span>).poll(cx)
     }
@@ -833,7 +833,7 @@
 ///
 /// This abstracts over the inner `client::TlsStream` and `server::TlsStream`, so you can use
 /// a single type to keep both client- and server-initiated TLS-encrypted connections.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub enum </span>TlsStream&lt;T&gt; {
     Client(client::TlsStream&lt;T&gt;),
     Server(server::TlsStream&lt;T&gt;),
@@ -881,7 +881,7 @@
     }
 }
 
-<span class="attribute">#[cfg(unix)]
+<span class="attr">#[cfg(unix)]
 </span><span class="kw">impl</span>&lt;S&gt; AsRawFd <span class="kw">for </span>TlsStream&lt;S&gt;
 <span class="kw">where
     </span>S: AsRawFd,
@@ -891,7 +891,7 @@
     }
 }
 
-<span class="attribute">#[cfg(windows)]
+<span class="attr">#[cfg(windows)]
 </span><span class="kw">impl</span>&lt;S&gt; AsRawSocket <span class="kw">for </span>TlsStream&lt;S&gt;
 <span class="kw">where
     </span>S: AsRawSocket,
@@ -905,7 +905,7 @@
 <span class="kw">where
     </span>T: AsyncRead + AsyncWrite + Unpin,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>poll_read(
         <span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;,
         cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;,
@@ -922,7 +922,7 @@
 <span class="kw">where
     </span>T: AsyncRead + AsyncWrite + Unpin,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>poll_write(
         <span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;,
         cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;,
@@ -934,7 +934,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>poll_flush(<span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;io::Result&lt;()&gt;&gt; {
         <span class="kw">match </span><span class="self">self</span>.get_mut() {
             TlsStream::Client(x) =&gt; Pin::new(x).poll_flush(cx),
@@ -942,7 +942,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>poll_shutdown(<span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;io::Result&lt;()&gt;&gt; {
         <span class="kw">match </span><span class="self">self</span>.get_mut() {
             TlsStream::Client(x) =&gt; Pin::new(x).poll_shutdown(cx),
@@ -951,4 +951,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tokio_rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tokio_rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

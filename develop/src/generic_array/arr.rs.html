@@ -147,14 +147,14 @@
 <span class="doccomment">/// Helper type for `arr!` macro
 </span><span class="kw">pub type </span>Inc&lt;T, U&gt; = &lt;U <span class="kw">as </span>AddLength&lt;T, U1&gt;&gt;::Output;
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 #[macro_export]
 </span><span class="macro">macro_rules! </span>arr_impl {
     (@replace_expr <span class="macro-nonterminal">$e</span>:expr) =&gt; { <span class="number">1 </span>};
     (<span class="macro-nonterminal">$T</span>:ty; <span class="macro-nonterminal">$N</span>:ty, [$(<span class="macro-nonterminal">$x</span>:expr),<span class="kw-2">*</span>], []) =&gt; ({
         <span class="kw">const </span>__ARR_LENGTH: usize = <span class="number">0 </span>$(+ <span class="macro-nonterminal">$</span><span class="macro">crate::arr_impl!</span>(@<span class="macro-nonterminal">replace_expr $x</span>) )<span class="kw-2">*</span>;
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>__do_transmute&lt;T, N: <span class="macro-nonterminal">$crate::ArrayLength</span>&lt;T&gt;&gt;(arr: [T; __ARR_LENGTH]) -&gt; <span class="macro-nonterminal">$crate::GenericArray</span>&lt;T, N&gt; {
             <span class="kw">unsafe </span>{ <span class="macro-nonterminal">$crate::transmute</span>(arr) }
         }
@@ -179,7 +179,7 @@
 
 <span class="doccomment">/// Macro allowing for easy generation of Generic Arrays.
 /// Example: `let test = arr![u32; 1, 2, 3];`
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>arr {
     (<span class="macro-nonterminal">$T</span>:ty; $(,)<span class="kw-2">*</span>) =&gt; ({
         <span class="kw">unsafe </span>{ <span class="macro-nonterminal">$crate::transmute</span>::&lt;[<span class="macro-nonterminal">$T</span>; <span class="number">0</span>], <span class="macro-nonterminal">$crate::GenericArray</span>&lt;<span class="macro-nonterminal">$T</span>, <span class="macro-nonterminal">$crate::typenum::U0</span>&gt;&gt;([]) }
@@ -245,8 +245,8 @@
     ///    }
     /// }
     /// ```
-    </span><span class="attribute">#[allow(dead_code)]
+    </span><span class="attr">#[allow(dead_code)]
     </span><span class="kw">pub enum </span>DocTests {}
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="generic_array" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="generic_array" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

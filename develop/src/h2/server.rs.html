@@ -1696,7 +1696,7 @@
 /// See [module] level docs for more details.
 ///
 /// [module]: index.html
-</span><span class="attribute">#[must_use = <span class="string">&quot;futures do nothing unless polled&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;futures do nothing unless polled&quot;</span>]
 </span><span class="kw">pub struct </span>Handshake&lt;T, B: Buf = Bytes&gt; {
     <span class="doccomment">/// The config to pass to Connection::new after handshake succeeds.
     </span>builder: Builder,
@@ -1744,7 +1744,7 @@
 /// #
 /// # pub fn main() {}
 /// ```
-</span><span class="attribute">#[must_use = <span class="string">&quot;streams do nothing unless polled&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;streams do nothing unless polled&quot;</span>]
 </span><span class="kw">pub struct </span>Connection&lt;T, B: Buf&gt; {
     connection: proto::Connection&lt;T, Peer, B&gt;,
 }
@@ -1784,7 +1784,7 @@
 /// #
 /// # pub fn main() {}
 /// ```
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>Builder {
     <span class="doccomment">/// Time to keep locally reset streams around before reaping.
     </span>reset_stream_duration: Duration,
@@ -1817,7 +1817,7 @@
 /// See [module] level docs for more details.
 ///
 /// [module]: index.html
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>SendResponse&lt;B: Buf&gt; {
     inner: proto::StreamRef&lt;B&gt;,
 }
@@ -1868,7 +1868,7 @@
     pos: usize,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Peer;
 
 <span class="kw">const </span>PREFACE: [u8; <span class="number">24</span>] = <span class="kw-2">*</span><span class="string">b&quot;PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n&quot;</span>;
@@ -1958,7 +1958,7 @@
         futures_util::future::poll_fn(<span class="kw">move </span>|cx| <span class="self">self</span>.poll_accept(cx)).<span class="kw">await
     </span>}
 
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span><span class="kw">pub fn </span>poll_accept(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;,
@@ -2056,7 +2056,7 @@
         <span class="self">self</span>.connection.poll(cx).map_err(Into::into)
     }
 
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     #[deprecated(note = <span class="string">&quot;renamed to poll_closed&quot;</span>)]
     </span><span class="kw">pub fn </span>poll_close(<span class="kw-2">&amp;mut </span><span class="self">self</span>, cx: <span class="kw-2">&amp;mut </span>Context) -&gt; Poll&lt;<span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::Error&gt;&gt; {
         <span class="self">self</span>.poll_closed(cx)
@@ -2130,7 +2130,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
 </span><span class="kw">impl</span>&lt;T, B&gt; futures_core::Stream <span class="kw">for </span>Connection&lt;T, B&gt;
 <span class="kw">where
     </span>T: AsyncRead + AsyncWrite + Unpin,
@@ -3093,7 +3093,7 @@
 <span class="kw">where
     </span>B: Buf,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; <span class="prelude-ty">Result</span>&lt;(), fmt::Error&gt; {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             Handshaking::Flushing(<span class="kw">_</span>) =&gt; f.write_str(<span class="string">&quot;Flushing(_)&quot;</span>),
@@ -3103,4 +3103,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

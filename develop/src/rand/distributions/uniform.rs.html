@@ -1773,13 +1773,13 @@
 <span class="kw">use </span><span class="kw">crate</span>::distributions::Distribution;
 <span class="kw">use crate</span>::{Rng, RngCore};
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
 #[allow(unused_imports)] </span><span class="comment">// rustc doesn&#39;t detect that this is actually used
 </span><span class="kw">use </span><span class="kw">crate</span>::distributions::utils::Float;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)] </span><span class="kw">use </span>packed_simd::<span class="kw-2">*</span>;
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)] </span><span class="kw">use </span>packed_simd::<span class="kw-2">*</span>;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde1&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde1&quot;</span>)]
 </span><span class="kw">use </span>serde::{Serialize, Deserialize};
 
 <span class="doccomment">/// Sample values uniformly between two bounds.
@@ -1831,7 +1831,7 @@
 /// [`new`]: Uniform::new
 /// [`new_inclusive`]: Uniform::new_inclusive
 /// [`Rng::gen_range`]: Rng::gen_range
-</span><span class="attribute">#[derive(Clone, Copy, Debug, PartialEq)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq)]
 #[cfg_attr(feature = <span class="string">&quot;serde1&quot;</span>, derive(Serialize, Deserialize))]
 #[cfg_attr(feature = <span class="string">&quot;serde1&quot;</span>, serde(bound(serialize = <span class="string">&quot;X::Sampler: Serialize&quot;</span>)))]
 #[cfg_attr(feature = <span class="string">&quot;serde1&quot;</span>, serde(bound(deserialize = <span class="string">&quot;X::Sampler: Deserialize&lt;&#39;de&gt;&quot;</span>)))]
@@ -1987,7 +1987,7 @@
 <span class="kw">impl</span>&lt;Borrowed&gt; SampleBorrow&lt;Borrowed&gt; <span class="kw">for </span>Borrowed
 <span class="kw">where </span>Borrowed: SampleUniform
 {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>borrow(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Borrowed {
         <span class="self">self
     </span>}
@@ -1995,7 +1995,7 @@
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Borrowed&gt; SampleBorrow&lt;Borrowed&gt; <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Borrowed
 <span class="kw">where </span>Borrowed: SampleUniform
 {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>borrow(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Borrowed {
         <span class="kw-2">*</span><span class="self">self
     </span>}
@@ -2014,24 +2014,24 @@
 }
 
 <span class="kw">impl</span>&lt;T: SampleUniform + PartialOrd&gt; SampleRange&lt;T&gt; <span class="kw">for </span>Range&lt;T&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sample_single&lt;R: RngCore + <span class="question-mark">?</span>Sized&gt;(<span class="self">self</span>, rng: <span class="kw-2">&amp;mut </span>R) -&gt; T {
         T::Sampler::sample_single(<span class="self">self</span>.start, <span class="self">self</span>.end, rng)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_empty(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         !(<span class="self">self</span>.start &lt; <span class="self">self</span>.end)
     }
 }
 
 <span class="kw">impl</span>&lt;T: SampleUniform + PartialOrd&gt; SampleRange&lt;T&gt; <span class="kw">for </span>RangeInclusive&lt;T&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sample_single&lt;R: RngCore + <span class="question-mark">?</span>Sized&gt;(<span class="self">self</span>, rng: <span class="kw-2">&amp;mut </span>R) -&gt; T {
         T::Sampler::sample_single_inclusive(<span class="self">self</span>.start(), <span class="self">self</span>.end(), rng)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_empty(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         !(<span class="self">self</span>.start() &lt;= <span class="self">self</span>.end())
     }
@@ -2077,7 +2077,7 @@
 /// An alternative to using a modulus is widening multiply: After a widening
 /// multiply by `range`, the result is in the high word. Then comparing the low
 /// word against `zone` makes sure our distribution is uniform.
-</span><span class="attribute">#[derive(Clone, Copy, Debug, PartialEq)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq)]
 #[cfg_attr(feature = <span class="string">&quot;serde1&quot;</span>, derive(Serialize, Deserialize))]
 </span><span class="kw">pub struct </span>UniformInt&lt;X&gt; {
     low: X,
@@ -2099,7 +2099,7 @@
 
             </span><span class="kw">type </span>X = <span class="macro-nonterminal">$ty</span>;
 
-            <span class="attribute">#[inline] </span><span class="comment">// if the range is constant, this helps LLVM to do the
+            <span class="attr">#[inline] </span><span class="comment">// if the range is constant, this helps LLVM to do the
                       // calculations at compile-time.
             </span><span class="kw">fn </span>new&lt;B1, B2&gt;(low_b: B1, high_b: B2) -&gt; <span class="self">Self
             </span><span class="kw">where
@@ -2112,7 +2112,7 @@
                 UniformSampler::new_inclusive(low, high - <span class="number">1</span>)
             }
 
-            <span class="attribute">#[inline] </span><span class="comment">// if the range is constant, this helps LLVM to do the
+            <span class="attr">#[inline] </span><span class="comment">// if the range is constant, this helps LLVM to do the
                       // calculations at compile-time.
             </span><span class="kw">fn </span>new_inclusive&lt;B1, B2&gt;(low_b: B1, high_b: B2) -&gt; <span class="self">Self
             </span><span class="kw">where
@@ -2143,7 +2143,7 @@
                 }
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>sample&lt;R: Rng + <span class="question-mark">?</span>Sized&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, rng: <span class="kw-2">&amp;mut </span>R) -&gt; <span class="self">Self</span>::X {
                 <span class="kw">let </span>range = <span class="self">self</span>.range <span class="kw">as </span><span class="macro-nonterminal">$unsigned </span><span class="kw">as </span><span class="macro-nonterminal">$u_large</span>;
                 <span class="kw">if </span>range &gt; <span class="number">0 </span>{
@@ -2162,7 +2162,7 @@
                 }
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>sample_single&lt;R: Rng + <span class="question-mark">?</span>Sized, B1, B2&gt;(low_b: B1, high_b: B2, rng: <span class="kw-2">&amp;mut </span>R) -&gt; <span class="self">Self</span>::X
             <span class="kw">where
                 </span>B1: SampleBorrow&lt;<span class="self">Self</span>::X&gt; + Sized,
@@ -2174,7 +2174,7 @@
                 <span class="self">Self</span>::sample_single_inclusive(low, high - <span class="number">1</span>, rng)
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>sample_single_inclusive&lt;R: Rng + <span class="question-mark">?</span>Sized, B1, B2&gt;(low_b: B1, high_b: B2, rng: <span class="kw-2">&amp;mut </span>R) -&gt; <span class="self">Self</span>::X
             <span class="kw">where
                 </span>B1: SampleBorrow&lt;<span class="self">Self</span>::X&gt; + Sized,
@@ -2228,7 +2228,7 @@
 <span class="macro">uniform_int_impl! </span>{ usize, usize, usize }
 <span class="macro">uniform_int_impl! </span>{ u128, u128, u128 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
 </span><span class="macro">macro_rules! </span>uniform_simd_int_impl {
     (<span class="macro-nonterminal">$ty</span>:ident, <span class="macro-nonterminal">$unsigned</span>:ident, <span class="macro-nonterminal">$u_scalar</span>:ident) =&gt; {
         <span class="comment">// The &quot;pick the largest zone that can fit in an `u32`&quot; optimization
@@ -2246,7 +2246,7 @@
         <span class="kw">impl </span>UniformSampler <span class="kw">for </span>UniformInt&lt;<span class="macro-nonterminal">$ty</span>&gt; {
             <span class="kw">type </span>X = <span class="macro-nonterminal">$ty</span>;
 
-            <span class="attribute">#[inline] </span><span class="comment">// if the range is constant, this helps LLVM to do the
+            <span class="attr">#[inline] </span><span class="comment">// if the range is constant, this helps LLVM to do the
                       // calculations at compile-time.
             </span><span class="kw">fn </span>new&lt;B1, B2&gt;(low_b: B1, high_b: B2) -&gt; <span class="self">Self
                 </span><span class="kw">where </span>B1: SampleBorrow&lt;<span class="self">Self</span>::X&gt; + Sized,
@@ -2258,7 +2258,7 @@
                 UniformSampler::new_inclusive(low, high - <span class="number">1</span>)
             }
 
-            <span class="attribute">#[inline] </span><span class="comment">// if the range is constant, this helps LLVM to do the
+            <span class="attr">#[inline] </span><span class="comment">// if the range is constant, this helps LLVM to do the
                       // calculations at compile-time.
             </span><span class="kw">fn </span>new_inclusive&lt;B1, B2&gt;(low_b: B1, high_b: B2) -&gt; <span class="self">Self
                 </span><span class="kw">where </span>B1: SampleBorrow&lt;<span class="self">Self</span>::X&gt; + Sized,
@@ -2335,7 +2335,7 @@
     };
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
 </span><span class="macro">uniform_simd_int_impl! </span>{
     (u64x2, i64x2),
     (u64x4, i64x4),
@@ -2343,7 +2343,7 @@
     u64
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
 </span><span class="macro">uniform_simd_int_impl! </span>{
     (u32x2, i32x2),
     (u32x4, i32x4),
@@ -2352,7 +2352,7 @@
     u32
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
 </span><span class="macro">uniform_simd_int_impl! </span>{
     (u16x2, i16x2),
     (u16x4, i16x4),
@@ -2362,7 +2362,7 @@
     u16
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
 </span><span class="macro">uniform_simd_int_impl! </span>{
     (u8x2, i8x2),
     (u8x4, i8x4),
@@ -2386,7 +2386,7 @@
 /// are used for surrogate pairs in UCS and UTF-16, and consequently are not
 /// valid Unicode code points. We must therefore avoid sampling values in this
 /// range.
-</span><span class="attribute">#[derive(Clone, Copy, Debug)]
+</span><span class="attr">#[derive(Clone, Copy, Debug)]
 #[cfg_attr(feature = <span class="string">&quot;serde1&quot;</span>, derive(Serialize, Deserialize))]
 </span><span class="kw">pub struct </span>UniformChar {
     sampler: UniformInt&lt;u32&gt;,
@@ -2408,7 +2408,7 @@
 <span class="kw">impl </span>UniformSampler <span class="kw">for </span>UniformChar {
     <span class="kw">type </span>X = char;
 
-    <span class="attribute">#[inline] </span><span class="comment">// if the range is constant, this helps LLVM to do the
+    <span class="attr">#[inline] </span><span class="comment">// if the range is constant, this helps LLVM to do the
               // calculations at compile-time.
     </span><span class="kw">fn </span>new&lt;B1, B2&gt;(low_b: B1, high_b: B2) -&gt; <span class="self">Self
     </span><span class="kw">where
@@ -2421,7 +2421,7 @@
         UniformChar { sampler }
     }
 
-    <span class="attribute">#[inline] </span><span class="comment">// if the range is constant, this helps LLVM to do the
+    <span class="attr">#[inline] </span><span class="comment">// if the range is constant, this helps LLVM to do the
               // calculations at compile-time.
     </span><span class="kw">fn </span>new_inclusive&lt;B1, B2&gt;(low_b: B1, high_b: B2) -&gt; <span class="self">Self
     </span><span class="kw">where
@@ -2465,7 +2465,7 @@
 /// [`new`]: UniformSampler::new
 /// [`new_inclusive`]: UniformSampler::new_inclusive
 /// [`Standard`]: crate::distributions::Standard
-</span><span class="attribute">#[derive(Clone, Copy, Debug, PartialEq)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq)]
 #[cfg_attr(feature = <span class="string">&quot;serde1&quot;</span>, derive(Serialize, Deserialize))]
 </span><span class="kw">pub struct </span>UniformFloat&lt;X&gt; {
     low: X,
@@ -2572,7 +2572,7 @@
                 </span>value0_1 * <span class="self">self</span>.scale + <span class="self">self</span>.low
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>sample_single&lt;R: Rng + <span class="question-mark">?</span>Sized, B1, B2&gt;(low_b: B1, high_b: B2, rng: <span class="kw-2">&amp;mut </span>R) -&gt; <span class="self">Self</span>::X
             <span class="kw">where
                 </span>B1: SampleBorrow&lt;<span class="self">Self</span>::X&gt; + Sized,
@@ -2657,20 +2657,20 @@
 <span class="macro">uniform_float_impl! </span>{ f32, u32, f32, u32, <span class="number">32 </span>- <span class="number">23 </span>}
 <span class="macro">uniform_float_impl! </span>{ f64, u64, f64, u64, <span class="number">64 </span>- <span class="number">52 </span>}
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
 </span><span class="macro">uniform_float_impl! </span>{ f32x2, u32x2, f32, u32, <span class="number">32 </span>- <span class="number">23 </span>}
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
 </span><span class="macro">uniform_float_impl! </span>{ f32x4, u32x4, f32, u32, <span class="number">32 </span>- <span class="number">23 </span>}
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
 </span><span class="macro">uniform_float_impl! </span>{ f32x8, u32x8, f32, u32, <span class="number">32 </span>- <span class="number">23 </span>}
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
 </span><span class="macro">uniform_float_impl! </span>{ f32x16, u32x16, f32, u32, <span class="number">32 </span>- <span class="number">23 </span>}
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
 </span><span class="macro">uniform_float_impl! </span>{ f64x2, u64x2, f64, u64, <span class="number">64 </span>- <span class="number">52 </span>}
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
 </span><span class="macro">uniform_float_impl! </span>{ f64x4, u64x4, f64, u64, <span class="number">64 </span>- <span class="number">52 </span>}
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
 </span><span class="macro">uniform_float_impl! </span>{ f64x8, u64x8, f64, u64, <span class="number">64 </span>- <span class="number">52 </span>}
 
 
@@ -2678,14 +2678,14 @@
 ///
 /// Unless you are implementing [`UniformSampler`] for your own types, this type
 /// should not be used directly, use [`Uniform`] instead.
-</span><span class="attribute">#[derive(Clone, Copy, Debug)]
+</span><span class="attr">#[derive(Clone, Copy, Debug)]
 #[cfg_attr(feature = <span class="string">&quot;serde1&quot;</span>, derive(Serialize, Deserialize))]
 </span><span class="kw">pub struct </span>UniformDuration {
     mode: UniformDurationMode,
     offset: u32,
 }
 
-<span class="attribute">#[derive(Debug, Copy, Clone)]
+<span class="attr">#[derive(Debug, Copy, Clone)]
 #[cfg_attr(feature = <span class="string">&quot;serde1&quot;</span>, derive(Serialize, Deserialize))]
 </span><span class="kw">enum </span>UniformDurationMode {
     Small {
@@ -2709,7 +2709,7 @@
 <span class="kw">impl </span>UniformSampler <span class="kw">for </span>UniformDuration {
     <span class="kw">type </span>X = Duration;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>new&lt;B1, B2&gt;(low_b: B1, high_b: B2) -&gt; <span class="self">Self
     </span><span class="kw">where
         </span>B1: SampleBorrow&lt;<span class="self">Self</span>::X&gt; + Sized,
@@ -2721,7 +2721,7 @@
         UniformDuration::new_inclusive(low, high - Duration::new(<span class="number">0</span>, <span class="number">1</span>))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>new_inclusive&lt;B1, B2&gt;(low_b: B1, high_b: B2) -&gt; <span class="self">Self
     </span><span class="kw">where
         </span>B1: SampleBorrow&lt;<span class="self">Self</span>::X&gt; + Sized,
@@ -2775,7 +2775,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sample&lt;R: Rng + <span class="question-mark">?</span>Sized&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, rng: <span class="kw-2">&amp;mut </span>R) -&gt; Duration {
         <span class="kw">match </span><span class="self">self</span>.mode {
             UniformDurationMode::Small { secs, nanos } =&gt; {
@@ -2806,12 +2806,12 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::rngs::mock::StepRng;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg(feature = <span class="string">&quot;serde1&quot;</span>)]
     </span><span class="kw">fn </span>test_serialization_uniform_duration() {
         <span class="kw">let </span>distr = UniformDuration::new(Duration::from_secs(<span class="number">10</span>), Duration::from_secs(<span class="number">60</span>));
@@ -2844,7 +2844,7 @@
         }
     }
     
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg(feature = <span class="string">&quot;serde1&quot;</span>)]
     </span><span class="kw">fn </span>test_uniform_serialization() {
         <span class="kw">let </span>unit_box: Uniform&lt;i32&gt;  = Uniform::new(-<span class="number">1</span>, <span class="number">1</span>);
@@ -2861,13 +2861,13 @@
         <span class="macro">assert_eq!</span>(unit_box.<span class="number">0</span>.scale, de_unit_box.<span class="number">0</span>.scale);
     }
 
-    <span class="attribute">#[should_panic]
+    <span class="attr">#[should_panic]
     #[test]
     </span><span class="kw">fn </span>test_uniform_bad_limits_equal_int() {
         Uniform::new(<span class="number">10</span>, <span class="number">10</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_uniform_good_limits_equal_int() {
         <span class="kw">let </span><span class="kw-2">mut </span>rng = <span class="kw">crate</span>::test::rng(<span class="number">804</span>);
         <span class="kw">let </span>dist = Uniform::new_inclusive(<span class="number">10</span>, <span class="number">10</span>);
@@ -2876,13 +2876,13 @@
         }
     }
 
-    <span class="attribute">#[should_panic]
+    <span class="attr">#[should_panic]
     #[test]
     </span><span class="kw">fn </span>test_uniform_bad_limits_flipped_int() {
         Uniform::new(<span class="number">10</span>, <span class="number">5</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(miri, ignore)] </span><span class="comment">// Miri is too slow
     </span><span class="kw">fn </span>test_integers() {
         <span class="kw">use </span>core::{i128, u128};
@@ -2955,7 +2955,7 @@
         }
         <span class="macro">t!</span>(i8, i16, i32, i64, isize, u8, u16, u32, u64, usize, i128, u128);
 
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
         </span>{
             <span class="macro">t!</span>(u8x2, u8x4, u8x8, u8x16, u8x32, u8x64 =&gt; u8);
             <span class="macro">t!</span>(i8x2, i8x4, i8x8, i8x16, i8x32, i8x64 =&gt; i8);
@@ -2968,7 +2968,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(miri, ignore)] </span><span class="comment">// Miri is too slow
     </span><span class="kw">fn </span>test_char() {
         <span class="kw">let </span><span class="kw-2">mut </span>rng = <span class="kw">crate</span>::test::rng(<span class="number">891</span>);
@@ -2989,7 +2989,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(miri, ignore)] </span><span class="comment">// Miri is too slow
     </span><span class="kw">fn </span>test_floats() {
         <span class="kw">let </span><span class="kw-2">mut </span>rng = <span class="kw">crate</span>::test::rng(<span class="number">252</span>);
@@ -3074,7 +3074,7 @@
 
         <span class="macro">t!</span>(f32, f32, <span class="number">32 </span>- <span class="number">23</span>);
         <span class="macro">t!</span>(f64, f64, <span class="number">64 </span>- <span class="number">52</span>);
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
         </span>{
             <span class="macro">t!</span>(f32x2, f32, <span class="number">32 </span>- <span class="number">23</span>);
             <span class="macro">t!</span>(f32x4, f32, <span class="number">32 </span>- <span class="number">23</span>);
@@ -3086,20 +3086,20 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[should_panic]
     </span><span class="kw">fn </span>test_float_overflow() {
         <span class="kw">let _ </span>= Uniform::from(::core::f64::MIN..::core::f64::MAX);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[should_panic]
     </span><span class="kw">fn </span>test_float_overflow_single() {
         <span class="kw">let </span><span class="kw-2">mut </span>rng = <span class="kw">crate</span>::test::rng(<span class="number">252</span>);
         rng.gen_range(::core::f64::MIN..::core::f64::MAX);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg(all(
         feature = <span class="string">&quot;std&quot;</span>,
         not(target_arch = <span class="string">&quot;wasm32&quot;</span>),
@@ -3148,7 +3148,7 @@
 
         <span class="macro">t!</span>(f32, f32);
         <span class="macro">t!</span>(f64, f64);
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
         </span>{
             <span class="macro">t!</span>(f32x2, f32);
             <span class="macro">t!</span>(f32x4, f32);
@@ -3161,7 +3161,7 @@
     }
 
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(miri, ignore)] </span><span class="comment">// Miri is too slow
     </span><span class="kw">fn </span>test_durations() {
         <span class="kw">let </span><span class="kw-2">mut </span>rng = <span class="kw">crate</span>::test::rng(<span class="number">253</span>);
@@ -3183,16 +3183,16 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_custom_uniform() {
         <span class="kw">use </span><span class="kw">crate</span>::distributions::uniform::{
             SampleBorrow, SampleUniform, UniformFloat, UniformSampler,
         };
-        <span class="attribute">#[derive(Clone, Copy, PartialEq, PartialOrd)]
+        <span class="attr">#[derive(Clone, Copy, PartialEq, PartialOrd)]
         </span><span class="kw">struct </span>MyF32 {
             x: f32,
         }
-        <span class="attribute">#[derive(Clone, Copy, Debug)]
+        <span class="attr">#[derive(Clone, Copy, Debug)]
         </span><span class="kw">struct </span>UniformMyF32(UniformFloat&lt;f32&gt;);
         <span class="kw">impl </span>UniformSampler <span class="kw">for </span>UniformMyF32 {
             <span class="kw">type </span>X = MyF32;
@@ -3232,7 +3232,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_uniform_from_std_range() {
         <span class="kw">let </span>r = Uniform::from(<span class="number">2u32</span>..<span class="number">7</span>);
         <span class="macro">assert_eq!</span>(r.<span class="number">0</span>.low, <span class="number">2</span>);
@@ -3242,7 +3242,7 @@
         <span class="macro">assert_eq!</span>(r.<span class="number">0</span>.scale, <span class="number">5.0</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_uniform_from_std_range_inclusive() {
         <span class="kw">let </span>r = Uniform::from(<span class="number">2u32</span>..=<span class="number">6</span>);
         <span class="macro">assert_eq!</span>(r.<span class="number">0</span>.low, <span class="number">2</span>);
@@ -3253,7 +3253,7 @@
         <span class="macro">assert!</span>(r.<span class="number">0</span>.scale &lt; <span class="number">5.0 </span>+ <span class="number">1e-14</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>value_stability() {
         <span class="kw">fn </span>test_samples&lt;T: SampleUniform + Copy + core::fmt::Debug + PartialEq&gt;(
             lb: T, ub: T, expected_single: <span class="kw-2">&amp;</span>[T], expected_multiple: <span class="kw-2">&amp;</span>[T],
@@ -3307,7 +3307,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>uniform_distributions_can_be_compared() {
         <span class="macro">assert_eq!</span>(Uniform::new(<span class="number">1.0</span>, <span class="number">2.0</span>), Uniform::new(<span class="number">1.0</span>, <span class="number">2.0</span>));
 
@@ -3316,4 +3316,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rand" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rand" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

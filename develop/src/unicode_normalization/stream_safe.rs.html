@@ -201,7 +201,7 @@
 <span class="kw">impl</span>&lt;I: Iterator&lt;Item = char&gt;&gt; Iterator <span class="kw">for </span>StreamSafe&lt;I&gt; {
     <span class="kw">type </span>Item = char;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>next(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;char&gt; {
         <span class="kw">let </span>next_ch = <span class="kw">match </span><span class="self">self</span>.buffer.take().or_else(|| <span class="self">self</span>.iter.next()) {
             <span class="prelude-val">None </span>=&gt; <span class="kw">return </span><span class="prelude-val">None</span>,
@@ -230,14 +230,14 @@
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Decomposition {
     <span class="kw">pub</span>(<span class="kw">crate</span>) leading_nonstarters: usize,
     <span class="kw">pub</span>(<span class="kw">crate</span>) trailing_nonstarters: usize,
     <span class="kw">pub</span>(<span class="kw">crate</span>) decomposition_len: usize,
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>classify_nonstarters(c: char) -&gt; Decomposition {
     <span class="comment">// As usual, fast path for ASCII (which is always a starter)
     </span><span class="kw">if </span>c &lt;= <span class="string">&#39;\x7f&#39; </span>{
@@ -274,13 +274,13 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::{classify_nonstarters, StreamSafe};
     <span class="kw">use </span><span class="kw">crate</span>::lookups::canonical_combining_class;
     <span class="kw">use </span><span class="kw">crate</span>::normalize::decompose_compatible;
 
-    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
+    <span class="attr">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
     </span><span class="kw">use </span><span class="kw">crate</span>::no_std_prelude::<span class="kw-2">*</span>;
 
     <span class="kw">use </span>core::char;
@@ -289,7 +289,7 @@
         StreamSafe::new(s.chars()).collect()
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_simple() {
         <span class="kw">let </span>technically_okay = <span class="string">&quot;Da\u{0300}\u{0301}\u{0302}\u{0303}\u{0304}\u{0305}\u{0306}\u{0307}\u{0308}\u{0309}\u{030a}\u{030b}\u{030c}\u{030d}\u{030e}\u{030f}\u{0310}\u{0311}\u{0312}\u{0313}\u{0314}\u{0315}\u{0316}\u{0317}\u{0318}\u{0319}\u{031a}\u{031b}\u{031c}\u{031d}ngerzone&quot;</span>;
         <span class="macro">assert_eq!</span>(stream_safe(technically_okay), technically_okay);
@@ -303,14 +303,14 @@
         <span class="macro">assert_eq!</span>(stream_safe(woah_nelly), its_cool);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_all_nonstarters() {
         <span class="kw">let </span>s = <span class="string">&quot;\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}\u{0300}&quot;</span>;
         <span class="kw">let </span>expected = <span class="string">&quot;\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{034F}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}\u{300}&quot;</span>;
         <span class="macro">assert_eq!</span>(stream_safe(s), expected);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_classify_nonstarters() {
         <span class="comment">// Highest character in the `compat_fully_decomp` table is 2FA1D
         </span><span class="kw">for </span>ch <span class="kw">in </span><span class="number">0</span>..<span class="number">0x2FA1E </span>{
@@ -340,4 +340,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="unicode_normalization" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="unicode_normalization" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

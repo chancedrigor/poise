@@ -194,25 +194,25 @@
 
 </span><span class="kw">mod </span>component;
 <span class="kw">pub mod </span>modifier;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>parse;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span>alloc::string::String;
 <span class="kw">use </span>core::convert::TryFrom;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span>core::fmt;
 
 <span class="kw">pub use </span><span class="self">self</span>::component::Component;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub use </span><span class="self">self</span>::parse::parse;
 <span class="kw">use </span><span class="kw">crate</span>::error;
 
 <span class="doccomment">/// Helper methods.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">mod </span>helper {
     <span class="doccomment">/// Consume all leading whitespace, advancing `index` as appropriate.
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This does not modify the original slice.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This does not modify the original slice.&quot;</span>]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>consume_whitespace&lt;<span class="lifetime">&#39;a</span>&gt;(bytes: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8], index: <span class="kw-2">&amp;mut </span>usize) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8] {
         <span class="kw">let </span>first_non_whitespace = bytes
             .iter()
@@ -246,7 +246,7 @@
     /// );
     /// # Ok::&lt;_, time::Error&gt;(())
     /// ```
-    </span><span class="attribute">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    </span><span class="attr">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
     </span><span class="kw">pub struct </span>Rfc3339;
 
     <span class="doccomment">/// The format described in [RFC 2822](https://tools.ietf.org/html/rfc2822#section-3.3).
@@ -271,12 +271,12 @@
     /// );
     /// # Ok::&lt;_, time::Error&gt;(())
     /// ```
-    </span><span class="attribute">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    </span><span class="attr">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
     </span><span class="kw">pub struct </span>Rfc2822;
 }
 
 <span class="doccomment">/// A complete description of how to format and parse a type.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[cfg_attr(not(feature = <span class="string">&quot;alloc&quot;</span>), derive(Debug))]
 #[derive(Clone, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>FormatItem&lt;<span class="lifetime">&#39;a</span>&gt; {
@@ -301,7 +301,7 @@
     </span>First(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[<span class="self">Self</span>]),
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">impl </span>fmt::Debug <span class="kw">for </span>FormatItem&lt;<span class="lifetime">&#39;_</span>&gt; {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="self">self </span>{
@@ -372,4 +372,4 @@
     </span>}
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

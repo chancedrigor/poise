@@ -284,7 +284,7 @@
 <span class="kw">use </span>core::pin::Pin;
 <span class="kw">use </span>core::sync::atomic::AtomicUsize;
 <span class="kw">use </span>core::sync::atomic::Ordering::SeqCst;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;bilock&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;bilock&quot;</span>)]
 </span><span class="kw">use </span>futures_core::future::Future;
 <span class="kw">use </span>futures_core::task::{Context, Poll, Waker};
 
@@ -309,13 +309,13 @@
 ///
 /// This type is only available when the `bilock` feature of this
 /// library is activated.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;bilock&quot;</span>)))]
 </span><span class="kw">pub struct </span>BiLock&lt;T&gt; {
     arc: Arc&lt;Inner&lt;T&gt;&gt;,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>Inner&lt;T&gt; {
     state: AtomicUsize,
     value: <span class="prelude-ty">Option</span>&lt;UnsafeCell&lt;T&gt;&gt;,
@@ -415,7 +415,7 @@
     /// `BiLockGuard&lt;T&gt;`.
     ///
     /// Note that the returned future will never resolve to an error.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;bilock&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;bilock&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;bilock&quot;</span>)))]
     </span><span class="kw">pub fn </span>lock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; BiLockAcquire&lt;<span class="lifetime">&#39;_</span>, T&gt; {
         BiLockAcquire { bilock: <span class="self">self </span>}
@@ -471,7 +471,7 @@
 
 <span class="doccomment">/// Error indicating two `BiLock&lt;T&gt;`s were not two halves of a whole, and
 /// thus could not be `reunite`d.
-</span><span class="attribute">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;bilock&quot;</span>)))]
+</span><span class="attr">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;bilock&quot;</span>)))]
 </span><span class="kw">pub struct </span>ReuniteError&lt;T&gt;(<span class="kw">pub </span>BiLock&lt;T&gt;, <span class="kw">pub </span>BiLock&lt;T&gt;);
 
 <span class="kw">impl</span>&lt;T&gt; fmt::Debug <span class="kw">for </span>ReuniteError&lt;T&gt; {
@@ -486,7 +486,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl</span>&lt;T: core::any::Any&gt; std::error::Error <span class="kw">for </span>ReuniteError&lt;T&gt; {}
 
 <span class="doccomment">/// Returned RAII guard from the `poll_lock` method.
@@ -494,7 +494,7 @@
 /// This structure acts as a sentinel to the data in the `BiLock&lt;T&gt;` itself,
 /// implementing `Deref` and `DerefMut` to `T`. When dropped, the lock will be
 /// unlocked.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;bilock&quot;</span>)))]
 </span><span class="kw">pub struct </span>BiLockGuard&lt;<span class="lifetime">&#39;a</span>, T&gt; {
     bilock: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>BiLock&lt;T&gt;,
@@ -530,7 +530,7 @@
 
 <span class="doccomment">/// Future returned by `BiLock::lock` which will resolve when the lock is
 /// acquired.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;bilock&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;bilock&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;bilock&quot;</span>)))]
 #[must_use = <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]
 #[derive(Debug)]
@@ -539,10 +539,10 @@
 }
 
 <span class="comment">// Pinning is never projected to fields
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;bilock&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;bilock&quot;</span>)]
 </span><span class="kw">impl</span>&lt;T&gt; Unpin <span class="kw">for </span>BiLockAcquire&lt;<span class="lifetime">&#39;_</span>, T&gt; {}
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;bilock&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;bilock&quot;</span>)]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, T&gt; Future <span class="kw">for </span>BiLockAcquire&lt;<span class="lifetime">&#39;a</span>, T&gt; {
     <span class="kw">type </span>Output = BiLockGuard&lt;<span class="lifetime">&#39;a</span>, T&gt;;
 
@@ -551,4 +551,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -175,15 +175,15 @@
     };
     (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$ty</span>:ty, <span class="macro-nonterminal">$reader</span>:ident, <span class="macro-nonterminal">$bytes</span>:expr) =&gt; {
         <span class="macro">pin_project! </span>{
-            <span class="attribute">#[doc(hidden)]
+            <span class="attr">#[doc(hidden)]
             #[must_use = <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]
             </span><span class="kw">pub struct </span><span class="macro-nonterminal">$name</span>&lt;R&gt; {
-                <span class="attribute">#[pin]
+                <span class="attr">#[pin]
                 </span>src: R,
                 buf: [u8; <span class="macro-nonterminal">$bytes</span>],
                 read: u8,
                 <span class="comment">// Make this future `!Unpin` for compatibility with async trait methods.
-                </span><span class="attribute">#[pin]
+                </span><span class="attr">#[pin]
                 </span>_pin: PhantomPinned,
             }
         }
@@ -241,13 +241,13 @@
     (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$ty</span>:ty) =&gt; {
         <span class="macro">pin_project! </span>{
             <span class="doccomment">/// Future returned from `read_u8`
-            </span><span class="attribute">#[doc(hidden)]
+            </span><span class="attr">#[doc(hidden)]
             #[must_use = <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]
             </span><span class="kw">pub struct </span><span class="macro-nonterminal">$name</span>&lt;R&gt; {
-                <span class="attribute">#[pin]
+                <span class="attr">#[pin]
                 </span>reader: R,
                 <span class="comment">// Make this future `!Unpin` for compatibility with async trait methods.
-                </span><span class="attribute">#[pin]
+                </span><span class="attr">#[pin]
                 </span>_pin: PhantomPinned,
             }
         }
@@ -317,4 +317,4 @@
 <span class="macro">reader!</span>(ReadF32Le, f32, get_f32_le);
 <span class="macro">reader!</span>(ReadF64Le, f64, get_f64_le);
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -223,7 +223,7 @@
     <span class="kw">fn </span>create_io_stack(enabled: bool) -&gt; io::Result&lt;(IoStack, IoHandle, SignalHandle)&gt; {
         <span class="kw">use </span><span class="kw">crate</span>::park::either::Either;
 
-        <span class="attribute">#[cfg(loom)]
+        <span class="attr">#[cfg(loom)]
         </span><span class="macro">assert!</span>(!enabled);
 
         <span class="kw">let </span>ret = <span class="kw">if </span>enabled {
@@ -255,7 +255,7 @@
 
 </span><span class="macro">macro_rules! </span>cfg_signal_internal_and_unix {
     ($(<span class="macro-nonterminal">$item</span>:item)<span class="kw-2">*</span>) =&gt; {
-        <span class="attribute">#[cfg(unix)]
+        <span class="attr">#[cfg(unix)]
         </span><span class="macro">cfg_signal_internal! </span>{ $(<span class="macro-nonterminal">$item</span>)* }
     }
 }
@@ -354,7 +354,7 @@
 
 <span class="comment">// ===== runtime driver =====
 
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Driver {
     inner: TimeDriver,
 }
@@ -415,4 +415,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

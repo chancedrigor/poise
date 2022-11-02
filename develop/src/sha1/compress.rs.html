@@ -41,17 +41,17 @@
 <span class="kw">use </span>digest::generic_array::typenum::Unsigned;
 
 <span class="macro">cfg_if::cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(feature = <span class="string">&quot;force-soft&quot;</span>)] </span>{
+    <span class="kw">if </span><span class="attr">#[cfg(feature = <span class="string">&quot;force-soft&quot;</span>)] </span>{
         <span class="kw">mod </span>soft;
         <span class="kw">use </span>soft::compress <span class="kw">as </span>compress_inner;
-    } <span class="kw">else if </span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;asm&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>))] </span>{
+    } <span class="kw">else if </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;asm&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>))] </span>{
         <span class="kw">mod </span>soft;
         <span class="kw">mod </span>aarch64;
         <span class="kw">use </span>aarch64::compress <span class="kw">as </span>compress_inner;
-    } <span class="kw">else if </span><span class="attribute">#[cfg(any(target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))] </span>{
-        <span class="attribute">#[cfg(not(feature = <span class="string">&quot;asm&quot;</span>))]
+    } <span class="kw">else if </span><span class="attr">#[cfg(any(target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))] </span>{
+        <span class="attr">#[cfg(not(feature = <span class="string">&quot;asm&quot;</span>))]
         </span><span class="kw">mod </span>soft;
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;asm&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;asm&quot;</span>)]
         </span><span class="kw">mod </span>soft {
             <span class="kw">pub use </span>sha1_asm::compress;
         }
@@ -66,14 +66,14 @@
 <span class="kw">const </span>BLOCK_SIZE: usize = &lt;Sha1Core <span class="kw">as </span>BlockSizeUser&gt;::BlockSize::USIZE;
 
 <span class="doccomment">/// SHA-1 compression function
-</span><span class="attribute">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;compress&quot;</span>)))]
+</span><span class="attr">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;compress&quot;</span>)))]
 </span><span class="kw">pub fn </span>compress(state: <span class="kw-2">&amp;mut </span>[u32; <span class="number">5</span>], blocks: <span class="kw-2">&amp;</span>[Block&lt;Sha1Core&gt;]) {
     <span class="comment">// SAFETY: GenericArray&lt;u8, U64&gt; and [u8; 64] have
     // exactly the same memory layout
-    </span><span class="attribute">#[allow(unsafe_code)]
+    </span><span class="attr">#[allow(unsafe_code)]
     </span><span class="kw">let </span>blocks: <span class="kw-2">&amp;</span>[[u8; BLOCK_SIZE]] =
         <span class="kw">unsafe </span>{ <span class="kw-2">&amp;*</span>(blocks <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_ as </span><span class="kw-2">*const </span>[[u8; BLOCK_SIZE]]) };
     compress_inner(state, blocks);
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="sha1" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="sha1" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

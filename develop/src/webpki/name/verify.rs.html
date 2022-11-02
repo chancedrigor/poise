@@ -447,7 +447,7 @@
     )
 }
 
-<span class="attribute">#[derive(Clone, Copy)]
+<span class="attr">#[derive(Clone, Copy)]
 </span><span class="kw">enum </span>Subtrees {
     PermittedSubtrees,
     ExcludedSubtrees,
@@ -567,7 +567,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Copy)]
+<span class="attr">#[derive(Clone, Copy)]
 </span><span class="kw">enum </span>NameIteration {
     KeepGoing,
     Stop(<span class="prelude-ty">Result</span>&lt;(), Error&gt;),
@@ -612,7 +612,7 @@
 // don&#39;t even store the value. Also, the meaning of a `GeneralName` in a name
 // constraint is different than the meaning of the identically-represented
 // `GeneralName` in other contexts.
-</span><span class="attribute">#[derive(Clone, Copy)]
+</span><span class="attr">#[derive(Clone, Copy)]
 </span><span class="kw">enum </span>GeneralName&lt;<span class="lifetime">&#39;a</span>&gt; {
     DnsName(untrusted::Input&lt;<span class="lifetime">&#39;a</span>&gt;),
     DirectoryName(untrusted::Input&lt;<span class="lifetime">&#39;a</span>&gt;),
@@ -626,7 +626,7 @@
 
 <span class="kw">fn </span>general_name&lt;<span class="lifetime">&#39;a</span>&gt;(input: <span class="kw-2">&amp;mut </span>untrusted::Reader&lt;<span class="lifetime">&#39;a</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;GeneralName&lt;<span class="lifetime">&#39;a</span>&gt;, Error&gt; {
     <span class="kw">use </span>ring::io::der::{CONSTRUCTED, CONTEXT_SPECIFIC};
-    <span class="attribute">#[allow(clippy::identity_op)]
+    <span class="attr">#[allow(clippy::identity_op)]
     </span><span class="kw">const </span>OTHER_NAME_TAG: u8 = CONTEXT_SPECIFIC | CONSTRUCTED | <span class="number">0</span>;
     <span class="kw">const </span>RFC822_NAME_TAG: u8 = CONTEXT_SPECIFIC | <span class="number">1</span>;
     <span class="kw">const </span>DNS_NAME_TAG: u8 = CONTEXT_SPECIFIC | <span class="number">2</span>;
@@ -655,4 +655,4 @@
     <span class="prelude-val">Ok</span>(name)
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="webpki" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="webpki" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

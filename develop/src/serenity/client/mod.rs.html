@@ -997,10 +997,10 @@
 </span><span class="kw">pub mod </span>bridge;
 
 <span class="kw">mod </span>context;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
 </span><span class="kw">mod </span>dispatch;
 <span class="kw">mod </span>error;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
 </span><span class="kw">mod </span>event_handler;
 
 <span class="kw">use </span>std::future::Future;
@@ -1013,36 +1013,36 @@
 <span class="kw">use </span>tracing::{debug, error, info, instrument};
 <span class="kw">use </span>typemap_rev::{TypeMap, TypeMapKey};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
 </span><span class="kw">use </span><span class="self">self</span>::bridge::gateway::{
     ShardManager,
     ShardManagerError,
     ShardManagerMonitor,
     ShardManagerOptions,
 };
-<span class="attribute">#[cfg(feature = <span class="string">&quot;voice&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;voice&quot;</span>)]
 </span><span class="kw">use </span><span class="self">self</span>::bridge::voice::VoiceGatewayManager;
 <span class="kw">pub use </span><span class="self">self</span>::context::Context;
 <span class="kw">pub use </span><span class="self">self</span>::error::Error <span class="kw">as </span>ClientError;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
 </span><span class="kw">pub use </span><span class="self">self</span>::event_handler::{EventHandler, RawEventHandler};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">super</span>::gateway::GatewayError;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
 </span><span class="kw">pub use </span><span class="kw">crate</span>::cache::Cache;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::cache::Settings <span class="kw">as </span>CacheSettings;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::framework::Framework;
 <span class="kw">use </span><span class="kw">crate</span>::http::Http;
 <span class="kw">use </span><span class="kw">crate</span>::internal::prelude::<span class="kw-2">*</span>;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::model::gateway::GatewayIntents;
 <span class="kw">use </span><span class="kw">crate</span>::model::id::ApplicationId;
 <span class="kw">pub use </span><span class="kw">crate</span>::CacheAndHttp;
 
 <span class="doccomment">/// A builder implementing [`Future`] building a [`Client`] to interact with Discord.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
 #[must_use = <span class="string">&quot;Builders do nothing unless they are awaited&quot;</span>]
 </span><span class="kw">pub struct </span>ClientBuilder {
     <span class="comment">// TODO: data, http and cache_settings are Options in order to take() them out in the Future impl.
@@ -1051,17 +1051,17 @@
     http: <span class="prelude-ty">Option</span>&lt;Http&gt;,
     fut: <span class="prelude-ty">Option</span>&lt;BoxFuture&lt;<span class="lifetime">&#39;static</span>, <span class="prelude-ty">Result</span>&lt;Client&gt;&gt;&gt;,
     intents: GatewayIntents,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span>cache_settings: <span class="prelude-ty">Option</span>&lt;CacheSettings&gt;,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
     </span>framework: <span class="prelude-ty">Option</span>&lt;Arc&lt;<span class="kw">dyn </span>Framework + Send + Sync + <span class="lifetime">&#39;static</span>&gt;&gt;,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;voice&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;voice&quot;</span>)]
     </span>voice_manager: <span class="prelude-ty">Option</span>&lt;Arc&lt;<span class="kw">dyn </span>VoiceGatewayManager + Send + Sync + <span class="lifetime">&#39;static</span>&gt;&gt;,
     event_handler: <span class="prelude-ty">Option</span>&lt;Arc&lt;<span class="kw">dyn </span>EventHandler&gt;&gt;,
     raw_event_handler: <span class="prelude-ty">Option</span>&lt;Arc&lt;<span class="kw">dyn </span>RawEventHandler&gt;&gt;,
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
 </span><span class="kw">impl </span>ClientBuilder {
     <span class="kw">fn </span>_new(http: Http, intents: GatewayIntents) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
@@ -1069,11 +1069,11 @@
             http: <span class="prelude-val">Some</span>(http),
             fut: <span class="prelude-val">None</span>,
             intents,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
             </span>cache_settings: <span class="prelude-val">Some</span>(CacheSettings::new()),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
             </span>framework: <span class="prelude-val">None</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;voice&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;voice&quot;</span>)]
             </span>voice_manager: <span class="prelude-val">None</span>,
             event_handler: <span class="prelude-val">None</span>,
             raw_event_handler: <span class="prelude-val">None</span>,
@@ -1159,7 +1159,7 @@
     /// Refer to [`Settings`] for more information.
     ///
     /// [`Settings`]: CacheSettings
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span><span class="kw">pub fn </span>cache_settings&lt;F&gt;(<span class="kw-2">mut </span><span class="self">self</span>, f: F) -&gt; <span class="self">Self
     </span><span class="kw">where
         </span>F: FnOnce(<span class="kw-2">&amp;mut </span>CacheSettings) -&gt; <span class="kw-2">&amp;mut </span>CacheSettings,
@@ -1173,7 +1173,7 @@
 
     <span class="doccomment">/// Gets the cache settings. See [`Self::cache_settings`] for more info.
     /// This can be unwrapped safely unless used after awaiting the builder.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span><span class="kw">pub fn </span>get_cache_settings(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>CacheSettings&gt; {
         <span class="self">self</span>.cache_settings.as_ref()
     }
@@ -1185,7 +1185,7 @@
     /// *Info*:
     /// If a reference to the framework is required for manual dispatch,
     /// use the [`Self::framework_arc`]-method instead.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
     </span><span class="kw">pub fn </span>framework&lt;F&gt;(<span class="kw-2">mut </span><span class="self">self</span>, framework: F) -&gt; <span class="self">Self
     </span><span class="kw">where
         </span>F: Framework + Send + Sync + <span class="lifetime">&#39;static</span>,
@@ -1199,7 +1199,7 @@
     /// done for you in the [`Self::framework`]-method, if you don&#39;t need the
     /// extra control.
     /// You can provide a clone and keep the original to manually dispatch.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
     </span><span class="kw">pub fn </span>framework_arc&lt;T: Framework + Send + Sync + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">mut </span><span class="self">self</span>,
         framework: Arc&lt;T&gt;,
@@ -1210,7 +1210,7 @@
     </span>}
 
     <span class="doccomment">/// Gets the framework, if already initialized. See [`Self::framework`] for more info.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
     </span><span class="kw">pub fn </span>get_framework(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Arc&lt;<span class="kw">dyn </span>Framework + Send + Sync&gt;&gt; {
         <span class="self">self</span>.framework.clone()
     }
@@ -1222,7 +1222,7 @@
     /// *Info*:
     /// If a reference to the voice_manager is required for manual dispatch,
     /// use the [`Self::voice_manager_arc`]-method instead.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;voice&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;voice&quot;</span>)]
     </span><span class="kw">pub fn </span>voice_manager&lt;V&gt;(<span class="kw-2">mut </span><span class="self">self</span>, voice_manager: V) -&gt; <span class="self">Self
     </span><span class="kw">where
         </span>V: VoiceGatewayManager + Send + Sync + <span class="lifetime">&#39;static</span>,
@@ -1238,7 +1238,7 @@
     /// You can provide a clone and keep the original to manually dispatch.
     ///
     /// [`voice_manager`]: Self::voice_manager
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;voice&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;voice&quot;</span>)]
     </span><span class="kw">pub fn </span>voice_manager_arc(
         <span class="kw-2">mut </span><span class="self">self</span>,
         voice_manager: Arc&lt;<span class="kw">dyn </span>VoiceGatewayManager + Send + Sync + <span class="lifetime">&#39;static</span>&gt;,
@@ -1249,7 +1249,7 @@
     </span>}
 
     <span class="doccomment">/// Gets the voice manager, if already initialized. See [`Self::voice_manager`] for more info.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;voice&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;voice&quot;</span>)]
     </span><span class="kw">pub fn </span>get_voice_manager(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Arc&lt;<span class="kw">dyn </span>VoiceGatewayManager + Send + Sync&gt;&gt; {
         <span class="self">self</span>.voice_manager.clone()
     }
@@ -1325,16 +1325,16 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
 </span><span class="kw">impl </span>Future <span class="kw">for </span>ClientBuilder {
     <span class="kw">type </span>Output = <span class="prelude-ty">Result</span>&lt;Client&gt;;
 
-    <span class="attribute">#[allow(clippy::unwrap_used)] </span><span class="comment">// Allowing unwrap because all should be Some() by this point
-    </span><span class="attribute">#[instrument(skip(<span class="self">self</span>))]
+    <span class="attr">#[allow(clippy::unwrap_used)] </span><span class="comment">// Allowing unwrap because all should be Some() by this point
+    </span><span class="attr">#[instrument(skip(<span class="self">self</span>))]
     </span><span class="kw">fn </span>poll(<span class="kw-2">mut </span><span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, ctx: <span class="kw-2">&amp;mut </span>FutContext&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;<span class="self">Self</span>::Output&gt; {
         <span class="kw">if </span><span class="self">self</span>.fut.is_none() {
             <span class="kw">let </span>data = Arc::new(RwLock::new(<span class="self">self</span>.data.take().unwrap()));
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
             </span><span class="kw">let </span>framework = <span class="self">self</span>.framework.take()
                 .expect(<span class="string">&quot;The `framework`-feature is enabled (it&#39;s on by default), but no framework was provided.\n\
                 If you don&#39;t want to use the command framework, disable default features and specify all features you want to use.&quot;</span>);
@@ -1343,11 +1343,11 @@
             <span class="kw">let </span>intents = <span class="self">self</span>.intents;
             <span class="kw">let </span>http = Arc::new(<span class="self">self</span>.http.take().unwrap());
 
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;voice&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;voice&quot;</span>)]
             </span><span class="kw">let </span>voice_manager = <span class="self">self</span>.voice_manager.take();
 
             <span class="kw">let </span>cache_and_http = Arc::new(CacheAndHttp {
-                <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+                <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
                 </span>cache: Arc::new(Cache::new_with_settings(<span class="self">self</span>.cache_settings.take().unwrap())),
                 http: Arc::clone(<span class="kw-2">&amp;</span>http),
             });
@@ -1360,12 +1360,12 @@
                         data: <span class="kw-2">&amp;</span>data,
                         event_handler: <span class="kw-2">&amp;</span>event_handler,
                         raw_event_handler: <span class="kw-2">&amp;</span>raw_event_handler,
-                        <span class="attribute">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
+                        <span class="attr">#[cfg(feature = <span class="string">&quot;framework&quot;</span>)]
                         </span>framework: <span class="kw-2">&amp;</span>framework,
                         shard_index: <span class="number">0</span>,
                         shard_init: <span class="number">0</span>,
                         shard_total: <span class="number">0</span>,
-                        <span class="attribute">#[cfg(feature = <span class="string">&quot;voice&quot;</span>)]
+                        <span class="attr">#[cfg(feature = <span class="string">&quot;voice&quot;</span>)]
                         </span>voice_manager: <span class="kw-2">&amp;</span>voice_manager,
                         ws_url: <span class="kw-2">&amp;</span>ws_url,
                         cache_and_http: <span class="kw-2">&amp;</span>cache_and_http,
@@ -1378,7 +1378,7 @@
                     data,
                     shard_manager,
                     shard_manager_worker,
-                    <span class="attribute">#[cfg(feature = <span class="string">&quot;voice&quot;</span>)]
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;voice&quot;</span>)]
                     </span>voice_manager,
                     ws_url,
                     cache_and_http,
@@ -1437,7 +1437,7 @@
 /// [`Shard`]: crate::gateway::Shard
 /// [`Event::MessageCreate`]: crate::model::event::Event::MessageCreate
 /// [sharding docs]: crate::gateway#sharding
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
 </span><span class="kw">pub struct </span>Client {
     <span class="doccomment">/// A TypeMap which requires types to be Send + Sync. This is a map that
     /// can be safely shared across contexts.
@@ -1616,7 +1616,7 @@
     ///
     /// This is an ergonomic structure for interfacing over shards&#39; voice
     /// connections.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;voice&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;voice&quot;</span>)]
     </span><span class="kw">pub </span>voice_manager: <span class="prelude-ty">Option</span>&lt;Arc&lt;<span class="kw">dyn </span>VoiceGatewayManager + Send + Sync + <span class="lifetime">&#39;static</span>&gt;&gt;,
     <span class="doccomment">/// URL that the client&#39;s shards will use to connect to the gateway.
     ///
@@ -1673,7 +1673,7 @@
     /// ```
     ///
     /// [gateway docs]: crate::gateway#sharding
-    </span><span class="attribute">#[instrument(skip(<span class="self">self</span>))]
+    </span><span class="attr">#[instrument(skip(<span class="self">self</span>))]
     </span><span class="kw">pub async fn </span>start(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="self">self</span>.start_connection([<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>]).<span class="kw">await
     </span>}
@@ -1721,7 +1721,7 @@
     /// an error.
     ///
     /// [gateway docs]: crate::gateway#sharding
-    </span><span class="attribute">#[instrument(skip(<span class="self">self</span>))]
+    </span><span class="attr">#[instrument(skip(<span class="self">self</span>))]
     </span><span class="kw">pub async fn </span>start_autosharded(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">let </span>(x, y) = {
             <span class="kw">let </span>res = <span class="self">self</span>.cache_and_http.http.get_bot_gateway().<span class="kw">await</span><span class="question-mark">?</span>;
@@ -1799,7 +1799,7 @@
     /// an error.
     ///
     /// [gateway docs]: crate::gateway#sharding
-    </span><span class="attribute">#[instrument(skip(<span class="self">self</span>))]
+    </span><span class="attr">#[instrument(skip(<span class="self">self</span>))]
     </span><span class="kw">pub async fn </span>start_shard(<span class="kw-2">&amp;mut </span><span class="self">self</span>, shard: u64, shards: u64) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="self">self</span>.start_connection([shard, shard, shards]).<span class="kw">await
     </span>}
@@ -1847,7 +1847,7 @@
     /// an error.
     ///
     /// [Gateway docs]: crate::gateway#sharding
-    </span><span class="attribute">#[instrument(skip(<span class="self">self</span>))]
+    </span><span class="attr">#[instrument(skip(<span class="self">self</span>))]
     </span><span class="kw">pub async fn </span>start_shards(<span class="kw-2">&amp;mut </span><span class="self">self</span>, total_shards: u64) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="self">self</span>.start_connection([<span class="number">0</span>, total_shards - <span class="number">1</span>, total_shards]).<span class="kw">await
     </span>}
@@ -1896,7 +1896,7 @@
     /// an error.
     ///
     /// [Gateway docs]: crate::gateway#sharding
-    </span><span class="attribute">#[instrument(skip(<span class="self">self</span>))]
+    </span><span class="attr">#[instrument(skip(<span class="self">self</span>))]
     </span><span class="kw">pub async fn </span>start_shard_range(<span class="kw-2">&amp;mut </span><span class="self">self</span>, range: [u64; <span class="number">2</span>], total_shards: u64) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="self">self</span>.start_connection([range[<span class="number">0</span>], range[<span class="number">1</span>], total_shards]).<span class="kw">await
     </span>}
@@ -1912,9 +1912,9 @@
     ///
     /// Returns a [`ClientError::Shutdown`] when all shards have shutdown due to
     /// an error.
-    </span><span class="attribute">#[instrument(skip(<span class="self">self</span>))]
+    </span><span class="attr">#[instrument(skip(<span class="self">self</span>))]
     </span><span class="kw">async fn </span>start_connection(<span class="kw-2">&amp;mut </span><span class="self">self</span>, shard_data: [u64; <span class="number">3</span>]) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;voice&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;voice&quot;</span>)]
         </span><span class="kw">if let </span><span class="prelude-val">Some</span>(voice_manager) = <span class="kw-2">&amp;</span><span class="self">self</span>.voice_manager {
             <span class="kw">let </span>user = <span class="self">self</span>.cache_and_http.http.get_current_user().<span class="kw">await</span><span class="question-mark">?</span>;
 
@@ -1955,4 +1955,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

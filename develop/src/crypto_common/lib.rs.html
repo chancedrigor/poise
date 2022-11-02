@@ -301,7 +301,7 @@
 <span id="300">300</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Common cryptographic traits.
 
-</span><span class="attribute">#![no_std]
+</span><span class="attr">#![no_std]
 #![cfg_attr(docsrs, feature(doc_cfg))]
 #![doc(
     html_logo_url = <span class="string">&quot;https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg&quot;</span>,
@@ -314,7 +314,7 @@
 #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">extern crate </span>std;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;rand_core&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;rand_core&quot;</span>)]
 </span><span class="kw">pub use </span>rand_core;
 
 <span class="kw">pub use </span>generic_array;
@@ -322,7 +322,7 @@
 
 <span class="kw">use </span>core::fmt;
 <span class="kw">use </span>generic_array::{typenum::Unsigned, ArrayLength, GenericArray};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;rand_core&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;rand_core&quot;</span>)]
 </span><span class="kw">use </span>rand_core::{CryptoRng, RngCore};
 
 <span class="doccomment">/// Block on which [`BlockSizeUser`] implementors operate.
@@ -425,7 +425,7 @@
     }
 
     <span class="doccomment">/// Generate random key using the provided [`CryptoRng`].
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;rand_core&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;rand_core&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;rand_core&quot;</span>)))]
     #[inline]
     </span><span class="kw">fn </span>generate_key(<span class="kw-2">mut </span>rng: <span class="kw">impl </span>CryptoRng + RngCore) -&gt; Key&lt;<span class="self">Self</span>&gt; {
@@ -441,7 +441,7 @@
     </span><span class="kw">fn </span>new(key: <span class="kw-2">&amp;</span>Key&lt;<span class="self">Self</span>&gt;, iv: <span class="kw-2">&amp;</span>Iv&lt;<span class="self">Self</span>&gt;) -&gt; <span class="self">Self</span>;
 
     <span class="doccomment">/// Create new value from variable length key and nonce.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>new_from_slices(key: <span class="kw-2">&amp;</span>[u8], iv: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, InvalidLength&gt; {
         <span class="kw">let </span>key_len = <span class="self">Self</span>::KeySize::USIZE;
         <span class="kw">let </span>iv_len = <span class="self">Self</span>::IvSize::USIZE;
@@ -456,7 +456,7 @@
     }
 
     <span class="doccomment">/// Generate random key using the provided [`CryptoRng`].
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;rand_core&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;rand_core&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;rand_core&quot;</span>)))]
     #[inline]
     </span><span class="kw">fn </span>generate_key(<span class="kw-2">mut </span>rng: <span class="kw">impl </span>CryptoRng + RngCore) -&gt; Key&lt;<span class="self">Self</span>&gt; {
@@ -466,7 +466,7 @@
     }
 
     <span class="doccomment">/// Generate random IV using the provided [`CryptoRng`].
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;rand_core&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;rand_core&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;rand_core&quot;</span>)))]
     #[inline]
     </span><span class="kw">fn </span>generate_iv(<span class="kw-2">mut </span>rng: <span class="kw">impl </span>CryptoRng + RngCore) -&gt; Iv&lt;<span class="self">Self</span>&gt; {
@@ -476,7 +476,7 @@
     }
 
     <span class="doccomment">/// Generate random key and nonce using the provided [`CryptoRng`].
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;rand_core&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;rand_core&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;rand_core&quot;</span>)))]
     #[inline]
     </span><span class="kw">fn </span>generate_key_iv(<span class="kw-2">mut </span>rng: <span class="kw">impl </span>CryptoRng + RngCore) -&gt; (Key&lt;<span class="self">Self</span>&gt;, Iv&lt;<span class="self">Self</span>&gt;) {
@@ -510,7 +510,7 @@
     }
 
     <span class="doccomment">/// Generate random IV using the provided [`CryptoRng`].
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;rand_core&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;rand_core&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;rand_core&quot;</span>)))]
     #[inline]
     </span><span class="kw">fn </span>generate_iv(<span class="kw-2">mut </span>rng: <span class="kw">impl </span>CryptoRng + RngCore) -&gt; Iv&lt;<span class="self">Self</span>&gt; {
@@ -533,12 +533,12 @@
     </span>T: InnerIvInit,
     T::Inner: KeyInit,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>new(key: <span class="kw-2">&amp;</span>Key&lt;<span class="self">Self</span>&gt;, iv: <span class="kw-2">&amp;</span>Iv&lt;<span class="self">Self</span>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::inner_iv_init(T::Inner::new(key), iv)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>new_from_slices(key: <span class="kw-2">&amp;</span>[u8], iv: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, InvalidLength&gt; {
         T::Inner::new_from_slice(key).and_then(|i| T::inner_iv_slice_init(i, iv))
     }
@@ -549,12 +549,12 @@
     </span>T: InnerInit,
     T::Inner: KeyInit,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>new(key: <span class="kw-2">&amp;</span>Key&lt;<span class="self">Self</span>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::inner_init(T::Inner::new(key))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>new_from_slice(key: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, InvalidLength&gt; {
         T::Inner::new_from_slice(key)
             .map_err(|<span class="kw">_</span>| InvalidLength)
@@ -588,7 +588,7 @@ where
 </span><span class="doccomment">/// The error type returned when key and/or IV used in the [`KeyInit`],
 /// [`KeyIvInit`], and [`InnerIvInit`] slice-based methods had
 /// an invalid length.
-</span><span class="attribute">#[derive(Copy, Clone, Eq, PartialEq, Debug)]
+</span><span class="attr">#[derive(Copy, Clone, Eq, PartialEq, Debug)]
 </span><span class="kw">pub struct </span>InvalidLength;
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>InvalidLength {
@@ -597,7 +597,7 @@ where
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>std::error::Error <span class="kw">for </span>InvalidLength {}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="crypto_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="crypto_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

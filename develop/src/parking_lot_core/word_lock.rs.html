@@ -361,7 +361,7 @@
 }
 
 <span class="kw">impl </span>ThreadData {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>new() -&gt; ThreadData {
         <span class="macro">assert!</span>(mem::align_of::&lt;ThreadData&gt;() &gt; !QUEUE_MASK);
         ThreadData {
@@ -374,7 +374,7 @@
 }
 
 <span class="comment">// Invokes the given closure with a reference to the current thread `ThreadData`.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>with_thread_data&lt;T&gt;(f: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;</span>ThreadData) -&gt; T) -&gt; T {
     <span class="kw">let </span><span class="kw-2">mut </span>thread_data_ptr = ptr::null();
     <span class="comment">// If ThreadData is expensive to construct, then we want to use a cached
@@ -412,7 +412,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>lock(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">if </span><span class="self">self
             </span>.state
@@ -425,7 +425,7 @@
     }
 
     <span class="doccomment">/// Must not be called on an already unlocked `WordLock`!
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub unsafe fn </span>unlock(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">let </span>state = <span class="self">self</span>.state.fetch_sub(LOCKED_BIT, Ordering::Release);
         <span class="kw">if </span>state.is_queue_locked() || state.queue_head().is_null() {
@@ -434,7 +434,7 @@
         <span class="self">self</span>.unlock_slow();
     }
 
-    <span class="attribute">#[cold]
+    <span class="attr">#[cold]
     </span><span class="kw">fn </span>lock_slow(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">let </span><span class="kw-2">mut </span>spinwait = SpinWait::new();
         <span class="kw">let </span><span class="kw-2">mut </span>state = <span class="self">self</span>.state.load(Ordering::Relaxed);
@@ -463,7 +463,7 @@
             </span>state = with_thread_data(|thread_data| {
                 <span class="comment">// The pthread implementation is still unsafe, so we need to surround `prepare_park`
                 // with `unsafe {}`.
-                </span><span class="attribute">#[allow(unused_unsafe)]
+                </span><span class="attr">#[allow(unused_unsafe)]
                 </span><span class="kw">unsafe </span>{
                     thread_data.parker.prepare_park();
                 }
@@ -489,7 +489,7 @@
 
                 <span class="comment">// Sleep until we are woken up by an unlock
                 // Ignoring unused unsafe, since it&#39;s only a few platforms where this is unsafe.
-                </span><span class="attribute">#[allow(unused_unsafe)]
+                </span><span class="attr">#[allow(unused_unsafe)]
                 </span><span class="kw">unsafe </span>{
                     thread_data.parker.park();
                 }
@@ -501,7 +501,7 @@
         }
     }
 
-    <span class="attribute">#[cold]
+    <span class="attr">#[cold]
     </span><span class="kw">fn </span>unlock_slow(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">let </span><span class="kw-2">mut </span>state = <span class="self">self</span>.state.load(Ordering::Relaxed);
         <span class="kw">loop </span>{
@@ -615,7 +615,7 @@
 
 <span class="comment">// Thread-Sanitizer only has partial fence support, so when running under it, we
 // try and avoid false positives by using a discarded acquire load instead.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>fence_acquire(a: <span class="kw-2">&amp;</span>AtomicUsize) {
     <span class="kw">if </span><span class="macro">cfg!</span>(tsan_enabled) {
         <span class="kw">let _ </span>= a.load(Ordering::Acquire);
@@ -632,25 +632,25 @@
 }
 
 <span class="kw">impl </span>LockState <span class="kw">for </span>usize {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_locked(<span class="self">self</span>) -&gt; bool {
         <span class="self">self </span>&amp; LOCKED_BIT != <span class="number">0
     </span>}
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_queue_locked(<span class="self">self</span>) -&gt; bool {
         <span class="self">self </span>&amp; QUEUE_LOCKED_BIT != <span class="number">0
     </span>}
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>queue_head(<span class="self">self</span>) -&gt; <span class="kw-2">*const </span>ThreadData {
         (<span class="self">self </span>&amp; QUEUE_MASK) <span class="kw">as </span><span class="kw-2">*const </span>ThreadData
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>with_queue_head(<span class="self">self</span>, thread_data: <span class="kw-2">*const </span>ThreadData) -&gt; <span class="self">Self </span>{
         (<span class="self">self </span>&amp; !QUEUE_MASK) | thread_data <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_ as </span>usize
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

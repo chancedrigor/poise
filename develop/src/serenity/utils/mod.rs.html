@@ -513,27 +513,27 @@
 </pre><pre class="rust"><code><span class="doccomment">//! A set of utilities to help with common use cases that are not required to
 //! fully use the library.
 
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;client&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;client&quot;</span>)]
 </span><span class="kw">mod </span>argument_convert;
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>backports;
 <span class="kw">mod </span>colour;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
 </span><span class="kw">mod </span>content_safe;
 <span class="kw">mod </span>custom_message;
 <span class="kw">mod </span>message_builder;
 
 <span class="kw">pub mod </span>token;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;client&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;client&quot;</span>)]
 </span><span class="kw">pub use </span>argument_convert::<span class="kw-2">*</span>;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
 </span><span class="kw">pub use </span>content_safe::<span class="kw-2">*</span>;
 <span class="kw">use </span>url::Url;
 
 <span class="kw">pub use </span><span class="self">self</span>::colour::{colours, Colour};
 <span class="kw">pub use </span><span class="self">self</span>::custom_message::CustomMessage;
 <span class="kw">pub use </span><span class="self">self</span>::message_builder::{Content, ContentModifier, EmbedMessageBuilding, MessageBuilder};
-<span class="attribute">#[doc(inline)]
+<span class="attr">#[doc(inline)]
 </span><span class="kw">pub use </span><span class="self">self</span>::token::{parse <span class="kw">as </span>parse_token, validate <span class="kw">as </span>validate_token};
 <span class="kw">pub type </span>Color = Colour;
 
@@ -546,7 +546,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::model::id::EmojiId;
 <span class="kw">use </span><span class="kw">crate</span>::model::misc::EmojiIdentifier;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>encode_image(raw: <span class="kw-2">&amp;</span>[u8]) -&gt; String {
     <span class="kw">let </span><span class="kw-2">mut </span>encoded = base64::encode(raw);
     encoded.insert_str(<span class="number">0</span>, <span class="string">&quot;data:image/png;base64,&quot;</span>);
@@ -581,7 +581,7 @@
 /// ```
 ///
 /// [`RichInvite`]: crate::model::invite::RichInvite
-</span><span class="attribute">#[must_use]
+</span><span class="attr">#[must_use]
 </span><span class="kw">pub fn </span>parse_invite(code: <span class="kw-2">&amp;</span>str) -&gt; <span class="kw-2">&amp;</span>str {
     <span class="kw">let </span>code = code.trim_start_matches(<span class="string">&quot;http://&quot;</span>).trim_start_matches(<span class="string">&quot;https://&quot;</span>);
     <span class="kw">let </span>lower = code.to_lowercase();
@@ -605,7 +605,7 @@
 /// assert_eq!(parse_user_tag(&quot;kangalioo#9108&quot;), Some((&quot;kangalioo&quot;, 9108)));
 /// assert_eq!(parse_user_tag(&quot;kangalioo#10108&quot;), None);
 /// ```
-</span><span class="attribute">#[must_use]
+</span><span class="attr">#[must_use]
 </span><span class="kw">pub fn </span>parse_user_tag(s: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;(<span class="kw-2">&amp;</span>str, u16)&gt; {
     <span class="kw">let </span>(name, discrim) = s.split_once(<span class="string">&#39;#&#39;</span>)<span class="question-mark">?</span>;
     <span class="kw">let </span>discrim = discrim.parse().ok()<span class="question-mark">?</span>;
@@ -835,7 +835,7 @@
 ///
 /// [`EditProfile::avatar`]: crate::builder::EditProfile::avatar
 /// [`Error::Io`]: crate::error::Error::Io
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>read_image&lt;P: AsRef&lt;Path&gt;&gt;(path: P) -&gt; <span class="prelude-ty">Result</span>&lt;String&gt; {
     _read_image(path.as_ref())
 }
@@ -939,7 +939,7 @@
 /// assert_eq!(id, 245037420704169985);
 /// assert_eq!(token, &quot;ig5AO-wdVWpCBtUUMxmgsWryqgsW3DChbKYOINftJ4DCrUbnkedoYZD0VOH1QLr-S3sV&quot;);
 /// ```
-</span><span class="attribute">#[must_use]
+</span><span class="attr">#[must_use]
 </span><span class="kw">pub fn </span>parse_webhook(url: <span class="kw-2">&amp;</span>Url) -&gt; <span class="prelude-ty">Option</span>&lt;(u64, <span class="kw-2">&amp;</span>str)&gt; {
     <span class="kw">let </span>(webhook_id, token) = url.path().strip_prefix(<span class="string">&quot;/api/webhooks/&quot;</span>)<span class="question-mark">?</span>.split_once(<span class="string">&#39;/&#39;</span>)<span class="question-mark">?</span>;
     <span class="kw">if </span>![<span class="string">&quot;http&quot;</span>, <span class="string">&quot;https&quot;</span>].contains(<span class="kw-2">&amp;</span>url.scheme())
@@ -965,16 +965,16 @@
 ///
 /// assert_eq!(utils::shard_id(81384788765712384 as u64, 17), 7);
 /// ```
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>shard_id(guild_id: <span class="kw">impl </span>Into&lt;u64&gt;, shard_count: u64) -&gt; u64 {
     (guild_id.into() &gt;&gt; <span class="number">22</span>) % shard_count
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_invite_parser() {
         <span class="macro">assert_eq!</span>(parse_invite(<span class="string">&quot;https://discord.gg/abc&quot;</span>), <span class="string">&quot;abc&quot;</span>);
         <span class="macro">assert_eq!</span>(parse_invite(<span class="string">&quot;http://discord.gg/abc&quot;</span>), <span class="string">&quot;abc&quot;</span>);
@@ -985,36 +985,36 @@
         <span class="macro">assert_eq!</span>(parse_invite(<span class="string">&quot;discord.com/invite/abc&quot;</span>), <span class="string">&quot;abc&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_username_parser() {
         <span class="macro">assert_eq!</span>(parse_username(<span class="string">&quot;&lt;@12345&gt;&quot;</span>).unwrap(), <span class="number">12_345</span>);
         <span class="macro">assert_eq!</span>(parse_username(<span class="string">&quot;&lt;@!12345&gt;&quot;</span>).unwrap(), <span class="number">12_345</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>role_parser() {
         <span class="macro">assert_eq!</span>(parse_role(<span class="string">&quot;&lt;@&amp;12345&gt;&quot;</span>).unwrap(), <span class="number">12_345</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_channel_parser() {
         <span class="macro">assert_eq!</span>(parse_channel(<span class="string">&quot;&lt;#12345&gt;&quot;</span>).unwrap(), <span class="number">12_345</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_emoji_parser() {
         <span class="kw">let </span>emoji = parse_emoji(<span class="string">&quot;&lt;:name:12345&gt;&quot;</span>).unwrap();
         <span class="macro">assert_eq!</span>(emoji.name, <span class="string">&quot;name&quot;</span>);
         <span class="macro">assert_eq!</span>(emoji.id, <span class="number">12_345</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_quote_parser() {
         <span class="kw">let </span>parsed = parse_quotes(<span class="string">&quot;a \&quot;b c\&quot; d\&quot;e f\&quot;  g&quot;</span>);
         <span class="macro">assert_eq!</span>(parsed, [<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b c&quot;</span>, <span class="string">&quot;d&quot;</span>, <span class="string">&quot;e f&quot;</span>, <span class="string">&quot;g&quot;</span>]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_webhook_parser() {
         <span class="kw">let </span>url = <span class="string">&quot;https://discord.com/api/webhooks/245037420704169985/ig5AO-wdVWpCBtUUMxmgsWryqgsW3DChbKYOINftJ4DCrUbnkedoYZD0VOH1QLr-S3sV&quot;</span>.parse().unwrap();
         <span class="kw">let </span>(id, token) = parse_webhook(<span class="kw-2">&amp;</span>url).unwrap();
@@ -1023,4 +1023,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

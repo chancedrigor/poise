@@ -510,17 +510,17 @@
 <span id="509">509</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Various modifiers for components.
 
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span>alloc::string::String;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span>core::mem;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use crate</span>::{error::InvalidFormatDescription, format_description::helper};
 
 <span class="comment">// region: date modifiers
 </span><span class="doccomment">/// Day of the month.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>Day {
     <span class="doccomment">/// The padding to obtain the minimum width.
@@ -528,7 +528,7 @@
 }
 
 <span class="doccomment">/// The representation of a month.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>MonthRepr {
     <span class="doccomment">/// The number of the month (January is 1, December is 12).
@@ -540,7 +540,7 @@
 }
 
 <span class="doccomment">/// Month of the year.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>Month {
     <span class="doccomment">/// The padding to obtain the minimum width.
@@ -552,7 +552,7 @@
 }
 
 <span class="doccomment">/// Ordinal day of the year.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>Ordinal {
     <span class="doccomment">/// The padding to obtain the minimum width.
@@ -560,7 +560,7 @@
 }
 
 <span class="doccomment">/// The representation used for the day of the week.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>WeekdayRepr {
     <span class="doccomment">/// The short form of the weekday (e.g. &quot;Mon&quot;).
@@ -578,7 +578,7 @@
 }
 
 <span class="doccomment">/// Day of the week.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>Weekday {
     <span class="doccomment">/// What form of representation should be used?
@@ -590,7 +590,7 @@
 }
 
 <span class="doccomment">/// The representation used for the week number.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>WeekNumberRepr {
     <span class="doccomment">/// Week 1 is the week that contains January 4.
@@ -602,7 +602,7 @@
 }
 
 <span class="doccomment">/// Week within the year.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>WeekNumber {
     <span class="doccomment">/// The padding to obtain the minimum width.
@@ -612,7 +612,7 @@
 }
 
 <span class="doccomment">/// The representation used for a year value.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>YearRepr {
     <span class="doccomment">/// The full value of the year.
@@ -622,7 +622,7 @@
 }
 
 <span class="doccomment">/// Year of the date.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>Year {
     <span class="doccomment">/// The padding to obtain the minimum width.
@@ -638,7 +638,7 @@
 
 // region: time modifiers
 </span><span class="doccomment">/// Hour of the day.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>Hour {
     <span class="doccomment">/// The padding to obtain the minimum width.
@@ -648,7 +648,7 @@
 }
 
 <span class="doccomment">/// Minute within the hour.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>Minute {
     <span class="doccomment">/// The padding to obtain the minimum width.
@@ -656,7 +656,7 @@
 }
 
 <span class="doccomment">/// AM/PM part of the time.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>Period {
     <span class="doccomment">/// Is the period uppercase or lowercase?
@@ -668,7 +668,7 @@
 }
 
 <span class="doccomment">/// Second within the minute.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>Second {
     <span class="doccomment">/// The padding to obtain the minimum width.
@@ -676,7 +676,7 @@
 }
 
 <span class="doccomment">/// The number of digits present in a subsecond representation.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>SubsecondDigits {
     <span class="doccomment">/// Exactly one digit.
@@ -703,7 +703,7 @@
 }
 
 <span class="doccomment">/// Subsecond within the second.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>Subsecond {
     <span class="doccomment">/// How many digits are present in the component?
@@ -713,7 +713,7 @@
 
 // region: offset modifiers
 </span><span class="doccomment">/// Hour of the UTC offset.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>OffsetHour {
     <span class="doccomment">/// Whether the `+` sign is present on positive values.
@@ -723,7 +723,7 @@
 }
 
 <span class="doccomment">/// Minute within the hour of the UTC offset.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>OffsetMinute {
     <span class="doccomment">/// The padding to obtain the minimum width.
@@ -731,7 +731,7 @@
 }
 
 <span class="doccomment">/// Second within the minute of the UTC offset.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>OffsetSecond {
     <span class="doccomment">/// The padding to obtain the minimum width.
@@ -740,7 +740,7 @@
 <span class="comment">// endregion offset modifiers
 
 </span><span class="doccomment">/// Type of padding to ensure a minimum width.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>Padding {
     <span class="doccomment">/// A space character (` `) should be used as padding.
@@ -754,8 +754,8 @@
 
 <span class="doccomment">/// Generate the provided code if and only if `pub` is present.
 </span><span class="macro">macro_rules! </span>if_pub {
-    (<span class="kw">pub </span>$(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)<span class="kw-2">*</span>; $(<span class="macro-nonterminal">$x</span>:tt)<span class="kw-2">*</span>) =&gt; {
-        $(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>]</span>)*
+    (<span class="kw">pub </span>$(<span class="attr">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)<span class="kw-2">*</span>; $(<span class="macro-nonterminal">$x</span>:tt)<span class="kw-2">*</span>) =&gt; {
+        $(<span class="attr">#[<span class="macro-nonterminal">$attr</span>]</span>)*
         <span class="doccomment">///
         /// This function exists since [`Default::default()`] cannot be used in a `const` context.
         /// It may be removed once that becomes possible. As the [`Default`] trait is in the
@@ -771,18 +771,18 @@
 /// `default` method that is `const fn`, permitting the default value to be used in const contexts.
 </span><span class="comment">// Every modifier should use this macro rather than a derived `Default`.
 </span><span class="macro">macro_rules! </span>impl_const_default {
-    ($($(<span class="attribute">#[<span class="macro-nonterminal">$doc</span>:meta]</span>)* $(@<span class="macro-nonterminal">$</span><span class="kw">pub</span>:<span class="macro-nonterminal">ident</span>)<span class="question-mark">? </span><span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty </span>=&gt; <span class="macro-nonterminal">$default</span>:expr;)<span class="kw-2">*</span>) =&gt; {$(
+    ($($(<span class="attr">#[<span class="macro-nonterminal">$doc</span>:meta]</span>)* $(@<span class="macro-nonterminal">$</span><span class="kw">pub</span>:<span class="macro-nonterminal">ident</span>)<span class="question-mark">? </span><span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty </span>=&gt; <span class="macro-nonterminal">$default</span>:expr;)<span class="kw-2">*</span>) =&gt; {$(
         <span class="kw">impl </span><span class="macro-nonterminal">$</span><span class="kw">type </span>{
             <span class="macro">if_pub! </span>{
                 $(<span class="macro-nonterminal">$</span><span class="kw">pub</span>)<span class="question-mark">?
-                </span>$(<span class="attribute">#[<span class="macro-nonterminal">$doc</span>]</span>)<span class="kw-2">*</span>;
+                </span>$(<span class="attr">#[<span class="macro-nonterminal">$doc</span>]</span>)<span class="kw-2">*</span>;
                 <span class="kw">pub const fn </span>default() -&gt; <span class="self">Self </span>{
                     <span class="macro-nonterminal">$default
                 </span>}
             }
         }
 
-        $(<span class="attribute">#[<span class="macro-nonterminal">$doc</span>]</span>)*
+        $(<span class="attr">#[<span class="macro-nonterminal">$doc</span>]</span>)*
         <span class="kw">impl </span>Default <span class="kw">for </span><span class="macro-nonterminal">$</span><span class="kw">type </span>{
             <span class="kw">fn </span><span class="macro-nonterminal">default</span>() -&gt; <span class="self">Self </span>{
                 <span class="macro-nonterminal">$default
@@ -873,9 +873,9 @@
 }
 
 <span class="doccomment">/// The modifiers parsed for any given component. `None` indicates the modifier was not present.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 #[allow(clippy::missing_docs_in_private_items)] </span><span class="comment">// fields
-</span><span class="attribute">#[derive(Debug, Default)]
+</span><span class="attr">#[derive(Debug, Default)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Modifiers {
     <span class="kw">pub</span>(<span class="kw">crate</span>) padding: <span class="prelude-ty">Option</span>&lt;Padding&gt;,
     <span class="kw">pub</span>(<span class="kw">crate</span>) hour_is_12_hour_clock: <span class="prelude-ty">Option</span>&lt;bool&gt;,
@@ -891,10 +891,10 @@
     <span class="kw">pub</span>(<span class="kw">crate</span>) case_sensitive: <span class="prelude-ty">Option</span>&lt;bool&gt;,
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">impl </span>Modifiers {
     <span class="doccomment">/// Parse the modifiers of a given component.
-    </span><span class="attribute">#[allow(clippy::too_many_lines)]
+    </span><span class="attr">#[allow(clippy::too_many_lines)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>parse(
         component_name: <span class="kw-2">&amp;</span>[u8],
         <span class="kw-2">mut </span>bytes: <span class="kw-2">&amp;</span>[u8],
@@ -1018,4 +1018,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -206,7 +206,7 @@
 /// [mapping]: method@crate::sync::OwnedRwLockWriteGuard::map
 /// [`OwnedRwLockWriteGuard`]: struct@crate::sync::OwnedRwLockWriteGuard
 </span><span class="kw">pub struct </span>OwnedRwLockMappedWriteGuard&lt;T: <span class="question-mark">?</span>Sized, U: <span class="question-mark">?</span>Sized = T&gt; {
-    <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+    <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) resource_span: tracing::Span,
     <span class="kw">pub</span>(<span class="kw">super</span>) permits_acquired: u32,
     <span class="comment">// ManuallyDrop allows us to destructure into this field without running the destructor.
@@ -248,7 +248,7 @@
     /// assert_eq!(Foo(2), *lock.read().await);
     /// # }
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>map&lt;F, V: <span class="question-mark">?</span>Sized&gt;(<span class="kw-2">mut </span>this: <span class="self">Self</span>, f: F) -&gt; OwnedRwLockMappedWriteGuard&lt;T, V&gt;
     <span class="kw">where
         </span>F: FnOnce(<span class="kw-2">&amp;mut </span>U) -&gt; <span class="kw-2">&amp;mut </span>V,
@@ -256,7 +256,7 @@
         <span class="kw">let </span>data = f(<span class="kw-2">&amp;mut *</span>this) <span class="kw">as </span><span class="kw-2">*mut </span>V;
         <span class="kw">let </span>lock = <span class="kw">unsafe </span>{ ManuallyDrop::take(<span class="kw-2">&amp;mut </span>this.lock) };
         <span class="kw">let </span>permits_acquired = this.permits_acquired;
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>resource_span = this.resource_span.clone();
         <span class="comment">// NB: Forget to avoid drop impl from being called.
         </span>mem::forget(this);
@@ -266,7 +266,7 @@
             lock: ManuallyDrop::new(lock),
             data,
             _p: PhantomData,
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span>resource_span,
         }
     }
@@ -304,7 +304,7 @@
     /// assert_eq!(Foo(2), *lock.read().await);
     /// # }
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>try_map&lt;F, V: <span class="question-mark">?</span>Sized&gt;(
         <span class="kw-2">mut </span>this: <span class="self">Self</span>,
         f: F,
@@ -318,7 +318,7 @@
         };
         <span class="kw">let </span>lock = <span class="kw">unsafe </span>{ ManuallyDrop::take(<span class="kw-2">&amp;mut </span>this.lock) };
         <span class="kw">let </span>permits_acquired = this.permits_acquired;
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>resource_span = this.resource_span.clone();
         <span class="comment">// NB: Forget to avoid drop impl from being called.
         </span>mem::forget(this);
@@ -328,7 +328,7 @@
             lock: ManuallyDrop::new(lock),
             data,
             _p: PhantomData,
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span>resource_span,
         })
     }
@@ -369,7 +369,7 @@
 <span class="kw">impl</span>&lt;T: <span class="question-mark">?</span>Sized, U: <span class="question-mark">?</span>Sized&gt; Drop <span class="kw">for </span>OwnedRwLockMappedWriteGuard&lt;T, U&gt; {
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.lock.s.release(<span class="self">self</span>.permits_acquired <span class="kw">as </span>usize);
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="self">self</span>.resource_span.in_scope(|| {
             <span class="macro">tracing::trace!</span>(
             target: <span class="string">&quot;runtime::resource::state_update&quot;</span>,
@@ -381,4 +381,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

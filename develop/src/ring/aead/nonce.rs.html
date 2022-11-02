@@ -80,7 +80,7 @@
     /// unique for the lifetime of the key it is being used with.
     ///
     /// Fails if `value` isn&#39;t `NONCE_LEN` bytes long.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>try_assume_unique_for_key(value: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, error::Unspecified&gt; {
         <span class="kw">let </span>value: <span class="kw-2">&amp;</span>[u8; NONCE_LEN] = value.try_into()<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(<span class="self">Self</span>::assume_unique_for_key(<span class="kw-2">*</span>value))
@@ -88,7 +88,7 @@
 
     <span class="doccomment">/// Constructs a `Nonce` with the given value, assuming that the value is
     /// unique for the lifetime of the key it is being used with.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>assume_unique_for_key(value: [u8; NONCE_LEN]) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>(value)
     }
@@ -103,4 +103,4 @@
 <span class="doccomment">/// All the AEADs we support use 96-bit nonces.
 </span><span class="kw">pub const </span>NONCE_LEN: usize = <span class="number">96 </span>/ <span class="number">8</span>;
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

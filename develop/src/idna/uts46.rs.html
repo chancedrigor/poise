@@ -747,7 +747,7 @@
 
 <span class="kw">const </span>PUNYCODE_PREFIX: <span class="kw-2">&amp;</span>str = <span class="string">&quot;xn--&quot;</span>;
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>StringTableSlice {
     <span class="comment">// Store these as separate fields so the structure will have an
     // alignment of 1 and thus pack better into the Mapping enum, below.
@@ -764,7 +764,7 @@
     <span class="kw-2">&amp;</span>STRING_TABLE[start..(start + len)]
 }
 
-<span class="attribute">#[repr(u8)]
+<span class="attr">#[repr(u8)]
 #[derive(Debug)]
 </span><span class="kw">enum </span>Mapping {
     Valid,
@@ -1046,7 +1046,7 @@
 </span>}
 
 <span class="doccomment">/// http://www.unicode.org/reports/tr46/#Processing
-</span><span class="attribute">#[allow(clippy::manual_strip)] </span><span class="comment">// introduced in 1.45, MSRV is 1.36
+</span><span class="attr">#[allow(clippy::manual_strip)] </span><span class="comment">// introduced in 1.45, MSRV is 1.36
 </span><span class="kw">fn </span>processing(
     domain: <span class="kw-2">&amp;</span>str,
     config: Config,
@@ -1159,7 +1159,7 @@
     errors
 }
 
-<span class="attribute">#[derive(Default)]
+<span class="attr">#[derive(Default)]
 </span><span class="kw">pub struct </span>Idna {
     config: Config,
     normalized: String,
@@ -1176,7 +1176,7 @@
     }
 
     <span class="doccomment">/// http://www.unicode.org/reports/tr46/#ToASCII
-    </span><span class="attribute">#[allow(clippy::wrong_self_convention)]
+    </span><span class="attr">#[allow(clippy::wrong_self_convention)]
     </span><span class="kw">pub fn </span>to_ascii&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="self">self</span>, domain: <span class="kw-2">&amp;</span>str, out: <span class="kw-2">&amp;mut </span>String) -&gt; <span class="prelude-ty">Result</span>&lt;(), Errors&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>errors = processing(domain, <span class="self">self</span>.config, <span class="kw-2">&amp;mut </span><span class="self">self</span>.normalized, <span class="kw-2">&amp;mut </span><span class="self">self</span>.output);
 
@@ -1217,13 +1217,13 @@
     }
 
     <span class="doccomment">/// http://www.unicode.org/reports/tr46/#ToUnicode
-    </span><span class="attribute">#[allow(clippy::wrong_self_convention)]
+    </span><span class="attr">#[allow(clippy::wrong_self_convention)]
     </span><span class="kw">pub fn </span>to_unicode&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="self">self</span>, domain: <span class="kw-2">&amp;</span>str, out: <span class="kw-2">&amp;mut </span>String) -&gt; <span class="prelude-ty">Result</span>&lt;(), Errors&gt; {
         processing(domain, <span class="self">self</span>.config, <span class="kw-2">&amp;mut </span><span class="self">self</span>.normalized, out).into()
     }
 }
 
-<span class="attribute">#[derive(Clone, Copy)]
+<span class="attr">#[derive(Clone, Copy)]
 </span><span class="kw">pub struct </span>Config {
     use_std3_ascii_rules: bool,
     transitional_processing: bool,
@@ -1250,31 +1250,31 @@
 }
 
 <span class="kw">impl </span>Config {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>use_std3_ascii_rules(<span class="kw-2">mut </span><span class="self">self</span>, value: bool) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.use_std3_ascii_rules = value;
         <span class="self">self
     </span>}
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>transitional_processing(<span class="kw-2">mut </span><span class="self">self</span>, value: bool) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.transitional_processing = value;
         <span class="self">self
     </span>}
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>verify_dns_length(<span class="kw-2">mut </span><span class="self">self</span>, value: bool) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.verify_dns_length = value;
         <span class="self">self
     </span>}
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>check_hyphens(<span class="kw-2">mut </span><span class="self">self</span>, value: bool) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.check_hyphens = value;
         <span class="self">self
     </span>}
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>use_idna_2008_rules(<span class="kw-2">mut </span><span class="self">self</span>, value: bool) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.use_idna_2008_rules = value;
         <span class="self">self
@@ -1313,7 +1313,7 @@
 ///
 /// This is opaque for now, indicating what types of errors have been encountered at least once.
 /// More details may be exposed in the future.
-</span><span class="attribute">#[derive(Default)]
+</span><span class="attr">#[derive(Default)]
 </span><span class="kw">pub struct </span>Errors {
     punycode: bool,
     check_hyphens: bool,
@@ -1433,11 +1433,11 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::{find_char, Mapping};
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>mapping_fast_path() {
         <span class="macro">assert_matches!</span>(find_char(<span class="string">&#39;-&#39;</span>), <span class="kw-2">&amp;</span>Mapping::Valid);
         <span class="macro">assert_matches!</span>(find_char(<span class="string">&#39;.&#39;</span>), <span class="kw-2">&amp;</span>Mapping::Valid);
@@ -1453,4 +1453,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="idna" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="idna" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

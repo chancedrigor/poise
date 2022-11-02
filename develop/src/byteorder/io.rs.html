@@ -1643,7 +1643,7 @@
     /// assert_eq!(2, rdr.read_u8().unwrap());
     /// assert_eq!(5, rdr.read_u8().unwrap());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u8(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;u8&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">1</span>];
         <span class="self">self</span>.read_exact(<span class="kw-2">&amp;mut </span>buf)<span class="question-mark">?</span>;
@@ -1673,7 +1673,7 @@
     /// assert_eq!(2, rdr.read_i8().unwrap());
     /// assert_eq!(-5, rdr.read_i8().unwrap());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_i8(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;i8&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">1</span>];
         <span class="self">self</span>.read_exact(<span class="kw-2">&amp;mut </span>buf)<span class="question-mark">?</span>;
@@ -1700,7 +1700,7 @@
     /// assert_eq!(517, rdr.read_u16::&lt;BigEndian&gt;().unwrap());
     /// assert_eq!(768, rdr.read_u16::&lt;BigEndian&gt;().unwrap());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u16&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;u16&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">2</span>];
         <span class="self">self</span>.read_exact(<span class="kw-2">&amp;mut </span>buf)<span class="question-mark">?</span>;
@@ -1727,7 +1727,7 @@
     /// assert_eq!(193, rdr.read_i16::&lt;BigEndian&gt;().unwrap());
     /// assert_eq!(-132, rdr.read_i16::&lt;BigEndian&gt;().unwrap());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_i16&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;i16&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">2</span>];
         <span class="self">self</span>.read_exact(<span class="kw-2">&amp;mut </span>buf)<span class="question-mark">?</span>;
@@ -1753,7 +1753,7 @@
     /// let mut rdr = Cursor::new(vec![0x00, 0x01, 0x0b]);
     /// assert_eq!(267, rdr.read_u24::&lt;BigEndian&gt;().unwrap());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u24&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;u32&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">3</span>];
         <span class="self">self</span>.read_exact(<span class="kw-2">&amp;mut </span>buf)<span class="question-mark">?</span>;
@@ -1779,7 +1779,7 @@
     /// let mut rdr = Cursor::new(vec![0xff, 0x7a, 0x33]);
     /// assert_eq!(-34253, rdr.read_i24::&lt;BigEndian&gt;().unwrap());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_i24&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;i32&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">3</span>];
         <span class="self">self</span>.read_exact(<span class="kw-2">&amp;mut </span>buf)<span class="question-mark">?</span>;
@@ -1805,7 +1805,7 @@
     /// let mut rdr = Cursor::new(vec![0x00, 0x00, 0x01, 0x0b]);
     /// assert_eq!(267, rdr.read_u32::&lt;BigEndian&gt;().unwrap());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u32&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;u32&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">4</span>];
         <span class="self">self</span>.read_exact(<span class="kw-2">&amp;mut </span>buf)<span class="question-mark">?</span>;
@@ -1831,7 +1831,7 @@
     /// let mut rdr = Cursor::new(vec![0xff, 0xff, 0x7a, 0x33]);
     /// assert_eq!(-34253, rdr.read_i32::&lt;BigEndian&gt;().unwrap());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_i32&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;i32&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">4</span>];
         <span class="self">self</span>.read_exact(<span class="kw-2">&amp;mut </span>buf)<span class="question-mark">?</span>;
@@ -1857,7 +1857,7 @@
     /// let mut rdr = Cursor::new(vec![0xb6, 0x71, 0x6b, 0xdc, 0x2b, 0x31]);
     /// assert_eq!(200598257150769, rdr.read_u48::&lt;BigEndian&gt;().unwrap());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u48&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;u64&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">6</span>];
         <span class="self">self</span>.read_exact(<span class="kw-2">&amp;mut </span>buf)<span class="question-mark">?</span>;
@@ -1883,7 +1883,7 @@
     /// let mut rdr = Cursor::new(vec![0x9d, 0x71, 0xab, 0xe7, 0x97, 0x8f]);
     /// assert_eq!(-108363435763825, rdr.read_i48::&lt;BigEndian&gt;().unwrap());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_i48&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;i64&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">6</span>];
         <span class="self">self</span>.read_exact(<span class="kw-2">&amp;mut </span>buf)<span class="question-mark">?</span>;
@@ -1909,7 +1909,7 @@
     /// let mut rdr = Cursor::new(vec![0x00, 0x03, 0x43, 0x95, 0x4d, 0x60, 0x86, 0x83]);
     /// assert_eq!(918733457491587, rdr.read_u64::&lt;BigEndian&gt;().unwrap());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u64&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;u64&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">8</span>];
         <span class="self">self</span>.read_exact(<span class="kw-2">&amp;mut </span>buf)<span class="question-mark">?</span>;
@@ -1935,7 +1935,7 @@
     /// let mut rdr = Cursor::new(vec![0x80, 0, 0, 0, 0, 0, 0, 0]);
     /// assert_eq!(i64::min_value(), rdr.read_i64::&lt;BigEndian&gt;().unwrap());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_i64&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;i64&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">8</span>];
         <span class="self">self</span>.read_exact(<span class="kw-2">&amp;mut </span>buf)<span class="question-mark">?</span>;
@@ -1964,7 +1964,7 @@
     /// ]);
     /// assert_eq!(16947640962301618749969007319746179, rdr.read_u128::&lt;BigEndian&gt;().unwrap());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u128&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;u128&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">16</span>];
         <span class="self">self</span>.read_exact(<span class="kw-2">&amp;mut </span>buf)<span class="question-mark">?</span>;
@@ -1990,7 +1990,7 @@
     /// let mut rdr = Cursor::new(vec![0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     /// assert_eq!(i128::min_value(), rdr.read_i128::&lt;BigEndian&gt;().unwrap());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_i128&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;i128&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">16</span>];
         <span class="self">self</span>.read_exact(<span class="kw-2">&amp;mut </span>buf)<span class="question-mark">?</span>;
@@ -2015,7 +2015,7 @@
     ///
     /// let mut rdr = Cursor::new(vec![0x80, 0x74, 0xfa]);
     /// assert_eq!(8418554, rdr.read_uint::&lt;BigEndian&gt;(3).unwrap());
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_uint&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, nbytes: usize) -&gt; <span class="prelude-ty">Result</span>&lt;u64&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">8</span>];
         <span class="self">self</span>.read_exact(<span class="kw-2">&amp;mut </span>buf[..nbytes])<span class="question-mark">?</span>;
@@ -2040,7 +2040,7 @@
     ///
     /// let mut rdr = Cursor::new(vec![0xc1, 0xff, 0x7c]);
     /// assert_eq!(-4063364, rdr.read_int::&lt;BigEndian&gt;(3).unwrap());
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_int&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, nbytes: usize) -&gt; <span class="prelude-ty">Result</span>&lt;i64&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">8</span>];
         <span class="self">self</span>.read_exact(<span class="kw-2">&amp;mut </span>buf[..nbytes])<span class="question-mark">?</span>;
@@ -2048,7 +2048,7 @@
     }
 
     <span class="doccomment">/// Reads an unsigned n-bytes integer from the underlying reader.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_uint128&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, nbytes: usize) -&gt; <span class="prelude-ty">Result</span>&lt;u128&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">16</span>];
         <span class="self">self</span>.read_exact(<span class="kw-2">&amp;mut </span>buf[..nbytes])<span class="question-mark">?</span>;
@@ -2056,7 +2056,7 @@
     }
 
     <span class="doccomment">/// Reads a signed n-bytes integer from the underlying reader.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_int128&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, nbytes: usize) -&gt; <span class="prelude-ty">Result</span>&lt;i128&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">16</span>];
         <span class="self">self</span>.read_exact(<span class="kw-2">&amp;mut </span>buf[..nbytes])<span class="question-mark">?</span>;
@@ -2087,7 +2087,7 @@
     /// ]);
     /// assert_eq!(f32::consts::PI, rdr.read_f32::&lt;BigEndian&gt;().unwrap());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_f32&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;f32&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">4</span>];
         <span class="self">self</span>.read_exact(<span class="kw-2">&amp;mut </span>buf)<span class="question-mark">?</span>;
@@ -2118,7 +2118,7 @@
     /// ]);
     /// assert_eq!(f64::consts::PI, rdr.read_f64::&lt;BigEndian&gt;().unwrap());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_f64&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;f64&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">8</span>];
         <span class="self">self</span>.read_exact(<span class="kw-2">&amp;mut </span>buf)<span class="question-mark">?</span>;
@@ -2150,7 +2150,7 @@
     /// rdr.read_u16_into::&lt;BigEndian&gt;(&amp;mut dst).unwrap();
     /// assert_eq!([517, 768], dst);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u16_into&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dst: <span class="kw-2">&amp;mut </span>[u16]) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         {
             <span class="kw">let </span>buf = <span class="kw">unsafe </span>{ slice_to_u8_mut(dst) };
@@ -2185,7 +2185,7 @@
     /// rdr.read_u32_into::&lt;BigEndian&gt;(&amp;mut dst).unwrap();
     /// assert_eq!([517, 768], dst);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u32_into&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dst: <span class="kw-2">&amp;mut </span>[u32]) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         {
             <span class="kw">let </span>buf = <span class="kw">unsafe </span>{ slice_to_u8_mut(dst) };
@@ -2223,7 +2223,7 @@
     /// rdr.read_u64_into::&lt;BigEndian&gt;(&amp;mut dst).unwrap();
     /// assert_eq!([517, 768], dst);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u64_into&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dst: <span class="kw-2">&amp;mut </span>[u64]) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         {
             <span class="kw">let </span>buf = <span class="kw">unsafe </span>{ slice_to_u8_mut(dst) };
@@ -2261,7 +2261,7 @@
     /// rdr.read_u128_into::&lt;BigEndian&gt;(&amp;mut dst).unwrap();
     /// assert_eq!([517, 768], dst);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u128_into&lt;T: ByteOrder&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         dst: <span class="kw-2">&amp;mut </span>[u128],
@@ -2304,7 +2304,7 @@
     /// rdr.read_i8_into(&amp;mut dst).unwrap();
     /// assert_eq!([2, -5, 3], dst);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_i8_into(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dst: <span class="kw-2">&amp;mut </span>[i8]) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">let </span>buf = <span class="kw">unsafe </span>{ slice_to_u8_mut(dst) };
         <span class="self">self</span>.read_exact(buf)
@@ -2335,7 +2335,7 @@
     /// rdr.read_i16_into::&lt;BigEndian&gt;(&amp;mut dst).unwrap();
     /// assert_eq!([517, 768], dst);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_i16_into&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dst: <span class="kw-2">&amp;mut </span>[i16]) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         {
             <span class="kw">let </span>buf = <span class="kw">unsafe </span>{ slice_to_u8_mut(dst) };
@@ -2370,7 +2370,7 @@
     /// rdr.read_i32_into::&lt;BigEndian&gt;(&amp;mut dst).unwrap();
     /// assert_eq!([517, 768], dst);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_i32_into&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dst: <span class="kw-2">&amp;mut </span>[i32]) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         {
             <span class="kw">let </span>buf = <span class="kw">unsafe </span>{ slice_to_u8_mut(dst) };
@@ -2408,7 +2408,7 @@
     /// rdr.read_i64_into::&lt;BigEndian&gt;(&amp;mut dst).unwrap();
     /// assert_eq!([517, 768], dst);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_i64_into&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dst: <span class="kw-2">&amp;mut </span>[i64]) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         {
             <span class="kw">let </span>buf = <span class="kw">unsafe </span>{ slice_to_u8_mut(dst) };
@@ -2446,7 +2446,7 @@
     /// rdr.read_i128_into::&lt;BigEndian&gt;(&amp;mut dst).unwrap();
     /// assert_eq!([517, 768], dst);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_i128_into&lt;T: ByteOrder&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         dst: <span class="kw-2">&amp;mut </span>[i128],
@@ -2490,7 +2490,7 @@
     /// rdr.read_f32_into::&lt;BigEndian&gt;(&amp;mut dst).unwrap();
     /// assert_eq!([f32::consts::PI, 1.0], dst);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_f32_into&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dst: <span class="kw-2">&amp;mut </span>[f32]) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         {
             <span class="kw">let </span>buf = <span class="kw">unsafe </span>{ slice_to_u8_mut(dst) };
@@ -2535,7 +2535,7 @@
     /// rdr.read_f32_into_unchecked::&lt;BigEndian&gt;(&amp;mut dst).unwrap();
     /// assert_eq!([f32::consts::PI, 1.0], dst);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[deprecated(since = <span class="string">&quot;1.2.0&quot;</span>, note = <span class="string">&quot;please use `read_f32_into` instead&quot;</span>)]
     </span><span class="kw">fn </span>read_f32_into_unchecked&lt;T: ByteOrder&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
@@ -2575,7 +2575,7 @@
     /// rdr.read_f64_into::&lt;BigEndian&gt;(&amp;mut dst).unwrap();
     /// assert_eq!([f64::consts::PI, 1.0], dst);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_f64_into&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dst: <span class="kw-2">&amp;mut </span>[f64]) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         {
             <span class="kw">let </span>buf = <span class="kw">unsafe </span>{ slice_to_u8_mut(dst) };
@@ -2626,7 +2626,7 @@
     /// rdr.read_f64_into_unchecked::&lt;BigEndian&gt;(&amp;mut dst).unwrap();
     /// assert_eq!([f64::consts::PI, 1.0], dst);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[deprecated(since = <span class="string">&quot;1.2.0&quot;</span>, note = <span class="string">&quot;please use `read_f64_into` instead&quot;</span>)]
     </span><span class="kw">fn </span>read_f64_into_unchecked&lt;T: ByteOrder&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
@@ -2686,7 +2686,7 @@
     /// wtr.write_u8(5).unwrap();
     /// assert_eq!(wtr, b&quot;\x02\x05&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u8(<span class="kw-2">&amp;mut </span><span class="self">self</span>, n: u8) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="self">self</span>.write_all(<span class="kw-2">&amp;</span>[n])
     }
@@ -2714,7 +2714,7 @@
     /// wtr.write_i8(-5).unwrap();
     /// assert_eq!(wtr, b&quot;\x02\xfb&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_i8(<span class="kw-2">&amp;mut </span><span class="self">self</span>, n: i8) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="self">self</span>.write_all(<span class="kw-2">&amp;</span>[n <span class="kw">as </span>u8])
     }
@@ -2739,7 +2739,7 @@
     /// wtr.write_u16::&lt;BigEndian&gt;(768).unwrap();
     /// assert_eq!(wtr, b&quot;\x02\x05\x03\x00&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u16&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, n: u16) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">2</span>];
         T::write_u16(<span class="kw-2">&amp;mut </span>buf, n);
@@ -2766,7 +2766,7 @@
     /// wtr.write_i16::&lt;BigEndian&gt;(-132).unwrap();
     /// assert_eq!(wtr, b&quot;\x00\xc1\xff\x7c&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_i16&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, n: i16) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">2</span>];
         T::write_i16(<span class="kw-2">&amp;mut </span>buf, n);
@@ -2793,7 +2793,7 @@
     /// wtr.write_u24::&lt;BigEndian&gt;(120111).unwrap();
     /// assert_eq!(wtr, b&quot;\x00\x01\x0b\x01\xd5\x2f&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u24&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, n: u32) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">3</span>];
         T::write_u24(<span class="kw-2">&amp;mut </span>buf, n);
@@ -2820,7 +2820,7 @@
     /// wtr.write_i24::&lt;BigEndian&gt;(120111).unwrap();
     /// assert_eq!(wtr, b&quot;\xff\x7a\x33\x01\xd5\x2f&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_i24&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, n: i32) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">3</span>];
         T::write_i24(<span class="kw-2">&amp;mut </span>buf, n);
@@ -2847,7 +2847,7 @@
     /// wtr.write_u32::&lt;BigEndian&gt;(1205419366).unwrap();
     /// assert_eq!(wtr, b&quot;\x00\x00\x01\x0b\x47\xd9\x3d\x66&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u32&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, n: u32) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">4</span>];
         T::write_u32(<span class="kw-2">&amp;mut </span>buf, n);
@@ -2874,7 +2874,7 @@
     /// wtr.write_i32::&lt;BigEndian&gt;(1205419366).unwrap();
     /// assert_eq!(wtr, b&quot;\xff\xff\x7a\x33\x47\xd9\x3d\x66&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_i32&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, n: i32) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">4</span>];
         T::write_i32(<span class="kw-2">&amp;mut </span>buf, n);
@@ -2901,7 +2901,7 @@
     /// wtr.write_u48::&lt;BigEndian&gt;(541).unwrap();
     /// assert_eq!(wtr, b&quot;\x2f\x9f\x17\x40\x3a\xac\x00\x00\x00\x00\x02\x1d&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u48&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, n: u64) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">6</span>];
         T::write_u48(<span class="kw-2">&amp;mut </span>buf, n);
@@ -2928,7 +2928,7 @@
     /// wtr.write_i48::&lt;BigEndian&gt;(77).unwrap();
     /// assert_eq!(wtr, b&quot;\x9d\x71\xab\xe7\x97\x8f\x00\x00\x00\x00\x00\x4d&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_i48&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, n: i64) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">6</span>];
         T::write_i48(<span class="kw-2">&amp;mut </span>buf, n);
@@ -2955,7 +2955,7 @@
     /// wtr.write_u64::&lt;BigEndian&gt;(143).unwrap();
     /// assert_eq!(wtr, b&quot;\x00\x03\x43\x95\x4d\x60\x86\x83\x00\x00\x00\x00\x00\x00\x00\x8f&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u64&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, n: u64) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">8</span>];
         T::write_u64(<span class="kw-2">&amp;mut </span>buf, n);
@@ -2982,7 +2982,7 @@
     /// wtr.write_i64::&lt;BigEndian&gt;(i64::max_value()).unwrap();
     /// assert_eq!(wtr, b&quot;\x80\x00\x00\x00\x00\x00\x00\x00\x7f\xff\xff\xff\xff\xff\xff\xff&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_i64&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, n: i64) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">8</span>];
         T::write_i64(<span class="kw-2">&amp;mut </span>buf, n);
@@ -2990,7 +2990,7 @@
     }
 
     <span class="doccomment">/// Writes an unsigned 128 bit integer to the underlying writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u128&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, n: u128) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">16</span>];
         T::write_u128(<span class="kw-2">&amp;mut </span>buf, n);
@@ -2998,7 +2998,7 @@
     }
 
     <span class="doccomment">/// Writes a signed 128 bit integer to the underlying writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_i128&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, n: i128) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">16</span>];
         T::write_i128(<span class="kw-2">&amp;mut </span>buf, n);
@@ -3030,7 +3030,7 @@
     /// wtr.write_uint::&lt;BigEndian&gt;(43, 5).unwrap();
     /// assert_eq!(wtr, b&quot;\x48\xc5\x74\x62\xe9\x00\x00\x00\x00\x2b&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_uint&lt;T: ByteOrder&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         n: u64,
@@ -3066,7 +3066,7 @@
     /// wtr.write_int::&lt;BigEndian&gt;(43, 7).unwrap();
     /// assert_eq!(wtr, b&quot;\xf3\x64\xf4\xd1\xfd\xb0\x81\x00\x00\x00\x00\x00\x00\x2b&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_int&lt;T: ByteOrder&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         n: i64,
@@ -3081,7 +3081,7 @@
     ///
     /// If the given integer is not representable in the given number of bytes,
     /// this method panics. If `nbytes &gt; 16`, this method panics.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_uint128&lt;T: ByteOrder&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         n: u128,
@@ -3096,7 +3096,7 @@
     ///
     /// If the given integer is not representable in the given number of bytes,
     /// this method panics. If `nbytes &gt; 16`, this method panics.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_int128&lt;T: ByteOrder&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         n: i128,
@@ -3129,7 +3129,7 @@
     /// wtr.write_f32::&lt;BigEndian&gt;(f32::consts::PI).unwrap();
     /// assert_eq!(wtr, b&quot;\x40\x49\x0f\xdb&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_f32&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, n: f32) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">4</span>];
         T::write_f32(<span class="kw-2">&amp;mut </span>buf, n);
@@ -3158,7 +3158,7 @@
     /// wtr.write_f64::&lt;BigEndian&gt;(f64::consts::PI).unwrap();
     /// assert_eq!(wtr, b&quot;\x40\x09\x21\xfb\x54\x44\x2d\x18&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_f64&lt;T: ByteOrder&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, n: f64) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">8</span>];
         T::write_f64(<span class="kw-2">&amp;mut </span>buf, n);
@@ -3183,4 +3183,4 @@
     slice::from_raw_parts_mut(slice.as_mut_ptr() <span class="kw">as </span><span class="kw-2">*mut </span>u8, len)
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="byteorder" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="byteorder" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

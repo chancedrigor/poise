@@ -940,21 +940,21 @@
 </span><span class="kw">use </span>core::fmt;
 <span class="kw">use </span>core::ops::{Add, Sub};
 <span class="kw">use </span>core::time::Duration <span class="kw">as </span>StdDuration;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
 </span><span class="kw">use </span>std::io;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::formatting::Formattable;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::parsing::Parsable;
 <span class="kw">use crate</span>::{error, util, Date, Duration, Month, OffsetDateTime, Time, UtcOffset, Weekday};
 
 <span class="doccomment">/// Combined date and time.
-</span><span class="attribute">#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
+</span><span class="attr">#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
 </span><span class="kw">pub struct </span>PrimitiveDateTime {
-    <span class="attribute">#[allow(clippy::missing_docs_in_private_items)]
+    <span class="attr">#[allow(clippy::missing_docs_in_private_items)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) date: Date,
-    <span class="attribute">#[allow(clippy::missing_docs_in_private_items)]
+    <span class="attr">#[allow(clippy::missing_docs_in_private_items)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) time: Time,
 }
 
@@ -1527,7 +1527,7 @@
     ///     datetime!(2020-01-01 5:00)
     /// );
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `PrimitiveDateTime`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `PrimitiveDateTime`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_time(<span class="self">self</span>, time: Time) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.date.with_time(time)
     }
@@ -1541,7 +1541,7 @@
     ///     datetime!(2020-01-30 12:00)
     /// );
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `PrimitiveDateTime`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `PrimitiveDateTime`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_date(<span class="self">self</span>, date: Date) -&gt; <span class="self">Self </span>{
         date.with_time(<span class="self">self</span>.time)
     }
@@ -1557,7 +1557,7 @@
     /// assert!(datetime!(2022 - 02 - 18 12:00).replace_year(-1_000_000_000).is_err()); // -1_000_000_000 isn&#39;t a valid year
     /// assert!(datetime!(2022 - 02 - 18 12:00).replace_year(1_000_000_000).is_err()); // 1_000_000_000 isn&#39;t a valid year
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `PrimitiveDateTime`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `PrimitiveDateTime`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_year(<span class="self">self</span>, year: i32) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, error::ComponentRange&gt; {
         <span class="prelude-val">Ok</span>(<span class="macro">const_try!</span>(<span class="self">self</span>.date.replace_year(year)).with_time(<span class="self">self</span>.time))
     }
@@ -1573,7 +1573,7 @@
     /// );
     /// assert!(datetime!(2022 - 01 - 30 12:00).replace_month(Month::February).is_err()); // 30 isn&#39;t a valid day in February
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `PrimitiveDateTime`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `PrimitiveDateTime`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_month(<span class="self">self</span>, month: Month) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, error::ComponentRange&gt; {
         <span class="prelude-val">Ok</span>(<span class="macro">const_try!</span>(<span class="self">self</span>.date.replace_month(month)).with_time(<span class="self">self</span>.time))
     }
@@ -1589,7 +1589,7 @@
     /// assert!(datetime!(2022 - 02 - 18 12:00).replace_day(0).is_err()); // 00 isn&#39;t a valid day
     /// assert!(datetime!(2022 - 02 - 18 12:00).replace_day(30).is_err()); // 30 isn&#39;t a valid day in February
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `PrimitiveDateTime`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `PrimitiveDateTime`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_day(<span class="self">self</span>, day: u8) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, error::ComponentRange&gt; {
         <span class="prelude-val">Ok</span>(<span class="macro">const_try!</span>(<span class="self">self</span>.date.replace_day(day)).with_time(<span class="self">self</span>.time))
     }
@@ -1604,7 +1604,7 @@
     /// );
     /// assert!(datetime!(2022 - 02 - 18 01:02:03.004_005_006).replace_hour(24).is_err()); // 24 isn&#39;t a valid hour
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `PrimitiveDateTime`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `PrimitiveDateTime`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_hour(<span class="self">self</span>, hour: u8) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, error::ComponentRange&gt; {
         <span class="prelude-val">Ok</span>(<span class="self">self
             </span>.date()
@@ -1621,7 +1621,7 @@
     /// );
     /// assert!(datetime!(2022 - 02 - 18 01:02:03.004_005_006).replace_minute(60).is_err()); // 60 isn&#39;t a valid minute
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `PrimitiveDateTime`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `PrimitiveDateTime`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_minute(<span class="self">self</span>, minute: u8) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, error::ComponentRange&gt; {
         <span class="prelude-val">Ok</span>(<span class="self">self
             </span>.date()
@@ -1638,7 +1638,7 @@
     /// );
     /// assert!(datetime!(2022 - 02 - 18 01:02:03.004_005_006).replace_second(60).is_err()); // 60 isn&#39;t a valid second
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `PrimitiveDateTime`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `PrimitiveDateTime`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_second(<span class="self">self</span>, second: u8) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, error::ComponentRange&gt; {
         <span class="prelude-val">Ok</span>(<span class="self">self
             </span>.date()
@@ -1655,7 +1655,7 @@
     /// );
     /// assert!(datetime!(2022 - 02 - 18 01:02:03.004_005_006).replace_millisecond(1_000).is_err()); // 1_000 isn&#39;t a valid millisecond
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `PrimitiveDateTime`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `PrimitiveDateTime`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_millisecond(
         <span class="self">self</span>,
         millisecond: u16,
@@ -1675,7 +1675,7 @@
     /// );
     /// assert!(datetime!(2022 - 02 - 18 01:02:03.004_005_006).replace_microsecond(1_000_000).is_err()); // 1_000_000 isn&#39;t a valid microsecond
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `PrimitiveDateTime`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `PrimitiveDateTime`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_microsecond(
         <span class="self">self</span>,
         microsecond: u32,
@@ -1695,7 +1695,7 @@
     /// );
     /// assert!(datetime!(2022 - 02 - 18 01:02:03.004_005_006).replace_nanosecond(1_000_000_000).is_err()); // 1_000_000_000 isn&#39;t a valid nanosecond
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `PrimitiveDateTime`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `PrimitiveDateTime`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_nanosecond(<span class="self">self</span>, nanosecond: u32) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, error::ComponentRange&gt; {
         <span class="prelude-val">Ok</span>(<span class="self">self
             </span>.date()
@@ -1744,7 +1744,7 @@
 <span class="comment">// endregion offset conversion helpers
 
 // region: formatting &amp; parsing
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
 </span><span class="kw">impl </span>PrimitiveDateTime {
     <span class="doccomment">/// Format the `PrimitiveDateTime` using the provided [format
     /// description](crate::format_description).
@@ -1773,7 +1773,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">impl </span>PrimitiveDateTime {
     <span class="doccomment">/// Parse a `PrimitiveDateTime` from the input using the provided [format
     /// description](crate::format_description).
@@ -1872,4 +1872,4 @@
 }
 <span class="comment">// endregion trait impls
 </span></code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

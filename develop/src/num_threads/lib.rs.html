@@ -66,7 +66,7 @@
 
 </span><span class="kw">use </span>std::num::NonZeroUsize;
 
-<span class="attribute">#[cfg_attr(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>), path = <span class="string">&quot;linux.rs&quot;</span>)]
+<span class="attr">#[cfg_attr(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>), path = <span class="string">&quot;linux.rs&quot;</span>)]
 #[cfg_attr(target_os = <span class="string">&quot;freebsd&quot;</span>, path = <span class="string">&quot;freebsd.rs&quot;</span>)]
 #[cfg_attr(any(target_os = <span class="string">&quot;macos&quot;</span>, target_os = <span class="string">&quot;ios&quot;</span>), path = <span class="string">&quot;apple.rs&quot;</span>)]
 </span><span class="kw">mod </span>imp;
@@ -83,7 +83,7 @@
     num_threads().map(|n| n.get() == <span class="number">1</span>)
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use </span>std::num::NonZeroUsize;
 
@@ -102,7 +102,7 @@
         };
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>num_threads() {
         <span class="macro">threaded! </span>{
             <span class="macro">assert_eq!</span>(<span class="kw">super</span>::num_threads().map(NonZeroUsize::get), <span class="prelude-val">Some</span>(<span class="number">1</span>));
@@ -114,7 +114,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>is_single_threaded() {
         <span class="macro">threaded! </span>{
             <span class="macro">assert_eq!</span>(<span class="kw">super</span>::is_single_threaded(), <span class="prelude-val">Some</span>(<span class="bool-val">true</span>));
@@ -127,4 +127,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="num_threads" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="num_threads" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

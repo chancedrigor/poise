@@ -258,13 +258,13 @@
 <span id="257">257</span>
 <span id="258">258</span>
 <span id="259">259</span>
-</pre><pre class="rust"><code><span class="attribute">#![allow(clippy::many_single_char_names)]
+</pre><pre class="rust"><code><span class="attr">#![allow(clippy::many_single_char_names)]
 </span><span class="kw">use </span><span class="kw">super</span>::BLOCK_SIZE;
 <span class="kw">use </span>core::convert::TryInto;
 
 <span class="kw">const </span>K: [u32; <span class="number">4</span>] = [<span class="number">0x5A827999</span>, <span class="number">0x6ED9EBA1</span>, <span class="number">0x8F1BBCDC</span>, <span class="number">0xCA62C1D6</span>];
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">fn </span>add(a: [u32; <span class="number">4</span>], b: [u32; <span class="number">4</span>]) -&gt; [u32; <span class="number">4</span>] {
     [
         a[<span class="number">0</span>].wrapping_add(b[<span class="number">0</span>]),
@@ -274,12 +274,12 @@
     ]
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">fn </span>xor(a: [u32; <span class="number">4</span>], b: [u32; <span class="number">4</span>]) -&gt; [u32; <span class="number">4</span>] {
     [a[<span class="number">0</span>] ^ b[<span class="number">0</span>], a[<span class="number">1</span>] ^ b[<span class="number">1</span>], a[<span class="number">2</span>] ^ b[<span class="number">2</span>], a[<span class="number">3</span>] ^ b[<span class="number">3</span>]]
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">pub fn </span>sha1_first_add(e: u32, w0: [u32; <span class="number">4</span>]) -&gt; [u32; <span class="number">4</span>] {
     <span class="kw">let </span>[a, b, c, d] = w0;
     [e.wrapping_add(a), b, c, d]
@@ -303,7 +303,7 @@
     [w16, w17, w18, w19]
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>sha1_first_half(abcd: [u32; <span class="number">4</span>], msg: [u32; <span class="number">4</span>]) -&gt; [u32; <span class="number">4</span>] {
     sha1_first_add(abcd[<span class="number">0</span>].rotate_left(<span class="number">30</span>), msg)
 }
@@ -455,7 +455,7 @@
     };
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">fn </span>sha1_digest_block_u32(state: <span class="kw-2">&amp;mut </span>[u32; <span class="number">5</span>], block: <span class="kw-2">&amp;</span>[u32; <span class="number">16</span>]) {
     <span class="kw">let </span><span class="kw-2">mut </span>w0 = [block[<span class="number">0</span>], block[<span class="number">1</span>], block[<span class="number">2</span>], block[<span class="number">3</span>]];
     <span class="kw">let </span><span class="kw-2">mut </span>w1 = [block[<span class="number">4</span>], block[<span class="number">5</span>], block[<span class="number">6</span>], block[<span class="number">7</span>]];
@@ -518,4 +518,4 @@
     <span class="kw-2">*</span>state = state_cpy;
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="sha1" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="sha1" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

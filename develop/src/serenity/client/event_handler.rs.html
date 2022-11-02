@@ -596,7 +596,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::model::prelude::<span class="kw-2">*</span>;
 
 <span class="doccomment">/// The core trait for handling events by serenity.
-</span><span class="attribute">#[async_trait]
+</span><span class="attr">#[async_trait]
 </span><span class="kw">pub trait </span>EventHandler: Send + Sync {
     <span class="doccomment">/// Dispatched when the permissions of an application command was updated.
     ///
@@ -636,7 +636,7 @@
     /// could be not inserted yet.
     ///
     /// Provides the cached guilds&#39; ids.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span><span class="kw">async fn </span>cache_ready(<span class="kw-2">&amp;</span><span class="self">self</span>, _ctx: Context, _guilds: Vec&lt;GuildId&gt;) {}
 
     <span class="doccomment">/// Dispatched when a channel is created.
@@ -667,13 +667,13 @@
     <span class="doccomment">/// Dispatched when a channel is updated.
     ///
     /// Provides the old channel data, and the new data.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span><span class="kw">async fn </span>channel_update(<span class="kw-2">&amp;</span><span class="self">self</span>, _ctx: Context, _old: <span class="prelude-ty">Option</span>&lt;Channel&gt;, _new: Channel) {}
 
     <span class="doccomment">/// Dispatched when a channel is updated.
     ///
     /// Provides the new data.
-    </span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    </span><span class="attr">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
     </span><span class="kw">async fn </span>channel_update(<span class="kw-2">&amp;</span><span class="self">self</span>, _ctx: Context, _new_data: Channel) {}
 
     <span class="doccomment">/// Dispatched when a user is banned from a guild.
@@ -690,14 +690,14 @@
     /// or an existing guild&#39;s data is sent to us.
     ///
     /// Provides the guild&#39;s data and whether the guild is new.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span><span class="kw">async fn </span>guild_create(<span class="kw-2">&amp;</span><span class="self">self</span>, _ctx: Context, _guild: Guild, _is_new: bool) {}
 
     <span class="doccomment">/// Dispatched when a guild is created;
     /// or an existing guild&#39;s data is sent to us.
     ///
     /// Provides the guild&#39;s data.
-    </span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    </span><span class="attr">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
     </span><span class="kw">async fn </span>guild_create(<span class="kw-2">&amp;</span><span class="self">self</span>, _ctx: Context, _guild: Guild) {}
 
     <span class="doccomment">/// Dispatched when a guild is deleted.
@@ -710,7 +710,7 @@
     /// kicked or banned. If the flag is true, the guild went offline.
     ///
     /// [`unavailable`]: UnavailableGuild::unavailable
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span><span class="kw">async fn </span>guild_delete(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         _ctx: Context,
@@ -728,7 +728,7 @@
     /// kicked or banned. If the flag is true, the guild went offline.
     ///
     /// [`unavailable`]: UnavailableGuild::unavailable
-    </span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    </span><span class="attr">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
     </span><span class="kw">async fn </span>guild_delete(<span class="kw-2">&amp;</span><span class="self">self</span>, _ctx: Context, _incomplete: UnavailableGuild) {}
 
     <span class="comment">// the emojis were updated.
@@ -763,7 +763,7 @@
     ///
     /// Note: This event will not trigger unless the &quot;guild members&quot; privileged intent
     /// is enabled on the bot application page.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span><span class="kw">async fn </span>guild_member_removal(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         _ctx: Context,
@@ -779,7 +779,7 @@
     ///
     /// Note: This event will not trigger unless the &quot;guild members&quot; privileged intent
     /// is enabled on the bot application page.
-    </span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    </span><span class="attr">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
     </span><span class="kw">async fn </span>guild_member_removal(<span class="kw-2">&amp;</span><span class="self">self</span>, _ctx: Context, _guild_id: GuildId, _kicked: User) {}
 
     <span class="doccomment">/// Dispatched when a member is updated (e.g their nickname is updated).
@@ -788,7 +788,7 @@
     ///
     /// Note: This event will not trigger unless the &quot;guild members&quot; privileged intent
     /// is enabled on the bot application page.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span><span class="kw">async fn </span>guild_member_update(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         _ctx: Context,
@@ -803,7 +803,7 @@
     ///
     /// Note: This event will not trigger unless the &quot;guild members&quot; privileged intent
     /// is enabled on the bot application page.
-    </span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    </span><span class="attr">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
     </span><span class="kw">async fn </span>guild_member_update(<span class="kw-2">&amp;</span><span class="self">self</span>, _ctx: Context, _new: GuildMemberUpdateEvent) {}
 
     <span class="doccomment">/// Dispatched when the data for offline members was requested.
@@ -819,7 +819,7 @@
     <span class="doccomment">/// Dispatched when a role is deleted.
     ///
     /// Provides the guild&#39;s id, the role&#39;s id and its data if available.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span><span class="kw">async fn </span>guild_role_delete(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         _ctx: Context,
@@ -832,14 +832,14 @@
     <span class="doccomment">/// Dispatched when a role is deleted.
     ///
     /// Provides the guild&#39;s id, the role&#39;s id.
-    </span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    </span><span class="attr">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
     </span><span class="kw">async fn </span>guild_role_delete(<span class="kw-2">&amp;</span><span class="self">self</span>, _ctx: Context, _guild_id: GuildId, _removed_role_id: RoleId) {
     }
 
     <span class="doccomment">/// Dispatched when a role is updated.
     ///
     /// Provides the guild&#39;s id, the role&#39;s old (if available) and new data.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span><span class="kw">async fn </span>guild_role_update(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         _ctx: Context,
@@ -851,7 +851,7 @@
     <span class="doccomment">/// Dispatched when a role is updated.
     ///
     /// Provides the guild&#39;s id and the role&#39;s new data.
-    </span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    </span><span class="attr">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
     </span><span class="kw">async fn </span>guild_role_update(<span class="kw-2">&amp;</span><span class="self">self</span>, _ctx: Context, _new_data: Role) {}
 
     <span class="doccomment">/// Dispatched when the stickers are updated.
@@ -873,7 +873,7 @@
     <span class="doccomment">/// Dispatched when the guild is updated.
     ///
     /// Provides the guild&#39;s old full data (if available) and the new, albeit partial data.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span><span class="kw">async fn </span>guild_update(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         _ctx: Context,
@@ -885,7 +885,7 @@
     <span class="doccomment">/// Dispatched when the guild is updated.
     ///
     /// Provides the guild&#39;s new, albeit partial data.
-    </span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    </span><span class="attr">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
     </span><span class="kw">async fn </span>guild_update(<span class="kw-2">&amp;</span><span class="self">self</span>, _ctx: Context, _new_but_incomplete_data: PartialGuild) {}
 
     <span class="doccomment">/// Dispatched when a invite is created.
@@ -932,7 +932,7 @@
     /// Provides the old message if available,
     /// the new message as an option in case of cache inconsistencies,
     /// and the raw [`MessageUpdateEvent`] as a fallback.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span><span class="kw">async fn </span>message_update(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         _ctx: Context,
@@ -945,7 +945,7 @@
     <span class="doccomment">/// Dispatched when a message is updated.
     ///
     /// Provides the new data of the message.
-    </span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    </span><span class="attr">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
     </span><span class="kw">async fn </span>message_update(<span class="kw-2">&amp;</span><span class="self">self</span>, _ctx: Context, _new_data: MessageUpdateEvent) {}
 
     <span class="doccomment">/// Dispatched when a new reaction is attached to a message.
@@ -1004,13 +1004,13 @@
     <span class="doccomment">/// Dispatched when the bot&#39;s data is updated.
     ///
     /// Provides the old and new data.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span><span class="kw">async fn </span>user_update(<span class="kw-2">&amp;</span><span class="self">self</span>, _ctx: Context, _old_data: CurrentUser, _new: CurrentUser) {}
 
     <span class="doccomment">/// Dispatched when the bot&#39;s data is updated.
     ///
     /// Provides the new data.
-    </span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    </span><span class="attr">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
     </span><span class="kw">async fn </span>user_update(<span class="kw-2">&amp;</span><span class="self">self</span>, _ctx: Context, _new_data: CurrentUser) {}
 
     <span class="doccomment">/// Dispatched when a guild&#39;s voice server was updated (or changed to another one).
@@ -1022,14 +1022,14 @@
     ///
     /// Provides the guild&#39;s id (if available) and
     /// the old and the new state of the guild&#39;s voice channels.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span><span class="kw">async fn </span>voice_state_update(<span class="kw-2">&amp;</span><span class="self">self</span>, _ctx: Context, _old: <span class="prelude-ty">Option</span>&lt;VoiceState&gt;, _new: VoiceState) {}
 
     <span class="doccomment">/// Dispatched when a user joins, leaves or moves to a voice channel.
     ///
     /// Provides the guild&#39;s id (if available) and
     /// the new state of the guild&#39;s voice channels.
-    </span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    </span><span class="attr">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
     </span><span class="kw">async fn </span>voice_state_update(<span class="kw-2">&amp;</span><span class="self">self</span>, _ctx: Context, <span class="kw">_</span>: VoiceState) {}
 
     <span class="doccomment">/// Dispatched when a guild&#39;s webhook is updated.
@@ -1163,10 +1163,10 @@
 }
 
 <span class="doccomment">/// This core trait for handling raw events
-</span><span class="attribute">#[async_trait]
+</span><span class="attr">#[async_trait]
 </span><span class="kw">pub trait </span>RawEventHandler: Send + Sync {
     <span class="doccomment">/// Dispatched when any event occurs
     </span><span class="kw">async fn </span>raw_event(<span class="kw-2">&amp;</span><span class="self">self</span>, _ctx: Context, _ev: Event) {}
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -285,44 +285,44 @@
 
 </span><span class="kw">use </span><span class="kw">crate</span>::distributions::{Distribution, Standard};
 <span class="kw">use </span><span class="kw">crate</span>::Rng;
-<span class="attribute">#[cfg(all(target_arch = <span class="string">&quot;x86&quot;</span>, feature = <span class="string">&quot;simd_support&quot;</span>))]
+<span class="attr">#[cfg(all(target_arch = <span class="string">&quot;x86&quot;</span>, feature = <span class="string">&quot;simd_support&quot;</span>))]
 </span><span class="kw">use </span>core::arch::x86::{__m128i, __m256i};
-<span class="attribute">#[cfg(all(target_arch = <span class="string">&quot;x86_64&quot;</span>, feature = <span class="string">&quot;simd_support&quot;</span>))]
+<span class="attr">#[cfg(all(target_arch = <span class="string">&quot;x86_64&quot;</span>, feature = <span class="string">&quot;simd_support&quot;</span>))]
 </span><span class="kw">use </span>core::arch::x86_64::{__m128i, __m256i};
 <span class="kw">use </span>core::num::{NonZeroU16, NonZeroU32, NonZeroU64, NonZeroU8, NonZeroUsize,
     NonZeroU128};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)] </span><span class="kw">use </span>packed_simd::<span class="kw-2">*</span>;
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)] </span><span class="kw">use </span>packed_simd::<span class="kw-2">*</span>;
 
 <span class="kw">impl </span>Distribution&lt;u8&gt; <span class="kw">for </span>Standard {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sample&lt;R: Rng + <span class="question-mark">?</span>Sized&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, rng: <span class="kw-2">&amp;mut </span>R) -&gt; u8 {
         rng.next_u32() <span class="kw">as </span>u8
     }
 }
 
 <span class="kw">impl </span>Distribution&lt;u16&gt; <span class="kw">for </span>Standard {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sample&lt;R: Rng + <span class="question-mark">?</span>Sized&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, rng: <span class="kw-2">&amp;mut </span>R) -&gt; u16 {
         rng.next_u32() <span class="kw">as </span>u16
     }
 }
 
 <span class="kw">impl </span>Distribution&lt;u32&gt; <span class="kw">for </span>Standard {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sample&lt;R: Rng + <span class="question-mark">?</span>Sized&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, rng: <span class="kw-2">&amp;mut </span>R) -&gt; u32 {
         rng.next_u32()
     }
 }
 
 <span class="kw">impl </span>Distribution&lt;u64&gt; <span class="kw">for </span>Standard {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sample&lt;R: Rng + <span class="question-mark">?</span>Sized&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, rng: <span class="kw-2">&amp;mut </span>R) -&gt; u64 {
         rng.next_u64()
     }
 }
 
 <span class="kw">impl </span>Distribution&lt;u128&gt; <span class="kw">for </span>Standard {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sample&lt;R: Rng + <span class="question-mark">?</span>Sized&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, rng: <span class="kw-2">&amp;mut </span>R) -&gt; u128 {
         <span class="comment">// Use LE; we explicitly generate one value before the next.
         </span><span class="kw">let </span>x = u128::from(rng.next_u64());
@@ -332,13 +332,13 @@
 }
 
 <span class="kw">impl </span>Distribution&lt;usize&gt; <span class="kw">for </span>Standard {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     #[cfg(any(target_pointer_width = <span class="string">&quot;32&quot;</span>, target_pointer_width = <span class="string">&quot;16&quot;</span>))]
     </span><span class="kw">fn </span>sample&lt;R: Rng + <span class="question-mark">?</span>Sized&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, rng: <span class="kw-2">&amp;mut </span>R) -&gt; usize {
         rng.next_u32() <span class="kw">as </span>usize
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     #[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
     </span><span class="kw">fn </span>sample&lt;R: Rng + <span class="question-mark">?</span>Sized&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, rng: <span class="kw-2">&amp;mut </span>R) -&gt; usize {
         rng.next_u64() <span class="kw">as </span>usize
@@ -348,7 +348,7 @@
 <span class="macro">macro_rules! </span>impl_int_from_uint {
     (<span class="macro-nonterminal">$ty</span>:ty, <span class="macro-nonterminal">$uty</span>:ty) =&gt; {
         <span class="kw">impl </span>Distribution&lt;<span class="macro-nonterminal">$ty</span>&gt; <span class="kw">for </span>Standard {
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>sample&lt;R: Rng + <span class="question-mark">?</span>Sized&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, rng: <span class="kw-2">&amp;mut </span>R) -&gt; <span class="macro-nonterminal">$ty </span>{
                 rng.gen::&lt;<span class="macro-nonterminal">$uty</span>&gt;() <span class="kw">as </span><span class="macro-nonterminal">$ty
             </span>}
@@ -384,11 +384,11 @@
 <span class="macro">impl_nzint!</span>(NonZeroU128, NonZeroU128::new);
 <span class="macro">impl_nzint!</span>(NonZeroUsize, NonZeroUsize::new);
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
 </span><span class="macro">macro_rules! </span>simd_impl {
     ($((<span class="macro-nonterminal">$intrinsic</span>:ident, <span class="macro-nonterminal">$vec</span>:ty),)+) =&gt; {$(
         <span class="kw">impl </span>Distribution&lt;<span class="macro-nonterminal">$intrinsic</span>&gt; <span class="kw">for </span>Standard {
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>sample&lt;R: Rng + <span class="question-mark">?</span>Sized&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, rng: <span class="kw-2">&amp;mut </span>R) -&gt; <span class="macro-nonterminal">$intrinsic </span>{
                 <span class="macro-nonterminal">$intrinsic::from_bits</span>(rng.gen::&lt;<span class="macro-nonterminal">$vec</span>&gt;())
             }
@@ -400,7 +400,7 @@
         <span class="macro">simd_impl!</span>(<span class="macro-nonterminal">$bits</span>, $(<span class="macro-nonterminal">$ty_more</span>,)<span class="kw-2">*</span>);
 
         <span class="kw">impl </span>Distribution&lt;<span class="macro-nonterminal">$ty</span>&gt; <span class="kw">for </span>Standard {
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>sample&lt;R: Rng + <span class="question-mark">?</span>Sized&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, rng: <span class="kw-2">&amp;mut </span>R) -&gt; <span class="macro-nonterminal">$ty </span>{
                 <span class="kw">let </span><span class="kw-2">mut </span>vec: <span class="macro-nonterminal">$ty </span>= Default::default();
                 <span class="kw">unsafe </span>{
@@ -414,29 +414,29 @@
     };
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
 </span><span class="macro">simd_impl!</span>(<span class="number">16</span>, u8x2, i8x2,);
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
 </span><span class="macro">simd_impl!</span>(<span class="number">32</span>, u8x4, i8x4, u16x2, i16x2,);
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
 </span><span class="macro">simd_impl!</span>(<span class="number">64</span>, u8x8, i8x8, u16x4, i16x4, u32x2, i32x2,);
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
 </span><span class="macro">simd_impl!</span>(<span class="number">128</span>, u8x16, i8x16, u16x8, i16x8, u32x4, i32x4, u64x2, i64x2,);
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
 </span><span class="macro">simd_impl!</span>(<span class="number">256</span>, u8x32, i8x32, u16x16, i16x16, u32x8, i32x8, u64x4, i64x4,);
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
 </span><span class="macro">simd_impl!</span>(<span class="number">512</span>, u8x64, i8x64, u16x32, i16x32, u32x16, i32x16, u64x8, i64x8,);
-<span class="attribute">#[cfg(all(
+<span class="attr">#[cfg(all(
     feature = <span class="string">&quot;simd_support&quot;</span>,
     any(target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>)
 ))]
 </span><span class="macro">simd_impl!</span>((__m128i, u8x16), (__m256i, u8x32),);
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_integers() {
         <span class="kw">let </span><span class="kw-2">mut </span>rng = <span class="kw">crate</span>::test::rng(<span class="number">806</span>);
 
@@ -455,7 +455,7 @@
         rng.sample::&lt;u128, <span class="kw">_</span>&gt;(Standard);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>value_stability() {
         <span class="kw">fn </span>test_samples&lt;T: Copy + core::fmt::Debug + PartialEq&gt;(zero: T, expected: <span class="kw-2">&amp;</span>[T])
         <span class="kw">where </span>Standard: Distribution&lt;T&gt; {
@@ -480,9 +480,9 @@
             <span class="number">145644820879247630242265036535529306392</span>,
             <span class="number">111087889832015897993126088499035356354</span>,
         ]);
-        <span class="attribute">#[cfg(any(target_pointer_width = <span class="string">&quot;32&quot;</span>, target_pointer_width = <span class="string">&quot;16&quot;</span>))]
+        <span class="attr">#[cfg(any(target_pointer_width = <span class="string">&quot;32&quot;</span>, target_pointer_width = <span class="string">&quot;16&quot;</span>))]
         </span>test_samples(<span class="number">0usize</span>, <span class="kw-2">&amp;</span>[<span class="number">2220326409</span>, <span class="number">2575017975</span>, <span class="number">2018088303</span>]);
-        <span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
+        <span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
         </span>test_samples(<span class="number">0usize</span>, <span class="kw-2">&amp;</span>[
             <span class="number">11059617991457472009</span>,
             <span class="number">16096616328739788143</span>,
@@ -492,7 +492,7 @@
         test_samples(<span class="number">0i8</span>, <span class="kw-2">&amp;</span>[<span class="number">9</span>, -<span class="number">9</span>, <span class="number">111</span>]);
         <span class="comment">// Skip further i* types: they are simple reinterpretation of u* samples
 
-        </span><span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+        </span><span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
         </span>{
             <span class="comment">// We only test a sub-set of types here and make assumptions about the rest.
 
@@ -548,4 +548,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rand" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rand" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

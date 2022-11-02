@@ -1357,13 +1357,13 @@
 <span id="1357">1357</span>
 <span id="1358">1358</span>
 <span id="1359">1359</span>
-</pre><pre class="rust"><code><span class="attribute">#![allow(clippy::type_complexity)]
+</pre><pre class="rust"><code><span class="attr">#![allow(clippy::type_complexity)]
 
 </span><span class="kw">pub mod </span>iter;
 <span class="kw">pub mod </span>iter_set;
 <span class="kw">pub mod </span>mapref;
 <span class="kw">mod </span>read_only;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">mod </span>serde;
 <span class="kw">mod </span>set;
 <span class="kw">pub mod </span>setref;
@@ -1371,7 +1371,7 @@
 <span class="kw">pub mod </span>try_result;
 <span class="kw">mod </span>util;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;rayon&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;rayon&quot;</span>)]
 </span><span class="kw">pub mod </span>rayon {
     <span class="kw">pub mod </span>map;
     <span class="kw">pub mod </span>set;
@@ -1395,7 +1395,7 @@
 <span class="kw">use </span>try_result::TryResult;
 
 <span class="macro">cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(feature = <span class="string">&quot;raw-api&quot;</span>)] </span>{
+    <span class="kw">if </span><span class="attr">#[cfg(feature = <span class="string">&quot;raw-api&quot;</span>)] </span>{
         <span class="kw">pub use </span>util::SharedValue;
     } <span class="kw">else </span>{
         <span class="kw">use </span>util::SharedValue;
@@ -1641,7 +1641,7 @@
     }
 
     <span class="macro">cfg_if! </span>{
-        <span class="kw">if </span><span class="attribute">#[cfg(feature = <span class="string">&quot;raw-api&quot;</span>)] </span>{
+        <span class="kw">if </span><span class="attr">#[cfg(feature = <span class="string">&quot;raw-api&quot;</span>)] </span>{
             <span class="doccomment">/// Allows you to peek at the inner shards that store your data.
             /// You should probably not use this unless you know what you are doing.
             ///
@@ -1659,7 +1659,7 @@
                 <span class="kw-2">&amp;</span><span class="self">self</span>.shards
             }
         } <span class="kw">else </span>{
-            <span class="attribute">#[allow(dead_code)]
+            <span class="attr">#[allow(dead_code)]
             </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>shards(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[RwLock&lt;HashMap&lt;K, V, S&gt;&gt;] {
                 <span class="kw-2">&amp;</span><span class="self">self</span>.shards
             }
@@ -1667,7 +1667,7 @@
     }
 
     <span class="macro">cfg_if! </span>{
-        <span class="kw">if </span><span class="attribute">#[cfg(feature = <span class="string">&quot;raw-api&quot;</span>)] </span>{
+        <span class="kw">if </span><span class="attr">#[cfg(feature = <span class="string">&quot;raw-api&quot;</span>)] </span>{
             <span class="doccomment">/// Finds which shard a certain key is stored in.
             /// You should probably not use this unless you know what you are doing.
             /// Note that shard selection is dependent on the default or provided HashBuilder.
@@ -1695,7 +1695,7 @@
     }
 
     <span class="macro">cfg_if! </span>{
-        <span class="kw">if </span><span class="attribute">#[cfg(feature = <span class="string">&quot;raw-api&quot;</span>)] </span>{
+        <span class="kw">if </span><span class="attr">#[cfg(feature = <span class="string">&quot;raw-api&quot;</span>)] </span>{
             <span class="doccomment">/// Finds which shard a certain hash is stored in.
             ///
             /// Requires the `raw-api` feature to be enabled.
@@ -2578,12 +2578,12 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">crate</span>::DashMap;
     <span class="kw">use </span>std::collections::hash_map::RandomState;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_basic() {
         <span class="kw">let </span>dm = DashMap::new();
 
@@ -2592,7 +2592,7 @@
         <span class="macro">assert_eq!</span>(dm.get(<span class="kw-2">&amp;</span><span class="number">0</span>).unwrap().value(), <span class="kw-2">&amp;</span><span class="number">0</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_default() {
         <span class="kw">let </span>dm: DashMap&lt;u32, u32&gt; = DashMap::default();
 
@@ -2601,7 +2601,7 @@
         <span class="macro">assert_eq!</span>(dm.get(<span class="kw-2">&amp;</span><span class="number">0</span>).unwrap().value(), <span class="kw-2">&amp;</span><span class="number">0</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_multiple_hashes() {
         <span class="kw">let </span>dm: DashMap&lt;u32, u32&gt; = DashMap::default();
 
@@ -2624,9 +2624,9 @@
         <span class="macro">assert_eq!</span>(<span class="number">99</span>, <span class="kw-2">*</span>r.value());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_more_complex_values() {
-        <span class="attribute">#[derive(Hash, PartialEq, Debug, Clone)]
+        <span class="attr">#[derive(Hash, PartialEq, Debug, Clone)]
 
         </span><span class="kw">struct </span>T0 {
             s: String,
@@ -2649,7 +2649,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_different_hashers_randomstate() {
         <span class="kw">let </span>dm_hm_default: DashMap&lt;u32, u32, RandomState&gt; =
             DashMap::with_hasher(RandomState::new());
@@ -2661,7 +2661,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_map_view() {
         <span class="kw">let </span>dm = DashMap::new();
 
@@ -2688,7 +2688,7 @@
         <span class="macro">assert_eq!</span>(not_in_map, <span class="prelude-val">None</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_try_get() {
         {
             <span class="kw">let </span>map = DashMap::new();
@@ -2717,4 +2717,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="dashmap" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="dashmap" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

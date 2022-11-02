@@ -60,7 +60,7 @@
 <span class="kw">pub use </span><span class="self">self</span>::parsed::Parsed;
 
 <span class="doccomment">/// An item that has been parsed. Represented as a `(remaining, value)` pair.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>ParsedItem&lt;<span class="lifetime">&#39;a</span>, T&gt;(<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8], <span class="kw">pub</span>(<span class="kw">crate</span>) T);
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, T&gt; ParsedItem&lt;<span class="lifetime">&#39;a</span>, T&gt; {
@@ -75,7 +75,7 @@
     }
 
     <span class="doccomment">/// Consume the stored value with the provided function. The remaining input is returned.
-    </span><span class="attribute">#[must_use = <span class="string">&quot;this returns the remaining input&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;this returns the remaining input&quot;</span>]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>consume_value(<span class="self">self</span>, f: <span class="kw">impl </span>FnOnce(T) -&gt; <span class="prelude-ty">Option</span>&lt;()&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]&gt; {
         f(<span class="self">self</span>.<span class="number">1</span>)<span class="question-mark">?</span>;
         <span class="prelude-val">Some</span>(<span class="self">self</span>.<span class="number">0</span>)
@@ -84,7 +84,7 @@
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; ParsedItem&lt;<span class="lifetime">&#39;a</span>, ()&gt; {
     <span class="doccomment">/// Discard the unit value, returning the remaining input.
-    </span><span class="attribute">#[must_use = <span class="string">&quot;this returns the remaining input&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;this returns the remaining input&quot;</span>]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const fn </span>into_inner(<span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8] {
         <span class="self">self</span>.<span class="number">0
     </span>}
@@ -92,10 +92,10 @@
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; ParsedItem&lt;<span class="lifetime">&#39;a</span>, <span class="prelude-ty">Option</span>&lt;()&gt;&gt; {
     <span class="doccomment">/// Discard the potential unit value, returning the remaining input.
-    </span><span class="attribute">#[must_use = <span class="string">&quot;this returns the remaining input&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;this returns the remaining input&quot;</span>]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const fn </span>into_inner(<span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8] {
         <span class="self">self</span>.<span class="number">0
     </span>}
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

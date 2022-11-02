@@ -149,7 +149,7 @@
 <span id="149">149</span>
 </pre><pre class="rust"><code><span class="doccomment">//! A set of macros for easily working with internals.
 
-</span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+</span><span class="attr">#[cfg(any(feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 </span><span class="macro">macro_rules! </span>cdn {
     (<span class="macro-nonterminal">$e</span>:expr) =&gt; {
         <span class="macro">concat!</span>(<span class="string">&quot;https://cdn.discordapp.com&quot;</span>, <span class="macro-nonterminal">$e</span>)
@@ -159,7 +159,7 @@
     };
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
 </span><span class="macro">macro_rules! </span>api {
     (<span class="macro-nonterminal">$e</span>:expr) =&gt; {
         <span class="macro">concat!</span>(<span class="string">&quot;https://discord.com/api/v10&quot;</span>, <span class="macro-nonterminal">$e</span>)
@@ -169,7 +169,7 @@
     };
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
 </span><span class="macro">macro_rules! </span>status {
     (<span class="macro-nonterminal">$e</span>:expr) =&gt; {
         <span class="macro">concat!</span>(<span class="string">&quot;https://status.discord.com/api/v2&quot;</span>, <span class="macro-nonterminal">$e</span>)
@@ -177,14 +177,14 @@
 }
 
 <span class="comment">// Enable check for cache
-</span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;client&quot;</span>))]
+</span><span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;client&quot;</span>))]
 </span><span class="macro">macro_rules! </span>feature_cache {
     (<span class="macro-nonterminal">$enabled</span>:block <span class="kw">else </span><span class="macro-nonterminal">$disabled</span>:block) =&gt; {{
         <span class="macro-nonterminal">$enabled
     </span>}};
 }
 
-<span class="attribute">#[cfg(all(not(feature = <span class="string">&quot;cache&quot;</span>), feature = <span class="string">&quot;client&quot;</span>))]
+<span class="attr">#[cfg(all(not(feature = <span class="string">&quot;cache&quot;</span>), feature = <span class="string">&quot;client&quot;</span>))]
 </span><span class="macro">macro_rules! </span>feature_cache {
     (<span class="macro-nonterminal">$enabled</span>:block <span class="kw">else </span><span class="macro-nonterminal">$disabled</span>:block) =&gt; {{
         <span class="macro-nonterminal">$disabled
@@ -192,9 +192,9 @@
 }
 
 <span class="macro">macro_rules! </span>enum_number {
-    (<span class="macro-nonterminal">$name</span>:ident { $($(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)<span class="question-mark">? </span><span class="macro-nonterminal">$variant</span>:ident $(,)<span class="question-mark">? </span>)* }) =&gt; {
+    (<span class="macro-nonterminal">$name</span>:ident { $($(<span class="attr">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)<span class="question-mark">? </span><span class="macro-nonterminal">$variant</span>:ident $(,)<span class="question-mark">? </span>)* }) =&gt; {
         <span class="kw">impl </span><span class="macro-nonterminal">$name </span>{
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             #[must_use]
             </span><span class="kw">pub fn </span>num(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u64 {
                 <span class="kw-2">*</span><span class="self">self </span><span class="kw">as </span>u64
@@ -230,7 +230,7 @@
                         <span class="comment">// Rust does not come with a simple way of converting a
                         // number to an enum, so use a big `match`.
                         </span><span class="kw">match </span>value {
-                            $( $(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>]</span>)<span class="question-mark">? </span>v <span class="kw">if </span>v == <span class="macro-nonterminal">$name</span>::<span class="macro-nonterminal">$variant </span><span class="kw">as </span>u64 =&gt; <span class="prelude-val">Ok</span>(<span class="macro-nonterminal">$name</span>::<span class="macro-nonterminal">$variant</span>), )*
+                            $( $(<span class="attr">#[<span class="macro-nonterminal">$attr</span>]</span>)<span class="question-mark">? </span>v <span class="kw">if </span>v == <span class="macro-nonterminal">$name</span>::<span class="macro-nonterminal">$variant </span><span class="kw">as </span>u64 =&gt; <span class="prelude-val">Ok</span>(<span class="macro-nonterminal">$name</span>::<span class="macro-nonterminal">$variant</span>), )*
                             <span class="kw">_ </span>=&gt; {
                                 <span class="macro">tracing::warn!</span>(<span class="string">&quot;Unknown {} value: {}&quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$name</span>), value);
 
@@ -255,10 +255,10 @@
 /// Use the `bitflags::bitflags! macro directly if a different serde implementation is required.
 </span><span class="macro">macro_rules! </span>bitflags {
     (
-        $(<span class="attribute">#[<span class="macro-nonterminal">$outer</span>:meta]</span>)*
+        $(<span class="attr">#[<span class="macro-nonterminal">$outer</span>:meta]</span>)*
         <span class="macro-nonterminal">$vis</span>:vis <span class="kw">struct </span><span class="macro-nonterminal">$BitFlags</span>:ident: <span class="macro-nonterminal">$T</span>:ty {
             $(
-                $(<span class="attribute">#[<span class="macro-nonterminal">$inner</span>:ident $(<span class="macro-nonterminal">$args</span>:tt)<span class="kw-2">*</span>]</span>)*
+                $(<span class="attr">#[<span class="macro-nonterminal">$inner</span>:ident $(<span class="macro-nonterminal">$args</span>:tt)<span class="kw-2">*</span>]</span>)*
                 <span class="kw">const </span><span class="macro-nonterminal">$Flag</span>:ident = <span class="macro-nonterminal">$value</span>:expr;
             )*
         }
@@ -266,10 +266,10 @@
         $(<span class="macro-nonterminal">$t</span>:tt)*
     ) =&gt; {
         <span class="macro">bitflags::bitflags! </span>{
-            $(<span class="attribute">#[<span class="macro-nonterminal">$outer</span>]</span>)*
+            $(<span class="attr">#[<span class="macro-nonterminal">$outer</span>]</span>)*
             <span class="macro-nonterminal">$vis </span><span class="kw">struct </span><span class="macro-nonterminal">$BitFlags</span>: <span class="macro-nonterminal">$T </span>{
                 $(
-                    $(<span class="attribute">#[<span class="macro-nonterminal">$inner </span>$(<span class="macro-nonterminal">$args</span>)<span class="kw-2">*</span>]</span>)*
+                    $(<span class="attr">#[<span class="macro-nonterminal">$inner </span>$(<span class="macro-nonterminal">$args</span>)<span class="kw-2">*</span>]</span>)*
                     <span class="kw">const </span><span class="macro-nonterminal">$Flag </span>= <span class="macro-nonterminal">$value</span>;
                 )*
             }
@@ -297,4 +297,4 @@
     () =&gt; {};
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -325,7 +325,7 @@
 ///
 /// It is critical for `Header` to be the first field as the task structure will
 /// be referenced by both *mut Cell and *mut Header.
-</span><span class="attribute">#[repr(C)]
+</span><span class="attr">#[repr(C)]
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>Cell&lt;T: Future, S&gt; {
     <span class="doccomment">/// Hot task state data
     </span><span class="kw">pub</span>(<span class="kw">super</span>) header: Header,
@@ -356,7 +356,7 @@
 }
 
 <span class="doccomment">/// Crate public as this is also needed by the pool.
-</span><span class="attribute">#[repr(C)]
+</span><span class="attr">#[repr(C)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Header {
     <span class="doccomment">/// Task state.
     </span><span class="kw">pub</span>(<span class="kw">super</span>) state: State,
@@ -381,7 +381,7 @@
     </span><span class="kw">pub</span>(<span class="kw">super</span>) owner_id: UnsafeCell&lt;u64&gt;,
 
     <span class="doccomment">/// The tracing ID for this instrumented task.
-    </span><span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+    </span><span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) id: <span class="prelude-ty">Option</span>&lt;tracing::Id&gt;,
 }
 
@@ -416,7 +416,7 @@
     <span class="doccomment">/// Allocates a new task cell, containing the header, trailer, and core
     /// structures.
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>new(future: T, scheduler: S, state: State, task_id: Id) -&gt; Box&lt;Cell&lt;T, S&gt;&gt; {
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>id = future.id();
         <span class="kw">let </span>result = Box::new(Cell {
             header: Header {
@@ -424,7 +424,7 @@
                 queue_next: UnsafeCell::new(<span class="prelude-val">None</span>),
                 vtable: raw::vtable::&lt;T, S&gt;(),
                 owner_id: UnsafeCell::new(<span class="number">0</span>),
-                <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+                <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
                 </span>id,
             },
             core: Core {
@@ -440,7 +440,7 @@
             },
         });
 
-        <span class="attribute">#[cfg(debug_assertions)]
+        <span class="attr">#[cfg(debug_assertions)]
         </span>{
             <span class="kw">let </span>trailer_addr = (<span class="kw-2">&amp;</span>result.trailer) <span class="kw">as </span><span class="kw-2">*const </span>Trailer <span class="kw">as </span>usize;
             <span class="kw">let </span>trailer_ptr = <span class="kw">unsafe </span>{ Header::get_trailer(NonNull::from(<span class="kw-2">&amp;</span>result.header)) };
@@ -593,7 +593,7 @@
     }
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 #[cfg(not(loom))]
 </span><span class="kw">fn </span>header_lte_cache_line() {
     <span class="kw">use </span>std::mem::size_of;
@@ -601,4 +601,4 @@
     <span class="macro">assert!</span>(size_of::&lt;Header&gt;() &lt;= <span class="number">8 </span>* size_of::&lt;<span class="kw-2">*const </span>()&gt;());
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

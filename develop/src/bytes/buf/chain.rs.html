@@ -244,7 +244,7 @@
 </pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::buf::{IntoIter, UninitSlice};
 <span class="kw">use crate</span>::{Buf, BufMut, Bytes};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">use </span>std::io::IoSlice;
 
 <span class="doccomment">/// A `Chain` sequences two buffers.
@@ -271,7 +271,7 @@
 /// [`Buf::chain`]: trait.Buf.html#method.chain
 /// [`Buf`]: trait.Buf.html
 /// [`BufMut`]: trait.BufMut.html
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Chain&lt;T, U&gt; {
     a: T,
     b: U,
@@ -407,7 +407,7 @@
         <span class="self">self</span>.b.advance(cnt);
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     </span><span class="kw">fn </span>chunks_vectored&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>, dst: <span class="kw-2">&amp;mut </span>[IoSlice&lt;<span class="lifetime">&#39;a</span>&gt;]) -&gt; usize {
         <span class="kw">let </span><span class="kw-2">mut </span>n = <span class="self">self</span>.a.chunks_vectored(dst);
         n += <span class="self">self</span>.b.chunks_vectored(<span class="kw-2">&amp;mut </span>dst[n..]);
@@ -485,4 +485,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="bytes" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="bytes" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

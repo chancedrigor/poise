@@ -165,7 +165,7 @@
 <span class="doccomment">/// A wrapper for an `Ident` which also keeps the value as a string.
 ///
 /// This struct can be used to perform string comparisons and operations.
-</span><span class="attribute">#[derive(Clone, PartialOrd, Ord)]
+</span><span class="attr">#[derive(Clone, PartialOrd, Ord)]
 </span><span class="kw">pub struct </span>IdentString {
     ident: Ident,
     string: String,
@@ -290,17 +290,17 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::IdentString;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>convert() {
         <span class="kw">let </span>i_str = IdentString::new(<span class="macro">parse_quote!</span>(t));
         <span class="macro">assert_eq!</span>(i_str.as_str(), <span class="string">&quot;t&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>map_transform() {
         <span class="kw">let </span>i = IdentString::new(<span class="macro">parse_quote!</span>(my));
         <span class="kw">let </span>after = i.map(|v| <span class="macro">format!</span>(<span class="string">&quot;var_{}&quot;</span>, v));
@@ -309,4 +309,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="darling_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="darling_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

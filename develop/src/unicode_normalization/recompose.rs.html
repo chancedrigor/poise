@@ -167,7 +167,7 @@
 <span class="kw">use </span>core::fmt::{<span class="self">self</span>, Write};
 <span class="kw">use </span>tinyvec::TinyVec;
 
-<span class="attribute">#[derive(Clone)]
+<span class="attr">#[derive(Clone)]
 </span><span class="kw">enum </span>RecompositionState {
     Composing,
     Purging(usize),
@@ -175,7 +175,7 @@
 }
 
 <span class="doccomment">/// External iterator for a string recomposition&#39;s characters.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>Recompositions&lt;I&gt; {
     iter: Decompositions&lt;I&gt;,
     state: RecompositionState,
@@ -184,7 +184,7 @@
     last_ccc: <span class="prelude-ty">Option</span>&lt;u8&gt;,
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">pub fn </span>new_canonical&lt;I: Iterator&lt;Item = char&gt;&gt;(iter: I) -&gt; Recompositions&lt;I&gt; {
     Recompositions {
         iter: <span class="kw">super</span>::decompose::new_canonical(iter),
@@ -195,7 +195,7 @@
     }
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">pub fn </span>new_compatible&lt;I: Iterator&lt;Item = char&gt;&gt;(iter: I) -&gt; Recompositions&lt;I&gt; {
     Recompositions {
         iter: <span class="kw">super</span>::decompose::new_compatible(iter),
@@ -209,7 +209,7 @@
 <span class="kw">impl</span>&lt;I: Iterator&lt;Item = char&gt;&gt; Iterator <span class="kw">for </span>Recompositions&lt;I&gt; {
     <span class="kw">type </span>Item = char;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>next(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;char&gt; {
         <span class="kw">use </span><span class="self">self</span>::RecompositionState::<span class="kw-2">*</span>;
 
@@ -308,4 +308,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="unicode_normalization" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="unicode_normalization" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

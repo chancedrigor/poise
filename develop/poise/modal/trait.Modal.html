@@ -12,20 +12,20 @@
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>poise::Modal;
 <span class="kw">type </span>ApplicationContext&lt;<span class="lifetime">&#39;a</span>&gt; = poise::ApplicationContext&lt;<span class="lifetime">&#39;a</span>, Data, Error&gt;;
 
-<span class="attribute">#[derive(Debug, Modal)]
+<span class="attr">#[derive(Debug, Modal)]
 #[name = <span class="string">&quot;Modal title&quot;</span>] </span><span class="comment">// Struct name by default
 </span><span class="kw">struct </span>MyModal {
-    <span class="attribute">#[name = <span class="string">&quot;First input label&quot;</span>] </span><span class="comment">// Field name by default
-    </span><span class="attribute">#[placeholder = <span class="string">&quot;Your first input goes here&quot;</span>] </span><span class="comment">// No placeholder by default
-    </span><span class="attribute">#[min_length = <span class="number">5</span>] </span><span class="comment">// No length restriction by default (so, 1-4000 chars)
-    </span><span class="attribute">#[max_length = <span class="number">500</span>]
+    <span class="attr">#[name = <span class="string">&quot;First input label&quot;</span>] </span><span class="comment">// Field name by default
+    </span><span class="attr">#[placeholder = <span class="string">&quot;Your first input goes here&quot;</span>] </span><span class="comment">// No placeholder by default
+    </span><span class="attr">#[min_length = <span class="number">5</span>] </span><span class="comment">// No length restriction by default (so, 1-4000 chars)
+    </span><span class="attr">#[max_length = <span class="number">500</span>]
     </span>first_input: String,
-    <span class="attribute">#[name = <span class="string">&quot;Second input label&quot;</span>]
+    <span class="attr">#[name = <span class="string">&quot;Second input label&quot;</span>]
     #[paragraph] </span><span class="comment">// Switches from single-line input to multiline text box
     </span>second_input: <span class="prelude-ty">Option</span>&lt;String&gt;, <span class="comment">// Option means optional input
 </span>}
 
-<span class="attribute">#[poise::command(slash_command)]
+<span class="attr">#[poise::command(slash_command)]
 </span><span class="kw">pub async fn </span>modal(ctx: ApplicationContext&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>data = MyModal::execute(ctx).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="macro">println!</span>(<span class="string">&quot;Got data: {:?}&quot;</span>, data);
@@ -70,7 +70,7 @@ or the modal will fail</p>
 }</code></pre></div>
 </div></div></div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.execute_with_defaults" class="method has-srclink"><a class="srclink rightside" href="../../src/poise/modal.rs.html#158-163">source</a><h4 class="code-header">fn <a href="#method.execute_with_defaults" class="fnname">execute_with_defaults</a>&lt;'life0, 'async_trait, U, E&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;ctx: <a class="struct" href="../structs/struct.ApplicationContext.html" title="struct poise::structs::ApplicationContext">ApplicationContext</a>&lt;'life0, U, E&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;defaults: Self<br>) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/core/pin/struct.Pin.html" title="struct core::pin::Pin">Pin</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;dyn <a class="trait" href="https://doc.rust-lang.org/nightly/core/future/future/trait.Future.html" title="trait core::future::future::Future">Future</a>&lt;Output = <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;Self, <a class="enum" href="../../serenity/error/enum.Error.html" title="enum serenity::error::Error">Error</a>&gt;&gt; + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + 'async_trait&gt;&gt;<span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: 'async_trait + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;E: 'async_trait,<br>&nbsp;&nbsp;&nbsp;&nbsp;'life0: 'async_trait,<br>&nbsp;&nbsp;&nbsp;&nbsp;Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + 'async_trait,</span></h4></section></summary><div class="docblock"><p>Like <a href="trait.Modal.html#method.execute" title="Self::execute()"><code>Self::execute()</code></a>, but with a parameter to set default values for the fields.</p>
 
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attribute">#[derive(Default, poise::Modal)]
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attr">#[derive(Default, poise::Modal)]
 </span><span class="kw">struct </span>MyModal {
     field_1: String,
     field_2: String,
@@ -80,4 +80,4 @@ MyModal::execute_with_defaults(ctx, MyModal {
     field_1: <span class="string">&quot;Default value&quot;</span>.into(),
     ..Default::default()
 }).<span class="kw">await</span><span class="question-mark">?</span>;</code></pre></div>
-</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor"></a></h2><div id="implementors-list"></div><script src="../../implementors/poise/modal/trait.Modal.js" async></script></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor"></a></h2><div id="implementors-list"></div><script src="../../implementors/poise/modal/trait.Modal.js" async></script></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

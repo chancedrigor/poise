@@ -213,7 +213,7 @@
 <span id="213">213</span>
 <span id="214">214</span>
 <span id="215">215</span>
-</pre><pre class="rust"><code><span class="attribute">#[allow(unused_imports)]
+</pre><pre class="rust"><code><span class="attr">#[allow(unused_imports)]
 </span><span class="kw">use </span>log::<span class="kw-2">*</span>;
 <span class="kw">use </span>std::io::{Read, Write};
 <span class="kw">use </span>std::pin::Pin;
@@ -229,7 +229,7 @@
     Write,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>AllowStd&lt;S&gt; {
     inner: S,
     <span class="comment">// We have the problem that external read operations (i.e. the Stream impl)
@@ -316,7 +316,7 @@
 // stream underlying the websocket. We have two slots here for the
 // actual wakers to allow external read operations to trigger both
 // reads and writes, and the same for writes.
-</span><span class="attribute">#[derive(Debug, Default)]
+</span><span class="attr">#[derive(Debug, Default)]
 </span><span class="kw">struct </span>WakerProxy {
     read_waker: task::AtomicWaker,
     write_waker: task::AtomicWaker,
@@ -337,7 +337,7 @@
     <span class="kw">where
         </span>F: FnOnce(<span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;, Pin&lt;<span class="kw-2">&amp;mut </span>S&gt;) -&gt; Poll&lt;std::io::Result&lt;R&gt;&gt;,
     {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;verbose-logging&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;verbose-logging&quot;</span>)]
         </span><span class="macro">trace!</span>(<span class="string">&quot;{}:{} AllowStd.with_context&quot;</span>, <span class="macro">file!</span>(), <span class="macro">line!</span>());
         <span class="kw">let </span>waker = <span class="kw">match </span>kind {
             ContextWaker::Read =&gt; task::waker_ref(<span class="kw-2">&amp;</span><span class="self">self</span>.read_waker_proxy),
@@ -361,10 +361,10 @@
     </span>S: AsyncRead + Unpin,
 {
     <span class="kw">fn </span>read(<span class="kw-2">&amp;mut </span><span class="self">self</span>, buf: <span class="kw-2">&amp;mut </span>[u8]) -&gt; std::io::Result&lt;usize&gt; {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;verbose-logging&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;verbose-logging&quot;</span>)]
         </span><span class="macro">trace!</span>(<span class="string">&quot;{}:{} Read.read&quot;</span>, <span class="macro">file!</span>(), <span class="macro">line!</span>());
         <span class="kw">match </span><span class="self">self</span>.with_context(ContextWaker::Read, |ctx, stream| {
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;verbose-logging&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;verbose-logging&quot;</span>)]
             </span><span class="macro">trace!</span>(
                 <span class="string">&quot;{}:{} Read.with_context read -&gt; poll_read&quot;</span>,
                 <span class="macro">file!</span>(),
@@ -383,10 +383,10 @@
     </span>S: AsyncWrite + Unpin,
 {
     <span class="kw">fn </span>write(<span class="kw-2">&amp;mut </span><span class="self">self</span>, buf: <span class="kw-2">&amp;</span>[u8]) -&gt; std::io::Result&lt;usize&gt; {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;verbose-logging&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;verbose-logging&quot;</span>)]
         </span><span class="macro">trace!</span>(<span class="string">&quot;{}:{} Write.write&quot;</span>, <span class="macro">file!</span>(), <span class="macro">line!</span>());
         <span class="kw">match </span><span class="self">self</span>.with_context(ContextWaker::Write, |ctx, stream| {
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;verbose-logging&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;verbose-logging&quot;</span>)]
             </span><span class="macro">trace!</span>(
                 <span class="string">&quot;{}:{} Write.with_context write -&gt; poll_write&quot;</span>,
                 <span class="macro">file!</span>(),
@@ -400,10 +400,10 @@
     }
 
     <span class="kw">fn </span>flush(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; std::io::Result&lt;()&gt; {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;verbose-logging&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;verbose-logging&quot;</span>)]
         </span><span class="macro">trace!</span>(<span class="string">&quot;{}:{} Write.flush&quot;</span>, <span class="macro">file!</span>(), <span class="macro">line!</span>());
         <span class="kw">match </span><span class="self">self</span>.with_context(ContextWaker::Write, |ctx, stream| {
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;verbose-logging&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;verbose-logging&quot;</span>)]
             </span><span class="macro">trace!</span>(
                 <span class="string">&quot;{}:{} Write.with_context flush -&gt; poll_flush&quot;</span>,
                 <span class="macro">file!</span>(),
@@ -421,7 +421,7 @@
     <span class="kw">match </span>r {
         <span class="prelude-val">Ok</span>(v) =&gt; Poll::Ready(<span class="prelude-val">Ok</span>(v)),
         <span class="prelude-val">Err</span>(WsError::Io(<span class="kw-2">ref </span>e)) <span class="kw">if </span>e.kind() == std::io::ErrorKind::WouldBlock =&gt; {
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;verbose-logging&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;verbose-logging&quot;</span>)]
             </span><span class="macro">trace!</span>(<span class="string">&quot;WouldBlock&quot;</span>);
             Poll::Pending
         }
@@ -429,4 +429,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="async_tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="async_tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

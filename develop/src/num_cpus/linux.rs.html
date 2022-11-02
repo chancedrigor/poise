@@ -522,11 +522,11 @@
 ///
 /// If 0, check logical cpus.
 </span><span class="comment">// Allow deprecation warnings, we want to work on older rustc
-</span><span class="attribute">#[allow(warnings)]
+</span><span class="attr">#[allow(warnings)]
 </span><span class="kw">static </span>CGROUPS_CPUS: AtomicUsize = ::std::sync::atomic::ATOMIC_USIZE_INIT;
 
 <span class="kw">fn </span>cgroups_num_cpus() -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
-    <span class="attribute">#[allow(warnings)]
+    <span class="attr">#[allow(warnings)]
     </span><span class="kw">static </span>ONCE: Once = ::std::sync::ONCE_INIT;
 
     ONCE.call_once(init_cgroups);
@@ -712,7 +712,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::{Cgroup, MountInfo, Subsys};
     <span class="kw">use </span>std::path::{Path, PathBuf};
@@ -729,7 +729,7 @@
         })
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_load_mountinfo() {
         <span class="comment">// test only one optional fields
         </span><span class="kw">let </span>path = <span class="macro">join!</span>(FIXTURES_PROC, <span class="string">&quot;mountinfo&quot;</span>);
@@ -756,7 +756,7 @@
         <span class="macro">assert_eq!</span>(mnt_info.mount_point, <span class="string">&quot;/sys/fs/cgroup/cpu,cpuacct&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_load_subsys() {
         <span class="kw">let </span>path = <span class="macro">join!</span>(FIXTURES_PROC, <span class="string">&quot;cgroup&quot;</span>);
 
@@ -765,7 +765,7 @@
         <span class="macro">assert_eq!</span>(subsys.base, <span class="string">&quot;/&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_cgroup_mount() {
         <span class="kw">let </span>cases = <span class="kw-2">&amp;</span>[
             (<span class="string">&quot;/&quot;</span>, <span class="string">&quot;/sys/fs/cgroup/cpu&quot;</span>, <span class="string">&quot;/&quot;</span>, <span class="prelude-val">Some</span>(<span class="string">&quot;/sys/fs/cgroup/cpu&quot;</span>)),
@@ -814,13 +814,13 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_cgroup_cpu_quota() {
         <span class="kw">let </span>cgroup = Cgroup::new(<span class="macro">join!</span>(FIXTURES_CGROUPS, <span class="string">&quot;good&quot;</span>));
         <span class="macro">assert_eq!</span>(cgroup.cpu_quota(), <span class="prelude-val">Some</span>(<span class="number">6</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_cgroup_cpu_quota_divide_by_zero() {
         <span class="kw">let </span>cgroup = Cgroup::new(<span class="macro">join!</span>(FIXTURES_CGROUPS, <span class="string">&quot;zero-period&quot;</span>));
         <span class="macro">assert!</span>(cgroup.quota_us().is_some());
@@ -828,11 +828,11 @@
         <span class="macro">assert_eq!</span>(cgroup.cpu_quota(), <span class="prelude-val">None</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_cgroup_cpu_quota_ceil() {
         <span class="kw">let </span>cgroup = Cgroup::new(<span class="macro">join!</span>(FIXTURES_CGROUPS, <span class="string">&quot;ceil&quot;</span>));
         <span class="macro">assert_eq!</span>(cgroup.cpu_quota(), <span class="prelude-val">Some</span>(<span class="number">2</span>));
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="num_cpus" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="num_cpus" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

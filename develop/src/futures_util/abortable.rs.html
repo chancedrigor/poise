@@ -195,10 +195,10 @@
 
 <span class="macro">pin_project! </span>{
     <span class="doccomment">/// A future/stream which can be remotely short-circuited using an `AbortHandle`.
-    </span><span class="attribute">#[derive(Debug, Clone)]
+    </span><span class="attr">#[derive(Debug, Clone)]
     #[must_use = <span class="string">&quot;futures/streams do nothing unless you poll them&quot;</span>]
     </span><span class="kw">pub struct </span>Abortable&lt;T&gt; {
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span>task: T,
         inner: Arc&lt;AbortInner&gt;,
     }
@@ -258,13 +258,13 @@
 <span class="doccomment">/// A registration handle for an `Abortable` task.
 /// Values of this type can be acquired from `AbortHandle::new` and are used
 /// in calls to `Abortable::new`.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>AbortRegistration {
     inner: Arc&lt;AbortInner&gt;,
 }
 
 <span class="doccomment">/// A handle to an `Abortable` task.
-</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone)]
 </span><span class="kw">pub struct </span>AbortHandle {
     inner: Arc&lt;AbortInner&gt;,
 }
@@ -284,14 +284,14 @@
 
 <span class="comment">// Inner type storing the waker to awaken and a bool indicating that it
 // should be aborted.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>AbortInner {
     waker: AtomicWaker,
     aborted: AtomicBool,
 }
 
 <span class="doccomment">/// Indicator that the `Abortable` task was aborted.
-</span><span class="attribute">#[derive(Copy, Clone, Debug, Eq, PartialEq)]
+</span><span class="attr">#[derive(Copy, Clone, Debug, Eq, PartialEq)]
 </span><span class="kw">pub struct </span>Aborted;
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Aborted {
@@ -300,7 +300,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>std::error::Error <span class="kw">for </span>Aborted {}
 
 <span class="kw">impl</span>&lt;T&gt; Abortable&lt;T&gt; {
@@ -369,4 +369,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

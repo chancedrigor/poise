@@ -371,9 +371,9 @@
 <span class="kw">use </span>std::task::{Context, Poll};
 <span class="kw">use </span>tokio::io::{AsyncRead, AsyncWrite, ReadBuf};
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub enum </span>TlsState {
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;early-data&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;early-data&quot;</span>)]
     </span>EarlyData(usize, Vec&lt;u8&gt;),
     Stream,
     ReadShutdown,
@@ -382,7 +382,7 @@
 }
 
 <span class="kw">impl </span>TlsState {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>shutdown_read(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             TlsState::WriteShutdown | TlsState::FullyShutdown =&gt; <span class="kw-2">*</span><span class="self">self </span>= TlsState::FullyShutdown,
@@ -390,7 +390,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>shutdown_write(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             TlsState::ReadShutdown | TlsState::FullyShutdown =&gt; <span class="kw-2">*</span><span class="self">self </span>= TlsState::FullyShutdown,
@@ -398,23 +398,23 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>writeable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         !<span class="macro">matches!</span>(<span class="kw-2">*</span><span class="self">self</span>, TlsState::WriteShutdown | TlsState::FullyShutdown)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>readable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         !<span class="macro">matches!</span>(<span class="kw-2">*</span><span class="self">self</span>, TlsState::ReadShutdown | TlsState::FullyShutdown)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     #[cfg(feature = <span class="string">&quot;early-data&quot;</span>)]
     </span><span class="kw">pub fn </span>is_early_data(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="macro">matches!</span>(<span class="self">self</span>, TlsState::EarlyData(..))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     #[cfg(not(feature = <span class="string">&quot;early-data&quot;</span>))]
     </span><span class="kw">pub const fn </span>is_early_data(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="bool-val">false
@@ -486,7 +486,7 @@
         }
 
         <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, T: Unpin&gt; Writer&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, T&gt; {
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>poll_with&lt;U&gt;(
                 <span class="kw-2">&amp;mut </span><span class="self">self</span>,
                 f: <span class="kw">impl </span>FnOnce(Pin&lt;<span class="kw-2">&amp;mut </span>T&gt;, <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;io::Result&lt;U&gt;&gt;,
@@ -499,12 +499,12 @@
         }
 
         <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, T: AsyncWrite + Unpin&gt; Write <span class="kw">for </span>Writer&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, T&gt; {
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>write(<span class="kw-2">&amp;mut </span><span class="self">self</span>, buf: <span class="kw-2">&amp;</span>[u8]) -&gt; io::Result&lt;usize&gt; {
                 <span class="self">self</span>.poll_with(|io, cx| io.poll_write(cx, buf))
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>write_vectored(<span class="kw-2">&amp;mut </span><span class="self">self</span>, bufs: <span class="kw-2">&amp;</span>[IoSlice&lt;<span class="lifetime">&#39;_</span>&gt;]) -&gt; io::Result&lt;usize&gt; {
                 <span class="self">self</span>.poll_with(|io, cx| io.poll_write_vectored(cx, bufs))
             }
@@ -711,7 +711,7 @@
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, T: AsyncRead + Unpin&gt; Read <span class="kw">for </span>SyncReadAdapter&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, T&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>read(<span class="kw-2">&amp;mut </span><span class="self">self</span>, buf: <span class="kw-2">&amp;mut </span>[u8]) -&gt; io::Result&lt;usize&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = ReadBuf::new(buf);
         <span class="kw">match </span>Pin::new(<span class="kw-2">&amp;mut </span><span class="self">self</span>.io).poll_read(<span class="self">self</span>.cx, <span class="kw-2">&amp;mut </span>buf) {
@@ -722,7 +722,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test_stream;
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio_rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio_rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

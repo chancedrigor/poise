@@ -81,34 +81,34 @@
 
     <span class="kw">type </span>GuardMarker = &lt;RawMutex <span class="kw">as </span>lock_api::RawMutex&gt;::GuardMarker;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>lock(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="self">self</span>.<span class="number">0</span>.lock()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_lock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.<span class="number">0</span>.try_lock()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>unlock(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="self">self</span>.unlock_fair()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_locked(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.<span class="number">0</span>.is_locked()
     }
 }
 
 <span class="kw">unsafe impl </span>lock_api::RawMutexFair <span class="kw">for </span>RawFairMutex {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>unlock_fair(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="self">self</span>.<span class="number">0</span>.unlock_fair()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>bump(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="self">self</span>.<span class="number">0</span>.bump()
     }
@@ -118,15 +118,15 @@
     <span class="kw">type </span>Duration = &lt;RawMutex <span class="kw">as </span>lock_api::RawMutexTimed&gt;::Duration;
     <span class="kw">type </span>Instant = &lt;RawMutex <span class="kw">as </span>lock_api::RawMutexTimed&gt;::Instant;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_lock_until(<span class="kw-2">&amp;</span><span class="self">self</span>, timeout: <span class="self">Self</span>::Instant) -&gt; bool {
         <span class="self">self</span>.<span class="number">0</span>.try_lock_until(timeout)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_lock_for(<span class="kw-2">&amp;</span><span class="self">self</span>, timeout: <span class="self">Self</span>::Duration) -&gt; bool {
         <span class="self">self</span>.<span class="number">0</span>.try_lock_for(timeout)
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

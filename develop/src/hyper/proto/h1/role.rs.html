@@ -2719,19 +2719,19 @@
 </pre><pre class="rust"><code><span class="kw">use </span>std::fmt::{<span class="self">self</span>, Write};
 <span class="kw">use </span>std::mem::MaybeUninit;
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
 </span><span class="kw">use </span>tokio::time::Instant;
-<span class="attribute">#[cfg(any(test, feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;ffi&quot;</span>))]
+<span class="attr">#[cfg(any(test, feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;ffi&quot;</span>))]
 </span><span class="kw">use </span>bytes::Bytes;
 <span class="kw">use </span>bytes::BytesMut;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
 </span><span class="kw">use </span>http::header::ValueIter;
 <span class="kw">use </span>http::header::{<span class="self">self</span>, Entry, HeaderName, HeaderValue};
 <span class="kw">use </span>http::{HeaderMap, Method, StatusCode, Version};
 <span class="kw">use </span>tracing::{debug, error, trace, trace_span, warn};
 
 <span class="kw">use </span><span class="kw">crate</span>::body::DecodedLength;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::common::date;
 <span class="kw">use </span><span class="kw">crate</span>::error::Parse;
 <span class="kw">use </span><span class="kw">crate</span>::ext::HeaderCaseMap;
@@ -2743,7 +2743,7 @@
 
 <span class="kw">const </span>MAX_HEADERS: usize = <span class="number">100</span>;
 <span class="kw">const </span>AVERAGE_HEADER_SIZE: usize = <span class="number">30</span>; <span class="comment">// totally scientific
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
 </span><span class="kw">const </span>MAX_URI_LEN: usize = (u16::MAX - <span class="number">1</span>) <span class="kw">as </span>usize;
 
 <span class="macro">macro_rules! </span>header_name {
@@ -2792,7 +2792,7 @@
     <span class="kw">let </span>span = <span class="macro">trace_span!</span>(<span class="string">&quot;parse_headers&quot;</span>);
     <span class="kw">let </span>_s = span.enter();
 
-    <span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
+    <span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
     </span><span class="kw">if </span>!<span class="kw-2">*</span>ctx.h1_header_read_timeout_running {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(h1_header_read_timeout) = ctx.h1_header_read_timeout {
             <span class="kw">let </span>deadline = Instant::now() + h1_header_read_timeout;
@@ -2828,13 +2828,13 @@
 
 <span class="comment">// There are 2 main roles, Client and Server.
 
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;client&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;client&quot;</span>)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>Client {}
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>Server {}
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
 </span><span class="kw">impl </span>Http1Transaction <span class="kw">for </span>Server {
     <span class="kw">type </span>Incoming = RequestLine;
     <span class="kw">type </span>Outgoing = StatusCode;
@@ -3155,7 +3155,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
 </span><span class="kw">impl </span>Server {
     <span class="kw">fn </span>can_have_body(method: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;Method&gt;, status: StatusCode) -&gt; bool {
         Server::can_chunked(method, status)
@@ -3196,7 +3196,7 @@
         <span class="kw">struct </span>LowercaseWriter;
 
         <span class="kw">impl </span>HeaderNameWriter <span class="kw">for </span>LowercaseWriter {
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>write_full_header_line(
                 <span class="kw-2">&amp;mut </span><span class="self">self</span>,
                 dst: <span class="kw-2">&amp;mut </span>Vec&lt;u8&gt;,
@@ -3206,7 +3206,7 @@
                 extend(dst, line.as_bytes())
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>write_header_name_with_colon(
                 <span class="kw-2">&amp;mut </span><span class="self">self</span>,
                 dst: <span class="kw-2">&amp;mut </span>Vec&lt;u8&gt;,
@@ -3216,7 +3216,7 @@
                 extend(dst, name_with_colon.as_bytes())
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>write_header_name(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dst: <span class="kw-2">&amp;mut </span>Vec&lt;u8&gt;, name: <span class="kw-2">&amp;</span>HeaderName) {
                 extend(dst, name.as_str().as_bytes())
             }
@@ -3225,7 +3225,7 @@
         <span class="self">Self</span>::encode_headers(msg, dst, is_last, orig_len, wrote_len, LowercaseWriter)
     }
 
-    <span class="attribute">#[cold]
+    <span class="attr">#[cold]
     #[inline(never)]
     </span><span class="kw">fn </span>encode_headers_with_original_case(
         msg: Encode&lt;<span class="lifetime">&#39;_</span>, StatusCode&gt;,
@@ -3242,7 +3242,7 @@
         }
 
         <span class="kw">impl </span>HeaderNameWriter <span class="kw">for </span>OrigCaseWriter&lt;<span class="lifetime">&#39;_</span>&gt; {
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>write_full_header_line(
                 <span class="kw-2">&amp;mut </span><span class="self">self</span>,
                 dst: <span class="kw-2">&amp;mut </span>Vec&lt;u8&gt;,
@@ -3253,7 +3253,7 @@
                 extend(dst, rest.as_bytes());
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>write_header_name_with_colon(
                 <span class="kw-2">&amp;mut </span><span class="self">self</span>,
                 dst: <span class="kw-2">&amp;mut </span>Vec&lt;u8&gt;,
@@ -3264,7 +3264,7 @@
                 extend(dst, <span class="string">b&quot;: &quot;</span>);
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>write_header_name(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dst: <span class="kw-2">&amp;mut </span>Vec&lt;u8&gt;, name: <span class="kw-2">&amp;</span>HeaderName) {
                 <span class="kw">let </span><span class="self">Self </span>{
                     map,
@@ -3296,7 +3296,7 @@
         <span class="self">Self</span>::encode_headers(msg, dst, is_last, orig_len, wrote_len, header_name_writer)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>encode_headers&lt;W&gt;(
         msg: Encode&lt;<span class="lifetime">&#39;_</span>, StatusCode&gt;,
         dst: <span class="kw-2">&amp;mut </span>Vec&lt;u8&gt;,
@@ -3364,7 +3364,7 @@
                             //
                             // In debug builds, we&#39;ll assert they are the
                             // same to help developers find bugs.
-                            </span><span class="attribute">#[cfg(debug_assertions)]
+                            </span><span class="attr">#[cfg(debug_assertions)]
                             </span>{
                                 <span class="kw">if let </span><span class="prelude-val">Some</span>(len) = headers::content_length_parse(<span class="kw-2">&amp;</span>value) {
                                     <span class="macro">assert!</span>(
@@ -3587,7 +3587,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
 </span><span class="kw">trait </span>HeaderNameWriter {
     <span class="kw">fn </span>write_full_header_line(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
@@ -3604,7 +3604,7 @@
     <span class="kw">fn </span>write_header_name(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dst: <span class="kw-2">&amp;mut </span>Vec&lt;u8&gt;, name: <span class="kw-2">&amp;</span>HeaderName);
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;client&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;client&quot;</span>)]
 </span><span class="kw">impl </span>Http1Transaction <span class="kw">for </span>Client {
     <span class="kw">type </span>Incoming = StatusCode;
     <span class="kw">type </span>Outgoing = RequestLine;
@@ -3636,9 +3636,9 @@
                         <span class="macro">trace!</span>(<span class="string">&quot;Response.parse Complete({})&quot;</span>, len);
                         <span class="kw">let </span>status = StatusCode::from_u16(res.code.unwrap())<span class="question-mark">?</span>;
 
-                        <span class="attribute">#[cfg(not(feature = <span class="string">&quot;ffi&quot;</span>))]
+                        <span class="attr">#[cfg(not(feature = <span class="string">&quot;ffi&quot;</span>))]
                         </span><span class="kw">let </span>reason = ();
-                        <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                        <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                         </span><span class="kw">let </span>reason = {
                             <span class="kw">let </span>reason = res.reason.unwrap();
                             <span class="comment">// Only save the reason phrase if it isnt the canonical reason
@@ -3662,9 +3662,9 @@
                     <span class="prelude-val">Err</span>(httparse::Error::Version) <span class="kw">if </span>ctx.h09_responses =&gt; {
                         <span class="macro">trace!</span>(<span class="string">&quot;Response.parse accepted HTTP/0.9 response&quot;</span>);
 
-                        <span class="attribute">#[cfg(not(feature = <span class="string">&quot;ffi&quot;</span>))]
+                        <span class="attr">#[cfg(not(feature = <span class="string">&quot;ffi&quot;</span>))]
                         </span><span class="kw">let </span>reason = ();
-                        <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                        <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                         </span><span class="kw">let </span>reason = <span class="prelude-val">None</span>;
 
                         (<span class="number">0</span>, StatusCode::OK, reason, Version::HTTP_09, <span class="number">0</span>)
@@ -3730,14 +3730,14 @@
                 extensions.insert(header_case_map);
             }
 
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
             </span><span class="kw">if let </span><span class="prelude-val">Some</span>(reason) = reason {
                 extensions.insert(<span class="kw">crate</span>::ffi::ReasonPhrase(reason));
             }
-            <span class="attribute">#[cfg(not(feature = <span class="string">&quot;ffi&quot;</span>))]
+            <span class="attr">#[cfg(not(feature = <span class="string">&quot;ffi&quot;</span>))]
             </span>drop(reason);
 
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
             </span><span class="kw">if </span>ctx.raw_headers {
                 extensions.insert(<span class="kw">crate</span>::ffi::RawHeaders(<span class="kw">crate</span>::ffi::hyper_buf(slice)));
             }
@@ -3760,7 +3760,7 @@
                 }));
             }
 
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
             </span><span class="kw">if </span>head.subject.is_informational() {
                 <span class="kw">if let </span><span class="prelude-val">Some</span>(callback) = ctx.on_informational {
                     callback.call(head.into_response(<span class="kw">crate</span>::Body::empty()));
@@ -3834,7 +3834,7 @@
     </span>}
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;client&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;client&quot;</span>)]
 </span><span class="kw">impl </span>Client {
     <span class="doccomment">/// Returns Some(length, wants_upgrade) if successful.
     ///
@@ -4048,7 +4048,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Copy)]
+<span class="attr">#[derive(Clone, Copy)]
 </span><span class="kw">struct </span>HeaderIndices {
     name: (usize, usize),
     value: (usize, usize),
@@ -4119,7 +4119,7 @@
     }
 }
 
-<span class="attribute">#[cold]
+<span class="attr">#[cold]
 </span><span class="kw">fn </span>write_headers_original_case(
     headers: <span class="kw-2">&amp;</span>HeaderMap,
     orig_case: <span class="kw-2">&amp;</span>HeaderCaseMap,
@@ -4158,30 +4158,30 @@
 <span class="kw">struct </span>FastWrite&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Vec&lt;u8&gt;);
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; fmt::Write <span class="kw">for </span>FastWrite&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_str(<span class="kw-2">&amp;mut </span><span class="self">self</span>, s: <span class="kw-2">&amp;</span>str) -&gt; fmt::Result {
         extend(<span class="self">self</span>.<span class="number">0</span>, s.as_bytes());
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_fmt(<span class="kw-2">&amp;mut </span><span class="self">self</span>, args: fmt::Arguments&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
         fmt::write(<span class="self">self</span>, args)
     }
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>extend(dst: <span class="kw-2">&amp;mut </span>Vec&lt;u8&gt;, data: <span class="kw-2">&amp;</span>[u8]) {
     dst.extend_from_slice(data);
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>bytes::BytesMut;
 
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_parse_request() {
         <span class="kw">let _ </span>= pretty_env_logger::try_init();
         <span class="kw">let </span><span class="kw-2">mut </span>raw = BytesMut::from(<span class="string">&quot;GET /echo HTTP/1.1\r\nHost: hyper.rs\r\n\r\n&quot;</span>);
@@ -4197,9 +4197,9 @@
                 h1_header_read_timeout_running: <span class="kw-2">&amp;mut </span><span class="bool-val">false</span>,
                 preserve_header_case: <span class="bool-val">false</span>,
                 h09_responses: <span class="bool-val">false</span>,
-                <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                 </span>on_informational: <span class="kw-2">&amp;mut </span><span class="prelude-val">None</span>,
-                <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                 </span>raw_headers: <span class="bool-val">false</span>,
             },
         )
@@ -4214,7 +4214,7 @@
         <span class="macro">assert_eq!</span>(method, <span class="prelude-val">Some</span>(<span class="kw">crate</span>::Method::GET));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_parse_response() {
         <span class="kw">let _ </span>= pretty_env_logger::try_init();
         <span class="kw">let </span><span class="kw-2">mut </span>raw = BytesMut::from(<span class="string">&quot;HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n&quot;</span>);
@@ -4227,9 +4227,9 @@
             h1_header_read_timeout_running: <span class="kw-2">&amp;mut </span><span class="bool-val">false</span>,
             preserve_header_case: <span class="bool-val">false</span>,
             h09_responses: <span class="bool-val">false</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
             </span>on_informational: <span class="kw-2">&amp;mut </span><span class="prelude-val">None</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
             </span>raw_headers: <span class="bool-val">false</span>,
         };
         <span class="kw">let </span>msg = Client::parse(<span class="kw-2">&amp;mut </span>raw, ctx).unwrap().unwrap();
@@ -4240,7 +4240,7 @@
         <span class="macro">assert_eq!</span>(msg.head.headers[<span class="string">&quot;Content-Length&quot;</span>], <span class="string">&quot;0&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_parse_request_errors() {
         <span class="kw">let </span><span class="kw-2">mut </span>raw = BytesMut::from(<span class="string">&quot;GET htt:p// HTTP/1.1\r\nHost: hyper.rs\r\n\r\n&quot;</span>);
         <span class="kw">let </span>ctx = ParseContext {
@@ -4252,9 +4252,9 @@
             h1_header_read_timeout_running: <span class="kw-2">&amp;mut </span><span class="bool-val">false</span>,
             preserve_header_case: <span class="bool-val">false</span>,
             h09_responses: <span class="bool-val">false</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
             </span>on_informational: <span class="kw-2">&amp;mut </span><span class="prelude-val">None</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
             </span>raw_headers: <span class="bool-val">false</span>,
         };
         Server::parse(<span class="kw-2">&amp;mut </span>raw, ctx).unwrap_err();
@@ -4262,7 +4262,7 @@
 
     <span class="kw">const </span>H09_RESPONSE: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str = <span class="string">&quot;Baguettes are super delicious, don&#39;t you agree?&quot;</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_parse_response_h09_allowed() {
         <span class="kw">let _ </span>= pretty_env_logger::try_init();
         <span class="kw">let </span><span class="kw-2">mut </span>raw = BytesMut::from(H09_RESPONSE);
@@ -4275,9 +4275,9 @@
             h1_header_read_timeout_running: <span class="kw-2">&amp;mut </span><span class="bool-val">false</span>,
             preserve_header_case: <span class="bool-val">false</span>,
             h09_responses: <span class="bool-val">true</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
             </span>on_informational: <span class="kw-2">&amp;mut </span><span class="prelude-val">None</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
             </span>raw_headers: <span class="bool-val">false</span>,
         };
         <span class="kw">let </span>msg = Client::parse(<span class="kw-2">&amp;mut </span>raw, ctx).unwrap().unwrap();
@@ -4287,7 +4287,7 @@
         <span class="macro">assert_eq!</span>(msg.head.headers.len(), <span class="number">0</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_parse_response_h09_rejected() {
         <span class="kw">let _ </span>= pretty_env_logger::try_init();
         <span class="kw">let </span><span class="kw-2">mut </span>raw = BytesMut::from(H09_RESPONSE);
@@ -4300,9 +4300,9 @@
             h1_header_read_timeout_running: <span class="kw-2">&amp;mut </span><span class="bool-val">false</span>,
             preserve_header_case: <span class="bool-val">false</span>,
             h09_responses: <span class="bool-val">false</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
             </span>on_informational: <span class="kw-2">&amp;mut </span><span class="prelude-val">None</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
             </span>raw_headers: <span class="bool-val">false</span>,
         };
         Client::parse(<span class="kw-2">&amp;mut </span>raw, ctx).unwrap_err();
@@ -4312,7 +4312,7 @@
     <span class="kw">const </span>RESPONSE_WITH_WHITESPACE_BETWEEN_HEADER_NAME_AND_COLON: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str =
         <span class="string">&quot;HTTP/1.1 200 OK\r\nAccess-Control-Allow-Credentials : true\r\n\r\n&quot;</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_parse_allow_response_with_spaces_before_colons() {
         <span class="kw">use </span>httparse::ParserConfig;
 
@@ -4329,9 +4329,9 @@
             h1_header_read_timeout_running: <span class="kw-2">&amp;mut </span><span class="bool-val">false</span>,
             preserve_header_case: <span class="bool-val">false</span>,
             h09_responses: <span class="bool-val">false</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
             </span>on_informational: <span class="kw-2">&amp;mut </span><span class="prelude-val">None</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
             </span>raw_headers: <span class="bool-val">false</span>,
         };
         <span class="kw">let </span>msg = Client::parse(<span class="kw-2">&amp;mut </span>raw, ctx).unwrap().unwrap();
@@ -4342,7 +4342,7 @@
         <span class="macro">assert_eq!</span>(msg.head.headers[<span class="string">&quot;Access-Control-Allow-Credentials&quot;</span>], <span class="string">&quot;true&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_parse_reject_response_with_spaces_before_colons() {
         <span class="kw">let _ </span>= pretty_env_logger::try_init();
         <span class="kw">let </span><span class="kw-2">mut </span>raw = BytesMut::from(RESPONSE_WITH_WHITESPACE_BETWEEN_HEADER_NAME_AND_COLON);
@@ -4355,15 +4355,15 @@
             h1_header_read_timeout_running: <span class="kw-2">&amp;mut </span><span class="bool-val">false</span>,
             preserve_header_case: <span class="bool-val">false</span>,
             h09_responses: <span class="bool-val">false</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
             </span>on_informational: <span class="kw-2">&amp;mut </span><span class="prelude-val">None</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
             </span>raw_headers: <span class="bool-val">false</span>,
         };
         Client::parse(<span class="kw-2">&amp;mut </span>raw, ctx).unwrap_err();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_parse_preserve_header_case_in_request() {
         <span class="kw">let </span><span class="kw-2">mut </span>raw =
             BytesMut::from(<span class="string">&quot;GET / HTTP/1.1\r\nHost: hyper.rs\r\nX-BREAD: baguette\r\n\r\n&quot;</span>);
@@ -4376,9 +4376,9 @@
             h1_header_read_timeout_running: <span class="kw-2">&amp;mut </span><span class="bool-val">false</span>,
             preserve_header_case: <span class="bool-val">true</span>,
             h09_responses: <span class="bool-val">false</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
             </span>on_informational: <span class="kw-2">&amp;mut </span><span class="prelude-val">None</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
             </span>raw_headers: <span class="bool-val">false</span>,
         };
         <span class="kw">let </span>parsed_message = Server::parse(<span class="kw-2">&amp;mut </span>raw, ctx).unwrap().unwrap();
@@ -4403,7 +4403,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decoder_request() {
         <span class="kw">fn </span>parse(s: <span class="kw-2">&amp;</span>str) -&gt; ParsedMessage&lt;RequestLine&gt; {
             <span class="kw">let </span><span class="kw-2">mut </span>bytes = BytesMut::from(s);
@@ -4418,9 +4418,9 @@
                     h1_header_read_timeout_running: <span class="kw-2">&amp;mut </span><span class="bool-val">false</span>,
                     preserve_header_case: <span class="bool-val">false</span>,
                     h09_responses: <span class="bool-val">false</span>,
-                    <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                     </span>on_informational: <span class="kw-2">&amp;mut </span><span class="prelude-val">None</span>,
-                    <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                     </span>raw_headers: <span class="bool-val">false</span>,
                 },
             )
@@ -4441,9 +4441,9 @@
                     h1_header_read_timeout_running: <span class="kw-2">&amp;mut </span><span class="bool-val">false</span>,
                     preserve_header_case: <span class="bool-val">false</span>,
                     h09_responses: <span class="bool-val">false</span>,
-                    <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                     </span>on_informational: <span class="kw-2">&amp;mut </span><span class="prelude-val">None</span>,
-                    <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                     </span>raw_headers: <span class="bool-val">false</span>,
                 },
             )
@@ -4654,7 +4654,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_decoder_response() {
         <span class="kw">fn </span>parse(s: <span class="kw-2">&amp;</span>str) -&gt; ParsedMessage&lt;StatusCode&gt; {
             parse_with_method(s, Method::GET)
@@ -4673,9 +4673,9 @@
                     h1_header_read_timeout_running: <span class="kw-2">&amp;mut </span><span class="bool-val">false</span>,
                     preserve_header_case: <span class="bool-val">false</span>,
                     h09_responses: <span class="bool-val">false</span>,
-                    <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                     </span>on_informational: <span class="kw-2">&amp;mut </span><span class="prelude-val">None</span>,
-                    <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                     </span>raw_headers: <span class="bool-val">false</span>,
                 }
             )
@@ -4696,9 +4696,9 @@
                     h1_header_read_timeout_running: <span class="kw-2">&amp;mut </span><span class="bool-val">false</span>,
                     preserve_header_case: <span class="bool-val">false</span>,
                     h09_responses: <span class="bool-val">false</span>,
-                    <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                     </span>on_informational: <span class="kw-2">&amp;mut </span><span class="prelude-val">None</span>,
-                    <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                     </span>raw_headers: <span class="bool-val">false</span>,
                 },
             )
@@ -4719,9 +4719,9 @@
                     h1_header_read_timeout_running: <span class="kw-2">&amp;mut </span><span class="bool-val">false</span>,
                     preserve_header_case: <span class="bool-val">false</span>,
                     h09_responses: <span class="bool-val">false</span>,
-                    <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                     </span>on_informational: <span class="kw-2">&amp;mut </span><span class="prelude-val">None</span>,
-                    <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                     </span>raw_headers: <span class="bool-val">false</span>,
                 },
             )
@@ -4988,7 +4988,7 @@
         </span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_client_request_encode_title_case() {
         <span class="kw">use </span><span class="kw">crate</span>::proto::BodyLength;
         <span class="kw">use </span>http::header::HeaderValue;
@@ -5016,7 +5016,7 @@
         <span class="macro">assert_eq!</span>(vec, <span class="string">b&quot;GET / HTTP/1.1\r\nContent-Length: 10\r\nContent-Type: application/json\r\n*-*: o_o\r\n\r\n&quot;</span>.to_vec());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_client_request_encode_orig_case() {
         <span class="kw">use </span><span class="kw">crate</span>::proto::BodyLength;
         <span class="kw">use </span>http::header::{HeaderValue, CONTENT_LENGTH};
@@ -5050,7 +5050,7 @@
                 </span>.as_ref(),
         );
     }
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_client_request_encode_orig_and_title_case() {
         <span class="kw">use </span><span class="kw">crate</span>::proto::BodyLength;
         <span class="kw">use </span>http::header::{HeaderValue, CONTENT_LENGTH};
@@ -5085,7 +5085,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_server_encode_connect_method() {
         <span class="kw">let </span><span class="kw-2">mut </span>head = MessageHead::default();
 
@@ -5105,7 +5105,7 @@
         <span class="macro">assert!</span>(encoder.is_last());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_server_response_encode_title_case() {
         <span class="kw">use </span><span class="kw">crate</span>::proto::BodyLength;
         <span class="kw">use </span>http::header::HeaderValue;
@@ -5137,7 +5137,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>vec[..expected_response.len()], <span class="kw-2">&amp;</span>expected_response[..]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_server_response_encode_orig_case() {
         <span class="kw">use </span><span class="kw">crate</span>::proto::BodyLength;
         <span class="kw">use </span>http::header::{HeaderValue, CONTENT_LENGTH};
@@ -5171,7 +5171,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>vec[..expected_response.len()], <span class="kw-2">&amp;</span>expected_response[..]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_server_response_encode_orig_and_title_case() {
         <span class="kw">use </span><span class="kw">crate</span>::proto::BodyLength;
         <span class="kw">use </span>http::header::{HeaderValue, CONTENT_LENGTH};
@@ -5205,7 +5205,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>vec[..expected_response.len()], <span class="kw-2">&amp;</span>expected_response[..]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>parse_header_htabs() {
         <span class="kw">let </span><span class="kw-2">mut </span>bytes = BytesMut::from(<span class="string">&quot;HTTP/1.1 200 OK\r\nserver: hello\tworld\r\n\r\n&quot;</span>);
         <span class="kw">let </span>parsed = Client::parse(
@@ -5219,9 +5219,9 @@
                 h1_header_read_timeout_running: <span class="kw-2">&amp;mut </span><span class="bool-val">false</span>,
                 preserve_header_case: <span class="bool-val">false</span>,
                 h09_responses: <span class="bool-val">false</span>,
-                <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                 </span>on_informational: <span class="kw-2">&amp;mut </span><span class="prelude-val">None</span>,
-                <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                 </span>raw_headers: <span class="bool-val">false</span>,
             },
         )
@@ -5231,7 +5231,7 @@
         <span class="macro">assert_eq!</span>(parsed.head.headers[<span class="string">&quot;server&quot;</span>], <span class="string">&quot;hello\tworld&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_write_headers_orig_case_empty_value() {
         <span class="kw">let </span><span class="kw-2">mut </span>headers = HeaderMap::new();
         <span class="kw">let </span>name = http::header::HeaderName::from_static(<span class="string">&quot;x-empty&quot;</span>);
@@ -5248,7 +5248,7 @@
         </span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_write_headers_orig_case_multiple_entries() {
         <span class="kw">let </span><span class="kw-2">mut </span>headers = HeaderMap::new();
         <span class="kw">let </span>name = http::header::HeaderName::from_static(<span class="string">&quot;x-empty&quot;</span>);
@@ -5265,10 +5265,10 @@
         <span class="macro">assert_eq!</span>(dst, <span class="string">b&quot;X-Empty: a\r\nX-EMPTY: b\r\n&quot;</span>);
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
     </span><span class="kw">use </span>test::Bencher;
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
     #[bench]
     </span><span class="kw">fn </span>bench_parse_incoming(b: <span class="kw-2">&amp;mut </span>Bencher) {
         <span class="kw">let </span><span class="kw-2">mut </span>raw = BytesMut::from(
@@ -5306,9 +5306,9 @@
                     h1_header_read_timeout_running: <span class="kw-2">&amp;mut </span><span class="bool-val">false</span>,
                     preserve_header_case: <span class="bool-val">false</span>,
                     h09_responses: <span class="bool-val">false</span>,
-                    <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                     </span>on_informational: <span class="kw-2">&amp;mut </span><span class="prelude-val">None</span>,
-                    <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                     </span>raw_headers: <span class="bool-val">false</span>,
                 },
             )
@@ -5328,7 +5328,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
     #[bench]
     </span><span class="kw">fn </span>bench_parse_short(b: <span class="kw-2">&amp;mut </span>Bencher) {
         <span class="kw">let </span>s = <span class="kw-2">&amp;</span><span class="string">b&quot;GET / HTTP/1.1\r\nHost: localhost:8080\r\n\r\n&quot;</span>[..];
@@ -5349,9 +5349,9 @@
                     h1_header_read_timeout_running: <span class="kw-2">&amp;mut </span><span class="bool-val">false</span>,
                     preserve_header_case: <span class="bool-val">false</span>,
                     h09_responses: <span class="bool-val">false</span>,
-                    <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                     </span>on_informational: <span class="kw-2">&amp;mut </span><span class="prelude-val">None</span>,
-                    <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
                     </span>raw_headers: <span class="bool-val">false</span>,
                 },
             )
@@ -5371,7 +5371,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
     #[bench]
     </span><span class="kw">fn </span>bench_server_encode_headers_preset(b: <span class="kw-2">&amp;mut </span>Bencher) {
         <span class="kw">use </span><span class="kw">crate</span>::proto::BodyLength;
@@ -5404,7 +5404,7 @@
         })
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
     #[bench]
     </span><span class="kw">fn </span>bench_server_encode_no_headers(b: <span class="kw-2">&amp;mut </span>Bencher) {
         <span class="kw">use </span><span class="kw">crate</span>::proto::BodyLength;
@@ -5435,4 +5435,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

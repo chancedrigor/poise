@@ -1945,13 +1945,13 @@
 //! Advanced time zone handling is not yet supported.
 //! For now you can try the [Chrono-tz](https://github.com/chronotope/chrono-tz/) crate instead.
 
-</span><span class="attribute">#![doc(html_root_url = <span class="string">&quot;https://docs.rs/chrono/latest/&quot;</span>)]
+</span><span class="attr">#![doc(html_root_url = <span class="string">&quot;https://docs.rs/chrono/latest/&quot;</span>)]
 #![cfg_attr(feature = <span class="string">&quot;bench&quot;</span>, feature(test))] </span><span class="comment">// lib stability features as per RFC #507
-</span><span class="attribute">#![deny(missing_docs)]
+</span><span class="attr">#![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 #![deny(dead_code)]
 </span><span class="comment">// lints are added all the time, we test on 1.13
-</span><span class="attribute">#![allow(unknown_lints)]
+</span><span class="attr">#![allow(unknown_lints)]
 #![cfg_attr(not(any(feature = <span class="string">&quot;std&quot;</span>, test)), no_std)]
 #![cfg_attr(feature = <span class="string">&quot;cargo-clippy&quot;</span>, allow(
     renamed_and_removed_lints,
@@ -1974,21 +1974,21 @@
 
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">extern crate </span>alloc;
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;std&quot;</span>, not(feature = <span class="string">&quot;alloc&quot;</span>)))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;std&quot;</span>, not(feature = <span class="string">&quot;alloc&quot;</span>)))]
 </span><span class="kw">extern crate </span>std <span class="kw">as </span>alloc;
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">extern crate </span>std <span class="kw">as </span>core;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;oldtime&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;oldtime&quot;</span>)]
 </span><span class="kw">extern crate </span>time <span class="kw">as </span>oldtime;
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;oldtime&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;oldtime&quot;</span>))]
 </span><span class="kw">mod </span>oldtime;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
 </span><span class="kw">extern crate </span>libc;
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;clock&quot;</span>, windows))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;clock&quot;</span>, windows))]
 </span><span class="kw">extern crate </span>winapi;
-<span class="attribute">#[cfg(all(
+<span class="attr">#[cfg(all(
     feature = <span class="string">&quot;clock&quot;</span>,
     not(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>))
 ))]
@@ -1996,24 +1996,24 @@
 
 <span class="kw">extern crate </span>num_integer;
 <span class="kw">extern crate </span>num_traits;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;rustc-serialize&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;rustc-serialize&quot;</span>)]
 </span><span class="kw">extern crate </span>rustc_serialize;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">extern crate </span>serde <span class="kw">as </span>serdelib;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;__doctest&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;__doctest&quot;</span>)]
 #[cfg_attr(feature = <span class="string">&quot;__doctest&quot;</span>, cfg(doctest))]
 #[macro_use]
 </span><span class="kw">extern crate </span>doc_comment;
-<span class="attribute">#[cfg(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>))]
+<span class="attr">#[cfg(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>))]
 </span><span class="kw">extern crate </span>js_sys;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
 </span><span class="kw">extern crate </span>pure_rust_locales;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;bench&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;bench&quot;</span>)]
 </span><span class="kw">extern crate </span>test;
-<span class="attribute">#[cfg(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>))]
+<span class="attr">#[cfg(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>))]
 </span><span class="kw">extern crate </span>wasm_bindgen;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;__doctest&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;__doctest&quot;</span>)]
 #[cfg_attr(feature = <span class="string">&quot;__doctest&quot;</span>, cfg(doctest))]
 </span><span class="macro">doctest!</span>(<span class="string">&quot;../README.md&quot;</span>);
 
@@ -2021,43 +2021,43 @@
 </span><span class="kw">pub use </span>oldtime::Duration;
 
 <span class="kw">pub use </span>date::{Date, MAX_DATE, MIN_DATE};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;rustc-serialize&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;rustc-serialize&quot;</span>)]
 </span><span class="kw">pub use </span>datetime::rustc_serialize::TsSeconds;
 <span class="kw">pub use </span>datetime::{DateTime, SecondsFormat, MAX_DATETIME, MIN_DATETIME};
 <span class="doccomment">/// L10n locales.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
 </span><span class="kw">pub use </span>format::Locale;
 <span class="kw">pub use </span>format::{ParseError, ParseResult};
-<span class="attribute">#[doc(no_inline)]
+<span class="attr">#[doc(no_inline)]
 </span><span class="kw">pub use </span>naive::{IsoWeek, NaiveDate, NaiveDateTime, NaiveTime};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
 #[doc(no_inline)]
 </span><span class="kw">pub use </span>offset::Local;
-<span class="attribute">#[doc(no_inline)]
+<span class="attr">#[doc(no_inline)]
 </span><span class="kw">pub use </span>offset::{FixedOffset, LocalResult, Offset, TimeZone, Utc};
 <span class="kw">pub use </span>round::{DurationRound, RoundingError, SubsecRound};
 
 <span class="doccomment">/// A convenience module appropriate for glob imports (`use chrono::prelude::*;`).
 </span><span class="kw">pub mod </span>prelude {
-    <span class="attribute">#[doc(no_inline)]
+    <span class="attr">#[doc(no_inline)]
     </span><span class="kw">pub use </span>Date;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
     #[doc(no_inline)]
     </span><span class="kw">pub use </span>Local;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
     #[doc(no_inline)]
     </span><span class="kw">pub use </span>Locale;
-    <span class="attribute">#[doc(no_inline)]
+    <span class="attr">#[doc(no_inline)]
     </span><span class="kw">pub use </span>SubsecRound;
-    <span class="attribute">#[doc(no_inline)]
+    <span class="attr">#[doc(no_inline)]
     </span><span class="kw">pub use </span>{DateTime, SecondsFormat};
-    <span class="attribute">#[doc(no_inline)]
+    <span class="attr">#[doc(no_inline)]
     </span><span class="kw">pub use </span>{Datelike, Month, Timelike, Weekday};
-    <span class="attribute">#[doc(no_inline)]
+    <span class="attr">#[doc(no_inline)]
     </span><span class="kw">pub use </span>{FixedOffset, Utc};
-    <span class="attribute">#[doc(no_inline)]
+    <span class="attr">#[doc(no_inline)]
     </span><span class="kw">pub use </span>{NaiveDate, NaiveDateTime, NaiveTime};
-    <span class="attribute">#[doc(no_inline)]
+    <span class="attr">#[doc(no_inline)]
     </span><span class="kw">pub use </span>{Offset, TimeZone};
 }
 
@@ -2087,14 +2087,14 @@
     <span class="kw">mod </span>time;
 
     <span class="kw">pub use </span><span class="self">self</span>::date::{NaiveDate, MAX_DATE, MIN_DATE};
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;rustc-serialize&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;rustc-serialize&quot;</span>)]
     #[allow(deprecated)]
     </span><span class="kw">pub use </span><span class="self">self</span>::datetime::rustc_serialize::TsSeconds;
     <span class="kw">pub use </span><span class="self">self</span>::datetime::{NaiveDateTime, MAX_DATETIME, MIN_DATETIME};
     <span class="kw">pub use </span><span class="self">self</span>::isoweek::IsoWeek;
     <span class="kw">pub use </span><span class="self">self</span>::time::NaiveTime;
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;__internal_bench&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;__internal_bench&quot;</span>)]
     #[doc(hidden)]
     </span><span class="kw">pub use </span><span class="self">self</span>::internals::YearFlags <span class="kw">as </span>__BenchYearFlags;
 
@@ -2106,7 +2106,7 @@
     ///
     /// [1]: https://serde.rs/attributes.html#field-attributes
     /// [2]: https://tools.ietf.org/html/rfc3339
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
     </span><span class="kw">pub mod </span>serde {
         <span class="kw">pub use </span><span class="kw">super</span>::datetime::serde::<span class="kw-2">*</span>;
     }
@@ -2116,7 +2116,7 @@
 <span class="kw">pub mod </span>format;
 <span class="kw">mod </span>round;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;__internal_bench&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;__internal_bench&quot;</span>)]
 #[doc(hidden)]
 </span><span class="kw">pub use </span>naive::__BenchYearFlags;
 
@@ -2128,26 +2128,26 @@
 ///
 /// [1]: https://serde.rs/attributes.html#field-attributes
 /// [2]: https://tools.ietf.org/html/rfc3339
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">pub mod </span>serde {
     <span class="kw">pub use </span><span class="kw">super</span>::datetime::serde::<span class="kw-2">*</span>;
 }
 
 <span class="comment">// Until rust 1.18 there  is no &quot;pub(crate)&quot; so to share this we need it in the root
 
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">enum </span>SerdeError&lt;V: fmt::Display, D: fmt::Display&gt; {
     NonExistent { timestamp: V },
     Ambiguous { timestamp: V, min: D, max: D },
 }
 
 <span class="doccomment">/// Construct a [`SerdeError::NonExistent`]
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">fn </span>ne_timestamp&lt;T: fmt::Display&gt;(ts: T) -&gt; SerdeError&lt;T, u8&gt; {
     SerdeError::NonExistent::&lt;T, u8&gt; { timestamp: ts }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">impl</span>&lt;V: fmt::Display, D: fmt::Display&gt; fmt::Debug <span class="kw">for </span>SerdeError&lt;V, D&gt; {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
         <span class="macro">write!</span>(f, <span class="string">&quot;ChronoSerdeError({})&quot;</span>, <span class="self">self</span>)
@@ -2155,7 +2155,7 @@
 }
 
 <span class="comment">// impl&lt;V: fmt::Display, D: fmt::Debug&gt; core::error::Error for SerdeError&lt;V, D&gt; {}
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">impl</span>&lt;V: fmt::Display, D: fmt::Display&gt; fmt::Display <span class="kw">for </span>SerdeError&lt;V, D&gt; {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
         <span class="kw">match </span><span class="self">self </span>{
@@ -2176,7 +2176,7 @@
 /// The order of the days of week depends on the context.
 /// (This is why this type does *not* implement `PartialOrd` or `Ord` traits.)
 /// One should prefer `*_from_monday` or `*_from_sunday` methods to get the correct result.
-</span><span class="attribute">#[derive(PartialEq, Eq, Copy, Clone, Debug, Hash)]
+</span><span class="attr">#[derive(PartialEq, Eq, Copy, Clone, Debug, Hash)]
 #[cfg_attr(feature = <span class="string">&quot;rustc-serialize&quot;</span>, derive(RustcEncodable, RustcDecodable))]
 </span><span class="kw">pub enum </span>Weekday {
     <span class="doccomment">/// Monday.
@@ -2201,7 +2201,7 @@
     /// `w`:        | `Mon` | `Tue` | `Wed` | `Thu` | `Fri` | `Sat` | `Sun`
     /// ----------- | ----- | ----- | ----- | ----- | ----- | ----- | -----
     /// `w.succ()`: | `Tue` | `Wed` | `Thu` | `Fri` | `Sat` | `Sun` | `Mon`
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>succ(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Weekday {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             Weekday::Mon =&gt; Weekday::Tue,
@@ -2219,7 +2219,7 @@
     /// `w`:        | `Mon` | `Tue` | `Wed` | `Thu` | `Fri` | `Sat` | `Sun`
     /// ----------- | ----- | ----- | ----- | ----- | ----- | ----- | -----
     /// `w.pred()`: | `Sun` | `Mon` | `Tue` | `Wed` | `Thu` | `Fri` | `Sat`
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>pred(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Weekday {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             Weekday::Mon =&gt; Weekday::Sun,
@@ -2237,7 +2237,7 @@
     /// `w`:                      | `Mon` | `Tue` | `Wed` | `Thu` | `Fri` | `Sat` | `Sun`
     /// ------------------------- | ----- | ----- | ----- | ----- | ----- | ----- | -----
     /// `w.number_from_monday()`: | 1     | 2     | 3     | 4     | 5     | 6     | 7
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>number_from_monday(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             Weekday::Mon =&gt; <span class="number">1</span>,
@@ -2255,7 +2255,7 @@
     /// `w`:                      | `Mon` | `Tue` | `Wed` | `Thu` | `Fri` | `Sat` | `Sun`
     /// ------------------------- | ----- | ----- | ----- | ----- | ----- | ----- | -----
     /// `w.number_from_sunday()`: | 2     | 3     | 4     | 5     | 6     | 7     | 1
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>number_from_sunday(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             Weekday::Mon =&gt; <span class="number">2</span>,
@@ -2273,7 +2273,7 @@
     /// `w`:                        | `Mon` | `Tue` | `Wed` | `Thu` | `Fri` | `Sat` | `Sun`
     /// --------------------------- | ----- | ----- | ----- | ----- | ----- | ----- | -----
     /// `w.num_days_from_monday()`: | 0     | 1     | 2     | 3     | 4     | 5     | 6
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>num_days_from_monday(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             Weekday::Mon =&gt; <span class="number">0</span>,
@@ -2291,7 +2291,7 @@
     /// `w`:                        | `Mon` | `Tue` | `Wed` | `Thu` | `Fri` | `Sat` | `Sun`
     /// --------------------------- | ----- | ----- | ----- | ----- | ----- | ----- | -----
     /// `w.num_days_from_sunday()`: | 1     | 2     | 3     | 4     | 5     | 6     | 0
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>num_days_from_sunday(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             Weekday::Mon =&gt; <span class="number">1</span>,
@@ -2323,7 +2323,7 @@
 /// [`Weekday::num_days_from_monday`](#method.num_days_from_monday) in this implementation.
 /// Do not heavily depend on this though; use explicit methods whenever possible.
 </span><span class="kw">impl </span>num_traits::FromPrimitive <span class="kw">for </span>Weekday {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from_i64(n: i64) -&gt; <span class="prelude-ty">Option</span>&lt;Weekday&gt; {
         <span class="kw">match </span>n {
             <span class="number">0 </span>=&gt; <span class="prelude-val">Some</span>(Weekday::Mon),
@@ -2337,7 +2337,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from_u64(n: u64) -&gt; <span class="prelude-ty">Option</span>&lt;Weekday&gt; {
         <span class="kw">match </span>n {
             <span class="number">0 </span>=&gt; <span class="prelude-val">Some</span>(Weekday::Mon),
@@ -2355,7 +2355,7 @@
 <span class="kw">use </span>core::fmt;
 
 <span class="doccomment">/// An error resulting from reading `Weekday` value with `FromStr`.
-</span><span class="attribute">#[derive(Clone, PartialEq)]
+</span><span class="attr">#[derive(Clone, PartialEq)]
 </span><span class="kw">pub struct </span>ParseWeekdayError {
     _dummy: (),
 }
@@ -2368,7 +2368,7 @@
 
 <span class="comment">// the actual `FromStr` implementation is in the `format` module to leverage the existing code
 
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">mod </span>weekday_serde {
     <span class="kw">use </span><span class="kw">super</span>::Weekday;
     <span class="kw">use </span>core::fmt;
@@ -2409,10 +2409,10 @@
         }
     }
 
-    <span class="attribute">#[cfg(test)]
+    <span class="attr">#[cfg(test)]
     </span><span class="kw">extern crate </span>serde_json;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_serde_serialize() {
         <span class="kw">use </span><span class="self">self</span>::serde_json::to_string;
         <span class="kw">use </span>Weekday::<span class="kw-2">*</span>;
@@ -2433,7 +2433,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_serde_deserialize() {
         <span class="kw">use </span><span class="self">self</span>::serde_json::from_str;
         <span class="kw">use </span>Weekday::<span class="kw-2">*</span>;
@@ -2496,7 +2496,7 @@
 /// Allows mapping from and to month, from 1-January to 12-December.
 /// Can be Serialized/Deserialized with serde
 </span><span class="comment">// Actual implementation is zero-indexed, API intended as 1-indexed for more intuitive behavior.
-</span><span class="attribute">#[derive(PartialEq, Eq, Copy, Clone, Debug, Hash)]
+</span><span class="attr">#[derive(PartialEq, Eq, Copy, Clone, Debug, Hash)]
 #[cfg_attr(feature = <span class="string">&quot;rustc-serialize&quot;</span>, derive(RustcEncodable, RustcDecodable))]
 </span><span class="kw">pub enum </span>Month {
     <span class="doccomment">/// January
@@ -2531,7 +2531,7 @@
     /// `m`:        | `January`  | `February` | `...` | `December`
     /// ----------- | ---------  | ---------- | --- | ---------
     /// `m.succ()`: | `February` | `March`    | `...` | `January`
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>succ(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Month {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             Month::January =&gt; Month::February,
@@ -2554,7 +2554,7 @@
     /// `m`:        | `January`  | `February` | `...` | `December`
     /// ----------- | ---------  | ---------- | --- | ---------
     /// `m.succ()`: | `December` | `January`  | `...` | `November`
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>pred(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Month {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             Month::January =&gt; Month::December,
@@ -2577,7 +2577,7 @@
     /// `m`:                     | `January` | `February` | `...` | `December`
     /// -------------------------| --------- | ---------- | --- | -----
     /// `m.number_from_month()`: | 1         | 2          | `...` | 12
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>number_from_month(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             Month::January =&gt; <span class="number">1</span>,
@@ -2627,17 +2627,17 @@
     /// ---------------------------| -------------------- | --------------------- | ... | -----
     /// ``:                        | Some(Month::January) | Some(Month::February) | ... | Some(Month::December)
 
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>from_u64(n: u64) -&gt; <span class="prelude-ty">Option</span>&lt;Month&gt; {
         <span class="self">Self</span>::from_u32(n <span class="kw">as </span>u32)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from_i64(n: i64) -&gt; <span class="prelude-ty">Option</span>&lt;Month&gt; {
         <span class="self">Self</span>::from_u32(n <span class="kw">as </span>u32)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from_u32(n: u32) -&gt; <span class="prelude-ty">Option</span>&lt;Month&gt; {
         <span class="kw">match </span>n {
             <span class="number">1 </span>=&gt; <span class="prelude-val">Some</span>(Month::January),
@@ -2658,7 +2658,7 @@
 }
 
 <span class="doccomment">/// An error resulting from reading `&lt;Month&gt;` value with `FromStr`.
-</span><span class="attribute">#[derive(Clone, PartialEq)]
+</span><span class="attr">#[derive(Clone, PartialEq)]
 </span><span class="kw">pub struct </span>ParseMonthError {
     _dummy: (),
 }
@@ -2669,7 +2669,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">mod </span>month_serde {
     <span class="kw">use </span><span class="kw">super</span>::Month;
     <span class="kw">use </span>serdelib::{de, ser};
@@ -2711,10 +2711,10 @@
         }
     }
 
-    <span class="attribute">#[cfg(test)]
+    <span class="attr">#[cfg(test)]
     </span><span class="kw">extern crate </span>serde_json;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_serde_serialize() {
         <span class="kw">use </span><span class="self">self</span>::serde_json::to_string;
         <span class="kw">use </span>Month::<span class="kw-2">*</span>;
@@ -2740,7 +2740,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_serde_deserialize() {
         <span class="kw">use </span><span class="self">self</span>::serde_json::from_str;
         <span class="kw">use </span>Month::<span class="kw-2">*</span>;
@@ -2783,7 +2783,7 @@
 
     <span class="doccomment">/// Returns the absolute year number starting from 1 with a boolean flag,
     /// which is false when the year predates the epoch (BCE/BC) and true otherwise (CE/AD).
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>year_ce(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (bool, u32) {
         <span class="kw">let </span>year = <span class="self">self</span>.year();
         <span class="kw">if </span>year &lt; <span class="number">1 </span>{
@@ -2901,7 +2901,7 @@
 
     <span class="doccomment">/// Returns the hour number from 1 to 12 with a boolean flag,
     /// which is false for AM and true for PM.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>hour12(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (bool, u32) {
         <span class="kw">let </span>hour = <span class="self">self</span>.hour();
         <span class="kw">let </span><span class="kw-2">mut </span>hour12 = hour % <span class="number">12</span>;
@@ -2947,20 +2947,20 @@
     </span><span class="kw">fn </span>with_nanosecond(<span class="kw-2">&amp;</span><span class="self">self</span>, nano: u32) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="self">Self</span>&gt;;
 
     <span class="doccomment">/// Returns the number of non-leap seconds past the last midnight.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>num_seconds_from_midnight(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.hour() * <span class="number">3600 </span>+ <span class="self">self</span>.minute() * <span class="number">60 </span>+ <span class="self">self</span>.second()
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">extern crate </span>num_iter;
 
 <span class="kw">mod </span>test {
-    <span class="attribute">#[allow(unused_imports)]
+    <span class="attr">#[allow(unused_imports)]
     </span><span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_readme_doomsday() {
         <span class="kw">use </span>num_iter::range_inclusive;
 
@@ -2987,7 +2987,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_month_enum_primitive_parse() {
         <span class="kw">use </span>num_traits::FromPrimitive;
 
@@ -3013,7 +3013,7 @@
 ///
 /// The alternative implementation is not as short as the current one but it is simpler to
 /// understand, with less unexplained magic constants.
-</span><span class="attribute">#[test]
+</span><span class="attr">#[test]
 </span><span class="kw">fn </span>test_num_days_from_ce_against_alternative_impl() {
     <span class="doccomment">/// Returns the number of multiples of `div` in the range `start..end`.
     ///
@@ -3061,7 +3061,7 @@
     }
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_month_enum_succ_pred() {
     <span class="macro">assert_eq!</span>(Month::January.succ(), Month::February);
     <span class="macro">assert_eq!</span>(Month::December.succ(), Month::January);
@@ -3069,4 +3069,4 @@
     <span class="macro">assert_eq!</span>(Month::February.pred(), Month::January);
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

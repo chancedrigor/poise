@@ -656,7 +656,7 @@
     /// The runtime is usually set implicitly when this function is called
     /// from a future driven by a tokio runtime, otherwise runtime can be set
     /// explicitly with [`Runtime::enter`](crate::runtime::Runtime::enter) function.
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>from_std(listener: net::TcpListener) -&gt; io::Result&lt;TcpListener&gt; {
         <span class="kw">let </span>io = mio::net::TcpListener::from_std(listener);
         <span class="kw">let </span>io = PollEvented::new(io)<span class="question-mark">?</span>;
@@ -686,7 +686,7 @@
     /// [`std::net::TcpListener`]: std::net::TcpListener
     /// [`set_nonblocking`]: fn@std::net::TcpListener::set_nonblocking
     </span><span class="kw">pub fn </span>into_std(<span class="self">self</span>) -&gt; io::Result&lt;std::net::TcpListener&gt; {
-        <span class="attribute">#[cfg(unix)]
+        <span class="attr">#[cfg(unix)]
         </span>{
             <span class="kw">use </span>std::os::unix::io::{FromRawFd, IntoRawFd};
             <span class="self">self</span>.io
@@ -695,7 +695,7 @@
                 .map(|raw_fd| <span class="kw">unsafe </span>{ std::net::TcpListener::from_raw_fd(raw_fd) })
         }
 
-        <span class="attribute">#[cfg(windows)]
+        <span class="attr">#[cfg(windows)]
         </span>{
             <span class="kw">use </span>std::os::windows::io::{FromRawSocket, IntoRawSocket};
             <span class="self">self</span>.io
@@ -704,7 +704,7 @@
                 .map(|raw_socket| <span class="kw">unsafe </span>{ std::net::TcpListener::from_raw_socket(raw_socket) })
         }
 
-        <span class="attribute">#[cfg(tokio_wasi)]
+        <span class="attr">#[cfg(tokio_wasi)]
         </span>{
             <span class="kw">use </span>std::os::wasi::io::{FromRawFd, IntoRawFd};
             <span class="self">self</span>.io
@@ -819,7 +819,7 @@
     }
 }
 
-<span class="attribute">#[cfg(unix)]
+<span class="attr">#[cfg(unix)]
 </span><span class="kw">mod </span>sys {
     <span class="kw">use </span><span class="kw">super</span>::TcpListener;
     <span class="kw">use </span>std::os::unix::prelude::<span class="kw-2">*</span>;
@@ -832,7 +832,7 @@
 }
 
 <span class="macro">cfg_unstable! </span>{
-    <span class="attribute">#[cfg(tokio_wasi)]
+    <span class="attr">#[cfg(tokio_wasi)]
     </span><span class="kw">mod </span>sys {
         <span class="kw">use </span><span class="kw">super</span>::TcpListener;
         <span class="kw">use </span>std::os::wasi::prelude::<span class="kw-2">*</span>;
@@ -845,7 +845,7 @@
     }
 }
 
-<span class="attribute">#[cfg(windows)]
+<span class="attr">#[cfg(windows)]
 </span><span class="kw">mod </span>sys {
     <span class="kw">use </span><span class="kw">super</span>::TcpListener;
     <span class="kw">use </span>std::os::windows::prelude::<span class="kw-2">*</span>;
@@ -857,4 +857,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

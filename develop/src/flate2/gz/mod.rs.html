@@ -403,7 +403,7 @@
 ///
 /// The header can contain metadata about the file that was compressed, if
 /// present.
-</span><span class="attribute">#[derive(PartialEq, Clone, Debug, Default)]
+</span><span class="attr">#[derive(PartialEq, Clone, Debug, Default)]
 </span><span class="kw">pub struct </span>GzHeader {
     extra: <span class="prelude-ty">Option</span>&lt;Vec&lt;u8&gt;&gt;,
     filename: <span class="prelude-ty">Option</span>&lt;Vec&lt;u8&gt;&gt;,
@@ -493,7 +493,7 @@
 /// # Ok(())
 /// # }
 /// ```
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>GzBuilder {
     extra: <span class="prelude-ty">Option</span>&lt;Vec&lt;u8&gt;&gt;,
     filename: <span class="prelude-ty">Option</span>&lt;CString&gt;,
@@ -634,7 +634,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>std::io::prelude::<span class="kw-2">*</span>;
 
@@ -642,7 +642,7 @@
     <span class="kw">use </span><span class="kw">crate</span>::Compression;
     <span class="kw">use </span>rand::{thread_rng, Rng};
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>roundtrip() {
         <span class="kw">let </span><span class="kw-2">mut </span>e = write::GzEncoder::new(Vec::new(), Compression::default());
         e.write_all(<span class="string">b&quot;foo bar baz&quot;</span>).unwrap();
@@ -653,7 +653,7 @@
         <span class="macro">assert_eq!</span>(s, <span class="string">&quot;foo bar baz&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>roundtrip_zero() {
         <span class="kw">let </span>e = write::GzEncoder::new(Vec::new(), Compression::default());
         <span class="kw">let </span>inner = e.finish().unwrap();
@@ -663,7 +663,7 @@
         <span class="macro">assert_eq!</span>(s, <span class="string">&quot;&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>roundtrip_big() {
         <span class="kw">let </span><span class="kw-2">mut </span>real = Vec::new();
         <span class="kw">let </span><span class="kw-2">mut </span>w = write::GzEncoder::new(Vec::new(), Compression::default());
@@ -680,7 +680,7 @@
         <span class="macro">assert!</span>(v == real);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>roundtrip_big2() {
         <span class="kw">let </span>v = <span class="kw">crate</span>::random_bytes().take(<span class="number">1024 </span>* <span class="number">1024</span>).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
         <span class="kw">let </span><span class="kw-2">mut </span>r = read::GzDecoder::new(read::GzEncoder::new(<span class="kw-2">&amp;</span>v[..], Compression::default()));
@@ -689,7 +689,7 @@
         <span class="macro">assert!</span>(res == v);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>fields() {
         <span class="kw">let </span>r = <span class="macro">vec!</span>[<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>];
         <span class="kw">let </span>e = GzBuilder::new()
@@ -706,7 +706,7 @@
         <span class="macro">assert_eq!</span>(res, <span class="macro">vec!</span>[<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>keep_reading_after_end() {
         <span class="kw">let </span><span class="kw-2">mut </span>e = write::GzEncoder::new(Vec::new(), Compression::default());
         e.write_all(<span class="string">b&quot;foo bar baz&quot;</span>).unwrap();
@@ -719,7 +719,7 @@
         <span class="macro">assert_eq!</span>(s, <span class="string">&quot;foo bar baz&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>qc_reader() {
         ::quickcheck::quickcheck(test <span class="kw">as fn</span>(<span class="kw">_</span>) -&gt; <span class="kw">_</span>);
 
@@ -732,7 +732,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>flush_after_write() {
         <span class="kw">let </span><span class="kw-2">mut </span>f = write::GzEncoder::new(Vec::new(), Compression::default());
         <span class="macro">write!</span>(f, <span class="string">&quot;Hello world&quot;</span>).unwrap();
@@ -740,7 +740,7 @@
     }
 
     <span class="kw">use </span><span class="kw">crate</span>::gz::bufread::tests::BlockingCursor;
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="comment">// test function read_and_forget of Buffer
     </span><span class="kw">fn </span>blocked_partial_header_read() {
         <span class="comment">// this is a reader which receives data afterwards
@@ -769,4 +769,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="flate2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="flate2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

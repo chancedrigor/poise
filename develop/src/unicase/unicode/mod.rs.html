@@ -199,18 +199,18 @@
 <span id="199">199</span>
 <span id="200">200</span>
 <span id="201">201</span>
-</pre><pre class="rust"><code><span class="attribute">#[cfg(__unicase__iter_cmp)]
+</pre><pre class="rust"><code><span class="attr">#[cfg(__unicase__iter_cmp)]
 </span><span class="kw">use </span>core::cmp::Ordering;
 <span class="kw">use </span>core::hash::{Hash, Hasher};
 
 <span class="kw">use </span><span class="self">self</span>::map::lookup;
 <span class="kw">mod </span>map;
 
-<span class="attribute">#[derive(Clone, Copy, Debug, Default)]
+<span class="attr">#[derive(Clone, Copy, Debug, Default)]
 </span><span class="kw">pub struct </span>Unicode&lt;S&gt;(<span class="kw">pub </span>S);
 
 <span class="kw">impl</span>&lt;S1: AsRef&lt;str&gt;, S2: AsRef&lt;str&gt;&gt; PartialEq&lt;Unicode&lt;S2&gt;&gt; <span class="kw">for </span>Unicode&lt;S1&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Unicode&lt;S2&gt;) -&gt; bool {
         <span class="kw">let </span><span class="kw-2">mut </span>left = <span class="self">self</span>.<span class="number">0</span>.as_ref().chars().flat_map(lookup);
         <span class="kw">let </span><span class="kw-2">mut </span>right = other.<span class="number">0</span>.as_ref().chars().flat_map(lookup);
@@ -236,17 +236,17 @@
 
 <span class="kw">impl</span>&lt;S: AsRef&lt;str&gt;&gt; Eq <span class="kw">for </span>Unicode&lt;S&gt; {}
 
-<span class="attribute">#[cfg(__unicase__iter_cmp)]
+<span class="attr">#[cfg(__unicase__iter_cmp)]
 </span><span class="kw">impl</span>&lt;T: AsRef&lt;str&gt;&gt; PartialOrd <span class="kw">for </span>Unicode&lt;T&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Ordering&gt; {
         <span class="prelude-val">Some</span>(<span class="self">self</span>.cmp(other))
     }
 }
 
-<span class="attribute">#[cfg(__unicase__iter_cmp)]
+<span class="attr">#[cfg(__unicase__iter_cmp)]
 </span><span class="kw">impl</span>&lt;T: AsRef&lt;str&gt;&gt; Ord <span class="kw">for </span>Unicode&lt;T&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; Ordering {
         <span class="kw">let </span>self_chars = <span class="self">self</span>.<span class="number">0</span>.as_ref().chars().flat_map(lookup);
         <span class="kw">let </span>other_chars = other.<span class="number">0</span>.as_ref().chars().flat_map(lookup);
@@ -255,7 +255,7 @@
 }
 
 <span class="kw">impl</span>&lt;S: AsRef&lt;str&gt;&gt; Hash <span class="kw">for </span>Unicode&lt;S&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>hash&lt;H: Hasher&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, hasher: <span class="kw-2">&amp;mut </span>H) {
         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">4</span>];
         <span class="kw">for </span>c <span class="kw">in </span><span class="self">self</span>.<span class="number">0</span>.as_ref().chars().flat_map(|c| lookup(c)) {
@@ -265,7 +265,7 @@
     }
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>char_to_utf8(c: char, dst: <span class="kw-2">&amp;mut </span>[u8; <span class="number">4</span>]) -&gt; usize {
     <span class="kw">const </span>TAG_CONT: u8    = <span class="number">0b1000_0000</span>;
     <span class="kw">const </span>TAG_TWO_B: u8   = <span class="number">0b1100_0000</span>;
@@ -297,7 +297,7 @@
 <span class="comment">// internal mod so that the enum can be &#39;pub&#39;
 // thanks privacy-checker :___(
 </span><span class="kw">mod </span>fold {
-    <span class="attribute">#[derive(Clone, Copy)]
+    <span class="attr">#[derive(Clone, Copy)]
     </span><span class="kw">pub enum </span>Fold {
         Zero,
         One(char),
@@ -307,7 +307,7 @@
 
     <span class="kw">impl </span>Iterator <span class="kw">for </span>Fold {
         <span class="kw">type </span>Item = char;
-        <span class="attribute">#[inline]
+        <span class="attr">#[inline]
         </span><span class="kw">fn </span>next(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;char&gt; {
             <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
                 Fold::Zero =&gt; <span class="prelude-val">None</span>,
@@ -326,7 +326,7 @@
             }
         }
 
-        <span class="attribute">#[inline]
+        <span class="attr">#[inline]
         </span><span class="kw">fn </span>size_hint(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (usize, <span class="prelude-ty">Option</span>&lt;usize&gt;) {
             <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
                 Fold::Zero =&gt; (<span class="number">0</span>, <span class="prelude-val">Some</span>(<span class="number">0</span>)),
@@ -338,28 +338,28 @@
 
     }
     <span class="kw">impl </span>From&lt;(char,)&gt; <span class="kw">for </span>Fold {
-        <span class="attribute">#[inline]
+        <span class="attr">#[inline]
         </span><span class="kw">fn </span>from((one,): (char,)) -&gt; Fold {
             Fold::One(one)
         }
     }
 
     <span class="kw">impl </span>From&lt;(char, char)&gt; <span class="kw">for </span>Fold {
-        <span class="attribute">#[inline]
+        <span class="attr">#[inline]
         </span><span class="kw">fn </span>from((one, two): (char, char)) -&gt; Fold {
             Fold::Two(one, two)
         }
     }
 
     <span class="kw">impl </span>From&lt;(char, char, char)&gt; <span class="kw">for </span>Fold {
-        <span class="attribute">#[inline]
+        <span class="attr">#[inline]
         </span><span class="kw">fn </span>from((one, two, three): (char, char, char)) -&gt; Fold {
             Fold::Three(one, two, three)
         }
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::Unicode;
 
@@ -369,31 +369,31 @@
         });
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_ascii_folding() {
         <span class="macro">eq!</span>(<span class="string">&quot;foo bar&quot;</span>, <span class="string">&quot;FoO BAR&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_simple_case_folding() {
         <span class="macro">eq!</span>(<span class="string">&quot;στιγμας&quot;</span>, <span class="string">&quot;στιγμασ&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_full_case_folding() {
         <span class="macro">eq!</span>(<span class="string">&quot;ﬂour&quot;</span>, <span class="string">&quot;flour&quot;</span>);
         <span class="macro">eq!</span>(<span class="string">&quot;Maße&quot;</span>, <span class="string">&quot;MASSE&quot;</span>);
         <span class="macro">eq!</span>(<span class="string">&quot;ᾲ στο διάολο&quot;</span>, <span class="string">&quot;ὰι στο διάολο&quot;</span>);
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
     #[bench]
     </span><span class="kw">fn </span>bench_ascii_folding(b: <span class="kw-2">&amp;mut </span>::test::Bencher) {
         b.bytes = <span class="string">b&quot;foo bar&quot;</span>.len() <span class="kw">as </span>u64;
         b.iter(|| <span class="macro">eq!</span>(<span class="string">&quot;foo bar&quot;</span>, <span class="string">&quot;FoO BAR&quot;</span>));
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
     #[bench]
     </span><span class="kw">fn </span>bench_simple_case_folding(b: <span class="kw-2">&amp;mut </span>::test::Bencher) {
         b.bytes = <span class="string">&quot;στιγμας&quot;</span>.len() <span class="kw">as </span>u64;
@@ -401,4 +401,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="unicase" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="unicase" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

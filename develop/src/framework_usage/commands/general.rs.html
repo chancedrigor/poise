@@ -344,10 +344,10 @@
 <span class="doccomment">/// Vote for something
 ///
 /// Enter `~vote pumpkin` to vote for pumpkins
-</span><span class="attribute">#[poise::command(prefix_command, slash_command)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command)]
 </span><span class="kw">pub async fn </span>vote(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;What to vote for&quot;</span>] </span>choice: String,
+    <span class="attr">#[description = <span class="string">&quot;What to vote for&quot;</span>] </span>choice: String,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>num_votes = {
         <span class="kw">let </span><span class="kw-2">mut </span>hash_map = ctx.data().votes.lock().unwrap();
@@ -371,10 +371,10 @@
 /// ~getvotes
 /// ~getvotes pumpkin
 /// ```
-</span><span class="attribute">#[poise::command(prefix_command, track_edits, aliases(<span class="string">&quot;votes&quot;</span>), slash_command)]
+</span><span class="attr">#[poise::command(prefix_command, track_edits, aliases(<span class="string">&quot;votes&quot;</span>), slash_command)]
 </span><span class="kw">pub async fn </span>getvotes(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Choice to retrieve votes for&quot;</span>] </span>choice: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="attr">#[description = <span class="string">&quot;Choice to retrieve votes for&quot;</span>] </span>choice: <span class="prelude-ty">Option</span>&lt;String&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">if let </span><span class="prelude-val">Some</span>(choice) = choice {
         <span class="kw">let </span>num_votes = <span class="kw-2">*</span>ctx.data().votes.lock().unwrap().get(<span class="kw-2">&amp;</span>choice).unwrap_or(<span class="kw-2">&amp;</span><span class="number">0</span>);
@@ -400,12 +400,12 @@
 }
 
 <span class="doccomment">/// Adds multiple numbers
-</span><span class="attribute">#[poise::command(prefix_command, slash_command)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command)]
 </span><span class="kw">pub async fn </span>addmultiple(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;An operand&quot;</span>] </span>a: i8,
-    <span class="attribute">#[description = <span class="string">&quot;An operand&quot;</span>] </span>b: u64,
-    <span class="attribute">#[description = <span class="string">&quot;An operand&quot;</span>]
+    <span class="attr">#[description = <span class="string">&quot;An operand&quot;</span>] </span>a: i8,
+    <span class="attr">#[description = <span class="string">&quot;An operand&quot;</span>] </span>b: u64,
+    <span class="attr">#[description = <span class="string">&quot;An operand&quot;</span>]
     #[min = <span class="number">1234567890123456_i64</span>]
     #[max = <span class="number">1234567890987654_i64</span>]
     </span>c: i64,
@@ -416,11 +416,11 @@
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[derive(Debug, poise::ChoiceParameter)]
+<span class="attr">#[derive(Debug, poise::ChoiceParameter)]
 </span><span class="kw">pub enum </span>MyStringChoice {
-    <span class="attribute">#[name = <span class="string">&quot;The first choice&quot;</span>]
+    <span class="attr">#[name = <span class="string">&quot;The first choice&quot;</span>]
     </span>A,
-    <span class="attribute">#[name = <span class="string">&quot;The second choice&quot;</span>]
+    <span class="attr">#[name = <span class="string">&quot;The second choice&quot;</span>]
     #[name = <span class="string">&quot;A single choice can have multiple names&quot;</span>]
     </span>B,
     <span class="comment">// If no name is given, the variant name is used
@@ -428,17 +428,17 @@
 }
 
 <span class="doccomment">/// Dummy command to test slash command choice parameters
-</span><span class="attribute">#[poise::command(prefix_command, slash_command)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command)]
 </span><span class="kw">pub async fn </span>choice(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;The choice you want to choose&quot;</span>] </span>choice: MyStringChoice,
+    <span class="attr">#[description = <span class="string">&quot;The choice you want to choose&quot;</span>] </span>choice: MyStringChoice,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.say(<span class="macro">format!</span>(<span class="string">&quot;You entered {:?}&quot;</span>, choice)).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
 }
 
 <span class="doccomment">/// Boop the bot!
-</span><span class="attribute">#[poise::command(prefix_command, track_edits, slash_command)]
+</span><span class="attr">#[poise::command(prefix_command, track_edits, slash_command)]
 </span><span class="kw">pub async fn </span>boop(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>uuid_boop = ctx.id();
 
@@ -480,10 +480,10 @@
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(slash_command)]
+<span class="attr">#[poise::command(slash_command)]
 </span><span class="kw">pub async fn </span>voiceinfo(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Information about a server voice channel&quot;</span>]
+    <span class="attr">#[description = <span class="string">&quot;Information about a server voice channel&quot;</span>]
     #[channel_types(<span class="string">&quot;Voice&quot;</span>)]
     </span>channel: serenity::GuildChannel,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
@@ -507,7 +507,7 @@
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(slash_command, prefix_command, reuse_response)]
+<span class="attr">#[poise::command(slash_command, prefix_command, reuse_response)]
 </span><span class="kw">pub async fn </span>test_reuse_response(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>image_url = <span class="string">&quot;https://raw.githubusercontent.com/serenity-rs/serenity/current/logo.png&quot;</span>;
     ctx.send(|b| {
@@ -546,10 +546,10 @@
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(slash_command, prefix_command)]
+<span class="attr">#[poise::command(slash_command, prefix_command)]
 </span><span class="kw">pub async fn </span>oracle(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Take a decision&quot;</span>] </span>b: bool,
+    <span class="attr">#[description = <span class="string">&quot;Take a decision&quot;</span>] </span>b: bool,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">if </span>b {
         ctx.say(<span class="string">&quot;You seem to be an optimistic kind of person...&quot;</span>)
@@ -561,7 +561,7 @@
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(prefix_command)]
+<span class="attr">#[poise::command(prefix_command)]
 </span><span class="kw">pub async fn </span>code(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
     args: poise::KeyValueArgs,
@@ -572,10 +572,10 @@
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(prefix_command, slash_command)]
+<span class="attr">#[poise::command(prefix_command, slash_command)]
 </span><span class="kw">pub async fn </span>say(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[rest]
+    <span class="attr">#[rest]
     #[description = <span class="string">&quot;Text to say&quot;</span>]
     </span>msg: String,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
@@ -584,11 +584,11 @@
 }
 
 <span class="doccomment">/// View the difference between two file sizes
-</span><span class="attribute">#[poise::command(prefix_command, slash_command)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command)]
 </span><span class="kw">pub async fn </span>file_details(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;File to examine&quot;</span>] </span>file: serenity::Attachment,
-    <span class="attribute">#[description = <span class="string">&quot;Second file to examine&quot;</span>] </span>file_2: <span class="prelude-ty">Option</span>&lt;serenity::Attachment&gt;,
+    <span class="attr">#[description = <span class="string">&quot;File to examine&quot;</span>] </span>file: serenity::Attachment,
+    <span class="attr">#[description = <span class="string">&quot;Second file to examine&quot;</span>] </span>file_2: <span class="prelude-ty">Option</span>&lt;serenity::Attachment&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.say(<span class="macro">format!</span>(
         <span class="string">&quot;First file name: **{}**. File size difference: **{}** bytes&quot;</span>,
@@ -599,10 +599,10 @@
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(prefix_command)]
+<span class="attr">#[poise::command(prefix_command)]
 </span><span class="kw">pub async fn </span>totalsize(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;File to rename&quot;</span>] </span>files: Vec&lt;serenity::Attachment&gt;,
+    <span class="attr">#[description = <span class="string">&quot;File to rename&quot;</span>] </span>files: Vec&lt;serenity::Attachment&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>total = files.iter().map(|f| f.size).sum::&lt;u64&gt;();
 
@@ -616,13 +616,13 @@
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[derive(Debug, poise::Modal)]
+<span class="attr">#[derive(Debug, poise::Modal)]
 #[allow(dead_code)] </span><span class="comment">// fields only used for Debug print
 </span><span class="kw">struct </span>MyModal {
     first_input: String,
     second_input: <span class="prelude-ty">Option</span>&lt;String&gt;,
 }
-<span class="attribute">#[poise::command(slash_command)]
+<span class="attr">#[poise::command(slash_command)]
 </span><span class="kw">pub async fn </span>modal(
     ctx: poise::ApplicationContext&lt;<span class="lifetime">&#39;_</span>, <span class="kw">crate</span>::Data, <span class="kw">crate</span>::Error&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
@@ -634,7 +634,7 @@
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[derive(Debug, poise::ChoiceParameter)]
+<span class="attr">#[derive(Debug, poise::ChoiceParameter)]
 </span><span class="kw">pub enum </span>PunishType {
     Ban,
     Kick,
@@ -642,13 +642,13 @@
 }
 
 <span class="doccomment">/// Punishment command for testing the rename macro
-</span><span class="attribute">#[poise::command(slash_command)]
+</span><span class="attr">#[poise::command(slash_command)]
 </span><span class="kw">pub async fn </span>punish(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Punishment type&quot;</span>]
+    <span class="attr">#[description = <span class="string">&quot;Punishment type&quot;</span>]
     #[rename = <span class="string">&quot;type&quot;</span>]
     </span>punish_type: PunishType,
-    <span class="attribute">#[description = <span class="string">&quot;User to execute the punishment on&quot;</span>] </span>user: serenity::User,
+    <span class="attr">#[description = <span class="string">&quot;User to execute the punishment on&quot;</span>] </span>user: serenity::User,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>text = <span class="kw">match </span>punish_type {
         PunishType::Ban =&gt; <span class="macro">format!</span>(<span class="string">&quot;{} has been banned!&quot;</span>, user.name),
@@ -660,14 +660,14 @@
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
 #[poise::command(slash_command, prefix_command)]
 </span><span class="kw">pub async fn </span>servers(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     poise::builtins::servers(ctx).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(slash_command, prefix_command)]
+<span class="attr">#[poise::command(slash_command, prefix_command)]
 </span><span class="kw">pub async fn </span>reply(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.send(|b| {
         b.content(<span class="macro">format!</span>(<span class="string">&quot;Hello {}!&quot;</span>, ctx.author().name))
@@ -677,4 +677,4 @@
     <span class="prelude-val">Ok</span>(())
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="framework_usage" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="framework_usage" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -436,7 +436,7 @@
 <span class="comment">// 16 MB &quot;sane default&quot; taken from golang http2
 </span><span class="kw">const </span>DEFAULT_SETTINGS_MAX_HEADER_LIST_SIZE: usize = <span class="number">16 </span>&lt;&lt; <span class="number">20</span>;
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>FramedRead&lt;T&gt; {
     inner: InnerFramedRead&lt;T, LengthDelimitedCodec&gt;,
 
@@ -449,7 +449,7 @@
 }
 
 <span class="doccomment">/// Partially loaded headers frame
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>Partial {
     <span class="doccomment">/// Empty frame
     </span>frame: Continuable,
@@ -458,7 +458,7 @@
     </span>buf: BytesMut,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">enum </span>Continuable {
     Headers(frame::Headers),
     PushPromise(frame::PushPromise),
@@ -483,7 +483,7 @@
     }
 
     <span class="doccomment">/// Returns the current max frame size setting
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
     #[inline]
     </span><span class="kw">pub fn </span>max_frame_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.inner.decoder().max_frame_length()
@@ -492,14 +492,14 @@
     <span class="doccomment">/// Updates the max frame size setting.
     ///
     /// Must be within 16,384 and 16,777,215.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_max_frame_size(<span class="kw-2">&amp;mut </span><span class="self">self</span>, val: usize) {
         <span class="macro">assert!</span>(DEFAULT_MAX_FRAME_SIZE <span class="kw">as </span>usize &lt;= val &amp;&amp; val &lt;= MAX_MAX_FRAME_SIZE <span class="kw">as </span>usize);
         <span class="self">self</span>.inner.decoder_mut().set_max_frame_length(val)
     }
 
     <span class="doccomment">/// Update the max header list size setting.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_max_header_list_size(<span class="kw-2">&amp;mut </span><span class="self">self</span>, val: usize) {
         <span class="self">self</span>.max_header_list_size = val;
     }
@@ -829,4 +829,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

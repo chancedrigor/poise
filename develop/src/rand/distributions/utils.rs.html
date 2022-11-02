@@ -438,7 +438,7 @@
 
 </span><span class="doccomment">//! Math helper functions
 
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)] </span><span class="kw">use </span>packed_simd::<span class="kw-2">*</span>;
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)] </span><span class="kw">use </span>packed_simd::<span class="kw-2">*</span>;
 
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">trait </span>WideningMultiply&lt;RHS = <span class="self">Self</span>&gt; {
@@ -452,7 +452,7 @@
         <span class="kw">impl </span>WideningMultiply <span class="kw">for </span><span class="macro-nonterminal">$ty </span>{
             <span class="kw">type </span>Output = (<span class="macro-nonterminal">$ty</span>, <span class="macro-nonterminal">$ty</span>);
 
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>wmul(<span class="self">self</span>, x: <span class="macro-nonterminal">$ty</span>) -&gt; <span class="self">Self</span>::Output {
                 <span class="kw">let </span>tmp = (<span class="self">self </span><span class="kw">as </span><span class="macro-nonterminal">$wide</span>) * (x <span class="kw">as </span><span class="macro-nonterminal">$wide</span>);
                 ((tmp &gt;&gt; <span class="macro-nonterminal">$shift</span>) <span class="kw">as </span><span class="macro-nonterminal">$ty</span>, tmp <span class="kw">as </span><span class="macro-nonterminal">$ty</span>)
@@ -466,7 +466,7 @@
             <span class="kw">impl </span>WideningMultiply <span class="kw">for </span><span class="macro-nonterminal">$ty </span>{
                 <span class="kw">type </span>Output = (<span class="macro-nonterminal">$ty</span>, <span class="macro-nonterminal">$ty</span>);
 
-                <span class="attribute">#[inline(always)]
+                <span class="attr">#[inline(always)]
                 </span><span class="kw">fn </span>wmul(<span class="self">self</span>, x: <span class="macro-nonterminal">$ty</span>) -&gt; <span class="self">Self</span>::Output {
                     <span class="comment">// For supported vectors, this should compile to a couple
                     // supported multiply &amp; swizzle instructions (no actual
@@ -499,7 +499,7 @@
         <span class="kw">impl </span>WideningMultiply <span class="kw">for </span><span class="macro-nonterminal">$ty </span>{
             <span class="kw">type </span>Output = (<span class="macro-nonterminal">$ty</span>, <span class="macro-nonterminal">$ty</span>);
 
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>wmul(<span class="self">self</span>, b: <span class="macro-nonterminal">$ty</span>) -&gt; <span class="self">Self</span>::Output {
                 <span class="kw">const </span>LOWER_MASK: <span class="macro-nonterminal">$ty </span>= !<span class="number">0 </span>&gt;&gt; <span class="macro-nonterminal">$half</span>;
                 <span class="kw">let </span><span class="kw-2">mut </span>low = (<span class="self">self </span>&amp; LOWER_MASK).wrapping_mul(b &amp; LOWER_MASK);
@@ -526,7 +526,7 @@
             <span class="kw">impl </span>WideningMultiply <span class="kw">for </span><span class="macro-nonterminal">$ty </span>{
                 <span class="kw">type </span>Output = (<span class="macro-nonterminal">$ty</span>, <span class="macro-nonterminal">$ty</span>);
 
-                <span class="attribute">#[inline(always)]
+                <span class="attr">#[inline(always)]
                 </span><span class="kw">fn </span>wmul(<span class="self">self</span>, b: <span class="macro-nonterminal">$ty</span>) -&gt; <span class="self">Self</span>::Output {
                     <span class="comment">// needs wrapping multiplication
                     </span><span class="kw">const </span>LOWER_MASK: <span class="macro-nonterminal">$scalar </span>= !<span class="number">0 </span>&gt;&gt; <span class="macro-nonterminal">$half</span>;
@@ -556,7 +556,7 @@
         <span class="kw">impl </span>WideningMultiply <span class="kw">for </span>usize {
             <span class="kw">type </span>Output = (usize, usize);
 
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>wmul(<span class="self">self</span>, x: usize) -&gt; <span class="self">Self</span>::Output {
                 <span class="kw">let </span>(high, low) = (<span class="self">self </span><span class="kw">as </span><span class="macro-nonterminal">$ty</span>).wmul(x <span class="kw">as </span><span class="macro-nonterminal">$ty</span>);
                 (high <span class="kw">as </span>usize, low <span class="kw">as </span>usize)
@@ -564,18 +564,18 @@
         }
     };
 }
-<span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;16&quot;</span>)]
+<span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;16&quot;</span>)]
 </span><span class="macro">wmul_impl_usize! </span>{ u16 }
-<span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
+<span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
 </span><span class="macro">wmul_impl_usize! </span>{ u32 }
-<span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
+<span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
 </span><span class="macro">wmul_impl_usize! </span>{ u64 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
 </span><span class="kw">mod </span>simd_wmul {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
-    <span class="attribute">#[cfg(target_arch = <span class="string">&quot;x86&quot;</span>)] </span><span class="kw">use </span>core::arch::x86::<span class="kw-2">*</span>;
-    <span class="attribute">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)] </span><span class="kw">use </span>core::arch::x86_64::<span class="kw-2">*</span>;
+    <span class="attr">#[cfg(target_arch = <span class="string">&quot;x86&quot;</span>)] </span><span class="kw">use </span>core::arch::x86::<span class="kw-2">*</span>;
+    <span class="attr">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)] </span><span class="kw">use </span>core::arch::x86_64::<span class="kw-2">*</span>;
 
     <span class="macro">wmul_impl! </span>{
         (u8x2, u16x2),
@@ -588,20 +588,20 @@
 
     <span class="macro">wmul_impl! </span>{ (u16x2, u32x2),, <span class="number">16 </span>}
     <span class="macro">wmul_impl! </span>{ (u16x4, u32x4),, <span class="number">16 </span>}
-    <span class="attribute">#[cfg(not(target_feature = <span class="string">&quot;sse2&quot;</span>))]
+    <span class="attr">#[cfg(not(target_feature = <span class="string">&quot;sse2&quot;</span>))]
     </span><span class="macro">wmul_impl! </span>{ (u16x8, u32x8),, <span class="number">16 </span>}
-    <span class="attribute">#[cfg(not(target_feature = <span class="string">&quot;avx2&quot;</span>))]
+    <span class="attr">#[cfg(not(target_feature = <span class="string">&quot;avx2&quot;</span>))]
     </span><span class="macro">wmul_impl! </span>{ (u16x16, u32x16),, <span class="number">16 </span>}
 
     <span class="comment">// 16-bit lane widths allow use of the x86 `mulhi` instructions, which
     // means `wmul` can be implemented with only two instructions.
-    </span><span class="attribute">#[allow(unused_macros)]
+    </span><span class="attr">#[allow(unused_macros)]
     </span><span class="macro">macro_rules! </span>wmul_impl_16 {
         (<span class="macro-nonterminal">$ty</span>:ident, <span class="macro-nonterminal">$intrinsic</span>:ident, <span class="macro-nonterminal">$mulhi</span>:ident, <span class="macro-nonterminal">$mullo</span>:ident) =&gt; {
             <span class="kw">impl </span>WideningMultiply <span class="kw">for </span><span class="macro-nonterminal">$ty </span>{
                 <span class="kw">type </span>Output = (<span class="macro-nonterminal">$ty</span>, <span class="macro-nonterminal">$ty</span>);
 
-                <span class="attribute">#[inline(always)]
+                <span class="attr">#[inline(always)]
                 </span><span class="kw">fn </span>wmul(<span class="self">self</span>, x: <span class="macro-nonterminal">$ty</span>) -&gt; <span class="self">Self</span>::Output {
                     <span class="kw">let </span>b = <span class="macro-nonterminal">$intrinsic::from_bits</span>(x);
                     <span class="kw">let </span>a = <span class="macro-nonterminal">$intrinsic::from_bits</span>(<span class="self">self</span>);
@@ -613,9 +613,9 @@
         };
     }
 
-    <span class="attribute">#[cfg(target_feature = <span class="string">&quot;sse2&quot;</span>)]
+    <span class="attr">#[cfg(target_feature = <span class="string">&quot;sse2&quot;</span>)]
     </span><span class="macro">wmul_impl_16! </span>{ u16x8, __m128i, _mm_mulhi_epu16, _mm_mullo_epi16 }
-    <span class="attribute">#[cfg(target_feature = <span class="string">&quot;avx2&quot;</span>)]
+    <span class="attr">#[cfg(target_feature = <span class="string">&quot;avx2&quot;</span>)]
     </span><span class="macro">wmul_impl_16! </span>{ u16x16, __m256i, _mm256_mulhi_epu16, _mm256_mullo_epi16 }
     <span class="comment">// FIXME: there are no `__m512i` types in stdsimd yet, so `wmul::&lt;u16x32&gt;`
     // cannot use the same implementation.
@@ -662,9 +662,9 @@
 }
 
 <span class="doccomment">/// Implement functions available in std builds but missing from core primitives
-</span><span class="attribute">#[cfg(not(std))]
+</span><span class="attr">#[cfg(not(std))]
 </span><span class="comment">// False positive: We are following `std` here.
-</span><span class="attribute">#[allow(clippy::wrong_self_convention)]
+</span><span class="attr">#[allow(clippy::wrong_self_convention)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">trait </span>Float: Sized {
     <span class="kw">fn </span>is_nan(<span class="self">self</span>) -&gt; bool;
     <span class="kw">fn </span>is_infinite(<span class="self">self</span>) -&gt; bool;
@@ -673,20 +673,20 @@
 
 <span class="doccomment">/// Implement functions on f32/f64 to give them APIs similar to SIMD types
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">trait </span>FloatAsSIMD: Sized {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>lanes() -&gt; usize {
         <span class="number">1
     </span>}
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>splat(scalar: <span class="self">Self</span>) -&gt; <span class="self">Self </span>{
         scalar
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>extract(<span class="self">self</span>, index: usize) -&gt; <span class="self">Self </span>{
         <span class="macro">debug_assert_eq!</span>(index, <span class="number">0</span>);
         <span class="self">self
     </span>}
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>replace(<span class="self">self</span>, index: usize, new_value: <span class="self">Self</span>) -&gt; <span class="self">Self </span>{
         <span class="macro">debug_assert_eq!</span>(index, <span class="number">0</span>);
         new_value
@@ -700,17 +700,17 @@
 }
 
 <span class="kw">impl </span>BoolAsSIMD <span class="kw">for </span>bool {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>any(<span class="self">self</span>) -&gt; bool {
         <span class="self">self
     </span>}
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>all(<span class="self">self</span>) -&gt; bool {
         <span class="self">self
     </span>}
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>none(<span class="self">self</span>) -&gt; bool {
         !<span class="self">self
     </span>}
@@ -718,19 +718,19 @@
 
 <span class="macro">macro_rules! </span>scalar_float_impl {
     (<span class="macro-nonterminal">$ty</span>:ident, <span class="macro-nonterminal">$uty</span>:ident) =&gt; {
-        <span class="attribute">#[cfg(not(std))]
+        <span class="attr">#[cfg(not(std))]
         </span><span class="kw">impl </span>Float <span class="kw">for </span><span class="macro-nonterminal">$ty </span>{
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>is_nan(<span class="self">self</span>) -&gt; bool {
                 <span class="self">self </span>!= <span class="self">self
             </span>}
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>is_infinite(<span class="self">self</span>) -&gt; bool {
                 <span class="self">self </span>== ::core::<span class="macro-nonterminal">$ty::INFINITY </span>|| <span class="self">self </span>== ::core::<span class="macro-nonterminal">$ty::NEG_INFINITY
             </span>}
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>is_finite(<span class="self">self</span>) -&gt; bool {
                 !(<span class="self">self</span>.is_nan() || <span class="self">self</span>.is_infinite())
             }
@@ -740,43 +740,43 @@
             <span class="kw">type </span>Mask = bool;
             <span class="kw">type </span>UInt = <span class="macro-nonterminal">$uty</span>;
 
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>all_lt(<span class="self">self</span>, other: <span class="self">Self</span>) -&gt; bool {
                 <span class="self">self </span>&lt; other
             }
 
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>all_le(<span class="self">self</span>, other: <span class="self">Self</span>) -&gt; bool {
                 <span class="self">self </span>&lt;= other
             }
 
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>all_finite(<span class="self">self</span>) -&gt; bool {
                 <span class="self">self</span>.is_finite()
             }
 
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>finite_mask(<span class="self">self</span>) -&gt; <span class="self">Self</span>::Mask {
                 <span class="self">self</span>.is_finite()
             }
 
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>gt_mask(<span class="self">self</span>, other: <span class="self">Self</span>) -&gt; <span class="self">Self</span>::Mask {
                 <span class="self">self </span>&gt; other
             }
 
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>ge_mask(<span class="self">self</span>, other: <span class="self">Self</span>) -&gt; <span class="self">Self</span>::Mask {
                 <span class="self">self </span>&gt;= other
             }
 
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>decrease_masked(<span class="self">self</span>, mask: <span class="self">Self</span>::Mask) -&gt; <span class="self">Self </span>{
                 <span class="macro">debug_assert!</span>(mask, <span class="string">&quot;At least one lane must be set&quot;</span>);
                 &lt;<span class="macro-nonterminal">$ty</span>&gt;::from_bits(<span class="self">self</span>.to_bits() - <span class="number">1</span>)
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>cast_from_int(i: <span class="self">Self</span>::UInt) -&gt; <span class="self">Self </span>{
                 i <span class="kw">as </span><span class="macro-nonterminal">$ty
             </span>}
@@ -790,29 +790,29 @@
 <span class="macro">scalar_float_impl!</span>(f64, u64);
 
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd_support&quot;</span>)]
 </span><span class="macro">macro_rules! </span>simd_impl {
     (<span class="macro-nonterminal">$ty</span>:ident, <span class="macro-nonterminal">$f_scalar</span>:ident, <span class="macro-nonterminal">$mty</span>:ident, <span class="macro-nonterminal">$uty</span>:ident) =&gt; {
         <span class="kw">impl </span>FloatSIMDUtils <span class="kw">for </span><span class="macro-nonterminal">$ty </span>{
             <span class="kw">type </span>Mask = <span class="macro-nonterminal">$mty</span>;
             <span class="kw">type </span>UInt = <span class="macro-nonterminal">$uty</span>;
 
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>all_lt(<span class="self">self</span>, other: <span class="self">Self</span>) -&gt; bool {
                 <span class="self">self</span>.lt(other).all()
             }
 
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>all_le(<span class="self">self</span>, other: <span class="self">Self</span>) -&gt; bool {
                 <span class="self">self</span>.le(other).all()
             }
 
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>all_finite(<span class="self">self</span>) -&gt; bool {
                 <span class="self">self</span>.finite_mask().all()
             }
 
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>finite_mask(<span class="self">self</span>) -&gt; <span class="self">Self</span>::Mask {
                 <span class="comment">// This can possibly be done faster by checking bit patterns
                 </span><span class="kw">let </span>neg_inf = <span class="macro-nonterminal">$ty::splat</span>(::core::<span class="macro-nonterminal">$f_scalar::NEG_INFINITY</span>);
@@ -820,17 +820,17 @@
                 <span class="self">self</span>.gt(neg_inf) &amp; <span class="self">self</span>.lt(pos_inf)
             }
 
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>gt_mask(<span class="self">self</span>, other: <span class="self">Self</span>) -&gt; <span class="self">Self</span>::Mask {
                 <span class="self">self</span>.gt(other)
             }
 
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>ge_mask(<span class="self">self</span>, other: <span class="self">Self</span>) -&gt; <span class="self">Self</span>::Mask {
                 <span class="self">self</span>.ge(other)
             }
 
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>decrease_masked(<span class="self">self</span>, mask: <span class="self">Self</span>::Mask) -&gt; <span class="self">Self </span>{
                 <span class="comment">// Casting a mask into ints will produce all bits set for
                 // true, and 0 for false. Adding that to the binary
@@ -842,7 +842,7 @@
                 &lt;<span class="macro-nonterminal">$ty</span>&gt;::from_bits(&lt;<span class="macro-nonterminal">$uty</span>&gt;::from_bits(<span class="self">self</span>) + &lt;<span class="macro-nonterminal">$uty</span>&gt;::from_bits(mask))
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>cast_from_int(i: <span class="self">Self</span>::UInt) -&gt; <span class="self">Self </span>{
                 i.cast()
             }
@@ -850,12 +850,12 @@
     };
 }
 
-<span class="attribute">#[cfg(feature=<span class="string">&quot;simd_support&quot;</span>)] </span><span class="macro">simd_impl! </span>{ f32x2, f32, m32x2, u32x2 }
-<span class="attribute">#[cfg(feature=<span class="string">&quot;simd_support&quot;</span>)] </span><span class="macro">simd_impl! </span>{ f32x4, f32, m32x4, u32x4 }
-<span class="attribute">#[cfg(feature=<span class="string">&quot;simd_support&quot;</span>)] </span><span class="macro">simd_impl! </span>{ f32x8, f32, m32x8, u32x8 }
-<span class="attribute">#[cfg(feature=<span class="string">&quot;simd_support&quot;</span>)] </span><span class="macro">simd_impl! </span>{ f32x16, f32, m32x16, u32x16 }
-<span class="attribute">#[cfg(feature=<span class="string">&quot;simd_support&quot;</span>)] </span><span class="macro">simd_impl! </span>{ f64x2, f64, m64x2, u64x2 }
-<span class="attribute">#[cfg(feature=<span class="string">&quot;simd_support&quot;</span>)] </span><span class="macro">simd_impl! </span>{ f64x4, f64, m64x4, u64x4 }
-<span class="attribute">#[cfg(feature=<span class="string">&quot;simd_support&quot;</span>)] </span><span class="macro">simd_impl! </span>{ f64x8, f64, m64x8, u64x8 }
+<span class="attr">#[cfg(feature=<span class="string">&quot;simd_support&quot;</span>)] </span><span class="macro">simd_impl! </span>{ f32x2, f32, m32x2, u32x2 }
+<span class="attr">#[cfg(feature=<span class="string">&quot;simd_support&quot;</span>)] </span><span class="macro">simd_impl! </span>{ f32x4, f32, m32x4, u32x4 }
+<span class="attr">#[cfg(feature=<span class="string">&quot;simd_support&quot;</span>)] </span><span class="macro">simd_impl! </span>{ f32x8, f32, m32x8, u32x8 }
+<span class="attr">#[cfg(feature=<span class="string">&quot;simd_support&quot;</span>)] </span><span class="macro">simd_impl! </span>{ f32x16, f32, m32x16, u32x16 }
+<span class="attr">#[cfg(feature=<span class="string">&quot;simd_support&quot;</span>)] </span><span class="macro">simd_impl! </span>{ f64x2, f64, m64x2, u64x2 }
+<span class="attr">#[cfg(feature=<span class="string">&quot;simd_support&quot;</span>)] </span><span class="macro">simd_impl! </span>{ f64x4, f64, m64x4, u64x4 }
+<span class="attr">#[cfg(feature=<span class="string">&quot;simd_support&quot;</span>)] </span><span class="macro">simd_impl! </span>{ f64x8, f64, m64x8, u64x8 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rand" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rand" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

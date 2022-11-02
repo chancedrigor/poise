@@ -387,7 +387,7 @@
 <span class="kw">use </span>syn::ext::IdentExt <span class="kw">as _</span>;
 <span class="kw">use </span>syn::parse::{Parse, ParseStream};
 
-<span class="attribute">#[derive(Clone, Default, Debug)]
+<span class="attr">#[derive(Clone, Default, Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>InstrumentArgs {
     level: <span class="prelude-ty">Option</span>&lt;Level&gt;,
     <span class="kw">pub</span>(<span class="kw">crate</span>) name: <span class="prelude-ty">Option</span>&lt;LitStr&gt;,
@@ -465,9 +465,9 @@
             // Eventually, when the `proc_macro::Diagnostic` API stabilizes, we
             // should definitely use that instead.
             </span><span class="macro">quote_spanned! </span>{err.span()=&gt;
-                <span class="attribute">#[warn(deprecated)]
+                <span class="attr">#[warn(deprecated)]
                 </span>{
-                    <span class="attribute">#[deprecated(since = <span class="string">&quot;not actually deprecated&quot;</span>, note = #msg)]
+                    <span class="attr">#[deprecated(since = <span class="string">&quot;not actually deprecated&quot;</span>, note = #msg)]
                     </span><span class="kw">const </span>TRACING_INSTRUMENT_WARNING: () = ();
                     <span class="kw">let _ </span>= TRACING_INSTRUMENT_WARNING;
                 }
@@ -597,7 +597,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Debug, Hash, PartialEq, Eq)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq, Eq)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>FormatMode {
     Default,
     Display,
@@ -631,17 +631,17 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Fields(<span class="kw">pub</span>(<span class="kw">crate</span>) Punctuated&lt;Field, <span class="macro">Token!</span>[,]&gt;);
 
-<span class="attribute">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Field {
     <span class="kw">pub</span>(<span class="kw">crate</span>) name: Punctuated&lt;Ident, <span class="macro">Token!</span>[.]&gt;,
     <span class="kw">pub</span>(<span class="kw">crate</span>) value: <span class="prelude-ty">Option</span>&lt;Expr&gt;,
     <span class="kw">pub</span>(<span class="kw">crate</span>) kind: FieldKind,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Eq, PartialEq)]
+<span class="attr">#[derive(Clone, Debug, Eq, PartialEq)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>FieldKind {
     Debug,
     Display,
@@ -725,7 +725,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">enum </span>Level {
     Str(LitStr),
     Int(LitInt),
@@ -760,4 +760,4 @@
     <span class="macro">syn::custom_keyword!</span>(ret);
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing_attributes" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing_attributes" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

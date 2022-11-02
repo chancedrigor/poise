@@ -164,16 +164,16 @@
 <span id="164">164</span>
 <span id="165">165</span>
 <span id="166">166</span>
-</pre><pre class="rust"><code><span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+</pre><pre class="rust"><code><span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::builder::EditChannel;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::http::{CacheHttp, Http};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::json;
 <span class="kw">use </span><span class="kw">crate</span>::model::prelude::<span class="kw-2">*</span>;
 
 <span class="doccomment">/// A category of [`GuildChannel`]s.
-</span><span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ChannelCategory {
     <span class="doccomment">/// Id of this category.
@@ -187,18 +187,18 @@
     <span class="doccomment">/// Indicator of the type of channel this is.
     ///
     /// This should always be [`ChannelType::Category`].
-    </span><span class="attribute">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
+    </span><span class="attr">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
     </span><span class="kw">pub </span>kind: ChannelType,
     <span class="doccomment">/// The name of the category.
     </span><span class="kw">pub </span>name: String,
     <span class="doccomment">/// Whether this category is nsfw. (This&#39;ll be inherited by all channels in this category)
-    </span><span class="attribute">#[serde(default)]
+    </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>nsfw: bool,
     <span class="doccomment">/// Permission overwrites for the [`GuildChannel`]s.
     </span><span class="kw">pub </span>permission_overwrites: Vec&lt;PermissionOverwrite&gt;,
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">impl </span>ChannelCategory {
     <span class="doccomment">/// Adds a permission overwrite to the category&#39;s channels.
     ///
@@ -214,7 +214,7 @@
     ///
     /// [Manage Roles]: Permissions::MANAGE_ROLES
     /// [Manage Channels]: Permissions::MANAGE_CHANNELS
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>create_permission(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         http: <span class="kw">impl </span>AsRef&lt;Http&gt;,
@@ -232,7 +232,7 @@
     /// Returns [`Error::Http`] if the current user lacks permission.
     ///
     /// [Manage Roles]: Permissions::MANAGE_ROLES
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>delete_permission(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         http: <span class="kw">impl </span>AsRef&lt;Http&gt;,
@@ -250,7 +250,7 @@
     /// Returns [`Error::Http`] if the current user lacks permission.
     ///
     /// [Manage Channels]: Permissions::MANAGE_CHANNELS
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>delete(<span class="kw-2">&amp;</span><span class="self">self</span>, cache_http: <span class="kw">impl </span>CacheHttp) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="self">self</span>.id.delete(<span class="kw-2">&amp;</span>cache_http.http()).<span class="kw">await</span>.map(|<span class="kw">_</span>| ())
     }
@@ -318,17 +318,17 @@
         })
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     #[must_use]
     </span><span class="kw">pub fn </span>is_nsfw(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.kind == ChannelType::Text &amp;&amp; <span class="self">self</span>.nsfw
     }
 
     <span class="doccomment">/// Returns the name of the category.
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="kw-2">&amp;</span><span class="self">self</span>.name
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

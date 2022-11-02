@@ -129,70 +129,70 @@
     </span><span class="kw">unsafe fn </span>and(<span class="self">self</span>, vector2: <span class="self">Self</span>) -&gt; <span class="self">Self</span>;
 }
 
-<span class="attribute">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
+<span class="attr">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
 </span><span class="kw">mod </span>x86sse {
     <span class="kw">use </span><span class="kw">super</span>::Vector;
     <span class="kw">use </span>core::arch::x86_64::<span class="kw-2">*</span>;
 
     <span class="kw">impl </span>Vector <span class="kw">for </span>__m128i {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>splat(byte: u8) -&gt; __m128i {
             _mm_set1_epi8(byte <span class="kw">as </span>i8)
         }
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>load_unaligned(data: <span class="kw-2">*const </span>u8) -&gt; __m128i {
             _mm_loadu_si128(data <span class="kw">as </span><span class="kw-2">*const </span>__m128i)
         }
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>movemask(<span class="self">self</span>) -&gt; u32 {
             _mm_movemask_epi8(<span class="self">self</span>) <span class="kw">as </span>u32
         }
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>cmpeq(<span class="self">self</span>, vector2: <span class="self">Self</span>) -&gt; __m128i {
             _mm_cmpeq_epi8(<span class="self">self</span>, vector2)
         }
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>and(<span class="self">self</span>, vector2: <span class="self">Self</span>) -&gt; __m128i {
             _mm_and_si128(<span class="self">self</span>, vector2)
         }
     }
 }
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;std&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;std&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))]
 </span><span class="kw">mod </span>x86avx {
     <span class="kw">use </span><span class="kw">super</span>::Vector;
     <span class="kw">use </span>core::arch::x86_64::<span class="kw-2">*</span>;
 
     <span class="kw">impl </span>Vector <span class="kw">for </span>__m256i {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>splat(byte: u8) -&gt; __m256i {
             _mm256_set1_epi8(byte <span class="kw">as </span>i8)
         }
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>load_unaligned(data: <span class="kw-2">*const </span>u8) -&gt; __m256i {
             _mm256_loadu_si256(data <span class="kw">as </span><span class="kw-2">*const </span>__m256i)
         }
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>movemask(<span class="self">self</span>) -&gt; u32 {
             _mm256_movemask_epi8(<span class="self">self</span>) <span class="kw">as </span>u32
         }
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>cmpeq(<span class="self">self</span>, vector2: <span class="self">Self</span>) -&gt; __m256i {
             _mm256_cmpeq_epi8(<span class="self">self</span>, vector2)
         }
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>and(<span class="self">self</span>, vector2: <span class="self">Self</span>) -&gt; __m256i {
             _mm256_and_si256(<span class="self">self</span>, vector2)
         }
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="memchr" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="memchr" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

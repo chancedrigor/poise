@@ -240,7 +240,7 @@
 
 </span><span class="doccomment">//! Error reporting.
 
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">extern crate </span>std;
 
 <span class="doccomment">/// An error with absolutely no details.
@@ -299,7 +299,7 @@
 /// [`std::error::Error`]: https://doc.rust-lang.org/std/error/trait.Error.html
 /// [“Error Handling” in the Rust Book]:
 ///     https://doc.rust-lang.org/book/first-edition/error-handling.html#the-from-trait
-</span><span class="attribute">#[derive(Clone, Copy, Debug, PartialEq)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq)]
 </span><span class="kw">pub struct </span>Unspecified;
 
 <span class="kw">impl </span>Unspecified {
@@ -315,9 +315,9 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>std::error::Error <span class="kw">for </span>Unspecified {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>cause(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">dyn </span>std::error::Error&gt; {
         <span class="prelude-val">None
     </span>}
@@ -369,7 +369,7 @@
 ///    being used.
 ///
 ///  * Unexpected errors: Report this as a bug.
-</span><span class="attribute">#[derive(Copy, Clone, Debug)]
+</span><span class="attr">#[derive(Copy, Clone, Debug)]
 </span><span class="kw">pub struct </span>KeyRejected(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str);
 
 <span class="kw">impl </span>KeyRejected {
@@ -386,7 +386,7 @@
         KeyRejected(<span class="string">&quot;InvalidComponent&quot;</span>)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>invalid_encoding() -&gt; <span class="self">Self </span>{
         KeyRejected(<span class="string">&quot;InvalidEncoding&quot;</span>)
     }
@@ -400,12 +400,12 @@
         KeyRejected(<span class="string">&quot;PublicKeyIsMissing&quot;</span>)
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>too_small() -&gt; <span class="self">Self </span>{
         KeyRejected(<span class="string">&quot;TooSmall&quot;</span>)
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>too_large() -&gt; <span class="self">Self </span>{
         KeyRejected(<span class="string">&quot;TooLarge&quot;</span>)
     }
@@ -418,7 +418,7 @@
         KeyRejected(<span class="string">&quot;WrongAlgorithm&quot;</span>)
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>private_modulus_len_not_multiple_of_512_bits() -&gt; <span class="self">Self </span>{
         KeyRejected(<span class="string">&quot;PrivateModulusLenNotMultipleOf512Bits&quot;</span>)
     }
@@ -428,7 +428,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>std::error::Error <span class="kw">for </span>KeyRejected {
     <span class="kw">fn </span>cause(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">dyn </span>std::error::Error&gt; {
         <span class="prelude-val">None
@@ -451,4 +451,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

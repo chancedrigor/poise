@@ -748,12 +748,12 @@
 ///
 /// If a message body does not include a Transfer-Encoding, it *should*
 /// include a Content-Length header.
-</span><span class="attribute">#[derive(Clone, PartialEq)]
+</span><span class="attr">#[derive(Clone, PartialEq)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Decoder {
     kind: Kind,
 }
 
-<span class="attribute">#[derive(Debug, Clone, Copy, PartialEq)]
+<span class="attr">#[derive(Debug, Clone, Copy, PartialEq)]
 </span><span class="kw">enum </span>Kind {
     <span class="doccomment">/// A Reader used when a Content-Length header is passed with a positive integer.
     </span>Length(u64),
@@ -778,7 +778,7 @@
     </span>Eof(bool),
 }
 
-<span class="attribute">#[derive(Debug, PartialEq, Clone, Copy)]
+<span class="attr">#[derive(Debug, PartialEq, Clone, Copy)]
 </span><span class="kw">enum </span>ChunkedState {
     Size,
     SizeLws,
@@ -886,7 +886,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(test)]
+    <span class="attr">#[cfg(test)]
     </span><span class="kw">async fn </span>decode_fut&lt;R: MemRead&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, body: <span class="kw-2">&amp;mut </span>R) -&gt; <span class="prelude-ty">Result</span>&lt;Bytes, io::Error&gt; {
         futures_util::future::poll_fn(<span class="kw">move </span>|cx| <span class="self">self</span>.decode(cx, body)).<span class="kw">await
     </span>}
@@ -1142,7 +1142,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>IncompleteBody;
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>IncompleteBody {
@@ -1153,7 +1153,7 @@
 
 <span class="kw">impl </span>StdError <span class="kw">for </span>IncompleteBody {}
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span>std::pin::Pin;
@@ -1183,7 +1183,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
     </span><span class="kw">impl </span>MemRead <span class="kw">for </span>Bytes {
         <span class="kw">fn </span>read_mem(<span class="kw-2">&amp;mut </span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;mut </span>task::Context&lt;<span class="lifetime">&#39;_</span>&gt;, len: usize) -&gt; Poll&lt;io::Result&lt;Bytes&gt;&gt; {
             <span class="kw">let </span>n = std::cmp::min(len, <span class="self">self</span>.len());
@@ -1202,7 +1202,7 @@
     use crate::mock::AsyncIo;
     */
 
-    </span><span class="attribute">#[tokio::test]
+    </span><span class="attr">#[tokio::test]
     </span><span class="kw">async fn </span>test_read_chunk_size() {
         <span class="kw">use </span>std::io::ErrorKind::{InvalidData, InvalidInput, UnexpectedEof};
 
@@ -1284,7 +1284,7 @@
         </span>read_err(<span class="string">&quot;f0000000000000003\r\n&quot;</span>, InvalidData).<span class="kw">await</span>;
     }
 
-    <span class="attribute">#[tokio::test]
+    <span class="attr">#[tokio::test]
     </span><span class="kw">async fn </span>test_read_sized_early_eof() {
         <span class="kw">let </span><span class="kw-2">mut </span>bytes = <span class="kw-2">&amp;</span><span class="string">b&quot;foo bar&quot;</span>[..];
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = Decoder::length(<span class="number">10</span>);
@@ -1293,7 +1293,7 @@
         <span class="macro">assert_eq!</span>(e.kind(), io::ErrorKind::UnexpectedEof);
     }
 
-    <span class="attribute">#[tokio::test]
+    <span class="attr">#[tokio::test]
     </span><span class="kw">async fn </span>test_read_chunked_early_eof() {
         <span class="kw">let </span><span class="kw-2">mut </span>bytes = <span class="kw-2">&amp;</span><span class="string">b&quot;\
             9\r\n\
@@ -1305,7 +1305,7 @@
         <span class="macro">assert_eq!</span>(e.kind(), io::ErrorKind::UnexpectedEof);
     }
 
-    <span class="attribute">#[tokio::test]
+    <span class="attr">#[tokio::test]
     </span><span class="kw">async fn </span>test_read_chunked_single_read() {
         <span class="kw">let </span><span class="kw-2">mut </span>mock_buf = <span class="kw-2">&amp;</span><span class="string">b&quot;10\r\n1234567890abcdef\r\n0\r\n&quot;</span>[..];
         <span class="kw">let </span>buf = Decoder::chunked()
@@ -1317,7 +1317,7 @@
         <span class="macro">assert_eq!</span>(<span class="string">&quot;1234567890abcdef&quot;</span>, <span class="kw-2">&amp;</span>result);
     }
 
-    <span class="attribute">#[tokio::test]
+    <span class="attr">#[tokio::test]
     </span><span class="kw">async fn </span>test_read_chunked_trailer_with_missing_lf() {
         <span class="kw">let </span><span class="kw-2">mut </span>mock_buf = <span class="kw-2">&amp;</span><span class="string">b&quot;10\r\n1234567890abcdef\r\n0\r\nbad\r\r\n&quot;</span>[..];
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = Decoder::chunked();
@@ -1326,7 +1326,7 @@
         <span class="macro">assert_eq!</span>(e.kind(), io::ErrorKind::InvalidInput);
     }
 
-    <span class="attribute">#[tokio::test]
+    <span class="attr">#[tokio::test]
     </span><span class="kw">async fn </span>test_read_chunked_after_eof() {
         <span class="kw">let </span><span class="kw-2">mut </span>mock_buf = <span class="kw-2">&amp;</span><span class="string">b&quot;10\r\n1234567890abcdef\r\n0\r\n\r\n&quot;</span>[..];
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = Decoder::chunked();
@@ -1390,26 +1390,26 @@
         </span>}
     }
 
-    <span class="attribute">#[tokio::test]
+    <span class="attr">#[tokio::test]
     </span><span class="kw">async fn </span>test_read_length_async() {
         <span class="kw">let </span>content = <span class="string">&quot;foobar&quot;</span>;
         all_async_cases(content, content, Decoder::length(content.len() <span class="kw">as </span>u64)).<span class="kw">await</span>;
     }
 
-    <span class="attribute">#[tokio::test]
+    <span class="attr">#[tokio::test]
     </span><span class="kw">async fn </span>test_read_chunked_async() {
         <span class="kw">let </span>content = <span class="string">&quot;3\r\nfoo\r\n3\r\nbar\r\n0\r\n\r\n&quot;</span>;
         <span class="kw">let </span>expected = <span class="string">&quot;foobar&quot;</span>;
         all_async_cases(content, expected, Decoder::chunked()).<span class="kw">await</span>;
     }
 
-    <span class="attribute">#[tokio::test]
+    <span class="attr">#[tokio::test]
     </span><span class="kw">async fn </span>test_read_eof_async() {
         <span class="kw">let </span>content = <span class="string">&quot;foobar&quot;</span>;
         all_async_cases(content, content, Decoder::eof()).<span class="kw">await</span>;
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
     #[bench]
     </span><span class="kw">fn </span>bench_decode_chunked_1kb(b: <span class="kw-2">&amp;mut </span>test::Bencher) {
         <span class="kw">let </span>rt = new_runtime();
@@ -1433,7 +1433,7 @@
         });
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
     #[bench]
     </span><span class="kw">fn </span>bench_decode_length_1kb(b: <span class="kw-2">&amp;mut </span>test::Bencher) {
         <span class="kw">let </span>rt = new_runtime();
@@ -1452,7 +1452,7 @@
         });
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
     </span><span class="kw">fn </span>new_runtime() -&gt; tokio::runtime::Runtime {
         tokio::runtime::Builder::new_current_thread()
             .enable_all()
@@ -1461,4 +1461,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

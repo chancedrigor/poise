@@ -104,17 +104,17 @@
 <span class="kw">use </span><span class="kw">crate</span>::internal::prelude::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::json::{from_str, to_string};
 
-<span class="attribute">#[async_trait]
+<span class="attr">#[async_trait]
 </span><span class="kw">pub trait </span>ReceiverExt {
     <span class="kw">async fn </span>recv_json(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;Value&gt;&gt;;
 }
 
-<span class="attribute">#[async_trait]
+<span class="attr">#[async_trait]
 </span><span class="kw">pub trait </span>SenderExt {
     <span class="kw">async fn </span>send_json(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: <span class="kw-2">&amp;</span>Value) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;;
 }
 
-<span class="attribute">#[async_trait]
+<span class="attr">#[async_trait]
 </span><span class="kw">impl </span>ReceiverExt <span class="kw">for </span>WsStream {
     <span class="kw">async fn </span>recv_json(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;Value&gt;&gt; {
         <span class="kw">const </span>TIMEOUT: tokio::time::Duration = tokio::time::Duration::from_millis(<span class="number">500</span>);
@@ -129,14 +129,14 @@
     }
 }
 
-<span class="attribute">#[async_trait]
+<span class="attr">#[async_trait]
 </span><span class="kw">impl </span>SenderExt <span class="kw">for </span>WsStream {
     <span class="kw">async fn </span>send_json(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: <span class="kw-2">&amp;</span>Value) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="prelude-val">Ok</span>(to_string(value).map(Message::Text).map_err(Error::from).map(|m| <span class="self">self</span>.send(m))<span class="question-mark">?</span>.<span class="kw">await</span><span class="question-mark">?</span>)
     }
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>convert_ws_message(message: <span class="prelude-ty">Option</span>&lt;Message&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;Value&gt;&gt; {
     <span class="kw">const </span>DECOMPRESSION_MULTIPLIER: usize = <span class="number">3</span>;
 
@@ -169,7 +169,7 @@
     })
 }
 
-<span class="attribute">#[instrument]
+<span class="attr">#[instrument]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>create_client(url: Url) -&gt; <span class="prelude-ty">Result</span>&lt;WsStream&gt; {
     <span class="kw">let </span>config = async_tungstenite::tungstenite::protocol::WebSocketConfig {
         max_message_size: <span class="prelude-val">None</span>,
@@ -183,4 +183,4 @@
     <span class="prelude-val">Ok</span>(stream)
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

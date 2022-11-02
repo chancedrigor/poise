@@ -176,7 +176,7 @@
 //! and format timestamps. Convert a sytem time to `HttpDate` and vice versa.
 //! The `HttpType` (8 bytes) is smaller than `SystemTime` (16 bytes) and
 //! using the display impl avoids a temporary allocation.
-</span><span class="attribute">#![forbid(unsafe_code)]
+</span><span class="attr">#![forbid(unsafe_code)]
 
 </span><span class="kw">use </span>std::error;
 <span class="kw">use </span>std::fmt::{<span class="self">self</span>, Display, Formatter};
@@ -188,7 +188,7 @@
 <span class="kw">mod </span>date;
 
 <span class="doccomment">/// An opaque error type for all parsing errors.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Error(());
 
 <span class="kw">impl </span>error::Error <span class="kw">for </span>Error {}
@@ -221,14 +221,14 @@
     <span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, HttpDate::from(d))
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>std::str;
     <span class="kw">use </span>std::time::{Duration, UNIX_EPOCH};
 
     <span class="kw">use super</span>::{fmt_http_date, parse_http_date, HttpDate};
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_rfc_example() {
         <span class="kw">let </span>d = UNIX_EPOCH + Duration::from_secs(<span class="number">784111777</span>);
         <span class="macro">assert_eq!</span>(
@@ -242,7 +242,7 @@
         <span class="macro">assert_eq!</span>(d, parse_http_date(<span class="string">&quot;Sun Nov  6 08:49:37 1994&quot;</span>).expect(<span class="string">&quot;#3&quot;</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test2() {
         <span class="kw">let </span>d = UNIX_EPOCH + Duration::from_secs(<span class="number">1475419451</span>);
         <span class="macro">assert_eq!</span>(
@@ -254,7 +254,7 @@
         <span class="macro">assert!</span>(parse_http_date(<span class="string">&quot;Sunday, 06-Nov-94 08+49:37 GMT&quot;</span>).is_err());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test3() {
         <span class="kw">let </span><span class="kw-2">mut </span>d = UNIX_EPOCH;
         <span class="macro">assert_eq!</span>(d, parse_http_date(<span class="string">&quot;Thu, 01 Jan 1970 00:00:00 GMT&quot;</span>).unwrap());
@@ -276,7 +276,7 @@
         <span class="macro">assert_eq!</span>(d, parse_http_date(<span class="string">&quot;Fri, 26 Mar 1999 01:00:05 GMT&quot;</span>).unwrap());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_fmt() {
         <span class="kw">let </span>d = UNIX_EPOCH;
         <span class="macro">assert_eq!</span>(fmt_http_date(d), <span class="string">&quot;Thu, 01 Jan 1970 00:00:00 GMT&quot;</span>);
@@ -284,7 +284,7 @@
         <span class="macro">assert_eq!</span>(fmt_http_date(d), <span class="string">&quot;Sun, 02 Oct 2016 14:44:11 GMT&quot;</span>);
     }
 
-    <span class="attribute">#[allow(dead_code)]
+    <span class="attr">#[allow(dead_code)]
     </span><span class="kw">fn </span>testcase(data: <span class="kw-2">&amp;</span>[u8]) {
         <span class="kw">if let </span><span class="prelude-val">Ok</span>(s) = str::from_utf8(data) {
             <span class="macro">println!</span>(<span class="string">&quot;{:?}&quot;</span>, s);
@@ -295,12 +295,12 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>size_of() {
         <span class="macro">assert_eq!</span>(::std::mem::size_of::&lt;HttpDate&gt;(), <span class="number">8</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_date_comparison() {
         <span class="kw">let </span>a = UNIX_EPOCH + Duration::from_secs(<span class="number">784111777</span>);
         <span class="kw">let </span>b = a + Duration::from_secs(<span class="number">30</span>);
@@ -311,7 +311,7 @@
         <span class="macro">assert_eq!</span>(a_date.cmp(<span class="kw-2">&amp;</span>b_date), ::std::cmp::Ordering::Less)
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_parse_bad_date() {
         <span class="comment">// 1994-11-07 is actually a Monday
         </span><span class="kw">let </span>parsed = <span class="string">&quot;Sun, 07 Nov 1994 08:48:37 GMT&quot;</span>.parse::&lt;HttpDate&gt;();
@@ -319,4 +319,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="httpdate" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="httpdate" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

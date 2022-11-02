@@ -726,20 +726,20 @@
 <span class="kw">use </span>serde::de::Error <span class="kw">as </span>DeError;
 <span class="kw">use </span>serde::{Deserialize, Deserializer};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::builder::{
     CreateInteractionResponse,
     CreateInteractionResponseFollowup,
     EditInteractionResponse,
 };
-<span class="attribute">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::http::Http;
 <span class="kw">use </span><span class="kw">crate</span>::internal::prelude::<span class="kw-2">*</span>;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::json;
 <span class="kw">use </span><span class="kw">crate</span>::json::prelude::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::model::application::command::{CommandOptionType, CommandType};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::model::application::interaction::InteractionResponseType;
 <span class="kw">use </span><span class="kw">crate</span>::model::application::interaction::InteractionType;
 <span class="kw">use </span><span class="kw">crate</span>::model::channel::{Attachment, Message, PartialChannel};
@@ -763,7 +763,7 @@
 <span class="doccomment">/// An interaction when a user invokes a slash command.
 ///
 /// [Discord docs](https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object).
-</span><span class="attribute">#[derive(Clone, Debug, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ApplicationCommandInteraction {
     <span class="doccomment">/// Id of the interaction.
@@ -771,19 +771,19 @@
     <span class="doccomment">/// Id of the application this interaction is for.
     </span><span class="kw">pub </span>application_id: ApplicationId,
     <span class="doccomment">/// The type of interaction.
-    </span><span class="attribute">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
+    </span><span class="attr">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
     </span><span class="kw">pub </span>kind: InteractionType,
     <span class="doccomment">/// The data of the interaction which was triggered.
     </span><span class="kw">pub </span>data: CommandData,
     <span class="doccomment">/// The guild Id this interaction was sent from, if there is one.
-    </span><span class="attribute">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span><span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
     </span><span class="kw">pub </span>guild_id: <span class="prelude-ty">Option</span>&lt;GuildId&gt;,
     <span class="doccomment">/// The channel Id this interaction was sent from.
     </span><span class="kw">pub </span>channel_id: ChannelId,
     <span class="doccomment">/// The `member` data for the invoking user.
     ///
     /// **Note**: It is only present if the interaction is triggered in a guild.
-    </span><span class="attribute">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span><span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
     </span><span class="kw">pub </span>member: <span class="prelude-ty">Option</span>&lt;Member&gt;,
     <span class="doccomment">/// The `user` object for the invoking user.
     </span><span class="kw">pub </span>user: User,
@@ -799,7 +799,7 @@
     </span><span class="kw">pub </span>guild_locale: <span class="prelude-ty">Option</span>&lt;String&gt;,
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;http&quot;</span>)]
 </span><span class="kw">impl </span>ApplicationCommandInteraction {
     <span class="doccomment">/// Gets the interaction response.
     ///
@@ -1156,7 +1156,7 @@
 <span class="doccomment">/// The command data payload.
 ///
 /// [Discord docs](https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-data-structure).
-</span><span class="attribute">#[derive(Clone, Debug, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>CommandData {
     <span class="doccomment">/// The Id of the invoked command.
@@ -1164,16 +1164,16 @@
     <span class="doccomment">/// The name of the invoked command.
     </span><span class="kw">pub </span>name: String,
     <span class="doccomment">/// The application command type of the triggered application command.
-    </span><span class="attribute">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
+    </span><span class="attr">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
     </span><span class="kw">pub </span>kind: CommandType,
     <span class="doccomment">/// The parameters and the given values.
     /// The converted objects from the given options.
-    </span><span class="attribute">#[serde(default)]
+    </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>resolved: CommandDataResolved,
-    <span class="attribute">#[serde(default)]
+    <span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>options: Vec&lt;CommandDataOption&gt;,
     <span class="doccomment">/// The Id of the guild the command is registered to.
-    </span><span class="attribute">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span><span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
     </span><span class="kw">pub </span>guild_id: <span class="prelude-ty">Option</span>&lt;GuildId&gt;,
     <span class="doccomment">/// The targeted user or message, if the triggered application command type
     /// is [`User`] or [`Message`].
@@ -1190,7 +1190,7 @@
     <span class="doccomment">/// The target resolved data of [`target_id`]
     ///
     /// [`target_id`]: Self::target_id
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>target(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;ResolvedTarget&gt; {
         <span class="kw">match </span>(<span class="self">self</span>.kind, <span class="self">self</span>.target_id) {
             (CommandType::User, <span class="prelude-val">Some</span>(id)) =&gt; {
@@ -1271,7 +1271,7 @@
 }
 
 <span class="doccomment">/// The resolved value of a [`CommandData::target_id`].
-</span><span class="attribute">#[derive(Clone, Debug, Serialize, Deserialize)]
+</span><span class="attr">#[derive(Clone, Debug, Serialize, Deserialize)]
 #[non_exhaustive]
 #[repr(u8)]
 </span><span class="kw">pub enum </span>ResolvedTarget {
@@ -1283,26 +1283,26 @@
 /// It contains the objects of [`CommandDataOption`]s.
 ///
 /// [Discord docs](https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure).
-</span><span class="attribute">#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>CommandDataResolved {
     <span class="doccomment">/// The resolved users.
-    </span><span class="attribute">#[serde(default, skip_serializing_if = <span class="string">&quot;HashMap::is_empty&quot;</span>)]
+    </span><span class="attr">#[serde(default, skip_serializing_if = <span class="string">&quot;HashMap::is_empty&quot;</span>)]
     </span><span class="kw">pub </span>users: HashMap&lt;UserId, User&gt;,
     <span class="doccomment">/// The resolved partial members.
-    </span><span class="attribute">#[serde(default, skip_serializing_if = <span class="string">&quot;HashMap::is_empty&quot;</span>)]
+    </span><span class="attr">#[serde(default, skip_serializing_if = <span class="string">&quot;HashMap::is_empty&quot;</span>)]
     </span><span class="kw">pub </span>members: HashMap&lt;UserId, PartialMember&gt;,
     <span class="doccomment">/// The resolved roles.
-    </span><span class="attribute">#[serde(default, skip_serializing_if = <span class="string">&quot;HashMap::is_empty&quot;</span>)]
+    </span><span class="attr">#[serde(default, skip_serializing_if = <span class="string">&quot;HashMap::is_empty&quot;</span>)]
     </span><span class="kw">pub </span>roles: HashMap&lt;RoleId, Role&gt;,
     <span class="doccomment">/// The resolved partial channels.
-    </span><span class="attribute">#[serde(default, skip_serializing_if = <span class="string">&quot;HashMap::is_empty&quot;</span>)]
+    </span><span class="attr">#[serde(default, skip_serializing_if = <span class="string">&quot;HashMap::is_empty&quot;</span>)]
     </span><span class="kw">pub </span>channels: HashMap&lt;ChannelId, PartialChannel&gt;,
     <span class="doccomment">/// The resolved messages.
-    </span><span class="attribute">#[serde(default, skip_serializing_if = <span class="string">&quot;HashMap::is_empty&quot;</span>)]
+    </span><span class="attr">#[serde(default, skip_serializing_if = <span class="string">&quot;HashMap::is_empty&quot;</span>)]
     </span><span class="kw">pub </span>messages: HashMap&lt;MessageId, Message&gt;,
     <span class="doccomment">/// The resolved attachments.
-    </span><span class="attribute">#[serde(default, skip_serializing_if = <span class="string">&quot;HashMap::is_empty&quot;</span>)]
+    </span><span class="attr">#[serde(default, skip_serializing_if = <span class="string">&quot;HashMap::is_empty&quot;</span>)]
     </span><span class="kw">pub </span>attachments: HashMap&lt;AttachmentId, Attachment&gt;,
 }
 
@@ -1314,7 +1314,7 @@
 /// Their resolved objects can be found on [`CommandData::resolved`].
 ///
 /// [Discord docs](https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-interaction-data-option-structure).
-</span><span class="attribute">#[derive(Clone, Debug, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>CommandDataOption {
     <span class="doccomment">/// The name of the parameter.
@@ -1322,20 +1322,20 @@
     <span class="doccomment">/// The given value.
     </span><span class="kw">pub </span>value: <span class="prelude-ty">Option</span>&lt;Value&gt;,
     <span class="doccomment">/// The value type.
-    </span><span class="attribute">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
+    </span><span class="attr">#[serde(rename = <span class="string">&quot;type&quot;</span>)]
     </span><span class="kw">pub </span>kind: CommandOptionType,
     <span class="doccomment">/// The nested options.
     ///
     /// **Note**: It is only present if the option is
     /// a group or a subcommand.
-    </span><span class="attribute">#[serde(default)]
+    </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>options: Vec&lt;CommandDataOption&gt;,
     <span class="doccomment">/// The resolved object of the given `value`, if there is one.
-    </span><span class="attribute">#[serde(default)]
+    </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>resolved: <span class="prelude-ty">Option</span>&lt;CommandDataOptionValue&gt;,
     <span class="doccomment">/// For `Autocomplete` Interactions this will be `true` if
     /// this option is currently focused by the user.
-    </span><span class="attribute">#[serde(default)]
+    </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>focused: bool,
 }
 
@@ -1381,7 +1381,7 @@
 }
 
 <span class="doccomment">/// The resolved value of an [`CommandDataOption`].
-</span><span class="attribute">#[derive(Clone, Debug, Serialize, Deserialize)]
+</span><span class="attr">#[derive(Clone, Debug, Serialize, Deserialize)]
 #[non_exhaustive]
 #[repr(u8)]
 </span><span class="kw">pub enum </span>CommandDataOptionValue {
@@ -1397,13 +1397,13 @@
 
 <span class="kw">impl </span>TargetId {
     <span class="doccomment">/// Converts this [`TargetId`] to [`UserId`].
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>to_user_id(<span class="self">self</span>) -&gt; UserId {
         <span class="self">self</span>.<span class="number">0</span>.into()
     }
 
     <span class="doccomment">/// Converts this [`TargetId`] to [`MessageId`].
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>to_message_id(<span class="self">self</span>) -&gt; MessageId {
         <span class="self">self</span>.<span class="number">0</span>.into()
     }
@@ -1445,4 +1445,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

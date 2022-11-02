@@ -1709,12 +1709,12 @@
 
 <span class="comment">// Don&#39;t use Instant on wasm32-unknown-unknown, it just panics.
 </span><span class="macro">cfg_if::cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(all(
+    <span class="kw">if </span><span class="attr">#[cfg(all(
         target_family = <span class="string">&quot;wasm&quot;</span>,
         target_os = <span class="string">&quot;unknown&quot;</span>,
         target_vendor = <span class="string">&quot;unknown&quot;
     </span>))] </span>{
-        <span class="attribute">#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+        <span class="attr">#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
         </span><span class="kw">struct </span>TimeoutInstant;
         <span class="kw">impl </span>TimeoutInstant {
             <span class="kw">fn </span>now() -&gt; TimeoutInstant {
@@ -1758,7 +1758,7 @@
 }
 
 <span class="kw">impl </span>HashTable {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>new(num_threads: usize, prev: <span class="kw-2">*const </span>HashTable) -&gt; Box&lt;HashTable&gt; {
         <span class="kw">let </span>new_size = (num_threads * LOAD_FACTOR).next_power_of_two();
         <span class="kw">let </span>hash_bits = <span class="number">0usize</span>.leading_zeros() - new_size.leading_zeros() - <span class="number">1</span>;
@@ -1778,7 +1778,7 @@
     }
 }
 
-<span class="attribute">#[repr(align(<span class="number">64</span>))]
+<span class="attr">#[repr(align(<span class="number">64</span>))]
 </span><span class="kw">struct </span>Bucket {
     <span class="comment">// Lock protecting the queue
     </span>mutex: WordLock,
@@ -1792,7 +1792,7 @@
 }
 
 <span class="kw">impl </span>Bucket {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new(timeout: TimeoutInstant, seed: u32) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             mutex: WordLock::new(),
@@ -1812,13 +1812,13 @@
 }
 
 <span class="kw">impl </span>FairTimeout {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>new(timeout: TimeoutInstant, seed: u32) -&gt; FairTimeout {
         FairTimeout { timeout, seed }
     }
 
     <span class="comment">// Determine whether we should force a fair unlock, and update the timeout
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>should_timeout(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; bool {
         <span class="kw">let </span>now = TimeoutInstant::now();
         <span class="kw">if </span>now &gt; <span class="self">self</span>.timeout {
@@ -1860,7 +1860,7 @@
     </span>parked_with_timeout: Cell&lt;bool&gt;,
 
     <span class="comment">// Extra data for deadlock detection
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;deadlock_detection&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;deadlock_detection&quot;</span>)]
     </span>deadlock_data: deadlock::DeadlockData,
 }
 
@@ -1878,14 +1878,14 @@
             unpark_token: Cell::new(DEFAULT_UNPARK_TOKEN),
             park_token: Cell::new(DEFAULT_PARK_TOKEN),
             parked_with_timeout: Cell::new(<span class="bool-val">false</span>),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;deadlock_detection&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;deadlock_detection&quot;</span>)]
             </span>deadlock_data: deadlock::DeadlockData::new(),
         }
     }
 }
 
 <span class="comment">// Invokes the given closure with a reference to the current thread `ThreadData`.
-</span><span class="attribute">#[inline(always)]
+</span><span class="attr">#[inline(always)]
 </span><span class="kw">fn </span>with_thread_data&lt;T&gt;(f: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;</span>ThreadData) -&gt; T) -&gt; T {
     <span class="comment">// Unlike word_lock::ThreadData, parking_lot::ThreadData is always expensive
     // to construct. Try to use a thread-local version if possible. Otherwise just
@@ -1908,7 +1908,7 @@
 <span class="doccomment">/// Returns a reference to the latest hash table, creating one if it doesn&#39;t exist yet.
 /// The reference is valid forever. However, the `HashTable` it references might become stale
 /// at any point. Meaning it still exists, but it is not the instance in active use.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>get_hashtable() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>HashTable {
     <span class="kw">let </span>table = HASHTABLE.load(Ordering::Acquire);
 
@@ -1924,7 +1924,7 @@
 <span class="doccomment">/// Returns a reference to the latest hash table, creating one if it doesn&#39;t exist yet.
 /// The reference is valid forever. However, the `HashTable` it references might become stale
 /// at any point. Meaning it still exists, but it is not the instance in active use.
-</span><span class="attribute">#[cold]
+</span><span class="attr">#[cold]
 </span><span class="kw">fn </span>create_hashtable() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>HashTable {
     <span class="kw">let </span>new_table = Box::into_raw(HashTable::new(LOAD_FACTOR, ptr::null()));
 
@@ -2033,12 +2033,12 @@
 }
 
 <span class="comment">// Hash function for addresses
-</span><span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
+</span><span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
 #[inline]
 </span><span class="kw">fn </span>hash(key: usize, bits: u32) -&gt; usize {
     key.wrapping_mul(<span class="number">0x9E3779B9</span>) &gt;&gt; (<span class="number">32 </span>- bits)
 }
-<span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
+<span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
 #[inline]
 </span><span class="kw">fn </span>hash(key: usize, bits: u32) -&gt; usize {
     key.wrapping_mul(<span class="number">0x9E3779B97F4A7C15</span>) &gt;&gt; (<span class="number">64 </span>- bits)
@@ -2046,7 +2046,7 @@
 
 <span class="doccomment">/// Locks the bucket for the given key and returns a reference to it.
 /// The returned bucket must be unlocked again in order to not cause deadlocks.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>lock_bucket(key: usize) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Bucket {
     <span class="kw">loop </span>{
         <span class="kw">let </span>hashtable = get_hashtable();
@@ -2072,7 +2072,7 @@
 <span class="doccomment">/// Locks the bucket for the given key and returns a reference to it. But checks that the key
 /// hasn&#39;t been changed in the meantime due to a requeue.
 /// The returned bucket must be unlocked again in order to not cause deadlocks.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>lock_bucket_checked(key: <span class="kw-2">&amp;</span>AtomicUsize) -&gt; (usize, <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Bucket) {
     <span class="kw">loop </span>{
         <span class="kw">let </span>hashtable = get_hashtable();
@@ -2104,7 +2104,7 @@
 ///
 /// If both keys hash to the same value, both returned references will be to the same bucket. Be
 /// careful to only unlock it once in this case, always use `unlock_bucket_pair`.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>lock_bucket_pair(key1: usize, key2: usize) -&gt; (<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Bucket, <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Bucket) {
     <span class="kw">loop </span>{
         <span class="kw">let </span>hashtable = get_hashtable();
@@ -2150,7 +2150,7 @@
 /// # Safety
 ///
 /// Both buckets must be locked
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">unsafe fn </span>unlock_bucket_pair(bucket1: <span class="kw-2">&amp;</span>Bucket, bucket2: <span class="kw-2">&amp;</span>Bucket) {
     bucket1.mutex.unlock();
     <span class="kw">if </span>!ptr::eq(bucket1, bucket2) {
@@ -2159,7 +2159,7 @@
 }
 
 <span class="doccomment">/// Result of a park operation.
-</span><span class="attribute">#[derive(Copy, Clone, Eq, PartialEq, Debug)]
+</span><span class="attr">#[derive(Copy, Clone, Eq, PartialEq, Debug)]
 </span><span class="kw">pub enum </span>ParkResult {
     <span class="doccomment">/// We were unparked by another thread with the given token.
     </span>Unparked(UnparkToken),
@@ -2173,7 +2173,7 @@
 
 <span class="kw">impl </span>ParkResult {
     <span class="doccomment">/// Returns true if we were unparked by another thread.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_unparked(<span class="self">self</span>) -&gt; bool {
         <span class="kw">if let </span>ParkResult::Unparked(<span class="kw">_</span>) = <span class="self">self </span>{
             <span class="bool-val">true
@@ -2184,7 +2184,7 @@
 }
 
 <span class="doccomment">/// Result of an unpark operation.
-</span><span class="attribute">#[derive(Copy, Clone, Default, Eq, PartialEq, Debug)]
+</span><span class="attr">#[derive(Copy, Clone, Default, Eq, PartialEq, Debug)]
 </span><span class="kw">pub struct </span>UnparkResult {
     <span class="doccomment">/// The number of threads that were unparked.
     </span><span class="kw">pub </span>unparked_threads: usize,
@@ -2206,7 +2206,7 @@
 }
 
 <span class="doccomment">/// Operation that `unpark_requeue` should perform.
-</span><span class="attribute">#[derive(Copy, Clone, Eq, PartialEq, Debug)]
+</span><span class="attr">#[derive(Copy, Clone, Eq, PartialEq, Debug)]
 </span><span class="kw">pub enum </span>RequeueOp {
     <span class="doccomment">/// Abort the operation without doing anything.
     </span>Abort,
@@ -2225,7 +2225,7 @@
 }
 
 <span class="doccomment">/// Operation that `unpark_filter` should perform for each thread.
-</span><span class="attribute">#[derive(Copy, Clone, Eq, PartialEq, Debug)]
+</span><span class="attr">#[derive(Copy, Clone, Eq, PartialEq, Debug)]
 </span><span class="kw">pub enum </span>FilterOp {
     <span class="doccomment">/// Unpark the thread and continue scanning the list of parked threads.
     </span>Unpark,
@@ -2238,11 +2238,11 @@
 }
 
 <span class="doccomment">/// A value which is passed from an unparker to a parked thread.
-</span><span class="attribute">#[derive(Copy, Clone, Eq, PartialEq, Debug)]
+</span><span class="attr">#[derive(Copy, Clone, Eq, PartialEq, Debug)]
 </span><span class="kw">pub struct </span>UnparkToken(<span class="kw">pub </span>usize);
 
 <span class="doccomment">/// A value associated with a parked thread which can be used by `unpark_filter`.
-</span><span class="attribute">#[derive(Copy, Clone, Eq, PartialEq, Debug)]
+</span><span class="attr">#[derive(Copy, Clone, Eq, PartialEq, Debug)]
 </span><span class="kw">pub struct </span>ParkToken(<span class="kw">pub </span>usize);
 
 <span class="doccomment">/// A default unpark token to use.
@@ -2279,7 +2279,7 @@
 /// The `before_sleep` function is called outside the queue lock and is allowed
 /// to call `unpark_one`, `unpark_all`, `unpark_requeue` or `unpark_filter`, but
 /// it is not allowed to call `park` or panic.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub unsafe fn </span>park(
     key: usize,
     validate: <span class="kw">impl </span>FnOnce() -&gt; bool,
@@ -2416,7 +2416,7 @@
 ///
 /// The `callback` function is called while the queue is locked and must not
 /// panic or call into any function in `parking_lot`.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub unsafe fn </span>unpark_one(
     key: usize,
     callback: <span class="kw">impl </span>FnOnce(UnparkResult) -&gt; UnparkToken,
@@ -2493,7 +2493,7 @@
 /// You should only call this function with an address that you control, since
 /// you could otherwise interfere with the operation of other synchronization
 /// primitives.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub unsafe fn </span>unpark_all(key: usize, unpark_token: UnparkToken) -&gt; usize {
     <span class="comment">// Lock the bucket for the given key
     </span><span class="kw">let </span>bucket = lock_bucket(key);
@@ -2568,7 +2568,7 @@
 ///
 /// The `validate` and `callback` functions are called while the queue is locked
 /// and must not panic or call into any function in `parking_lot`.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub unsafe fn </span>unpark_requeue(
     key_from: usize,
     key_to: usize,
@@ -2700,7 +2700,7 @@
 ///
 /// The `filter` and `callback` functions are called while the queue is locked
 /// and must not panic or call into any function in `parking_lot`.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub unsafe fn </span>unpark_filter(
     key: usize,
     <span class="kw-2">mut </span>filter: <span class="kw">impl </span>FnMut(ParkToken) -&gt; FilterOp,
@@ -2780,10 +2780,10 @@
 ///
 /// Enabled via the `deadlock_detection` feature flag.
 </span><span class="kw">pub mod </span>deadlock {
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;deadlock_detection&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;deadlock_detection&quot;</span>)]
     </span><span class="kw">use </span><span class="kw">super</span>::deadlock_impl;
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;deadlock_detection&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;deadlock_detection&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">use </span><span class="kw">super</span>::deadlock_impl::DeadlockData;
 
     <span class="doccomment">/// Acquire a resource identified by key in the deadlock detector
@@ -2792,9 +2792,9 @@
     /// # Safety
     ///
     /// Call after the resource is acquired
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub unsafe fn </span>acquire_resource(_key: usize) {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;deadlock_detection&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;deadlock_detection&quot;</span>)]
         </span>deadlock_impl::acquire_resource(_key);
     }
 
@@ -2808,28 +2808,28 @@
     /// # Safety
     ///
     /// Call before the resource is released
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub unsafe fn </span>release_resource(_key: usize) {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;deadlock_detection&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;deadlock_detection&quot;</span>)]
         </span>deadlock_impl::release_resource(_key);
     }
 
     <span class="doccomment">/// Returns all deadlocks detected *since* the last call.
     /// Each cycle consist of a vector of `DeadlockedThread`.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;deadlock_detection&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;deadlock_detection&quot;</span>)]
     #[inline]
     </span><span class="kw">pub fn </span>check_deadlock() -&gt; Vec&lt;Vec&lt;deadlock_impl::DeadlockedThread&gt;&gt; {
         deadlock_impl::check_deadlock()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">unsafe fn </span>on_unpark(_td: <span class="kw-2">&amp;</span><span class="kw">super</span>::ThreadData) {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;deadlock_detection&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;deadlock_detection&quot;</span>)]
         </span>deadlock_impl::on_unpark(_td);
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;deadlock_detection&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;deadlock_detection&quot;</span>)]
 </span><span class="kw">mod </span>deadlock_impl {
     <span class="kw">use super</span>::{get_hashtable, lock_bucket, with_thread_data, ThreadData, NUM_THREADS};
     <span class="kw">use </span><span class="kw">crate</span>::thread_parker::{ThreadParkerT, UnparkHandleT};
@@ -2968,7 +2968,7 @@
         petgraph::algo::is_cyclic_directed(<span class="kw-2">&amp;</span>graph)
     }
 
-    <span class="attribute">#[derive(Hash, PartialEq, Eq, PartialOrd, Ord, Copy, Clone)]
+    <span class="attr">#[derive(Hash, PartialEq, Eq, PartialOrd, Ord, Copy, Clone)]
     </span><span class="kw">enum </span>WaitGraphNode {
         Thread(<span class="kw-2">*const </span>ThreadData),
         Resource(usize),
@@ -3110,7 +3110,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::{ThreadData, DEFAULT_PARK_TOKEN, DEFAULT_UNPARK_TOKEN};
     <span class="kw">use </span>std::{
@@ -3148,7 +3148,7 @@
             threads: <span class="macro-nonterminal">$threads</span>:expr,
             single_unparks: <span class="macro-nonterminal">$single_unparks</span>:expr);
         )* ) =&gt; {
-            $(<span class="attribute">#[test]
+            $(<span class="attr">#[test]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>() {
                 <span class="kw">let </span>delay = Duration::from_micros(<span class="macro-nonterminal">$delay</span>);
                 <span class="kw">for _ in </span><span class="number">0</span>..<span class="macro-nonterminal">$repeats </span>{
@@ -3383,4 +3383,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

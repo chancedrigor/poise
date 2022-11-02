@@ -248,21 +248,21 @@
 <span class="doccomment">/// A connector that can be used when establishing connections, allowing to control whether
 /// `native-tls` or `rustls` is used to create a TLS connection. Or TLS can be disabled with the
 /// `Plain` variant.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 #[allow(missing_debug_implementations)]
 </span><span class="kw">pub enum </span>Connector {
     <span class="doccomment">/// Plain (non-TLS) connector.
     </span>Plain,
     <span class="doccomment">/// `native-tls` TLS connector.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
     </span>NativeTls(native_tls_crate::TlsConnector),
     <span class="doccomment">/// `rustls` TLS connector.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
     </span>Rustls(std::sync::Arc&lt;rustls::ClientConfig&gt;),
 }
 
 <span class="kw">mod </span>encryption {
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
     </span><span class="kw">pub mod </span>native_tls {
         <span class="kw">use </span>native_tls_crate::{HandshakeError <span class="kw">as </span>TlsHandshakeError, TlsConnector};
 
@@ -303,7 +303,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
     </span><span class="kw">pub mod </span>rustls {
         <span class="kw">use </span>rustls::{ClientConfig, ClientConnection, RootCertStore, ServerName, StreamOwned};
 
@@ -334,10 +334,10 @@
                     <span class="kw">let </span>config = <span class="kw">match </span>tls_connector {
                         <span class="prelude-val">Some</span>(config) =&gt; config,
                         <span class="prelude-val">None </span>=&gt; {
-                            <span class="attribute">#[allow(unused_mut)]
+                            <span class="attr">#[allow(unused_mut)]
                             </span><span class="kw">let </span><span class="kw-2">mut </span>root_store = RootCertStore::empty();
 
-                            <span class="attribute">#[cfg(feature = <span class="string">&quot;rustls-tls-native-roots&quot;</span>)]
+                            <span class="attr">#[cfg(feature = <span class="string">&quot;rustls-tls-native-roots&quot;</span>)]
                             </span>{
                                 <span class="kw">for </span>cert <span class="kw">in </span>rustls_native_certs::load_native_certs()<span class="question-mark">? </span>{
                                     root_store
@@ -345,7 +345,7 @@
                                         .map_err(TlsError::Webpki)<span class="question-mark">?</span>;
                                 }
                             }
-                            <span class="attribute">#[cfg(feature = <span class="string">&quot;rustls-tls-webpki-roots&quot;</span>)]
+                            <span class="attr">#[cfg(feature = <span class="string">&quot;rustls-tls-webpki-roots&quot;</span>)]
                             </span>{
                                 root_store.add_server_trust_anchors(
                                     webpki_roots::TLS_SERVER_ROOTS.<span class="number">0</span>.iter().map(|ta| {
@@ -430,7 +430,7 @@
 {
     <span class="kw">let </span>request = request.into_client_request()<span class="question-mark">?</span>;
 
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;native-tls&quot;</span>, feature = <span class="string">&quot;__rustls-tls&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;native-tls&quot;</span>, feature = <span class="string">&quot;__rustls-tls&quot;</span>))]
     </span><span class="kw">let </span>domain = <span class="kw">match </span>request.uri().host() {
         <span class="prelude-val">Some</span>(d) =&gt; <span class="prelude-val">Ok</span>(d.to_string()),
         <span class="prelude-val">None </span>=&gt; <span class="prelude-val">Err</span>(Error::Url(UrlError::NoHostName)),
@@ -440,26 +440,26 @@
 
     <span class="kw">let </span>stream = <span class="kw">match </span>connector {
         <span class="prelude-val">Some</span>(conn) =&gt; <span class="kw">match </span>conn {
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
             </span>Connector::NativeTls(conn) =&gt; {
                 <span class="self">self</span>::encryption::native_tls::wrap_stream(stream, <span class="kw-2">&amp;</span>domain, mode, <span class="prelude-val">Some</span>(conn))
             }
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
             </span>Connector::Rustls(conn) =&gt; {
                 <span class="self">self</span>::encryption::rustls::wrap_stream(stream, <span class="kw-2">&amp;</span>domain, mode, <span class="prelude-val">Some</span>(conn))
             }
             Connector::Plain =&gt; <span class="self">self</span>::encryption::plain::wrap_stream(stream, mode),
         },
         <span class="prelude-val">None </span>=&gt; {
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
             </span>{
                 <span class="self">self</span>::encryption::native_tls::wrap_stream(stream, <span class="kw-2">&amp;</span>domain, mode, <span class="prelude-val">None</span>)
             }
-            <span class="attribute">#[cfg(all(feature = <span class="string">&quot;__rustls-tls&quot;</span>, not(feature = <span class="string">&quot;native-tls&quot;</span>)))]
+            <span class="attr">#[cfg(all(feature = <span class="string">&quot;__rustls-tls&quot;</span>, not(feature = <span class="string">&quot;native-tls&quot;</span>)))]
             </span>{
                 <span class="self">self</span>::encryption::rustls::wrap_stream(stream, <span class="kw-2">&amp;</span>domain, mode, <span class="prelude-val">None</span>)
             }
-            <span class="attribute">#[cfg(not(any(feature = <span class="string">&quot;native-tls&quot;</span>, feature = <span class="string">&quot;__rustls-tls&quot;</span>)))]
+            <span class="attr">#[cfg(not(any(feature = <span class="string">&quot;native-tls&quot;</span>, feature = <span class="string">&quot;__rustls-tls&quot;</span>)))]
             </span>{
                 <span class="self">self</span>::encryption::plain::wrap_stream(stream, mode)
             }
@@ -469,4 +469,4 @@
     client_with_config(request, stream, config)
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

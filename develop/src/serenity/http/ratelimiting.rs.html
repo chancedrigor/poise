@@ -606,7 +606,7 @@
     /// #     Ok(())
     /// # }
     /// ```
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>routes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Arc&lt;RwLock&lt;HashMap&lt;Route, Arc&lt;Mutex&lt;Ratelimit&gt;&gt;&gt;&gt;&gt; {
         Arc::clone(<span class="kw-2">&amp;</span><span class="self">self</span>.routes)
     }
@@ -614,7 +614,7 @@
     <span class="doccomment">/// # Errors
     ///
     /// Only error kind that may be returned is [`Error::Http`].
-    </span><span class="attribute">#[instrument]
+    </span><span class="attr">#[instrument]
     </span><span class="kw">pub async fn </span>perform(<span class="kw-2">&amp;</span><span class="self">self</span>, req: RatelimitedRequest&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Response&gt; {
         <span class="kw">let </span>RatelimitedRequest {
             <span class="kw-2">mut </span>req,
@@ -704,7 +704,7 @@
 ///
 /// [`Http`]: super::Http
 /// [Discord docs]: https://discord.com/developers/docs/topics/rate-limits
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Ratelimit {
     <span class="doccomment">/// The total number of requests that can be made in a period of time.
     </span>limit: i64,
@@ -717,7 +717,7 @@
 }
 
 <span class="kw">impl </span>Ratelimit {
-    <span class="attribute">#[instrument]
+    <span class="attr">#[instrument]
     </span><span class="kw">pub async fn </span>pre_hook(<span class="kw-2">&amp;mut </span><span class="self">self</span>, route: <span class="kw-2">&amp;</span>Route) {
         <span class="kw">if </span><span class="self">self</span>.limit() == <span class="number">0 </span>{
             <span class="kw">return</span>;
@@ -753,7 +753,7 @@
         <span class="self">self</span>.remaining -= <span class="number">1</span>;
     }
 
-    <span class="attribute">#[instrument]
+    <span class="attr">#[instrument]
     </span><span class="kw">pub async fn </span>post_hook(<span class="kw-2">&amp;mut </span><span class="self">self</span>, response: <span class="kw-2">&amp;</span>Response, route: <span class="kw-2">&amp;</span>Route) -&gt; <span class="prelude-ty">Result</span>&lt;bool&gt; {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(limit) = parse_header(response.headers(), <span class="string">&quot;x-ratelimit-limit&quot;</span>)<span class="question-mark">? </span>{
             <span class="self">self</span>.limit = limit;
@@ -763,7 +763,7 @@
             <span class="self">self</span>.remaining = remaining;
         }
 
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;absolute_ratelimits&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;absolute_ratelimits&quot;</span>)]
         </span><span class="kw">if let </span><span class="prelude-val">Some</span>(reset) = parse_header::&lt;f64&gt;(response.headers(), <span class="string">&quot;x-ratelimit-reset&quot;</span>)<span class="question-mark">? </span>{
             <span class="self">self</span>.reset = <span class="prelude-val">Some</span>(std::time::UNIX_EPOCH + Duration::from_secs_f64(reset));
         }
@@ -771,7 +771,7 @@
         <span class="kw">if let </span><span class="prelude-val">Some</span>(reset_after) =
             parse_header::&lt;f64&gt;(response.headers(), <span class="string">&quot;x-ratelimit-reset-after&quot;</span>)<span class="question-mark">?
         </span>{
-            <span class="attribute">#[cfg(not(feature = <span class="string">&quot;absolute_ratelimits&quot;</span>))]
+            <span class="attr">#[cfg(not(feature = <span class="string">&quot;absolute_ratelimits&quot;</span>))]
             </span>{
                 <span class="self">self</span>.reset = <span class="prelude-val">Some</span>(SystemTime::now() + Duration::from_secs_f64(reset_after));
             }
@@ -792,28 +792,28 @@
     }
 
     <span class="doccomment">/// The total number of requests that can be made in a period of time.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[must_use]
     </span><span class="kw">pub fn </span>limit(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i64 {
         <span class="self">self</span>.limit
     }
 
     <span class="doccomment">/// The number of requests remaining in the period of time.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[must_use]
     </span><span class="kw">pub fn </span>remaining(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i64 {
         <span class="self">self</span>.remaining
     }
 
     <span class="doccomment">/// The absolute time in milliseconds when the interval resets.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[must_use]
     </span><span class="kw">pub fn </span>reset(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;SystemTime&gt; {
         <span class="self">self</span>.reset
     }
 
     <span class="doccomment">/// The total time in milliseconds when the interval resets.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[must_use]
     </span><span class="kw">pub fn </span>reset_after(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Duration&gt; {
         <span class="self">self</span>.reset_after
@@ -837,7 +837,7 @@
 /// perform a full cycle of making the request and returning the response.
 ///
 /// Use the [`From`] implementations for making one of these.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>RatelimitedRequest&lt;<span class="lifetime">&#39;a</span>&gt; {
     req: Request&lt;<span class="lifetime">&#39;a</span>&gt;,
 }
@@ -864,7 +864,7 @@
     <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(num))
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>std::error::Error <span class="kw">as </span>StdError;
     <span class="kw">use </span>std::result::Result <span class="kw">as </span>StdResult;
@@ -901,7 +901,7 @@
         map
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[allow(clippy::float_cmp)]
     </span><span class="kw">fn </span>test_parse_header_good() -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">let </span>headers = headers();
@@ -913,7 +913,7 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_parse_header_errors() {
         <span class="kw">let </span>headers = headers();
 
@@ -933,4 +933,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

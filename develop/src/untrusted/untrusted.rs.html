@@ -457,9 +457,9 @@
 //! All of [webpki](https://github.com/briansmith/webpki)&#39;s parsing of X.509
 //! certificates (also ASN.1 DER) is done using untrusted.rs.
 
-</span><span class="attribute">#![doc(html_root_url = <span class="string">&quot;https://briansmith.org/rustdoc/&quot;</span>)]
+</span><span class="attr">#![doc(html_root_url = <span class="string">&quot;https://briansmith.org/rustdoc/&quot;</span>)]
 </span><span class="comment">// `#[derive(...)]` uses `#[allow(unused_qualifications)]` internally.
-</span><span class="attribute">#![deny(unused_qualifications)]
+</span><span class="attr">#![deny(unused_qualifications)]
 #![forbid(
     anonymous_parameters,
     box_pointers,
@@ -479,7 +479,7 @@
 </span><span class="doccomment">/// A wrapper around `&amp;&#39;a [u8]` that helps in writing panic-free code.
 ///
 /// No methods of `Input` will ever panic.
-</span><span class="attribute">#[derive(Clone, Copy, Debug, Eq)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, Eq)]
 </span><span class="kw">pub struct </span>Input&lt;<span class="lifetime">&#39;a</span>&gt; {
     value: no_panic::Slice&lt;<span class="lifetime">&#39;a</span>&gt;,
 }
@@ -498,11 +498,11 @@
     }
 
     <span class="doccomment">/// Returns `true` if the input is empty and false otherwise.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_empty(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool { <span class="self">self</span>.value.is_empty() }
 
     <span class="doccomment">/// Returns the length of the `Input`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize { <span class="self">self</span>.value.len() }
 
     <span class="doccomment">/// Calls `read` with the given input as a `Reader`, ensuring that `read`
@@ -523,12 +523,12 @@
 
     <span class="doccomment">/// Access the input as a slice so it can be processed by functions that
     /// are not written using the Input/Reader framework.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>as_slice_less_safe(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8] { <span class="self">self</span>.value.as_slice_less_safe() }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; From&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]&gt; <span class="kw">for </span>Input&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]) -&gt; <span class="self">Self </span>{ <span class="self">Self </span>{ value: no_panic::Slice::new(value)} }
 }
 
@@ -536,19 +536,19 @@
 // unnecessarily restrictive; see
 // https://github.com/rust-lang/rust/issues/26925.
 </span><span class="kw">impl </span>PartialEq&lt;Input&lt;<span class="lifetime">&#39;_</span>&gt;&gt; <span class="kw">for </span>Input&lt;<span class="lifetime">&#39;_</span>&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Input) -&gt; bool {
         <span class="self">self</span>.as_slice_less_safe() == other.as_slice_less_safe()
     }
 }
 
 <span class="kw">impl </span>PartialEq&lt;[u8]&gt; <span class="kw">for </span>Input&lt;<span class="lifetime">&#39;_</span>&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>[u8]) -&gt; bool { <span class="self">self</span>.as_slice_less_safe() == other }
 }
 
 <span class="kw">impl </span>PartialEq&lt;Input&lt;<span class="lifetime">&#39;_</span>&gt;&gt; <span class="kw">for </span>[u8] {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Input) -&gt; bool { other.as_slice_less_safe() == <span class="self">self </span>}
 }
 
@@ -586,7 +586,7 @@
 /// \* `Reader` is not strictly forward-only because of the method
 /// `get_input_between_marks`, which is provided mainly to support calculating
 /// digests over parsed data.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Reader&lt;<span class="lifetime">&#39;a</span>&gt; {
     input: no_panic::Slice&lt;<span class="lifetime">&#39;a</span>&gt;,
     i: usize,
@@ -600,7 +600,7 @@
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Reader&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="doccomment">/// Construct a new Reader for the given input. Use `read_all` or
     /// `read_all_optional` instead of `Reader::new` whenever possible.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new(input: Input&lt;<span class="lifetime">&#39;a</span>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             input: input.value,
@@ -610,12 +610,12 @@
 
     <span class="doccomment">/// Returns `true` if the reader is at the end of the input, and `false`
     /// otherwise.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>at_end(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool { <span class="self">self</span>.i == <span class="self">self</span>.input.len() }
 
     <span class="doccomment">/// Returns an `Input` for already-parsed input that has had its boundaries
     /// marked using `mark`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>get_input_between_marks(
         <span class="kw-2">&amp;</span><span class="self">self</span>, mark1: Mark, mark2: Mark,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;Input&lt;<span class="lifetime">&#39;a</span>&gt;, EndOfInput&gt; {
@@ -627,12 +627,12 @@
 
     <span class="doccomment">/// Return the current position of the `Reader` for future use in a call
     /// to `get_input_between_marks`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>mark(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Mark { Mark { i: <span class="self">self</span>.i } }
 
     <span class="doccomment">/// Returns `true` if there is at least one more byte in the input and that
     /// byte is equal to `b`, and false otherwise.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>peek(<span class="kw-2">&amp;</span><span class="self">self</span>, b: u8) -&gt; bool {
         <span class="kw">match </span><span class="self">self</span>.input.get(<span class="self">self</span>.i) {
             <span class="prelude-val">Some</span>(actual_b) =&gt; b == <span class="kw-2">*</span>actual_b,
@@ -644,7 +644,7 @@
     ///
     /// Returns `Ok(b)` where `b` is the next input byte, or `Err(EndOfInput)`
     /// if the `Reader` is at the end of the input.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>read_byte(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;u8, EndOfInput&gt; {
         <span class="kw">match </span><span class="self">self</span>.input.get(<span class="self">self</span>.i) {
             <span class="prelude-val">Some</span>(b) =&gt; {
@@ -660,7 +660,7 @@
     ///
     /// Returns `Ok(i)` if there are at least `num_bytes` of input remaining,
     /// and `Err(EndOfInput)` otherwise.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>read_bytes(<span class="kw-2">&amp;mut </span><span class="self">self</span>, num_bytes: usize) -&gt; <span class="prelude-ty">Result</span>&lt;Input&lt;<span class="lifetime">&#39;a</span>&gt;, EndOfInput&gt; {
         <span class="kw">let </span>new_i = <span class="self">self</span>.i.checked_add(num_bytes).ok_or(EndOfInput)<span class="question-mark">?</span>;
         <span class="kw">let </span>ret = <span class="self">self
@@ -674,7 +674,7 @@
 
     <span class="doccomment">/// Skips the reader to the end of the input, returning the skipped input
     /// as an `Input`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>read_bytes_to_end(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; Input&lt;<span class="lifetime">&#39;a</span>&gt; {
         <span class="kw">let </span>to_skip = <span class="self">self</span>.input.len() - <span class="self">self</span>.i;
         <span class="self">self</span>.read_bytes(to_skip).unwrap()
@@ -699,52 +699,52 @@
     ///
     /// Returns `Ok(i)` if there are at least `num_bytes` of input remaining,
     /// and `Err(EndOfInput)` otherwise.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>skip(<span class="kw-2">&amp;mut </span><span class="self">self</span>, num_bytes: usize) -&gt; <span class="prelude-ty">Result</span>&lt;(), EndOfInput&gt; {
         <span class="self">self</span>.read_bytes(num_bytes).map(|<span class="kw">_</span>| ())
     }
 
     <span class="doccomment">/// Skips the reader to the end of the input.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>skip_to_end(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; () { <span class="kw">let _ </span>= <span class="self">self</span>.read_bytes_to_end(); }
 }
 
 <span class="doccomment">/// The error type used to indicate the end of the input was reached before the
 /// operation could be completed.
-</span><span class="attribute">#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 </span><span class="kw">pub struct </span>EndOfInput;
 
 <span class="kw">mod </span>no_panic {
     <span class="kw">use </span>core;
 
     <span class="doccomment">/// A wrapper around a slice that exposes no functions that can panic.
-    </span><span class="attribute">#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+    </span><span class="attr">#[derive(Clone, Copy, Debug, Eq, PartialEq)]
     </span><span class="kw">pub struct </span>Slice&lt;<span class="lifetime">&#39;a</span>&gt; {
         bytes: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8],
     }
 
     <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Slice&lt;<span class="lifetime">&#39;a</span>&gt; {
-        <span class="attribute">#[inline]
+        <span class="attr">#[inline]
         </span><span class="kw">pub const fn </span>new(bytes: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]) -&gt; <span class="self">Self </span>{ <span class="self">Self </span>{ bytes } }
 
-        <span class="attribute">#[inline]
+        <span class="attr">#[inline]
         </span><span class="kw">pub fn </span>get(<span class="kw-2">&amp;</span><span class="self">self</span>, i: usize) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>u8&gt; { <span class="self">self</span>.bytes.get(i) }
 
-        <span class="attribute">#[inline]
+        <span class="attr">#[inline]
         </span><span class="kw">pub fn </span>subslice(<span class="kw-2">&amp;</span><span class="self">self</span>, r: core::ops::Range&lt;usize&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="self">Self</span>&gt; {
             <span class="self">self</span>.bytes.get(r).map(|bytes| <span class="self">Self </span>{ bytes })
         }
 
-        <span class="attribute">#[inline]
+        <span class="attr">#[inline]
         </span><span class="kw">pub fn </span>is_empty(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool { <span class="self">self</span>.bytes.is_empty() }
 
-        <span class="attribute">#[inline]
+        <span class="attr">#[inline]
         </span><span class="kw">pub fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize { <span class="self">self</span>.bytes.len() }
 
-        <span class="attribute">#[inline]
+        <span class="attr">#[inline]
         </span><span class="kw">pub fn </span>as_slice_less_safe(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8] { <span class="self">self</span>.bytes }
     }
 
 } <span class="comment">// mod no_panic
 </span></code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="untrusted" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="untrusted" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

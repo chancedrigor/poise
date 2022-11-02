@@ -489,7 +489,7 @@
 <span class="doccomment">/// A struct or enum body.
 ///
 /// `V` is the type which receives any encountered variants, and `F` receives struct fields.
-</span><span class="attribute">#[derive(Debug, Clone, PartialEq, Eq)]
+</span><span class="attr">#[derive(Debug, Clone, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>Data&lt;V, F&gt; {
     Enum(Vec&lt;V&gt;),
     Struct(Fields&lt;F&gt;),
@@ -643,7 +643,7 @@
 }
 
 <span class="doccomment">/// Equivalent to `syn::Fields`, but replaces the AST element with a generic.
-</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone)]
 </span><span class="kw">pub struct </span>Fields&lt;T&gt; {
     <span class="kw">pub </span>style: Style,
     <span class="kw">pub </span>fields: Vec&lt;T&gt;,
@@ -845,7 +845,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+<span class="attr">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>Style {
     Tuple,
     Struct,
@@ -887,7 +887,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
@@ -905,7 +905,7 @@
         .unwrap()
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_style_eq() {
         <span class="comment">// `Fields` implements `Eq` manually, so it has to be ensured, that all fields of `Fields`
         // implement `Eq`, this test would fail, if someone accidentally removed the Eq
@@ -915,7 +915,7 @@
             </span>Style: Eq;
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_fields_to_tokens_struct() {
         <span class="kw">let </span>reference = <span class="macro">quote!</span>(
             {
@@ -938,7 +938,7 @@
         <span class="macro">assert_eq!</span>(result.to_string(), reference.to_string());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_fields_to_tokens_tuple() {
         <span class="kw">let </span>reference = <span class="macro">quote!</span>((u64, usize, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>T));
         <span class="kw">let </span>input = <span class="macro">quote!</span>(
@@ -953,4 +953,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="darling_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="darling_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -363,7 +363,7 @@
 <span class="kw">use </span>syn::spanned::Spanned <span class="kw">as _</span>;
 
 <span class="doccomment">/// Representation of the command attribute arguments (`#[command(...)]`)
-</span><span class="attribute">#[derive(Default, Debug, darling::FromMeta)]
+</span><span class="attr">#[derive(Default, Debug, darling::FromMeta)]
 #[darling(default)]
 </span><span class="kw">pub struct </span>CommandArgs {
     prefix_command: bool,
@@ -380,13 +380,13 @@
     track_edits: bool,
     broadcast_typing: bool,
     help_text_fn: <span class="prelude-ty">Option</span>&lt;syn::Path&gt;,
-    <span class="attribute">#[darling(multiple)]
+    <span class="attr">#[darling(multiple)]
     </span>check: Vec&lt;syn::Path&gt;,
     on_error: <span class="prelude-ty">Option</span>&lt;syn::Path&gt;,
     rename: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    <span class="attribute">#[darling(multiple)]
+    <span class="attr">#[darling(multiple)]
     </span>name_localized: Vec&lt;<span class="kw">crate</span>::util::Tuple2&lt;String&gt;&gt;,
-    <span class="attribute">#[darling(multiple)]
+    <span class="attr">#[darling(multiple)]
     </span>description_localized: Vec&lt;<span class="kw">crate</span>::util::Tuple2&lt;String&gt;&gt;,
     discard_spare_arguments: bool,
     hide_in_help: bool,
@@ -411,15 +411,15 @@
 }
 
 <span class="doccomment">/// Representation of the function parameter attribute arguments
-</span><span class="attribute">#[derive(Default, Debug, darling::FromMeta)]
+</span><span class="attr">#[derive(Default, Debug, darling::FromMeta)]
 #[darling(default)]
 </span><span class="kw">struct </span>ParamArgs {
     <span class="comment">// When changing these, document it in parent file!
     </span>description: <span class="prelude-ty">Option</span>&lt;String&gt;,
     rename: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    <span class="attribute">#[darling(multiple)]
+    <span class="attr">#[darling(multiple)]
     </span>name_localized: Vec&lt;<span class="kw">crate</span>::util::Tuple2&lt;String&gt;&gt;,
-    <span class="attribute">#[darling(multiple)]
+    <span class="attr">#[darling(multiple)]
     </span>description_localized: Vec&lt;<span class="kw">crate</span>::util::Tuple2&lt;String&gt;&gt;,
     autocomplete: <span class="prelude-ty">Option</span>&lt;syn::Path&gt;,
     channel_types: <span class="prelude-ty">Option</span>&lt;<span class="kw">crate</span>::util::List&lt;syn::Ident&gt;&gt;,
@@ -658,7 +658,7 @@
     <span class="kw">let </span>function_visibility = <span class="kw-2">&amp;</span>inv.function.vis;
     <span class="kw">let </span>function = <span class="kw-2">&amp;</span>inv.function;
     <span class="prelude-val">Ok</span>(<span class="macro">quote::quote! </span>{
-        <span class="attribute">#[allow(clippy::str_to_string)]
+        <span class="attr">#[allow(clippy::str_to_string)]
         </span>#function_visibility <span class="kw">fn </span>#function_name() -&gt; ::poise::Command&lt;
             &lt;#ctx_type_with_static <span class="kw">as </span>poise::_GetGenerics&gt;::U,
             &lt;#ctx_type_with_static <span class="kw">as </span>poise::_GetGenerics&gt;::E,
@@ -713,4 +713,4 @@
     })
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise_macros" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise_macros" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

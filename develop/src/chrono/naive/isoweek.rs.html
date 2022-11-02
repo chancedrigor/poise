@@ -176,7 +176,7 @@
 /// constitues the ISO 8601 [week date](./struct.NaiveDate.html#week-date).
 /// One can retrieve this type from the existing [`Datelike`](../trait.Datelike.html) types
 /// via the [`Datelike::iso_week`](../trait.Datelike.html#tymethod.iso_week) method.
-</span><span class="attribute">#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone)]
+</span><span class="attr">#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone)]
 </span><span class="kw">pub struct </span>IsoWeek {
     <span class="comment">// note that this allows for larger year range than `NaiveDate`.
     // this is crucial because we have an edge case for the first and last week supported,
@@ -229,7 +229,7 @@
     /// assert_eq!(d.year(), 2014);
     /// assert_eq!(d, NaiveDate::from_ymd(2014, 12, 29));
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>year(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="self">self</span>.ywf &gt;&gt; <span class="number">10
     </span>}
@@ -246,7 +246,7 @@
     /// let d = NaiveDate::from_isoywd(2015, 15, Weekday::Mon);
     /// assert_eq!(d.iso_week().week(), 15);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>week(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         ((<span class="self">self</span>.ywf &gt;&gt; <span class="number">4</span>) &amp; <span class="number">0x3f</span>) <span class="kw">as </span>u32
     }
@@ -263,7 +263,7 @@
     /// let d = NaiveDate::from_isoywd(2015, 15, Weekday::Mon);
     /// assert_eq!(d.iso_week().week0(), 14);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>week0(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         ((<span class="self">self</span>.ywf &gt;&gt; <span class="number">4</span>) &amp; <span class="number">0x3f</span>) <span class="kw">as </span>u32 - <span class="number">1
     </span>}
@@ -303,12 +303,12 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>naive::{internals, MAX_DATE, MIN_DATE};
     <span class="kw">use </span>Datelike;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_iso_week_extremes() {
         <span class="kw">let </span>minweek = MIN_DATE.iso_week();
         <span class="kw">let </span>maxweek = MAX_DATE.iso_week();
@@ -325,4 +325,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

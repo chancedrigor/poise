@@ -1872,7 +1872,7 @@
         UdpSocket::new(sys)
     }
 
-    <span class="attribute">#[track_caller]
+    <span class="attr">#[track_caller]
     </span><span class="kw">fn </span>new(socket: mio::net::UdpSocket) -&gt; io::Result&lt;UdpSocket&gt; {
         <span class="kw">let </span>io = PollEvented::new(socket)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(UdpSocket { io })
@@ -1913,7 +1913,7 @@
     /// # Ok(())
     /// # }
     /// ```
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>from_std(socket: net::UdpSocket) -&gt; io::Result&lt;UdpSocket&gt; {
         <span class="kw">let </span>io = mio::net::UdpSocket::from_std(socket);
         UdpSocket::new(io)
@@ -1942,7 +1942,7 @@
     /// [`std::net::UdpSocket`]: std::net::UdpSocket
     /// [`set_nonblocking`]: fn@std::net::UdpSocket::set_nonblocking
     </span><span class="kw">pub fn </span>into_std(<span class="self">self</span>) -&gt; io::Result&lt;std::net::UdpSocket&gt; {
-        <span class="attribute">#[cfg(unix)]
+        <span class="attr">#[cfg(unix)]
         </span>{
             <span class="kw">use </span>std::os::unix::io::{FromRawFd, IntoRawFd};
             <span class="self">self</span>.io
@@ -1951,7 +1951,7 @@
                 .map(|raw_fd| <span class="kw">unsafe </span>{ std::net::UdpSocket::from_raw_fd(raw_fd) })
         }
 
-        <span class="attribute">#[cfg(windows)]
+        <span class="attr">#[cfg(windows)]
         </span>{
             <span class="kw">use </span>std::os::windows::io::{FromRawSocket, IntoRawSocket};
             <span class="self">self</span>.io
@@ -3225,7 +3225,7 @@
     ///
     /// [`set_tos`]: Self::set_tos
     </span><span class="comment">// https://docs.rs/socket2/0.4.2/src/socket2/socket.rs.html#1178
-    </span><span class="attribute">#[cfg(not(any(
+    </span><span class="attr">#[cfg(not(any(
         target_os = <span class="string">&quot;fuchsia&quot;</span>,
         target_os = <span class="string">&quot;redox&quot;</span>,
         target_os = <span class="string">&quot;solaris&quot;</span>,
@@ -3252,7 +3252,7 @@
     /// **NOTE:** On Windows, `IP_TOS` is only supported on [Windows 8+ or
     /// Windows Server 2012+.](https://docs.microsoft.com/en-us/windows/win32/winsock/ipproto-ip-socket-options)
     </span><span class="comment">// https://docs.rs/socket2/0.4.2/src/socket2/socket.rs.html#1178
-    </span><span class="attribute">#[cfg(not(any(
+    </span><span class="attr">#[cfg(not(any(
         target_os = <span class="string">&quot;fuchsia&quot;</span>,
         target_os = <span class="string">&quot;redox&quot;</span>,
         target_os = <span class="string">&quot;solaris&quot;</span>,
@@ -3274,7 +3274,7 @@
     <span class="doccomment">/// Gets the value for the `SO_BINDTODEVICE` option on this socket
     ///
     /// This value gets the socket-bound device&#39;s interface name.
-    </span><span class="attribute">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;fuchsia&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>,))]
+    </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;fuchsia&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>,))]
     #[cfg_attr(
         docsrs,
         doc(cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;fuchsia&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>,)))
@@ -3290,7 +3290,7 @@
     /// works for some socket types, particularly `AF_INET` sockets.
     ///
     /// If `interface` is `None` or an empty string it removes the binding.
-    </span><span class="attribute">#[cfg(all(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;fuchsia&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>)))]
+    </span><span class="attr">#[cfg(all(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;fuchsia&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>)))]
     #[cfg_attr(
         docsrs,
         doc(cfg(all(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;fuchsia&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))))
@@ -3379,7 +3379,7 @@
     }
 }
 
-<span class="attribute">#[cfg(all(unix))]
+<span class="attr">#[cfg(all(unix))]
 </span><span class="kw">mod </span>sys {
     <span class="kw">use </span><span class="kw">super</span>::UdpSocket;
     <span class="kw">use </span>std::os::unix::prelude::<span class="kw-2">*</span>;
@@ -3391,7 +3391,7 @@
     }
 }
 
-<span class="attribute">#[cfg(windows)]
+<span class="attr">#[cfg(windows)]
 </span><span class="kw">mod </span>sys {
     <span class="kw">use </span><span class="kw">super</span>::UdpSocket;
     <span class="kw">use </span>std::os::windows::prelude::<span class="kw-2">*</span>;
@@ -3403,4 +3403,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

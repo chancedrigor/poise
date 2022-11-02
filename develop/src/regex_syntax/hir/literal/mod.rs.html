@@ -1717,7 +1717,7 @@ Provides routines for extracting literal prefixes and suffixes from an `Hir`.
 /// To protect yourself, set a reasonable
 /// [`nest_limit` on your `Parser`](../../struct.ParserBuilder.html#method.nest_limit).
 /// This is done for you by default.
-</span><span class="attribute">#[derive(Clone, Eq, PartialEq)]
+</span><span class="attr">#[derive(Clone, Eq, PartialEq)]
 </span><span class="kw">pub struct </span>Literals {
     lits: Vec&lt;Literal&gt;,
     limit_size: usize,
@@ -1728,7 +1728,7 @@ Provides routines for extracting literal prefixes and suffixes from an `Hir`.
 ///
 /// This type has `Deref` and `DerefMut` impls to `Vec&lt;u8&gt;` so that all slice
 /// and `Vec` operations are available.
-</span><span class="attribute">#[derive(Clone, Eq, Ord)]
+</span><span class="attr">#[derive(Clone, Eq, Ord)]
 </span><span class="kw">pub struct </span>Literal {
     v: Vec&lt;u8&gt;,
     cut: bool,
@@ -2654,7 +2654,7 @@ Provides routines for extracting literal prefixes and suffixes from an `Hir`.
         <span class="kw">as </span>usize
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>std::fmt;
 
@@ -2663,9 +2663,9 @@ Provides routines for extracting literal prefixes and suffixes from an `Hir`.
     <span class="kw">use </span><span class="kw">crate</span>::ParserBuilder;
 
     <span class="comment">// To make test failures easier to read.
-    </span><span class="attribute">#[derive(Debug, Eq, PartialEq)]
+    </span><span class="attr">#[derive(Debug, Eq, PartialEq)]
     </span><span class="kw">struct </span>Bytes(Vec&lt;ULiteral&gt;);
-    <span class="attribute">#[derive(Debug, Eq, PartialEq)]
+    <span class="attr">#[derive(Debug, Eq, PartialEq)]
     </span><span class="kw">struct </span>Unicode(Vec&lt;ULiteral&gt;);
 
     <span class="kw">fn </span>escape_lits(blits: <span class="kw-2">&amp;</span>[Literal]) -&gt; Vec&lt;ULiteral&gt; {
@@ -2686,7 +2686,7 @@ Provides routines for extracting literal prefixes and suffixes from an `Hir`.
     }
 
     <span class="comment">// Needs to be pub for 1.3?
-    </span><span class="attribute">#[derive(Clone, Eq, PartialEq)]
+    </span><span class="attr">#[derive(Clone, Eq, PartialEq)]
     </span><span class="kw">pub struct </span>ULiteral {
         v: String,
         cut: bool,
@@ -2720,11 +2720,11 @@ Provides routines for extracting literal prefixes and suffixes from an `Hir`.
         }
     }
 
-    <span class="attribute">#[allow(non_snake_case)]
+    <span class="attr">#[allow(non_snake_case)]
     </span><span class="kw">fn </span>C(s: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str) -&gt; ULiteral {
         ULiteral { v: s.to_owned(), cut: <span class="bool-val">true </span>}
     }
-    <span class="attribute">#[allow(non_snake_case)]
+    <span class="attr">#[allow(non_snake_case)]
     </span><span class="kw">fn </span>M(s: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str) -&gt; ULiteral {
         ULiteral { v: s.to_owned(), cut: <span class="bool-val">false </span>}
     }
@@ -2758,7 +2758,7 @@ Provides routines for extracting literal prefixes and suffixes from an `Hir`.
             <span class="macro">test_lit!</span>(<span class="macro-nonterminal">$name</span>, <span class="macro-nonterminal">$which</span>, <span class="macro-nonterminal">$re</span>,);
         };
         (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$which</span>:ident, <span class="macro-nonterminal">$re</span>:expr, $(<span class="macro-nonterminal">$lit</span>:expr),<span class="kw-2">*</span>) =&gt; {
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>() {
                 <span class="kw">let </span>expr = ParserBuilder::new()
                     .build()
@@ -2787,7 +2787,7 @@ Provides routines for extracting literal prefixes and suffixes from an `Hir`.
     </span><span class="macro">test_lit!</span>(pfx_one_lit1, prefixes, <span class="string">&quot;a&quot;</span>, M(<span class="string">&quot;a&quot;</span>));
     <span class="macro">test_lit!</span>(pfx_one_lit2, prefixes, <span class="string">&quot;abc&quot;</span>, M(<span class="string">&quot;abc&quot;</span>));
     <span class="macro">test_lit!</span>(pfx_one_lit3, prefixes, <span class="string">&quot;(?u)☃&quot;</span>, M(<span class="string">&quot;\\xe2\\x98\\x83&quot;</span>));
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;unicode-case&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;unicode-case&quot;</span>)]
     </span><span class="macro">test_lit!</span>(pfx_one_lit4, prefixes, <span class="string">&quot;(?ui)☃&quot;</span>, M(<span class="string">&quot;\\xe2\\x98\\x83&quot;</span>));
     <span class="macro">test_lit!</span>(pfx_class1, prefixes, <span class="string">&quot;[1-4]&quot;</span>, M(<span class="string">&quot;1&quot;</span>), M(<span class="string">&quot;2&quot;</span>), M(<span class="string">&quot;3&quot;</span>), M(<span class="string">&quot;4&quot;</span>));
     <span class="macro">test_lit!</span>(
@@ -2797,7 +2797,7 @@ Provides routines for extracting literal prefixes and suffixes from an `Hir`.
         M(<span class="string">&quot;\\xe2\\x85\\xa0&quot;</span>),
         M(<span class="string">&quot;\\xe2\\x98\\x83&quot;</span>)
     );
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;unicode-case&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;unicode-case&quot;</span>)]
     </span><span class="macro">test_lit!</span>(
         pfx_class3,
         prefixes,
@@ -2951,7 +2951,7 @@ Provides routines for extracting literal prefixes and suffixes from an `Hir`.
             <span class="macro">test_exhausted!</span>(<span class="macro-nonterminal">$name</span>, <span class="macro-nonterminal">$which</span>, <span class="macro-nonterminal">$re</span>,);
         };
         (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$which</span>:ident, <span class="macro-nonterminal">$re</span>:expr, $(<span class="macro-nonterminal">$lit</span>:expr),<span class="kw-2">*</span>) =&gt; {
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>() {
                 <span class="kw">let </span>expr = ParserBuilder::new()
                     .build()
@@ -3025,7 +3025,7 @@ Provides routines for extracting literal prefixes and suffixes from an `Hir`.
     </span><span class="macro">test_lit!</span>(sfx_one_lit1, suffixes, <span class="string">&quot;a&quot;</span>, M(<span class="string">&quot;a&quot;</span>));
     <span class="macro">test_lit!</span>(sfx_one_lit2, suffixes, <span class="string">&quot;abc&quot;</span>, M(<span class="string">&quot;abc&quot;</span>));
     <span class="macro">test_lit!</span>(sfx_one_lit3, suffixes, <span class="string">&quot;(?u)☃&quot;</span>, M(<span class="string">&quot;\\xe2\\x98\\x83&quot;</span>));
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;unicode-case&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;unicode-case&quot;</span>)]
     </span><span class="macro">test_lit!</span>(sfx_one_lit4, suffixes, <span class="string">&quot;(?ui)☃&quot;</span>, M(<span class="string">&quot;\\xe2\\x98\\x83&quot;</span>));
     <span class="macro">test_lit!</span>(sfx_class1, suffixes, <span class="string">&quot;[1-4]&quot;</span>, M(<span class="string">&quot;1&quot;</span>), M(<span class="string">&quot;2&quot;</span>), M(<span class="string">&quot;3&quot;</span>), M(<span class="string">&quot;4&quot;</span>));
     <span class="macro">test_lit!</span>(
@@ -3035,7 +3035,7 @@ Provides routines for extracting literal prefixes and suffixes from an `Hir`.
         M(<span class="string">&quot;\\xe2\\x85\\xa0&quot;</span>),
         M(<span class="string">&quot;\\xe2\\x98\\x83&quot;</span>)
     );
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;unicode-case&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;unicode-case&quot;</span>)]
     </span><span class="macro">test_lit!</span>(
         sfx_class3,
         suffixes,
@@ -3210,7 +3210,7 @@ Provides routines for extracting literal prefixes and suffixes from an `Hir`.
 
     </span><span class="macro">macro_rules! </span>test_unamb {
         (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$given</span>:expr, <span class="macro-nonterminal">$expected</span>:expr) =&gt; {
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>() {
                 <span class="kw">let </span>given: Vec&lt;Literal&gt; = <span class="macro-nonterminal">$given
                     </span>.into_iter()
@@ -3279,7 +3279,7 @@ Provides routines for extracting literal prefixes and suffixes from an `Hir`.
     // ************************************************************************
     </span><span class="macro">macro_rules! </span>test_trim {
         (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$trim</span>:expr, <span class="macro-nonterminal">$given</span>:expr, <span class="macro-nonterminal">$expected</span>:expr) =&gt; {
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>() {
                 <span class="kw">let </span>given: Vec&lt;Literal&gt; = <span class="macro-nonterminal">$given
                     </span>.into_iter()
@@ -3306,7 +3306,7 @@ Provides routines for extracting literal prefixes and suffixes from an `Hir`.
 
     </span><span class="macro">macro_rules! </span>test_lcp {
         (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$given</span>:expr, <span class="macro-nonterminal">$expected</span>:expr) =&gt; {
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>() {
                 <span class="kw">let </span>given: Vec&lt;Literal&gt; = <span class="macro-nonterminal">$given
                     </span>.into_iter()
@@ -3341,7 +3341,7 @@ Provides routines for extracting literal prefixes and suffixes from an `Hir`.
 
     </span><span class="macro">macro_rules! </span>test_lcs {
         (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$given</span>:expr, <span class="macro-nonterminal">$expected</span>:expr) =&gt; {
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>() {
                 <span class="kw">let </span>given: Vec&lt;Literal&gt; = <span class="macro-nonterminal">$given
                     </span>.into_iter()
@@ -3371,4 +3371,4 @@ Provides routines for extracting literal prefixes and suffixes from an `Hir`.
     <span class="macro">test_lcs!</span>(lcs12, <span class="macro">vec!</span>[<span class="string">&quot;flub&quot;</span>, <span class="string">&quot;bub&quot;</span>, <span class="string">&quot;boob&quot;</span>, <span class="string">&quot;dub&quot;</span>], <span class="string">&quot;b&quot;</span>);
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="regex_syntax" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="regex_syntax" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

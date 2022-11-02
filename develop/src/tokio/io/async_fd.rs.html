@@ -821,7 +821,7 @@
 /// that you do not forget to explicitly clear (or not clear) the event.
 ///
 /// This type exposes an immutable reference to the underlying IO object.
-</span><span class="attribute">#[must_use = <span class="string">&quot;You must explicitly choose whether to clear the readiness state by calling a method on ReadyGuard&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;You must explicitly choose whether to clear the readiness state by calling a method on ReadyGuard&quot;</span>]
 </span><span class="kw">pub struct </span>AsyncFdReadyGuard&lt;<span class="lifetime">&#39;a</span>, T: AsRawFd&gt; {
     async_fd: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>AsyncFd&lt;T&gt;,
     event: <span class="prelude-ty">Option</span>&lt;ReadyEvent&gt;,
@@ -832,7 +832,7 @@
 /// that you do not forget to explicitly clear (or not clear) the event.
 ///
 /// This type exposes a mutable reference to the underlying IO object.
-</span><span class="attribute">#[must_use = <span class="string">&quot;You must explicitly choose whether to clear the readiness state by calling a method on ReadyGuard&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;You must explicitly choose whether to clear the readiness state by calling a method on ReadyGuard&quot;</span>]
 </span><span class="kw">pub struct </span>AsyncFdReadyMutGuard&lt;<span class="lifetime">&#39;a</span>, T: AsRawFd&gt; {
     async_fd: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>AsyncFd&lt;T&gt;,
     event: <span class="prelude-ty">Option</span>&lt;ReadyEvent&gt;,
@@ -851,7 +851,7 @@
     ///
     /// This function panics if there is no current reactor set, or if the `rt`
     /// feature flag is not enabled.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[track_caller]
     </span><span class="kw">pub fn </span>new(inner: T) -&gt; io::Result&lt;<span class="self">Self</span>&gt;
     <span class="kw">where
@@ -867,7 +867,7 @@
     ///
     /// This function panics if there is no current reactor set, or if the `rt`
     /// feature flag is not enabled.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[track_caller]
     </span><span class="kw">pub fn </span>with_interest(inner: T, interest: Interest) -&gt; io::Result&lt;<span class="self">Self</span>&gt;
     <span class="kw">where
@@ -893,13 +893,13 @@
     }
 
     <span class="doccomment">/// Returns a shared reference to the backing object of this [`AsyncFd`].
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>get_ref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>T {
         <span class="self">self</span>.inner.as_ref().unwrap()
     }
 
     <span class="doccomment">/// Returns a mutable reference to the backing object of this [`AsyncFd`].
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>get_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>T {
         <span class="self">self</span>.inner.as_mut().unwrap()
     }
@@ -1105,7 +1105,7 @@
     /// concurrently with other methods on this struct. This method only
     /// provides shared access to the inner IO resource when handling the
     /// [`AsyncFdReadyGuard`].
-    </span><span class="attribute">#[allow(clippy::needless_lifetimes)] </span><span class="comment">// The lifetime improves rustdoc rendering.
+    </span><span class="attr">#[allow(clippy::needless_lifetimes)] </span><span class="comment">// The lifetime improves rustdoc rendering.
     </span><span class="kw">pub async fn </span>readable&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>) -&gt; io::Result&lt;AsyncFdReadyGuard&lt;<span class="lifetime">&#39;a</span>, T&gt;&gt; {
         <span class="self">self</span>.readiness(Interest::READABLE).<span class="kw">await
     </span>}
@@ -1116,7 +1116,7 @@
     ///
     /// This method takes `&amp;mut self`, so it is possible to access the inner IO
     /// resource mutably when handling the [`AsyncFdReadyMutGuard`].
-    </span><span class="attribute">#[allow(clippy::needless_lifetimes)] </span><span class="comment">// The lifetime improves rustdoc rendering.
+    </span><span class="attr">#[allow(clippy::needless_lifetimes)] </span><span class="comment">// The lifetime improves rustdoc rendering.
     </span><span class="kw">pub async fn </span>readable_mut&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="self">self</span>) -&gt; io::Result&lt;AsyncFdReadyMutGuard&lt;<span class="lifetime">&#39;a</span>, T&gt;&gt; {
         <span class="self">self</span>.readiness_mut(Interest::READABLE).<span class="kw">await
     </span>}
@@ -1129,7 +1129,7 @@
     /// concurrently with other methods on this struct. This method only
     /// provides shared access to the inner IO resource when handling the
     /// [`AsyncFdReadyGuard`].
-    </span><span class="attribute">#[allow(clippy::needless_lifetimes)] </span><span class="comment">// The lifetime improves rustdoc rendering.
+    </span><span class="attr">#[allow(clippy::needless_lifetimes)] </span><span class="comment">// The lifetime improves rustdoc rendering.
     </span><span class="kw">pub async fn </span>writable&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>) -&gt; io::Result&lt;AsyncFdReadyGuard&lt;<span class="lifetime">&#39;a</span>, T&gt;&gt; {
         <span class="self">self</span>.readiness(Interest::WRITABLE).<span class="kw">await
     </span>}
@@ -1140,7 +1140,7 @@
     ///
     /// This method takes `&amp;mut self`, so it is possible to access the inner IO
     /// resource mutably when handling the [`AsyncFdReadyMutGuard`].
-    </span><span class="attribute">#[allow(clippy::needless_lifetimes)] </span><span class="comment">// The lifetime improves rustdoc rendering.
+    </span><span class="attr">#[allow(clippy::needless_lifetimes)] </span><span class="comment">// The lifetime improves rustdoc rendering.
     </span><span class="kw">pub async fn </span>writable_mut&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="self">self</span>) -&gt; io::Result&lt;AsyncFdReadyMutGuard&lt;<span class="lifetime">&#39;a</span>, T&gt;&gt; {
         <span class="self">self</span>.readiness_mut(Interest::WRITABLE).<span class="kw">await
     </span>}
@@ -1209,7 +1209,7 @@
     ///
     /// [`WouldBlock`]: std::io::ErrorKind::WouldBlock
     </span><span class="comment">// Alias for old name in 0.x
-    </span><span class="attribute">#[cfg_attr(docsrs, doc(alias = <span class="string">&quot;with_io&quot;</span>))]
+    </span><span class="attr">#[cfg_attr(docsrs, doc(alias = <span class="string">&quot;with_io&quot;</span>))]
     </span><span class="kw">pub fn </span>try_io&lt;R&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         f: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>AsyncFd&lt;Inner&gt;) -&gt; io::Result&lt;R&gt;,
@@ -1342,7 +1342,7 @@
 ///
 /// [`WouldBlock`]: std::io::ErrorKind::WouldBlock
 /// [`try_io`]: method@AsyncFdReadyGuard::try_io
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>TryIoError(());
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

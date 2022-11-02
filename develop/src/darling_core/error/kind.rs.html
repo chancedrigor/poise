@@ -204,10 +204,10 @@
 <span class="kw">type </span>FieldName = String;
 <span class="kw">type </span>MetaFormat = String;
 
-<span class="attribute">#[derive(Debug, Clone)]
+<span class="attr">#[derive(Debug, Clone)]
 </span><span class="comment">// Don&#39;t want to publicly commit to ErrorKind supporting equality yet, but
 // not having it makes testing very difficult.
-</span><span class="attribute">#[cfg_attr(test, derive(PartialEq, Eq))]
+</span><span class="attr">#[cfg_attr(test, derive(PartialEq, Eq))]
 </span><span class="kw">pub</span>(<span class="kw">in </span><span class="kw">crate</span>::error) <span class="kw">enum </span>ErrorKind {
     <span class="doccomment">/// An arbitrary error message.
     </span>Custom(String),
@@ -224,7 +224,7 @@
     </span>Multiple(Vec&lt;Error&gt;),
 
     <span class="comment">// TODO make this variant take `!` so it can&#39;t exist
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     </span>__NonExhaustive,
 }
 
@@ -302,10 +302,10 @@
 
 <span class="doccomment">/// An error for an unknown field, with a possible &quot;did-you-mean&quot; suggestion to get
 /// the user back on the right track.
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="comment">// Don&#39;t want to publicly commit to ErrorKind supporting equality yet, but
 // not having it makes testing very difficult.
-</span><span class="attribute">#[cfg_attr(test, derive(PartialEq, Eq))]
+</span><span class="attr">#[cfg_attr(test, derive(PartialEq, Eq))]
 </span><span class="kw">pub</span>(<span class="kw">in </span><span class="kw">crate</span>::error) <span class="kw">struct </span>ErrorUnknownField {
     name: String,
     did_you_mean: <span class="prelude-ty">Option</span>&lt;String&gt;,
@@ -327,7 +327,7 @@
         ErrorUnknownField::new(field, did_you_mean(field, alternates))
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;diagnostics&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;diagnostics&quot;</span>)]
     </span><span class="kw">pub fn </span>into_diagnostic(<span class="self">self</span>, span: <span class="prelude-ty">Option</span>&lt;::proc_macro2::Span&gt;) -&gt; ::proc_macro::Diagnostic {
         <span class="kw">let </span>base = span
             .unwrap_or_else(::proc_macro2::Span::call_site)
@@ -339,7 +339,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;diagnostics&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;diagnostics&quot;</span>)]
     </span><span class="kw">fn </span>top_line(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
         <span class="macro">format!</span>(<span class="string">&quot;Unknown field: `{}`&quot;</span>, <span class="self">self</span>.name)
     }
@@ -369,7 +369,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;suggestions&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;suggestions&quot;</span>)]
 </span><span class="kw">fn </span>did_you_mean&lt;<span class="lifetime">&#39;a</span>, T, I&gt;(field: <span class="kw-2">&amp;</span>str, alternates: I) -&gt; <span class="prelude-ty">Option</span>&lt;String&gt;
 <span class="kw">where
     </span>T: AsRef&lt;str&gt; + <span class="lifetime">&#39;a</span>,
@@ -386,7 +386,7 @@
     candidate.map(|(<span class="kw">_</span>, candidate)| candidate.into())
 }
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;suggestions&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;suggestions&quot;</span>))]
 </span><span class="kw">fn </span>did_you_mean&lt;<span class="lifetime">&#39;a</span>, T, I&gt;(_field: <span class="kw-2">&amp;</span>str, _alternates: I) -&gt; <span class="prelude-ty">Option</span>&lt;String&gt;
 <span class="kw">where
     </span>T: AsRef&lt;str&gt; + <span class="lifetime">&#39;a</span>,
@@ -395,4 +395,4 @@
     <span class="prelude-val">None
 </span>}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="darling_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="darling_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

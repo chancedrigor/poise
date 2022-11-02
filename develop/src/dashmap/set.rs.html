@@ -459,14 +459,14 @@
 </pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::iter_set::{Iter, OwningIter};
 <span class="kw">use </span><span class="kw">crate</span>::setref::one::Ref;
 <span class="kw">use </span><span class="kw">crate</span>::DashMap;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;raw-api&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;raw-api&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::HashMap;
 <span class="kw">use </span>cfg_if::cfg_if;
 <span class="kw">use </span>core::borrow::Borrow;
 <span class="kw">use </span>core::fmt;
 <span class="kw">use </span>core::hash::{BuildHasher, Hash};
 <span class="kw">use </span>core::iter::FromIterator;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;raw-api&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;raw-api&quot;</span>)]
 </span><span class="kw">use </span>parking_lot::RwLock;
 <span class="kw">use </span>std::collections::hash_map::RandomState;
 
@@ -580,7 +580,7 @@
     }
 
     <span class="macro">cfg_if! </span>{
-        <span class="kw">if </span><span class="attribute">#[cfg(feature = <span class="string">&quot;raw-api&quot;</span>)] </span>{
+        <span class="kw">if </span><span class="attr">#[cfg(feature = <span class="string">&quot;raw-api&quot;</span>)] </span>{
             <span class="doccomment">/// Allows you to peek at the inner shards that store your data.
             /// You should probably not use this unless you know what you are doing.
             ///
@@ -601,7 +601,7 @@
     }
 
     <span class="macro">cfg_if! </span>{
-        <span class="kw">if </span><span class="attribute">#[cfg(feature = <span class="string">&quot;raw-api&quot;</span>)] </span>{
+        <span class="kw">if </span><span class="attr">#[cfg(feature = <span class="string">&quot;raw-api&quot;</span>)] </span>{
             <span class="doccomment">/// Finds which shard a certain key is stored in.
             /// You should probably not use this unless you know what you are doing.
             /// Note that shard selection is dependent on the default or provided HashBuilder.
@@ -628,7 +628,7 @@
     }
 
     <span class="macro">cfg_if! </span>{
-        <span class="kw">if </span><span class="attribute">#[cfg(feature = <span class="string">&quot;raw-api&quot;</span>)] </span>{
+        <span class="kw">if </span><span class="attr">#[cfg(feature = <span class="string">&quot;raw-api&quot;</span>)] </span>{
             <span class="doccomment">/// Finds which shard a certain hash is stored in.
             ///
             /// Requires the `raw-api` feature to be enabled.
@@ -871,11 +871,11 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">crate</span>::DashSet;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_basic() {
         <span class="kw">let </span>set = DashSet::new();
 
@@ -884,7 +884,7 @@
         <span class="macro">assert_eq!</span>(set.get(<span class="kw-2">&amp;</span><span class="number">0</span>).as_deref(), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="number">0</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_default() {
         <span class="kw">let </span>set: DashSet&lt;u32&gt; = DashSet::default();
 
@@ -893,7 +893,7 @@
         <span class="macro">assert_eq!</span>(set.get(<span class="kw-2">&amp;</span><span class="number">0</span>).as_deref(), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="number">0</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_multiple_hashes() {
         <span class="kw">let </span>set = DashSet::&lt;u32&gt;::default();
 
@@ -915,4 +915,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="dashmap" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="dashmap" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

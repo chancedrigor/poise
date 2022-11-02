@@ -269,7 +269,7 @@
 <span id="269">269</span>
 <span id="270">270</span>
 <span id="271">271</span>
-</pre><pre class="rust"><code><span class="attribute">#![doc(html_root_url = <span class="string">&quot;https://docs.rs/try-lock/0.2.3&quot;</span>)]
+</pre><pre class="rust"><code><span class="attr">#![doc(html_root_url = <span class="string">&quot;https://docs.rs/try-lock/0.2.3&quot;</span>)]
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 #![deny(warnings)]
@@ -315,7 +315,7 @@
 //! assert_eq!(locked2.name, &quot;Spanner Bundle&quot;);
 //! ```
 
-</span><span class="attribute">#[cfg(test)]
+</span><span class="attr">#[cfg(test)]
 </span><span class="kw">extern crate </span>core;
 
 <span class="kw">use </span>core::cell::UnsafeCell;
@@ -330,7 +330,7 @@
 ///
 /// It is only possible to try to acquire the lock, it is not possible to
 /// wait for the lock to become ready, like with a `Mutex`.
-</span><span class="attribute">#[derive(Default)]
+</span><span class="attr">#[derive(Default)]
 </span><span class="kw">pub struct </span>TryLock&lt;T&gt; {
     is_locked: AtomicBool,
     value: UnsafeCell&lt;T&gt;,
@@ -338,7 +338,7 @@
 
 <span class="kw">impl</span>&lt;T&gt; TryLock&lt;T&gt; {
     <span class="doccomment">/// Create a `TryLock` around the value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new(val: T) -&gt; TryLock&lt;T&gt; {
         TryLock {
             is_locked: AtomicBool::new(<span class="bool-val">false</span>),
@@ -359,7 +359,7 @@
     /// to unlock. If different ordering is required, use
     /// [`try_lock_explicit`](TryLock::try_lock_explicit) or
     /// [`try_lock_explicit_unchecked`](TryLock::try_lock_explicit_unchecked).
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>try_lock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Locked&lt;T&gt;&gt; {
         <span class="kw">unsafe </span>{
             <span class="self">self</span>.try_lock_explicit_unchecked(Ordering::Acquire, Ordering::Release)
@@ -372,7 +372,7 @@
     /// `None`. You can try to acquire again whenever you want, perhaps
     /// by spinning a few times, or by using some other means of
     /// notification.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[deprecated(
         since = <span class="string">&quot;0.2.3&quot;</span>,
         note = <span class="string">&quot;This method is actually unsafe because it unsafely allows \
@@ -396,7 +396,7 @@
     ///
     /// This method panics if `lock_order` is not any of `Acquire`, `AcqRel`,
     /// and `SeqCst`, or `unlock_order` is not any of `Release` and `SeqCst`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>try_lock_explicit(<span class="kw-2">&amp;</span><span class="self">self</span>, lock_order: Ordering, unlock_order: Ordering) -&gt; <span class="prelude-ty">Option</span>&lt;Locked&lt;T&gt;&gt; {
         <span class="kw">match </span>lock_order {
             Ordering::Acquire |
@@ -432,7 +432,7 @@
     /// race.
     ///
     /// [`try_lock_explicit`]: Self::try_lock_explicit
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub unsafe fn </span>try_lock_explicit_unchecked(<span class="kw-2">&amp;</span><span class="self">self</span>, lock_order: Ordering, unlock_order: Ordering) -&gt; <span class="prelude-ty">Option</span>&lt;Locked&lt;T&gt;&gt; {
         <span class="kw">if </span>!<span class="self">self</span>.is_locked.swap(<span class="bool-val">true</span>, lock_order) {
             <span class="prelude-val">Some</span>(Locked {
@@ -445,7 +445,7 @@
     }
 
     <span class="doccomment">/// Take the value back out of the lock when this is the sole owner.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>into_inner(<span class="self">self</span>) -&gt; T {
         <span class="macro">debug_assert!</span>(!<span class="self">self</span>.is_locked.load(Ordering::Relaxed), <span class="string">&quot;TryLock was mem::forgotten&quot;</span>);
         <span class="comment">// Since the compiler can statically determine this is the only owner,
@@ -453,7 +453,7 @@
         // `UnsafeCell::into_inner` has been marked safe.
         //
         // To support older version (1.21), the unsafe block is still here.
-        </span><span class="attribute">#[allow(unused_unsafe)]
+        </span><span class="attr">#[allow(unused_unsafe)]
         </span><span class="kw">unsafe </span>{
             <span class="self">self</span>.value.into_inner()
         }
@@ -491,7 +491,7 @@
 /// released when this type is dropped.
 ///
 /// This type derefs to the underlying value.
-</span><span class="attribute">#[must_use = <span class="string">&quot;TryLock will immediately unlock if not used&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;TryLock will immediately unlock if not used&quot;</span>]
 </span><span class="kw">pub struct </span>Locked&lt;<span class="lifetime">&#39;a</span>, T: <span class="lifetime">&#39;a</span>&gt; {
     lock: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>TryLock&lt;T&gt;,
     order: Ordering,
@@ -499,21 +499,21 @@
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, T&gt; Deref <span class="kw">for </span>Locked&lt;<span class="lifetime">&#39;a</span>, T&gt; {
     <span class="kw">type </span>Target = T;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>deref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>T {
         <span class="kw">unsafe </span>{ <span class="kw-2">&amp;*</span><span class="self">self</span>.lock.value.get() }
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, T&gt; DerefMut <span class="kw">for </span>Locked&lt;<span class="lifetime">&#39;a</span>, T&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>deref_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>T {
         <span class="kw">unsafe </span>{ <span class="kw-2">&amp;mut *</span><span class="self">self</span>.lock.value.get() }
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, T&gt; Drop <span class="kw">for </span>Locked&lt;<span class="lifetime">&#39;a</span>, T&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.lock.is_locked.store(<span class="bool-val">false</span>, <span class="self">self</span>.order);
     }
@@ -525,11 +525,11 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::TryLock;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>fmt_debug() {
         <span class="kw">let </span>lock = TryLock::new(<span class="number">5</span>);
         <span class="macro">assert_eq!</span>(<span class="macro">format!</span>(<span class="string">&quot;{:?}&quot;</span>, lock), <span class="string">&quot;TryLock { value: 5 }&quot;</span>);
@@ -541,4 +541,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="try_lock" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="try_lock" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

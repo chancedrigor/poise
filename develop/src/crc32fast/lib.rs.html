@@ -269,7 +269,7 @@
 //! Calling the [`Hasher::new`] constructor at runtime will perform a feature detection to select the most
 //! optimal implementation for the current CPU feature set.
 
-</span><span class="attribute">#![cfg_attr(not(feature = <span class="string">&quot;std&quot;</span>), no_std)]
+</span><span class="attr">#![cfg_attr(not(feature = <span class="string">&quot;std&quot;</span>), no_std)]
 #![cfg_attr(
     all(feature = <span class="string">&quot;nightly&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>),
     feature(stdsimd, aarch64_target_feature)
@@ -280,10 +280,10 @@
 #[macro_use]
 </span><span class="kw">extern crate </span>quickcheck;
 
-<span class="attribute">#[macro_use]
+<span class="attr">#[macro_use]
 </span><span class="kw">extern crate </span>cfg_if;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">use </span>std <span class="kw">as </span>core;
 
 <span class="kw">use </span>core::fmt;
@@ -303,13 +303,13 @@
     h.finalize()
 }
 
-<span class="attribute">#[derive(Clone)]
+<span class="attr">#[derive(Clone)]
 </span><span class="kw">enum </span>State {
     Baseline(baseline::State),
     Specialized(specialized::State),
 }
 
-<span class="attribute">#[derive(Clone)]
+<span class="attr">#[derive(Clone)]
 </span><span class="doccomment">/// Represents an in-progress CRC32 computation.
 </span><span class="kw">pub struct </span>Hasher {
     amount: u64,
@@ -345,7 +345,7 @@
             .unwrap_or_else(|| <span class="self">Self</span>::internal_new_baseline(init, amount))
     }
 
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span><span class="comment">// Internal-only API. Don&#39;t use.
     </span><span class="kw">pub fn </span>internal_new_baseline(init: u32, amount: u64) -&gt; <span class="self">Self </span>{
         Hasher {
@@ -354,7 +354,7 @@
         }
     }
 
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span><span class="comment">// Internal-only API. Don&#39;t use.
     </span><span class="kw">pub fn </span>internal_new_specialized(init: u32, amount: u64) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="self">Self</span>&gt; {
         {
@@ -427,7 +427,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use </span><span class="kw">super</span>::Hasher;
 
@@ -469,4 +469,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="crc32fast" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="crc32fast" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

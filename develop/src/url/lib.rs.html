@@ -3009,13 +3009,13 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
 ```
 */
 
-</span><span class="attribute">#![doc(html_root_url = <span class="string">&quot;https://docs.rs/url/2.2.2&quot;</span>)]
+</span><span class="attr">#![doc(html_root_url = <span class="string">&quot;https://docs.rs/url/2.2.2&quot;</span>)]
 
 #[macro_use]
 </span><span class="kw">extern crate </span>matches;
 <span class="kw">pub use </span>form_urlencoded;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">extern crate </span>serde;
 
 <span class="kw">use </span><span class="kw">crate</span>::host::HostInternal;
@@ -3047,11 +3047,11 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
 <span class="kw">mod </span>path_segments;
 <span class="kw">mod </span>slicing;
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">pub mod </span>quirks;
 
 <span class="doccomment">/// A parsed URL record.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>Url {
     <span class="doccomment">/// Syntax in pseudo-BNF:
     ///
@@ -3077,7 +3077,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
 </span>}
 
 <span class="doccomment">/// Full configuration for the URL parser.
-</span><span class="attribute">#[derive(Copy, Clone)]
+</span><span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">pub struct </span>ParseOptions&lt;<span class="lifetime">&#39;a</span>&gt; {
     base_url: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Url&gt;,
     encoding_override: EncodingOverride&lt;<span class="lifetime">&#39;a</span>&gt;,
@@ -3160,7 +3160,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     /// a [`ParseError`] variant will be returned.
     ///
     /// [`ParseError`]: enum.ParseError.html
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>parse(input: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;Url, <span class="kw">crate</span>::ParseError&gt; {
         Url::options().parse(input)
     }
@@ -3190,7 +3190,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     /// a [`ParseError`] variant will be returned.
     ///
     /// [`ParseError`]: enum.ParseError.html
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>parse_with_params&lt;I, K, V&gt;(input: <span class="kw-2">&amp;</span>str, iter: I) -&gt; <span class="prelude-ty">Result</span>&lt;Url, <span class="kw">crate</span>::ParseError&gt;
     <span class="kw">where
         </span>I: IntoIterator,
@@ -3241,7 +3241,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     ///
     /// [`ParseError`]: enum.ParseError.html
     /// [`make_relative`]: #method.make_relative
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>join(<span class="kw-2">&amp;</span><span class="self">self</span>, input: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;Url, <span class="kw">crate</span>::ParseError&gt; {
         Url::options().base_url(<span class="prelude-val">Some</span>(<span class="self">self</span>)).parse(input)
     }
@@ -3423,7 +3423,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     /// # }
     /// # run().unwrap();
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>as_str(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="kw-2">&amp;</span><span class="self">self</span>.serialization
     }
@@ -3446,7 +3446,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     /// # }
     /// # run().unwrap();
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[deprecated(since = <span class="string">&quot;2.3.0&quot;</span>, note = <span class="string">&quot;use Into&lt;String&gt;&quot;</span>)]
     </span><span class="kw">pub fn </span>into_string(<span class="self">self</span>) -&gt; String {
         <span class="self">self</span>.into()
@@ -3457,7 +3457,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     /// Methods of the `Url` struct assume a number of invariants.
     /// This checks each of these invariants and panic if one is not met.
     /// This is for testing rust-url itself.
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     </span><span class="kw">pub fn </span>check_invariants(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(), String&gt; {
         <span class="macro">macro_rules! </span>assert {
             (<span class="macro-nonterminal">$x</span>: expr) =&gt; {
@@ -3646,7 +3646,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     /// # }
     /// # run().unwrap();
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>origin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Origin {
         origin::url_origin(<span class="self">self</span>)
     }
@@ -3666,7 +3666,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     /// # }
     /// # run().unwrap();
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>scheme(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="self">self</span>.slice(..<span class="self">self</span>.scheme_end)
     }
@@ -3696,7 +3696,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     /// # }
     /// # run().unwrap();
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>has_authority(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="macro">debug_assert!</span>(<span class="self">self</span>.byte_at(<span class="self">self</span>.scheme_end) == <span class="string">b&#39;:&#39;</span>);
         <span class="self">self</span>.slice(<span class="self">self</span>.scheme_end..).starts_with(<span class="string">&quot;://&quot;</span>)
@@ -3727,7 +3727,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     /// # }
     /// # run().unwrap();
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>cannot_be_a_base(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         !<span class="self">self</span>.slice(<span class="self">self</span>.scheme_end + <span class="number">1</span>..).starts_with(<span class="string">&#39;/&#39;</span>)
     }
@@ -3961,7 +3961,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     /// # }
     /// # run().unwrap();
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>port(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;u16&gt; {
         <span class="self">self</span>.port
     }
@@ -3993,7 +3993,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     /// # }
     /// # run().unwrap();
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>port_or_known_default(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;u16&gt; {
         <span class="self">self</span>.port.or_else(|| parser::default_port(<span class="self">self</span>.scheme()))
     }
@@ -4123,7 +4123,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     /// # }
     /// # run().unwrap();
     /// ```
-    </span><span class="attribute">#[allow(clippy::manual_strip)] </span><span class="comment">// introduced in 1.45, MSRV is 1.36
+    </span><span class="attr">#[allow(clippy::manual_strip)] </span><span class="comment">// introduced in 1.45, MSRV is 1.36
     </span><span class="kw">pub fn </span>path_segments(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;str::Split&lt;<span class="lifetime">&#39;_</span>, char&gt;&gt; {
         <span class="kw">let </span>path = <span class="self">self</span>.path();
         <span class="kw">if </span>path.starts_with(<span class="string">&#39;/&#39;</span>) {
@@ -4195,7 +4195,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     /// # run().unwrap();
     ///
 
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>query_pairs(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; form_urlencoded::Parse&lt;<span class="lifetime">&#39;_</span>&gt; {
         form_urlencoded::parse(<span class="self">self</span>.query().unwrap_or(<span class="string">&quot;&quot;</span>).as_bytes())
     }
@@ -4458,7 +4458,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     <span class="doccomment">/// Return an object with methods to manipulate this URL’s path segments.
     ///
     /// Return `Err(())` if this URL is cannot-be-a-base.
-    </span><span class="attribute">#[allow(clippy::result_unit_err)]
+    </span><span class="attr">#[allow(clippy::result_unit_err)]
     </span><span class="kw">pub fn </span>path_segments_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;PathSegmentsMut&lt;<span class="lifetime">&#39;_</span>&gt;, ()&gt; {
         <span class="kw">if </span><span class="self">self</span>.cannot_be_a_base() {
             <span class="prelude-val">Err</span>(())
@@ -4542,7 +4542,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     /// # }
     /// # run().unwrap();
     /// ```
-    </span><span class="attribute">#[allow(clippy::result_unit_err)]
+    </span><span class="attr">#[allow(clippy::result_unit_err)]
     </span><span class="kw">pub fn </span>set_port(<span class="kw-2">&amp;mut </span><span class="self">self</span>, <span class="kw-2">mut </span>port: <span class="prelude-ty">Option</span>&lt;u16&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), ()&gt; {
         <span class="comment">// has_host implies !cannot_be_a_base
         </span><span class="kw">if </span>!<span class="self">self</span>.has_host() || <span class="self">self</span>.host() == <span class="prelude-val">Some</span>(Host::Domain(<span class="string">&quot;&quot;</span>)) || <span class="self">self</span>.scheme() == <span class="string">&quot;file&quot; </span>{
@@ -4813,7 +4813,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     /// # run().unwrap();
     /// ```
     ///
-    </span><span class="attribute">#[allow(clippy::result_unit_err)]
+    </span><span class="attr">#[allow(clippy::result_unit_err)]
     </span><span class="kw">pub fn </span>set_ip_host(<span class="kw-2">&amp;mut </span><span class="self">self</span>, address: IpAddr) -&gt; <span class="prelude-ty">Result</span>&lt;(), ()&gt; {
         <span class="kw">if </span><span class="self">self</span>.cannot_be_a_base() {
             <span class="kw">return </span><span class="prelude-val">Err</span>(());
@@ -4853,7 +4853,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     /// # }
     /// # run().unwrap();
     /// ```
-    </span><span class="attribute">#[allow(clippy::result_unit_err)]
+    </span><span class="attr">#[allow(clippy::result_unit_err)]
     </span><span class="kw">pub fn </span>set_password(<span class="kw-2">&amp;mut </span><span class="self">self</span>, password: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), ()&gt; {
         <span class="comment">// has_host implies !cannot_be_a_base
         </span><span class="kw">if </span>!<span class="self">self</span>.has_host() || <span class="self">self</span>.host() == <span class="prelude-val">Some</span>(Host::Domain(<span class="string">&quot;&quot;</span>)) || <span class="self">self</span>.scheme() == <span class="string">&quot;file&quot; </span>{
@@ -4946,7 +4946,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     /// # }
     /// # run().unwrap();
     /// ```
-    </span><span class="attribute">#[allow(clippy::result_unit_err)]
+    </span><span class="attr">#[allow(clippy::result_unit_err)]
     </span><span class="kw">pub fn </span>set_username(<span class="kw-2">&amp;mut </span><span class="self">self</span>, username: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;(), ()&gt; {
         <span class="comment">// has_host implies !cannot_be_a_base
         </span><span class="kw">if </span>!<span class="self">self</span>.has_host() || <span class="self">self</span>.host() == <span class="prelude-val">Some</span>(Host::Domain(<span class="string">&quot;&quot;</span>)) || <span class="self">self</span>.scheme() == <span class="string">&quot;file&quot; </span>{
@@ -5108,7 +5108,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     /// # }
     /// # run().unwrap();
     /// ```
-    </span><span class="attribute">#[allow(clippy::result_unit_err, clippy::suspicious_operation_groupings)]
+    </span><span class="attr">#[allow(clippy::result_unit_err, clippy::suspicious_operation_groupings)]
     </span><span class="kw">pub fn </span>set_scheme(<span class="kw-2">&amp;mut </span><span class="self">self</span>, scheme: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;(), ()&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>parser = Parser::for_setter(String::new());
         <span class="kw">let </span>remaining = parser.parse_scheme(parser::Input::new(scheme))<span class="question-mark">?</span>;
@@ -5187,7 +5187,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     /// # run().unwrap();
     /// # }
     /// ```
-    </span><span class="attribute">#[cfg(any(unix, windows, target_os = <span class="string">&quot;redox&quot;</span>))]
+    </span><span class="attr">#[cfg(any(unix, windows, target_os = <span class="string">&quot;redox&quot;</span>))]
     #[allow(clippy::result_unit_err)]
     </span><span class="kw">pub fn </span>from_file_path&lt;P: AsRef&lt;Path&gt;&gt;(path: P) -&gt; <span class="prelude-ty">Result</span>&lt;Url, ()&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>serialization = <span class="string">&quot;file://&quot;</span>.to_owned();
@@ -5224,7 +5224,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     ///
     /// Note that `std::path` does not consider trailing slashes significant
     /// and usually does not include them (e.g. in `Path::parent()`).
-    </span><span class="attribute">#[cfg(any(unix, windows, target_os = <span class="string">&quot;redox&quot;</span>))]
+    </span><span class="attr">#[cfg(any(unix, windows, target_os = <span class="string">&quot;redox&quot;</span>))]
     #[allow(clippy::result_unit_err)]
     </span><span class="kw">pub fn </span>from_directory_path&lt;P: AsRef&lt;Path&gt;&gt;(path: P) -&gt; <span class="prelude-ty">Result</span>&lt;Url, ()&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>url = Url::from_file_path(path)<span class="question-mark">?</span>;
@@ -5240,7 +5240,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     /// for speed, compared to the `Deserialize` trait impl.
     ///
     /// This method is only available if the `serde` Cargo feature is enabled.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
     #[deny(unused)]
     </span><span class="kw">pub fn </span>serialize_internal&lt;S&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt;
     <span class="kw">where
@@ -5282,7 +5282,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     /// for speed, compared to the `Deserialize` trait impl.
     ///
     /// This method is only available if the `serde` Cargo feature is enabled.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
     #[deny(unused)]
     </span><span class="kw">pub fn </span>deserialize_internal&lt;<span class="lifetime">&#39;de</span>, D&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, D::Error&gt;
     <span class="kw">where
@@ -5340,7 +5340,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     /// or if `Path::new_opt()` returns `None`.
     /// (That is, if the percent-decoded path contains a NUL byte or,
     /// for a Windows path, is not UTF-8.)
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[cfg(any(unix, windows, target_os = <span class="string">&quot;redox&quot;</span>))]
     #[allow(clippy::result_unit_err)]
     </span><span class="kw">pub fn </span>to_file_path(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;PathBuf, ()&gt; {
@@ -5360,7 +5360,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
 
     <span class="comment">// Private helper methods:
 
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>slice&lt;R&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, range: R) -&gt; <span class="kw-2">&amp;</span>str
     <span class="kw">where
         </span>R: RangeArg,
@@ -5368,7 +5368,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
         range.slice_of(<span class="kw-2">&amp;</span><span class="self">self</span>.serialization)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>byte_at(<span class="kw-2">&amp;</span><span class="self">self</span>, i: u32) -&gt; u8 {
         <span class="self">self</span>.serialization.as_bytes()[i <span class="kw">as </span>usize]
     }
@@ -5378,7 +5378,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
 </span><span class="kw">impl </span>str::FromStr <span class="kw">for </span>Url {
     <span class="kw">type </span><span class="prelude-val">Err </span>= ParseError;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from_str(input: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;Url, <span class="kw">crate</span>::ParseError&gt; {
         Url::parse(input)
     }
@@ -5394,7 +5394,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
 
 <span class="doccomment">/// Display the serialization of this URL.
 </span><span class="kw">impl </span>fmt::Display <span class="kw">for </span>Url {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, formatter: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
         fmt::Display::fmt(<span class="kw-2">&amp;</span><span class="self">self</span>.serialization, formatter)
     }
@@ -5409,7 +5409,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
 
 <span class="doccomment">/// Debug the serialization of this URL.
 </span><span class="kw">impl </span>fmt::Debug <span class="kw">for </span>Url {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, formatter: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
         formatter
             .debug_struct(<span class="string">&quot;Url&quot;</span>)
@@ -5431,7 +5431,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
 
 <span class="doccomment">/// URLs compare like their serialization.
 </span><span class="kw">impl </span>PartialEq <span class="kw">for </span>Url {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool {
         <span class="self">self</span>.serialization == other.serialization
     }
@@ -5439,7 +5439,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
 
 <span class="doccomment">/// URLs compare like their serialization.
 </span><span class="kw">impl </span>Ord <span class="kw">for </span>Url {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; cmp::Ordering {
         <span class="self">self</span>.serialization.cmp(<span class="kw-2">&amp;</span>other.serialization)
     }
@@ -5447,7 +5447,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
 
 <span class="doccomment">/// URLs compare like their serialization.
 </span><span class="kw">impl </span>PartialOrd <span class="kw">for </span>Url {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;cmp::Ordering&gt; {
         <span class="self">self</span>.serialization.partial_cmp(<span class="kw-2">&amp;</span>other.serialization)
     }
@@ -5455,7 +5455,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
 
 <span class="doccomment">/// URLs hash like their serialization.
 </span><span class="kw">impl </span>hash::Hash <span class="kw">for </span>Url {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>hash&lt;H&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, state: <span class="kw-2">&amp;mut </span>H)
     <span class="kw">where
         </span>H: hash::Hasher,
@@ -5466,7 +5466,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
 
 <span class="doccomment">/// Return the serialization of this URL.
 </span><span class="kw">impl </span>AsRef&lt;str&gt; <span class="kw">for </span>Url {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>as_ref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="kw-2">&amp;</span><span class="self">self</span>.serialization
     }
@@ -5477,21 +5477,21 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
 }
 
 <span class="kw">impl </span>RangeArg <span class="kw">for </span>Range&lt;u32&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>slice_of&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, s: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str {
         <span class="kw-2">&amp;</span>s[<span class="self">self</span>.start <span class="kw">as </span>usize..<span class="self">self</span>.end <span class="kw">as </span>usize]
     }
 }
 
 <span class="kw">impl </span>RangeArg <span class="kw">for </span>RangeFrom&lt;u32&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>slice_of&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, s: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str {
         <span class="kw-2">&amp;</span>s[<span class="self">self</span>.start <span class="kw">as </span>usize..]
     }
 }
 
 <span class="kw">impl </span>RangeArg <span class="kw">for </span>RangeTo&lt;u32&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>slice_of&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, s: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str {
         <span class="kw-2">&amp;</span>s[..<span class="self">self</span>.end <span class="kw">as </span>usize]
     }
@@ -5500,7 +5500,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
 <span class="doccomment">/// Serializes this URL into a `serde` stream.
 ///
 /// This implementation is only available if the `serde` Cargo feature is enabled.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">impl </span>serde::Serialize <span class="kw">for </span>Url {
     <span class="kw">fn </span>serialize&lt;S&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt;
     <span class="kw">where
@@ -5513,7 +5513,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
 <span class="doccomment">/// Deserializes this URL from a `serde` stream.
 ///
 /// This implementation is only available if the `serde` Cargo feature is enabled.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;de</span>&gt; serde::Deserialize&lt;<span class="lifetime">&#39;de</span>&gt; <span class="kw">for </span>Url {
     <span class="kw">fn </span>deserialize&lt;D&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;Url, D::Error&gt;
     <span class="kw">where
@@ -5545,7 +5545,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     }
 }
 
-<span class="attribute">#[cfg(any(unix, target_os = <span class="string">&quot;redox&quot;</span>))]
+<span class="attr">#[cfg(any(unix, target_os = <span class="string">&quot;redox&quot;</span>))]
 </span><span class="kw">fn </span>path_to_file_url_segments(
     path: <span class="kw-2">&amp;</span>Path,
     serialization: <span class="kw-2">&amp;mut </span>String,
@@ -5572,7 +5572,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     <span class="prelude-val">Ok</span>((host_end, HostInternal::None))
 }
 
-<span class="attribute">#[cfg(windows)]
+<span class="attr">#[cfg(windows)]
 </span><span class="kw">fn </span>path_to_file_url_segments(
     path: <span class="kw-2">&amp;</span>Path,
     serialization: <span class="kw-2">&amp;mut </span>String,
@@ -5581,7 +5581,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
 }
 
 <span class="comment">// Build this unconditionally to alleviate https://github.com/servo/rust-url/issues/102
-</span><span class="attribute">#[cfg_attr(not(windows), allow(dead_code))]
+</span><span class="attr">#[cfg_attr(not(windows), allow(dead_code))]
 </span><span class="kw">fn </span>path_to_file_url_segments_windows(
     path: <span class="kw-2">&amp;</span>Path,
     serialization: <span class="kw-2">&amp;mut </span>String,
@@ -5640,7 +5640,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     <span class="prelude-val">Ok</span>((host_end, host_internal))
 }
 
-<span class="attribute">#[cfg(any(unix, target_os = <span class="string">&quot;redox&quot;</span>))]
+<span class="attr">#[cfg(any(unix, target_os = <span class="string">&quot;redox&quot;</span>))]
 </span><span class="kw">fn </span>file_url_segments_to_pathbuf(
     host: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
     segments: str::Split&lt;<span class="lifetime">&#39;_</span>, char&gt;,
@@ -5677,7 +5677,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     <span class="prelude-val">Ok</span>(path)
 }
 
-<span class="attribute">#[cfg(windows)]
+<span class="attr">#[cfg(windows)]
 </span><span class="kw">fn </span>file_url_segments_to_pathbuf(
     host: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
     segments: str::Split&lt;char&gt;,
@@ -5686,7 +5686,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
 }
 
 <span class="comment">// Build this unconditionally to alleviate https://github.com/servo/rust-url/issues/102
-</span><span class="attribute">#[cfg_attr(not(windows), allow(dead_code))]
+</span><span class="attr">#[cfg_attr(not(windows), allow(dead_code))]
 </span><span class="kw">fn </span>file_url_segments_to_pathbuf_windows(
     host: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
     <span class="kw-2">mut </span>segments: str::Split&lt;<span class="lifetime">&#39;_</span>, char&gt;,
@@ -5739,7 +5739,7 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
 }
 
 <span class="doccomment">/// Implementation detail of `Url::query_pairs_mut`. Typically not used directly.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>UrlQuery&lt;<span class="lifetime">&#39;a</span>&gt; {
     url: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Url&gt;,
     fragment: <span class="prelude-ty">Option</span>&lt;String&gt;,
@@ -5777,4 +5777,4 @@ url = { version = &quot;2&quot;, features = [&quot;serde&quot;] }
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="url" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="url" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -476,7 +476,7 @@
 <span class="kw">const </span>PARKED_BIT: u8 = <span class="number">8</span>;
 
 <span class="doccomment">/// Current state of a `Once`.
-</span><span class="attribute">#[derive(Copy, Clone, Eq, PartialEq, Debug)]
+</span><span class="attr">#[derive(Copy, Clone, Eq, PartialEq, Debug)]
 </span><span class="kw">pub enum </span>OnceState {
     <span class="doccomment">/// A closure has not been executed yet
     </span>New,
@@ -496,7 +496,7 @@
     ///
     /// Once an initialization routine for a `Once` has panicked it will forever
     /// indicate to future forced initialization routines that it is poisoned.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>poisoned(<span class="self">self</span>) -&gt; bool {
         <span class="kw">match </span><span class="self">self </span>{
             OnceState::Poisoned =&gt; <span class="bool-val">true</span>,
@@ -506,7 +506,7 @@
 
     <span class="doccomment">/// Returns whether the associated `Once` has successfully executed a
     /// closure.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>done(<span class="self">self</span>) -&gt; bool {
         <span class="kw">match </span><span class="self">self </span>{
             OnceState::Done =&gt; <span class="bool-val">true</span>,
@@ -542,13 +542,13 @@
 
 <span class="kw">impl </span>Once {
     <span class="doccomment">/// Creates a new `Once` value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub const fn </span>new() -&gt; Once {
         Once(AtomicU8::new(<span class="number">0</span>))
     }
 
     <span class="doccomment">/// Returns the current state of this `Once`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>state(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; OnceState {
         <span class="kw">let </span>state = <span class="self">self</span>.<span class="number">0</span>.load(Ordering::Acquire);
         <span class="kw">if </span>state &amp; DONE_BIT != <span class="number">0 </span>{
@@ -611,7 +611,7 @@
     /// concurrently amongst many threads. If that closure panics, however, then
     /// it will *poison* this `Once` instance, causing all future invocations of
     /// `call_once` to also panic.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>call_once&lt;F&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F)
     <span class="kw">where
         </span>F: FnOnce(),
@@ -633,7 +633,7 @@
     /// The closure `f` is yielded a structure which can be used to query the
     /// state of this `Once` (whether initialization has previously panicked or
     /// not).
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>call_once_force&lt;F&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F)
     <span class="kw">where
         </span>F: FnOnce(OnceState),
@@ -659,7 +659,7 @@
     // Finally, this takes an `FnMut` instead of a `FnOnce` because there&#39;s
     // currently no way to take an `FnOnce` and call it via virtual dispatch
     // without some allocation overhead.
-    </span><span class="attribute">#[cold]
+    </span><span class="attr">#[cold]
     </span><span class="kw">fn </span>call_once_slow(<span class="kw-2">&amp;</span><span class="self">self</span>, ignore_poison: bool, f: <span class="kw-2">&amp;mut </span><span class="kw">dyn </span>FnMut(OnceState)) {
         <span class="kw">let </span><span class="kw-2">mut </span>spinwait = SpinWait::new();
         <span class="kw">let </span><span class="kw-2">mut </span>state = <span class="self">self</span>.<span class="number">0</span>.load(Ordering::Relaxed);
@@ -774,7 +774,7 @@
 }
 
 <span class="kw">impl </span>Default <span class="kw">for </span>Once {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>default() -&gt; Once {
         Once::new()
     }
@@ -788,14 +788,14 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">crate</span>::Once;
     <span class="kw">use </span>std::panic;
     <span class="kw">use </span>std::sync::mpsc::channel;
     <span class="kw">use </span>std::thread;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>smoke_once() {
         <span class="kw">static </span>O: Once = Once::new();
         <span class="kw">let </span><span class="kw-2">mut </span>a = <span class="number">0</span>;
@@ -805,7 +805,7 @@
         <span class="macro">assert_eq!</span>(a, <span class="number">1</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>stampede_once() {
         <span class="kw">static </span>O: Once = Once::new();
         <span class="kw">static </span><span class="kw-2">mut </span>RUN: bool = <span class="bool-val">false</span>;
@@ -841,7 +841,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>poison_bad() {
         <span class="kw">static </span>O: Once = Once::new();
 
@@ -869,7 +869,7 @@
         </span>O.call_once(|| {});
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>wait_for_force_to_finish() {
         <span class="kw">static </span>O: Once = Once::new();
 
@@ -907,7 +907,7 @@
         <span class="macro">assert!</span>(t2.join().is_ok());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_once_debug() {
         <span class="kw">static </span>O: Once = Once::new();
 
@@ -915,4 +915,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

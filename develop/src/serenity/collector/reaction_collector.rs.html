@@ -537,32 +537,32 @@
 }
 
 <span class="doccomment">/// Marks whether the reaction has been added or removed.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub enum </span>ReactionAction {
     Added(Arc&lt;Reaction&gt;),
     Removed(Arc&lt;Reaction&gt;),
 }
 
 <span class="kw">impl </span>ReactionAction {
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>as_inner_ref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Arc&lt;Reaction&gt; {
         <span class="kw">match </span><span class="self">self </span>{
             <span class="self">Self</span>::Added(inner) | <span class="self">Self</span>::Removed(inner) =&gt; inner,
         }
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>is_added(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="macro">matches!</span>(<span class="self">self</span>, <span class="self">Self</span>::Added(<span class="kw">_</span>))
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>is_removed(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="macro">matches!</span>(<span class="self">self</span>, <span class="self">Self</span>::Removed(<span class="kw">_</span>))
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>LazyReactionAction&lt;<span class="lifetime">&#39;a</span>&gt; {
     reaction: LazyArc&lt;<span class="lifetime">&#39;a</span>, Reaction&gt;,
     added: bool,
@@ -594,7 +594,7 @@
 }
 
 <span class="doccomment">/// Filters events on the shard&#39;s end and sends them to the collector.
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>ReactionFilter {
     filtered: u32,
     collected: u32,
@@ -674,7 +674,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone)]
+<span class="attr">#[derive(Clone)]
 </span><span class="kw">struct </span>FilterOptions {
     filter_limit: <span class="prelude-ty">Option</span>&lt;u32&gt;,
     collect_limit: <span class="prelude-ty">Option</span>&lt;u32&gt;,
@@ -711,7 +711,7 @@
     ReactionCollectorBuilder;
 }
 
-<span class="attribute">#[must_use = <span class="string">&quot;builders do nothing until built&quot;</span>]
+<span class="attr">#[must_use = <span class="string">&quot;builders do nothing until built&quot;</span>]
 </span><span class="kw">pub struct </span>ReactionCollectorBuilder {
     filter: <span class="prelude-ty">Option</span>&lt;FilterOptions&gt;,
     shard: <span class="prelude-ty">Option</span>&lt;ShardMessenger&gt;,
@@ -728,7 +728,7 @@
     }
 
     <span class="doccomment">/// Use the given configuration to build the [`ReactionCollector`].
-    </span><span class="attribute">#[allow(clippy::unwrap_used)]
+    </span><span class="attr">#[allow(clippy::unwrap_used)]
     #[must_use]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; ReactionCollector {
         <span class="kw">let </span>shard_messenger = <span class="self">self</span>.shard.unwrap();
@@ -744,7 +744,7 @@
     }
 }
 
-<span class="attribute">#[must_use = <span class="string">&quot;builders do nothing unless awaited&quot;</span>]
+<span class="attr">#[must_use = <span class="string">&quot;builders do nothing unless awaited&quot;</span>]
 </span><span class="kw">pub struct </span>CollectReaction {
     filter: <span class="prelude-ty">Option</span>&lt;FilterOptions&gt;,
     shard: <span class="prelude-ty">Option</span>&lt;ShardMessenger&gt;,
@@ -765,7 +765,7 @@
 
 <span class="kw">impl </span>Future <span class="kw">for </span>CollectReaction {
     <span class="kw">type </span>Output = <span class="prelude-ty">Option</span>&lt;Arc&lt;ReactionAction&gt;&gt;;
-    <span class="attribute">#[allow(clippy::unwrap_used)]
+    <span class="attr">#[allow(clippy::unwrap_used)]
     </span><span class="kw">fn </span>poll(<span class="kw-2">mut </span><span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, ctx: <span class="kw-2">&amp;mut </span>FutContext&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;<span class="self">Self</span>::Output&gt; {
         <span class="kw">if </span><span class="self">self</span>.fut.is_none() {
             <span class="kw">let </span>shard_messenger = <span class="self">self</span>.shard.take().unwrap();
@@ -839,4 +839,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

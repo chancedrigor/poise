@@ -347,12 +347,12 @@
 ///
 /// [`Subscriber`]: ../subscriber/trait.Subscriber.html
 /// [`new_span`]: ../subscriber/trait.Subscriber.html#method.new_span
-</span><span class="attribute">#[derive(Clone, Debug, PartialEq, Eq, Hash)]
+</span><span class="attr">#[derive(Clone, Debug, PartialEq, Eq, Hash)]
 </span><span class="kw">pub struct </span>Id(NonZeroU64);
 
 <span class="doccomment">/// Attributes provided to a `Subscriber` describing a new span when it is
 /// created.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Attributes&lt;<span class="lifetime">&#39;a</span>&gt; {
     metadata: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Metadata&lt;<span class="lifetime">&#39;static</span>&gt;,
     values: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>field::ValueSet&lt;<span class="lifetime">&#39;a</span>&gt;,
@@ -360,7 +360,7 @@
 }
 
 <span class="doccomment">/// A set of fields recorded by a span.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Record&lt;<span class="lifetime">&#39;a</span>&gt; {
     values: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>field::ValueSet&lt;<span class="lifetime">&#39;a</span>&gt;,
 }
@@ -376,12 +376,12 @@
 /// [the `Subscriber` considers]: ../subscriber/trait.Subscriber.html#method.current_span
 /// [`Id`]: struct.Id.html
 /// [`Metadata`]: ../metadata/struct.Metadata.html
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Current {
     inner: CurrentInner,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">enum </span>CurrentInner {
     Current {
         id: Id,
@@ -409,22 +409,22 @@
     <span class="doccomment">/// Constructs a new span ID from the given `NonZeroU64`.
     ///
     /// Unlike [`Id::from_u64`](#method.from_u64), this will never panic.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub const fn </span>from_non_zero_u64(id: NonZeroU64) -&gt; <span class="self">Self </span>{
         Id(id)
     }
 
     <span class="comment">// Allow `into` by-ref since we don&#39;t want to impl Copy for Id
-    </span><span class="attribute">#[allow(clippy::wrong_self_convention)]
+    </span><span class="attr">#[allow(clippy::wrong_self_convention)]
     </span><span class="doccomment">/// Returns the span&#39;s ID as a `u64`.
     </span><span class="kw">pub fn </span>into_u64(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u64 {
         <span class="self">self</span>.<span class="number">0</span>.get()
     }
 
     <span class="comment">// Allow `into` by-ref since we don&#39;t want to impl Copy for Id
-    </span><span class="attribute">#[allow(clippy::wrong_self_convention)]
+    </span><span class="attr">#[allow(clippy::wrong_self_convention)]
     </span><span class="doccomment">/// Returns the span&#39;s ID as a `NonZeroU64`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub const fn </span>into_non_zero_u64(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; NonZeroU64 {
         <span class="self">self</span>.<span class="number">0
     </span>}
@@ -668,4 +668,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

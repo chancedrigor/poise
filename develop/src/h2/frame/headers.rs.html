@@ -1054,7 +1054,7 @@
 <span class="doccomment">/// Header frame
 ///
 /// This could be either a request or a response.
-</span><span class="attribute">#[derive(Eq, PartialEq)]
+</span><span class="attr">#[derive(Eq, PartialEq)]
 </span><span class="kw">pub struct </span>Headers {
     <span class="doccomment">/// The ID of the stream with which this frame is associated.
     </span>stream_id: StreamId,
@@ -1069,10 +1069,10 @@
     </span>flags: HeadersFlag,
 }
 
-<span class="attribute">#[derive(Copy, Clone, Eq, PartialEq)]
+<span class="attr">#[derive(Copy, Clone, Eq, PartialEq)]
 </span><span class="kw">pub struct </span>HeadersFlag(u8);
 
-<span class="attribute">#[derive(Eq, PartialEq)]
+<span class="attr">#[derive(Eq, PartialEq)]
 </span><span class="kw">pub struct </span>PushPromise {
     <span class="doccomment">/// The ID of the stream with which this frame is associated.
     </span>stream_id: StreamId,
@@ -1087,10 +1087,10 @@
     </span>flags: PushPromiseFlag,
 }
 
-<span class="attribute">#[derive(Copy, Clone, Eq, PartialEq)]
+<span class="attr">#[derive(Copy, Clone, Eq, PartialEq)]
 </span><span class="kw">pub struct </span>PushPromiseFlag(u8);
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Continuation {
     <span class="doccomment">/// Stream ID of continuation frame
     </span>stream_id: StreamId,
@@ -1099,7 +1099,7 @@
 }
 
 <span class="comment">// TODO: These fields shouldn&#39;t be `pub`
-</span><span class="attribute">#[derive(Debug, Default, Eq, PartialEq)]
+</span><span class="attr">#[derive(Debug, Default, Eq, PartialEq)]
 </span><span class="kw">pub struct </span>Pseudo {
     <span class="comment">// Request
     </span><span class="kw">pub </span>method: <span class="prelude-ty">Option</span>&lt;Method&gt;,
@@ -1112,7 +1112,7 @@
     </span><span class="kw">pub </span>status: <span class="prelude-ty">Option</span>&lt;StatusCode&gt;,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Iter {
     <span class="doccomment">/// Pseudo headers
     </span>pseudo: <span class="prelude-ty">Option</span>&lt;Pseudo&gt;,
@@ -1121,7 +1121,7 @@
     </span>fields: header::IntoIter&lt;HeaderValue&gt;,
 }
 
-<span class="attribute">#[derive(Debug, PartialEq, Eq)]
+<span class="attr">#[derive(Debug, PartialEq, Eq)]
 </span><span class="kw">struct </span>HeaderBlock {
     <span class="doccomment">/// The decoded header fields
     </span>fields: HeaderMap,
@@ -1134,7 +1134,7 @@
     </span>pseudo: Pseudo,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>EncodingHeaderBlock {
     hpack: Bytes,
 }
@@ -1281,7 +1281,7 @@
         (<span class="self">self</span>.header_block.pseudo, <span class="self">self</span>.header_block.fields)
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
     </span><span class="kw">pub fn </span>pseudo_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>Pseudo {
         <span class="kw-2">&amp;mut </span><span class="self">self</span>.header_block.pseudo
     }
@@ -1370,7 +1370,7 @@
 
 <span class="comment">// ===== impl PushPromise =====
 
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub enum </span>PushPromiseHeaderError {
     InvalidContentLength(<span class="prelude-ty">Result</span>&lt;u64, ()&gt;),
     NotSafeAndCacheable,
@@ -1427,7 +1427,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>.header_block.fields
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
     </span><span class="kw">pub fn </span>into_fields(<span class="self">self</span>) -&gt; HeaderMap {
         <span class="self">self</span>.header_block.fields
     }
@@ -1630,7 +1630,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
     </span><span class="kw">pub fn </span>set_status(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: StatusCode) {
         <span class="self">self</span>.status = <span class="prelude-val">Some</span>(value);
     }
@@ -1644,7 +1644,7 @@
         <span class="self">self</span>.scheme = <span class="prelude-val">Some</span>(bytes_str);
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
     </span><span class="kw">pub fn </span>set_protocol(<span class="kw-2">&amp;mut </span><span class="self">self</span>, protocol: Protocol) {
         <span class="self">self</span>.protocol = <span class="prelude-val">Some</span>(protocol);
     }
@@ -2006,7 +2006,7 @@
     name + value + <span class="number">32
 </span>}
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use </span>std::iter::FromIterator;
 
@@ -2016,7 +2016,7 @@
     <span class="kw">use </span><span class="kw">crate</span>::frame;
     <span class="kw">use </span><span class="kw">crate</span>::hpack::{huffman, Encoder};
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_nameless_header_at_resume() {
         <span class="kw">let </span><span class="kw-2">mut </span>encoder = Encoder::default();
         <span class="kw">let </span><span class="kw-2">mut </span>dst = BytesMut::new();
@@ -2077,4 +2077,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

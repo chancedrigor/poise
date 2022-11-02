@@ -1055,17 +1055,17 @@
     sync::atomic::{AtomicUsize, Ordering},
 };
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
 </span><span class="kw">use </span>alloc::sync::Arc;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
 </span><span class="kw">use </span>core::mem::ManuallyDrop;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
 </span><span class="kw">use </span>core::ptr;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;owning_ref&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;owning_ref&quot;</span>)]
 </span><span class="kw">use </span>owning_ref::StableAddress;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">use </span>serde::{Deserialize, Deserializer, Serialize, Serializer};
 
 <span class="doccomment">/// Helper trait which returns a non-zero thread ID.
@@ -1082,7 +1082,7 @@
     <span class="doccomment">/// Initial value.
     </span><span class="comment">// A “non-constant” const item is a legacy way to supply an initialized value to downstream
     // static items. Can hopefully be replaced with `const fn new() -&gt; Self` at some point.
-    </span><span class="attribute">#[allow(clippy::declare_interior_mutable_const)]
+    </span><span class="attr">#[allow(clippy::declare_interior_mutable_const)]
     </span><span class="kw">const </span>INIT: <span class="self">Self</span>;
 
     <span class="doccomment">/// Returns a non-zero thread ID which identifies the current thread of
@@ -1112,7 +1112,7 @@
 
 <span class="kw">impl</span>&lt;R: RawMutex, G: GetThreadId&gt; RawReentrantMutex&lt;R, G&gt; {
     <span class="doccomment">/// Initial value for an unlocked mutex.
-    </span><span class="attribute">#[allow(clippy::declare_interior_mutable_const)]
+    </span><span class="attr">#[allow(clippy::declare_interior_mutable_const)]
     </span><span class="kw">pub const </span>INIT: <span class="self">Self </span>= RawReentrantMutex {
         owner: AtomicUsize::new(<span class="number">0</span>),
         lock_count: Cell::new(<span class="number">0</span>),
@@ -1120,7 +1120,7 @@
         get_thread_id: G::INIT,
     };
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>lock_internal&lt;F: FnOnce() -&gt; bool&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, try_lock: F) -&gt; bool {
         <span class="kw">let </span>id = <span class="self">self</span>.get_thread_id.nonzero_thread_id().get();
         <span class="kw">if </span><span class="self">self</span>.owner.load(Ordering::Relaxed) == id {
@@ -1142,7 +1142,7 @@
     </span>}
 
     <span class="doccomment">/// Acquires this mutex, blocking if it&#39;s held by another thread.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>lock(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="self">self</span>.lock_internal(|| {
             <span class="self">self</span>.mutex.lock();
@@ -1152,7 +1152,7 @@
 
     <span class="doccomment">/// Attempts to acquire this mutex without blocking. Returns `true`
     /// if the lock was successfully acquired and `false` otherwise.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>try_lock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.lock_internal(|| <span class="self">self</span>.mutex.try_lock())
     }
@@ -1163,7 +1163,7 @@
     /// # Safety
     ///
     /// This method may only be called if the mutex is held by the current thread.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub unsafe fn </span>unlock(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">let </span>lock_count = <span class="self">self</span>.lock_count.get() - <span class="number">1</span>;
         <span class="self">self</span>.lock_count.set(lock_count);
@@ -1174,13 +1174,13 @@
     }
 
     <span class="doccomment">/// Checks whether the mutex is currently locked.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_locked(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.mutex.is_locked()
     }
 
     <span class="doccomment">/// Checks whether the mutex is currently held by the current thread.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_owned_by_current_thread(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">let </span>id = <span class="self">self</span>.get_thread_id.nonzero_thread_id().get();
         <span class="self">self</span>.owner.load(Ordering::Relaxed) == id
@@ -1195,7 +1195,7 @@
     /// # Safety
     ///
     /// This method may only be called if the mutex is held by the current thread.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub unsafe fn </span>unlock_fair(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">let </span>lock_count = <span class="self">self</span>.lock_count.get() - <span class="number">1</span>;
         <span class="self">self</span>.lock_count.set(lock_count);
@@ -1214,7 +1214,7 @@
     /// # Safety
     ///
     /// This method may only be called if the mutex is held by the current thread.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub unsafe fn </span>bump(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">if </span><span class="self">self</span>.lock_count.get() == <span class="number">1 </span>{
             <span class="kw">let </span>id = <span class="self">self</span>.owner.load(Ordering::Relaxed);
@@ -1227,13 +1227,13 @@
 
 <span class="kw">impl</span>&lt;R: RawMutexTimed, G: GetThreadId&gt; RawReentrantMutex&lt;R, G&gt; {
     <span class="doccomment">/// Attempts to acquire this lock until a timeout is reached.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>try_lock_until(<span class="kw-2">&amp;</span><span class="self">self</span>, timeout: R::Instant) -&gt; bool {
         <span class="self">self</span>.lock_internal(|| <span class="self">self</span>.mutex.try_lock_until(timeout))
     }
 
     <span class="doccomment">/// Attempts to acquire this lock until a timeout is reached.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>try_lock_for(<span class="kw-2">&amp;</span><span class="self">self</span>, timeout: R::Duration) -&gt; bool {
         <span class="self">self</span>.lock_internal(|| <span class="self">self</span>.mutex.try_lock_for(timeout))
     }
@@ -1266,7 +1266,7 @@
 
 <span class="kw">impl</span>&lt;R: RawMutex, G: GetThreadId, T&gt; ReentrantMutex&lt;R, G, T&gt; {
     <span class="doccomment">/// Creates a new reentrant mutex in an unlocked state ready for use.
-    </span><span class="attribute">#[cfg(has_const_fn_trait_bound)]
+    </span><span class="attr">#[cfg(has_const_fn_trait_bound)]
     #[inline]
     </span><span class="kw">pub const fn </span>new(val: T) -&gt; ReentrantMutex&lt;R, G, T&gt; {
         ReentrantMutex {
@@ -1281,7 +1281,7 @@
     }
 
     <span class="doccomment">/// Creates a new reentrant mutex in an unlocked state ready for use.
-    </span><span class="attribute">#[cfg(not(has_const_fn_trait_bound))]
+    </span><span class="attr">#[cfg(not(has_const_fn_trait_bound))]
     #[inline]
     </span><span class="kw">pub fn </span>new(val: T) -&gt; ReentrantMutex&lt;R, G, T&gt; {
         ReentrantMutex {
@@ -1296,7 +1296,7 @@
     }
 
     <span class="doccomment">/// Consumes this mutex, returning the underlying data.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>into_inner(<span class="self">self</span>) -&gt; T {
         <span class="self">self</span>.data.into_inner()
     }
@@ -1308,7 +1308,7 @@
     ///
     /// This allows creating a reentrant mutex in a constant context on stable
     /// Rust.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub const fn </span>const_new(raw_mutex: R, get_thread_id: G, val: T) -&gt; ReentrantMutex&lt;R, G, T&gt; {
         ReentrantMutex {
             data: UnsafeCell::new(val),
@@ -1326,7 +1326,7 @@
     <span class="doccomment">/// # Safety
     ///
     /// The lock must be held when calling this method.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>guard(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ReentrantMutexGuard&lt;<span class="lifetime">&#39;_</span>, R, G, T&gt; {
         ReentrantMutexGuard {
             remutex: <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -1344,7 +1344,7 @@
     /// the thread is the only thread with the mutex held. An RAII guard is
     /// returned to allow scoped unlock of the lock. When the guard goes out of
     /// scope, the mutex will be unlocked.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>lock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ReentrantMutexGuard&lt;<span class="lifetime">&#39;_</span>, R, G, T&gt; {
         <span class="self">self</span>.raw.lock();
         <span class="comment">// SAFETY: The lock is held, as required.
@@ -1358,7 +1358,7 @@
     /// guard is dropped.
     ///
     /// This function does not block.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>try_lock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;ReentrantMutexGuard&lt;<span class="lifetime">&#39;_</span>, R, G, T&gt;&gt; {
         <span class="kw">if </span><span class="self">self</span>.raw.try_lock() {
             <span class="comment">// SAFETY: The lock is held, as required.
@@ -1372,19 +1372,19 @@
     ///
     /// Since this call borrows the `ReentrantMutex` mutably, no actual locking needs to
     /// take place---the mutable borrow statically guarantees no locks exist.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>get_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>T {
         <span class="kw">unsafe </span>{ <span class="kw-2">&amp;mut *</span><span class="self">self</span>.data.get() }
     }
 
     <span class="doccomment">/// Checks whether the mutex is currently locked.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_locked(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.raw.is_locked()
     }
 
     <span class="doccomment">/// Checks whether the mutex is currently held by the current thread.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_owned_by_current_thread(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.raw.is_owned_by_current_thread()
     }
@@ -1400,7 +1400,7 @@
     /// This method must only be called if the current thread logically owns a
     /// `ReentrantMutexGuard` but that guard has be discarded using `mem::forget`.
     /// Behavior is undefined if a mutex is unlocked when not locked.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub unsafe fn </span>force_unlock(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="self">self</span>.raw.unlock();
     }
@@ -1414,7 +1414,7 @@
     ///
     /// This method is unsafe because it allows unlocking a mutex while
     /// still holding a reference to a `ReentrantMutexGuard`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub unsafe fn </span>raw(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>R {
         <span class="kw-2">&amp;</span><span class="self">self</span>.raw.mutex
     }
@@ -1431,7 +1431,7 @@
     /// returned pointer, for example if the current thread logically owns a
     /// `ReentrantMutexGuard` but that guard has been discarded using
     /// `mem::forget`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>data_ptr(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">*mut </span>T {
         <span class="self">self</span>.data.get()
     }
@@ -1439,7 +1439,7 @@
     <span class="doccomment">/// # Safety
     ///
     /// The lock must be held before calling this method.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
     #[inline]
     </span><span class="kw">unsafe fn </span>guard_arc(<span class="self">self</span>: <span class="kw-2">&amp;</span>Arc&lt;<span class="self">Self</span>&gt;) -&gt; ArcReentrantMutexGuard&lt;R, G, T&gt; {
         ArcReentrantMutexGuard {
@@ -1452,7 +1452,7 @@
     ///
     /// This method is similar to the `lock` method; however, it requires the `ReentrantMutex` to be inside of an
     /// `Arc` and the resulting mutex guard has no lifetime requirements.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
     #[inline]
     </span><span class="kw">pub fn </span>lock_arc(<span class="self">self</span>: <span class="kw-2">&amp;</span>Arc&lt;<span class="self">Self</span>&gt;) -&gt; ArcReentrantMutexGuard&lt;R, G, T&gt; {
         <span class="self">self</span>.raw.lock();
@@ -1464,7 +1464,7 @@
     ///
     /// This method is similar to the `try_lock` method; however, it requires the `ReentrantMutex` to be inside
     /// of an `Arc` and the resulting mutex guard has no lifetime requirements.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
     #[inline]
     </span><span class="kw">pub fn </span>try_lock_arc(<span class="self">self</span>: <span class="kw-2">&amp;</span>Arc&lt;<span class="self">Self</span>&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;ArcReentrantMutexGuard&lt;R, G, T&gt;&gt; {
         <span class="kw">if </span><span class="self">self</span>.raw.try_lock() {
@@ -1488,7 +1488,7 @@
     /// This method must only be called if the current thread logically owns a
     /// `ReentrantMutexGuard` but that guard has be discarded using `mem::forget`.
     /// Behavior is undefined if a mutex is unlocked when not locked.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub unsafe fn </span>force_unlock_fair(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="self">self</span>.raw.unlock_fair();
     }
@@ -1500,7 +1500,7 @@
     /// If the lock could not be acquired before the timeout expired, then
     /// `None` is returned. Otherwise, an RAII guard is returned. The lock will
     /// be unlocked when the guard is dropped.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>try_lock_for(<span class="kw-2">&amp;</span><span class="self">self</span>, timeout: R::Duration) -&gt; <span class="prelude-ty">Option</span>&lt;ReentrantMutexGuard&lt;<span class="lifetime">&#39;_</span>, R, G, T&gt;&gt; {
         <span class="kw">if </span><span class="self">self</span>.raw.try_lock_for(timeout) {
             <span class="comment">// SAFETY: The lock is held, as required.
@@ -1515,7 +1515,7 @@
     /// If the lock could not be acquired before the timeout expired, then
     /// `None` is returned. Otherwise, an RAII guard is returned. The lock will
     /// be unlocked when the guard is dropped.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>try_lock_until(<span class="kw-2">&amp;</span><span class="self">self</span>, timeout: R::Instant) -&gt; <span class="prelude-ty">Option</span>&lt;ReentrantMutexGuard&lt;<span class="lifetime">&#39;_</span>, R, G, T&gt;&gt; {
         <span class="kw">if </span><span class="self">self</span>.raw.try_lock_until(timeout) {
             <span class="comment">// SAFETY: The lock is held, as required.
@@ -1529,7 +1529,7 @@
     ///
     /// This method is similar to the `try_lock_for` method; however, it requires the `ReentrantMutex` to be
     /// inside of an `Arc` and the resulting mutex guard has no lifetime requirements.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
     #[inline]
     </span><span class="kw">pub fn </span>try_lock_arc_for(
         <span class="self">self</span>: <span class="kw-2">&amp;</span>Arc&lt;<span class="self">Self</span>&gt;,
@@ -1547,7 +1547,7 @@
     ///
     /// This method is similar to the `try_lock_until` method; however, it requires the `ReentrantMutex` to be
     /// inside of an `Arc` and the resulting mutex guard has no lifetime requirements.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
     #[inline]
     </span><span class="kw">pub fn </span>try_lock_arc_until(
         <span class="self">self</span>: <span class="kw-2">&amp;</span>Arc&lt;<span class="self">Self</span>&gt;,
@@ -1563,14 +1563,14 @@
 }
 
 <span class="kw">impl</span>&lt;R: RawMutex, G: GetThreadId, T: <span class="question-mark">?</span>Sized + Default&gt; Default <span class="kw">for </span>ReentrantMutex&lt;R, G, T&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>default() -&gt; ReentrantMutex&lt;R, G, T&gt; {
         ReentrantMutex::new(Default::default())
     }
 }
 
 <span class="kw">impl</span>&lt;R: RawMutex, G: GetThreadId, T&gt; From&lt;T&gt; <span class="kw">for </span>ReentrantMutex&lt;R, G, T&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(t: T) -&gt; ReentrantMutex&lt;R, G, T&gt; {
         ReentrantMutex::new(t)
     }
@@ -1600,7 +1600,7 @@
 }
 
 <span class="comment">// Copied and modified from serde
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">impl</span>&lt;R, G, T&gt; Serialize <span class="kw">for </span>ReentrantMutex&lt;R, G, T&gt;
 <span class="kw">where
     </span>R: RawMutex,
@@ -1615,7 +1615,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;de</span>, R, G, T&gt; Deserialize&lt;<span class="lifetime">&#39;de</span>&gt; <span class="kw">for </span>ReentrantMutex&lt;R, G, T&gt;
 <span class="kw">where
     </span>R: RawMutex,
@@ -1635,7 +1635,7 @@
 ///
 /// The data protected by the mutex can be accessed through this guard via its
 /// `Deref` implementation.
-</span><span class="attribute">#[must_use = <span class="string">&quot;if unused the ReentrantMutex will immediately unlock&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;if unused the ReentrantMutex will immediately unlock&quot;</span>]
 </span><span class="kw">pub struct </span>ReentrantMutexGuard&lt;<span class="lifetime">&#39;a</span>, R: RawMutex, G: GetThreadId, T: <span class="question-mark">?</span>Sized&gt; {
     remutex: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>ReentrantMutex&lt;R, G, T&gt;,
     marker: PhantomData&lt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>T, GuardNoSend)&gt;,
@@ -1660,7 +1660,7 @@
     /// This is an associated function that needs to be
     /// used as `ReentrantMutexGuard::map(...)`. A method would interfere with methods of
     /// the same name on the contents of the locked data.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>map&lt;U: <span class="question-mark">?</span>Sized, F&gt;(s: <span class="self">Self</span>, f: F) -&gt; MappedReentrantMutexGuard&lt;<span class="lifetime">&#39;a</span>, R, G, U&gt;
     <span class="kw">where
         </span>F: FnOnce(<span class="kw-2">&amp;</span>T) -&gt; <span class="kw-2">&amp;</span>U,
@@ -1684,7 +1684,7 @@
     /// This is an associated function that needs to be
     /// used as `ReentrantMutexGuard::map(...)`. A method would interfere with methods of
     /// the same name on the contents of the locked data.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>try_map&lt;U: <span class="question-mark">?</span>Sized, F&gt;(
         s: <span class="self">Self</span>,
         f: F,
@@ -1709,7 +1709,7 @@
     ///
     /// This is safe because `&amp;mut` guarantees that there exist no other
     /// references to the data protected by the mutex.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>unlocked&lt;F, U&gt;(s: <span class="kw-2">&amp;mut </span><span class="self">Self</span>, f: F) -&gt; U
     <span class="kw">where
         </span>F: FnOnce() -&gt; U,
@@ -1738,7 +1738,7 @@
     /// However in some cases it can be beneficial to ensure fairness by forcing
     /// the lock to pass on to a waiting thread if there is one. This is done by
     /// using this method instead of dropping the `ReentrantMutexGuard` normally.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>unlock_fair(s: <span class="self">Self</span>) {
         <span class="comment">// Safety: A ReentrantMutexGuard always holds the lock
         </span><span class="kw">unsafe </span>{
@@ -1753,7 +1753,7 @@
     ///
     /// This is safe because `&amp;mut` guarantees that there exist no other
     /// references to the data protected by the mutex.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>unlocked_fair&lt;F, U&gt;(s: <span class="kw-2">&amp;mut </span><span class="self">Self</span>, f: F) -&gt; U
     <span class="kw">where
         </span>F: FnOnce() -&gt; U,
@@ -1771,7 +1771,7 @@
     /// This method is functionally equivalent to calling `unlock_fair` followed
     /// by `lock`, however it can be much more efficient in the case where there
     /// are no waiting threads.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>bump(s: <span class="kw-2">&amp;mut </span><span class="self">Self</span>) {
         <span class="comment">// Safety: A ReentrantMutexGuard always holds the lock
         </span><span class="kw">unsafe </span>{
@@ -1784,7 +1784,7 @@
     <span class="kw">for </span>ReentrantMutexGuard&lt;<span class="lifetime">&#39;a</span>, R, G, T&gt;
 {
     <span class="kw">type </span>Target = T;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>deref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>T {
         <span class="kw">unsafe </span>{ <span class="kw-2">&amp;*</span><span class="self">self</span>.remutex.data.get() }
     }
@@ -1793,7 +1793,7 @@
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, R: RawMutex + <span class="lifetime">&#39;a</span>, G: GetThreadId + <span class="lifetime">&#39;a</span>, T: <span class="question-mark">?</span>Sized + <span class="lifetime">&#39;a</span>&gt; Drop
     <span class="kw">for </span>ReentrantMutexGuard&lt;<span class="lifetime">&#39;a</span>, R, G, T&gt;
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="comment">// Safety: A ReentrantMutexGuard always holds the lock.
         </span><span class="kw">unsafe </span>{
@@ -1818,7 +1818,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;owning_ref&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;owning_ref&quot;</span>)]
 </span><span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>, R: RawMutex + <span class="lifetime">&#39;a</span>, G: GetThreadId + <span class="lifetime">&#39;a</span>, T: <span class="question-mark">?</span>Sized + <span class="lifetime">&#39;a</span>&gt; StableAddress
     <span class="kw">for </span>ReentrantMutexGuard&lt;<span class="lifetime">&#39;a</span>, R, G, T&gt;
 {
@@ -1829,14 +1829,14 @@
 /// This is similar to the `ReentrantMutexGuard` struct, except instead of using a reference to unlock the
 /// `Mutex` it uses an `Arc&lt;ReentrantMutex&gt;`. This has several advantages, most notably that it has an `&#39;static`
 /// lifetime.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
 #[must_use = <span class="string">&quot;if unused the ReentrantMutex will immediately unlock&quot;</span>]
 </span><span class="kw">pub struct </span>ArcReentrantMutexGuard&lt;R: RawMutex, G: GetThreadId, T: <span class="question-mark">?</span>Sized&gt; {
     remutex: Arc&lt;ReentrantMutex&lt;R, G, T&gt;&gt;,
     marker: PhantomData&lt;GuardNoSend&gt;,
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
 </span><span class="kw">impl</span>&lt;R: RawMutex, G: GetThreadId, T: <span class="question-mark">?</span>Sized&gt; ArcReentrantMutexGuard&lt;R, G, T&gt; {
     <span class="doccomment">/// Returns a reference to the `ReentrantMutex` this object is guarding, contained in its `Arc`.
     </span><span class="kw">pub fn </span>remutex(s: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="kw-2">&amp;</span>Arc&lt;ReentrantMutex&lt;R, G, T&gt;&gt; {
@@ -1847,7 +1847,7 @@
     ///
     /// This is safe because `&amp;mut` guarantees that there exist no other
     /// references to the data protected by the mutex.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>unlocked&lt;F, U&gt;(s: <span class="kw-2">&amp;mut </span><span class="self">Self</span>, f: F) -&gt; U
     <span class="kw">where
         </span>F: FnOnce() -&gt; U,
@@ -1861,12 +1861,12 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
 </span><span class="kw">impl</span>&lt;R: RawMutexFair, G: GetThreadId, T: <span class="question-mark">?</span>Sized&gt; ArcReentrantMutexGuard&lt;R, G, T&gt; {
     <span class="doccomment">/// Unlocks the mutex using a fair unlock protocol.
     ///
     /// This is functionally identical to the `unlock_fair` method on [`ReentrantMutexGuard`].
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>unlock_fair(s: <span class="self">Self</span>) {
         <span class="comment">// Safety: A ReentrantMutexGuard always holds the lock
         </span><span class="kw">unsafe </span>{
@@ -1881,7 +1881,7 @@
     <span class="doccomment">/// Temporarily unlocks the mutex to execute the given function.
     ///
     /// This is functionally identical to the `unlocked_fair` method on [`ReentrantMutexGuard`].
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>unlocked_fair&lt;F, U&gt;(s: <span class="kw-2">&amp;mut </span><span class="self">Self</span>, f: F) -&gt; U
     <span class="kw">where
         </span>F: FnOnce() -&gt; U,
@@ -1897,7 +1897,7 @@
     <span class="doccomment">/// Temporarily yields the mutex to a waiting thread if there is one.
     ///
     /// This is functionally equivalent to the `bump` method on [`ReentrantMutexGuard`].
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>bump(s: <span class="kw-2">&amp;mut </span><span class="self">Self</span>) {
         <span class="comment">// Safety: A ReentrantMutexGuard always holds the lock
         </span><span class="kw">unsafe </span>{
@@ -1906,18 +1906,18 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
 </span><span class="kw">impl</span>&lt;R: RawMutex, G: GetThreadId, T: <span class="question-mark">?</span>Sized&gt; Deref <span class="kw">for </span>ArcReentrantMutexGuard&lt;R, G, T&gt; {
     <span class="kw">type </span>Target = T;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>deref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>T {
         <span class="kw">unsafe </span>{ <span class="kw-2">&amp;*</span><span class="self">self</span>.remutex.data.get() }
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;arc_lock&quot;</span>)]
 </span><span class="kw">impl</span>&lt;R: RawMutex, G: GetThreadId, T: <span class="question-mark">?</span>Sized&gt; Drop <span class="kw">for </span>ArcReentrantMutexGuard&lt;R, G, T&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="comment">// Safety: A ReentrantMutexGuard always holds the lock.
         </span><span class="kw">unsafe </span>{
@@ -1933,7 +1933,7 @@
 /// former doesn&#39;t support temporarily unlocking and re-locking, since that
 /// could introduce soundness issues if the locked object is modified by another
 /// thread.
-</span><span class="attribute">#[must_use = <span class="string">&quot;if unused the ReentrantMutex will immediately unlock&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;if unused the ReentrantMutex will immediately unlock&quot;</span>]
 </span><span class="kw">pub struct </span>MappedReentrantMutexGuard&lt;<span class="lifetime">&#39;a</span>, R: RawMutex, G: GetThreadId, T: <span class="question-mark">?</span>Sized&gt; {
     raw: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>RawReentrantMutex&lt;R, G&gt;,
     data: <span class="kw-2">*const </span>T,
@@ -1956,7 +1956,7 @@
     /// This is an associated function that needs to be
     /// used as `MappedReentrantMutexGuard::map(...)`. A method would interfere with methods of
     /// the same name on the contents of the locked data.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>map&lt;U: <span class="question-mark">?</span>Sized, F&gt;(s: <span class="self">Self</span>, f: F) -&gt; MappedReentrantMutexGuard&lt;<span class="lifetime">&#39;a</span>, R, G, U&gt;
     <span class="kw">where
         </span>F: FnOnce(<span class="kw-2">&amp;</span>T) -&gt; <span class="kw-2">&amp;</span>U,
@@ -1980,7 +1980,7 @@
     /// This is an associated function that needs to be
     /// used as `MappedReentrantMutexGuard::map(...)`. A method would interfere with methods of
     /// the same name on the contents of the locked data.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>try_map&lt;U: <span class="question-mark">?</span>Sized, F&gt;(
         s: <span class="self">Self</span>,
         f: F,
@@ -2017,7 +2017,7 @@
     /// However in some cases it can be beneficial to ensure fairness by forcing
     /// the lock to pass on to a waiting thread if there is one. This is done by
     /// using this method instead of dropping the `ReentrantMutexGuard` normally.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>unlock_fair(s: <span class="self">Self</span>) {
         <span class="comment">// Safety: A MappedReentrantMutexGuard always holds the lock
         </span><span class="kw">unsafe </span>{
@@ -2031,7 +2031,7 @@
     <span class="kw">for </span>MappedReentrantMutexGuard&lt;<span class="lifetime">&#39;a</span>, R, G, T&gt;
 {
     <span class="kw">type </span>Target = T;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>deref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>T {
         <span class="kw">unsafe </span>{ <span class="kw-2">&amp;*</span><span class="self">self</span>.data }
     }
@@ -2040,7 +2040,7 @@
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, R: RawMutex + <span class="lifetime">&#39;a</span>, G: GetThreadId + <span class="lifetime">&#39;a</span>, T: <span class="question-mark">?</span>Sized + <span class="lifetime">&#39;a</span>&gt; Drop
     <span class="kw">for </span>MappedReentrantMutexGuard&lt;<span class="lifetime">&#39;a</span>, R, G, T&gt;
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="comment">// Safety: A MappedReentrantMutexGuard always holds the lock.
         </span><span class="kw">unsafe </span>{
@@ -2065,10 +2065,10 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;owning_ref&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;owning_ref&quot;</span>)]
 </span><span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>, R: RawMutex + <span class="lifetime">&#39;a</span>, G: GetThreadId + <span class="lifetime">&#39;a</span>, T: <span class="question-mark">?</span>Sized + <span class="lifetime">&#39;a</span>&gt; StableAddress
     <span class="kw">for </span>MappedReentrantMutexGuard&lt;<span class="lifetime">&#39;a</span>, R, G, T&gt;
 {
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="lock_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="lock_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -146,13 +146,13 @@
 /// the Tokio runtime.
 ///
 /// [std::fs::DirBuilder]: std::fs::DirBuilder
-</span><span class="attribute">#[derive(Debug, Default)]
+</span><span class="attr">#[derive(Debug, Default)]
 </span><span class="kw">pub struct </span>DirBuilder {
     <span class="doccomment">/// Indicates whether to create parent directories if they are missing.
     </span>recursive: bool,
 
     <span class="doccomment">/// Sets the Unix mode for newly created directories.
-    </span><span class="attribute">#[cfg(unix)]
+    </span><span class="attr">#[cfg(unix)]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) mode: <span class="prelude-ty">Option</span>&lt;u32&gt;,
 }
 
@@ -238,7 +238,7 @@
         <span class="kw">let </span><span class="kw-2">mut </span>builder = std::fs::DirBuilder::new();
         builder.recursive(<span class="self">self</span>.recursive);
 
-        <span class="attribute">#[cfg(unix)]
+        <span class="attr">#[cfg(unix)]
         </span>{
             <span class="kw">if let </span><span class="prelude-val">Some</span>(mode) = <span class="self">self</span>.mode {
                 std::os::unix::fs::DirBuilderExt::mode(<span class="kw-2">&amp;mut </span>builder, mode);
@@ -250,7 +250,7 @@
 }
 
 <span class="macro">feature! </span>{
-    <span class="attribute">#![unix]
+    <span class="attr">#![unix]
 
     </span><span class="kw">impl </span>DirBuilder {
         <span class="doccomment">/// Sets the mode to create new directories with.
@@ -273,4 +273,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -368,7 +368,7 @@
 /// have an `error` field with your error type `E` in it), or originating from within the framework.
 ///
 /// These errors are handled with the [`crate::FrameworkOptions::on_error`] callback
-</span><span class="attribute">#[derive(derivative::Derivative)]
+</span><span class="attr">#[derive(derivative::Derivative)]
 #[derivative(Debug)]
 </span><span class="kw">pub enum </span>FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt; {
     <span class="doccomment">/// User code threw an error in user data setup
@@ -376,12 +376,12 @@
         <span class="doccomment">/// Error which was thrown in the setup code
         </span>error: E,
         <span class="doccomment">/// The Framework passed to the event
-        </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+        </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
         </span>framework: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Framework&lt;U, E&gt;,
         <span class="doccomment">/// Discord Ready event data present during setup
         </span>data_about_bot: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Ready,
         <span class="doccomment">/// The serenity Context passed to the event
-        </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+        </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
         </span>ctx: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context,
     },
     <span class="doccomment">/// User code threw an error in generic event listener
@@ -389,12 +389,12 @@
         <span class="doccomment">/// Error which was thrown in the listener code
         </span>error: E,
         <span class="doccomment">/// The serenity Context passed to the event
-        </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+        </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
         </span>ctx: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context,
         <span class="doccomment">/// Which event was being processed when the error occurred
         </span>event: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Event&lt;<span class="lifetime">&#39;a</span>&gt;,
         <span class="doccomment">/// The Framework passed to the event
-        </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+        </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
         </span>framework: <span class="kw">crate</span>::FrameworkContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     },
     <span class="doccomment">/// Error occured during command execution
@@ -482,7 +482,7 @@
         <span class="doccomment">/// Error which was thrown in the dynamic prefix code
         </span>error: E,
         <span class="doccomment">/// General context
-        </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+        </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
         </span>ctx: <span class="kw">crate</span>::PartialContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
         <span class="doccomment">/// Message which the dynamic prefix callback was evaluated upon
         </span>msg: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Message,
@@ -490,7 +490,7 @@
     <span class="doccomment">/// A message had the correct prefix but the following string was not a recognized command
     </span>UnknownCommand {
         <span class="doccomment">/// Serenity&#39;s Context
-        </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+        </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
         </span>ctx: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context,
         <span class="doccomment">/// The message in question
         </span>msg: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Message,
@@ -501,27 +501,27 @@
         /// This is a single field instead of two fields (command name and args) due to subcommands
         </span>msg_content: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
         <span class="doccomment">/// Framework context
-        </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+        </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
         </span>framework: <span class="kw">crate</span>::FrameworkContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
         <span class="doccomment">/// See [`crate::Context::invocation_data`]
-        </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+        </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
         </span>invocation_data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>tokio::sync::Mutex&lt;Box&lt;<span class="kw">dyn </span>std::any::Any + Send + Sync&gt;&gt;,
         <span class="doccomment">/// Which event triggered the message parsing routine
         </span>trigger: <span class="kw">crate</span>::MessageDispatchTrigger,
     },
     <span class="doccomment">/// The command name from the interaction is unrecognized
     </span>UnknownInteraction {
-        <span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+        <span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
         </span><span class="doccomment">/// Serenity&#39;s Context
         </span>ctx: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context,
         <span class="doccomment">/// Framework context
-        </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+        </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
         </span>framework: <span class="kw">crate</span>::FrameworkContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
         <span class="doccomment">/// The interaction in question
         </span>interaction: <span class="kw">crate</span>::ApplicationCommandOrAutocompleteInteraction&lt;<span class="lifetime">&#39;a</span>&gt;,
     },
     <span class="comment">// #[non_exhaustive] forbids struct update syntax for ?? reason
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     </span>__NonExhaustive,
 }
 
@@ -723,4 +723,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

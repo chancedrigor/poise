@@ -566,7 +566,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::byte_str::ByteStr;
 
 <span class="doccomment">/// Represents the path component of a URI
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>PathAndQuery {
     <span class="kw">pub</span>(<span class="kw">super</span>) data: ByteStr,
     <span class="kw">pub</span>(<span class="kw">super</span>) query: u16,
@@ -678,7 +678,7 @@
     /// assert_eq!(v.path(), &quot;/hello&quot;);
     /// assert_eq!(v.query(), Some(&quot;world&quot;));
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>from_static(src: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str) -&gt; <span class="self">Self </span>{
         <span class="kw">let </span>src = Bytes::from_static(src.as_bytes());
 
@@ -743,7 +743,7 @@
     ///
     /// assert_eq!(path_and_query.path(), &quot;/hello/world&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>path(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="kw">let </span>ret = <span class="kw">if </span><span class="self">self</span>.query == NONE {
             <span class="kw-2">&amp;</span><span class="self">self</span>.data[..]
@@ -792,7 +792,7 @@
     ///
     /// assert!(path_and_query.query().is_none());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>query(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt; {
         <span class="kw">if </span><span class="self">self</span>.query == NONE {
             <span class="prelude-val">None
@@ -823,7 +823,7 @@
     ///
     /// assert_eq!(path_and_query.as_str(), &quot;/hello/world&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>as_str(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="kw">let </span>ret = <span class="kw-2">&amp;</span><span class="self">self</span>.data[..];
         <span class="kw">if </span>ret.is_empty() {
@@ -835,7 +835,7 @@
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; TryFrom&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]&gt; <span class="kw">for </span>PathAndQuery {
     <span class="kw">type </span>Error = InvalidUri;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_from(s: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
         PathAndQuery::from_shared(Bytes::copy_from_slice(s))
     }
@@ -843,7 +843,7 @@
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; TryFrom&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt; <span class="kw">for </span>PathAndQuery {
     <span class="kw">type </span>Error = InvalidUri;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_from(s: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
         TryFrom::try_from(s.as_bytes())
     }
@@ -851,7 +851,7 @@
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; TryFrom&lt;Vec&lt;u8&gt;&gt; <span class="kw">for </span>PathAndQuery {
     <span class="kw">type </span>Error = InvalidUri;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_from(vec: Vec&lt;u8&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
         PathAndQuery::from_shared(vec.into())
     }
@@ -859,7 +859,7 @@
 
 <span class="kw">impl </span>TryFrom&lt;String&gt; <span class="kw">for </span>PathAndQuery {
     <span class="kw">type </span>Error = InvalidUri;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_from(s: String) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
         PathAndQuery::from_shared(s.into())
     }
@@ -867,7 +867,7 @@
 
 <span class="kw">impl </span>TryFrom&lt;<span class="kw-2">&amp;</span>String&gt; <span class="kw">for </span>PathAndQuery {
     <span class="kw">type </span>Error = InvalidUri;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_from(s: <span class="kw-2">&amp;</span>String) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
         TryFrom::try_from(s.as_bytes())
     }
@@ -875,7 +875,7 @@
 
 <span class="kw">impl </span>FromStr <span class="kw">for </span>PathAndQuery {
     <span class="kw">type </span><span class="prelude-val">Err </span>= InvalidUri;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from_str(s: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, InvalidUri&gt; {
         TryFrom::try_from(s)
     }
@@ -903,7 +903,7 @@
 <span class="comment">// ===== PartialEq / PartialOrd =====
 
 </span><span class="kw">impl </span>PartialEq <span class="kw">for </span>PathAndQuery {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>PathAndQuery) -&gt; bool {
         <span class="self">self</span>.data == other.data
     }
@@ -912,101 +912,101 @@
 <span class="kw">impl </span>Eq <span class="kw">for </span>PathAndQuery {}
 
 <span class="kw">impl </span>PartialEq&lt;str&gt; <span class="kw">for </span>PathAndQuery {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>str) -&gt; bool {
         <span class="self">self</span>.as_str() == other
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; PartialEq&lt;PathAndQuery&gt; <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>PathAndQuery) -&gt; bool {
         <span class="self">self </span>== <span class="kw-2">&amp;</span>other.as_str()
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; PartialEq&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt; <span class="kw">for </span>PathAndQuery {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: &amp;&amp;<span class="lifetime">&#39;a </span>str) -&gt; bool {
         <span class="self">self</span>.as_str() == <span class="kw-2">*</span>other
     }
 }
 
 <span class="kw">impl </span>PartialEq&lt;PathAndQuery&gt; <span class="kw">for </span>str {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>PathAndQuery) -&gt; bool {
         <span class="self">self </span>== other.as_str()
     }
 }
 
 <span class="kw">impl </span>PartialEq&lt;String&gt; <span class="kw">for </span>PathAndQuery {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>String) -&gt; bool {
         <span class="self">self</span>.as_str() == other.as_str()
     }
 }
 
 <span class="kw">impl </span>PartialEq&lt;PathAndQuery&gt; <span class="kw">for </span>String {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>PathAndQuery) -&gt; bool {
         <span class="self">self</span>.as_str() == other.as_str()
     }
 }
 
 <span class="kw">impl </span>PartialOrd <span class="kw">for </span>PathAndQuery {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>PathAndQuery) -&gt; <span class="prelude-ty">Option</span>&lt;cmp::Ordering&gt; {
         <span class="self">self</span>.as_str().partial_cmp(other.as_str())
     }
 }
 
 <span class="kw">impl </span>PartialOrd&lt;str&gt; <span class="kw">for </span>PathAndQuery {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;cmp::Ordering&gt; {
         <span class="self">self</span>.as_str().partial_cmp(other)
     }
 }
 
 <span class="kw">impl </span>PartialOrd&lt;PathAndQuery&gt; <span class="kw">for </span>str {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>PathAndQuery) -&gt; <span class="prelude-ty">Option</span>&lt;cmp::Ordering&gt; {
         <span class="self">self</span>.partial_cmp(other.as_str())
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; PartialOrd&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt; <span class="kw">for </span>PathAndQuery {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: &amp;&amp;<span class="lifetime">&#39;a </span>str) -&gt; <span class="prelude-ty">Option</span>&lt;cmp::Ordering&gt; {
         <span class="self">self</span>.as_str().partial_cmp(<span class="kw-2">*</span>other)
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; PartialOrd&lt;PathAndQuery&gt; <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>PathAndQuery) -&gt; <span class="prelude-ty">Option</span>&lt;cmp::Ordering&gt; {
         <span class="self">self</span>.partial_cmp(<span class="kw-2">&amp;</span>other.as_str())
     }
 }
 
 <span class="kw">impl </span>PartialOrd&lt;String&gt; <span class="kw">for </span>PathAndQuery {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>String) -&gt; <span class="prelude-ty">Option</span>&lt;cmp::Ordering&gt; {
         <span class="self">self</span>.as_str().partial_cmp(other.as_str())
     }
 }
 
 <span class="kw">impl </span>PartialOrd&lt;PathAndQuery&gt; <span class="kw">for </span>String {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>PathAndQuery) -&gt; <span class="prelude-ty">Option</span>&lt;cmp::Ordering&gt; {
         <span class="self">self</span>.as_str().partial_cmp(other.as_str())
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>equal_to_self_of_same_path() {
         <span class="kw">let </span>p1: PathAndQuery = <span class="string">&quot;/hello/world&amp;foo=bar&quot;</span>.parse().unwrap();
         <span class="kw">let </span>p2: PathAndQuery = <span class="string">&quot;/hello/world&amp;foo=bar&quot;</span>.parse().unwrap();
@@ -1014,7 +1014,7 @@
         <span class="macro">assert_eq!</span>(p2, p1);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>not_equal_to_self_of_different_path() {
         <span class="kw">let </span>p1: PathAndQuery = <span class="string">&quot;/hello/world&amp;foo=bar&quot;</span>.parse().unwrap();
         <span class="kw">let </span>p2: PathAndQuery = <span class="string">&quot;/world&amp;foo=bar&quot;</span>.parse().unwrap();
@@ -1022,7 +1022,7 @@
         <span class="macro">assert_ne!</span>(p2, p1);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>equates_with_a_str() {
         <span class="kw">let </span>path_and_query: PathAndQuery = <span class="string">&quot;/hello/world&amp;foo=bar&quot;</span>.parse().unwrap();
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>path_and_query, <span class="string">&quot;/hello/world&amp;foo=bar&quot;</span>);
@@ -1031,7 +1031,7 @@
         <span class="macro">assert_eq!</span>(<span class="string">&quot;/hello/world&amp;foo=bar&quot;</span>, path_and_query);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>not_equal_with_a_str_of_a_different_path() {
         <span class="kw">let </span>path_and_query: PathAndQuery = <span class="string">&quot;/hello/world&amp;foo=bar&quot;</span>.parse().unwrap();
         <span class="comment">// as a reference
@@ -1042,21 +1042,21 @@
         <span class="macro">assert_ne!</span>(<span class="string">&quot;/hello&amp;foo=bar&quot;</span>, path_and_query);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>equates_with_a_string() {
         <span class="kw">let </span>path_and_query: PathAndQuery = <span class="string">&quot;/hello/world&amp;foo=bar&quot;</span>.parse().unwrap();
         <span class="macro">assert_eq!</span>(path_and_query, <span class="string">&quot;/hello/world&amp;foo=bar&quot;</span>.to_string());
         <span class="macro">assert_eq!</span>(<span class="string">&quot;/hello/world&amp;foo=bar&quot;</span>.to_string(), path_and_query);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>not_equal_with_a_string_of_a_different_path() {
         <span class="kw">let </span>path_and_query: PathAndQuery = <span class="string">&quot;/hello/world&amp;foo=bar&quot;</span>.parse().unwrap();
         <span class="macro">assert_ne!</span>(path_and_query, <span class="string">&quot;/hello&amp;foo=bar&quot;</span>.to_string());
         <span class="macro">assert_ne!</span>(<span class="string">&quot;/hello&amp;foo=bar&quot;</span>.to_string(), path_and_query);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>compares_to_self() {
         <span class="kw">let </span>p1: PathAndQuery = <span class="string">&quot;/a/world&amp;foo=bar&quot;</span>.parse().unwrap();
         <span class="kw">let </span>p2: PathAndQuery = <span class="string">&quot;/b/world&amp;foo=bar&quot;</span>.parse().unwrap();
@@ -1064,7 +1064,7 @@
         <span class="macro">assert!</span>(p2 &gt; p1);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>compares_with_a_str() {
         <span class="kw">let </span>path_and_query: PathAndQuery = <span class="string">&quot;/b/world&amp;foo=bar&quot;</span>.parse().unwrap();
         <span class="comment">// by ref
@@ -1080,7 +1080,7 @@
         <span class="macro">assert!</span>(<span class="string">&quot;/a/world&amp;foo=bar&quot; </span>&lt; path_and_query);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>compares_with_a_string() {
         <span class="kw">let </span>path_and_query: PathAndQuery = <span class="string">&quot;/b/world&amp;foo=bar&quot;</span>.parse().unwrap();
         <span class="macro">assert!</span>(path_and_query &lt; <span class="string">&quot;/c/world&amp;foo=bar&quot;</span>.to_string());
@@ -1089,13 +1089,13 @@
         <span class="macro">assert!</span>(<span class="string">&quot;/a/world&amp;foo=bar&quot;</span>.to_string() &lt; path_and_query);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>ignores_valid_percent_encodings() {
         <span class="macro">assert_eq!</span>(<span class="string">&quot;/a%20b&quot;</span>, pq(<span class="string">&quot;/a%20b?r=1&quot;</span>).path());
         <span class="macro">assert_eq!</span>(<span class="string">&quot;qr=%31&quot;</span>, pq(<span class="string">&quot;/a/b?qr=%31&quot;</span>).query().unwrap());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>ignores_invalid_percent_encodings() {
         <span class="macro">assert_eq!</span>(<span class="string">&quot;/a%%b&quot;</span>, pq(<span class="string">&quot;/a%%b?r=1&quot;</span>).path());
         <span class="macro">assert_eq!</span>(<span class="string">&quot;/aaa%&quot;</span>, pq(<span class="string">&quot;/aaa%&quot;</span>).path());
@@ -1105,7 +1105,7 @@
         <span class="macro">assert_eq!</span>(<span class="string">&quot;qr=%3&quot;</span>, pq(<span class="string">&quot;/a/b?qr=%3&quot;</span>).query().unwrap());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>json_is_fine() {
         <span class="macro">assert_eq!</span>(<span class="string">r#&quot;/{&quot;bread&quot;:&quot;baguette&quot;}&quot;#</span>, pq(<span class="string">r#&quot;/{&quot;bread&quot;:&quot;baguette&quot;}&quot;#</span>).path());
     }
@@ -1115,4 +1115,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="http" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="http" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

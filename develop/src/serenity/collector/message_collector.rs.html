@@ -330,7 +330,7 @@
                 ///
                 /// The filter checks whether the message has been sent
                 /// in the right guild, channel, and by the right author.
-                </span><span class="attribute">#[must_use]
+                </span><span class="attr">#[must_use]
                 </span><span class="kw">pub fn </span>filter_limit(<span class="kw-2">mut </span><span class="self">self</span>, limit: u32) -&gt; <span class="self">Self </span>{
                     <span class="self">self</span>.filter.as_mut().unwrap().filter_limit = <span class="prelude-val">Some</span>(limit);
 
@@ -343,7 +343,7 @@
                 /// This is the last instance to pass for a message to count as *collected*.
                 ///
                 /// This function is intended to be a message content filter.
-                </span><span class="attribute">#[must_use]
+                </span><span class="attr">#[must_use]
                 </span><span class="kw">pub fn </span>filter&lt;F: Fn(<span class="kw-2">&amp;</span>Arc&lt;Message&gt;) -&gt; bool + <span class="lifetime">&#39;static </span>+ Send + Sync&gt;(<span class="kw-2">mut </span><span class="self">self</span>, function: F) -&gt; <span class="self">Self </span>{
                     <span class="self">self</span>.filter.as_mut().unwrap().filter = <span class="prelude-val">Some</span>(Arc::new(function));
 
@@ -352,7 +352,7 @@
 
                 <span class="doccomment">/// Sets the required author ID of a message.
                 /// If a message does not meet this ID, it won&#39;t be received.
-                </span><span class="attribute">#[must_use]
+                </span><span class="attr">#[must_use]
                 </span><span class="kw">pub fn </span>author_id(<span class="kw-2">mut </span><span class="self">self</span>, author_id: <span class="kw">impl </span>Into&lt;u64&gt;) -&gt; <span class="self">Self </span>{
                     <span class="self">self</span>.filter.as_mut().unwrap().author_id = <span class="prelude-val">Some</span>(author_id.into());
 
@@ -361,7 +361,7 @@
 
                 <span class="doccomment">/// Sets the required channel ID of a message.
                 /// If a message does not meet this ID, it won&#39;t be received.
-                </span><span class="attribute">#[must_use]
+                </span><span class="attr">#[must_use]
                 </span><span class="kw">pub fn </span>channel_id(<span class="kw-2">mut </span><span class="self">self</span>, channel_id: <span class="kw">impl </span>Into&lt;u64&gt;) -&gt; <span class="self">Self </span>{
                     <span class="self">self</span>.filter.as_mut().unwrap().channel_id = <span class="prelude-val">Some</span>(channel_id.into());
 
@@ -370,7 +370,7 @@
 
                 <span class="doccomment">/// Sets the required guild ID of a message.
                 /// If a message does not meet this ID, it won&#39;t be received.
-                </span><span class="attribute">#[must_use]
+                </span><span class="attr">#[must_use]
                 </span><span class="kw">pub fn </span>guild_id(<span class="kw-2">mut </span><span class="self">self</span>, guild_id: <span class="kw">impl </span>Into&lt;u64&gt;) -&gt; <span class="self">Self </span>{
                     <span class="self">self</span>.filter.as_mut().unwrap().guild_id = <span class="prelude-val">Some</span>(guild_id.into());
 
@@ -379,7 +379,7 @@
 
                 <span class="doccomment">/// Sets a `duration` for how long the collector shall receive
                 /// messages.
-                </span><span class="attribute">#[must_use]
+                </span><span class="attr">#[must_use]
                 </span><span class="kw">pub fn </span>timeout(<span class="kw-2">mut </span><span class="self">self</span>, duration: Duration) -&gt; <span class="self">Self </span>{
                     <span class="self">self</span>.timeout = <span class="prelude-val">Some</span>(Box::pin(sleep(duration)));
 
@@ -391,7 +391,7 @@
 }
 
 <span class="doccomment">/// Filters events on the shard&#39;s end and sends them to the collector.
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>MessageFilter {
     filtered: u32,
     collected: u32,
@@ -451,7 +451,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Default)]
+<span class="attr">#[derive(Clone, Default)]
 </span><span class="kw">struct </span>FilterOptions {
     filter_limit: <span class="prelude-ty">Option</span>&lt;u32&gt;,
     collect_limit: <span class="prelude-ty">Option</span>&lt;u32&gt;,
@@ -488,7 +488,7 @@
     ///
     /// A message is considered *collected*, if the message
     /// passes all the requirements.
-    </span><span class="attribute">#[allow(clippy::unwrap_used)]
+    </span><span class="attr">#[allow(clippy::unwrap_used)]
     #[must_use]
     </span><span class="kw">pub fn </span>collect_limit(<span class="kw-2">mut </span><span class="self">self</span>, limit: u32) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.filter.as_mut().unwrap().collect_limit = <span class="prelude-val">Some</span>(limit);
@@ -497,7 +497,7 @@
     </span>}
 
     <span class="doccomment">/// Use the given configuration to build the [`MessageCollector`].
-    </span><span class="attribute">#[allow(clippy::unwrap_used)]
+    </span><span class="attr">#[allow(clippy::unwrap_used)]
     #[must_use]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; MessageCollector {
         <span class="kw">let </span>shard_messenger = <span class="self">self</span>.shard.unwrap();
@@ -533,7 +533,7 @@
 
 <span class="kw">impl </span>Future <span class="kw">for </span>CollectReply {
     <span class="kw">type </span>Output = <span class="prelude-ty">Option</span>&lt;Arc&lt;Message&gt;&gt;;
-    <span class="attribute">#[allow(clippy::unwrap_used)]
+    <span class="attr">#[allow(clippy::unwrap_used)]
     </span><span class="kw">fn </span>poll(<span class="kw-2">mut </span><span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, ctx: <span class="kw-2">&amp;mut </span>FutContext&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;<span class="self">Self</span>::Output&gt; {
         <span class="kw">if </span><span class="self">self</span>.fut.is_none() {
             <span class="kw">let </span>shard_messenger = <span class="self">self</span>.shard.take().unwrap();
@@ -607,4 +607,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

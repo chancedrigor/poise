@@ -1351,7 +1351,7 @@
 <span id="1351">1351</span>
 <span id="1352">1352</span>
 </pre><pre class="rust"><code><span class="kw">use </span>futures_util::future::Either;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;__tls&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;__tls&quot;</span>)]
 </span><span class="kw">use </span>http::header::HeaderValue;
 <span class="kw">use </span>http::uri::{Authority, Scheme};
 <span class="kw">use </span>http::Uri;
@@ -1360,7 +1360,7 @@
     Connected, Connection,
 };
 <span class="kw">use </span>hyper::service::Service;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;native-tls-crate&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;native-tls-crate&quot;</span>)]
 </span><span class="kw">use </span>native_tls_crate::{TlsConnector, TlsConnectorBuilder};
 <span class="kw">use </span>tokio::io::{AsyncRead, AsyncWrite, ReadBuf};
 
@@ -1374,22 +1374,22 @@
 <span class="kw">use </span>std::{collections::HashMap, io};
 <span class="kw">use </span>std::{future::Future, net::SocketAddr};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;default-tls&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;default-tls&quot;</span>)]
 </span><span class="kw">use </span><span class="self">self</span>::native_tls_conn::NativeTlsConn;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;__rustls&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;__rustls&quot;</span>)]
 </span><span class="kw">use </span><span class="self">self</span>::rustls_tls_conn::RustlsTlsConn;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::dns::TrustDnsResolver;
 <span class="kw">use </span><span class="kw">crate</span>::error::BoxError;
 <span class="kw">use </span><span class="kw">crate</span>::proxy::{Proxy, ProxyScheme};
 
-<span class="attribute">#[derive(Clone)]
+<span class="attr">#[derive(Clone)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>HttpConnector {
     Gai(hyper::client::HttpConnector),
     GaiWithDnsOverrides(hyper::client::HttpConnector&lt;DnsResolverWithOverrides&lt;GaiResolver&gt;&gt;),
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
     </span>TrustDns(hyper::client::HttpConnector&lt;TrustDnsResolver&gt;),
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
     </span>TrustDnsWithOverrides(hyper::client::HttpConnector&lt;DnsResolverWithOverrides&lt;TrustDnsResolver&gt;&gt;),
 }
 
@@ -1406,7 +1406,7 @@
         ))
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new_trust_dns() -&gt; <span class="kw">crate</span>::Result&lt;HttpConnector&gt; {
         TrustDnsResolver::new()
             .map(hyper::client::HttpConnector::new_with_resolver)
@@ -1414,7 +1414,7 @@
             .map_err(<span class="kw">crate</span>::error::builder)
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new_trust_dns_with_overrides(
         overrides: HashMap&lt;String, SocketAddr&gt;,
     ) -&gt; <span class="kw">crate</span>::Result&lt;HttpConnector&gt; {
@@ -1428,16 +1428,16 @@
 
 <span class="macro">macro_rules! </span>impl_http_connector {
     ($(<span class="kw">fn </span><span class="macro-nonterminal">$name</span>:ident(<span class="kw-2">&amp;mut </span><span class="self">self</span>, $(<span class="macro-nonterminal">$par_name</span>:ident: <span class="macro-nonterminal">$par_type</span>:ty),<span class="kw-2">*</span>)$( -&gt; <span class="macro-nonterminal">$</span><span class="kw">return</span>:<span class="macro-nonterminal">ty</span>)<span class="question-mark">?</span>;)+) =&gt; {
-        <span class="attribute">#[allow(dead_code)]
+        <span class="attr">#[allow(dead_code)]
         </span><span class="kw">impl </span>HttpConnector {
             $(
                 <span class="kw">fn </span><span class="macro-nonterminal">$name</span>(<span class="kw-2">&amp;mut </span><span class="self">self</span>, $(<span class="macro-nonterminal">$par_name</span>: <span class="macro-nonterminal">$par_type</span>),<span class="kw-2">*</span>)$( -&gt; <span class="macro-nonterminal">$</span><span class="kw">return</span>)<span class="question-mark">? </span>{
                     <span class="kw">match </span><span class="macro-nonterminal">self </span>{
                         <span class="self">Self</span>::Gai(resolver) =&gt; resolver.<span class="macro-nonterminal">$name</span>($(<span class="macro-nonterminal">$par_name</span>),<span class="kw-2">*</span>),
                         <span class="self">Self</span>::GaiWithDnsOverrides(resolver) =&gt; resolver.<span class="macro-nonterminal">$name</span>($(<span class="macro-nonterminal">$par_name</span>),<span class="kw-2">*</span>),
-                        <span class="attribute">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
+                        <span class="attr">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
                         </span><span class="self">Self</span>::TrustDns(resolver) =&gt; resolver.<span class="macro-nonterminal">$name</span>($(<span class="macro-nonterminal">$par_name</span>),<span class="kw-2">*</span>),
-                        <span class="attribute">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
+                        <span class="attr">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
                         </span><span class="self">Self</span>::TrustDnsWithOverrides(resolver) =&gt; resolver.<span class="macro-nonterminal">$name</span>($(<span class="macro-nonterminal">$par_name</span>),<span class="kw-2">*</span>),
                     }
                 }
@@ -1456,7 +1456,7 @@
 <span class="kw">impl </span>Service&lt;Uri&gt; <span class="kw">for </span>HttpConnector {
     <span class="kw">type </span>Response = &lt;hyper::client::HttpConnector <span class="kw">as </span>Service&lt;Uri&gt;&gt;::Response;
     <span class="kw">type </span>Error = &lt;hyper::client::HttpConnector <span class="kw">as </span>Service&lt;Uri&gt;&gt;::Error;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
     </span><span class="kw">type </span>Future =
         Either&lt;
             Either&lt;
@@ -1470,7 +1470,7 @@
                 &lt;hyper::client::HttpConnector&lt;DnsResolverWithOverrides&lt;TrustDnsResolver&gt;&gt; <span class="kw">as </span>Service&lt;Uri&gt;&gt;::Future
                  &gt;
         &gt;;
-    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;trust-dns&quot;</span>))]
+    <span class="attr">#[cfg(not(feature = <span class="string">&quot;trust-dns&quot;</span>))]
     </span><span class="kw">type </span>Future =
         Either&lt;
             Either&lt;
@@ -1489,9 +1489,9 @@
         <span class="kw">match </span><span class="self">self </span>{
             <span class="self">Self</span>::Gai(resolver) =&gt; resolver.poll_ready(cx),
             <span class="self">Self</span>::GaiWithDnsOverrides(resolver) =&gt; resolver.poll_ready(cx),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
             </span><span class="self">Self</span>::TrustDns(resolver) =&gt; resolver.poll_ready(cx),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
             </span><span class="self">Self</span>::TrustDnsWithOverrides(resolver) =&gt; resolver.poll_ready(cx),
         }
     }
@@ -1500,9 +1500,9 @@
         <span class="kw">match </span><span class="self">self </span>{
             <span class="self">Self</span>::Gai(resolver) =&gt; Either::Left(Either::Left(resolver.call(dst))),
             <span class="self">Self</span>::GaiWithDnsOverrides(resolver) =&gt; Either::Left(Either::Right(resolver.call(dst))),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
             </span><span class="self">Self</span>::TrustDns(resolver) =&gt; Either::Right(Either::Left(resolver.call(dst))),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;trust-dns&quot;</span>)]
             </span><span class="self">Self</span>::TrustDnsWithOverrides(resolver) =&gt; {
                 Either::Right(Either::Right(resolver.call(dst)))
             }
@@ -1510,25 +1510,25 @@
     }
 }
 
-<span class="attribute">#[derive(Clone)]
+<span class="attr">#[derive(Clone)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Connector {
     inner: Inner,
     proxies: Arc&lt;Vec&lt;Proxy&gt;&gt;,
     verbose: verbose::Wrapper,
     timeout: <span class="prelude-ty">Option</span>&lt;Duration&gt;,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;__tls&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;__tls&quot;</span>)]
     </span>nodelay: bool,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;__tls&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;__tls&quot;</span>)]
     </span>user_agent: <span class="prelude-ty">Option</span>&lt;HeaderValue&gt;,
 }
 
-<span class="attribute">#[derive(Clone)]
+<span class="attr">#[derive(Clone)]
 </span><span class="kw">enum </span>Inner {
-    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;__tls&quot;</span>))]
+    <span class="attr">#[cfg(not(feature = <span class="string">&quot;__tls&quot;</span>))]
     </span>Http(HttpConnector),
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;default-tls&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;default-tls&quot;</span>)]
     </span>DefaultTls(HttpConnector, TlsConnector),
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;__rustls&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;__rustls&quot;</span>)]
     </span>RustlsTls {
         http: HttpConnector,
         tls: Arc&lt;rustls::ClientConfig&gt;,
@@ -1537,7 +1537,7 @@
 }
 
 <span class="kw">impl </span>Connector {
-    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;__tls&quot;</span>))]
+    <span class="attr">#[cfg(not(feature = <span class="string">&quot;__tls&quot;</span>))]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new&lt;T&gt;(
         <span class="kw-2">mut </span>http: HttpConnector,
         proxies: Arc&lt;Vec&lt;Proxy&gt;&gt;,
@@ -1557,7 +1557,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;default-tls&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;default-tls&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new_default_tls&lt;T&gt;(
         http: HttpConnector,
         tls: TlsConnectorBuilder,
@@ -1575,7 +1575,7 @@
         ))
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;default-tls&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;default-tls&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>from_built_default_tls&lt;T&gt;(
         <span class="kw-2">mut </span>http: HttpConnector,
         tls: TlsConnector,
@@ -1600,7 +1600,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;__rustls&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;__rustls&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new_rustls_tls&lt;T&gt;(
         <span class="kw-2">mut </span>http: HttpConnector,
         tls: rustls::ClientConfig,
@@ -1646,7 +1646,7 @@
         <span class="self">self</span>.verbose.<span class="number">0 </span>= enabled;
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
     </span><span class="kw">async fn </span>connect_socks(<span class="kw-2">&amp;</span><span class="self">self</span>, dst: Uri, proxy: ProxyScheme) -&gt; <span class="prelude-ty">Result</span>&lt;Conn, BoxError&gt; {
         <span class="kw">let </span>dns = <span class="kw">match </span>proxy {
             ProxyScheme::Socks5 {
@@ -1661,7 +1661,7 @@
         };
 
         <span class="kw">match </span><span class="kw-2">&amp;</span><span class="self">self</span>.inner {
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;default-tls&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;default-tls&quot;</span>)]
             </span>Inner::DefaultTls(_http, tls) =&gt; {
                 <span class="kw">if </span>dst.scheme() == <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>Scheme::HTTPS) {
                     <span class="kw">let </span>host = dst.host().ok_or(<span class="string">&quot;no host in url&quot;</span>)<span class="question-mark">?</span>.to_string();
@@ -1674,7 +1674,7 @@
                     });
                 }
             }
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;__rustls&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;__rustls&quot;</span>)]
             </span>Inner::RustlsTls { tls_proxy, .. } =&gt; {
                 <span class="kw">if </span>dst.scheme() == <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>Scheme::HTTPS) {
                     <span class="kw">use </span>std::convert::TryFrom;
@@ -1694,7 +1694,7 @@
                     });
                 }
             }
-            <span class="attribute">#[cfg(not(feature = <span class="string">&quot;__tls&quot;</span>))]
+            <span class="attr">#[cfg(not(feature = <span class="string">&quot;__tls&quot;</span>))]
             </span>Inner::Http(<span class="kw">_</span>) =&gt; (),
         }
 
@@ -1706,7 +1706,7 @@
 
     <span class="kw">async fn </span>connect_with_maybe_proxy(<span class="self">self</span>, dst: Uri, is_proxy: bool) -&gt; <span class="prelude-ty">Result</span>&lt;Conn, BoxError&gt; {
         <span class="kw">match </span><span class="self">self</span>.inner {
-            <span class="attribute">#[cfg(not(feature = <span class="string">&quot;__tls&quot;</span>))]
+            <span class="attr">#[cfg(not(feature = <span class="string">&quot;__tls&quot;</span>))]
             </span>Inner::Http(<span class="kw-2">mut </span>http) =&gt; {
                 <span class="kw">let </span>io = http.call(dst).<span class="kw">await</span><span class="question-mark">?</span>;
                 <span class="prelude-val">Ok</span>(Conn {
@@ -1714,7 +1714,7 @@
                     is_proxy,
                 })
             }
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;default-tls&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;default-tls&quot;</span>)]
             </span>Inner::DefaultTls(http, tls) =&gt; {
                 <span class="kw">let </span><span class="kw-2">mut </span>http = http.clone();
 
@@ -1744,7 +1744,7 @@
                     })
                 }
             }
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;__rustls&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;__rustls&quot;</span>)]
             </span>Inner::RustlsTls { http, tls, .. } =&gt; {
                 <span class="kw">let </span><span class="kw-2">mut </span>http = http.clone();
 
@@ -1787,15 +1787,15 @@
         <span class="kw">let </span>(proxy_dst, _auth) = <span class="kw">match </span>proxy_scheme {
             ProxyScheme::Http { host, auth } =&gt; (into_uri(Scheme::HTTP, host), auth),
             ProxyScheme::Https { host, auth } =&gt; (into_uri(Scheme::HTTPS, host), auth),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
             </span>ProxyScheme::Socks5 { .. } =&gt; <span class="kw">return </span><span class="self">self</span>.connect_socks(dst, proxy_scheme).<span class="kw">await</span>,
         };
 
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;__tls&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;__tls&quot;</span>)]
         </span><span class="kw">let </span>auth = _auth;
 
         <span class="kw">match </span><span class="kw-2">&amp;</span><span class="self">self</span>.inner {
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;default-tls&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;default-tls&quot;</span>)]
             </span>Inner::DefaultTls(http, tls) =&gt; {
                 <span class="kw">if </span>dst.scheme() == <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>Scheme::HTTPS) {
                     <span class="kw">let </span>host = dst.host().to_owned();
@@ -1823,7 +1823,7 @@
                     });
                 }
             }
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;__rustls&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;__rustls&quot;</span>)]
             </span>Inner::RustlsTls {
                 http,
                 tls,
@@ -1855,7 +1855,7 @@
                     });
                 }
             }
-            <span class="attribute">#[cfg(not(feature = <span class="string">&quot;__tls&quot;</span>))]
+            <span class="attr">#[cfg(not(feature = <span class="string">&quot;__tls&quot;</span>))]
             </span>Inner::Http(<span class="kw">_</span>) =&gt; (),
         }
 
@@ -1864,11 +1864,11 @@
 
     <span class="kw">pub fn </span>set_keepalive(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dur: <span class="prelude-ty">Option</span>&lt;Duration&gt;) {
         <span class="kw">match </span><span class="kw-2">&amp;mut </span><span class="self">self</span>.inner {
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;default-tls&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;default-tls&quot;</span>)]
             </span>Inner::DefaultTls(http, _tls) =&gt; http.set_keepalive(dur),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;__rustls&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;__rustls&quot;</span>)]
             </span>Inner::RustlsTls { http, .. } =&gt; http.set_keepalive(dur),
-            <span class="attribute">#[cfg(not(feature = <span class="string">&quot;__tls&quot;</span>))]
+            <span class="attr">#[cfg(not(feature = <span class="string">&quot;__tls&quot;</span>))]
             </span>Inner::Http(http) =&gt; http.set_keepalive(dur),
         }
     }
@@ -1942,7 +1942,7 @@
     /// * origin-form (`GET /just/a/path HTTP/1.1`), when `is_proxy == false`, or
     /// * absolute-form (`GET http://foo.bar/and/a/path HTTP/1.1`), otherwise.
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Conn {
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span>inner: BoxConn,
         is_proxy: bool,
     }
@@ -2001,7 +2001,7 @@
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">type </span>Connecting = Pin&lt;Box&lt;<span class="kw">dyn </span>Future&lt;Output = <span class="prelude-ty">Result</span>&lt;Conn, BoxError&gt;&gt; + Send&gt;&gt;;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;__tls&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;__tls&quot;</span>)]
 </span><span class="kw">async fn </span>tunnel&lt;T&gt;(
     <span class="kw-2">mut </span>conn: T,
     host: String,
@@ -2071,12 +2071,12 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;__tls&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;__tls&quot;</span>)]
 </span><span class="kw">fn </span>tunnel_eof() -&gt; BoxError {
     <span class="string">&quot;unexpected eof while tunneling&quot;</span>.into()
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;default-tls&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;default-tls&quot;</span>)]
 </span><span class="kw">mod </span>native_tls_conn {
     <span class="kw">use </span>hyper::client::connect::{Connected, Connection};
     <span class="kw">use </span>pin_project_lite::pin_project;
@@ -2090,12 +2090,12 @@
 
     <span class="macro">pin_project! </span>{
         <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>NativeTlsConn&lt;T&gt; {
-            <span class="attribute">#[pin] </span><span class="kw">pub</span>(<span class="kw">super</span>) inner: TlsStream&lt;T&gt;,
+            <span class="attr">#[pin] </span><span class="kw">pub</span>(<span class="kw">super</span>) inner: TlsStream&lt;T&gt;,
         }
     }
 
     <span class="kw">impl</span>&lt;T: Connection + AsyncRead + AsyncWrite + Unpin&gt; Connection <span class="kw">for </span>NativeTlsConn&lt;T&gt; {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;native-tls-alpn&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;native-tls-alpn&quot;</span>)]
         </span><span class="kw">fn </span>connected(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Connected {
             <span class="kw">match </span><span class="self">self</span>.inner.get_ref().negotiated_alpn().ok() {
                 <span class="prelude-val">Some</span>(<span class="prelude-val">Some</span>(alpn_protocol)) <span class="kw">if </span>alpn_protocol == <span class="string">b&quot;h2&quot; </span>=&gt; <span class="self">self
@@ -2109,7 +2109,7 @@
             }
         }
 
-        <span class="attribute">#[cfg(not(feature = <span class="string">&quot;native-tls-alpn&quot;</span>))]
+        <span class="attr">#[cfg(not(feature = <span class="string">&quot;native-tls-alpn&quot;</span>))]
         </span><span class="kw">fn </span>connected(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Connected {
             <span class="self">self</span>.inner.get_ref().get_ref().get_ref().connected()
         }
@@ -2167,7 +2167,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;__rustls&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;__rustls&quot;</span>)]
 </span><span class="kw">mod </span>rustls_tls_conn {
     <span class="kw">use </span>hyper::client::connect::{Connected, Connection};
     <span class="kw">use </span>pin_project_lite::pin_project;
@@ -2181,7 +2181,7 @@
 
     <span class="macro">pin_project! </span>{
         <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>RustlsTlsConn&lt;T&gt; {
-            <span class="attribute">#[pin] </span><span class="kw">pub</span>(<span class="kw">super</span>) inner: TlsStream&lt;T&gt;,
+            <span class="attr">#[pin] </span><span class="kw">pub</span>(<span class="kw">super</span>) inner: TlsStream&lt;T&gt;,
         }
     }
 
@@ -2247,7 +2247,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
 </span><span class="kw">mod </span>socks {
     <span class="kw">use </span>std::io;
     <span class="kw">use </span>std::net::ToSocketAddrs;
@@ -2336,7 +2336,7 @@
 
 <span class="macro">pin_project! </span>{
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>WrappedResolverFuture&lt;Fut&gt; {
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span>fut: Fut,
     }
 }
@@ -2356,7 +2356,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone)]
+<span class="attr">#[derive(Clone)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>DnsResolverWithOverrides&lt;Resolver&gt;
 <span class="kw">where
     </span>Resolver: Clone,
@@ -2419,7 +2419,7 @@
 
     <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">const </span>OFF: Wrapper = Wrapper(<span class="bool-val">false</span>);
 
-    <span class="attribute">#[derive(Clone, Copy)]
+    <span class="attr">#[derive(Clone, Copy)]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>Wrapper(<span class="kw">pub</span>(<span class="kw">super</span>) bool);
 
     <span class="kw">impl </span>Wrapper {
@@ -2537,7 +2537,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;__tls&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;__tls&quot;</span>)]
 #[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::tunnel;
@@ -2595,7 +2595,7 @@
         <span class="prelude-val">Some</span>(http::header::HeaderValue::from_static(TUNNEL_UA))
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_tunnel() {
         <span class="kw">let </span>addr = <span class="macro">mock_tunnel!</span>();
 
@@ -2613,7 +2613,7 @@
         rt.block_on(f).unwrap();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_tunnel_eof() {
         <span class="kw">let </span>addr = <span class="macro">mock_tunnel!</span>(<span class="string">b&quot;HTTP/1.1 200 OK&quot;</span>);
 
@@ -2631,7 +2631,7 @@
         rt.block_on(f).unwrap_err();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_tunnel_non_http_response() {
         <span class="kw">let </span>addr = <span class="macro">mock_tunnel!</span>(<span class="string">b&quot;foo bar baz hallo&quot;</span>);
 
@@ -2649,7 +2649,7 @@
         rt.block_on(f).unwrap_err();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_tunnel_proxy_unauthorized() {
         <span class="kw">let </span>addr = <span class="macro">mock_tunnel!</span>(
             <span class="string">b&quot;\
@@ -2674,7 +2674,7 @@
         <span class="macro">assert_eq!</span>(error.to_string(), <span class="string">&quot;proxy authentication required&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_tunnel_basic_auth() {
         <span class="kw">let </span>addr = <span class="macro">mock_tunnel!</span>(
             TUNNEL_OK,
@@ -2703,4 +2703,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="reqwest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="reqwest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

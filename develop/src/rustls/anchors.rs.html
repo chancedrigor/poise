@@ -134,13 +134,13 @@
 <span id="134">134</span>
 <span id="135">135</span>
 </pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::key;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::log::{debug, trace};
 <span class="kw">use </span><span class="kw">crate</span>::msgs::handshake::{DistinguishedName, DistinguishedNames};
 <span class="kw">use </span><span class="kw">crate</span>::x509;
 
 <span class="doccomment">/// A trust anchor, commonly known as a &quot;Root Certificate.&quot;
-</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone)]
 </span><span class="kw">pub struct </span>OwnedTrustAnchor {
     subject: Vec&lt;u8&gt;,
     spki: Vec&lt;u8&gt;,
@@ -180,7 +180,7 @@
 
 <span class="doccomment">/// A container for root certificates able to provide a root-of-trust
 /// for connection authentication.
-</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone)]
 </span><span class="kw">pub struct </span>RootCertStore {
     <span class="doccomment">/// The list of roots.
     </span><span class="kw">pub </span>roots: Vec&lt;OwnedTrustAnchor&gt;,
@@ -249,7 +249,7 @@
         <span class="kw">let </span><span class="kw-2">mut </span>invalid_count = <span class="number">0</span>;
 
         <span class="kw">for </span>der_cert <span class="kw">in </span>der_certs {
-            <span class="attribute">#[cfg_attr(not(feature = <span class="string">&quot;logging&quot;</span>), allow(unused_variables))]
+            <span class="attr">#[cfg_attr(not(feature = <span class="string">&quot;logging&quot;</span>), allow(unused_variables))]
             </span><span class="kw">match </span><span class="self">self</span>.add(<span class="kw-2">&amp;</span>key::Certificate(der_cert.clone())) {
                 <span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; valid_count += <span class="number">1</span>,
                 <span class="prelude-val">Err</span>(err) =&gt; {
@@ -269,4 +269,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

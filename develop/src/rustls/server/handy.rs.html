@@ -452,20 +452,20 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::server::ProducesTickets;
     <span class="kw">use </span><span class="kw">crate</span>::server::ResolvesServerCert;
     <span class="kw">use </span><span class="kw">crate</span>::server::StoresServerSessions;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_noserversessionstorage_drops_put() {
         <span class="kw">let </span>c = NoServerSessionStorage {};
         <span class="macro">assert!</span>(!c.put(<span class="macro">vec!</span>[<span class="number">0x01</span>], <span class="macro">vec!</span>[<span class="number">0x02</span>]));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_noserversessionstorage_denies_gets() {
         <span class="kw">let </span>c = NoServerSessionStorage {};
         c.put(<span class="macro">vec!</span>[<span class="number">0x01</span>], <span class="macro">vec!</span>[<span class="number">0x02</span>]);
@@ -474,7 +474,7 @@
         <span class="macro">assert_eq!</span>(c.get(<span class="kw-2">&amp;</span>[<span class="number">0x02</span>]), <span class="prelude-val">None</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_noserversessionstorage_denies_takes() {
         <span class="kw">let </span>c = NoServerSessionStorage {};
         <span class="macro">assert_eq!</span>(c.take(<span class="kw-2">&amp;</span>[]), <span class="prelude-val">None</span>);
@@ -482,13 +482,13 @@
         <span class="macro">assert_eq!</span>(c.take(<span class="kw-2">&amp;</span>[<span class="number">0x02</span>]), <span class="prelude-val">None</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_serversessionmemorycache_accepts_put() {
         <span class="kw">let </span>c = ServerSessionMemoryCache::new(<span class="number">4</span>);
         <span class="macro">assert!</span>(c.put(<span class="macro">vec!</span>[<span class="number">0x01</span>], <span class="macro">vec!</span>[<span class="number">0x02</span>]));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_serversessionmemorycache_persists_put() {
         <span class="kw">let </span>c = ServerSessionMemoryCache::new(<span class="number">4</span>);
         <span class="macro">assert!</span>(c.put(<span class="macro">vec!</span>[<span class="number">0x01</span>], <span class="macro">vec!</span>[<span class="number">0x02</span>]));
@@ -496,7 +496,7 @@
         <span class="macro">assert_eq!</span>(c.get(<span class="kw-2">&amp;</span>[<span class="number">0x01</span>]), <span class="prelude-val">Some</span>(<span class="macro">vec!</span>[<span class="number">0x02</span>]));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_serversessionmemorycache_overwrites_put() {
         <span class="kw">let </span>c = ServerSessionMemoryCache::new(<span class="number">4</span>);
         <span class="macro">assert!</span>(c.put(<span class="macro">vec!</span>[<span class="number">0x01</span>], <span class="macro">vec!</span>[<span class="number">0x02</span>]));
@@ -504,7 +504,7 @@
         <span class="macro">assert_eq!</span>(c.get(<span class="kw-2">&amp;</span>[<span class="number">0x01</span>]), <span class="prelude-val">Some</span>(<span class="macro">vec!</span>[<span class="number">0x04</span>]));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_serversessionmemorycache_drops_to_maintain_size_invariant() {
         <span class="kw">let </span>c = ServerSessionMemoryCache::new(<span class="number">2</span>);
         <span class="macro">assert!</span>(c.put(<span class="macro">vec!</span>[<span class="number">0x01</span>], <span class="macro">vec!</span>[<span class="number">0x02</span>]));
@@ -522,7 +522,7 @@
         <span class="macro">assert!</span>(count &lt; <span class="number">5</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_neverproducestickets_does_nothing() {
         <span class="kw">let </span>npt = NeverProducesTickets {};
         <span class="macro">assert!</span>(!npt.enabled());
@@ -531,7 +531,7 @@
         <span class="macro">assert_eq!</span>(<span class="prelude-val">None</span>, npt.decrypt(<span class="kw-2">&amp;</span>[]));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_resolvesservercertusingsni_requires_sni() {
         <span class="kw">let </span>rscsni = ResolvesServerCertUsingSni::new();
         <span class="macro">assert!</span>(rscsni
@@ -539,7 +539,7 @@
             .is_none());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_resolvesservercertusingsni_handles_unknown_name() {
         <span class="kw">let </span>rscsni = ResolvesServerCertUsingSni::new();
         <span class="kw">let </span>name = webpki::DnsNameRef::try_from_ascii_str(<span class="string">&quot;hello.com&quot;</span>)
@@ -551,4 +551,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

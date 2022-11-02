@@ -1203,7 +1203,7 @@
 </span><span class="kw">pub type </span>Elem&lt;E&gt; = elem::Elem&lt;Q, E&gt;;
 
 <span class="doccomment">/// Represents the (prime) order *q* of the curve&#39;s prime field.
-</span><span class="attribute">#[derive(Clone, Copy)]
+</span><span class="attr">#[derive(Clone, Copy)]
 </span><span class="kw">pub enum </span>Q {}
 
 <span class="doccomment">/// A scalar. Its value is in [0, n). Zero-valued scalars are forbidden in most
@@ -1211,7 +1211,7 @@
 </span><span class="kw">pub type </span>Scalar&lt;E = Unencoded&gt; = elem::Elem&lt;N, E&gt;;
 
 <span class="doccomment">/// Represents the prime order *n* of the curve&#39;s group.
-</span><span class="attribute">#[derive(Clone, Copy)]
+</span><span class="attr">#[derive(Clone, Copy)]
 </span><span class="kw">pub enum </span>N {}
 
 <span class="kw">pub struct </span>Point {
@@ -1255,27 +1255,27 @@
 }
 
 <span class="kw">impl </span>CommonOps {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>elem_add&lt;E: Encoding&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, a: <span class="kw-2">&amp;mut </span>Elem&lt;E&gt;, b: <span class="kw-2">&amp;</span>Elem&lt;E&gt;) {
         binary_op_assign(<span class="self">self</span>.elem_add_impl, a, b)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>elems_are_equal(<span class="kw-2">&amp;</span><span class="self">self</span>, a: <span class="kw-2">&amp;</span>Elem&lt;R&gt;, b: <span class="kw-2">&amp;</span>Elem&lt;R&gt;) -&gt; LimbMask {
         limbs_equal_limbs_consttime(<span class="kw-2">&amp;</span>a.limbs[..<span class="self">self</span>.num_limbs], <span class="kw-2">&amp;</span>b.limbs[..<span class="self">self</span>.num_limbs])
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>elem_unencoded(<span class="kw-2">&amp;</span><span class="self">self</span>, a: <span class="kw-2">&amp;</span>Elem&lt;R&gt;) -&gt; Elem&lt;Unencoded&gt; {
         <span class="self">self</span>.elem_product(a, <span class="kw-2">&amp;</span>ONE)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>elem_mul(<span class="kw-2">&amp;</span><span class="self">self</span>, a: <span class="kw-2">&amp;mut </span>Elem&lt;R&gt;, b: <span class="kw-2">&amp;</span>Elem&lt;R&gt;) {
         binary_op_assign(<span class="self">self</span>.elem_mul_mont, a, b)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>elem_product&lt;EA: Encoding, EB: Encoding&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         a: <span class="kw-2">&amp;</span>Elem&lt;EA&gt;,
@@ -1287,17 +1287,17 @@
         mul_mont(<span class="self">self</span>.elem_mul_mont, a, b)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>elem_square(<span class="kw-2">&amp;</span><span class="self">self</span>, a: <span class="kw-2">&amp;mut </span>Elem&lt;R&gt;) {
         unary_op_assign(<span class="self">self</span>.elem_sqr_mont, a);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>elem_squared(<span class="kw-2">&amp;</span><span class="self">self</span>, a: <span class="kw-2">&amp;</span>Elem&lt;R&gt;) -&gt; Elem&lt;R&gt; {
         unary_op(<span class="self">self</span>.elem_sqr_mont, a)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_zero&lt;M, E: Encoding&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, a: <span class="kw-2">&amp;</span>elem::Elem&lt;M, E&gt;) -&gt; bool {
         limbs_are_zero_constant_time(<span class="kw-2">&amp;</span>a.limbs[..<span class="self">self</span>.num_limbs]) == LimbMask::True
     }
@@ -1357,12 +1357,12 @@
 }
 
 <span class="kw">impl </span>PrivateKeyOps {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>point_mul_base(<span class="kw-2">&amp;</span><span class="self">self</span>, a: <span class="kw-2">&amp;</span>Scalar) -&gt; Point {
         (<span class="self">self</span>.point_mul_base_impl)(a)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>point_mul(<span class="kw-2">&amp;</span><span class="self">self</span>, p_scalar: <span class="kw-2">&amp;</span>Scalar, (p_x, p_y): <span class="kw-2">&amp;</span>(Elem&lt;R&gt;, Elem&lt;R&gt;)) -&gt; Point {
         <span class="kw">let </span><span class="kw-2">mut </span>r = Point::new_at_infinity();
         <span class="kw">unsafe </span>{
@@ -1376,7 +1376,7 @@
         r
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>elem_inverse_squared(<span class="kw-2">&amp;</span><span class="self">self</span>, a: <span class="kw-2">&amp;</span>Elem&lt;R&gt;) -&gt; Elem&lt;R&gt; {
         (<span class="self">self</span>.elem_inv_squared)(a)
     }
@@ -1433,7 +1433,7 @@
         (<span class="self">self</span>.scalar_inv_to_mont_impl)(a)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>scalar_product&lt;EA: Encoding, EB: Encoding&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         a: <span class="kw-2">&amp;</span>Scalar&lt;EA&gt;,
@@ -1459,7 +1459,7 @@
 }
 
 <span class="kw">impl </span>PublicScalarOps {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>scalar_as_elem(<span class="kw-2">&amp;</span><span class="self">self</span>, a: <span class="kw-2">&amp;</span>Scalar) -&gt; Elem&lt;Unencoded&gt; {
         Elem {
             limbs: a.limbs,
@@ -1482,13 +1482,13 @@
         limbs_less_than_limbs_vartime(<span class="kw-2">&amp;</span>a.limbs[..num_limbs], <span class="kw-2">&amp;</span>b.limbs[..num_limbs])
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>elem_sum(<span class="kw-2">&amp;</span><span class="self">self</span>, a: <span class="kw-2">&amp;</span>Elem&lt;Unencoded&gt;, b: <span class="kw-2">&amp;</span>Elem&lt;Unencoded&gt;) -&gt; Elem&lt;Unencoded&gt; {
         binary_op(<span class="self">self</span>.public_key_ops.common.elem_add_impl, a, b)
     }
 }
 
-<span class="attribute">#[allow(non_snake_case)]
+<span class="attr">#[allow(non_snake_case)]
 </span><span class="kw">pub struct </span>PrivateScalarOps {
     <span class="kw">pub </span>scalar_ops: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>ScalarOps,
 
@@ -1540,7 +1540,7 @@
     ops.elem_mul(acc, b)
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">pub fn </span>elem_parse_big_endian_fixed_consttime(
     ops: <span class="kw-2">&amp;</span>CommonOps,
     bytes: untrusted::Input,
@@ -1548,7 +1548,7 @@
     parse_big_endian_fixed_consttime(ops, bytes, AllowZero::Yes, <span class="kw-2">&amp;</span>ops.q.p[..ops.num_limbs])
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">pub fn </span>scalar_parse_big_endian_fixed_consttime(
     ops: <span class="kw-2">&amp;</span>CommonOps,
     bytes: untrusted::Input,
@@ -1556,7 +1556,7 @@
     parse_big_endian_fixed_consttime(ops, bytes, AllowZero::No, <span class="kw-2">&amp;</span>ops.n.limbs[..ops.num_limbs])
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">pub fn </span>scalar_parse_big_endian_variable(
     ops: <span class="kw-2">&amp;</span>CommonOps,
     allow_zero: AllowZero,
@@ -1616,7 +1616,7 @@
     );
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::test;
@@ -1635,17 +1635,17 @@
         <span class="macro">assert!</span>(cops.is_zero(<span class="kw-2">&amp;</span>x));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>p256_q_minus_n_plus_n_equals_0_test() {
         q_minus_n_plus_n_equals_0_test(<span class="kw-2">&amp;</span>p256::PUBLIC_SCALAR_OPS);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>p384_q_minus_n_plus_n_equals_0_test() {
         q_minus_n_plus_n_equals_0_test(<span class="kw-2">&amp;</span>p384::PUBLIC_SCALAR_OPS);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>p256_elem_add_test() {
         elem_add_test(
             <span class="kw-2">&amp;</span>p256::PUBLIC_SCALAR_OPS,
@@ -1653,7 +1653,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>p384_elem_add_test() {
         elem_add_test(
             <span class="kw-2">&amp;</span>p384::PUBLIC_SCALAR_OPS,
@@ -1685,7 +1685,7 @@
     <span class="comment">// XXX: There&#39;s no `GFp_nistz256_sub` in *ring*; it&#39;s logic is inlined into
     // the point arithmetic functions. Thus, we can&#39;t test it.
 
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>p384_elem_sub_test() {
         <span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
             <span class="kw">fn </span>GFp_p384_elem_sub(r: <span class="kw-2">*mut </span>Limb, a: <span class="kw-2">*const </span>Limb, b: <span class="kw-2">*const </span>Limb);
@@ -1736,7 +1736,7 @@
     <span class="comment">// XXX: There&#39;s no `GFp_nistz256_div_by_2` in *ring*; it&#39;s logic is inlined
     // into the point arithmetic functions. Thus, we can&#39;t test it.
 
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>p384_elem_div_by_2_test() {
         <span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
             <span class="kw">fn </span>GFp_p384_elem_div_by_2(r: <span class="kw-2">*mut </span>Limb, a: <span class="kw-2">*const </span>Limb);
@@ -1770,7 +1770,7 @@
     }
 
     <span class="comment">// TODO: Add test vectors that test the range of values above `q`.
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>p256_elem_neg_test() {
         <span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
             <span class="kw">fn </span>GFp_nistz256_neg(r: <span class="kw-2">*mut </span>Limb, a: <span class="kw-2">*const </span>Limb);
@@ -1782,7 +1782,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>p384_elem_neg_test() {
         <span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
             <span class="kw">fn </span>GFp_p384_elem_neg(r: <span class="kw-2">*mut </span>Limb, a: <span class="kw-2">*const </span>Limb);
@@ -1827,12 +1827,12 @@
         })
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>p256_elem_mul_test() {
         elem_mul_test(<span class="kw-2">&amp;</span>p256::COMMON_OPS, <span class="macro">test_file!</span>(<span class="string">&quot;ops/p256_elem_mul_tests.txt&quot;</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>p384_elem_mul_test() {
         elem_mul_test(<span class="kw-2">&amp;</span>p384::COMMON_OPS, <span class="macro">test_file!</span>(<span class="string">&quot;ops/p384_elem_mul_tests.txt&quot;</span>));
     }
@@ -1851,7 +1851,7 @@
         })
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>p256_scalar_mul_test() {
         scalar_mul_test(
             <span class="kw-2">&amp;</span>p256::SCALAR_OPS,
@@ -1859,7 +1859,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>p384_scalar_mul_test() {
         scalar_mul_test(
             <span class="kw-2">&amp;</span>p384::SCALAR_OPS,
@@ -1881,7 +1881,7 @@
         })
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>p256_scalar_square_test() {
         <span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
             <span class="kw">fn </span>GFp_p256_scalar_sqr_rep_mont(r: <span class="kw-2">*mut </span>Limb, a: <span class="kw-2">*const </span>Limb, rep: Limb);
@@ -1928,19 +1928,19 @@
         })
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[should_panic(expected = <span class="string">&quot;!self.common.is_zero(a)&quot;</span>)]
     </span><span class="kw">fn </span>p256_scalar_inv_to_mont_zero_panic_test() {
         <span class="kw">let _ </span>= p256::SCALAR_OPS.scalar_inv_to_mont(<span class="kw-2">&amp;</span>ZERO_SCALAR);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[should_panic(expected = <span class="string">&quot;!self.common.is_zero(a)&quot;</span>)]
     </span><span class="kw">fn </span>p384_scalar_inv_to_mont_zero_panic_test() {
         <span class="kw">let _ </span>= p384::SCALAR_OPS.scalar_inv_to_mont(<span class="kw-2">&amp;</span>ZERO_SCALAR);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>p256_point_sum_test() {
         point_sum_test(
             <span class="kw-2">&amp;</span>p256::PRIVATE_KEY_OPS,
@@ -1948,7 +1948,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>p384_point_sum_test() {
         point_sum_test(
             <span class="kw-2">&amp;</span>p384::PRIVATE_KEY_OPS,
@@ -1974,7 +1974,7 @@
     <span class="comment">// Keep this in sync with the logic for defining `GFp_USE_LARGE_TABLE` and
     // with the corresponding code in p256.rs that decides which base point
     // multiplication to use.
-    </span><span class="attribute">#[cfg(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))]
+    </span><span class="attr">#[cfg(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))]
     #[test]
     </span><span class="kw">fn </span>p256_point_sum_mixed_test() {
         <span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
@@ -1993,7 +1993,7 @@
 
     <span class="comment">// XXX: There is no `GFp_nistz384_point_add_affine()`.
 
-    </span><span class="attribute">#[cfg(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))]
+    </span><span class="attr">#[cfg(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))]
     </span><span class="kw">fn </span>point_sum_mixed_test(
         ops: <span class="kw-2">&amp;</span>PrivateKeyOps,
         point_add_affine: <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(
@@ -2021,7 +2021,7 @@
         });
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>p256_point_double_test() {
         <span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
             <span class="kw">fn </span>GFp_nistz256_point_double(
@@ -2036,7 +2036,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>p384_point_double_test() {
         <span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
             <span class="kw">fn </span>GFp_nistz384_point_double(
@@ -2076,7 +2076,7 @@
         });
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>p256_point_mul_test() {
         point_mul_tests(
             <span class="kw-2">&amp;</span>p256::PRIVATE_KEY_OPS,
@@ -2084,7 +2084,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>p384_point_mul_test() {
         point_mul_tests(
             <span class="kw-2">&amp;</span>p384::PRIVATE_KEY_OPS,
@@ -2109,7 +2109,7 @@
         })
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>p256_point_mul_serialized_test() {
         point_mul_serialized_test(
             <span class="kw-2">&amp;</span>p256::PRIVATE_KEY_OPS,
@@ -2158,7 +2158,7 @@
         })
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>p256_point_mul_base_test() {
         point_mul_base_tests(
             <span class="kw-2">&amp;</span>p256::PRIVATE_KEY_OPS,
@@ -2166,7 +2166,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>p384_point_mul_base_test() {
         point_mul_base_tests(
             <span class="kw-2">&amp;</span>p384::PRIVATE_KEY_OPS,
@@ -2229,12 +2229,12 @@
         p
     }
 
-    <span class="attribute">#[cfg(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))]
+    <span class="attr">#[cfg(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))]
     </span><span class="kw">struct </span>AffinePoint {
         xy: [Limb; <span class="number">2 </span>* MAX_LIMBS],
     }
 
-    <span class="attribute">#[cfg(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))]
+    <span class="attr">#[cfg(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))]
     </span><span class="kw">fn </span>consume_affine_point(
         ops: <span class="kw-2">&amp;</span>PrivateKeyOps,
         test_case: <span class="kw-2">&amp;mut </span>test::TestCase,
@@ -2361,4 +2361,4 @@
 <span class="kw">pub mod </span>p256;
 <span class="kw">pub mod </span>p384;
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

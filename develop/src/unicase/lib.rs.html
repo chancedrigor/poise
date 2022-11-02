@@ -463,7 +463,7 @@
 <span id="463">463</span>
 <span id="464">464</span>
 <span id="465">465</span>
-</pre><pre class="rust"><code><span class="attribute">#![cfg_attr(test, deny(missing_docs))]
+</pre><pre class="rust"><code><span class="attr">#![cfg_attr(test, deny(missing_docs))]
 #![cfg_attr(test, deny(warnings))]
 #![doc(html_root_url = <span class="string">&quot;https://docs.rs/unicase/2.6.0&quot;</span>)]
 #![cfg_attr(feature = <span class="string">&quot;nightly&quot;</span>, feature(test))]
@@ -514,21 +514,21 @@
 //! assert_eq!(a, b);
 //! ```
 
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
 </span><span class="kw">extern crate </span>test;
 
-<span class="attribute">#[cfg(all(__unicase__core_and_alloc, not(test)))]
+<span class="attr">#[cfg(all(__unicase__core_and_alloc, not(test)))]
 </span><span class="kw">extern crate </span>alloc;
-<span class="attribute">#[cfg(all(__unicase__core_and_alloc, not(test)))]
+<span class="attr">#[cfg(all(__unicase__core_and_alloc, not(test)))]
 </span><span class="kw">use </span>alloc::string::String;
 
-<span class="attribute">#[cfg(not(all(__unicase__core_and_alloc, not(test))))]
+<span class="attr">#[cfg(not(all(__unicase__core_and_alloc, not(test))))]
 </span><span class="kw">extern crate </span>std <span class="kw">as </span>alloc;
-<span class="attribute">#[cfg(not(all(__unicase__core_and_alloc, not(test))))]
+<span class="attr">#[cfg(not(all(__unicase__core_and_alloc, not(test))))]
 </span><span class="kw">extern crate </span>std <span class="kw">as </span>core;
 
 <span class="kw">use </span>alloc::borrow::Cow;
-<span class="attribute">#[cfg(__unicase__iter_cmp)]
+<span class="attr">#[cfg(__unicase__iter_cmp)]
 </span><span class="kw">use </span>core::cmp::Ordering;
 <span class="kw">use </span>core::fmt;
 <span class="kw">use </span>core::hash::{Hash, Hasher};
@@ -541,11 +541,11 @@
 <span class="kw">mod </span>unicode;
 
 <span class="doccomment">/// Case Insensitive wrapper of strings.
-</span><span class="attribute">#[derive(Clone, Copy)]
+</span><span class="attr">#[derive(Clone, Copy)]
 </span><span class="kw">pub struct </span>UniCase&lt;S&gt;(Encoding&lt;S&gt;);
 
 <span class="doccomment">/// Case Insensitive wrapper of Ascii strings.
-</span><span class="attribute">#[derive(Clone, Copy, Debug, Default)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, Default)]
 </span><span class="kw">pub struct </span>Ascii&lt;S&gt;(S);
 
 <span class="doccomment">/// Compare two string-like types for case-less equality, using unicode folding.
@@ -554,7 +554,7 @@
 ///
 /// Note: This will perform a scan for ASCII characters before doing the
 /// the comparison. See `UniCase` for more information.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>eq&lt;S: AsRef&lt;str&gt; + <span class="question-mark">?</span>Sized&gt;(left: <span class="kw-2">&amp;</span>S, right: <span class="kw-2">&amp;</span>S) -&gt; bool {
     UniCase::new(left) == UniCase::new(right)
 }
@@ -562,12 +562,12 @@
 <span class="doccomment">/// Compare two string-like types for case-less equality, ignoring ASCII case.
 ///
 /// Equivalent to `Ascii::new(left) == Ascii::new(right)`.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>eq_ascii&lt;S: AsRef&lt;str&gt; + <span class="question-mark">?</span>Sized&gt;(left: <span class="kw-2">&amp;</span>S, right: <span class="kw-2">&amp;</span>S) -&gt; bool {
     Ascii(left) == Ascii(right)
 }
 
-<span class="attribute">#[derive(Clone, Copy, Debug)]
+<span class="attr">#[derive(Clone, Copy, Debug)]
 </span><span class="kw">enum </span>Encoding&lt;S&gt; {
     Ascii(Ascii&lt;S&gt;),
     Unicode(Unicode&lt;S&gt;),
@@ -600,7 +600,7 @@
     ///
     /// Note: This scans the text to determine if it is all ASCII or not.
     </span><span class="kw">pub fn </span>new(s: S) -&gt; UniCase&lt;S&gt; {
-        <span class="attribute">#[cfg(not(__unicase__core_and_alloc))]
+        <span class="attr">#[cfg(not(__unicase__core_and_alloc))]
         #[allow(deprecated, unused)]
         </span><span class="kw">use </span>std::ascii::AsciiExt;
 
@@ -614,7 +614,7 @@
 
 <span class="kw">impl</span>&lt;S&gt; UniCase&lt;S&gt; {
     <span class="doccomment">/// Creates a new `UniCase`, skipping the ASCII check.
-    </span><span class="attribute">#[cfg(__unicase__const_fns)]
+    </span><span class="attr">#[cfg(__unicase__const_fns)]
     </span><span class="kw">pub const fn </span>unicode(s: S) -&gt; UniCase&lt;S&gt; {
         UniCase(Encoding::Unicode(Unicode(s)))
     }
@@ -622,13 +622,13 @@
     <span class="doccomment">/// Creates a new `UniCase`, skipping the ASCII check.
     ///
     /// For Rust versions &gt;= 1.31, this is a `const fn`.
-    </span><span class="attribute">#[cfg(not(__unicase__const_fns))]
+    </span><span class="attr">#[cfg(not(__unicase__const_fns))]
     </span><span class="kw">pub fn </span>unicode(s: S) -&gt; UniCase&lt;S&gt; {
         UniCase(Encoding::Unicode(Unicode(s)))
     }
 
     <span class="doccomment">/// Creates a new `UniCase` which performs only ASCII case folding.
-    </span><span class="attribute">#[cfg(__unicase__const_fns)]
+    </span><span class="attr">#[cfg(__unicase__const_fns)]
     </span><span class="kw">pub const fn </span>ascii(s: S) -&gt; UniCase&lt;S&gt; {
         UniCase(Encoding::Ascii(Ascii(s)))
     }
@@ -636,7 +636,7 @@
     <span class="doccomment">/// Creates a new `UniCase` which performs only ASCII case folding.
     ///
     /// For Rust versions &gt;= 1.31, this is a `const fn`.
-    </span><span class="attribute">#[cfg(not(__unicase__const_fns))]
+    </span><span class="attr">#[cfg(not(__unicase__const_fns))]
     </span><span class="kw">pub fn </span>ascii(s: S) -&gt; UniCase&lt;S&gt; {
         UniCase(Encoding::Ascii(Ascii(s)))
     }
@@ -650,7 +650,7 @@
     }
 
     <span class="doccomment">/// Unwraps the inner value held by this `UniCase`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>into_inner(<span class="self">self</span>) -&gt; S {
         <span class="kw">match </span><span class="self">self</span>.<span class="number">0 </span>{
             Encoding::Ascii(s) =&gt; s.<span class="number">0</span>,
@@ -661,21 +661,21 @@
 
 <span class="kw">impl</span>&lt;S&gt; Deref <span class="kw">for </span>UniCase&lt;S&gt; {
     <span class="kw">type </span>Target = S;
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>deref&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>S {
         <span class="macro">inner!</span>(<span class="self">self</span>.<span class="number">0</span>)
     }
 }
 
 <span class="kw">impl</span>&lt;S&gt; DerefMut <span class="kw">for </span>UniCase&lt;S&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>deref_mut&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>S {
         <span class="macro">inner!</span>(<span class="kw-2">mut </span><span class="self">self</span>.<span class="number">0</span>)
     }
 }
 
 <span class="kw">impl</span>&lt;S: AsRef&lt;str&gt;&gt; AsRef&lt;str&gt; <span class="kw">for </span>UniCase&lt;S&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>as_ref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="macro">inner!</span>(<span class="self">self</span>.<span class="number">0</span>).as_ref()
     }
@@ -683,14 +683,14 @@
 }
 
 <span class="kw">impl</span>&lt;S: fmt::Debug&gt; fmt::Debug <span class="kw">for </span>UniCase&lt;S&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, fmt: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
         fmt::Debug::fmt(<span class="macro">inner!</span>(<span class="self">self</span>.<span class="number">0</span>), fmt)
     }
 }
 
 <span class="kw">impl</span>&lt;S: fmt::Display&gt; fmt::Display <span class="kw">for </span>UniCase&lt;S&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, fmt: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
         fmt::Display::fmt(<span class="macro">inner!</span>(<span class="self">self</span>.<span class="number">0</span>), fmt)
     }
@@ -698,7 +698,7 @@
 
 
 <span class="kw">impl</span>&lt;S1: AsRef&lt;str&gt;, S2: AsRef&lt;str&gt;&gt; PartialEq&lt;UniCase&lt;S2&gt;&gt; <span class="kw">for </span>UniCase&lt;S1&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>UniCase&lt;S2&gt;) -&gt; bool {
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>, <span class="kw-2">&amp;</span>other.<span class="number">0</span>) {
             (<span class="kw-2">&amp;</span>Encoding::Ascii(<span class="kw-2">ref </span>x), <span class="kw-2">&amp;</span>Encoding::Ascii(<span class="kw-2">ref </span>y)) =&gt; x == y,
@@ -712,7 +712,7 @@
 <span class="kw">impl</span>&lt;S: AsRef&lt;str&gt;&gt; Eq <span class="kw">for </span>UniCase&lt;S&gt; {}
 
 <span class="kw">impl</span>&lt;S: AsRef&lt;str&gt;&gt; Hash <span class="kw">for </span>UniCase&lt;S&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>hash&lt;H: Hasher&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, hasher: <span class="kw-2">&amp;mut </span>H) {
         <span class="kw">match </span><span class="self">self</span>.<span class="number">0 </span>{
             Encoding::Ascii(<span class="kw-2">ref </span>s) =&gt; s.hash(hasher),
@@ -764,17 +764,17 @@
 <span class="macro">into_impl!</span>(String);
 <span class="macro">into_impl!</span>(Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;);
 
-<span class="attribute">#[cfg(__unicase__iter_cmp)]
+<span class="attr">#[cfg(__unicase__iter_cmp)]
 </span><span class="kw">impl</span>&lt;T: AsRef&lt;str&gt;&gt; PartialOrd <span class="kw">for </span>UniCase&lt;T&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Ordering&gt; {
         <span class="prelude-val">Some</span>(<span class="self">self</span>.cmp(other))
     }
 }
 
-<span class="attribute">#[cfg(__unicase__iter_cmp)]
+<span class="attr">#[cfg(__unicase__iter_cmp)]
 </span><span class="kw">impl</span>&lt;T: AsRef&lt;str&gt;&gt; Ord <span class="kw">for </span>UniCase&lt;T&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; Ordering {
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>, <span class="kw-2">&amp;</span>other.<span class="number">0</span>) {
             (<span class="kw-2">&amp;</span>Encoding::Ascii(<span class="kw-2">ref </span>x), <span class="kw-2">&amp;</span>Encoding::Ascii(<span class="kw-2">ref </span>y)) =&gt; x.cmp(y),
@@ -794,13 +794,13 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::UniCase;
     <span class="kw">use </span>std::hash::{Hash, Hasher};
-    <span class="attribute">#[cfg(not(__unicase__default_hasher))]
+    <span class="attr">#[cfg(not(__unicase__default_hasher))]
     </span><span class="kw">use </span>std::hash::SipHasher <span class="kw">as </span>DefaultHasher;
-    <span class="attribute">#[cfg(__unicase__default_hasher)]
+    <span class="attr">#[cfg(__unicase__default_hasher)]
     </span><span class="kw">use </span>std::collections::hash_map::DefaultHasher;
 
     <span class="kw">fn </span>hash&lt;T: Hash&gt;(t: <span class="kw-2">&amp;</span>T) -&gt; u64 {
@@ -809,7 +809,7 @@
         s.finish()
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_copy_for_refs() {
         <span class="kw">fn </span>foo&lt;T&gt;(<span class="kw">_</span>: UniCase&lt;T&gt;) {}
 
@@ -818,7 +818,7 @@
         foo(a);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_eq_ascii() {
         <span class="kw">let </span>a = UniCase::new(<span class="string">&quot;foobar&quot;</span>);
         <span class="kw">let </span>b = UniCase::new(<span class="string">&quot;FOOBAR&quot;</span>);
@@ -836,7 +836,7 @@
     }
 
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_eq_unicode() {
         <span class="kw">let </span>a = UniCase::new(<span class="string">&quot;στιγμας&quot;</span>);
         <span class="kw">let </span>b = UniCase::new(<span class="string">&quot;στιγμασ&quot;</span>);
@@ -845,7 +845,7 @@
         <span class="macro">assert_eq!</span>(hash(<span class="kw-2">&amp;</span>a), hash(<span class="kw-2">&amp;</span>b));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_eq_unicode_left_is_substring() {
         <span class="comment">// https://github.com/seanmonstar/unicase/issues/38
         </span><span class="kw">let </span>a = UniCase::unicode(<span class="string">&quot;foo&quot;</span>);
@@ -855,7 +855,7 @@
         <span class="macro">assert!</span>(b != a);
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
     #[bench]
     </span><span class="kw">fn </span>bench_unicase_ascii(b: <span class="kw-2">&amp;mut </span>::test::Bencher) {
         b.bytes = <span class="string">b&quot;foobar&quot;</span>.len() <span class="kw">as </span>u64;
@@ -864,30 +864,30 @@
         b.iter(|| <span class="macro">assert_eq!</span>(x, y));
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
     </span><span class="kw">static </span>SUBJECT: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[u8] = <span class="string">b&quot;ffoo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz oo bar baz quux herp derp&quot;</span>;
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
     #[inline(never)]
     </span><span class="kw">fn </span>is_ascii(bytes: <span class="kw-2">&amp;</span>[u8]) -&gt; bool {
-        <span class="attribute">#[allow(unused, deprecated)]
+        <span class="attr">#[allow(unused, deprecated)]
         </span><span class="kw">use </span>std::ascii::AsciiExt;
         bytes.is_ascii()
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
     #[bench]
     </span><span class="kw">fn </span>bench_is_ascii(b: <span class="kw-2">&amp;mut </span>::test::Bencher) {
         b.iter(|| <span class="macro">assert!</span>(is_ascii(SUBJECT)));
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;nightly&quot;</span>)]
     #[bench]
     </span><span class="kw">fn </span>bench_is_utf8(b: <span class="kw-2">&amp;mut </span>::test::Bencher) {
         b.iter(|| <span class="macro">assert!</span>(::std::str::from_utf8(SUBJECT).is_ok()));
     }
 
-    <span class="attribute">#[cfg(__unicase__iter_cmp)]
+    <span class="attr">#[cfg(__unicase__iter_cmp)]
     #[test]
     </span><span class="kw">fn </span>test_case_cmp() {
         <span class="macro">assert!</span>(UniCase::new(<span class="string">&quot;a&quot;</span>) &lt; UniCase::new(<span class="string">&quot;B&quot;</span>));
@@ -899,7 +899,7 @@
         <span class="macro">assert!</span>(UniCase::new(<span class="string">&quot;a&quot;</span>) &lt; UniCase::new(<span class="string">&quot;AA&quot;</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_from_impls() {
         <span class="kw">let </span>view: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str = <span class="string">&quot;foobar&quot;</span>;
         <span class="kw">let _</span>: UniCase&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str&gt; = view.into();
@@ -911,7 +911,7 @@
         <span class="kw">let _</span>: UniCase&lt;String&gt; = owned.into();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_into_impls() {
         <span class="kw">let </span>view: UniCase&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str&gt; = UniCase::new(<span class="string">&quot;foobar&quot;</span>);
         <span class="kw">let _</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str = view.into();
@@ -922,11 +922,11 @@
         <span class="kw">let _</span>: <span class="kw-2">&amp;</span>str = owned.as_ref();
     }
 
-    <span class="attribute">#[cfg(__unicase__const_fns)]
+    <span class="attr">#[cfg(__unicase__const_fns)]
     #[test]
     </span><span class="kw">fn </span>test_unicase_unicode_const() {
         <span class="kw">const </span>_UNICASE: UniCase&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str&gt; = UniCase::unicode(<span class="string">&quot;&quot;</span>);
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="unicase" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="unicase" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

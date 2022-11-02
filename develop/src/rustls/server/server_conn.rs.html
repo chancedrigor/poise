@@ -780,10 +780,10 @@
 <span class="kw">use </span><span class="kw">crate</span>::conn::{CommonState, ConnectionCommon, Side, State};
 <span class="kw">use </span><span class="kw">crate</span>::error::Error;
 <span class="kw">use </span><span class="kw">crate</span>::kx::SupportedKxGroup;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::log::trace;
 <span class="kw">use </span><span class="kw">crate</span>::msgs::base::{Payload, PayloadU8};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::msgs::enums::AlertDescription;
 <span class="kw">use </span><span class="kw">crate</span>::msgs::enums::ProtocolVersion;
 <span class="kw">use </span><span class="kw">crate</span>::msgs::enums::SignatureScheme;
@@ -794,7 +794,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::vecbuf::ChunkVecBuffer;
 <span class="kw">use </span><span class="kw">crate</span>::verify;
 <span class="kw">use </span><span class="kw">crate</span>::KeyLog;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
 </span><span class="kw">use crate</span>::{conn::Protocol, quic};
 
 <span class="kw">use </span><span class="kw">super</span>::hs;
@@ -951,7 +951,7 @@
 /// * [`ServerConfig::session_storage`]: the default stores 256 sessions in memory.
 /// * [`ServerConfig::alpn_protocols`]: the default is empty -- no ALPN protocol is negotiated.
 /// * [`ServerConfig::key_log`]: key material is not logged.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>ServerConfig {
     <span class="doccomment">/// List of ciphersuites, in preference order.
     </span><span class="kw">pub</span>(<span class="kw">super</span>) cipher_suites: Vec&lt;SupportedCipherSuite&gt;,
@@ -1046,7 +1046,7 @@
         }
     }
 
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span><span class="doccomment">/// We support a given TLS version if it&#39;s quoted in the configured
     /// versions *and* at least one ciphersuite for this version is
     /// also configured.
@@ -1079,7 +1079,7 @@
         <span class="self">self</span>.early_data.read(buf)
     }
 
-    <span class="attribute">#[cfg(read_buf)]
+    <span class="attr">#[cfg(read_buf)]
     </span><span class="kw">fn </span>read_buf(<span class="kw-2">&amp;mut </span><span class="self">self</span>, buf: <span class="kw-2">&amp;mut </span>io::ReadBuf&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; io::Result&lt;()&gt; {
         <span class="self">self</span>.early_data.read_buf(buf)
     }
@@ -1423,7 +1423,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(read_buf)]
+    <span class="attr">#[cfg(read_buf)]
     </span><span class="kw">fn </span>read_buf(<span class="kw-2">&amp;mut </span><span class="self">self</span>, buf: <span class="kw-2">&amp;mut </span>io::ReadBuf&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; io::Result&lt;()&gt; {
         <span class="kw">match </span><span class="self">self </span>{
             <span class="self">Self</span>::Accepted(<span class="kw-2">ref mut </span>received) =&gt; received.read_buf(buf),
@@ -1444,7 +1444,7 @@
 }
 
 <span class="comment">// these branches not reachable externally, unless something else goes wrong.
-</span><span class="attribute">#[test]
+</span><span class="attr">#[test]
 </span><span class="kw">fn </span>test_read_in_new_state() {
     <span class="macro">assert_eq!</span>(
         <span class="macro">format!</span>(<span class="string">&quot;{:?}&quot;</span>, EarlyDataState::default().read(<span class="kw-2">&amp;mut </span>[<span class="number">0u8</span>; <span class="number">5</span>])),
@@ -1452,7 +1452,7 @@
     </span>);
 }
 
-<span class="attribute">#[cfg(read_buf)]
+<span class="attr">#[cfg(read_buf)]
 #[test]
 </span><span class="kw">fn </span>test_read_buf_in_new_state() {
     <span class="macro">assert_eq!</span>(
@@ -1465,7 +1465,7 @@
 }
 
 <span class="doccomment">/// State associated with a server connection.
-</span><span class="attribute">#[derive(Default)]
+</span><span class="attr">#[derive(Default)]
 </span><span class="kw">pub struct </span>ServerConnectionData {
     <span class="kw">pub</span>(<span class="kw">super</span>) sni: <span class="prelude-ty">Option</span>&lt;webpki::DnsName&gt;,
     <span class="kw">pub</span>(<span class="kw">super</span>) received_resumption_data: <span class="prelude-ty">Option</span>&lt;Vec&lt;u8&gt;&gt;,
@@ -1481,7 +1481,7 @@
 
 <span class="kw">impl </span><span class="kw">crate</span>::conn::SideData <span class="kw">for </span>ServerConnectionData {}
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
 </span><span class="kw">impl </span>quic::QuicExt <span class="kw">for </span>ServerConnection {
     <span class="kw">fn </span>quic_transport_parameters(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>[u8]&gt; {
         <span class="self">self</span>.inner
@@ -1520,7 +1520,7 @@
 }
 
 <span class="doccomment">/// Methods specific to QUIC server sessions
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
 </span><span class="kw">pub trait </span>ServerQuicExt {
     <span class="doccomment">/// Make a new QUIC ServerConnection. This differs from `ServerConnection::new()`
     /// in that it takes an extra argument, `params`, which contains the
@@ -1552,7 +1552,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
 </span><span class="kw">impl </span>ServerQuicExt <span class="kw">for </span>ServerConnection {}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

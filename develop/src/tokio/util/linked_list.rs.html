@@ -692,7 +692,7 @@
 <span id="692">692</span>
 <span id="693">693</span>
 <span id="694">694</span>
-</pre><pre class="rust"><code><span class="attribute">#![cfg_attr(not(feature = <span class="string">&quot;full&quot;</span>), allow(dead_code))]
+</pre><pre class="rust"><code><span class="attr">#![cfg_attr(not(feature = <span class="string">&quot;full&quot;</span>), allow(dead_code))]
 
 </span><span class="doccomment">//! An intrusive double linked list of data.
 //!
@@ -744,7 +744,7 @@
     </span><span class="kw">type </span>Target;
 
     <span class="doccomment">/// Convert the handle to a raw pointer without consuming the handle.
-    </span><span class="attribute">#[allow(clippy::wrong_self_convention)]
+    </span><span class="attr">#[allow(clippy::wrong_self_convention)]
     </span><span class="kw">fn </span>as_raw(handle: <span class="kw-2">&amp;</span><span class="self">Self</span>::Handle) -&gt; NonNull&lt;<span class="self">Self</span>::Target&gt;;
 
     <span class="doccomment">/// Convert the raw pointer to a handle
@@ -780,18 +780,18 @@
 ///
 /// See this link for more information:
 /// &lt;https://github.com/rust-lang/rust/pull/82834&gt;
-</span><span class="attribute">#[repr(C)]
+</span><span class="attr">#[repr(C)]
 </span><span class="kw">struct </span>PointersInner&lt;T&gt; {
     <span class="doccomment">/// The previous node in the list. null if there is no previous node.
     ///
     /// This field is accessed through pointer manipulation, so it is not dead code.
-    </span><span class="attribute">#[allow(dead_code)]
+    </span><span class="attr">#[allow(dead_code)]
     </span>prev: <span class="prelude-ty">Option</span>&lt;NonNull&lt;T&gt;&gt;,
 
     <span class="doccomment">/// The next node in the list. null if there is no previous node.
     ///
     /// This field is accessed through pointer manipulation, so it is not dead code.
-    </span><span class="attribute">#[allow(dead_code)]
+    </span><span class="attr">#[allow(dead_code)]
     </span>next: <span class="prelude-ty">Option</span>&lt;NonNull&lt;T&gt;&gt;,
 
     <span class="doccomment">/// This type is !Unpin due to the heuristic from:
@@ -918,7 +918,7 @@
     }
 }
 
-<span class="attribute">#[cfg(any(
+<span class="attr">#[cfg(any(
     feature = <span class="string">&quot;fs&quot;</span>,
     feature = <span class="string">&quot;rt&quot;</span>,
     all(unix, feature = <span class="string">&quot;process&quot;</span>),
@@ -1046,14 +1046,14 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 #[cfg(not(loom))]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
     <span class="kw">use </span>std::pin::Pin;
 
-    <span class="attribute">#[derive(Debug)]
+    <span class="attr">#[derive(Debug)]
     #[repr(C)]
     </span><span class="kw">struct </span>Entry {
         pointers: Pointers&lt;Entry&gt;,
@@ -1121,12 +1121,12 @@
         }};
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>const_new() {
         <span class="kw">const _</span>: LinkedList&lt;<span class="kw-2">&amp;</span>Entry, &lt;<span class="kw-2">&amp;</span>Entry <span class="kw">as </span>Link&gt;::Target&gt; = LinkedList::new();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>push_and_drain() {
         <span class="kw">let </span>a = entry(<span class="number">5</span>);
         <span class="kw">let </span>b = entry(<span class="number">7</span>);
@@ -1146,7 +1146,7 @@
         <span class="macro">assert!</span>(list.is_empty());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>push_pop_push_pop() {
         <span class="kw">let </span>a = entry(<span class="number">5</span>);
         <span class="kw">let </span>b = entry(<span class="number">7</span>);
@@ -1168,7 +1168,7 @@
         <span class="macro">assert!</span>(list.pop_back().is_none());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>remove_by_address() {
         <span class="kw">let </span>a = entry(<span class="number">5</span>);
         <span class="kw">let </span>b = entry(<span class="number">7</span>);
@@ -1317,19 +1317,19 @@
         }
     }
 
-    <span class="attribute">#[cfg(not(tokio_wasm))]
+    <span class="attr">#[cfg(not(tokio_wasm))]
     </span><span class="macro">proptest::proptest! </span>{
-        <span class="attribute">#[test]
+        <span class="attr">#[test]
         </span><span class="kw">fn </span>fuzz_linked_list(ops: Vec&lt;usize&gt;) {
             run_fuzz(ops);
         }
     }
 
-    <span class="attribute">#[cfg(not(tokio_wasm))]
+    <span class="attr">#[cfg(not(tokio_wasm))]
     </span><span class="kw">fn </span>run_fuzz(ops: Vec&lt;usize&gt;) {
         <span class="kw">use </span>std::collections::VecDeque;
 
-        <span class="attribute">#[derive(Debug)]
+        <span class="attr">#[derive(Debug)]
         </span><span class="kw">enum </span>Op {
             Push,
             Pop,
@@ -1387,4 +1387,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

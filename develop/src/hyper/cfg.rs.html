@@ -44,11 +44,11 @@
 <span id="44">44</span>
 </pre><pre class="rust"><code><span class="macro">macro_rules! </span>cfg_feature {
     (
-        <span class="attribute">#![<span class="macro-nonterminal">$meta</span>:meta]
+        <span class="attr">#![<span class="macro-nonterminal">$meta</span>:meta]
         </span>$(<span class="macro-nonterminal">$item</span>:item)*
     ) =&gt; {
         $(
-            <span class="attribute">#[cfg(<span class="macro-nonterminal">$meta</span>)]
+            <span class="attr">#[cfg(<span class="macro-nonterminal">$meta</span>)]
             #[cfg_attr(docsrs, doc(cfg(<span class="macro-nonterminal">$meta</span>)))]
             </span><span class="macro-nonterminal">$item
         </span>)*
@@ -58,7 +58,7 @@
 <span class="macro">macro_rules! </span>cfg_proto {
     ($(<span class="macro-nonterminal">$item</span>:item)<span class="kw-2">*</span>) =&gt; {
         <span class="macro">cfg_feature! </span>{
-            <span class="attribute">#![all(
+            <span class="attr">#![all(
                 any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>),
                 any(feature = <span class="string">&quot;client&quot;</span>, feature = <span class="string">&quot;server&quot;</span>),
             )]
@@ -71,7 +71,7 @@
     <span class="macro">macro_rules! </span>cfg_client {
         ($(<span class="macro-nonterminal">$item</span>:item)<span class="kw-2">*</span>) =&gt; {
             <span class="macro">cfg_feature! </span>{
-                <span class="attribute">#![feature = <span class="string">&quot;client&quot;</span>]
+                <span class="attr">#![feature = <span class="string">&quot;client&quot;</span>]
                 </span>$(<span class="macro-nonterminal">$item</span>)*
             }
         }
@@ -80,11 +80,11 @@
     <span class="macro">macro_rules! </span>cfg_server {
         ($(<span class="macro-nonterminal">$item</span>:item)<span class="kw-2">*</span>) =&gt; {
             <span class="macro">cfg_feature! </span>{
-                <span class="attribute">#![feature = <span class="string">&quot;server&quot;</span>]
+                <span class="attr">#![feature = <span class="string">&quot;server&quot;</span>]
                 </span>$(<span class="macro-nonterminal">$item</span>)*
             }
         }
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

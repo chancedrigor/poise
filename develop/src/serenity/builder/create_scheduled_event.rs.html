@@ -112,20 +112,20 @@
 <span id="112">112</span>
 </pre><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::http::Http;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::internal::prelude::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::json::{json, Value};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::model::channel::AttachmentType;
 <span class="kw">use </span><span class="kw">crate</span>::model::guild::ScheduledEventType;
 <span class="kw">use </span><span class="kw">crate</span>::model::id::ChannelId;
 <span class="kw">use </span><span class="kw">crate</span>::model::Timestamp;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::utils::encode_image;
 
-<span class="attribute">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>CreateScheduledEvent(<span class="kw">pub </span>HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str, Value&gt;);
 
 <span class="kw">impl </span>CreateScheduledEvent {
@@ -153,7 +153,7 @@
     </span>}
 
     <span class="doccomment">/// Sets the start time of the scheduled event. Required to be set for event creation.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>start_time&lt;T: Into&lt;Timestamp&gt;&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, timestamp: T) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>._timestamp(<span class="string">&quot;scheduled_start_time&quot;</span>, timestamp.into());
         <span class="self">self
@@ -164,7 +164,7 @@
     ///
     /// [`kind`]: CreateScheduledEvent::kind
     /// [`External`]: ScheduledEventType::External
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>end_time&lt;T: Into&lt;Timestamp&gt;&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, timestamp: T) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>._timestamp(<span class="string">&quot;scheduled_end_time&quot;</span>, timestamp.into());
         <span class="self">self
@@ -199,7 +199,7 @@
     ///
     /// May error if the icon is a URL and the HTTP request fails, or if the image is a file
     /// on a path that doesn&#39;t exist.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
     </span><span class="kw">pub async fn </span>image&lt;<span class="lifetime">&#39;a</span>&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         http: <span class="kw">impl </span>AsRef&lt;Http&gt;,
@@ -223,4 +223,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

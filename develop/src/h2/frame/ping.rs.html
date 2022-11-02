@@ -107,7 +107,7 @@
 
 <span class="kw">pub type </span>Payload = [u8; <span class="number">8</span>];
 
-<span class="attribute">#[derive(Debug, Eq, PartialEq)]
+<span class="attr">#[derive(Debug, Eq, PartialEq)]
 </span><span class="kw">pub struct </span>Ping {
     ack: bool,
     payload: Payload,
@@ -119,16 +119,16 @@
 <span class="kw">const </span>USER_PAYLOAD: Payload = [<span class="number">0x3b</span>, <span class="number">0x7c</span>, <span class="number">0xdb</span>, <span class="number">0x7a</span>, <span class="number">0x0b</span>, <span class="number">0x87</span>, <span class="number">0x16</span>, <span class="number">0xb4</span>];
 
 <span class="kw">impl </span>Ping {
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
     </span><span class="kw">pub const </span>SHUTDOWN: Payload = SHUTDOWN_PAYLOAD;
 
-    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;unstable&quot;</span>))]
+    <span class="attr">#[cfg(not(feature = <span class="string">&quot;unstable&quot;</span>))]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>SHUTDOWN: Payload = SHUTDOWN_PAYLOAD;
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
     </span><span class="kw">pub const </span>USER: Payload = USER_PAYLOAD;
 
-    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;unstable&quot;</span>))]
+    <span class="attr">#[cfg(not(feature = <span class="string">&quot;unstable&quot;</span>))]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>USER: Payload = USER_PAYLOAD;
 
     <span class="kw">pub fn </span>new(payload: Payload) -&gt; Ping {
@@ -203,4 +203,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

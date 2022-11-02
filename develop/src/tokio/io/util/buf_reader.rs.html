@@ -334,9 +334,9 @@
     /// When the `BufReader` is dropped, the contents of its buffer will be
     /// discarded. Creating multiple instances of a `BufReader` on the same
     /// stream can cause data loss.
-    </span><span class="attribute">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;io-util&quot;</span>)))]
+    </span><span class="attr">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;io-util&quot;</span>)))]
     </span><span class="kw">pub struct </span>BufReader&lt;R&gt; {
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span><span class="kw">pub</span>(<span class="kw">super</span>) inner: R,
         <span class="kw">pub</span>(<span class="kw">super</span>) buf: Box&lt;[u8]&gt;,
         <span class="kw">pub</span>(<span class="kw">super</span>) pos: usize,
@@ -400,7 +400,7 @@
     }
 
     <span class="doccomment">/// Invalidates all data in the internal buffer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>discard_buffer(<span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;) {
         <span class="kw">let </span>me = <span class="self">self</span>.project();
         <span class="kw-2">*</span>me.pos = <span class="number">0</span>;
@@ -454,7 +454,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug, Clone, Copy)]
+<span class="attr">#[derive(Debug, Clone, Copy)]
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">enum </span>SeekState {
     <span class="doccomment">/// start_seek has not been called.
     </span>Init,
@@ -611,14 +611,14 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>assert_unpin() {
         <span class="kw">crate</span>::is_unpin::&lt;BufReader&lt;()&gt;&gt;();
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

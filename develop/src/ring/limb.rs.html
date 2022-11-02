@@ -624,23 +624,23 @@
 
 </span><span class="kw">use crate</span>::{c, error};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::bits;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span>core::num::Wrapping;
 
 <span class="comment">// XXX: Not correct for x32 ABIs.
-</span><span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
+</span><span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
 </span><span class="kw">pub type </span>Limb = u64;
-<span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
+<span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
 </span><span class="kw">pub type </span>Limb = u32;
-<span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
+<span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
 </span><span class="kw">pub const </span>LIMB_BITS: usize = <span class="number">64</span>;
-<span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
+<span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
 </span><span class="kw">pub const </span>LIMB_BITS: usize = <span class="number">32</span>;
 
-<span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
+<span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
 #[derive(Debug, PartialEq)]
 #[repr(u64)]
 </span><span class="kw">pub enum </span>LimbMask {
@@ -648,7 +648,7 @@
     False = <span class="number">0</span>,
 }
 
-<span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
+<span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
 #[derive(Debug, PartialEq)]
 #[repr(u32)]
 </span><span class="kw">pub enum </span>LimbMask {
@@ -658,7 +658,7 @@
 
 <span class="kw">pub const </span>LIMB_BYTES: usize = (LIMB_BITS + <span class="number">7</span>) / <span class="number">8</span>;
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">pub fn </span>limbs_equal_limbs_consttime(a: <span class="kw-2">&amp;</span>[Limb], b: <span class="kw-2">&amp;</span>[Limb]) -&gt; LimbMask {
     <span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
         <span class="kw">fn </span>LIMBS_equal(a: <span class="kw-2">*const </span>Limb, b: <span class="kw-2">*const </span>Limb, num_limbs: c::size_t) -&gt; LimbMask;
@@ -668,35 +668,35 @@
     <span class="kw">unsafe </span>{ LIMBS_equal(a.as_ptr(), b.as_ptr(), a.len()) }
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">pub fn </span>limbs_less_than_limbs_consttime(a: <span class="kw-2">&amp;</span>[Limb], b: <span class="kw-2">&amp;</span>[Limb]) -&gt; LimbMask {
     <span class="macro">assert_eq!</span>(a.len(), b.len());
     <span class="kw">unsafe </span>{ LIMBS_less_than(a.as_ptr(), b.as_ptr(), b.len()) }
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">pub fn </span>limbs_less_than_limbs_vartime(a: <span class="kw-2">&amp;</span>[Limb], b: <span class="kw-2">&amp;</span>[Limb]) -&gt; bool {
     limbs_less_than_limbs_consttime(a, b) == LimbMask::True
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub fn </span>limbs_less_than_limb_constant_time(a: <span class="kw-2">&amp;</span>[Limb], b: Limb) -&gt; LimbMask {
     <span class="kw">unsafe </span>{ LIMBS_less_than_limb(a.as_ptr(), b, a.len()) }
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">pub fn </span>limbs_are_zero_constant_time(limbs: <span class="kw-2">&amp;</span>[Limb]) -&gt; LimbMask {
     <span class="kw">unsafe </span>{ LIMBS_are_zero(limbs.as_ptr(), limbs.len()) }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 #[inline]
 </span><span class="kw">pub fn </span>limbs_are_even_constant_time(limbs: <span class="kw-2">&amp;</span>[Limb]) -&gt; LimbMask {
     <span class="kw">unsafe </span>{ LIMBS_are_even(limbs.as_ptr(), limbs.len()) }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 #[inline]
 </span><span class="kw">pub fn </span>limbs_equal_limb_constant_time(a: <span class="kw-2">&amp;</span>[Limb], b: Limb) -&gt; LimbMask {
     <span class="kw">unsafe </span>{ LIMBS_equal_limb(a.as_ptr(), b, a.len()) }
@@ -709,7 +709,7 @@
 // with respect to `a.len()` or the value of the result or the value of the
 // most significant bit (It&#39;s 1, unless the input is zero, in which case it&#39;s
 // zero.)
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub fn </span>limbs_minimal_bits(a: <span class="kw-2">&amp;</span>[Limb]) -&gt; bits::BitLength {
     <span class="kw">for </span>num_limbs <span class="kw">in </span>(<span class="number">1</span>..=a.len()).rev() {
         <span class="kw">let </span>high_limb = a[num_limbs - <span class="number">1</span>];
@@ -733,13 +733,13 @@
 }
 
 <span class="doccomment">/// Equivalent to `if (r &gt;= m) { r -= m; }`
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>limbs_reduce_once_constant_time(r: <span class="kw-2">&amp;mut </span>[Limb], m: <span class="kw-2">&amp;</span>[Limb]) {
     <span class="macro">assert_eq!</span>(r.len(), m.len());
     <span class="kw">unsafe </span>{ LIMBS_reduce_once(r.as_mut_ptr(), m.as_ptr(), m.len()) };
 }
 
-<span class="attribute">#[derive(Clone, Copy, PartialEq)]
+<span class="attr">#[derive(Clone, Copy, PartialEq)]
 </span><span class="kw">pub enum </span>AllowZero {
     No,
     Yes,
@@ -855,7 +855,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub type </span>Window = Limb;
 
 <span class="doccomment">/// Processes `limbs` as a sequence of 5-bit windows, folding the windows from
@@ -870,13 +870,13 @@
 /// channels as long as `init` and `fold` are side-channel free.
 ///
 /// Panics if `limbs` is empty.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub fn </span>fold_5_bit_windows&lt;R, I: FnOnce(Window) -&gt; R, F: Fn(R, Window) -&gt; R&gt;(
     limbs: <span class="kw-2">&amp;</span>[Limb],
     init: I,
     fold: F,
 ) -&gt; R {
-    <span class="attribute">#[derive(Clone, Copy)]
+    <span class="attr">#[derive(Clone, Copy)]
     #[repr(transparent)]
     </span><span class="kw">struct </span>BitIndex(Wrapping&lt;c::size_t&gt;);
 
@@ -936,27 +936,27 @@
 }
 
 <span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">fn </span>LIMB_shr(a: Limb, shift: c::size_t) -&gt; Limb;
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">fn </span>LIMBS_are_even(a: <span class="kw-2">*const </span>Limb, num_limbs: c::size_t) -&gt; LimbMask;
     <span class="kw">fn </span>LIMBS_are_zero(a: <span class="kw-2">*const </span>Limb, num_limbs: c::size_t) -&gt; LimbMask;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">fn </span>LIMBS_equal_limb(a: <span class="kw-2">*const </span>Limb, b: Limb, num_limbs: c::size_t) -&gt; LimbMask;
     <span class="kw">fn </span>LIMBS_less_than(a: <span class="kw-2">*const </span>Limb, b: <span class="kw-2">*const </span>Limb, num_limbs: c::size_t) -&gt; LimbMask;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">fn </span>LIMBS_less_than_limb(a: <span class="kw-2">*const </span>Limb, b: Limb, num_limbs: c::size_t) -&gt; LimbMask;
     <span class="kw">fn </span>LIMBS_reduce_once(r: <span class="kw-2">*mut </span>Limb, m: <span class="kw-2">*const </span>Limb, num_limbs: c::size_t);
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
     <span class="kw">const </span>MAX: Limb = LimbMask::True <span class="kw">as </span>Limb;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_limbs_are_even() {
         <span class="kw">static </span>EVENS: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>[Limb]] = <span class="kw-2">&amp;</span>[
             <span class="kw-2">&amp;</span>[],
@@ -1009,7 +1009,7 @@
         <span class="kw-2">&amp;</span>[<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>],
     ];
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_limbs_are_zero() {
         <span class="kw">for </span>zero <span class="kw">in </span>ZEROES {
             <span class="macro">assert_eq!</span>(limbs_are_zero_constant_time(zero), LimbMask::True);
@@ -1019,7 +1019,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_limbs_equal_limb() {
         <span class="kw">for </span>zero <span class="kw">in </span>ZEROES {
             <span class="macro">assert_eq!</span>(limbs_equal_limb_constant_time(zero, <span class="number">0</span>), LimbMask::True);
@@ -1054,7 +1054,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">fn </span>test_limbs_less_than_limb_constant_time() {
         <span class="kw">static </span>LESSER: <span class="kw-2">&amp;</span>[(<span class="kw-2">&amp;</span>[Limb], Limb)] = <span class="kw-2">&amp;</span>[
@@ -1090,7 +1090,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_parse_big_endian_and_pad_consttime() {
         <span class="kw">const </span>LIMBS: usize = <span class="number">4</span>;
 
@@ -1133,15 +1133,15 @@
         <span class="comment">// XXX: This is a weak set of tests. TODO: expand it.
     </span>}
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_big_endian_from_limbs_same_length() {
-        <span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
+        <span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
         </span><span class="kw">let </span>limbs = [
             <span class="number">0xbccddeef</span>, <span class="number">0x89900aab</span>, <span class="number">0x45566778</span>, <span class="number">0x01122334</span>, <span class="number">0xddeeff00</span>, <span class="number">0x99aabbcc</span>, <span class="number">0x55667788</span>,
             <span class="number">0x11223344</span>,
         ];
 
-        <span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
+        <span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
         </span><span class="kw">let </span>limbs = [
             <span class="number">0x8990_0aab_bccd_deef</span>,
             <span class="number">0x0112_2334_4556_6778</span>,
@@ -1160,17 +1160,17 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>out[..], <span class="kw-2">&amp;</span>expected[..]);
     }
 
-    <span class="attribute">#[should_panic]
+    <span class="attr">#[should_panic]
     #[test]
     </span><span class="kw">fn </span>test_big_endian_from_limbs_fewer_limbs() {
-        <span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
+        <span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
         </span><span class="comment">// Two fewer limbs.
         </span><span class="kw">let </span>limbs = [
             <span class="number">0xbccddeef</span>, <span class="number">0x89900aab</span>, <span class="number">0x45566778</span>, <span class="number">0x01122334</span>, <span class="number">0xddeeff00</span>, <span class="number">0x99aabbcc</span>,
         ];
 
         <span class="comment">// One fewer limb.
-        </span><span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
+        </span><span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
         </span><span class="kw">let </span>limbs = [
             <span class="number">0x8990_0aab_bccd_deef</span>,
             <span class="number">0x0112_2334_4556_6778</span>,
@@ -1182,7 +1182,7 @@
         big_endian_from_limbs(<span class="kw-2">&amp;</span>limbs[..], <span class="kw-2">&amp;mut </span>out);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_limbs_minimal_bits() {
         <span class="kw">const </span>ALL_ONES: Limb = LimbMask::True <span class="kw">as </span>Limb;
         <span class="kw">static </span>CASES: <span class="kw-2">&amp;</span>[(<span class="kw-2">&amp;</span>[Limb], usize)] = <span class="kw-2">&amp;</span>[
@@ -1207,4 +1207,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

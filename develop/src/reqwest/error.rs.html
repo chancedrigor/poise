@@ -364,7 +364,7 @@
 <span id="364">364</span>
 <span id="365">365</span>
 <span id="366">366</span>
-</pre><pre class="rust"><code><span class="attribute">#![cfg_attr(target_arch = <span class="string">&quot;wasm32&quot;</span>, allow(unused))]
+</pre><pre class="rust"><code><span class="attr">#![cfg_attr(target_arch = <span class="string">&quot;wasm32&quot;</span>, allow(unused))]
 </span><span class="kw">use </span>std::error::Error <span class="kw">as </span>StdError;
 <span class="kw">use </span>std::fmt;
 <span class="kw">use </span>std::io;
@@ -482,7 +482,7 @@
         <span class="macro">matches!</span>(<span class="self">self</span>.inner.kind, Kind::Request)
     }
 
-    <span class="attribute">#[cfg(not(target_arch = <span class="string">&quot;wasm32&quot;</span>))]
+    <span class="attr">#[cfg(not(target_arch = <span class="string">&quot;wasm32&quot;</span>))]
     </span><span class="doccomment">/// Returns true if the error is related to connect
     </span><span class="kw">pub fn </span>is_connect(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">let </span><span class="kw-2">mut </span>source = <span class="self">self</span>.source();
@@ -520,7 +520,7 @@
 
     <span class="comment">// private
 
-    </span><span class="attribute">#[allow(unused)]
+    </span><span class="attr">#[allow(unused)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>into_io(<span class="self">self</span>) -&gt; io::Error {
         io::Error::new(io::ErrorKind::Other, <span class="self">self</span>)
     }
@@ -580,21 +580,21 @@
     }
 }
 
-<span class="attribute">#[cfg(target_arch = <span class="string">&quot;wasm32&quot;</span>)]
+<span class="attr">#[cfg(target_arch = <span class="string">&quot;wasm32&quot;</span>)]
 </span><span class="kw">impl </span>From&lt;<span class="kw">crate</span>::error::Error&gt; <span class="kw">for </span>wasm_bindgen::JsValue {
     <span class="kw">fn </span>from(err: Error) -&gt; wasm_bindgen::JsValue {
         js_sys::Error::from(err).into()
     }
 }
 
-<span class="attribute">#[cfg(target_arch = <span class="string">&quot;wasm32&quot;</span>)]
+<span class="attr">#[cfg(target_arch = <span class="string">&quot;wasm32&quot;</span>)]
 </span><span class="kw">impl </span>From&lt;<span class="kw">crate</span>::error::Error&gt; <span class="kw">for </span>js_sys::Error {
     <span class="kw">fn </span>from(err: Error) -&gt; js_sys::Error {
         js_sys::Error::new(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, err))
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>Kind {
     Builder,
     Request,
@@ -642,12 +642,12 @@
 
 <span class="comment">// io::Error helpers
 
-</span><span class="attribute">#[allow(unused)]
+</span><span class="attr">#[allow(unused)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>into_io(e: Error) -&gt; io::Error {
     e.into_io()
 }
 
-<span class="attribute">#[allow(unused)]
+<span class="attr">#[allow(unused)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>decode_io(e: io::Error) -&gt; Error {
     <span class="kw">if </span>e.get_ref().map(|r| r.is::&lt;Error&gt;()).unwrap_or(<span class="bool-val">false</span>) {
         <span class="kw-2">*</span>e.into_inner()
@@ -661,7 +661,7 @@
 
 <span class="comment">// internal Error &quot;sources&quot;
 
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>TimedOut;
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>TimedOut {
@@ -672,14 +672,14 @@
 
 <span class="kw">impl </span>StdError <span class="kw">for </span>TimedOut {}
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
     <span class="kw">fn </span>assert_send&lt;T: Send&gt;() {}
     <span class="kw">fn </span>assert_sync&lt;T: Sync&gt;() {}
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_source_chain() {
         <span class="kw">let </span>root = Error::new(Kind::Request, <span class="prelude-val">None</span>::&lt;Error&gt;);
         <span class="macro">assert!</span>(root.source().is_none());
@@ -690,13 +690,13 @@
         assert_sync::&lt;Error&gt;();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>mem_size_of() {
         <span class="kw">use </span>std::mem::size_of;
         <span class="macro">assert_eq!</span>(size_of::&lt;Error&gt;(), size_of::&lt;usize&gt;());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>roundtrip_io_error() {
         <span class="kw">let </span>orig = <span class="kw">super</span>::request(<span class="string">&quot;orig&quot;</span>);
         <span class="comment">// Convert reqwest::Error into an io::Error...
@@ -710,7 +710,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>from_unknown_io_error() {
         <span class="kw">let </span>orig = io::Error::new(io::ErrorKind::Other, <span class="string">&quot;orly&quot;</span>);
         <span class="kw">let </span>err = <span class="kw">super</span>::decode_io(orig);
@@ -720,7 +720,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>is_timeout() {
         <span class="kw">let </span>err = <span class="kw">super</span>::request(<span class="kw">super</span>::TimedOut);
         <span class="macro">assert!</span>(err.is_timeout());
@@ -731,4 +731,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="reqwest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="reqwest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

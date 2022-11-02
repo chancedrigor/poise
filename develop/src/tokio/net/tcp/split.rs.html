@@ -434,7 +434,7 @@
 /// [`TcpStream`]: TcpStream
 /// [`split`]: TcpStream::split()
 /// [`AsyncReadExt`]: trait@crate::io::AsyncReadExt
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ReadHalf&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>TcpStream);
 
 <span class="doccomment">/// Borrowed write half of a [`TcpStream`], created by [`split`].
@@ -450,7 +450,7 @@
 /// [`AsyncWrite`]: trait@crate::io::AsyncWrite
 /// [`poll_shutdown`]: fn@crate::io::AsyncWrite::poll_shutdown
 /// [`AsyncWriteExt`]: trait@crate::io::AsyncWriteExt
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>WriteHalf&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>TcpStream);
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>split(stream: <span class="kw-2">&amp;mut </span>TcpStream) -&gt; (ReadHalf&lt;<span class="lifetime">&#39;_</span>&gt;, WriteHalf&lt;<span class="lifetime">&#39;_</span>&gt;) {
@@ -785,7 +785,7 @@
         <span class="self">self</span>.<span class="number">0</span>.is_write_vectored()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>poll_flush(<span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, <span class="kw">_</span>: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;io::Result&lt;()&gt;&gt; {
         <span class="comment">// tcp flush is a no-op
         </span>Poll::Ready(<span class="prelude-val">Ok</span>(()))
@@ -809,4 +809,4 @@
     </span>}
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

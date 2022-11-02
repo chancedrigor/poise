@@ -21,12 +21,12 @@
 /// If the perf-literal feature is enabled, then this uses the super optimized
 /// memchr crate. Otherwise, it uses the naive byte-at-a-time implementation.
 </span><span class="kw">pub fn </span>find_byte(needle: u8, haystack: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
-    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;perf-literal&quot;</span>))]
+    <span class="attr">#[cfg(not(feature = <span class="string">&quot;perf-literal&quot;</span>))]
     </span><span class="kw">fn </span>imp(needle: u8, haystack: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
         haystack.iter().position(|<span class="kw-2">&amp;</span>b| b == needle)
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;perf-literal&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;perf-literal&quot;</span>)]
     </span><span class="kw">fn </span>imp(needle: u8, haystack: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
         <span class="kw">use </span>memchr::memchr;
         memchr(needle, haystack)
@@ -35,4 +35,4 @@
     imp(needle, haystack)
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="regex" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="regex" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -178,7 +178,7 @@
 <span id="178">178</span>
 <span id="179">179</span>
 <span id="180">180</span>
-</pre><pre class="rust"><code><span class="attribute">#[cfg(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>))]
+</pre><pre class="rust"><code><span class="attr">#[cfg(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>))]
 </span><span class="kw">mod </span>eventfd {
     <span class="kw">use </span><span class="kw">crate</span>::sys::Selector;
     <span class="kw">use crate</span>::{Interest, Token};
@@ -193,7 +193,7 @@
     /// bytes (64 bits) and are converted (native endian) into an 64 bit
     /// unsigned integer and added to the count. Reads must also be 8 bytes and
     /// reset the count to 0, returning the count.
-    </span><span class="attribute">#[derive(Debug)]
+    </span><span class="attr">#[derive(Debug)]
     </span><span class="kw">pub struct </span>Waker {
         fd: File,
     }
@@ -238,10 +238,10 @@
     }
 }
 
-<span class="attribute">#[cfg(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>))]
+<span class="attr">#[cfg(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>))]
 </span><span class="kw">pub use </span><span class="self">self</span>::eventfd::Waker;
 
-<span class="attribute">#[cfg(any(target_os = <span class="string">&quot;freebsd&quot;</span>, target_os = <span class="string">&quot;ios&quot;</span>, target_os = <span class="string">&quot;macos&quot;</span>))]
+<span class="attr">#[cfg(any(target_os = <span class="string">&quot;freebsd&quot;</span>, target_os = <span class="string">&quot;ios&quot;</span>, target_os = <span class="string">&quot;macos&quot;</span>))]
 </span><span class="kw">mod </span>kqueue {
     <span class="kw">use </span><span class="kw">crate</span>::sys::Selector;
     <span class="kw">use </span><span class="kw">crate</span>::Token;
@@ -254,7 +254,7 @@
     /// receive waker events this done by calling `Selector.setup_waker`. Next
     /// we need access to kqueue, thus we need to duplicate the file descriptor.
     /// Now waking is as simple as adding an event to the kqueue.
-    </span><span class="attribute">#[derive(Debug)]
+    </span><span class="attr">#[derive(Debug)]
     </span><span class="kw">pub struct </span>Waker {
         selector: Selector,
         token: Token,
@@ -275,10 +275,10 @@
     }
 }
 
-<span class="attribute">#[cfg(any(target_os = <span class="string">&quot;freebsd&quot;</span>, target_os = <span class="string">&quot;ios&quot;</span>, target_os = <span class="string">&quot;macos&quot;</span>))]
+<span class="attr">#[cfg(any(target_os = <span class="string">&quot;freebsd&quot;</span>, target_os = <span class="string">&quot;ios&quot;</span>, target_os = <span class="string">&quot;macos&quot;</span>))]
 </span><span class="kw">pub use </span><span class="self">self</span>::kqueue::Waker;
 
-<span class="attribute">#[cfg(any(
+<span class="attr">#[cfg(any(
     target_os = <span class="string">&quot;dragonfly&quot;</span>,
     target_os = <span class="string">&quot;illumos&quot;</span>,
     target_os = <span class="string">&quot;netbsd&quot;</span>,
@@ -297,7 +297,7 @@
     ///
     /// Waker controls both the sending and receiving ends and empties the pipe
     /// if writing to it (waking) fails.
-    </span><span class="attribute">#[derive(Debug)]
+    </span><span class="attr">#[derive(Debug)]
     </span><span class="kw">pub struct </span>Waker {
         sender: File,
         receiver: File,
@@ -320,7 +320,7 @@
             <span class="comment">// The epoll emulation on some illumos systems currently requires
             // the pipe buffer to be completely empty for an edge-triggered
             // wakeup on the pipe read side.
-            </span><span class="attribute">#[cfg(target_os = <span class="string">&quot;illumos&quot;</span>)]
+            </span><span class="attr">#[cfg(target_os = <span class="string">&quot;illumos&quot;</span>)]
             </span><span class="self">self</span>.empty();
 
             <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="self">self</span>.sender).write(<span class="kw-2">&amp;</span>[<span class="number">1</span>]) {
@@ -350,7 +350,7 @@
     }
 }
 
-<span class="attribute">#[cfg(any(
+<span class="attr">#[cfg(any(
     target_os = <span class="string">&quot;dragonfly&quot;</span>,
     target_os = <span class="string">&quot;illumos&quot;</span>,
     target_os = <span class="string">&quot;netbsd&quot;</span>,
@@ -359,4 +359,4 @@
 ))]
 </span><span class="kw">pub use </span><span class="self">self</span>::pipe::Waker;
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="mio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="mio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

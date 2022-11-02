@@ -1735,7 +1735,7 @@
 
 <span class="doccomment">/// Returns a `SendRequest` instance once it is ready to send at least one
 /// request.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ReadySendRequest&lt;B: Buf&gt; {
     inner: <span class="prelude-ty">Option</span>&lt;SendRequest&lt;B&gt;&gt;,
 }
@@ -1783,13 +1783,13 @@
 /// #
 /// # pub fn main() {}
 /// ```
-</span><span class="attribute">#[must_use = <span class="string">&quot;futures do nothing unless polled&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;futures do nothing unless polled&quot;</span>]
 </span><span class="kw">pub struct </span>Connection&lt;T, B: Buf = Bytes&gt; {
     inner: proto::Connection&lt;T, Peer, B&gt;,
 }
 
 <span class="doccomment">/// A future of an HTTP response.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 #[must_use = <span class="string">&quot;futures do nothing unless polled&quot;</span>]
 </span><span class="kw">pub struct </span>ResponseFuture {
     inner: proto::OpaqueStreamRef,
@@ -1802,14 +1802,14 @@
 /// &lt;https://httpwg.org/specs/rfc7540.html#PUSH_PROMISE&gt;
 /// &gt; PUSH_PROMISE frames MUST only be sent on a peer-initiated stream
 /// &gt; that is in either the &quot;open&quot; or &quot;half-closed (remote)&quot; state.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 #[must_use = <span class="string">&quot;futures do nothing unless polled&quot;</span>]
 </span><span class="kw">pub struct </span>PushedResponseFuture {
     inner: ResponseFuture,
 }
 
 <span class="doccomment">/// A pushed response and corresponding request headers
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>PushPromise {
     <span class="doccomment">/// The request headers
     </span>request: Request&lt;()&gt;,
@@ -1819,7 +1819,7 @@
 }
 
 <span class="doccomment">/// A stream of pushed responses and corresponding promised requests
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 #[must_use = <span class="string">&quot;streams do nothing unless polled&quot;</span>]
 </span><span class="kw">pub struct </span>PushPromises {
     inner: proto::OpaqueStreamRef,
@@ -1861,7 +1861,7 @@
 /// #
 /// # pub fn main() {}
 /// ```
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>Builder {
     <span class="doccomment">/// Time to keep locally reset streams around before reaping.
     </span>reset_stream_duration: Duration,
@@ -1889,7 +1889,7 @@
     </span>stream_id: StreamId,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Peer;
 
 <span class="comment">// ===== impl SendRequest =====
@@ -2112,7 +2112,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
 </span><span class="kw">impl</span>&lt;B&gt; SendRequest&lt;B&gt;
 <span class="kw">where
     </span>B: Buf,
@@ -2578,7 +2578,7 @@
     </span>}
 
     <span class="doccomment">/// Sets the first stream ID to something other than 1.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
     </span><span class="kw">pub fn </span>initial_stream_id(<span class="kw-2">&amp;mut </span><span class="self">self</span>, stream_id: u32) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.stream_id = stream_id.into();
         <span class="macro">assert!</span>(
@@ -2929,7 +2929,7 @@
         futures_util::future::poll_fn(<span class="kw">move </span>|cx| <span class="self">self</span>.poll_push_promise(cx)).<span class="kw">await
     </span>}
 
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span><span class="kw">pub fn </span>poll_push_promise(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;,
@@ -2951,7 +2951,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
 </span><span class="kw">impl </span>futures_core::Stream <span class="kw">for </span>PushPromises {
     <span class="kw">type </span>Item = <span class="prelude-ty">Result</span>&lt;PushPromise, <span class="kw">crate</span>::Error&gt;;
 
@@ -3109,4 +3109,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

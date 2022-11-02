@@ -86,7 +86,7 @@
 <span class="kw">type </span>Error = Box&lt;<span class="kw">dyn </span>std::error::Error + Send + Sync&gt;;
 <span class="kw">type </span>Context&lt;<span class="lifetime">&#39;a</span>&gt; = poise::Context&lt;<span class="lifetime">&#39;a</span>, Data, Error&gt;;
 
-<span class="attribute">#[derive(poise::ChoiceParameter)]
+<span class="attr">#[derive(poise::ChoiceParameter)]
 </span><span class="kw">pub enum </span>WelcomeChoice {
     Ask,
     GoodPerson,
@@ -94,7 +94,7 @@
     Coffee,
 }
 
-<span class="attribute">#[poise::command(slash_command)]
+<span class="attr">#[poise::command(slash_command)]
 </span><span class="kw">pub async fn </span>welcome(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
     user: serenity::User,
@@ -105,7 +105,7 @@
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(slash_command)]
+<span class="attr">#[poise::command(slash_command)]
 </span><span class="kw">pub async fn </span>info(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>guild = ctx
         .partial_guild()
@@ -124,13 +124,13 @@
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(prefix_command)]
+<span class="attr">#[poise::command(prefix_command)]
 </span><span class="kw">async fn </span>register(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     poise::builtins::register_application_commands_buttons(ctx).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() {
     env_logger::init();
 
@@ -151,4 +151,4 @@
         </span>.unwrap();
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="fluent_localization" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="fluent_localization" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -265,11 +265,11 @@
 //! } // only for #[cfg]
 //! ```
 
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;deadlock_detection&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;deadlock_detection&quot;</span>)]
 </span><span class="kw">pub use </span>parking_lot_core::deadlock::check_deadlock;
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>parking_lot_core::deadlock::{acquire_resource, release_resource};
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 #[cfg(feature = <span class="string">&quot;deadlock_detection&quot;</span>)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use crate</span>::{Mutex, ReentrantMutex, RwLock};
@@ -285,7 +285,7 @@
         !check_deadlock().is_empty()
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_mutex_deadlock() {
         <span class="kw">let </span>_guard = DEADLOCK_DETECTION_LOCK.lock();
 
@@ -330,7 +330,7 @@
         <span class="macro">assert!</span>(!check_deadlock());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_mutex_deadlock_reentrant() {
         <span class="kw">let </span>_guard = DEADLOCK_DETECTION_LOCK.lock();
 
@@ -349,7 +349,7 @@
         <span class="macro">assert!</span>(!check_deadlock());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_remutex_deadlock() {
         <span class="kw">let </span>_guard = DEADLOCK_DETECTION_LOCK.lock();
 
@@ -397,7 +397,7 @@
         <span class="macro">assert!</span>(!check_deadlock());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_rwlock_deadlock() {
         <span class="kw">let </span>_guard = DEADLOCK_DETECTION_LOCK.lock();
 
@@ -442,7 +442,7 @@
         <span class="macro">assert!</span>(!check_deadlock());
     }
 
-    <span class="attribute">#[cfg(rwlock_deadlock_detection_not_supported)]
+    <span class="attr">#[cfg(rwlock_deadlock_detection_not_supported)]
     #[test]
     </span><span class="kw">fn </span>test_rwlock_deadlock_reentrant() {
         <span class="kw">let </span>_guard = DEADLOCK_DETECTION_LOCK.lock();
@@ -463,4 +463,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

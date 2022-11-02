@@ -864,7 +864,7 @@
 ///    to ensure those errors appear in the right place. Use `darling::util::SpannedValue` to keep
 ///    span information around on parsed fields so that custom diagnostics can point to the correct
 ///    parts of the input AST.
-</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone)]
 </span><span class="kw">pub struct </span>Error {
     kind: ErrorKind,
     locations: Vec&lt;String&gt;,
@@ -1033,7 +1033,7 @@
 }
 
 <span class="doccomment">/// Error instance methods
-</span><span class="attribute">#[allow(clippy::len_without_is_empty)] </span><span class="comment">// Error can never be empty
+</span><span class="attr">#[allow(clippy::len_without_is_empty)] </span><span class="comment">// Error can never be empty
 </span><span class="kw">impl </span>Error {
     <span class="doccomment">/// Check if this error is associated with a span in the token stream.
     </span><span class="kw">pub fn </span>has_span(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
@@ -1124,7 +1124,7 @@
     </span>}
 
     <span class="doccomment">/// Gets the location slice.
-    </span><span class="attribute">#[cfg(test)]
+    </span><span class="attr">#[cfg(test)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>location(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;<span class="kw-2">&amp;</span>str&gt; {
         <span class="self">self</span>.locations.iter().map(|i| i.as_str()).collect()
     }
@@ -1149,19 +1149,19 @@
     /// }
     /// ```
     </span><span class="kw">pub fn </span>write_errors(<span class="self">self</span>) -&gt; TokenStream {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;diagnostics&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;diagnostics&quot;</span>)]
         </span>{
             <span class="self">self</span>.emit();
             <span class="macro">quote!</span>()
         }
 
-        <span class="attribute">#[cfg(not(feature = <span class="string">&quot;diagnostics&quot;</span>))]
+        <span class="attr">#[cfg(not(feature = <span class="string">&quot;diagnostics&quot;</span>))]
         </span>{
             syn::Error::from(<span class="self">self</span>).into_compile_error()
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;diagnostics&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;diagnostics&quot;</span>)]
     </span><span class="kw">fn </span>single_to_diagnostic(<span class="self">self</span>) -&gt; ::proc_macro::Diagnostic {
         <span class="kw">use </span>proc_macro::{Diagnostic, Level};
 
@@ -1185,7 +1185,7 @@
     /// # Stability
     /// This is only available on `nightly` until the compiler `proc_macro_diagnostic`
     /// feature stabilizes. Until then, it may break at any time.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;diagnostics&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;diagnostics&quot;</span>)]
     </span><span class="kw">pub fn </span>emit(<span class="self">self</span>) {
         <span class="kw">for </span>error <span class="kw">in </span><span class="self">self</span>.flatten() {
             error.single_to_diagnostic().emit()
@@ -1197,7 +1197,7 @@
     /// parent derived trait.
     ///
     /// This is experimental and therefore not exposed outside the crate.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;diagnostics&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;diagnostics&quot;</span>)]
     #[allow(dead_code)]
     </span><span class="kw">fn </span>emit_with_macro_help_span(<span class="self">self</span>) {
         <span class="kw">use </span>proc_macro::Diagnostic;
@@ -1273,14 +1273,14 @@
 <span class="comment">// Don&#39;t want to publicly commit to Error supporting equality yet, but
 // not having it makes testing very difficult. Note that spans are not
 // considered for equality since that would break testing in most cases.
-</span><span class="attribute">#[cfg(test)]
+</span><span class="attr">#[cfg(test)]
 </span><span class="kw">impl </span>PartialEq <span class="kw">for </span>Error {
     <span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool {
         <span class="self">self</span>.kind == other.kind &amp;&amp; <span class="self">self</span>.locations == other.locations
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">impl </span>Eq <span class="kw">for </span>Error {}
 
 <span class="kw">impl </span>IntoIterator <span class="kw">for </span>Error {
@@ -1358,7 +1358,7 @@
 ///     Ok(outputs)
 /// }
 /// ```
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 #[must_use = <span class="string">&quot;Accumulator will panic on drop if not defused.&quot;</span>]
 </span><span class="kw">pub struct </span>Accumulator(<span class="prelude-ty">Option</span>&lt;Vec&lt;Error&gt;&gt;);
 
@@ -1414,7 +1414,7 @@
     <span class="doccomment">/// Returns the accumulated errors as a `Vec`.
     ///
     /// This function defuses the drop bomb.
-    </span><span class="attribute">#[must_use = <span class="string">&quot;Accumulated errors should be handled or propagated to the caller&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;Accumulated errors should be handled or propagated to the caller&quot;</span>]
     </span><span class="kw">pub fn </span>into_inner(<span class="kw-2">mut </span><span class="self">self</span>) -&gt; Vec&lt;Error&gt; {
         <span class="kw">match </span>std::mem::replace(<span class="kw-2">&amp;mut </span><span class="self">self</span>.<span class="number">0</span>, <span class="prelude-val">None</span>) {
             <span class="prelude-val">Some</span>(errors) =&gt; errors,
@@ -1500,17 +1500,17 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::Error;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>flatten_noop() {
         <span class="kw">let </span>err = Error::duplicate_field(<span class="string">&quot;hello&quot;</span>).at(<span class="string">&quot;world&quot;</span>);
         <span class="macro">assert_eq!</span>(err.clone().flatten(), err);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>flatten_simple() {
         <span class="kw">let </span>err = Error::multiple(<span class="macro">vec!</span>[
             Error::unknown_field(<span class="string">&quot;hello&quot;</span>).at(<span class="string">&quot;world&quot;</span>),
@@ -1535,13 +1535,13 @@
         <span class="macro">assert!</span>(err_iter.next().is_none());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>len_single() {
         <span class="kw">let </span>err = Error::duplicate_field(<span class="string">&quot;hello&quot;</span>);
         <span class="macro">assert_eq!</span>(<span class="number">1</span>, err.len());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>len_multiple() {
         <span class="kw">let </span>err = Error::multiple(<span class="macro">vec!</span>[
             Error::duplicate_field(<span class="string">&quot;hello&quot;</span>),
@@ -1550,7 +1550,7 @@
         <span class="macro">assert_eq!</span>(<span class="number">2</span>, err.len());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>len_nested() {
         <span class="kw">let </span>err = Error::multiple(<span class="macro">vec!</span>[
             Error::duplicate_field(<span class="string">&quot;hello&quot;</span>),
@@ -1564,20 +1564,20 @@
         <span class="macro">assert_eq!</span>(<span class="number">4</span>, err.len());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>accum_ok() {
         <span class="kw">let </span>errs = Error::accumulator();
         <span class="macro">assert_eq!</span>(<span class="string">&quot;test&quot;</span>, errs.finish_with(<span class="string">&quot;test&quot;</span>).unwrap());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>accum_errr() {
         <span class="kw">let </span><span class="kw-2">mut </span>errs = Error::accumulator();
         errs.push(Error::custom(<span class="string">&quot;foo!&quot;</span>));
         errs.finish().unwrap_err();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>accum_into_inner() {
         <span class="kw">let </span><span class="kw-2">mut </span>errs = Error::accumulator();
         errs.push(Error::custom(<span class="string">&quot;foo!&quot;</span>));
@@ -1585,13 +1585,13 @@
         <span class="macro">assert_eq!</span>(errs.len(), <span class="number">1</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[should_panic(expected = <span class="string">&quot;Accumulator dropped&quot;</span>)]
     </span><span class="kw">fn </span>accum_drop_panic() {
         <span class="kw">let </span>_errs = Error::accumulator();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[should_panic(expected = <span class="string">&quot;2 errors&quot;</span>)]
     </span><span class="kw">fn </span>accum_drop_panic_with_error_count() {
         <span class="kw">let </span><span class="kw-2">mut </span>errors = Error::accumulator();
@@ -1599,14 +1599,14 @@
         errors.push(Error::custom(<span class="string">&quot;second&quot;</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>accum_checkpoint_error() {
         <span class="kw">let </span><span class="kw-2">mut </span>errs = Error::accumulator();
         errs.push(Error::custom(<span class="string">&quot;foo!&quot;</span>));
         errs.checkpoint().unwrap_err();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[should_panic(expected = <span class="string">&quot;Accumulator dropped&quot;</span>)]
     </span><span class="kw">fn </span>accum_checkpoint_drop_panic() {
         <span class="kw">let </span><span class="kw-2">mut </span>errs = Error::accumulator();
@@ -1615,4 +1615,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="darling_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="darling_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -890,7 +890,7 @@
 <span class="kw">use </span>syn::spanned::Spanned;
 
 <span class="doccomment">/// Represent the `derivative` attributes on the input type (`struct`/`enum`).
-</span><span class="attribute">#[derive(Debug, Default)]
+</span><span class="attr">#[derive(Debug, Default)]
 </span><span class="kw">pub struct </span>Input {
     <span class="doccomment">/// Whether `Clone` is present and its specific attributes.
     </span><span class="kw">pub </span>clone: <span class="prelude-ty">Option</span>&lt;InputClone&gt;,
@@ -913,7 +913,7 @@
     <span class="kw">pub </span>is_packed: bool,
 }
 
-<span class="attribute">#[derive(Debug, Default)]
+<span class="attr">#[derive(Debug, Default)]
 </span><span class="doccomment">/// Represent the `derivative` attributes on a field.
 </span><span class="kw">pub struct </span>Field {
     <span class="doccomment">/// The parameters for `Clone`.
@@ -936,7 +936,7 @@
     </span>ord: FieldOrd,
 }
 
-<span class="attribute">#[derive(Debug, Default)]
+<span class="attr">#[derive(Debug, Default)]
 </span><span class="doccomment">/// Represent the `derivative(Clone(…))` attributes on an input.
 </span><span class="kw">pub struct </span>InputClone {
     <span class="doccomment">/// The `bound` attribute if present and the corresponding bounds.
@@ -945,14 +945,14 @@
     </span><span class="kw">pub </span>clone_from: bool,
 }
 
-<span class="attribute">#[derive(Debug, Default)]
+<span class="attr">#[derive(Debug, Default)]
 </span><span class="doccomment">/// Represent the `derivative(Clone(…))` attributes on an input.
 </span><span class="kw">pub struct </span>InputCopy {
     <span class="doccomment">/// The `bound` attribute if present and the corresponding bounds.
     </span>bounds: <span class="prelude-ty">Option</span>&lt;Vec&lt;syn::WherePredicate&gt;&gt;,
 }
 
-<span class="attribute">#[derive(Debug, Default)]
+<span class="attr">#[derive(Debug, Default)]
 </span><span class="doccomment">/// Represent the `derivative(Debug(…))` attributes on an input.
 </span><span class="kw">pub struct </span>InputDebug {
     <span class="doccomment">/// The `bound` attribute if present and the corresponding bounds.
@@ -961,7 +961,7 @@
     </span><span class="kw">pub </span>transparent: bool,
 }
 
-<span class="attribute">#[derive(Debug, Default)]
+<span class="attr">#[derive(Debug, Default)]
 </span><span class="doccomment">/// Represent the `derivative(Default(…))` attributes on an input.
 </span><span class="kw">pub struct </span>InputDefault {
     <span class="doccomment">/// The `bound` attribute if present and the corresponding bounds.
@@ -970,28 +970,28 @@
     </span><span class="kw">pub </span>new: bool,
 }
 
-<span class="attribute">#[derive(Debug, Default)]
+<span class="attr">#[derive(Debug, Default)]
 </span><span class="doccomment">/// Represent the `derivative(Eq(…))` attributes on an input.
 </span><span class="kw">pub struct </span>InputEq {
     <span class="doccomment">/// The `bound` attribute if present and the corresponding bounds.
     </span>bounds: <span class="prelude-ty">Option</span>&lt;Vec&lt;syn::WherePredicate&gt;&gt;,
 }
 
-<span class="attribute">#[derive(Debug, Default)]
+<span class="attr">#[derive(Debug, Default)]
 </span><span class="doccomment">/// Represent the `derivative(Hash(…))` attributes on an input.
 </span><span class="kw">pub struct </span>InputHash {
     <span class="doccomment">/// The `bound` attribute if present and the corresponding bounds.
     </span>bounds: <span class="prelude-ty">Option</span>&lt;Vec&lt;syn::WherePredicate&gt;&gt;,
 }
 
-<span class="attribute">#[derive(Debug, Default)]
+<span class="attr">#[derive(Debug, Default)]
 </span><span class="doccomment">/// Represent the `derivative(PartialEq(…))` attributes on an input.
 </span><span class="kw">pub struct </span>InputPartialEq {
     <span class="doccomment">/// The `bound` attribute if present and the corresponding bounds.
     </span>bounds: <span class="prelude-ty">Option</span>&lt;Vec&lt;syn::WherePredicate&gt;&gt;,
 }
 
-<span class="attribute">#[derive(Debug, Default)]
+<span class="attr">#[derive(Debug, Default)]
 </span><span class="doccomment">/// Represent the `derivative(PartialOrd(…))` attributes on an input.
 </span><span class="kw">pub struct </span>InputPartialOrd {
     <span class="doccomment">/// The `bound` attribute if present and the corresponding bounds.
@@ -1000,7 +1000,7 @@
     </span>on_enum: bool,
 }
 
-<span class="attribute">#[derive(Debug, Default)]
+<span class="attr">#[derive(Debug, Default)]
 </span><span class="doccomment">/// Represent the `derivative(Ord(…))` attributes on an input.
 </span><span class="kw">pub struct </span>InputOrd {
     <span class="doccomment">/// The `bound` attribute if present and the corresponding bounds.
@@ -1009,7 +1009,7 @@
     </span>on_enum: bool,
 }
 
-<span class="attribute">#[derive(Debug, Default)]
+<span class="attr">#[derive(Debug, Default)]
 </span><span class="doccomment">/// Represents the `derivative(Clone(…))` attributes on a field.
 </span><span class="kw">pub struct </span>FieldClone {
     <span class="doccomment">/// The `bound` attribute if present and the corresponding bounds.
@@ -1018,7 +1018,7 @@
     </span>clone_with: <span class="prelude-ty">Option</span>&lt;syn::Path&gt;,
 }
 
-<span class="attribute">#[derive(Debug, Default)]
+<span class="attr">#[derive(Debug, Default)]
 </span><span class="doccomment">/// Represents the `derivative(Debug(…))` attributes on a field.
 </span><span class="kw">pub struct </span>FieldDebug {
     <span class="doccomment">/// The `bound` attribute if present and the corresponding bounds.
@@ -1029,7 +1029,7 @@
     </span>ignore: bool,
 }
 
-<span class="attribute">#[derive(Debug, Default)]
+<span class="attr">#[derive(Debug, Default)]
 </span><span class="doccomment">/// Represent the `derivative(Default(…))` attributes on a field.
 </span><span class="kw">pub struct </span>FieldDefault {
     <span class="doccomment">/// The `bound` attribute if present and the corresponding bounds.
@@ -1038,7 +1038,7 @@
     </span><span class="kw">pub </span>value: <span class="prelude-ty">Option</span>&lt;proc_macro2::TokenStream&gt;,
 }
 
-<span class="attribute">#[derive(Debug, Default)]
+<span class="attr">#[derive(Debug, Default)]
 </span><span class="doccomment">/// Represents the `derivative(Hash(…))` attributes on a field.
 </span><span class="kw">pub struct </span>FieldHash {
     <span class="doccomment">/// The `bound` attribute if present and the corresponding bounds.
@@ -1049,7 +1049,7 @@
     </span>ignore: bool,
 }
 
-<span class="attribute">#[derive(Debug, Default)]
+<span class="attr">#[derive(Debug, Default)]
 </span><span class="doccomment">/// Represent the `derivative(PartialEq(…))` attributes on a field.
 </span><span class="kw">pub struct </span>FieldPartialEq {
     <span class="doccomment">/// The `bound` attribute if present and the corresponding bounds.
@@ -1060,7 +1060,7 @@
     </span>ignore: bool,
 }
 
-<span class="attribute">#[derive(Debug, Default)]
+<span class="attr">#[derive(Debug, Default)]
 </span><span class="doccomment">/// Represent the `derivative(PartialOrd(…))` attributes on a field.
 </span><span class="kw">pub struct </span>FieldPartialOrd {
     <span class="doccomment">/// The `bound` attribute if present and the corresponding bounds.
@@ -1071,7 +1071,7 @@
     </span>ignore: bool,
 }
 
-<span class="attribute">#[derive(Debug, Default)]
+<span class="attr">#[derive(Debug, Default)]
 </span><span class="doccomment">/// Represent the `derivative(Ord(…))` attributes on a field.
 </span><span class="kw">pub struct </span>FieldOrd {
     <span class="doccomment">/// The `bound` attribute if present and the corresponding bounds.
@@ -1146,7 +1146,7 @@
 
 <span class="kw">impl </span>Input {
     <span class="doccomment">/// Parse the `derivative` attributes on a type.
-    </span><span class="attribute">#[allow(clippy::cognitive_complexity)] </span><span class="comment">// mostly macros
+    </span><span class="attr">#[allow(clippy::cognitive_complexity)] </span><span class="comment">// mostly macros
     </span><span class="kw">pub fn </span>from_ast(
         attrs: <span class="kw-2">&amp;</span>[syn::Attribute],
         errors: <span class="kw-2">&amp;mut </span>proc_macro2::TokenStream,
@@ -1331,7 +1331,7 @@
 
 <span class="kw">impl </span>Field {
     <span class="doccomment">/// Parse the `derivative` attributes on a type.
-    </span><span class="attribute">#[allow(clippy::cognitive_complexity)] </span><span class="comment">// mostly macros
+    </span><span class="attr">#[allow(clippy::cognitive_complexity)] </span><span class="comment">// mostly macros
     </span><span class="kw">pub fn </span>from_ast(
         field: <span class="kw-2">&amp;</span>syn::Field,
         errors: <span class="kw-2">&amp;mut </span>proc_macro2::TokenStream,
@@ -1773,4 +1773,4 @@
     <span class="bool-val">false
 </span>}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="derivative" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="derivative" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -324,17 +324,17 @@
 
 </span><span class="kw">use </span>core::fmt;
 <span class="kw">use </span>core::ops::Neg;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
 </span><span class="kw">use </span>std::io;
 
 <span class="kw">use </span><span class="kw">crate</span>::error;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::formatting::Formattable;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::parsing::Parsable;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;local-offset&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;local-offset&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::sys::local_offset_at;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;local-offset&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;local-offset&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::OffsetDateTime;
 
 <span class="doccomment">/// An offset from UTC.
@@ -342,13 +342,13 @@
 /// This struct can store values up to ±23:59:59. If you need support outside this range, please
 /// file an issue with your use case.
 </span><span class="comment">// All three components _must_ have the same sign.
-</span><span class="attribute">#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
+</span><span class="attr">#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
 </span><span class="kw">pub struct </span>UtcOffset {
-    <span class="attribute">#[allow(clippy::missing_docs_in_private_items)]
+    <span class="attr">#[allow(clippy::missing_docs_in_private_items)]
     </span>hours: i8,
-    <span class="attribute">#[allow(clippy::missing_docs_in_private_items)]
+    <span class="attr">#[allow(clippy::missing_docs_in_private_items)]
     </span>minutes: i8,
-    <span class="attribute">#[allow(clippy::missing_docs_in_private_items)]
+    <span class="attr">#[allow(clippy::missing_docs_in_private_items)]
     </span>seconds: i8,
 }
 
@@ -365,7 +365,7 @@
     </span><span class="doccomment">/// Create a `UtcOffset` representing an offset of the hours, minutes, and seconds provided, the
     /// validity of which must be guaranteed by the caller. All three parameters must have the same
     /// sign.
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     </span><span class="kw">pub const fn </span>__from_hms_unchecked(hours: i8, minutes: i8, seconds: i8) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             hours,
@@ -553,7 +553,7 @@
     /// assert!(local_offset.is_ok());
     /// # }
     /// ```
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;local-offset&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;local-offset&quot;</span>)]
     </span><span class="kw">pub fn </span>local_offset_at(datetime: OffsetDateTime) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, error::IndeterminateOffset&gt; {
         local_offset_at(datetime).ok_or(error::IndeterminateOffset)
     }
@@ -568,7 +568,7 @@
     /// assert!(local_offset.is_ok());
     /// # }
     /// ```
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;local-offset&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;local-offset&quot;</span>)]
     </span><span class="kw">pub fn </span>current_local_offset() -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, error::IndeterminateOffset&gt; {
         <span class="kw">let </span>now = OffsetDateTime::now_utc();
         local_offset_at(now).ok_or(error::IndeterminateOffset)
@@ -577,7 +577,7 @@
 </span>}
 
 <span class="comment">// region: formatting &amp; parsing
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
 </span><span class="kw">impl </span>UtcOffset {
     <span class="doccomment">/// Format the `UtcOffset` using the provided [format description](crate::format_description).
     </span><span class="kw">pub fn </span>format_into(
@@ -601,7 +601,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">impl </span>UtcOffset {
     <span class="doccomment">/// Parse a `UtcOffset` from the input using the provided [format
     /// description](crate::format_description).
@@ -642,4 +642,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

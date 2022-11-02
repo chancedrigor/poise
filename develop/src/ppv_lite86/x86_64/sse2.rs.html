@@ -1717,7 +1717,7 @@
     (<span class="macro-nonterminal">$vec</span>:ident, <span class="macro-nonterminal">$</span><span class="kw">trait</span>:<span class="macro-nonterminal">ident</span>, <span class="macro-nonterminal">$</span><span class="kw">fn</span>:<span class="macro-nonterminal">ident</span>, <span class="macro-nonterminal">$impl_fn</span>:ident) =&gt; {
         <span class="kw">impl</span>&lt;S3, S4, NI&gt; <span class="macro-nonterminal">$</span><span class="kw">trait for </span><span class="macro-nonterminal">$vec</span>&lt;S3, S4, NI&gt; {
             <span class="kw">type </span>Output = <span class="self">Self</span>;
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$</span><span class="kw">fn</span>(<span class="macro-nonterminal">self</span>, rhs: <span class="self">Self</span>) -&gt; <span class="self">Self</span>::Output {
                 <span class="self">Self</span>::new(<span class="kw">unsafe </span>{ <span class="macro-nonterminal">$impl_fn</span>(<span class="self">self</span>.x, rhs.x) })
             }
@@ -1731,7 +1731,7 @@
         <span class="kw">where
             </span><span class="macro-nonterminal">$vec</span>&lt;S3, S4, NI&gt;: Copy,
         {
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$fn_assign</span>(<span class="kw-2">&amp;mut </span><span class="self">self</span>, rhs: <span class="self">Self</span>) {
                 <span class="kw-2">*</span><span class="self">self </span>= <span class="self">self</span>.<span class="macro-nonterminal">$</span><span class="kw">fn</span>(<span class="macro-nonterminal">rhs</span>);
             }
@@ -1741,7 +1741,7 @@
 
 <span class="macro">macro_rules! </span>def_vec {
     (<span class="macro-nonterminal">$vec</span>:ident, <span class="macro-nonterminal">$word</span>:ident) =&gt; {
-        <span class="attribute">#[allow(non_camel_case_types)]
+        <span class="attr">#[allow(non_camel_case_types)]
         #[derive(Copy, Clone)]
         </span><span class="kw">pub struct </span><span class="macro-nonterminal">$vec</span>&lt;S3, S4, NI&gt; {
             x: __m128i,
@@ -1751,19 +1751,19 @@
         }
 
         <span class="kw">impl</span>&lt;S3, S4, NI&gt; Store&lt;vec128_storage&gt; <span class="kw">for </span><span class="macro-nonterminal">$vec</span>&lt;S3, S4, NI&gt; {
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">unsafe fn </span>unpack(x: vec128_storage) -&gt; <span class="self">Self </span>{
                 <span class="self">Self</span>::new(x.sse2)
             }
         }
         <span class="kw">impl</span>&lt;S3, S4, NI&gt; From&lt;<span class="macro-nonterminal">$vec</span>&lt;S3, S4, NI&gt;&gt; <span class="kw">for </span>vec128_storage {
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>from(x: <span class="macro-nonterminal">$vec</span>&lt;S3, S4, NI&gt;) -&gt; <span class="self">Self </span>{
                 vec128_storage { sse2: x.x }
             }
         }
         <span class="kw">impl</span>&lt;S3, S4, NI&gt; <span class="macro-nonterminal">$vec</span>&lt;S3, S4, NI&gt; {
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>new(x: __m128i) -&gt; <span class="self">Self </span>{
                 <span class="macro-nonterminal">$vec </span>{
                     x,
@@ -1778,22 +1778,22 @@
         <span class="kw">where
             </span><span class="self">Self</span>: BSwap,
         {
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">unsafe fn </span>unsafe_read_le(input: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="self">Self </span>{
                 <span class="macro">assert_eq!</span>(input.len(), <span class="number">16</span>);
                 <span class="self">Self</span>::new(_mm_loadu_si128(input.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>))
             }
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">unsafe fn </span>unsafe_read_be(input: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="self">Self </span>{
                 <span class="macro">assert_eq!</span>(input.len(), <span class="number">16</span>);
                 <span class="self">Self</span>::new(_mm_loadu_si128(input.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>)).bswap()
             }
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>write_le(<span class="self">self</span>, out: <span class="kw-2">&amp;mut </span>[u8]) {
                 <span class="macro">assert_eq!</span>(out.len(), <span class="number">16</span>);
                 <span class="kw">unsafe </span>{ _mm_storeu_si128(out.as_mut_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>, <span class="self">self</span>.x) }
             }
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>write_be(<span class="self">self</span>, out: <span class="kw-2">&amp;mut </span>[u8]) {
                 <span class="macro">assert_eq!</span>(out.len(), <span class="number">16</span>);
                 <span class="kw">let </span>x = <span class="self">self</span>.bswap().x;
@@ -1804,7 +1804,7 @@
         }
 
         <span class="kw">impl</span>&lt;S3, S4, NI&gt; Default <span class="kw">for </span><span class="macro-nonterminal">$vec</span>&lt;S3, S4, NI&gt; {
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
                 <span class="self">Self</span>::new(<span class="kw">unsafe </span>{ _mm_setzero_si128() })
             }
@@ -1812,7 +1812,7 @@
 
         <span class="kw">impl</span>&lt;S3, S4, NI&gt; Not <span class="kw">for </span><span class="macro-nonterminal">$vec</span>&lt;S3, S4, NI&gt; {
             <span class="kw">type </span>Output = <span class="self">Self</span>;
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>not(<span class="self">self</span>) -&gt; <span class="self">Self</span>::Output {
                 <span class="kw">unsafe </span>{
                     <span class="kw">let </span>ff = _mm_set1_epi64x(-<span class="number">1i64</span>);
@@ -1830,7 +1830,7 @@
         <span class="macro">impl_binop_assign!</span>(<span class="macro-nonterminal">$vec</span>, BitXorAssign, bitxor_assign, bitxor);
         <span class="kw">impl</span>&lt;S3: Copy, S4: Copy, NI: Copy&gt; AndNot <span class="kw">for </span><span class="macro-nonterminal">$vec</span>&lt;S3, S4, NI&gt; {
             <span class="kw">type </span>Output = <span class="self">Self</span>;
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>andnot(<span class="self">self</span>, rhs: <span class="self">Self</span>) -&gt; <span class="self">Self </span>{
                 <span class="self">Self</span>::new(<span class="kw">unsafe </span>{ _mm_andnot_si128(<span class="self">self</span>.x, rhs.x) })
             }
@@ -1869,7 +1869,7 @@
 
 <span class="macro">macro_rules! </span>rotr_32_s3 {
     (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$k0</span>:expr, <span class="macro-nonterminal">$k1</span>:expr) =&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
             <span class="self">Self</span>::new(<span class="kw">unsafe </span>{ _mm_shuffle_epi8(<span class="self">self</span>.x, _mm_set_epi64x(<span class="macro-nonterminal">$k0</span>, <span class="macro-nonterminal">$k1</span>)) })
         }
@@ -1877,7 +1877,7 @@
 }
 <span class="macro">macro_rules! </span>rotr_32 {
     (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$i</span>:expr) =&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
             <span class="self">Self</span>::new(<span class="kw">unsafe </span>{
                 _mm_or_si128(
@@ -1915,7 +1915,7 @@
     <span class="macro">rotr_32!</span>(rotate_each_word_right8, <span class="number">8</span>);
     <span class="macro">rotr_32!</span>(rotate_each_word_right11, <span class="number">11</span>);
     <span class="macro">rotr_32!</span>(rotate_each_word_right12, <span class="number">12</span>);
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>rotate_each_word_right16(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(swap16_s2(<span class="self">self</span>.x))
     }
@@ -1926,7 +1926,7 @@
 
 <span class="macro">macro_rules! </span>rotr_64_s3 {
     (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$k0</span>:expr, <span class="macro-nonterminal">$k1</span>:expr) =&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
             <span class="self">Self</span>::new(<span class="kw">unsafe </span>{ _mm_shuffle_epi8(<span class="self">self</span>.x, _mm_set_epi64x(<span class="macro-nonterminal">$k0</span>, <span class="macro-nonterminal">$k1</span>)) })
         }
@@ -1934,7 +1934,7 @@
 }
 <span class="macro">macro_rules! </span>rotr_64 {
     (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$i</span>:expr) =&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
             <span class="self">Self</span>::new(<span class="kw">unsafe </span>{
                 _mm_or_si128(
@@ -1972,7 +1972,7 @@
     <span class="macro">rotr_64!</span>(rotate_each_word_right8, <span class="number">8</span>);
     <span class="macro">rotr_64!</span>(rotate_each_word_right11, <span class="number">11</span>);
     <span class="macro">rotr_64!</span>(rotate_each_word_right12, <span class="number">12</span>);
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>rotate_each_word_right16(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(swap16_s2(<span class="self">self</span>.x))
     }
@@ -1981,7 +1981,7 @@
     <span class="macro">rotr_64!</span>(rotate_each_word_right25, <span class="number">25</span>);
 }
 <span class="kw">impl</span>&lt;S3: Copy, S4: Copy, NI: Copy&gt; RotateEachWord64 <span class="kw">for </span>u64x2_sse2&lt;S3, S4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>rotate_each_word_right32(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(<span class="kw">unsafe </span>{ _mm_shuffle_epi32(<span class="self">self</span>.x, <span class="number">0b10110001</span>) })
     }
@@ -1989,7 +1989,7 @@
 
 <span class="macro">macro_rules! </span>rotr_128 {
     (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$i</span>:expr) =&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
             <span class="self">Self</span>::new(<span class="kw">unsafe </span>{
                 _mm_or_si128(
@@ -2022,7 +2022,7 @@
 <span class="macro">def_vec!</span>(u128x1_sse2, u128);
 
 <span class="kw">impl</span>&lt;S3, NI&gt; MultiLane&lt;[u32; <span class="number">4</span>]&gt; <span class="kw">for </span>u32x4_sse2&lt;S3, YesS4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>to_lanes(<span class="self">self</span>) -&gt; [u32; <span class="number">4</span>] {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>x = _mm_cvtsi128_si64(<span class="self">self</span>.x) <span class="kw">as </span>u64;
@@ -2030,7 +2030,7 @@
             [x <span class="kw">as </span>u32, (x &gt;&gt; <span class="number">32</span>) <span class="kw">as </span>u32, y <span class="kw">as </span>u32, (y &gt;&gt; <span class="number">32</span>) <span class="kw">as </span>u32]
         }
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>from_lanes(xs: [u32; <span class="number">4</span>]) -&gt; <span class="self">Self </span>{
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>x = _mm_cvtsi64_si128((xs[<span class="number">0</span>] <span class="kw">as </span>u64 | ((xs[<span class="number">1</span>] <span class="kw">as </span>u64) &lt;&lt; <span class="number">32</span>)) <span class="kw">as </span>i64);
@@ -2040,7 +2040,7 @@
     }
 }
 <span class="kw">impl</span>&lt;S3, NI&gt; MultiLane&lt;[u32; <span class="number">4</span>]&gt; <span class="kw">for </span>u32x4_sse2&lt;S3, NoS4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>to_lanes(<span class="self">self</span>) -&gt; [u32; <span class="number">4</span>] {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>x = _mm_cvtsi128_si64(<span class="self">self</span>.x) <span class="kw">as </span>u64;
@@ -2048,7 +2048,7 @@
             [x <span class="kw">as </span>u32, (x &gt;&gt; <span class="number">32</span>) <span class="kw">as </span>u32, y <span class="kw">as </span>u32, (y &gt;&gt; <span class="number">32</span>) <span class="kw">as </span>u32]
         }
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>from_lanes(xs: [u32; <span class="number">4</span>]) -&gt; <span class="self">Self </span>{
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>x = (xs[<span class="number">0</span>] <span class="kw">as </span>u64 | ((xs[<span class="number">1</span>] <span class="kw">as </span>u64) &lt;&lt; <span class="number">32</span>)) <span class="kw">as </span>i64;
@@ -2060,7 +2060,7 @@
     }
 }
 <span class="kw">impl</span>&lt;S3, NI&gt; MultiLane&lt;[u64; <span class="number">2</span>]&gt; <span class="kw">for </span>u64x2_sse2&lt;S3, YesS4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>to_lanes(<span class="self">self</span>) -&gt; [u64; <span class="number">2</span>] {
         <span class="kw">unsafe </span>{
             [
@@ -2069,7 +2069,7 @@
             ]
         }
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>from_lanes(xs: [u64; <span class="number">2</span>]) -&gt; <span class="self">Self </span>{
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>x = _mm_cvtsi64_si128(xs[<span class="number">0</span>] <span class="kw">as </span>i64);
@@ -2079,7 +2079,7 @@
     }
 }
 <span class="kw">impl</span>&lt;S3, NI&gt; MultiLane&lt;[u64; <span class="number">2</span>]&gt; <span class="kw">for </span>u64x2_sse2&lt;S3, NoS4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>to_lanes(<span class="self">self</span>) -&gt; [u64; <span class="number">2</span>] {
         <span class="kw">unsafe </span>{
             [
@@ -2088,7 +2088,7 @@
             ]
         }
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>from_lanes(xs: [u64; <span class="number">2</span>]) -&gt; <span class="self">Self </span>{
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>x = _mm_cvtsi64_si128(xs[<span class="number">0</span>] <span class="kw">as </span>i64);
@@ -2098,11 +2098,11 @@
     }
 }
 <span class="kw">impl</span>&lt;S3, S4, NI&gt; MultiLane&lt;[u128; <span class="number">1</span>]&gt; <span class="kw">for </span>u128x1_sse2&lt;S3, S4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>to_lanes(<span class="self">self</span>) -&gt; [u128; <span class="number">1</span>] {
         <span class="macro">unimplemented!</span>()
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>from_lanes(xs: [u128; <span class="number">1</span>]) -&gt; <span class="self">Self </span>{
         <span class="macro">unimplemented!</span>(<span class="string">&quot;{:?}&quot;</span>, xs)
     }
@@ -2112,12 +2112,12 @@
 <span class="kw">where
     </span>u64x2_sse2&lt;S3, S4, NI&gt;: MultiLane&lt;[u64; <span class="number">2</span>]&gt; + Copy,
 {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>to_lanes(<span class="self">self</span>) -&gt; [u64; <span class="number">4</span>] {
         <span class="kw">let </span>(a, b) = (<span class="self">self</span>.<span class="number">0</span>[<span class="number">0</span>].to_lanes(), <span class="self">self</span>.<span class="number">0</span>[<span class="number">1</span>].to_lanes());
         [a[<span class="number">0</span>], a[<span class="number">1</span>], b[<span class="number">0</span>], b[<span class="number">1</span>]]
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>from_lanes(xs: [u64; <span class="number">4</span>]) -&gt; <span class="self">Self </span>{
         <span class="kw">let </span>(a, b) = (
             u64x2_sse2::from_lanes([xs[<span class="number">0</span>], xs[<span class="number">1</span>]]),
@@ -2130,7 +2130,7 @@
 <span class="macro">macro_rules! </span>impl_into {
     (<span class="macro-nonterminal">$from</span>:ident, <span class="macro-nonterminal">$to</span>:ident) =&gt; {
         <span class="kw">impl</span>&lt;S3, S4, NI&gt; From&lt;<span class="macro-nonterminal">$from</span>&lt;S3, S4, NI&gt;&gt; <span class="kw">for </span><span class="macro-nonterminal">$to</span>&lt;S3, S4, NI&gt; {
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>from(x: <span class="macro-nonterminal">$from</span>&lt;S3, S4, NI&gt;) -&gt; <span class="self">Self </span>{
                 <span class="macro-nonterminal">$to::new</span>(x.x)
             }
@@ -2203,7 +2203,7 @@
 }
 
 <span class="kw">impl</span>&lt;S3, S4, NI&gt; UnsafeFrom&lt;[u32; <span class="number">4</span>]&gt; <span class="kw">for </span>u32x4_sse2&lt;S3, S4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">unsafe fn </span>unsafe_from(xs: [u32; <span class="number">4</span>]) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(_mm_set_epi32(
             xs[<span class="number">3</span>] <span class="kw">as </span>i32,
@@ -2218,11 +2218,11 @@
 <span class="kw">where
     </span><span class="self">Self</span>: MultiLane&lt;[u32; <span class="number">4</span>]&gt;,
 {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>extract(<span class="self">self</span>, i: u32) -&gt; u32 {
         <span class="self">self</span>.to_lanes()[i <span class="kw">as </span>usize]
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>insert(<span class="self">self</span>, v: u32, i: u32) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(<span class="kw">unsafe </span>{
             <span class="kw">match </span>i {
@@ -2239,11 +2239,11 @@
 <span class="kw">where
     </span><span class="self">Self</span>: MultiLane&lt;[u32; <span class="number">4</span>]&gt;,
 {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>extract(<span class="self">self</span>, i: u32) -&gt; u32 {
         <span class="self">self</span>.to_lanes()[i <span class="kw">as </span>usize]
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>insert(<span class="self">self</span>, v: u32, i: u32) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(<span class="kw">unsafe </span>{
             <span class="kw">match </span>i {
@@ -2275,41 +2275,41 @@
 }
 
 <span class="kw">impl</span>&lt;S3, S4, NI&gt; LaneWords4 <span class="kw">for </span>u32x4_sse2&lt;S3, S4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>shuffle_lane_words2301(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.shuffle2301()
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>shuffle_lane_words1230(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.shuffle1230()
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>shuffle_lane_words3012(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.shuffle3012()
     }
 }
 
 <span class="kw">impl</span>&lt;S3, S4, NI&gt; Words4 <span class="kw">for </span>u32x4_sse2&lt;S3, S4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>shuffle2301(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(<span class="kw">unsafe </span>{ _mm_shuffle_epi32(<span class="self">self</span>.x, <span class="number">0b0100_1110</span>) })
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>shuffle1230(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(<span class="kw">unsafe </span>{ _mm_shuffle_epi32(<span class="self">self</span>.x, <span class="number">0b1001_0011</span>) })
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>shuffle3012(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(<span class="kw">unsafe </span>{ _mm_shuffle_epi32(<span class="self">self</span>.x, <span class="number">0b0011_1001</span>) })
     }
 }
 
 <span class="kw">impl</span>&lt;S4, NI&gt; Words4 <span class="kw">for </span>u64x4_sse2&lt;YesS3, S4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>shuffle2301(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         x2::new([u64x2_sse2::new(<span class="self">self</span>.<span class="number">0</span>[<span class="number">1</span>].x), u64x2_sse2::new(<span class="self">self</span>.<span class="number">0</span>[<span class="number">0</span>].x)])
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>shuffle3012(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="kw">unsafe </span>{
             x2::new([
@@ -2318,7 +2318,7 @@
             ])
         }
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>shuffle1230(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="kw">unsafe </span>{
             x2::new([
@@ -2329,11 +2329,11 @@
     }
 }
 <span class="kw">impl</span>&lt;S4, NI&gt; Words4 <span class="kw">for </span>u64x4_sse2&lt;NoS3, S4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>shuffle2301(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         x2::new([u64x2_sse2::new(<span class="self">self</span>.<span class="number">0</span>[<span class="number">1</span>].x), u64x2_sse2::new(<span class="self">self</span>.<span class="number">0</span>[<span class="number">0</span>].x)])
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>shuffle3012(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>a = _mm_srli_si128(<span class="self">self</span>.<span class="number">0</span>[<span class="number">0</span>].x, <span class="number">8</span>);
@@ -2345,7 +2345,7 @@
             x2::new([u64x2_sse2::new(da), u64x2_sse2::new(bc)])
         }
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>shuffle1230(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>a = _mm_srli_si128(<span class="self">self</span>.<span class="number">0</span>[<span class="number">0</span>].x, <span class="number">8</span>);
@@ -2360,14 +2360,14 @@
 }
 
 <span class="kw">impl</span>&lt;S3, S4, NI&gt; UnsafeFrom&lt;[u64; <span class="number">2</span>]&gt; <span class="kw">for </span>u64x2_sse2&lt;S3, S4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">unsafe fn </span>unsafe_from(xs: [u64; <span class="number">2</span>]) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(_mm_set_epi64x(xs[<span class="number">1</span>] <span class="kw">as </span>i64, xs[<span class="number">0</span>] <span class="kw">as </span>i64))
     }
 }
 
 <span class="kw">impl</span>&lt;S3, NI&gt; Vec2&lt;u64&gt; <span class="kw">for </span>u64x2_sse2&lt;S3, YesS4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>extract(<span class="self">self</span>, i: u32) -&gt; u64 {
         <span class="kw">unsafe </span>{
             <span class="kw">match </span>i {
@@ -2377,7 +2377,7 @@
             }
         }
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>insert(<span class="self">self</span>, x: u64, i: u32) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(<span class="kw">unsafe </span>{
             <span class="kw">match </span>i {
@@ -2389,7 +2389,7 @@
     }
 }
 <span class="kw">impl</span>&lt;S3, NI&gt; Vec2&lt;u64&gt; <span class="kw">for </span>u64x2_sse2&lt;S3, NoS4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>extract(<span class="self">self</span>, i: u32) -&gt; u64 {
         <span class="kw">unsafe </span>{
             <span class="kw">match </span>i {
@@ -2399,7 +2399,7 @@
             }
         }
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>insert(<span class="self">self</span>, x: u64, i: u32) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(<span class="kw">unsafe </span>{
             <span class="kw">match </span>i {
@@ -2418,7 +2418,7 @@
 }
 
 <span class="kw">impl</span>&lt;S4, NI&gt; BSwap <span class="kw">for </span>u32x4_sse2&lt;YesS3, S4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>bswap(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(<span class="kw">unsafe </span>{
             <span class="kw">let </span>k = _mm_set_epi64x(<span class="number">0x0c0d_0e0f_0809_0a0b</span>, <span class="number">0x0405_0607_0001_0203</span>);
@@ -2426,7 +2426,7 @@
         })
     }
 }
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">fn </span>bswap32_s2(x: __m128i) -&gt; __m128i {
     <span class="kw">unsafe </span>{
         <span class="kw">let </span><span class="kw-2">mut </span>y = _mm_unpacklo_epi8(x, _mm_setzero_si128());
@@ -2439,14 +2439,14 @@
     }
 }
 <span class="kw">impl</span>&lt;S4, NI&gt; BSwap <span class="kw">for </span>u32x4_sse2&lt;NoS3, S4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>bswap(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(bswap32_s2(<span class="self">self</span>.x))
     }
 }
 
 <span class="kw">impl</span>&lt;S4, NI&gt; BSwap <span class="kw">for </span>u64x2_sse2&lt;YesS3, S4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>bswap(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(<span class="kw">unsafe </span>{
             <span class="kw">let </span>k = _mm_set_epi64x(<span class="number">0x0809_0a0b_0c0d_0e0f</span>, <span class="number">0x0001_0203_0405_0607</span>);
@@ -2455,14 +2455,14 @@
     }
 }
 <span class="kw">impl</span>&lt;S4, NI&gt; BSwap <span class="kw">for </span>u64x2_sse2&lt;NoS3, S4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>bswap(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(<span class="kw">unsafe </span>{ bswap32_s2(_mm_shuffle_epi32(<span class="self">self</span>.x, <span class="number">0b1011_0001</span>)) })
     }
 }
 
 <span class="kw">impl</span>&lt;S4, NI&gt; BSwap <span class="kw">for </span>u128x1_sse2&lt;YesS3, S4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>bswap(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(<span class="kw">unsafe </span>{
             <span class="kw">let </span>k = _mm_set_epi64x(<span class="number">0x0f0e_0d0c_0b0a_0908</span>, <span class="number">0x0706_0504_0302_0100</span>);
@@ -2471,7 +2471,7 @@
     }
 }
 <span class="kw">impl</span>&lt;S4, NI&gt; BSwap <span class="kw">for </span>u128x1_sse2&lt;NoS3, S4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>bswap(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="macro">unimplemented!</span>()
     }
@@ -2489,102 +2489,102 @@
         }
     };
 }
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">fn </span>swap16_s2(x: __m128i) -&gt; __m128i {
     <span class="kw">unsafe </span>{ _mm_shufflehi_epi16(_mm_shufflelo_epi16(x, <span class="number">0b1011_0001</span>), <span class="number">0b1011_0001</span>) }
 }
 <span class="kw">impl</span>&lt;S4, NI&gt; Swap64 <span class="kw">for </span>u128x1_sse2&lt;YesS3, S4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>swap1(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="macro">swapi!</span>(<span class="self">self</span>, <span class="number">1</span>, <span class="number">0xaa</span>)
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>swap2(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="macro">swapi!</span>(<span class="self">self</span>, <span class="number">2</span>, <span class="number">0xcc</span>)
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>swap4(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="macro">swapi!</span>(<span class="self">self</span>, <span class="number">4</span>, <span class="number">0xf0</span>)
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>swap8(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         u128x1_sse2::new(<span class="kw">unsafe </span>{
             <span class="kw">let </span>k = _mm_set_epi64x(<span class="number">0x0e0f_0c0d_0a0b_0809</span>, <span class="number">0x0607_0405_0203_0001</span>);
             _mm_shuffle_epi8(<span class="self">self</span>.x, k)
         })
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>swap16(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         u128x1_sse2::new(<span class="kw">unsafe </span>{
             <span class="kw">let </span>k = _mm_set_epi64x(<span class="number">0x0d0c_0f0e_0908_0b0a</span>, <span class="number">0x0504_0706_0100_0302</span>);
             _mm_shuffle_epi8(<span class="self">self</span>.x, k)
         })
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>swap32(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         u128x1_sse2::new(<span class="kw">unsafe </span>{ _mm_shuffle_epi32(<span class="self">self</span>.x, <span class="number">0b1011_0001</span>) })
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>swap64(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         u128x1_sse2::new(<span class="kw">unsafe </span>{ _mm_shuffle_epi32(<span class="self">self</span>.x, <span class="number">0b0100_1110</span>) })
     }
 }
 <span class="kw">impl</span>&lt;S4, NI&gt; Swap64 <span class="kw">for </span>u128x1_sse2&lt;NoS3, S4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>swap1(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="macro">swapi!</span>(<span class="self">self</span>, <span class="number">1</span>, <span class="number">0xaa</span>)
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>swap2(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="macro">swapi!</span>(<span class="self">self</span>, <span class="number">2</span>, <span class="number">0xcc</span>)
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>swap4(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="macro">swapi!</span>(<span class="self">self</span>, <span class="number">4</span>, <span class="number">0xf0</span>)
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>swap8(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         u128x1_sse2::new(<span class="kw">unsafe </span>{
             _mm_or_si128(_mm_slli_epi16(<span class="self">self</span>.x, <span class="number">8</span>), _mm_srli_epi16(<span class="self">self</span>.x, <span class="number">8</span>))
         })
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>swap16(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         u128x1_sse2::new(swap16_s2(<span class="self">self</span>.x))
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>swap32(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         u128x1_sse2::new(<span class="kw">unsafe </span>{ _mm_shuffle_epi32(<span class="self">self</span>.x, <span class="number">0b1011_0001</span>) })
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>swap64(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         u128x1_sse2::new(<span class="kw">unsafe </span>{ _mm_shuffle_epi32(<span class="self">self</span>.x, <span class="number">0b0100_1110</span>) })
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">pub struct </span>G0;
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">pub struct </span>G1;
 
-<span class="attribute">#[allow(non_camel_case_types)]
+<span class="attr">#[allow(non_camel_case_types)]
 </span><span class="kw">pub type </span>u32x4x2_sse2&lt;S3, S4, NI&gt; = x2&lt;u32x4_sse2&lt;S3, S4, NI&gt;, G0&gt;;
-<span class="attribute">#[allow(non_camel_case_types)]
+<span class="attr">#[allow(non_camel_case_types)]
 </span><span class="kw">pub type </span>u64x2x2_sse2&lt;S3, S4, NI&gt; = x2&lt;u64x2_sse2&lt;S3, S4, NI&gt;, G0&gt;;
-<span class="attribute">#[allow(non_camel_case_types)]
+<span class="attr">#[allow(non_camel_case_types)]
 </span><span class="kw">pub type </span>u64x4_sse2&lt;S3, S4, NI&gt; = x2&lt;u64x2_sse2&lt;S3, S4, NI&gt;, G1&gt;;
-<span class="attribute">#[allow(non_camel_case_types)]
+<span class="attr">#[allow(non_camel_case_types)]
 </span><span class="kw">pub type </span>u128x2_sse2&lt;S3, S4, NI&gt; = x2&lt;u128x1_sse2&lt;S3, S4, NI&gt;, G0&gt;;
 
-<span class="attribute">#[allow(non_camel_case_types)]
+<span class="attr">#[allow(non_camel_case_types)]
 </span><span class="kw">pub type </span>u32x4x4_sse2&lt;S3, S4, NI&gt; = x4&lt;u32x4_sse2&lt;S3, S4, NI&gt;&gt;;
-<span class="attribute">#[allow(non_camel_case_types)]
+<span class="attr">#[allow(non_camel_case_types)]
 </span><span class="kw">pub type </span>u64x2x4_sse2&lt;S3, S4, NI&gt; = x4&lt;u64x2_sse2&lt;S3, S4, NI&gt;&gt;;
-<span class="attribute">#[allow(non_camel_case_types)]
+<span class="attr">#[allow(non_camel_case_types)]
 </span><span class="kw">pub type </span>u128x4_sse2&lt;S3, S4, NI&gt; = x4&lt;u128x1_sse2&lt;S3, S4, NI&gt;&gt;;
 
 <span class="kw">impl</span>&lt;S3, S4, NI&gt; Vector&lt;[u32; <span class="number">16</span>]&gt; <span class="kw">for </span>u32x4x4_sse2&lt;S3, S4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>to_scalars(<span class="self">self</span>) -&gt; [u32; <span class="number">16</span>] {
         <span class="kw">unsafe </span>{ core::mem::transmute(<span class="self">self</span>) }
     }
@@ -2664,7 +2664,7 @@
 <span class="kw">where
     </span>u64x2_sse2&lt;S3, S4, NI&gt;: Copy + Vec2&lt;u64&gt;,
 {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>extract(<span class="self">self</span>, i: u32) -&gt; u64 {
         <span class="kw">match </span>i {
             <span class="number">0 </span>=&gt; <span class="self">self</span>.<span class="number">0</span>[<span class="number">0</span>].extract(<span class="number">0</span>),
@@ -2674,7 +2674,7 @@
             <span class="kw">_ </span>=&gt; <span class="macro">panic!</span>(),
         }
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>insert(<span class="kw-2">mut </span><span class="self">self</span>, w: u64, i: u32) -&gt; <span class="self">Self </span>{
         <span class="kw">match </span>i {
             <span class="number">0 </span>=&gt; <span class="self">self</span>.<span class="number">0</span>[<span class="number">0</span>] = <span class="self">self</span>.<span class="number">0</span>[<span class="number">0</span>].insert(w, <span class="number">0</span>),
@@ -2740,13 +2740,13 @@
         <span class="kw">impl</span>&lt;S3: Copy, S4: Copy, NI: Copy, Gf, Gt&gt; From&lt;x2&lt;<span class="macro-nonterminal">$from</span>&lt;S3, S4, NI&gt;, Gf&gt;&gt;
             <span class="kw">for </span>x2&lt;<span class="macro-nonterminal">$to</span>&lt;S3, S4, NI&gt;, Gt&gt;
         {
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>from(x: x2&lt;<span class="macro-nonterminal">$from</span>&lt;S3, S4, NI&gt;, Gf&gt;) -&gt; <span class="self">Self </span>{
                 x2::new([<span class="macro-nonterminal">$to::from</span>(x.<span class="number">0</span>[<span class="number">0</span>]), <span class="macro-nonterminal">$to::from</span>(x.<span class="number">0</span>[<span class="number">1</span>])])
             }
         }
         <span class="kw">impl</span>&lt;S3: Copy, S4: Copy, NI: Copy&gt; From&lt;x4&lt;<span class="macro-nonterminal">$from</span>&lt;S3, S4, NI&gt;&gt;&gt; <span class="kw">for </span>x4&lt;<span class="macro-nonterminal">$to</span>&lt;S3, S4, NI&gt;&gt; {
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>from(x: x4&lt;<span class="macro-nonterminal">$from</span>&lt;S3, S4, NI&gt;&gt;) -&gt; <span class="self">Self </span>{
                 x4::new([
                     <span class="macro-nonterminal">$to::from</span>(x.<span class="number">0</span>[<span class="number">0</span>]),
@@ -2766,20 +2766,20 @@
 </span><span class="kw">use </span>core::fmt::{Debug, Formatter, <span class="prelude-ty">Result</span>};
 
 <span class="kw">impl</span>&lt;W: PartialEq, G&gt; PartialEq <span class="kw">for </span>x2&lt;W, G&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, rhs: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool {
         <span class="self">self</span>.<span class="number">0</span>[<span class="number">0</span>] == rhs.<span class="number">0</span>[<span class="number">0</span>] &amp;&amp; <span class="self">self</span>.<span class="number">0</span>[<span class="number">1</span>] == rhs.<span class="number">0</span>[<span class="number">1</span>]
     }
 }
 
-<span class="attribute">#[allow(unused)]
+<span class="attr">#[allow(unused)]
 #[inline(always)]
 </span><span class="kw">unsafe fn </span>eq128_s4(x: __m128i, y: __m128i) -&gt; bool {
     <span class="kw">let </span>q = _mm_shuffle_epi32(_mm_cmpeq_epi64(x, y), <span class="number">0b1100_0110</span>);
     _mm_cvtsi128_si64(q) == -<span class="number">1
 </span>}
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">unsafe fn </span>eq128_s2(x: __m128i, y: __m128i) -&gt; bool {
     <span class="kw">let </span>q = _mm_cmpeq_epi32(x, y);
     <span class="kw">let </span>p = _mm_cvtsi128_si64(_mm_srli_si128(q, <span class="number">8</span>));
@@ -2788,7 +2788,7 @@
 </span>}
 
 <span class="kw">impl</span>&lt;S3, S4, NI&gt; PartialEq <span class="kw">for </span>u32x4_sse2&lt;S3, S4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, rhs: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ eq128_s2(<span class="self">self</span>.x, rhs.x) }
     }
@@ -2797,14 +2797,14 @@
 <span class="kw">where
     </span><span class="self">Self</span>: Copy + MultiLane&lt;[u32; <span class="number">4</span>]&gt;,
 {
-    <span class="attribute">#[cold]
+    <span class="attr">#[cold]
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, fmt: <span class="kw-2">&amp;mut </span>Formatter) -&gt; <span class="prelude-ty">Result </span>{
         fmt.write_fmt(<span class="macro">format_args!</span>(<span class="string">&quot;{:08x?}&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.to_lanes()))
     }
 }
 
 <span class="kw">impl</span>&lt;S3, S4, NI&gt; PartialEq <span class="kw">for </span>u64x2_sse2&lt;S3, S4, NI&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, rhs: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ eq128_s2(<span class="self">self</span>.x, rhs.x) }
     }
@@ -2813,7 +2813,7 @@
 <span class="kw">where
     </span><span class="self">Self</span>: Copy + MultiLane&lt;[u64; <span class="number">2</span>]&gt;,
 {
-    <span class="attribute">#[cold]
+    <span class="attr">#[cold]
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, fmt: <span class="kw-2">&amp;mut </span>Formatter) -&gt; <span class="prelude-ty">Result </span>{
         fmt.write_fmt(<span class="macro">format_args!</span>(<span class="string">&quot;{:016x?}&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.to_lanes()))
     }
@@ -2823,21 +2823,21 @@
 <span class="kw">where
     </span>u64x2_sse2&lt;S3, S4, NI&gt;: Copy + MultiLane&lt;[u64; <span class="number">2</span>]&gt;,
 {
-    <span class="attribute">#[cold]
+    <span class="attr">#[cold]
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, fmt: <span class="kw-2">&amp;mut </span>Formatter) -&gt; <span class="prelude-ty">Result </span>{
         <span class="kw">let </span>(a, b) = (<span class="self">self</span>.<span class="number">0</span>[<span class="number">0</span>].to_lanes(), <span class="self">self</span>.<span class="number">0</span>[<span class="number">1</span>].to_lanes());
         fmt.write_fmt(<span class="macro">format_args!</span>(<span class="string">&quot;{:016x?}&quot;</span>, <span class="kw-2">&amp;</span>[a[<span class="number">0</span>], a[<span class="number">1</span>], b[<span class="number">0</span>], b[<span class="number">1</span>]]))
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 #[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::x86_64::{SSE2, SSE41, SSSE3};
     <span class="kw">use </span><span class="kw">crate</span>::Machine;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(not(target_feature = <span class="string">&quot;ssse3&quot;</span>), ignore)]
     </span><span class="kw">fn </span>test_bswap32_s2_vs_s3() {
         <span class="kw">let </span>xs = [<span class="number">0x0f0e_0d0c</span>, <span class="number">0x0b0a_0908</span>, <span class="number">0x0706_0504</span>, <span class="number">0x0302_0100</span>];
@@ -2860,7 +2860,7 @@
         <span class="macro">assert_eq!</span>(x_s2, s2.vec(ys));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(not(target_feature = <span class="string">&quot;ssse3&quot;</span>), ignore)]
     </span><span class="kw">fn </span>test_bswap64_s2_vs_s3() {
         <span class="kw">let </span>xs = [<span class="number">0x0f0e_0d0c_0b0a_0908</span>, <span class="number">0x0706_0504_0302_0100</span>];
@@ -2883,7 +2883,7 @@
         <span class="macro">assert_eq!</span>(x_s3, <span class="kw">unsafe </span>{ core::mem::transmute(x_s3) });
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(not(target_feature = <span class="string">&quot;ssse3&quot;</span>), ignore)]
     </span><span class="kw">fn </span>test_shuffle32_s2_vs_s3() {
         <span class="kw">let </span>xs = [<span class="number">0x0</span>, <span class="number">0x1</span>, <span class="number">0x2</span>, <span class="number">0x3</span>];
@@ -2921,7 +2921,7 @@
         <span class="macro">assert_eq!</span>(x_s3, <span class="kw">unsafe </span>{ core::mem::transmute(x_s3) });
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(not(target_feature = <span class="string">&quot;ssse3&quot;</span>), ignore)]
     </span><span class="kw">fn </span>test_shuffle64_s2_vs_s3() {
         <span class="kw">let </span>xs = [<span class="number">0x0</span>, <span class="number">0x1</span>, <span class="number">0x2</span>, <span class="number">0x3</span>];
@@ -2959,7 +2959,7 @@
         <span class="macro">assert_eq!</span>(x_s3, <span class="kw">unsafe </span>{ core::mem::transmute(x_s3) });
     }
 
-    <span class="attribute">#[cfg_attr(not(all(target_feature = <span class="string">&quot;ssse3&quot;</span>, target_feature = <span class="string">&quot;sse4.1&quot;</span>)), ignore)]
+    <span class="attr">#[cfg_attr(not(all(target_feature = <span class="string">&quot;ssse3&quot;</span>, target_feature = <span class="string">&quot;sse4.1&quot;</span>)), ignore)]
     #[test]
     </span><span class="kw">fn </span>test_lanes_u32x4() {
         <span class="kw">let </span>xs = [<span class="number">0x1</span>, <span class="number">0x2</span>, <span class="number">0x3</span>, <span class="number">0x4</span>];
@@ -2990,7 +2990,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(not(all(target_feature = <span class="string">&quot;ssse3&quot;</span>, target_feature = <span class="string">&quot;sse4.1&quot;</span>)), ignore)]
     </span><span class="kw">fn </span>test_lanes_u64x2() {
         <span class="kw">let </span>xs = [<span class="number">0x1</span>, <span class="number">0x2</span>];
@@ -3021,7 +3021,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_vec4_u32x4_s2() {
         <span class="kw">let </span>xs = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];
         <span class="kw">let </span>s2 = <span class="kw">unsafe </span>{ SSE2::instance() };
@@ -3036,7 +3036,7 @@
         <span class="macro">assert_eq!</span>(x_s2.insert(<span class="number">0xf</span>, <span class="number">3</span>), s2.vec([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">0xf</span>]));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(not(all(target_feature = <span class="string">&quot;ssse3&quot;</span>, target_feature = <span class="string">&quot;sse4.1&quot;</span>)), ignore)]
     </span><span class="kw">fn </span>test_vec4_u32x4_s4() {
         <span class="kw">let </span>xs = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];
@@ -3052,7 +3052,7 @@
         <span class="macro">assert_eq!</span>(x_s4.insert(<span class="number">0xf</span>, <span class="number">3</span>), s4.vec([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">0xf</span>]));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_vec2_u64x2_s2() {
         <span class="kw">let </span>xs = [<span class="number">0x1</span>, <span class="number">0x2</span>];
         <span class="kw">let </span>s2 = <span class="kw">unsafe </span>{ SSE2::instance() };
@@ -3063,7 +3063,7 @@
         <span class="macro">assert_eq!</span>(x_s2.insert(<span class="number">0xf</span>, <span class="number">1</span>), s2.vec([<span class="number">1</span>, <span class="number">0xf</span>]));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(not(all(target_feature = <span class="string">&quot;ssse3&quot;</span>, target_feature = <span class="string">&quot;sse4.1&quot;</span>)), ignore)]
     </span><span class="kw">fn </span>test_vec4_u64x2_s4() {
         <span class="kw">let </span>xs = [<span class="number">0x1</span>, <span class="number">0x2</span>];
@@ -3077,7 +3077,7 @@
 }
 
 <span class="kw">pub mod </span>avx2 {
-    <span class="attribute">#![allow(non_camel_case_types)]
+    <span class="attr">#![allow(non_camel_case_types)]
     </span><span class="kw">use </span><span class="kw">crate</span>::soft::{x2, x4};
     <span class="kw">use </span><span class="kw">crate</span>::types::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::x86_64::sse2::{u128x1_sse2, u32x4_sse2, G0};
@@ -3086,14 +3086,14 @@
     <span class="kw">use </span>core::marker::PhantomData;
     <span class="kw">use </span>core::ops::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[derive(Copy, Clone)]
+    <span class="attr">#[derive(Copy, Clone)]
     </span><span class="kw">pub struct </span>u32x4x2_avx2&lt;NI&gt; {
         x: __m256i,
         ni: PhantomData&lt;NI&gt;,
     }
 
     <span class="kw">impl</span>&lt;NI&gt; u32x4x2_avx2&lt;NI&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>new(x: __m256i) -&gt; <span class="self">Self </span>{
             <span class="self">Self </span>{ x, ni: PhantomData }
         }
@@ -3101,35 +3101,35 @@
 
     <span class="kw">impl</span>&lt;NI&gt; u32x4x2&lt;Avx2Machine&lt;NI&gt;&gt; <span class="kw">for </span>u32x4x2_avx2&lt;NI&gt; <span class="kw">where </span>NI: Copy {}
     <span class="kw">impl</span>&lt;NI&gt; Store&lt;vec256_storage&gt; <span class="kw">for </span>u32x4x2_avx2&lt;NI&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>unpack(p: vec256_storage) -&gt; <span class="self">Self </span>{
             <span class="self">Self</span>::new(p.avx)
         }
     }
     <span class="kw">impl</span>&lt;NI&gt; StoreBytes <span class="kw">for </span>u32x4x2_avx2&lt;NI&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>unsafe_read_le(input: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="self">Self </span>{
             <span class="macro">assert_eq!</span>(input.len(), <span class="number">32</span>);
             <span class="self">Self</span>::new(_mm256_loadu_si256(input.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>))
         }
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>unsafe_read_be(input: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="self">Self </span>{
             <span class="self">Self</span>::unsafe_read_le(input).bswap()
         }
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>write_le(<span class="self">self</span>, out: <span class="kw-2">&amp;mut </span>[u8]) {
             <span class="kw">unsafe </span>{
                 <span class="macro">assert_eq!</span>(out.len(), <span class="number">32</span>);
                 _mm256_storeu_si256(out.as_mut_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>, <span class="self">self</span>.x)
             }
         }
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>write_be(<span class="self">self</span>, out: <span class="kw-2">&amp;mut </span>[u8]) {
             <span class="self">self</span>.bswap().write_le(out)
         }
     }
     <span class="kw">impl</span>&lt;NI&gt; MultiLane&lt;[u32x4_sse2&lt;YesS3, YesS4, NI&gt;; <span class="number">2</span>]&gt; <span class="kw">for </span>u32x4x2_avx2&lt;NI&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>to_lanes(<span class="self">self</span>) -&gt; [u32x4_sse2&lt;YesS3, YesS4, NI&gt;; <span class="number">2</span>] {
             <span class="kw">unsafe </span>{
                 [
@@ -3138,13 +3138,13 @@
                 ]
             }
         }
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>from_lanes(x: [u32x4_sse2&lt;YesS3, YesS4, NI&gt;; <span class="number">2</span>]) -&gt; <span class="self">Self </span>{
             <span class="self">Self</span>::new(<span class="kw">unsafe </span>{ _mm256_setr_m128i(x[<span class="number">0</span>].x, x[<span class="number">1</span>].x) })
         }
     }
     <span class="kw">impl</span>&lt;NI&gt; Vec2&lt;u32x4_sse2&lt;YesS3, YesS4, NI&gt;&gt; <span class="kw">for </span>u32x4x2_avx2&lt;NI&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>extract(<span class="self">self</span>, i: u32) -&gt; u32x4_sse2&lt;YesS3, YesS4, NI&gt; {
             <span class="kw">unsafe </span>{
                 <span class="kw">match </span>i {
@@ -3154,7 +3154,7 @@
                 }
             }
         }
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>insert(<span class="self">self</span>, w: u32x4_sse2&lt;YesS3, YesS4, NI&gt;, i: u32) -&gt; <span class="self">Self </span>{
             <span class="self">Self</span>::new(<span class="kw">unsafe </span>{
                 <span class="kw">match </span>i {
@@ -3169,7 +3169,7 @@
     <span class="kw">impl</span>&lt;NI&gt; ArithOps <span class="kw">for </span>u32x4x2_avx2&lt;NI&gt; <span class="kw">where </span>NI: Copy {}
     <span class="macro">macro_rules! </span>shuf_lane_bytes {
         (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$k0</span>:expr, <span class="macro-nonterminal">$k1</span>:expr) =&gt; {
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
                 <span class="self">Self</span>::new(<span class="kw">unsafe </span>{
                     _mm256_shuffle_epi8(<span class="self">self</span>.x, _mm256_set_epi64x(<span class="macro-nonterminal">$k0</span>, <span class="macro-nonterminal">$k1</span>, <span class="macro-nonterminal">$k0</span>, <span class="macro-nonterminal">$k1</span>))
@@ -3179,7 +3179,7 @@
     }
     <span class="macro">macro_rules! </span>rotr_32 {
         (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$i</span>:expr) =&gt; {
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
                 <span class="self">Self</span>::new(<span class="kw">unsafe </span>{
                     _mm256_or_si256(
@@ -3214,7 +3214,7 @@
     }
     <span class="kw">impl</span>&lt;NI&gt; BitOps0 <span class="kw">for </span>u32x4x2_avx2&lt;NI&gt; <span class="kw">where </span>NI: Copy {}
     <span class="kw">impl</span>&lt;NI&gt; From&lt;u32x4x2_avx2&lt;NI&gt;&gt; <span class="kw">for </span>vec256_storage {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>from(x: u32x4x2_avx2&lt;NI&gt;) -&gt; <span class="self">Self </span>{
             <span class="self">Self </span>{ avx: x.x }
         }
@@ -3226,7 +3226,7 @@
             <span class="kw">where
                 </span>NI: Copy,
             {
-                <span class="attribute">#[inline(always)]
+                <span class="attr">#[inline(always)]
                 </span><span class="kw">fn </span><span class="macro-nonterminal">$assign_fn</span>(<span class="kw-2">&amp;mut </span><span class="self">self</span>, rhs: <span class="self">Self</span>) {
                     <span class="kw-2">*</span><span class="self">self </span>= <span class="self">self</span>.<span class="macro-nonterminal">$bin_fn</span>(rhs);
                 }
@@ -3242,7 +3242,7 @@
         (<span class="macro-nonterminal">$vec</span>:ident, <span class="macro-nonterminal">$Op</span>:ident, <span class="macro-nonterminal">$op_fn</span>:ident, <span class="macro-nonterminal">$impl_fn</span>:ident) =&gt; {
             <span class="kw">impl</span>&lt;NI&gt; <span class="macro-nonterminal">$Op </span><span class="kw">for </span><span class="macro-nonterminal">$vec</span>&lt;NI&gt; {
                 <span class="kw">type </span>Output = <span class="self">Self</span>;
-                <span class="attribute">#[inline(always)]
+                <span class="attr">#[inline(always)]
                 </span><span class="kw">fn </span><span class="macro-nonterminal">$op_fn</span>(<span class="self">self</span>, rhs: <span class="self">Self</span>) -&gt; <span class="self">Self</span>::Output {
                     <span class="self">Self</span>::new(<span class="kw">unsafe </span>{ <span class="macro-nonterminal">$impl_fn</span>(<span class="self">self</span>.x, rhs.x) })
                 }
@@ -3257,7 +3257,7 @@
 
     <span class="kw">impl</span>&lt;NI&gt; Not <span class="kw">for </span>u32x4x2_avx2&lt;NI&gt; {
         <span class="kw">type </span>Output = <span class="self">Self</span>;
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>not(<span class="self">self</span>) -&gt; <span class="self">Self</span>::Output {
             <span class="kw">unsafe </span>{
                 <span class="kw">let </span>f = _mm256_set1_epi8(-<span class="number">0x7f</span>);
@@ -3274,22 +3274,22 @@
     <span class="kw">where
         </span>NI: Copy,
     {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>from(x: x2&lt;u128x1_sse2&lt;YesS3, YesS4, NI&gt;, G0&gt;) -&gt; <span class="self">Self </span>{
             <span class="self">Self</span>::new(<span class="kw">unsafe </span>{ _mm256_setr_m128i(x.<span class="number">0</span>[<span class="number">0</span>].x, x.<span class="number">0</span>[<span class="number">1</span>].x) })
         }
     }
 
     <span class="kw">impl</span>&lt;NI&gt; LaneWords4 <span class="kw">for </span>u32x4x2_avx2&lt;NI&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>shuffle_lane_words1230(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
             <span class="self">Self</span>::new(<span class="kw">unsafe </span>{ _mm256_shuffle_epi32(<span class="self">self</span>.x, <span class="number">0b1001_0011</span>) })
         }
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>shuffle_lane_words2301(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
             <span class="self">Self</span>::new(<span class="kw">unsafe </span>{ _mm256_shuffle_epi32(<span class="self">self</span>.x, <span class="number">0b0100_1110</span>) })
         }
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>shuffle_lane_words3012(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
             <span class="self">Self</span>::new(<span class="kw">unsafe </span>{ _mm256_shuffle_epi32(<span class="self">self</span>.x, <span class="number">0b0011_1001</span>) })
         }
@@ -3301,7 +3301,7 @@
     <span class="kw">impl</span>&lt;NI: Copy&gt; u32x4x4&lt;Avx2Machine&lt;NI&gt;&gt; <span class="kw">for </span>u32x4x4_avx2&lt;NI&gt; {}
 
     <span class="kw">impl</span>&lt;NI: Copy&gt; Store&lt;vec512_storage&gt; <span class="kw">for </span>u32x4x4_avx2&lt;NI&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>unpack(p: vec512_storage) -&gt; <span class="self">Self </span>{
             <span class="self">Self</span>::new([
                 u32x4x2_avx2::unpack(p.avx[<span class="number">0</span>]),
@@ -3310,13 +3310,13 @@
         }
     }
     <span class="kw">impl</span>&lt;NI: Copy&gt; MultiLane&lt;[u32x4_sse2&lt;YesS3, YesS4, NI&gt;; <span class="number">4</span>]&gt; <span class="kw">for </span>u32x4x4_avx2&lt;NI&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>to_lanes(<span class="self">self</span>) -&gt; [u32x4_sse2&lt;YesS3, YesS4, NI&gt;; <span class="number">4</span>] {
             <span class="kw">let </span>[a, b] = <span class="self">self</span>.<span class="number">0</span>[<span class="number">0</span>].to_lanes();
             <span class="kw">let </span>[c, d] = <span class="self">self</span>.<span class="number">0</span>[<span class="number">1</span>].to_lanes();
             [a, b, c, d]
         }
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>from_lanes(x: [u32x4_sse2&lt;YesS3, YesS4, NI&gt;; <span class="number">4</span>]) -&gt; <span class="self">Self </span>{
             <span class="kw">let </span>ab = u32x4x2_avx2::from_lanes([x[<span class="number">0</span>], x[<span class="number">1</span>]]);
             <span class="kw">let </span>cd = u32x4x2_avx2::from_lanes([x[<span class="number">2</span>], x[<span class="number">3</span>]]);
@@ -3324,7 +3324,7 @@
         }
     }
     <span class="kw">impl</span>&lt;NI: Copy&gt; Vec4&lt;u32x4_sse2&lt;YesS3, YesS4, NI&gt;&gt; <span class="kw">for </span>u32x4x4_avx2&lt;NI&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>extract(<span class="self">self</span>, i: u32) -&gt; u32x4_sse2&lt;YesS3, YesS4, NI&gt; {
             <span class="kw">match </span>i {
                 <span class="number">0 </span>=&gt; <span class="self">self</span>.<span class="number">0</span>[<span class="number">0</span>].extract(<span class="number">0</span>),
@@ -3334,7 +3334,7 @@
                 <span class="kw">_ </span>=&gt; <span class="macro">panic!</span>(),
             }
         }
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>insert(<span class="self">self</span>, w: u32x4_sse2&lt;YesS3, YesS4, NI&gt;, i: u32) -&gt; <span class="self">Self </span>{
             <span class="self">Self</span>::new(<span class="kw">match </span>i {
                 <span class="number">0 </span>| <span class="number">1 </span>=&gt; [<span class="self">self</span>.<span class="number">0</span>[<span class="number">0</span>].insert(w, i), <span class="self">self</span>.<span class="number">0</span>[<span class="number">1</span>]],
@@ -3344,7 +3344,7 @@
         }
     }
     <span class="kw">impl</span>&lt;NI: Copy&gt; Vec4Ext&lt;u32x4_sse2&lt;YesS3, YesS4, NI&gt;&gt; <span class="kw">for </span>u32x4x4_avx2&lt;NI&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>transpose4(a: <span class="self">Self</span>, b: <span class="self">Self</span>, c: <span class="self">Self</span>, d: <span class="self">Self</span>) -&gt; (<span class="self">Self</span>, <span class="self">Self</span>, <span class="self">Self</span>, <span class="self">Self</span>) {
             <span class="comment">/*
              * a00:a01 a10:a11
@@ -3376,13 +3376,13 @@
         }
     }
     <span class="kw">impl</span>&lt;NI: Copy&gt; Vector&lt;[u32; <span class="number">16</span>]&gt; <span class="kw">for </span>u32x4x4_avx2&lt;NI&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>to_scalars(<span class="self">self</span>) -&gt; [u32; <span class="number">16</span>] {
             <span class="kw">unsafe </span>{ core::mem::transmute(<span class="self">self</span>) }
         }
     }
     <span class="kw">impl</span>&lt;NI: Copy&gt; From&lt;u32x4x4_avx2&lt;NI&gt;&gt; <span class="kw">for </span>vec512_storage {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>from(x: u32x4x4_avx2&lt;NI&gt;) -&gt; <span class="self">Self </span>{
             <span class="self">Self </span>{
                 avx: [
@@ -3393,7 +3393,7 @@
         }
     }
     <span class="kw">impl</span>&lt;NI: Copy&gt; From&lt;x4&lt;u128x1_sse2&lt;YesS3, YesS4, NI&gt;&gt;&gt; <span class="kw">for </span>u32x4x4_avx2&lt;NI&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>from(x: x4&lt;u128x1_sse2&lt;YesS3, YesS4, NI&gt;&gt;) -&gt; <span class="self">Self </span>{
             <span class="self">Self</span>::new(<span class="kw">unsafe </span>{
                 [
@@ -3405,4 +3405,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ppv_lite86" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ppv_lite86" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -106,7 +106,7 @@
 <span id="106">106</span>
 <span id="107">107</span>
 <span id="108">108</span>
-</pre><pre class="rust"><code><span class="attribute">#![cfg_attr(any(not(feature = <span class="string">&quot;full&quot;</span>), loom), allow(unused_imports, dead_code))]
+</pre><pre class="rust"><code><span class="attr">#![cfg_attr(any(not(feature = <span class="string">&quot;full&quot;</span>), loom), allow(unused_imports, dead_code))]
 
 </span><span class="kw">mod </span>atomic_ptr;
 <span class="kw">mod </span>atomic_u16;
@@ -115,7 +115,7 @@
 <span class="kw">mod </span>atomic_u8;
 <span class="kw">mod </span>atomic_usize;
 <span class="kw">mod </span>mutex;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;parking_lot&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;parking_lot&quot;</span>)]
 </span><span class="kw">mod </span>parking_lot;
 <span class="kw">mod </span>unsafe_cell;
 
@@ -123,7 +123,7 @@
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span><span class="kw">super</span>::unsafe_cell::UnsafeCell;
 }
 
-<span class="attribute">#[cfg(any(
+<span class="attr">#[cfg(any(
     feature = <span class="string">&quot;net&quot;</span>,
     feature = <span class="string">&quot;process&quot;</span>,
     feature = <span class="string">&quot;signal&quot;</span>,
@@ -165,17 +165,17 @@
     // internal use. Note however that some are not _currently_ named by
     // consuming code.
 
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;parking_lot&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;parking_lot&quot;</span>)]
     #[allow(unused_imports)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span><span class="kw">crate</span>::loom::std::parking_lot::{
         Condvar, Mutex, MutexGuard, RwLock, RwLockReadGuard, WaitTimeoutResult,
     };
 
-    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;parking_lot&quot;</span>))]
+    <span class="attr">#[cfg(not(feature = <span class="string">&quot;parking_lot&quot;</span>))]
     #[allow(unused_imports)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>std::sync::{Condvar, MutexGuard, RwLock, RwLockReadGuard, WaitTimeoutResult};
 
-    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;parking_lot&quot;</span>))]
+    <span class="attr">#[cfg(not(feature = <span class="string">&quot;parking_lot&quot;</span>))]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span><span class="kw">crate</span>::loom::std::mutex::Mutex;
 
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>atomic {
@@ -191,28 +191,28 @@
 }
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>sys {
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;rt-multi-thread&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;rt-multi-thread&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>num_cpus() -&gt; usize {
         usize::max(<span class="number">1</span>, num_cpus::get())
     }
 
-    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;rt-multi-thread&quot;</span>))]
+    <span class="attr">#[cfg(not(feature = <span class="string">&quot;rt-multi-thread&quot;</span>))]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>num_cpus() -&gt; usize {
         <span class="number">1
     </span>}
 }
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>thread {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>yield_now() {
         std::hint::spin_loop();
     }
 
-    <span class="attribute">#[allow(unused_imports)]
+    <span class="attr">#[allow(unused_imports)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>std::thread::{
         current, panicking, park, park_timeout, sleep, spawn, Builder, JoinHandle, LocalKey,
         <span class="prelude-ty">Result</span>, Thread, ThreadId,
     };
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

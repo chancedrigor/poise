@@ -1091,15 +1091,15 @@
 
 <span class="kw">use </span>base64::write::EncoderWriter <span class="kw">as </span>Base64Encoder;
 <span class="kw">use </span>serde::Serialize;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;json&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;json&quot;</span>)]
 </span><span class="kw">use </span>serde_json;
 
 <span class="kw">use </span><span class="kw">super</span>::body::Body;
 <span class="kw">use </span><span class="kw">super</span>::client::{Client, Pending};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;multipart&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;multipart&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">super</span>::multipart;
 <span class="kw">use </span><span class="kw">super</span>::response::Response;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;multipart&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;multipart&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::header::CONTENT_LENGTH;
 <span class="kw">use </span><span class="kw">crate</span>::header::{HeaderMap, HeaderName, HeaderValue, CONTENT_TYPE};
 <span class="kw">use crate</span>::{Method, Url};
@@ -1118,7 +1118,7 @@
 <span class="doccomment">/// A builder to construct the properties of a `Request`.
 ///
 /// To construct a `RequestBuilder`, refer to the `Client` documentation.
-</span><span class="attribute">#[must_use = <span class="string">&quot;RequestBuilder does nothing until you &#39;send&#39; it&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;RequestBuilder does nothing until you &#39;send&#39; it&quot;</span>]
 </span><span class="kw">pub struct </span>RequestBuilder {
     client: Client,
     request: <span class="kw">crate</span>::Result&lt;Request&gt;,
@@ -1126,7 +1126,7 @@
 
 <span class="kw">impl </span>Request {
     <span class="doccomment">/// Constructs a new request.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new(method: Method, url: Url) -&gt; <span class="self">Self </span>{
         Request {
             method,
@@ -1139,73 +1139,73 @@
     }
 
     <span class="doccomment">/// Get the method.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>method(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Method {
         <span class="kw-2">&amp;</span><span class="self">self</span>.method
     }
 
     <span class="doccomment">/// Get a mutable reference to the method.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>method_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>Method {
         <span class="kw-2">&amp;mut </span><span class="self">self</span>.method
     }
 
     <span class="doccomment">/// Get the url.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>url(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Url {
         <span class="kw-2">&amp;</span><span class="self">self</span>.url
     }
 
     <span class="doccomment">/// Get a mutable reference to the url.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>url_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>Url {
         <span class="kw-2">&amp;mut </span><span class="self">self</span>.url
     }
 
     <span class="doccomment">/// Get the headers.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>headers(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>HeaderMap {
         <span class="kw-2">&amp;</span><span class="self">self</span>.headers
     }
 
     <span class="doccomment">/// Get a mutable reference to the headers.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>headers_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>HeaderMap {
         <span class="kw-2">&amp;mut </span><span class="self">self</span>.headers
     }
 
     <span class="doccomment">/// Get the body.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>body(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Body&gt; {
         <span class="self">self</span>.body.as_ref()
     }
 
     <span class="doccomment">/// Get a mutable reference to the body.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>body_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span><span class="prelude-ty">Option</span>&lt;Body&gt; {
         <span class="kw-2">&amp;mut </span><span class="self">self</span>.body
     }
 
     <span class="doccomment">/// Get the timeout.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>timeout(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Duration&gt; {
         <span class="self">self</span>.timeout.as_ref()
     }
 
     <span class="doccomment">/// Get a mutable reference to the timeout.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>timeout_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span><span class="prelude-ty">Option</span>&lt;Duration&gt; {
         <span class="kw-2">&amp;mut </span><span class="self">self</span>.timeout
     }
 
     <span class="doccomment">/// Get the http version.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>version(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Version {
         <span class="self">self</span>.version
     }
 
     <span class="doccomment">/// Get a mutable reference to the http version.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>version_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>Version {
         <span class="kw-2">&amp;mut </span><span class="self">self</span>.version
     }
@@ -1392,7 +1392,7 @@
     /// # Ok(())
     /// # }
     /// ```
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;multipart&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;multipart&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;multipart&quot;</span>)))]
     </span><span class="kw">pub fn </span>multipart(<span class="self">self</span>, <span class="kw-2">mut </span>multipart: multipart::Form) -&gt; RequestBuilder {
         <span class="kw">let </span><span class="kw-2">mut </span>builder = <span class="self">self</span>.header(
@@ -1516,7 +1516,7 @@
     ///
     /// Serialization can fail if `T`&#39;s implementation of `Serialize` decides to
     /// fail, or if `T` contains a map with non-string keys.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;json&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;json&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;json&quot;</span>)))]
     </span><span class="kw">pub fn </span>json&lt;T: Serialize + <span class="question-mark">?</span>Sized&gt;(<span class="kw-2">mut </span><span class="self">self</span>, json: <span class="kw-2">&amp;</span>T) -&gt; RequestBuilder {
         <span class="kw">let </span><span class="kw-2">mut </span>error = <span class="prelude-val">None</span>;
@@ -1719,7 +1719,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::{Client, HttpRequest, Request, Version};
     <span class="kw">use </span><span class="kw">crate</span>::Method;
@@ -1727,7 +1727,7 @@
     <span class="kw">use </span>std::collections::BTreeMap;
     <span class="kw">use </span>std::convert::TryFrom;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>add_query_append() {
         <span class="kw">let </span>client = Client::new();
         <span class="kw">let </span>some_url = <span class="string">&quot;https://google.com/&quot;</span>;
@@ -1740,7 +1740,7 @@
         <span class="macro">assert_eq!</span>(req.url().query(), <span class="prelude-val">Some</span>(<span class="string">&quot;foo=bar&amp;qux=3&quot;</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>add_query_append_same() {
         <span class="kw">let </span>client = Client::new();
         <span class="kw">let </span>some_url = <span class="string">&quot;https://google.com/&quot;</span>;
@@ -1752,9 +1752,9 @@
         <span class="macro">assert_eq!</span>(req.url().query(), <span class="prelude-val">Some</span>(<span class="string">&quot;foo=a&amp;foo=b&quot;</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>add_query_struct() {
-        <span class="attribute">#[derive(Serialize)]
+        <span class="attr">#[derive(Serialize)]
         </span><span class="kw">struct </span>Params {
             foo: String,
             qux: i32,
@@ -1775,7 +1775,7 @@
         <span class="macro">assert_eq!</span>(req.url().query(), <span class="prelude-val">Some</span>(<span class="string">&quot;foo=bar&amp;qux=3&quot;</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>add_query_map() {
         <span class="kw">let </span><span class="kw-2">mut </span>params = BTreeMap::new();
         params.insert(<span class="string">&quot;foo&quot;</span>, <span class="string">&quot;bar&quot;</span>);
@@ -1791,7 +1791,7 @@
         <span class="macro">assert_eq!</span>(req.url().query(), <span class="prelude-val">Some</span>(<span class="string">&quot;foo=bar&amp;qux=three&quot;</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_replace_headers() {
         <span class="kw">use </span>http::HeaderMap;
 
@@ -1816,7 +1816,7 @@
         <span class="macro">assert_eq!</span>(foo[<span class="number">1</span>], <span class="string">&quot;baz&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>normalize_empty_query() {
         <span class="kw">let </span>client = Client::new();
         <span class="kw">let </span>some_url = <span class="string">&quot;https://google.com/&quot;</span>;
@@ -1832,7 +1832,7 @@
         <span class="macro">assert_eq!</span>(req.url().as_str(), <span class="string">&quot;https://google.com/&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>try_clone_reusable() {
         <span class="kw">let </span>client = Client::new();
         <span class="kw">let </span>builder = client
@@ -1849,7 +1849,7 @@
         <span class="macro">assert_eq!</span>(req.headers()[<span class="string">&quot;foo&quot;</span>], <span class="string">&quot;bar&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>try_clone_no_body() {
         <span class="kw">let </span>client = Client::new();
         <span class="kw">let </span>builder = client.get(<span class="string">&quot;http://httpbin.org/get&quot;</span>);
@@ -1863,7 +1863,7 @@
         <span class="macro">assert!</span>(req.body().is_none());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
     </span><span class="kw">fn </span>try_clone_stream() {
         <span class="kw">let </span>chunks: Vec&lt;<span class="prelude-ty">Result</span>&lt;<span class="kw">_</span>, ::std::io::Error&gt;&gt; = <span class="macro">vec!</span>[<span class="prelude-val">Ok</span>(<span class="string">&quot;hello&quot;</span>), <span class="prelude-val">Ok</span>(<span class="string">&quot; &quot;</span>), <span class="prelude-val">Ok</span>(<span class="string">&quot;world&quot;</span>)];
@@ -1876,7 +1876,7 @@
         <span class="macro">assert!</span>(clone.is_none());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>convert_url_authority_into_basic_auth() {
         <span class="kw">let </span>client = Client::new();
         <span class="kw">let </span>some_url = <span class="string">&quot;https://Aladdin:open sesame@localhost/&quot;</span>;
@@ -1890,7 +1890,7 @@
         </span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_basic_auth_sensitive_header() {
         <span class="kw">let </span>client = Client::new();
         <span class="kw">let </span>some_url = <span class="string">&quot;https://localhost/&quot;</span>;
@@ -1909,7 +1909,7 @@
         <span class="macro">assert!</span>(req.headers()[<span class="string">&quot;authorization&quot;</span>].is_sensitive());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_bearer_auth_sensitive_header() {
         <span class="kw">let </span>client = Client::new();
         <span class="kw">let </span>some_url = <span class="string">&quot;https://localhost/&quot;</span>;
@@ -1925,7 +1925,7 @@
         <span class="macro">assert!</span>(req.headers()[<span class="string">&quot;authorization&quot;</span>].is_sensitive());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>convert_from_http_request() {
         <span class="kw">let </span>http_request = HttpRequest::builder()
             .method(<span class="string">&quot;GET&quot;</span>)
@@ -1943,7 +1943,7 @@
         <span class="macro">assert_eq!</span>(req.url().as_str(), <span class="string">&quot;http://localhost/&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>set_http_request_version() {
         <span class="kw">let </span>http_request = HttpRequest::builder()
             .method(<span class="string">&quot;GET&quot;</span>)
@@ -2169,4 +2169,4 @@
     */
 </span>}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="reqwest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="reqwest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

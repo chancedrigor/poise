@@ -605,7 +605,7 @@
 //! Note: Aliases for private type operators will all be named simply that operator followed
 //! by an abbreviated name of its associated type.
 
-</span><span class="attribute">#![doc(hidden)]
+</span><span class="attr">#![doc(hidden)]
 
 </span><span class="kw">use crate</span>::{
     bit::{Bit, B0, B1},
@@ -724,14 +724,14 @@
 }
 
 <span class="kw">impl </span>InvertedUnsigned <span class="kw">for </span>InvertedUTerm {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_u64() -&gt; u64 {
         <span class="number">0
     </span>}
 }
 
 <span class="kw">impl</span>&lt;IU: InvertedUnsigned, B: Bit&gt; InvertedUnsigned <span class="kw">for </span>InvertedUInt&lt;IU, B&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_u64() -&gt; u64 {
         u64::from(B::to_u8()) | IU::to_u64() &lt;&lt; <span class="number">1
     </span>}
@@ -740,7 +740,7 @@
 <span class="kw">impl </span>Invert <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = InvertedUTerm;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>invert(<span class="self">self</span>) -&gt; <span class="self">Self</span>::Output {
         InvertedUTerm
     }
@@ -752,7 +752,7 @@
 {
     <span class="kw">type </span>Output = PrivateInvertOut&lt;U, InvertedUInt&lt;InvertedUTerm, B&gt;&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>invert(<span class="self">self</span>) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.msb.private_invert(InvertedUInt {
             msb: InvertedUTerm,
@@ -764,7 +764,7 @@
 <span class="kw">impl</span>&lt;IU: InvertedUnsigned&gt; PrivateInvert&lt;IU&gt; <span class="kw">for </span>UTerm {
     <span class="kw">type </span>Output = IU;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_invert(<span class="self">self</span>, rhs: IU) -&gt; <span class="self">Self</span>::Output {
         rhs
     }
@@ -776,7 +776,7 @@
 {
     <span class="kw">type </span>Output = PrivateInvertOut&lt;U, InvertedUInt&lt;IU, B&gt;&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_invert(<span class="self">self</span>, rhs: IU) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.msb.private_invert(InvertedUInt {
             msb: rhs,
@@ -785,7 +785,7 @@
     }
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_inversion() {
     <span class="kw">type </span>Test4 = &lt;<span class="kw">crate</span>::consts::U4 <span class="kw">as </span>Invert&gt;::Output;
     <span class="kw">type </span>Test5 = &lt;<span class="kw">crate</span>::consts::U5 <span class="kw">as </span>Invert&gt;::Output;
@@ -801,7 +801,7 @@
 <span class="kw">impl </span>Invert <span class="kw">for </span>InvertedUTerm {
     <span class="kw">type </span>Output = UTerm;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>invert(<span class="self">self</span>) -&gt; <span class="self">Self</span>::Output {
         UTerm
     }
@@ -813,7 +813,7 @@
 {
     <span class="kw">type </span>Output = &lt;IU <span class="kw">as </span>PrivateInvert&lt;UInt&lt;UTerm, B&gt;&gt;&gt;::Output;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>invert(<span class="self">self</span>) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.msb.private_invert(UInt {
             msb: UTerm,
@@ -825,7 +825,7 @@
 <span class="kw">impl</span>&lt;U: Unsigned&gt; PrivateInvert&lt;U&gt; <span class="kw">for </span>InvertedUTerm {
     <span class="kw">type </span>Output = U;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_invert(<span class="self">self</span>, rhs: U) -&gt; <span class="self">Self</span>::Output {
         rhs
     }
@@ -837,7 +837,7 @@
 {
     <span class="kw">type </span>Output = &lt;IU <span class="kw">as </span>PrivateInvert&lt;UInt&lt;U, B&gt;&gt;&gt;::Output;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>private_invert(<span class="self">self</span>, rhs: U) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.msb.private_invert(UInt {
             msb: rhs,
@@ -846,7 +846,7 @@
     }
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_double_inversion() {
     <span class="kw">type </span>Test4 = &lt;&lt;<span class="kw">crate</span>::consts::U4 <span class="kw">as </span>Invert&gt;::Output <span class="kw">as </span>Invert&gt;::Output;
     <span class="kw">type </span>Test5 = &lt;&lt;<span class="kw">crate</span>::consts::U5 <span class="kw">as </span>Invert&gt;::Output <span class="kw">as </span>Invert&gt;::Output;
@@ -862,7 +862,7 @@
 <span class="kw">impl </span>TrimTrailingZeros <span class="kw">for </span>InvertedUTerm {
     <span class="kw">type </span>Output = InvertedUTerm;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>trim_trailing_zeros(<span class="self">self</span>) -&gt; <span class="self">Self</span>::Output {
         InvertedUTerm
     }
@@ -871,7 +871,7 @@
 <span class="kw">impl</span>&lt;IU: InvertedUnsigned&gt; TrimTrailingZeros <span class="kw">for </span>InvertedUInt&lt;IU, B1&gt; {
     <span class="kw">type </span>Output = <span class="self">Self</span>;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>trim_trailing_zeros(<span class="self">self</span>) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self
     </span>}
@@ -883,7 +883,7 @@
 {
     <span class="kw">type </span>Output = &lt;IU <span class="kw">as </span>TrimTrailingZeros&gt;::Output;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>trim_trailing_zeros(<span class="self">self</span>) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.msb.trim_trailing_zeros()
     }
@@ -897,7 +897,7 @@
 {
     <span class="kw">type </span>Output = &lt;&lt;&lt;U <span class="kw">as </span>Invert&gt;::Output <span class="kw">as </span>TrimTrailingZeros&gt;::Output <span class="kw">as </span>Invert&gt;::Output;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>trim(<span class="self">self</span>) -&gt; <span class="self">Self</span>::Output {
         <span class="self">self</span>.invert().trim_trailing_zeros().invert()
     }
@@ -988,7 +988,7 @@
 <span class="kw">impl</span>&lt;A, B&gt; IsLessPrivate&lt;B, Less&gt; <span class="kw">for </span>A {
     <span class="kw">type </span>Output = True;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_less_private(<span class="self">self</span>, <span class="kw">_</span>: B, <span class="kw">_</span>: Less) -&gt; <span class="self">Self</span>::Output {
         B1
     }
@@ -996,7 +996,7 @@
 <span class="kw">impl</span>&lt;A, B&gt; IsLessPrivate&lt;B, Equal&gt; <span class="kw">for </span>A {
     <span class="kw">type </span>Output = False;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_less_private(<span class="self">self</span>, <span class="kw">_</span>: B, <span class="kw">_</span>: Equal) -&gt; <span class="self">Self</span>::Output {
         B0
     }
@@ -1004,7 +1004,7 @@
 <span class="kw">impl</span>&lt;A, B&gt; IsLessPrivate&lt;B, Greater&gt; <span class="kw">for </span>A {
     <span class="kw">type </span>Output = False;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_less_private(<span class="self">self</span>, <span class="kw">_</span>: B, <span class="kw">_</span>: Greater) -&gt; <span class="self">Self</span>::Output {
         B0
     }
@@ -1019,7 +1019,7 @@
 <span class="kw">impl</span>&lt;A, B&gt; IsEqualPrivate&lt;B, Less&gt; <span class="kw">for </span>A {
     <span class="kw">type </span>Output = False;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_equal_private(<span class="self">self</span>, <span class="kw">_</span>: B, <span class="kw">_</span>: Less) -&gt; <span class="self">Self</span>::Output {
         B0
     }
@@ -1027,7 +1027,7 @@
 <span class="kw">impl</span>&lt;A, B&gt; IsEqualPrivate&lt;B, Equal&gt; <span class="kw">for </span>A {
     <span class="kw">type </span>Output = True;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_equal_private(<span class="self">self</span>, <span class="kw">_</span>: B, <span class="kw">_</span>: Equal) -&gt; <span class="self">Self</span>::Output {
         B1
     }
@@ -1035,7 +1035,7 @@
 <span class="kw">impl</span>&lt;A, B&gt; IsEqualPrivate&lt;B, Greater&gt; <span class="kw">for </span>A {
     <span class="kw">type </span>Output = False;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_equal_private(<span class="self">self</span>, <span class="kw">_</span>: B, <span class="kw">_</span>: Greater) -&gt; <span class="self">Self</span>::Output {
         B0
     }
@@ -1050,7 +1050,7 @@
 <span class="kw">impl</span>&lt;A, B&gt; IsGreaterPrivate&lt;B, Less&gt; <span class="kw">for </span>A {
     <span class="kw">type </span>Output = False;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_greater_private(<span class="self">self</span>, <span class="kw">_</span>: B, <span class="kw">_</span>: Less) -&gt; <span class="self">Self</span>::Output {
         B0
     }
@@ -1058,7 +1058,7 @@
 <span class="kw">impl</span>&lt;A, B&gt; IsGreaterPrivate&lt;B, Equal&gt; <span class="kw">for </span>A {
     <span class="kw">type </span>Output = False;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_greater_private(<span class="self">self</span>, <span class="kw">_</span>: B, <span class="kw">_</span>: Equal) -&gt; <span class="self">Self</span>::Output {
         B0
     }
@@ -1066,7 +1066,7 @@
 <span class="kw">impl</span>&lt;A, B&gt; IsGreaterPrivate&lt;B, Greater&gt; <span class="kw">for </span>A {
     <span class="kw">type </span>Output = True;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_greater_private(<span class="self">self</span>, <span class="kw">_</span>: B, <span class="kw">_</span>: Greater) -&gt; <span class="self">Self</span>::Output {
         B1
     }
@@ -1081,7 +1081,7 @@
 <span class="kw">impl</span>&lt;A, B&gt; IsLessOrEqualPrivate&lt;B, Less&gt; <span class="kw">for </span>A {
     <span class="kw">type </span>Output = True;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_less_or_equal_private(<span class="self">self</span>, <span class="kw">_</span>: B, <span class="kw">_</span>: Less) -&gt; <span class="self">Self</span>::Output {
         B1
     }
@@ -1089,7 +1089,7 @@
 <span class="kw">impl</span>&lt;A, B&gt; IsLessOrEqualPrivate&lt;B, Equal&gt; <span class="kw">for </span>A {
     <span class="kw">type </span>Output = True;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_less_or_equal_private(<span class="self">self</span>, <span class="kw">_</span>: B, <span class="kw">_</span>: Equal) -&gt; <span class="self">Self</span>::Output {
         B1
     }
@@ -1097,7 +1097,7 @@
 <span class="kw">impl</span>&lt;A, B&gt; IsLessOrEqualPrivate&lt;B, Greater&gt; <span class="kw">for </span>A {
     <span class="kw">type </span>Output = False;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_less_or_equal_private(<span class="self">self</span>, <span class="kw">_</span>: B, <span class="kw">_</span>: Greater) -&gt; <span class="self">Self</span>::Output {
         B0
     }
@@ -1112,7 +1112,7 @@
 <span class="kw">impl</span>&lt;A, B&gt; IsNotEqualPrivate&lt;B, Less&gt; <span class="kw">for </span>A {
     <span class="kw">type </span>Output = True;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_not_equal_private(<span class="self">self</span>, <span class="kw">_</span>: B, <span class="kw">_</span>: Less) -&gt; <span class="self">Self</span>::Output {
         B1
     }
@@ -1120,7 +1120,7 @@
 <span class="kw">impl</span>&lt;A, B&gt; IsNotEqualPrivate&lt;B, Equal&gt; <span class="kw">for </span>A {
     <span class="kw">type </span>Output = False;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_not_equal_private(<span class="self">self</span>, <span class="kw">_</span>: B, <span class="kw">_</span>: Equal) -&gt; <span class="self">Self</span>::Output {
         B0
     }
@@ -1128,7 +1128,7 @@
 <span class="kw">impl</span>&lt;A, B&gt; IsNotEqualPrivate&lt;B, Greater&gt; <span class="kw">for </span>A {
     <span class="kw">type </span>Output = True;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_not_equal_private(<span class="self">self</span>, <span class="kw">_</span>: B, <span class="kw">_</span>: Greater) -&gt; <span class="self">Self</span>::Output {
         B1
     }
@@ -1143,7 +1143,7 @@
 <span class="kw">impl</span>&lt;A, B&gt; IsGreaterOrEqualPrivate&lt;B, Less&gt; <span class="kw">for </span>A {
     <span class="kw">type </span>Output = False;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_greater_or_equal_private(<span class="self">self</span>, <span class="kw">_</span>: B, <span class="kw">_</span>: Less) -&gt; <span class="self">Self</span>::Output {
         B0
     }
@@ -1151,7 +1151,7 @@
 <span class="kw">impl</span>&lt;A, B&gt; IsGreaterOrEqualPrivate&lt;B, Equal&gt; <span class="kw">for </span>A {
     <span class="kw">type </span>Output = True;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_greater_or_equal_private(<span class="self">self</span>, <span class="kw">_</span>: B, <span class="kw">_</span>: Equal) -&gt; <span class="self">Self</span>::Output {
         B1
     }
@@ -1159,7 +1159,7 @@
 <span class="kw">impl</span>&lt;A, B&gt; IsGreaterOrEqualPrivate&lt;B, Greater&gt; <span class="kw">for </span>A {
     <span class="kw">type </span>Output = True;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_greater_or_equal_private(<span class="self">self</span>, <span class="kw">_</span>: B, <span class="kw">_</span>: Greater) -&gt; <span class="self">Self</span>::Output {
         B1
     }
@@ -1173,4 +1173,4 @@
     <span class="kw">type </span>Output;
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="typenum" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="typenum" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

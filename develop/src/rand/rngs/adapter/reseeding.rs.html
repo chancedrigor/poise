@@ -468,7 +468,7 @@
 /// [`BlockRngCore`]: rand_core::block::BlockRngCore
 /// [`ReseedingRng::new`]: ReseedingRng::new
 /// [`reseed()`]: ReseedingRng::reseed
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ReseedingRng&lt;R, Rsdr&gt;(BlockRng&lt;ReseedingCore&lt;R, Rsdr&gt;&gt;)
 <span class="kw">where
     </span>R: BlockRngCore + SeedableRng,
@@ -502,12 +502,12 @@
     </span>R: BlockRngCore&lt;Item = u32&gt; + SeedableRng,
     &lt;R <span class="kw">as </span>BlockRngCore&gt;::Results: AsRef&lt;[u32]&gt; + AsMut&lt;[u32]&gt;,
 {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>next_u32(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.<span class="number">0</span>.next_u32()
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>next_u64(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; u64 {
         <span class="self">self</span>.<span class="number">0</span>.next_u64()
     }
@@ -540,7 +540,7 @@
 {
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>ReseedingCore&lt;R, Rsdr&gt; {
     inner: R,
     reseeder: Rsdr,
@@ -624,11 +624,11 @@
         </span>(<span class="self">self</span>.fork_counter.wrapping_sub(global_fork_counter) <span class="kw">as </span>isize) &lt; <span class="number">0
     </span>}
 
-    <span class="attribute">#[inline(never)]
+    <span class="attr">#[inline(never)]
     </span><span class="kw">fn </span>reseed_and_generate(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>, results: <span class="kw-2">&amp;mut </span>&lt;<span class="self">Self </span><span class="kw">as </span>BlockRngCore&gt;::Results, global_fork_counter: usize,
     ) {
-        <span class="attribute">#![allow(clippy::if_same_then_else)] </span><span class="comment">// false positive
+        <span class="attr">#![allow(clippy::if_same_then_else)] </span><span class="comment">// false positive
         </span><span class="kw">if </span><span class="self">self</span>.is_forked(global_fork_counter) {
             <span class="macro">info!</span>(<span class="string">&quot;Fork detected, reseeding RNG&quot;</span>);
         } <span class="kw">else </span>{
@@ -672,7 +672,7 @@
 }
 
 
-<span class="attribute">#[cfg(all(unix, not(target_os = <span class="string">&quot;emscripten&quot;</span>)))]
+<span class="attr">#[cfg(all(unix, not(target_os = <span class="string">&quot;emscripten&quot;</span>)))]
 </span><span class="kw">mod </span>fork {
     <span class="kw">use </span>core::sync::atomic::{AtomicUsize, Ordering};
     <span class="kw">use </span>std::sync::Once;
@@ -717,7 +717,7 @@
     }
 }
 
-<span class="attribute">#[cfg(not(all(unix, not(target_os = <span class="string">&quot;emscripten&quot;</span>))))]
+<span class="attr">#[cfg(not(all(unix, not(target_os = <span class="string">&quot;emscripten&quot;</span>))))]
 </span><span class="kw">mod </span>fork {
     <span class="kw">pub fn </span>get_fork_counter() -&gt; usize {
         <span class="number">0
@@ -726,7 +726,7 @@
 }
 
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std_rng&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std_rng&quot;</span>)]
 #[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use </span><span class="kw">super</span>::ReseedingRng;
@@ -734,7 +734,7 @@
     <span class="kw">use </span><span class="kw">crate</span>::rngs::std::Core;
     <span class="kw">use crate</span>::{Rng, SeedableRng};
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_reseeding() {
         <span class="kw">let </span><span class="kw-2">mut </span>zero = StepRng::new(<span class="number">0</span>, <span class="number">0</span>);
         <span class="kw">let </span>rng = Core::from_rng(<span class="kw-2">&amp;mut </span>zero).unwrap();
@@ -754,9 +754,9 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_clone_reseeding() {
-        <span class="attribute">#![allow(clippy::redundant_clone)]
+        <span class="attr">#![allow(clippy::redundant_clone)]
 
         </span><span class="kw">let </span><span class="kw-2">mut </span>zero = StepRng::new(<span class="number">0</span>, <span class="number">0</span>);
         <span class="kw">let </span>rng = Core::from_rng(<span class="kw-2">&amp;mut </span>zero).unwrap();
@@ -772,4 +772,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="rand" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="rand" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

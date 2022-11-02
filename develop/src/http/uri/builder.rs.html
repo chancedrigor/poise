@@ -204,7 +204,7 @@
 ///
 /// This type can be used to construct an instance of `Uri`
 /// through a builder pattern.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Builder {
     parts: <span class="prelude-ty">Result</span>&lt;Parts, <span class="kw">crate</span>::Error&gt;,
 }
@@ -224,7 +224,7 @@
     ///     .build()
     ///     .unwrap();
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new() -&gt; Builder {
         Builder::default()
     }
@@ -342,7 +342,7 @@
 }
 
 <span class="kw">impl </span>Default <span class="kw">for </span>Builder {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>default() -&gt; Builder {
         Builder {
             parts: <span class="prelude-val">Ok</span>(Parts::default()),
@@ -350,11 +350,11 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>build_from_str() {
         <span class="kw">let </span>uri = Builder::new()
             .scheme(Scheme::HTTP)
@@ -368,7 +368,7 @@
         <span class="macro">assert_eq!</span>(uri.query(), <span class="prelude-val">Some</span>(<span class="string">&quot;a=1&quot;</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>build_from_string() {
         <span class="kw">for </span>i <span class="kw">in </span><span class="number">1</span>..<span class="number">10 </span>{
             <span class="kw">let </span>uri = Builder::new()
@@ -381,7 +381,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>build_from_string_ref() {
         <span class="kw">for </span>i <span class="kw">in </span><span class="number">1</span>..<span class="number">10 </span>{
             <span class="kw">let </span>p_a_q = <span class="macro">format!</span>(<span class="string">&quot;/foo?a={}&quot;</span>, i);
@@ -393,4 +393,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="http" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="http" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

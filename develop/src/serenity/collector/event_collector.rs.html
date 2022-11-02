@@ -440,7 +440,7 @@
 <span class="kw">use crate</span>::{Error, <span class="prelude-ty">Result</span>};
 
 <span class="doccomment">/// Filters events on the shard&#39;s end and sends them to the collector.
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>EventFilter {
     filtered: u32,
     collected: u32,
@@ -519,7 +519,7 @@
     <span class="doccomment">/// Checks if the `event` passes set constraints.
     /// Constraints are optional, as it is possible to limit events to
     /// be sent by a specific user or in a specific guild.
-    </span><span class="attribute">#[allow(clippy::wrong_self_convention)]
+    </span><span class="attr">#[allow(clippy::wrong_self_convention)]
     </span><span class="kw">fn </span>is_passing_constraints(<span class="kw-2">&amp;mut </span><span class="self">self</span>, event: <span class="kw-2">&amp;mut </span>LazyArc&lt;<span class="lifetime">&#39;_</span>, Event&gt;) -&gt; bool {
         <span class="kw">fn </span>empty_or_any&lt;T, F&gt;(slice: <span class="kw-2">&amp;</span>[T], f: F) -&gt; bool
         <span class="kw">where
@@ -545,7 +545,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone)]
+<span class="attr">#[derive(Clone)]
 </span><span class="kw">struct </span>FilterFn(Arc&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>Arc&lt;Event&gt;) -&gt; bool + <span class="lifetime">&#39;static </span>+ Send + Sync&gt;);
 
 <span class="kw">impl </span>fmt::Debug <span class="kw">for </span>FilterFn {
@@ -554,7 +554,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Debug, Default)]
+<span class="attr">#[derive(Clone, Debug, Default)]
 </span><span class="kw">struct </span>FilterOptions {
     event_types: Vec&lt;EventType&gt;,
     filter_limit: <span class="prelude-ty">Option</span>&lt;u32&gt;,
@@ -567,7 +567,7 @@
 }
 
 <span class="doccomment">/// Future building a stream of events.
-</span><span class="attribute">#[must_use = <span class="string">&quot;Builders do nothing unless built&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;Builders do nothing unless built&quot;</span>]
 </span><span class="kw">pub struct </span>EventCollectorBuilder {
     filter: <span class="prelude-ty">Option</span>&lt;FilterOptions&gt;,
     shard: <span class="prelude-ty">Option</span>&lt;ShardMessenger&gt;,
@@ -588,7 +588,7 @@
     ///
     /// The filter checks whether the event has the right related guild, channel, user, and message.
     /// Only events with types passed to [`Self::add_event_type`] as counted towards this limit.
-    </span><span class="attribute">#[allow(clippy::unwrap_used)]
+    </span><span class="attr">#[allow(clippy::unwrap_used)]
     </span><span class="kw">pub fn </span>filter_limit(<span class="kw-2">mut </span><span class="self">self</span>, limit: u32) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.filter.as_mut().unwrap().filter_limit = <span class="prelude-val">Some</span>(limit);
 
@@ -599,7 +599,7 @@
     ///
     /// An event is considered *collected*, if the event
     /// passes all the requirements.
-    </span><span class="attribute">#[allow(clippy::unwrap_used)]
+    </span><span class="attr">#[allow(clippy::unwrap_used)]
     </span><span class="kw">pub fn </span>collect_limit(<span class="kw-2">mut </span><span class="self">self</span>, limit: u32) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.filter.as_mut().unwrap().collect_limit = <span class="prelude-val">Some</span>(limit);
 
@@ -610,7 +610,7 @@
     /// return `true`, otherwise the event won&#39;t be collected and failed the filter
     /// process.
     /// This is the last step to pass for a event to count as *collected*.
-    </span><span class="attribute">#[allow(clippy::unwrap_used)]
+    </span><span class="attr">#[allow(clippy::unwrap_used)]
     </span><span class="kw">pub fn </span>filter&lt;F: Fn(<span class="kw-2">&amp;</span>Arc&lt;Event&gt;) -&gt; bool + <span class="lifetime">&#39;static </span>+ Send + Sync&gt;(
         <span class="kw-2">mut </span><span class="self">self</span>,
         function: F,
@@ -622,7 +622,7 @@
 
     <span class="doccomment">/// Adds an [`EventType`] that this collector will collect.
     /// If an event does not have one of these types, it won&#39;t be received.
-    </span><span class="attribute">#[allow(clippy::unwrap_used)]
+    </span><span class="attr">#[allow(clippy::unwrap_used)]
     </span><span class="kw">pub fn </span>add_event_type(<span class="kw-2">mut </span><span class="self">self</span>, event_type: EventType) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.filter.as_mut().unwrap().event_types.push(event_type);
 
@@ -631,7 +631,7 @@
 
     <span class="doccomment">/// Sets the required user ID of an event.
     /// If an event does not have this ID, it won&#39;t be received.
-    </span><span class="attribute">#[allow(clippy::unwrap_used)]
+    </span><span class="attr">#[allow(clippy::unwrap_used)]
     </span><span class="kw">pub fn </span>add_user_id(<span class="kw-2">mut </span><span class="self">self</span>, user_id: <span class="kw">impl </span>Into&lt;UserId&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.filter.as_mut().unwrap().user_id.push(user_id.into());
 
@@ -640,7 +640,7 @@
 
     <span class="doccomment">/// Sets the required channel ID of an event.
     /// If an event does not have this ID, it won&#39;t be received.
-    </span><span class="attribute">#[allow(clippy::unwrap_used)]
+    </span><span class="attr">#[allow(clippy::unwrap_used)]
     </span><span class="kw">pub fn </span>add_channel_id(<span class="kw-2">mut </span><span class="self">self</span>, channel_id: <span class="kw">impl </span>Into&lt;ChannelId&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.filter.as_mut().unwrap().channel_id.push(channel_id.into());
 
@@ -649,7 +649,7 @@
 
     <span class="doccomment">/// Sets the required guild ID of an event.
     /// If an event does not have this ID, it won&#39;t be received.
-    </span><span class="attribute">#[allow(clippy::unwrap_used)]
+    </span><span class="attr">#[allow(clippy::unwrap_used)]
     </span><span class="kw">pub fn </span>add_guild_id(<span class="kw-2">mut </span><span class="self">self</span>, guild_id: <span class="kw">impl </span>Into&lt;GuildId&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.filter.as_mut().unwrap().guild_id.push(guild_id.into());
 
@@ -658,7 +658,7 @@
 
     <span class="doccomment">/// Sets the required message ID of an event.
     /// If an event does not have this ID, it won&#39;t be received.
-    </span><span class="attribute">#[allow(clippy::unwrap_used)]
+    </span><span class="attr">#[allow(clippy::unwrap_used)]
     </span><span class="kw">pub fn </span>add_message_id(<span class="kw-2">mut </span><span class="self">self</span>, message_id: <span class="kw">impl </span>Into&lt;MessageId&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.filter.as_mut().unwrap().message_id.push(message_id.into());
 
@@ -678,7 +678,7 @@
     /// # Errors
     ///
     /// Returns [`Error::Collector`] if the filter option validation fails.
-    </span><span class="attribute">#[allow(clippy::unwrap_used)]
+    </span><span class="attr">#[allow(clippy::unwrap_used)]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;EventCollector&gt; {
         <span class="kw">let </span>shard_messenger = <span class="self">self</span>.shard.unwrap();
         <span class="kw">let </span>(filter, receiver) = EventFilter::new(<span class="self">self</span>.filter.unwrap())<span class="question-mark">?</span>;
@@ -731,14 +731,14 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use </span>futures::channel::mpsc::unbounded;
 
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::client::bridge::gateway::ShardMessenger;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_no_event_types() {
         <span class="kw">let </span>(sender, <span class="kw">_</span>) = unbounded();
         <span class="kw">let </span>msg = ShardMessenger::new(sender);
@@ -752,7 +752,7 @@
         ));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_build_with_single_id_filter() {
         <span class="kw">let </span>(sender, <span class="kw">_</span>) = unbounded();
         <span class="kw">let </span>msg = ShardMessenger::new(sender);
@@ -790,7 +790,7 @@
         ));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_build_with_multiple_id_filters() {
         <span class="kw">let </span>(sender, <span class="kw">_</span>) = unbounded();
         <span class="kw">let </span>msg = ShardMessenger::new(sender);
@@ -812,7 +812,7 @@
         ));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_build_with_multiple_event_types() {
         <span class="kw">let </span>(sender, <span class="kw">_</span>) = unbounded();
         <span class="kw">let </span>msg = ShardMessenger::new(sender);
@@ -839,4 +839,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

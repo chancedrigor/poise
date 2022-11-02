@@ -784,7 +784,7 @@
 <span id="784">784</span>
 <span id="785">785</span>
 </pre><pre class="rust"><code><span class="kw">use </span>std::borrow::Cow;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
 </span><span class="kw">use </span>std::error::Error <span class="kw">as </span>StdError;
 <span class="kw">use </span>std::fmt;
 
@@ -792,19 +792,19 @@
 <span class="kw">use </span>futures_channel::mpsc;
 <span class="kw">use </span>futures_channel::oneshot;
 <span class="kw">use </span>futures_core::Stream; <span class="comment">// for mpsc::Receiver
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
 </span><span class="kw">use </span>futures_util::TryStreamExt;
 <span class="kw">use </span>http::HeaderMap;
 <span class="kw">use </span>http_body::{Body <span class="kw">as </span>HttpBody, SizeHint};
 
 <span class="kw">use </span><span class="kw">super</span>::DecodedLength;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::common::sync_wrapper::SyncWrapper;
 <span class="kw">use </span><span class="kw">crate</span>::common::Future;
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;client&quot;</span>, any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>)))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;client&quot;</span>, any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>)))]
 </span><span class="kw">use </span><span class="kw">crate</span>::common::Never;
 <span class="kw">use </span><span class="kw">crate</span>::common::{task, watch, Pin, Poll};
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;http2&quot;</span>, any(feature = <span class="string">&quot;client&quot;</span>, feature = <span class="string">&quot;server&quot;</span>)))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;http2&quot;</span>, any(feature = <span class="string">&quot;client&quot;</span>, feature = <span class="string">&quot;server&quot;</span>)))]
 </span><span class="kw">use </span><span class="kw">crate</span>::proto::h2::ping;
 
 <span class="kw">type </span>BodySender = mpsc::Sender&lt;<span class="prelude-ty">Result</span>&lt;Bytes, <span class="kw">crate</span>::Error&gt;&gt;;
@@ -817,7 +817,7 @@
 ///
 /// Note: To read the full body, use [`body::to_bytes`](crate::body::to_bytes)
 /// or [`body::aggregate`](crate::body::aggregate).
-</span><span class="attribute">#[must_use = <span class="string">&quot;streams do nothing unless polled&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;streams do nothing unless polled&quot;</span>]
 </span><span class="kw">pub struct </span>Body {
     kind: Kind,
     <span class="doccomment">/// Keep the extra bits in an `Option&lt;Box&lt;Extra&gt;&gt;`, so that
@@ -833,15 +833,15 @@
         data_rx: mpsc::Receiver&lt;<span class="prelude-ty">Result</span>&lt;Bytes, <span class="kw">crate</span>::Error&gt;&gt;,
         trailers_rx: oneshot::Receiver&lt;HeaderMap&gt;,
     },
-    <span class="attribute">#[cfg(all(feature = <span class="string">&quot;http2&quot;</span>, any(feature = <span class="string">&quot;client&quot;</span>, feature = <span class="string">&quot;server&quot;</span>)))]
+    <span class="attr">#[cfg(all(feature = <span class="string">&quot;http2&quot;</span>, any(feature = <span class="string">&quot;client&quot;</span>, feature = <span class="string">&quot;server&quot;</span>)))]
     </span>H2 {
         ping: ping::Recorder,
         content_length: DecodedLength,
         recv: h2::RecvStream,
     },
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
     </span>Ffi(<span class="kw">crate</span>::ffi::UserBody),
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
     </span>Wrapped(
         SyncWrapper&lt;
             Pin&lt;Box&lt;<span class="kw">dyn </span>Stream&lt;Item = <span class="prelude-ty">Result</span>&lt;Bytes, Box&lt;<span class="kw">dyn </span>StdError + Send + Sync&gt;&gt;&gt; + Send&gt;&gt;,
@@ -861,18 +861,18 @@
     </span>delayed_eof: <span class="prelude-ty">Option</span>&lt;DelayEof&gt;,
 }
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;client&quot;</span>, any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>)))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;client&quot;</span>, any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>)))]
 </span><span class="kw">type </span>DelayEofUntil = oneshot::Receiver&lt;Never&gt;;
 
 <span class="kw">enum </span>DelayEof {
     <span class="doccomment">/// Initial state, stream hasn&#39;t seen EOF yet.
-    </span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
+    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
     #[cfg(feature = <span class="string">&quot;client&quot;</span>)]
     </span>NotEof(DelayEofUntil),
     <span class="doccomment">/// Transitions to this state once we&#39;ve seen `poll` try to
     /// return EOF (`None`). This future is then polled, and
     /// when it completes, the Body finally returns EOF (`None`).
-    </span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
+    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
     #[cfg(feature = <span class="string">&quot;client&quot;</span>)]
     </span>Eof(DelayEofUntil),
 }
@@ -890,7 +890,7 @@
 ///
 /// [`Body::channel()`]: struct.Body.html#method.channel
 /// [`Sender::abort()`]: struct.Sender.html#method.abort
-</span><span class="attribute">#[must_use = <span class="string">&quot;Sender does nothing unless sent on&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;Sender does nothing unless sent on&quot;</span>]
 </span><span class="kw">pub struct </span>Sender {
     want_rx: watch::Receiver,
     data_tx: BodySender,
@@ -911,7 +911,7 @@
     /// // create a `GET /` request
     /// let get = Request::new(Body::empty());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>empty() -&gt; Body {
         Body::new(Kind::Once(<span class="prelude-val">None</span>))
     }
@@ -919,7 +919,7 @@
     <span class="doccomment">/// Create a `Body` stream with an associated sender half.
     ///
     /// Useful when wanting to stream chunks from another thread.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>channel() -&gt; (Sender, Body) {
         <span class="self">Self</span>::new_channel(DecodedLength::CHUNKED, <span class="comment">/*wanter =*/ </span><span class="bool-val">false</span>)
     }
@@ -970,7 +970,7 @@
     ///
     /// This function requires enabling the `stream` feature in your
     /// `Cargo.toml`.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;stream&quot;</span>)))]
     </span><span class="kw">pub fn </span>wrap_stream&lt;S, O, E&gt;(stream: S) -&gt; Body
     <span class="kw">where
@@ -986,7 +986,7 @@
         Body { kind, extra: <span class="prelude-val">None </span>}
     }
 
-    <span class="attribute">#[cfg(all(feature = <span class="string">&quot;http2&quot;</span>, any(feature = <span class="string">&quot;client&quot;</span>, feature = <span class="string">&quot;server&quot;</span>)))]
+    <span class="attr">#[cfg(all(feature = <span class="string">&quot;http2&quot;</span>, any(feature = <span class="string">&quot;client&quot;</span>, feature = <span class="string">&quot;server&quot;</span>)))]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>h2(
         recv: h2::RecvStream,
         <span class="kw-2">mut </span>content_length: DecodedLength,
@@ -1006,7 +1006,7 @@
         body
     }
 
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
     #[cfg(feature = <span class="string">&quot;client&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>delayed_eof(<span class="kw-2">&amp;mut </span><span class="self">self</span>, fut: DelayEofUntil) {
         <span class="self">self</span>.extra_mut().delayed_eof = <span class="prelude-val">Some</span>(DelayEof::NotEof(fut));
@@ -1018,7 +1018,7 @@
             .and_then(|extra| extra.delayed_eof.take())
     }
 
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
     </span><span class="kw">fn </span>extra_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>Extra {
         <span class="self">self</span>.extra
             .get_or_insert_with(|| Box::new(Extra { delayed_eof: <span class="prelude-val">None </span>}))
@@ -1026,7 +1026,7 @@
 
     <span class="kw">fn </span>poll_eof(<span class="kw-2">&amp;mut </span><span class="self">self</span>, cx: <span class="kw-2">&amp;mut </span>task::Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;<span class="prelude-ty">Option</span>&lt;<span class="kw">crate</span>::Result&lt;Bytes&gt;&gt;&gt; {
         <span class="kw">match </span><span class="self">self</span>.take_delayed_eof() {
-            <span class="attribute">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
+            <span class="attr">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
             #[cfg(feature = <span class="string">&quot;client&quot;</span>)]
             </span><span class="prelude-val">Some</span>(DelayEof::NotEof(<span class="kw-2">mut </span>delay)) =&gt; <span class="kw">match </span><span class="self">self</span>.poll_inner(cx) {
                 ok @ Poll::Ready(<span class="prelude-val">Some</span>(<span class="prelude-val">Ok</span>(..))) | ok @ Poll::Pending =&gt; {
@@ -1043,7 +1043,7 @@
                 },
                 Poll::Ready(<span class="prelude-val">Some</span>(<span class="prelude-val">Err</span>(e))) =&gt; Poll::Ready(<span class="prelude-val">Some</span>(<span class="prelude-val">Err</span>(e))),
             },
-            <span class="attribute">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
+            <span class="attr">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
             #[cfg(feature = <span class="string">&quot;client&quot;</span>)]
             </span><span class="prelude-val">Some</span>(DelayEof::Eof(<span class="kw-2">mut </span>delay)) =&gt; <span class="kw">match </span>Pin::new(<span class="kw-2">&amp;mut </span>delay).poll(cx) {
                 Poll::Ready(<span class="prelude-val">Ok</span>(never)) =&gt; <span class="kw">match </span>never {},
@@ -1053,7 +1053,7 @@
                 }
                 Poll::Ready(<span class="prelude-val">Err</span>(_done)) =&gt; Poll::Ready(<span class="prelude-val">None</span>),
             },
-            <span class="attribute">#[cfg(any(
+            <span class="attr">#[cfg(any(
                 not(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>)),
                 not(feature = <span class="string">&quot;client&quot;</span>)
             ))]
@@ -1062,7 +1062,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>as_ffi_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::ffi::UserBody {
         <span class="kw">match </span><span class="self">self</span>.kind {
             Kind::Ffi(<span class="kw-2">ref mut </span>body) =&gt; <span class="kw">return </span>body,
@@ -1096,7 +1096,7 @@
                     <span class="prelude-val">None </span>=&gt; Poll::Ready(<span class="prelude-val">None</span>),
                 }
             }
-            <span class="attribute">#[cfg(all(feature = <span class="string">&quot;http2&quot;</span>, any(feature = <span class="string">&quot;client&quot;</span>, feature = <span class="string">&quot;server&quot;</span>)))]
+            <span class="attr">#[cfg(all(feature = <span class="string">&quot;http2&quot;</span>, any(feature = <span class="string">&quot;client&quot;</span>, feature = <span class="string">&quot;server&quot;</span>)))]
             </span>Kind::H2 {
                 <span class="kw-2">ref </span>ping,
                 recv: <span class="kw-2">ref mut </span>h2,
@@ -1112,10 +1112,10 @@
                 <span class="prelude-val">None </span>=&gt; Poll::Ready(<span class="prelude-val">None</span>),
             },
 
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
             </span>Kind::Ffi(<span class="kw-2">ref mut </span>body) =&gt; body.poll_data(cx),
 
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
             </span>Kind::Wrapped(<span class="kw-2">ref mut </span>s) =&gt; <span class="kw">match </span><span class="macro">ready!</span>(s.get_mut().as_mut().poll_next(cx)) {
                 <span class="prelude-val">Some</span>(res) =&gt; Poll::Ready(<span class="prelude-val">Some</span>(res.map_err(<span class="kw">crate</span>::Error::new_body))),
                 <span class="prelude-val">None </span>=&gt; Poll::Ready(<span class="prelude-val">None</span>),
@@ -1123,7 +1123,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;http1&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;http1&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>take_full_data(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Bytes&gt; {
         <span class="kw">if let </span>Kind::Once(<span class="kw-2">ref mut </span>chunk) = <span class="self">self</span>.kind {
             chunk.take()
@@ -1135,7 +1135,7 @@
 
 <span class="kw">impl </span>Default <span class="kw">for </span>Body {
     <span class="doccomment">/// Returns `Body::empty()`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>default() -&gt; Body {
         Body::empty()
     }
@@ -1153,11 +1153,11 @@
     }
 
     <span class="kw">fn </span>poll_trailers(
-        <span class="attribute">#[cfg_attr(not(feature = <span class="string">&quot;http2&quot;</span>), allow(unused_mut))] </span><span class="kw-2">mut </span><span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;,
-        <span class="attribute">#[cfg_attr(not(feature = <span class="string">&quot;http2&quot;</span>), allow(unused))] </span>cx: <span class="kw-2">&amp;mut </span>task::Context&lt;<span class="lifetime">&#39;_</span>&gt;,
+        <span class="attr">#[cfg_attr(not(feature = <span class="string">&quot;http2&quot;</span>), allow(unused_mut))] </span><span class="kw-2">mut </span><span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;,
+        <span class="attr">#[cfg_attr(not(feature = <span class="string">&quot;http2&quot;</span>), allow(unused))] </span>cx: <span class="kw-2">&amp;mut </span>task::Context&lt;<span class="lifetime">&#39;_</span>&gt;,
     ) -&gt; Poll&lt;<span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;HeaderMap&gt;, <span class="self">Self</span>::Error&gt;&gt; {
         <span class="kw">match </span><span class="self">self</span>.kind {
-            <span class="attribute">#[cfg(all(feature = <span class="string">&quot;http2&quot;</span>, any(feature = <span class="string">&quot;client&quot;</span>, feature = <span class="string">&quot;server&quot;</span>)))]
+            <span class="attr">#[cfg(all(feature = <span class="string">&quot;http2&quot;</span>, any(feature = <span class="string">&quot;client&quot;</span>, feature = <span class="string">&quot;server&quot;</span>)))]
             </span>Kind::H2 {
                 recv: <span class="kw-2">ref mut </span>h2,
                 <span class="kw-2">ref </span>ping,
@@ -1176,7 +1176,7 @@
                 <span class="prelude-val">Ok</span>(t) =&gt; Poll::Ready(<span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(t))),
                 <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; Poll::Ready(<span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)),
             },
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
             </span>Kind::Ffi(<span class="kw-2">ref mut </span>body) =&gt; body.poll_trailers(cx),
             <span class="kw">_ </span>=&gt; Poll::Ready(<span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)),
         }
@@ -1186,11 +1186,11 @@
         <span class="kw">match </span><span class="self">self</span>.kind {
             Kind::Once(<span class="kw-2">ref </span>val) =&gt; val.is_none(),
             Kind::Chan { content_length, .. } =&gt; content_length == DecodedLength::ZERO,
-            <span class="attribute">#[cfg(all(feature = <span class="string">&quot;http2&quot;</span>, any(feature = <span class="string">&quot;client&quot;</span>, feature = <span class="string">&quot;server&quot;</span>)))]
+            <span class="attr">#[cfg(all(feature = <span class="string">&quot;http2&quot;</span>, any(feature = <span class="string">&quot;client&quot;</span>, feature = <span class="string">&quot;server&quot;</span>)))]
             </span>Kind::H2 { recv: <span class="kw-2">ref </span>h2, .. } =&gt; h2.is_end_stream(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
             </span>Kind::Ffi(..) =&gt; <span class="bool-val">false</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
             </span>Kind::Wrapped(..) =&gt; <span class="bool-val">false</span>,
         }
     }
@@ -1211,12 +1211,12 @@
         <span class="kw">match </span><span class="self">self</span>.kind {
             Kind::Once(<span class="prelude-val">Some</span>(<span class="kw-2">ref </span>val)) =&gt; SizeHint::with_exact(val.len() <span class="kw">as </span>u64),
             Kind::Once(<span class="prelude-val">None</span>) =&gt; SizeHint::with_exact(<span class="number">0</span>),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
             </span>Kind::Wrapped(..) =&gt; SizeHint::default(),
             Kind::Chan { content_length, .. } =&gt; <span class="macro">opt_len!</span>(content_length),
-            <span class="attribute">#[cfg(all(feature = <span class="string">&quot;http2&quot;</span>, any(feature = <span class="string">&quot;client&quot;</span>, feature = <span class="string">&quot;server&quot;</span>)))]
+            <span class="attr">#[cfg(all(feature = <span class="string">&quot;http2&quot;</span>, any(feature = <span class="string">&quot;client&quot;</span>, feature = <span class="string">&quot;server&quot;</span>)))]
             </span>Kind::H2 { content_length, .. } =&gt; <span class="macro">opt_len!</span>(content_length),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
             </span>Kind::Ffi(..) =&gt; SizeHint::default(),
         }
     }
@@ -1224,11 +1224,11 @@
 
 <span class="kw">impl </span>fmt::Debug <span class="kw">for </span>Body {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
-        <span class="attribute">#[derive(Debug)]
+        <span class="attr">#[derive(Debug)]
         </span><span class="kw">struct </span>Streaming;
-        <span class="attribute">#[derive(Debug)]
+        <span class="attr">#[derive(Debug)]
         </span><span class="kw">struct </span>Empty;
-        <span class="attribute">#[derive(Debug)]
+        <span class="attr">#[derive(Debug)]
         </span><span class="kw">struct </span>Full&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Bytes);
 
         <span class="kw">let </span><span class="kw-2">mut </span>builder = f.debug_tuple(<span class="string">&quot;Body&quot;</span>);
@@ -1246,7 +1246,7 @@
 ///
 /// This function requires enabling the `stream` feature in your
 /// `Cargo.toml`.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
 </span><span class="kw">impl </span>Stream <span class="kw">for </span>Body {
     <span class="kw">type </span>Item = <span class="kw">crate</span>::Result&lt;Bytes&gt;;
 
@@ -1259,9 +1259,9 @@
 ///
 /// This function requires enabling the `stream` feature in your
 /// `Cargo.toml`.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
 </span><span class="kw">impl </span>From&lt;Box&lt;<span class="kw">dyn </span>Stream&lt;Item = <span class="prelude-ty">Result</span>&lt;Bytes, Box&lt;<span class="kw">dyn </span>StdError + Send + Sync&gt;&gt;&gt; + Send&gt;&gt; <span class="kw">for </span>Body {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(
         stream: Box&lt;<span class="kw">dyn </span>Stream&lt;Item = <span class="prelude-ty">Result</span>&lt;Bytes, Box&lt;<span class="kw">dyn </span>StdError + Send + Sync&gt;&gt;&gt; + Send&gt;,
     ) -&gt; Body {
@@ -1270,7 +1270,7 @@
 }
 
 <span class="kw">impl </span>From&lt;Bytes&gt; <span class="kw">for </span>Body {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(chunk: Bytes) -&gt; Body {
         <span class="kw">if </span>chunk.is_empty() {
             Body::empty()
@@ -1281,21 +1281,21 @@
 }
 
 <span class="kw">impl </span>From&lt;Vec&lt;u8&gt;&gt; <span class="kw">for </span>Body {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(vec: Vec&lt;u8&gt;) -&gt; Body {
         Body::from(Bytes::from(vec))
     }
 }
 
 <span class="kw">impl </span>From&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[u8]&gt; <span class="kw">for </span>Body {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(slice: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[u8]) -&gt; Body {
         Body::from(Bytes::from(slice))
     }
 }
 
 <span class="kw">impl </span>From&lt;Cow&lt;<span class="lifetime">&#39;static</span>, [u8]&gt;&gt; <span class="kw">for </span>Body {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(cow: Cow&lt;<span class="lifetime">&#39;static</span>, [u8]&gt;) -&gt; Body {
         <span class="kw">match </span>cow {
             Cow::Borrowed(b) =&gt; Body::from(b),
@@ -1305,21 +1305,21 @@
 }
 
 <span class="kw">impl </span>From&lt;String&gt; <span class="kw">for </span>Body {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(s: String) -&gt; Body {
         Body::from(Bytes::from(s.into_bytes()))
     }
 }
 
 <span class="kw">impl </span>From&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str&gt; <span class="kw">for </span>Body {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(slice: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str) -&gt; Body {
         Body::from(Bytes::from(slice.as_bytes()))
     }
 }
 
 <span class="kw">impl </span>From&lt;Cow&lt;<span class="lifetime">&#39;static</span>, str&gt;&gt; <span class="kw">for </span>Body {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(cow: Cow&lt;<span class="lifetime">&#39;static</span>, str&gt;) -&gt; Body {
         <span class="kw">match </span>cow {
             Cow::Borrowed(b) =&gt; Body::from(b),
@@ -1395,7 +1395,7 @@
             .try_send(<span class="prelude-val">Err</span>(<span class="kw">crate</span>::Error::new_body_write_aborted()));
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;http1&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;http1&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>send_error(<span class="kw-2">&amp;mut </span><span class="self">self</span>, err: <span class="kw">crate</span>::Error) {
         <span class="kw">let _ </span>= <span class="self">self</span>.data_tx.try_send(<span class="prelude-val">Err</span>(err));
     }
@@ -1403,9 +1403,9 @@
 
 <span class="kw">impl </span>fmt::Debug <span class="kw">for </span>Sender {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
-        <span class="attribute">#[derive(Debug)]
+        <span class="attr">#[derive(Debug)]
         </span><span class="kw">struct </span>Open;
-        <span class="attribute">#[derive(Debug)]
+        <span class="attr">#[derive(Debug)]
         </span><span class="kw">struct </span>Closed;
 
         <span class="kw">let </span><span class="kw-2">mut </span>builder = f.debug_tuple(<span class="string">&quot;Sender&quot;</span>);
@@ -1418,14 +1418,14 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>std::mem;
     <span class="kw">use </span>std::task::Poll;
 
     <span class="kw">use super</span>::{Body, DecodedLength, HttpBody, Sender, SizeHint};
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_size_of() {
         <span class="comment">// These are mostly to help catch *accidentally* increasing
         // the size by too much.
@@ -1454,7 +1454,7 @@
         </span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>size_hint() {
         <span class="kw">fn </span>eq(body: Body, b: SizeHint, note: <span class="kw-2">&amp;</span>str) {
             <span class="kw">let </span>a = body.size_hint();
@@ -1475,7 +1475,7 @@
         );
     }
 
-    <span class="attribute">#[tokio::test]
+    <span class="attr">#[tokio::test]
     </span><span class="kw">async fn </span>channel_abort() {
         <span class="kw">let </span>(tx, <span class="kw-2">mut </span>rx) = Body::channel();
 
@@ -1485,7 +1485,7 @@
         <span class="macro">assert!</span>(err.is_body_write_aborted(), <span class="string">&quot;{:?}&quot;</span>, err);
     }
 
-    <span class="attribute">#[tokio::test]
+    <span class="attr">#[tokio::test]
     </span><span class="kw">async fn </span>channel_abort_when_buffer_is_full() {
         <span class="kw">let </span>(<span class="kw-2">mut </span>tx, <span class="kw-2">mut </span>rx) = Body::channel();
 
@@ -1500,7 +1500,7 @@
         <span class="macro">assert!</span>(err.is_body_write_aborted(), <span class="string">&quot;{:?}&quot;</span>, err);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>channel_buffers_one() {
         <span class="kw">let </span>(<span class="kw-2">mut </span>tx, _rx) = Body::channel();
 
@@ -1511,14 +1511,14 @@
         <span class="macro">assert_eq!</span>(chunk2, <span class="string">&quot;chunk 2&quot;</span>);
     }
 
-    <span class="attribute">#[tokio::test]
+    <span class="attr">#[tokio::test]
     </span><span class="kw">async fn </span>channel_empty() {
         <span class="kw">let </span>(<span class="kw">_</span>, <span class="kw-2">mut </span>rx) = Body::channel();
 
         <span class="macro">assert!</span>(rx.data().<span class="kw">await</span>.is_none());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>channel_ready() {
         <span class="kw">let </span>(<span class="kw-2">mut </span>tx, _rx) = Body::new_channel(DecodedLength::CHUNKED, <span class="comment">/*wanter = */ </span><span class="bool-val">false</span>);
 
@@ -1527,7 +1527,7 @@
         <span class="macro">assert!</span>(tx_ready.poll().is_ready(), <span class="string">&quot;tx is ready immediately&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>channel_wanter() {
         <span class="kw">let </span>(<span class="kw-2">mut </span>tx, <span class="kw-2">mut </span>rx) = Body::new_channel(DecodedLength::CHUNKED, <span class="comment">/*wanter = */ </span><span class="bool-val">true</span>);
 
@@ -1548,7 +1548,7 @@
         </span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>channel_notices_closure() {
         <span class="kw">let </span>(<span class="kw-2">mut </span>tx, rx) = Body::new_channel(DecodedLength::CHUNKED, <span class="comment">/*wanter = */ </span><span class="bool-val">true</span>);
 
@@ -1569,4 +1569,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

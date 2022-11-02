@@ -824,7 +824,7 @@
     <span class="kw">pub struct </span>sigaction {
         <span class="kw">pub </span>sa_sigaction: ::sighandler_t,
         <span class="kw">pub </span>sa_mask: ::sigset_t,
-        <span class="attribute">#[cfg(target_arch = <span class="string">&quot;sparc64&quot;</span>)]
+        <span class="attr">#[cfg(target_arch = <span class="string">&quot;sparc64&quot;</span>)]
         </span>__reserved0: ::c_int,
         <span class="kw">pub </span>sa_flags: ::c_int,
         <span class="kw">pub </span>sa_restorer: ::Option&lt;<span class="kw">extern fn</span>()&gt;,
@@ -866,7 +866,7 @@
         <span class="kw">pub </span>si_signo: ::c_int,
         <span class="kw">pub </span>si_errno: ::c_int,
         <span class="kw">pub </span>si_code: ::c_int,
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         #[deprecated(
             since=<span class="string">&quot;0.2.54&quot;</span>,
             note=<span class="string">&quot;Please leave a comment on \
@@ -956,9 +956,9 @@
     }
 
     <span class="kw">pub struct </span>pthread_attr_t {
-        <span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
+        <span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
         </span>__size: [u32; <span class="number">8</span>],
-        <span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
+        <span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
         </span>__size: [u64; <span class="number">7</span>]
     }
 
@@ -1027,10 +1027,10 @@
         <span class="kw">pub </span>start_stack: ::c_ulonglong,
         <span class="kw">pub </span>signal: ::c_longlong,
         __reserved: ::c_int,
-        <span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
+        <span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
         </span>__pad1: u32,
         <span class="kw">pub </span>u_ar0: <span class="kw-2">*mut </span>user_regs_struct,
-        <span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
+        <span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
         </span>__pad2: u32,
         <span class="kw">pub </span>u_fpstate: <span class="kw-2">*mut </span>user_fpregs_struct,
         <span class="kw">pub </span>magic: ::c_ulonglong,
@@ -1109,7 +1109,7 @@
 }
 
 <span class="macro">cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(feature = <span class="string">&quot;extra_traits&quot;</span>)] </span>{
+    <span class="kw">if </span><span class="attr">#[cfg(feature = <span class="string">&quot;extra_traits&quot;</span>)] </span>{
         <span class="kw">impl </span>PartialEq <span class="kw">for </span>user_fpregs_struct {
             <span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>user_fpregs_struct) -&gt; bool {
                 <span class="self">self</span>.cwd == other.cwd
@@ -1331,7 +1331,7 @@
 <span class="kw">pub const </span>SIGIO: ::c_int = <span class="number">29</span>;
 <span class="kw">pub const </span>SIGSYS: ::c_int = <span class="number">31</span>;
 <span class="kw">pub const </span>SIGSTKFLT: ::c_int = <span class="number">16</span>;
-<span class="attribute">#[deprecated(since = <span class="string">&quot;0.2.55&quot;</span>, note = <span class="string">&quot;Use SIGSYS instead&quot;</span>)]
+<span class="attr">#[deprecated(since = <span class="string">&quot;0.2.55&quot;</span>, note = <span class="string">&quot;Use SIGSYS instead&quot;</span>)]
 </span><span class="kw">pub const </span>SIGUNUSED: ::c_int = <span class="number">31</span>;
 <span class="kw">pub const </span>SIGPOLL: ::c_int = <span class="number">29</span>;
 <span class="kw">pub const </span>SIGPWR: ::c_int = <span class="number">30</span>;
@@ -1605,7 +1605,7 @@
 }
 
 <span class="macro">cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)] </span>{
+    <span class="kw">if </span><span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)] </span>{
         <span class="kw">mod </span>x32;
         <span class="kw">pub use </span><span class="self">self</span>::x32::<span class="kw-2">*</span>;
     } <span class="kw">else </span>{
@@ -1615,10 +1615,10 @@
 }
 
 <span class="macro">cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(libc_align)] </span>{
+    <span class="kw">if </span><span class="attr">#[cfg(libc_align)] </span>{
         <span class="kw">mod </span>align;
         <span class="kw">pub use </span><span class="self">self</span>::align::<span class="kw-2">*</span>;
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../../../../" data-current-crate="libc" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../../../../" data-current-crate="libc" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

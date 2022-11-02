@@ -149,9 +149,9 @@
 <span class="kw">use </span>std::marker::PhantomData;
 <span class="kw">use </span>std::mem::ManuallyDrop;
 <span class="kw">use </span>std::ops::Deref;
-<span class="attribute">#[cfg(unix)]
+<span class="attr">#[cfg(unix)]
 </span><span class="kw">use </span>std::os::unix::io::{AsRawFd, FromRawFd};
-<span class="attribute">#[cfg(windows)]
+<span class="attr">#[cfg(windows)]
 </span><span class="kw">use </span>std::os::windows::io::{AsRawSocket, FromRawSocket};
 
 <span class="kw">use </span><span class="kw">crate</span>::Socket;
@@ -248,7 +248,7 @@
 }
 
 <span class="doccomment">/// On Windows, a corresponding `From&lt;&amp;impl AsRawSocket&gt;` implementation exists.
-</span><span class="attribute">#[cfg(unix)]
+</span><span class="attr">#[cfg(unix)]
 #[cfg_attr(docsrs, doc(cfg(unix)))]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;s</span>, S&gt; From&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;s </span>S&gt; <span class="kw">for </span>SockRef&lt;<span class="lifetime">&#39;s</span>&gt;
 <span class="kw">where
@@ -266,7 +266,7 @@
 }
 
 <span class="doccomment">/// On Unix, a corresponding `From&lt;&amp;impl AsRawFd&gt;` implementation exists.
-</span><span class="attribute">#[cfg(windows)]
+</span><span class="attr">#[cfg(windows)]
 #[cfg_attr(docsrs, doc(cfg(windows)))]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;s</span>, S&gt; From&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;s </span>S&gt; <span class="kw">for </span>SockRef&lt;<span class="lifetime">&#39;s</span>&gt;
 <span class="kw">where
@@ -293,4 +293,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="socket2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="socket2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

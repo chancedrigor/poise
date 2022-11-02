@@ -469,16 +469,16 @@
 <span class="kw">use </span>hyper::client::connect::HttpInfo;
 <span class="kw">use </span>hyper::{HeaderMap, StatusCode, Version};
 <span class="kw">use </span>mime::Mime;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;json&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;json&quot;</span>)]
 </span><span class="kw">use </span>serde::de::DeserializeOwned;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;json&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;json&quot;</span>)]
 </span><span class="kw">use </span>serde_json;
 <span class="kw">use </span>tokio::time::Sleep;
 <span class="kw">use </span>url::Url;
 
 <span class="kw">use </span><span class="kw">super</span>::body::Body;
 <span class="kw">use </span><span class="kw">super</span>::decoder::{Accepts, Decoder};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;cookies&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;cookies&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::cookie;
 <span class="kw">use </span><span class="kw">crate</span>::response::ResponseUrl;
 
@@ -520,25 +520,25 @@
     }
 
     <span class="doccomment">/// Get the `StatusCode` of this `Response`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>status(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; StatusCode {
         <span class="self">self</span>.status
     }
 
     <span class="doccomment">/// Get the HTTP `Version` of this `Response`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>version(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Version {
         <span class="self">self</span>.version
     }
 
     <span class="doccomment">/// Get the `Headers` of this `Response`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>headers(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>HeaderMap {
         <span class="kw-2">&amp;</span><span class="self">self</span>.headers
     }
 
     <span class="doccomment">/// Get a mutable reference to the `Headers` of this `Response`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>headers_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>HeaderMap {
         <span class="kw-2">&amp;mut </span><span class="self">self</span>.headers
     }
@@ -563,14 +563,14 @@
     /// # Optional
     ///
     /// This requires the optional `cookies` feature to be enabled.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;cookies&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;cookies&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;cookies&quot;</span>)))]
     </span><span class="kw">pub fn </span>cookies&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>) -&gt; <span class="kw">impl </span>Iterator&lt;Item = cookie::Cookie&lt;<span class="lifetime">&#39;a</span>&gt;&gt; + <span class="lifetime">&#39;a </span>{
         cookie::extract_response_cookies(<span class="kw-2">&amp;</span><span class="self">self</span>.headers).filter_map(Result::ok)
     }
 
     <span class="doccomment">/// Get the final `Url` of this `Response`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>url(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Url {
         <span class="kw-2">&amp;</span><span class="self">self</span>.url
     }
@@ -707,7 +707,7 @@
     /// details please see [`serde_json::from_reader`].
     ///
     /// [`serde_json::from_reader`]: https://docs.serde.rs/serde_json/fn.from_reader.html
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;json&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;json&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;json&quot;</span>)))]
     </span><span class="kw">pub async fn </span>json&lt;T: DeserializeOwned&gt;(<span class="self">self</span>) -&gt; <span class="kw">crate</span>::Result&lt;T&gt; {
         <span class="kw">let </span>full = <span class="self">self</span>.bytes().<span class="kw">await</span><span class="question-mark">?</span>;
@@ -780,7 +780,7 @@
     /// # Optional
     ///
     /// This requires the optional `stream` feature to be enabled.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;stream&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;stream&quot;</span>)))]
     </span><span class="kw">pub fn </span>bytes_stream(<span class="self">self</span>) -&gt; <span class="kw">impl </span>futures_core::Stream&lt;Item = <span class="kw">crate</span>::Result&lt;Bytes&gt;&gt; {
         <span class="self">self</span>.body
@@ -853,7 +853,7 @@
     // on the `Response` itself.
     //
     // This method is just used by the blocking API.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;blocking&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;blocking&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>body_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>Decoder {
         <span class="kw-2">&amp;mut </span><span class="self">self</span>.body
     }
@@ -897,14 +897,14 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::Response;
     <span class="kw">use </span><span class="kw">crate</span>::ResponseBuilderExt;
     <span class="kw">use </span>http::response::Builder;
     <span class="kw">use </span>url::Url;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_from_http_response() {
         <span class="kw">let </span>url = Url::parse(<span class="string">&quot;http://example.com&quot;</span>).unwrap();
         <span class="kw">let </span>response = Builder::new()
@@ -919,4 +919,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="reqwest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="reqwest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

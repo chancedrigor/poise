@@ -230,7 +230,7 @@
 //!
 //! ```
 
-</span><span class="attribute">#![allow(warnings)]
+</span><span class="attr">#![allow(warnings)]
 #![forbid(unsafe_code)]
 #![no_std]
 
@@ -246,7 +246,7 @@
 <span class="doccomment">/// A list of flush types.
 ///
 /// See &lt;http://www.bolet.org/~pornin/deflate-flush.html&gt; for more in-depth info.
-</span><span class="attribute">#[repr(i32)]
+</span><span class="attr">#[repr(i32)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 </span><span class="kw">pub enum </span>MZFlush {
     <span class="doccomment">/// Don&#39;t force any flushing.
@@ -288,7 +288,7 @@
 ///
 /// These are emitted as the [`Ok`] side of a [`MZResult`] in the [`StreamResult`] returned from
 /// [`deflate::stream::deflate()`] or [`inflate::stream::inflate()`].
-</span><span class="attribute">#[repr(i32)]
+</span><span class="attr">#[repr(i32)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 </span><span class="kw">pub enum </span>MZStatus {
     <span class="doccomment">/// Operation succeeded.
@@ -312,7 +312,7 @@
 ///
 /// These are emitted as the [`Err`] side of a [`MZResult`] in the [`StreamResult`] returned from
 /// [`deflate::stream::deflate()`] or [`inflate::stream::inflate()`].
-</span><span class="attribute">#[repr(i32)]
+</span><span class="attr">#[repr(i32)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 </span><span class="kw">pub enum </span>MZError {
     <span class="doccomment">/// Unused
@@ -351,7 +351,7 @@
 }
 
 <span class="doccomment">/// How compressed data is wrapped.
-</span><span class="attribute">#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+</span><span class="attr">#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>DataFormat {
     <span class="doccomment">/// Wrapped using the [zlib](http://www.zlib.org/rfc-zlib.html) format.
@@ -384,7 +384,7 @@
 </span><span class="kw">pub type </span>MZResult = <span class="prelude-ty">Result</span>&lt;MZStatus, MZError&gt;;
 
 <span class="doccomment">/// A structure containg the result of a call to the inflate or deflate streaming functions.
-</span><span class="attribute">#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+</span><span class="attr">#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 </span><span class="kw">pub struct </span>StreamResult {
     <span class="doccomment">/// The number of bytes consumed from the input slice.
     </span><span class="kw">pub </span>bytes_consumed: usize,
@@ -395,7 +395,7 @@
 }
 
 <span class="kw">impl </span>StreamResult {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const fn </span>error(error: MZError) -&gt; StreamResult {
         StreamResult {
             bytes_consumed: <span class="number">0</span>,
@@ -417,4 +417,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="miniz_oxide" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="miniz_oxide" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

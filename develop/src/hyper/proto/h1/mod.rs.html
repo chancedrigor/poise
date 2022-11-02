@@ -119,13 +119,13 @@
 <span id="119">119</span>
 <span id="120">120</span>
 <span id="121">121</span>
-</pre><pre class="rust"><code><span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
+</pre><pre class="rust"><code><span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
 </span><span class="kw">use </span>std::{pin::Pin, time::Duration};
 
 <span class="kw">use </span>bytes::BytesMut;
 <span class="kw">use </span>http::{HeaderMap, Method};
 <span class="kw">use </span>httparse::ParserConfig;
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
 </span><span class="kw">use </span>tokio::time::Sleep;
 
 <span class="kw">use </span><span class="kw">crate</span>::body::DecodedLength;
@@ -185,7 +185,7 @@
 <span class="doccomment">/// Result newtype for Http1Transaction::parse.
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">type </span>ParseResult&lt;T&gt; = <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;ParsedMessage&lt;T&gt;&gt;, <span class="kw">crate</span>::error::Parse&gt;;
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>ParsedMessage&lt;T&gt; {
     head: MessageHead&lt;T&gt;,
     decode: DecodedLength,
@@ -198,17 +198,17 @@
     cached_headers: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="prelude-ty">Option</span>&lt;HeaderMap&gt;,
     req_method: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="prelude-ty">Option</span>&lt;Method&gt;,
     h1_parser_config: ParserConfig,
-    <span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
+    <span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
     </span>h1_header_read_timeout: <span class="prelude-ty">Option</span>&lt;Duration&gt;,
-    <span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
+    <span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
     </span>h1_header_read_timeout_fut: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="prelude-ty">Option</span>&lt;Pin&lt;Box&lt;Sleep&gt;&gt;&gt;,
-    <span class="attribute">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
+    <span class="attr">#[cfg(all(feature = <span class="string">&quot;server&quot;</span>, feature = <span class="string">&quot;runtime&quot;</span>))]
     </span>h1_header_read_timeout_running: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>bool,
     preserve_header_case: bool,
     h09_responses: bool,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
     </span>on_informational: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="prelude-ty">Option</span>&lt;<span class="kw">crate</span>::ffi::OnInformational&gt;,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
     </span>raw_headers: bool,
 }
 
@@ -216,14 +216,14 @@
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Encode&lt;<span class="lifetime">&#39;a</span>, T&gt; {
     head: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>MessageHead&lt;T&gt;,
     body: <span class="prelude-ty">Option</span>&lt;BodyLength&gt;,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;server&quot;</span>)]
     </span>keep_alive: bool,
     req_method: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="prelude-ty">Option</span>&lt;Method&gt;,
     title_case_headers: bool,
 }
 
 <span class="doccomment">/// Extra flags that a request &quot;wants&quot;, like expect-continue or upgrades.
-</span><span class="attribute">#[derive(Clone, Copy, Debug)]
+</span><span class="attr">#[derive(Clone, Copy, Debug)]
 </span><span class="kw">struct </span>Wants(u8);
 
 <span class="kw">impl </span>Wants {
@@ -231,7 +231,7 @@
     <span class="kw">const </span>EXPECT: Wants = Wants(<span class="number">0b01</span>);
     <span class="kw">const </span>UPGRADE: Wants = Wants(<span class="number">0b10</span>);
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">fn </span>add(<span class="self">self</span>, other: Wants) -&gt; Wants {
         Wants(<span class="self">self</span>.<span class="number">0 </span>| other.<span class="number">0</span>)
     }
@@ -241,4 +241,4 @@
     </span>}
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

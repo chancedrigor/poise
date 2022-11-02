@@ -690,7 +690,7 @@
 <span class="comment">// Any copyright to the test code below this comment is dedicated to the
 // Public Domain. http://creativecommons.org/publicdomain/zero/1.0/
 
-</span><span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
+</span><span class="attr">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::testing::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::<span class="kw-2">*</span>;
@@ -703,7 +703,7 @@
         encode(BIG5, string, expect);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_big5_decode() {
         <span class="comment">// Empty
         </span>decode_big5(<span class="string">b&quot;&quot;</span>, <span class="kw-2">&amp;</span><span class="string">&quot;&quot;</span>);
@@ -784,7 +784,7 @@
         decode_big5(<span class="kw-2">&amp;</span>[<span class="number">0x61u8</span>, <span class="number">0x81u8</span>], <span class="kw-2">&amp;</span><span class="string">&quot;\u{0061}\u{FFFD}&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_big5_encode() {
         <span class="comment">// Empty
         </span>encode_big5(<span class="string">&quot;&quot;</span>, <span class="string">b&quot;&quot;</span>);
@@ -816,7 +816,7 @@
         </span>encode_big5(<span class="string">&quot;\u{2550}&quot;</span>, <span class="string">b&quot;\xF9\xF9&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(miri, ignore)] </span><span class="comment">// Miri is too slow
     </span><span class="kw">fn </span>test_big5_decode_all() {
         <span class="kw">let </span>input = <span class="macro">include_bytes!</span>(<span class="string">&quot;test_data/big5_in.txt&quot;</span>);
@@ -826,7 +826,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>cow[..], expectation);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(miri, ignore)] </span><span class="comment">// Miri is too slow
     </span><span class="kw">fn </span>test_big5_encode_all() {
         <span class="kw">let </span>input = <span class="macro">include_str!</span>(<span class="string">&quot;test_data/big5_out.txt&quot;</span>);
@@ -837,7 +837,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>cow[..], <span class="kw-2">&amp;</span>expectation[..]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg_attr(miri, ignore)] </span><span class="comment">// Miri is too slow
     </span><span class="kw">fn </span>test_big5_encode_from_two_low_surrogates() {
         <span class="kw">let </span>expectation = <span class="string">b&quot;&amp;#65533;&amp;#65533;&quot;</span>;
@@ -853,4 +853,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="encoding_rs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="encoding_rs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

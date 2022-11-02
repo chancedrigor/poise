@@ -201,7 +201,7 @@
 ///
 /// [`ReseedingRng`]: crate::rngs::adapter::ReseedingRng
 /// [`StdRng`]: crate::rngs::StdRng
-</span><span class="attribute">#[cfg_attr(doc_cfg, doc(cfg(all(feature = <span class="string">&quot;std&quot;</span>, feature = <span class="string">&quot;std_rng&quot;</span>))))]
+</span><span class="attr">#[cfg_attr(doc_cfg, doc(cfg(all(feature = <span class="string">&quot;std&quot;</span>, feature = <span class="string">&quot;std_rng&quot;</span>))))]
 #[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>ThreadRng {
     <span class="comment">// Rc is explicitly !Send and !Sync
@@ -228,7 +228,7 @@
 /// `ThreadRng::default()` equivalent.
 ///
 /// For more information see [`ThreadRng`].
-</span><span class="attribute">#[cfg_attr(doc_cfg, doc(cfg(all(feature = <span class="string">&quot;std&quot;</span>, feature = <span class="string">&quot;std_rng&quot;</span>))))]
+</span><span class="attr">#[cfg_attr(doc_cfg, doc(cfg(all(feature = <span class="string">&quot;std&quot;</span>, feature = <span class="string">&quot;std_rng&quot;</span>))))]
 </span><span class="kw">pub fn </span>thread_rng() -&gt; ThreadRng {
     <span class="kw">let </span>rng = THREAD_RNG_KEY.with(|t| t.clone());
     ThreadRng { rng }
@@ -241,7 +241,7 @@
 }
 
 <span class="kw">impl </span>RngCore <span class="kw">for </span>ThreadRng {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>next_u32(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; u32 {
         <span class="comment">// SAFETY: We must make sure to stop using `rng` before anyone else
         // creates another mutable reference
@@ -249,7 +249,7 @@
         rng.next_u32()
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>next_u64(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; u64 {
         <span class="comment">// SAFETY: We must make sure to stop using `rng` before anyone else
         // creates another mutable reference
@@ -275,9 +275,9 @@
 <span class="kw">impl </span>CryptoRng <span class="kw">for </span>ThreadRng {}
 
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_thread_rng() {
         <span class="kw">use </span><span class="kw">crate</span>::Rng;
         <span class="kw">let </span><span class="kw-2">mut </span>r = <span class="kw">crate</span>::thread_rng();
@@ -286,4 +286,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rand" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rand" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

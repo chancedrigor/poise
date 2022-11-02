@@ -308,7 +308,7 @@
 <span class="comment">// ===== impl AsField =====
 
 </span><span class="kw">impl </span>AsField <span class="kw">for </span>Field {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>as_field(<span class="kw-2">&amp;</span><span class="self">self</span>, metadata: <span class="kw-2">&amp;</span>Metadata&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;Field&gt; {
         <span class="kw">if </span><span class="self">self</span>.callsite() == metadata.callsite() {
             <span class="prelude-val">Some</span>(<span class="self">self</span>.clone())
@@ -319,7 +319,7 @@
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; AsField <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Field {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>as_field(<span class="kw-2">&amp;</span><span class="self">self</span>, metadata: <span class="kw-2">&amp;</span>Metadata&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;Field&gt; {
         <span class="kw">if </span><span class="self">self</span>.callsite() == metadata.callsite() {
             <span class="prelude-val">Some</span>((<span class="kw-2">*</span><span class="self">self</span>).clone())
@@ -330,7 +330,7 @@
 }
 
 <span class="kw">impl </span>AsField <span class="kw">for </span>str {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>as_field(<span class="kw-2">&amp;</span><span class="self">self</span>, metadata: <span class="kw-2">&amp;</span>Metadata&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;Field&gt; {
         metadata.fields().field(<span class="kw-2">&amp;</span><span class="self">self</span>)
     }
@@ -340,4 +340,4 @@
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">crate</span>::sealed::Sealed <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Field {}
 <span class="kw">impl </span><span class="kw">crate</span>::sealed::Sealed <span class="kw">for </span>str {}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

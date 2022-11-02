@@ -93,7 +93,7 @@
 
 <span class="doccomment">/// An SSE accelerated vectorized substring search routine that only works on
 /// small needles.
-</span><span class="attribute">#[derive(Clone, Copy, Debug)]
+</span><span class="attr">#[derive(Clone, Copy, Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Forward(genericsimd::Forward);
 
 <span class="kw">impl </span>Forward {
@@ -109,12 +109,12 @@
     <span class="doccomment">/// Returns the minimum length of haystack that is needed for this searcher
     /// to work. Passing a haystack with a length smaller than this will cause
     /// `find` to panic.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>min_haystack_len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.<span class="number">0</span>.min_haystack_len::&lt;__m128i&gt;()
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>find(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         haystack: <span class="kw-2">&amp;</span>[u8],
@@ -132,7 +132,7 @@
     /// This is safe to call in all cases since sse2 is guaranteed to be part
     /// of x86_64. It is marked as unsafe because of the target feature
     /// attribute.
-    </span><span class="attribute">#[target_feature(enable = <span class="string">&quot;sse2&quot;</span>)]
+    </span><span class="attr">#[target_feature(enable = <span class="string">&quot;sse2&quot;</span>)]
     </span><span class="kw">unsafe fn </span>find_impl(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         haystack: <span class="kw-2">&amp;</span>[u8],
@@ -142,7 +142,7 @@
     }
 }
 
-<span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;std&quot;</span>, not(miri)))]
+<span class="attr">#[cfg(all(test, feature = <span class="string">&quot;std&quot;</span>, not(miri)))]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">crate</span>::memmem::{prefilter::PrefilterState, NeedleInfo};
 
@@ -155,7 +155,7 @@
         <span class="kw">super</span>::Forward::new(ninfo, needle).unwrap().find(haystack, needle)
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>prefilter_permutations() {
         <span class="kw">use </span><span class="kw">crate</span>::memmem::prefilter::tests::PrefilterTest;
 
@@ -177,4 +177,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="memchr" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="memchr" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

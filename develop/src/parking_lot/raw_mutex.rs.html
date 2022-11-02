@@ -393,7 +393,7 @@
 
     <span class="kw">type </span>GuardMarker = <span class="kw">crate</span>::GuardMarker;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>lock(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">if </span><span class="self">self
             </span>.state
@@ -405,7 +405,7 @@
         <span class="kw">unsafe </span>{ deadlock::acquire_resource(<span class="self">self </span><span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_ as </span>usize) };
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_lock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">let </span><span class="kw-2">mut </span>state = <span class="self">self</span>.state.load(Ordering::Relaxed);
         <span class="kw">loop </span>{
@@ -427,7 +427,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>unlock(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         deadlock::release_resource(<span class="self">self </span><span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_ as </span>usize);
         <span class="kw">if </span><span class="self">self
@@ -440,7 +440,7 @@
         <span class="self">self</span>.unlock_slow(<span class="bool-val">false</span>);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_locked(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">let </span>state = <span class="self">self</span>.state.load(Ordering::Relaxed);
         state &amp; LOCKED_BIT != <span class="number">0
@@ -448,7 +448,7 @@
 }
 
 <span class="kw">unsafe impl </span>lock_api::RawMutexFair <span class="kw">for </span>RawMutex {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>unlock_fair(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         deadlock::release_resource(<span class="self">self </span><span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_ as </span>usize);
         <span class="kw">if </span><span class="self">self
@@ -461,7 +461,7 @@
         <span class="self">self</span>.unlock_slow(<span class="bool-val">true</span>);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>bump(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">if </span><span class="self">self</span>.state.load(Ordering::Relaxed) &amp; PARKED_BIT != <span class="number">0 </span>{
             <span class="self">self</span>.bump_slow();
@@ -473,7 +473,7 @@
     <span class="kw">type </span>Duration = Duration;
     <span class="kw">type </span>Instant = Instant;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_lock_until(<span class="kw-2">&amp;</span><span class="self">self</span>, timeout: Instant) -&gt; bool {
         <span class="kw">let </span>result = <span class="kw">if </span><span class="self">self
             </span>.state
@@ -490,7 +490,7 @@
         result
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_lock_for(<span class="kw-2">&amp;</span><span class="self">self</span>, timeout: Duration) -&gt; bool {
         <span class="kw">let </span>result = <span class="kw">if </span><span class="self">self
             </span>.state
@@ -511,7 +511,7 @@
 <span class="kw">impl </span>RawMutex {
     <span class="comment">// Used by Condvar when requeuing threads to us, must be called while
     // holding the queue lock.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>mark_parked_if_locked(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">let </span><span class="kw-2">mut </span>state = <span class="self">self</span>.state.load(Ordering::Relaxed);
         <span class="kw">loop </span>{
@@ -532,12 +532,12 @@
 
     <span class="comment">// Used by Condvar when requeuing threads to us, must be called while
     // holding the queue lock.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>mark_parked(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="self">self</span>.state.fetch_or(PARKED_BIT, Ordering::Relaxed);
     }
 
-    <span class="attribute">#[cold]
+    <span class="attr">#[cold]
     </span><span class="kw">fn </span>lock_slow(<span class="kw-2">&amp;</span><span class="self">self</span>, timeout: <span class="prelude-ty">Option</span>&lt;Instant&gt;) -&gt; bool {
         <span class="kw">let </span><span class="kw-2">mut </span>spinwait = SpinWait::new();
         <span class="kw">let </span><span class="kw-2">mut </span>state = <span class="self">self</span>.state.load(Ordering::Relaxed);
@@ -619,7 +619,7 @@
         }
     }
 
-    <span class="attribute">#[cold]
+    <span class="attr">#[cold]
     </span><span class="kw">fn </span>unlock_slow(<span class="kw-2">&amp;</span><span class="self">self</span>, force_fair: bool) {
         <span class="comment">// Unpark one thread and leave the parked bit set if there might
         // still be parked threads on this address.
@@ -653,7 +653,7 @@
         }
     }
 
-    <span class="attribute">#[cold]
+    <span class="attr">#[cold]
     </span><span class="kw">fn </span>bump_slow(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{ deadlock::release_resource(<span class="self">self </span><span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_ as </span>usize) };
         <span class="self">self</span>.unlock_slow(<span class="bool-val">true</span>);
@@ -661,4 +661,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

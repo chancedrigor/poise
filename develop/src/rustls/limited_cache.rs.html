@@ -258,11 +258,11 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">type </span>Test = <span class="kw">super</span>::LimitedCache&lt;String, usize&gt;;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_updates_existing_item() {
         <span class="kw">let </span><span class="kw-2">mut </span>t = Test::new(<span class="number">3</span>);
         t.insert(<span class="string">&quot;abc&quot;</span>.into(), <span class="number">1</span>);
@@ -270,7 +270,7 @@
         <span class="macro">assert_eq!</span>(t.get(<span class="string">&quot;abc&quot;</span>), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="number">2</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_evicts_oldest_item() {
         <span class="kw">let </span><span class="kw-2">mut </span>t = Test::new(<span class="number">3</span>);
         t.insert(<span class="string">&quot;abc&quot;</span>.into(), <span class="number">1</span>);
@@ -282,7 +282,7 @@
         <span class="macro">assert_eq!</span>(t.get(<span class="string">&quot;ghi&quot;</span>), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="number">3</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_evicts_second_oldest_item_if_first_removed() {
         <span class="kw">let </span><span class="kw-2">mut </span>t = Test::new(<span class="number">3</span>);
         t.insert(<span class="string">&quot;abc&quot;</span>.into(), <span class="number">1</span>);
@@ -299,7 +299,7 @@
         <span class="macro">assert_eq!</span>(t.get(<span class="string">&quot;jkl&quot;</span>), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="number">4</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_evicts_after_second_oldest_item_removed() {
         <span class="kw">let </span><span class="kw-2">mut </span>t = Test::new(<span class="number">3</span>);
         t.insert(<span class="string">&quot;abc&quot;</span>.into(), <span class="number">1</span>);
@@ -317,7 +317,7 @@
         <span class="macro">assert_eq!</span>(t.get(<span class="string">&quot;jkl&quot;</span>), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="number">4</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_removes_all_items() {
         <span class="kw">let </span><span class="kw-2">mut </span>t = Test::new(<span class="number">3</span>);
         t.insert(<span class="string">&quot;abc&quot;</span>.into(), <span class="number">1</span>);
@@ -337,7 +337,7 @@
         <span class="macro">assert_eq!</span>(t.get(<span class="string">&quot;mno&quot;</span>), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="number">5</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_inserts_many_items() {
         <span class="kw">let </span><span class="kw-2">mut </span>t = Test::new(<span class="number">3</span>);
 
@@ -349,4 +349,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

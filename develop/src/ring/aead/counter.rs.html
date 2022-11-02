@@ -127,7 +127,7 @@
 <span class="doccomment">/// A generator of a monotonically increasing series of `Iv`s.
 ///
 /// Intentionally not `Clone` to ensure counters aren&#39;t forked.
-</span><span class="attribute">#[repr(C)]
+</span><span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>Counter&lt;U32&gt; {
     u32s: [U32; COUNTER_LEN],
 }
@@ -149,7 +149,7 @@
         <span class="self">Self</span>::new(nonce, <span class="number">1</span>)
     }
 
-    <span class="attribute">#[cfg(test)]
+    <span class="attr">#[cfg(test)]
     </span><span class="kw">pub fn </span>from_test_vector(nonce: <span class="kw-2">&amp;</span>[u8], initial_counter: u32) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(
             Nonce::try_assume_unique_for_key(nonce).unwrap(),
@@ -173,14 +173,14 @@
         r
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>increment(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; Iv {
         <span class="kw">let </span>current = <span class="self">Self </span>{ u32s: <span class="self">self</span>.u32s };
         <span class="self">self</span>.increment_by_less_safe(<span class="number">1</span>);
         current.into()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>increment_by_less_safe(<span class="kw-2">&amp;mut </span><span class="self">self</span>, increment_by: u32) {
         <span class="kw">let </span>counter = <span class="kw-2">&amp;mut </span><span class="self">self</span>.u32s[U32::COUNTER_INDEX];
         <span class="kw">let </span>old_value: u32 = (<span class="kw-2">*</span>counter).into();
@@ -209,4 +209,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

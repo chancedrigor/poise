@@ -646,7 +646,7 @@
 ///
 /// Most users will not need think about this struct in any way. It is public to allow for manual
 /// control over values, in the instance that the default parser is insufficient.
-</span><span class="attribute">#[derive(Debug, Clone, Copy)]
+</span><span class="attr">#[derive(Debug, Clone, Copy)]
 </span><span class="kw">pub struct </span>Parsed {
     <span class="doccomment">/// Calendar year.
     </span>year: <span class="prelude-ty">Option</span>&lt;i32&gt;,
@@ -911,7 +911,7 @@
     }
 
     <span class="doccomment">/// Obtain the absolute value of the offset minute.
-    </span><span class="attribute">#[deprecated(since = <span class="string">&quot;0.3.8&quot;</span>, note = <span class="string">&quot;use `parsed.offset_minute_signed()` instead&quot;</span>)]
+    </span><span class="attr">#[deprecated(since = <span class="string">&quot;0.3.8&quot;</span>, note = <span class="string">&quot;use `parsed.offset_minute_signed()` instead&quot;</span>)]
     </span><span class="kw">pub const fn </span>offset_minute(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;u8&gt; {
         <span class="prelude-val">Some</span>(<span class="macro">const_try_opt!</span>(<span class="self">self</span>.offset_minute_signed()).unsigned_abs())
     }
@@ -922,7 +922,7 @@
     }
 
     <span class="doccomment">/// Obtain the absolute value of the offset second.
-    </span><span class="attribute">#[deprecated(since = <span class="string">&quot;0.3.8&quot;</span>, note = <span class="string">&quot;use `parsed.offset_second_signed()` instead&quot;</span>)]
+    </span><span class="attr">#[deprecated(since = <span class="string">&quot;0.3.8&quot;</span>, note = <span class="string">&quot;use `parsed.offset_second_signed()` instead&quot;</span>)]
     </span><span class="kw">pub const fn </span>offset_second(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;u8&gt; {
         <span class="prelude-val">Some</span>(<span class="macro">const_try_opt!</span>(<span class="self">self</span>.offset_second_signed()).unsigned_abs())
     }
@@ -978,7 +978,7 @@
     }
 
     <span class="doccomment">/// Set the named component.
-    </span><span class="attribute">#[deprecated(
+    </span><span class="attr">#[deprecated(
         since = <span class="string">&quot;0.3.8&quot;</span>,
         note = <span class="string">&quot;use `parsed.set_offset_minute_signed()` instead&quot;
     </span>)]
@@ -997,7 +997,7 @@
     }
 
     <span class="doccomment">/// Set the named component.
-    </span><span class="attribute">#[deprecated(
+    </span><span class="attr">#[deprecated(
         since = <span class="string">&quot;0.3.8&quot;</span>,
         note = <span class="string">&quot;use `parsed.set_offset_second_signed()` instead&quot;
     </span>)]
@@ -1061,7 +1061,7 @@
     }
 
     <span class="doccomment">/// Set the named component and return `self`.
-    </span><span class="attribute">#[deprecated(
+    </span><span class="attr">#[deprecated(
         since = <span class="string">&quot;0.3.8&quot;</span>,
         note = <span class="string">&quot;use `parsed.with_offset_minute_signed()` instead&quot;
     </span>)]
@@ -1080,7 +1080,7 @@
     }
 
     <span class="doccomment">/// Set the named component and return `self`.
-    </span><span class="attribute">#[deprecated(
+    </span><span class="attr">#[deprecated(
         since = <span class="string">&quot;0.3.8&quot;</span>,
         note = <span class="string">&quot;use `parsed.with_offset_second_signed()` instead&quot;
     </span>)]
@@ -1220,7 +1220,7 @@
 <span class="kw">impl </span>TryFrom&lt;Parsed&gt; <span class="kw">for </span>OffsetDateTime {
     <span class="kw">type </span>Error = error::TryFromParsed;
 
-    <span class="attribute">#[allow(clippy::unwrap_in_result)] </span><span class="comment">// We know the values are valid.
+    <span class="attr">#[allow(clippy::unwrap_in_result)] </span><span class="comment">// We know the values are valid.
     </span><span class="kw">fn </span>try_from(<span class="kw-2">mut </span>parsed: Parsed) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
         <span class="comment">// Some well-known formats explicitly allow leap seconds. We don&#39;t currently support them,
         // so treat it as the nearest preceding moment that can be represented. Because leap seconds
@@ -1250,4 +1250,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

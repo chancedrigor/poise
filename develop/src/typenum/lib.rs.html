@@ -229,7 +229,7 @@
 //!
 //! Documented in each module is the full list of type operators implemented.
 
-</span><span class="attribute">#![no_std]
+</span><span class="attr">#![no_std]
 #![forbid(unsafe_code)]
 #![warn(missing_docs)]
 #![cfg_attr(feature = <span class="string">&quot;strict&quot;</span>, deny(missing_docs))]
@@ -254,13 +254,13 @@
 
 </span><span class="kw">use </span>core::cmp::Ordering;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;force_unix_path_separator&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;force_unix_path_separator&quot;</span>)]
 </span><span class="kw">mod </span>generated {
     <span class="macro">include!</span>(<span class="macro">concat!</span>(<span class="macro">env!</span>(<span class="string">&quot;OUT_DIR&quot;</span>), <span class="string">&quot;/op.rs&quot;</span>));
     <span class="macro">include!</span>(<span class="macro">concat!</span>(<span class="macro">env!</span>(<span class="string">&quot;OUT_DIR&quot;</span>), <span class="string">&quot;/consts.rs&quot;</span>));
 }
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;force_unix_path_separator&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;force_unix_path_separator&quot;</span>))]
 </span><span class="kw">mod </span>generated {
     <span class="macro">include!</span>(<span class="macro">env!</span>(<span class="string">&quot;TYPENUM_BUILD_OP&quot;</span>));
     <span class="macro">include!</span>(<span class="macro">env!</span>(<span class="string">&quot;TYPENUM_BUILD_CONSTS&quot;</span>));
@@ -289,25 +289,25 @@
 
 <span class="doccomment">/// A potential output from `Cmp`, this is the type equivalent to the enum variant
 /// `core::cmp::Ordering::Greater`.
-</span><span class="attribute">#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug, Default)]
+</span><span class="attr">#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug, Default)]
 #[cfg_attr(feature = <span class="string">&quot;scale_info&quot;</span>, derive(scale_info::TypeInfo))]
 </span><span class="kw">pub struct </span>Greater;
 
 <span class="doccomment">/// A potential output from `Cmp`, this is the type equivalent to the enum variant
 /// `core::cmp::Ordering::Less`.
-</span><span class="attribute">#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug, Default)]
+</span><span class="attr">#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug, Default)]
 #[cfg_attr(feature = <span class="string">&quot;scale_info&quot;</span>, derive(scale_info::TypeInfo))]
 </span><span class="kw">pub struct </span>Less;
 
 <span class="doccomment">/// A potential output from `Cmp`, this is the type equivalent to the enum variant
 /// `core::cmp::Ordering::Equal`.
-</span><span class="attribute">#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug, Default)]
+</span><span class="attr">#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug, Default)]
 #[cfg_attr(feature = <span class="string">&quot;scale_info&quot;</span>, derive(scale_info::TypeInfo))]
 </span><span class="kw">pub struct </span>Equal;
 
 <span class="doccomment">/// Returns `core::cmp::Ordering::Greater`
 </span><span class="kw">impl </span>Ord <span class="kw">for </span>Greater {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_ordering() -&gt; Ordering {
         Ordering::Greater
     }
@@ -315,7 +315,7 @@
 
 <span class="doccomment">/// Returns `core::cmp::Ordering::Less`
 </span><span class="kw">impl </span>Ord <span class="kw">for </span>Less {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_ordering() -&gt; Ordering {
         Ordering::Less
     }
@@ -323,14 +323,14 @@
 
 <span class="doccomment">/// Returns `core::cmp::Ordering::Equal`
 </span><span class="kw">impl </span>Ord <span class="kw">for </span>Equal {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_ordering() -&gt; Ordering {
         Ordering::Equal
     }
 }
 
 <span class="doccomment">/// Asserts that two types are the same.
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>assert_type_eq {
     (<span class="macro-nonterminal">$a</span>:ty, <span class="macro-nonterminal">$b</span>:ty) =&gt; {
         <span class="kw">const _</span>: core::marker::PhantomData&lt;&lt;<span class="macro-nonterminal">$a </span><span class="kw">as </span><span class="macro-nonterminal">$crate::Same</span>&lt;<span class="macro-nonterminal">$b</span>&gt;&gt;::Output&gt; =
@@ -339,7 +339,7 @@
 }
 
 <span class="doccomment">/// Asserts that a type is `True`, aka `B1`.
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>assert_type {
     (<span class="macro-nonterminal">$a</span>:ty) =&gt; {
         <span class="kw">const _</span>: core::marker::PhantomData&lt;&lt;<span class="macro-nonterminal">$a </span><span class="kw">as </span><span class="macro-nonterminal">$crate::Same</span>&lt;True&gt;&gt;::Output&gt; =
@@ -373,4 +373,4 @@
     <span class="kw">impl</span>&lt;V, A&gt; Sealed <span class="kw">for </span>TArr&lt;V, A&gt; {}
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="typenum" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="typenum" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -515,7 +515,7 @@
 /// assert!(Method::GET.is_idempotent());
 /// assert_eq!(Method::POST.as_str(), &quot;POST&quot;);
 /// ```
-</span><span class="attribute">#[derive(Clone, PartialEq, Eq, Hash)]
+</span><span class="attr">#[derive(Clone, PartialEq, Eq, Hash)]
 </span><span class="kw">pub struct </span>Method(Inner);
 
 <span class="doccomment">/// A possible error value when converting `Method` from bytes.
@@ -523,7 +523,7 @@
     _priv: (),
 }
 
-<span class="attribute">#[derive(Clone, PartialEq, Eq, Hash)]
+<span class="attr">#[derive(Clone, PartialEq, Eq, Hash)]
 </span><span class="kw">enum </span>Inner {
     Options,
     Get,
@@ -640,7 +640,7 @@
     }
 
     <span class="doccomment">/// Return a &amp;str representation of the HTTP method
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>as_str(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="kw">match </span><span class="self">self</span>.<span class="number">0 </span>{
             Options =&gt; <span class="string">&quot;OPTIONS&quot;</span>,
@@ -659,49 +659,49 @@
 }
 
 <span class="kw">impl </span>AsRef&lt;str&gt; <span class="kw">for </span>Method {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>as_ref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="self">self</span>.as_str()
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; PartialEq&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Method&gt; <span class="kw">for </span>Method {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: &amp;&amp;<span class="lifetime">&#39;a </span>Method) -&gt; bool {
         <span class="self">self </span>== <span class="kw-2">*</span>other
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; PartialEq&lt;Method&gt; <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Method {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Method) -&gt; bool {
         <span class="kw-2">*</span><span class="self">self </span>== other
     }
 }
 
 <span class="kw">impl </span>PartialEq&lt;str&gt; <span class="kw">for </span>Method {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>str) -&gt; bool {
         <span class="self">self</span>.as_ref() == other
     }
 }
 
 <span class="kw">impl </span>PartialEq&lt;Method&gt; <span class="kw">for </span>str {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Method) -&gt; bool {
         <span class="self">self </span>== other.as_ref()
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; PartialEq&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt; <span class="kw">for </span>Method {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: &amp;&amp;<span class="lifetime">&#39;a </span>str) -&gt; bool {
         <span class="self">self</span>.as_ref() == <span class="kw-2">*</span>other
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; PartialEq&lt;Method&gt; <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Method) -&gt; bool {
         <span class="kw-2">*</span><span class="self">self </span>== other.as_ref()
     }
@@ -720,14 +720,14 @@
 }
 
 <span class="kw">impl </span>Default <span class="kw">for </span>Method {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>default() -&gt; Method {
         Method::GET
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; From&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Method&gt; <span class="kw">for </span>Method {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(t: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Method) -&gt; <span class="self">Self </span>{
         t.clone()
     }
@@ -736,7 +736,7 @@
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; TryFrom&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]&gt; <span class="kw">for </span>Method {
     <span class="kw">type </span>Error = InvalidMethod;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_from(t: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
         Method::from_bytes(t)
     }
@@ -745,7 +745,7 @@
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; TryFrom&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt; <span class="kw">for </span>Method {
     <span class="kw">type </span>Error = InvalidMethod;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_from(t: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
         TryFrom::try_from(t.as_bytes())
     }
@@ -754,7 +754,7 @@
 <span class="kw">impl </span>FromStr <span class="kw">for </span>Method {
     <span class="kw">type </span><span class="prelude-val">Err </span>= InvalidMethod;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from_str(t: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Err&gt; {
         TryFrom::try_from(t)
     }
@@ -786,11 +786,11 @@
     <span class="kw">use </span><span class="kw">super</span>::InvalidMethod;
     <span class="kw">use </span>std::str;
 
-    <span class="attribute">#[derive(Clone, PartialEq, Eq, Hash)]
+    <span class="attr">#[derive(Clone, PartialEq, Eq, Hash)]
     </span><span class="comment">// Invariant: the first self.1 bytes of self.0 are valid UTF-8.
     </span><span class="kw">pub struct </span>InlineExtension([u8; InlineExtension::MAX], u8);
 
-    <span class="attribute">#[derive(Clone, PartialEq, Eq, Hash)]
+    <span class="attr">#[derive(Clone, PartialEq, Eq, Hash)]
     </span><span class="comment">// Invariant: self.0 contains valid UTF-8.
     </span><span class="kw">pub struct </span>AllocatedExtension(Box&lt;[u8]&gt;);
 
@@ -896,11 +896,11 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_method_eq() {
         <span class="macro">assert_eq!</span>(Method::GET, Method::GET);
         <span class="macro">assert_eq!</span>(Method::GET, <span class="string">&quot;GET&quot;</span>);
@@ -913,7 +913,7 @@
         <span class="macro">assert_eq!</span>(Method::GET, <span class="kw-2">&amp;</span>Method::GET);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_invalid_method() {
         <span class="macro">assert!</span>(Method::from_str(<span class="string">&quot;&quot;</span>).is_err());
         <span class="macro">assert!</span>(Method::from_bytes(<span class="string">b&quot;&quot;</span>).is_err());
@@ -921,7 +921,7 @@
         </span><span class="macro">assert!</span>(Method::from_bytes(<span class="kw-2">&amp;</span>[<span class="number">0x10</span>]).is_err()); <span class="comment">// invalid method characters
     </span>}
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_is_idempotent() {
         <span class="macro">assert!</span>(Method::OPTIONS.is_idempotent());
         <span class="macro">assert!</span>(Method::GET.is_idempotent());
@@ -935,7 +935,7 @@
         <span class="macro">assert!</span>(!Method::PATCH.is_idempotent());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_extention_method() {
         <span class="macro">assert_eq!</span>(Method::from_str(<span class="string">&quot;WOW&quot;</span>).unwrap(), <span class="string">&quot;WOW&quot;</span>);
         <span class="macro">assert_eq!</span>(Method::from_str(<span class="string">&quot;wOw!!&quot;</span>).unwrap(), <span class="string">&quot;wOw!!&quot;</span>);
@@ -945,4 +945,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="http" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="http" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

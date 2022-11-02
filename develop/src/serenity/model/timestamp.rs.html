@@ -343,7 +343,7 @@
 </span><span class="kw">const </span>DISCORD_EPOCH: u64 = <span class="number">1_420_070_400_000</span>;
 
 <span class="macro">cfg_if::cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;chrono&quot;</span>, not(feature = <span class="string">&quot;time&quot;</span>)))] </span>{
+    <span class="kw">if </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;chrono&quot;</span>, not(feature = <span class="string">&quot;time&quot;</span>)))] </span>{
         <span class="kw">use </span>chrono::{DateTime, NaiveDateTime, ParseError <span class="kw">as </span>InnerError, SecondsFormat, TimeZone, Utc};
 
         <span class="doccomment">/// Representation of a Unix timestamp.
@@ -359,7 +359,7 @@
         /// assert_eq!(timestamp.unix_timestamp(), 1462015105);
         /// assert_eq!(timestamp.to_string(), &quot;2016-04-30T11:18:25.796Z&quot;);
         /// ```
-        </span><span class="attribute">#[derive(Debug, Clone, Copy, Eq, PartialEq, Deserialize, Serialize, Ord, PartialOrd)]
+        </span><span class="attr">#[derive(Debug, Clone, Copy, Eq, PartialEq, Deserialize, Serialize, Ord, PartialOrd)]
         #[serde(transparent)]
         </span><span class="kw">pub struct </span>Timestamp(DateTime&lt;Utc&gt;);
 
@@ -369,7 +369,7 @@
             }
 
             <span class="doccomment">/// Create a new `Timestamp` with the current date and time in UTC.
-            </span><span class="attribute">#[must_use]
+            </span><span class="attr">#[must_use]
             </span><span class="kw">pub fn </span>now() -&gt; <span class="self">Self </span>{
                 <span class="self">Self</span>(Utc::now())
             }
@@ -385,7 +385,7 @@
             }
 
             <span class="doccomment">/// Returns the number of non-leap seconds since January 1, 1970 0:00:00 UTC
-            </span><span class="attribute">#[must_use]
+            </span><span class="attr">#[must_use]
             </span><span class="kw">pub fn </span>unix_timestamp(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i64 {
                 <span class="self">self</span>.<span class="number">0</span>.timestamp()
             }
@@ -437,9 +437,9 @@
         /// assert_eq!(timestamp.unix_timestamp(), 1462015105);
         /// assert_eq!(timestamp.to_string(), &quot;2016-04-30T11:18:25.796Z&quot;);
         /// ```
-        </span><span class="attribute">#[derive(Debug, Clone, Copy, Eq, PartialEq, Deserialize, Serialize, Ord, PartialOrd)]
+        </span><span class="attr">#[derive(Debug, Clone, Copy, Eq, PartialEq, Deserialize, Serialize, Ord, PartialOrd)]
         #[serde(transparent)]
-        </span><span class="kw">pub struct </span>Timestamp(<span class="attribute">#[serde(with = <span class="string">&quot;rfc3339&quot;</span>)] </span>OffsetDateTime);
+        </span><span class="kw">pub struct </span>Timestamp(<span class="attr">#[serde(with = <span class="string">&quot;rfc3339&quot;</span>)] </span>OffsetDateTime);
 
 
         <span class="kw">impl </span>Timestamp {
@@ -451,7 +451,7 @@
             }
 
             <span class="doccomment">/// Create a new `Timestamp` with the current date and time in UTC.
-            </span><span class="attribute">#[must_use]
+            </span><span class="attr">#[must_use]
             </span><span class="kw">pub fn </span>now() -&gt; <span class="self">Self </span>{
                 <span class="self">Self</span>(OffsetDateTime::now_utc())
             }
@@ -468,7 +468,7 @@
             }
 
             <span class="doccomment">/// Returns the number of non-leap seconds since January 1, 1970 0:00:00 UTC
-            </span><span class="attribute">#[must_use]
+            </span><span class="attr">#[must_use]
             </span><span class="kw">pub fn </span>unix_timestamp(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i64 {
                 <span class="self">self</span>.<span class="number">0</span>.unix_timestamp()
             }
@@ -505,7 +505,7 @@
 }
 
 <span class="macro">cfg_if::cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(feature = <span class="string">&quot;time&quot;</span>)] </span>{
+    <span class="kw">if </span><span class="attr">#[cfg(feature = <span class="string">&quot;time&quot;</span>)] </span>{
         <span class="kw">impl </span>std::ops::Deref <span class="kw">for </span>Timestamp {
             <span class="kw">type </span>Target = OffsetDateTime;
 
@@ -519,7 +519,7 @@
                 <span class="self">Self</span>(dt)
             }
         }
-    } <span class="kw">else if </span><span class="attribute">#[cfg(feature = <span class="string">&quot;chrono&quot;</span>)] </span>{
+    } <span class="kw">else if </span><span class="attr">#[cfg(feature = <span class="string">&quot;chrono&quot;</span>)] </span>{
         <span class="kw">impl </span>std::ops::Deref <span class="kw">for </span>Timestamp {
             <span class="kw">type </span>Target = DateTime&lt;Utc&gt;;
 
@@ -536,7 +536,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>InvalidTimestamp;
 
 <span class="kw">impl </span>std::error::Error <span class="kw">for </span>InvalidTimestamp {}
@@ -548,7 +548,7 @@
 }
 
 <span class="doccomment">/// Signifies the failure to parse the `Timestamp` from an RFC 3339 string.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ParseError(InnerError);
 
 <span class="kw">impl </span>std::error::Error <span class="kw">for </span>ParseError {}
@@ -572,7 +572,7 @@
     ///
     /// Panics on invalid value.
     </span><span class="kw">fn </span>from(s: String) -&gt; <span class="self">Self </span>{
-        <span class="attribute">#[allow(clippy::unwrap_used)]
+        <span class="attr">#[allow(clippy::unwrap_used)]
         </span>Timestamp::parse(<span class="kw-2">&amp;</span>s).unwrap()
     }
 }
@@ -582,7 +582,7 @@
     ///
     /// Panics on invalid value.
     </span><span class="kw">fn </span>from(s: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; <span class="self">Self </span>{
-        <span class="attribute">#[allow(clippy::unwrap_used)]
+        <span class="attr">#[allow(clippy::unwrap_used)]
         </span>Timestamp::parse(s).unwrap()
     }
 }
@@ -593,11 +593,11 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::Timestamp;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>from_unix_timestamp() {
         <span class="kw">let </span>timestamp = Timestamp::from_unix_timestamp(<span class="number">1462015105</span>).unwrap();
         <span class="macro">assert_eq!</span>(timestamp.unix_timestamp(), <span class="number">1462015105</span>);
@@ -609,4 +609,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

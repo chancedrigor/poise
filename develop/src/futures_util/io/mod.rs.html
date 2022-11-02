@@ -854,7 +854,7 @@
 //! This module is only available when the `std` feature of this
 //! library is activated, and it is activated by default.
 
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;io-compat&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;io-compat&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;io-compat&quot;</span>)))]
 </span><span class="kw">use </span><span class="kw">crate</span>::compat::Compat;
 <span class="kw">use </span><span class="kw">crate</span>::future::assert_future;
@@ -863,7 +863,7 @@
 
 <span class="comment">// Re-export some types from `std::io` so that users don&#39;t have to deal
 // with conflicts when `use`ing `futures::io` and `std::io`.
-</span><span class="attribute">#[doc(no_inline)]
+</span><span class="attr">#[doc(no_inline)]
 </span><span class="kw">pub use </span>std::io::{Error, ErrorKind, IoSlice, IoSliceMut, <span class="prelude-ty">Result</span>, SeekFrom};
 
 <span class="kw">pub use </span>futures_io::{AsyncBufRead, AsyncRead, AsyncSeek, AsyncWrite};
@@ -875,7 +875,7 @@
 <span class="doccomment">/// Initializes a buffer if necessary.
 ///
 /// A buffer is currently always initialized.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">unsafe fn </span>initialize&lt;R: AsyncRead&gt;(_reader: <span class="kw-2">&amp;</span>R, buf: <span class="kw-2">&amp;mut </span>[u8]) {
     ptr::write_bytes(buf.as_mut_ptr(), <span class="number">0</span>, buf.len())
 }
@@ -916,10 +916,10 @@
 <span class="kw">mod </span>flush;
 <span class="kw">pub use </span><span class="self">self</span>::flush::Flush;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;sink&quot;</span>)))]
 </span><span class="kw">mod </span>into_sink;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;sink&quot;</span>)))]
 </span><span class="kw">pub use </span><span class="self">self</span>::into_sink::IntoSink;
 
@@ -974,9 +974,9 @@
 <span class="kw">mod </span>write_all;
 <span class="kw">pub use </span><span class="self">self</span>::write_all::WriteAll;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;write-all-vectored&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;write-all-vectored&quot;</span>)]
 </span><span class="kw">mod </span>write_all_vectored;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;write-all-vectored&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;write-all-vectored&quot;</span>)]
 </span><span class="kw">pub use </span><span class="self">self</span>::write_all_vectored::WriteAllVectored;
 
 <span class="doccomment">/// An extension trait which adds utility methods to `AsyncRead` types.
@@ -1220,7 +1220,7 @@
     /// futures 0.1 / tokio 0.1 `AsyncWrite` trait.
     ///
     /// Requires the `io-compat` feature to enable.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;io-compat&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;io-compat&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;io-compat&quot;</span>)))]
     </span><span class="kw">fn </span>compat(<span class="self">self</span>) -&gt; Compat&lt;<span class="self">Self</span>&gt;
     <span class="kw">where
@@ -1365,7 +1365,7 @@
     /// assert_eq!(writer.into_inner(), &amp;[1, 2, 3, 4, 5, 6]);
     /// # Ok::&lt;(), Box&lt;dyn std::error::Error&gt;&gt;(()) }).unwrap();
     /// ```
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;write-all-vectored&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;write-all-vectored&quot;</span>)]
     </span><span class="kw">fn </span>write_all_vectored&lt;<span class="lifetime">&#39;a</span>&gt;(
         <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="self">self</span>,
         bufs: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>[IoSlice&lt;<span class="lifetime">&#39;a</span>&gt;],
@@ -1379,7 +1379,7 @@
     <span class="doccomment">/// Wraps an [`AsyncWrite`] in a compatibility wrapper that allows it to be
     /// used as a futures 0.1 / tokio-io 0.1 `AsyncWrite`.
     /// Requires the `io-compat` feature to enable.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;io-compat&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;io-compat&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;io-compat&quot;</span>)))]
     </span><span class="kw">fn </span>compat_write(<span class="self">self</span>) -&gt; Compat&lt;<span class="self">Self</span>&gt;
     <span class="kw">where
@@ -1414,7 +1414,7 @@
     /// # })?;
     /// # Ok::&lt;(), Box&lt;dyn std::error::Error&gt;&gt;(())
     /// ```
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;sink&quot;</span>)))]
     </span><span class="kw">fn </span>into_sink&lt;Item: AsRef&lt;[u8]&gt;&gt;(<span class="self">self</span>) -&gt; IntoSink&lt;<span class="self">Self</span>, Item&gt;
     <span class="kw">where
@@ -1675,4 +1675,4 @@
     writer
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

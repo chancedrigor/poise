@@ -194,7 +194,7 @@
 <span class="doccomment">/// The QuickCheck algorithm can quickly determine if a text is or isn&#39;t
 /// normalized without any allocations in many cases, but it has to be able to
 /// return `Maybe` when a full decomposition and recomposition is necessary.
-</span><span class="attribute">#[derive(Debug, Eq, PartialEq)]
+</span><span class="attr">#[derive(Debug, Eq, PartialEq)]
 </span><span class="kw">pub enum </span>IsNormalized {
     <span class="doccomment">/// The text is definitely normalized.
     </span>Yes,
@@ -205,7 +205,7 @@
 }
 
 <span class="comment">// https://unicode.org/reports/tr15/#Detecting_Normalization_Forms
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>quick_check&lt;F, I&gt;(s: I, is_allowed: F, stream_safe: bool) -&gt; IsNormalized
 <span class="kw">where
     </span>I: Iterator&lt;Item = char&gt;,
@@ -256,43 +256,43 @@
 <span class="doccomment">/// Quickly check if a string is in NFC, potentially returning
 /// `IsNormalized::Maybe` if further checks are necessary.  In this case a check
 /// like `s.chars().nfc().eq(s.chars())` should suffice.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>is_nfc_quick&lt;I: Iterator&lt;Item = char&gt;&gt;(s: I) -&gt; IsNormalized {
     quick_check(s, tables::qc_nfc, <span class="bool-val">false</span>)
 }
 
 <span class="doccomment">/// Quickly check if a string is in NFKC.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>is_nfkc_quick&lt;I: Iterator&lt;Item = char&gt;&gt;(s: I) -&gt; IsNormalized {
     quick_check(s, tables::qc_nfkc, <span class="bool-val">false</span>)
 }
 
 <span class="doccomment">/// Quickly check if a string is in NFD.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>is_nfd_quick&lt;I: Iterator&lt;Item = char&gt;&gt;(s: I) -&gt; IsNormalized {
     quick_check(s, tables::qc_nfd, <span class="bool-val">false</span>)
 }
 
 <span class="doccomment">/// Quickly check if a string is in NFKD.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>is_nfkd_quick&lt;I: Iterator&lt;Item = char&gt;&gt;(s: I) -&gt; IsNormalized {
     quick_check(s, tables::qc_nfkd, <span class="bool-val">false</span>)
 }
 
 <span class="doccomment">/// Quickly check if a string is Stream-Safe NFC.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>is_nfc_stream_safe_quick&lt;I: Iterator&lt;Item = char&gt;&gt;(s: I) -&gt; IsNormalized {
     quick_check(s, tables::qc_nfc, <span class="bool-val">true</span>)
 }
 
 <span class="doccomment">/// Quickly check if a string is Stream-Safe NFD.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>is_nfd_stream_safe_quick&lt;I: Iterator&lt;Item = char&gt;&gt;(s: I) -&gt; IsNormalized {
     quick_check(s, tables::qc_nfd, <span class="bool-val">true</span>)
 }
 
 <span class="doccomment">/// Authoritatively check if a string is in NFC.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>is_nfc(s: <span class="kw-2">&amp;</span>str) -&gt; bool {
     <span class="kw">match </span>is_nfc_quick(s.chars()) {
         IsNormalized::Yes =&gt; <span class="bool-val">true</span>,
@@ -302,7 +302,7 @@
 }
 
 <span class="doccomment">/// Authoritatively check if a string is in NFKC.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>is_nfkc(s: <span class="kw-2">&amp;</span>str) -&gt; bool {
     <span class="kw">match </span>is_nfkc_quick(s.chars()) {
         IsNormalized::Yes =&gt; <span class="bool-val">true</span>,
@@ -312,7 +312,7 @@
 }
 
 <span class="doccomment">/// Authoritatively check if a string is in NFD.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>is_nfd(s: <span class="kw-2">&amp;</span>str) -&gt; bool {
     <span class="kw">match </span>is_nfd_quick(s.chars()) {
         IsNormalized::Yes =&gt; <span class="bool-val">true</span>,
@@ -322,7 +322,7 @@
 }
 
 <span class="doccomment">/// Authoritatively check if a string is in NFKD.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>is_nfkd(s: <span class="kw-2">&amp;</span>str) -&gt; bool {
     <span class="kw">match </span>is_nfkd_quick(s.chars()) {
         IsNormalized::Yes =&gt; <span class="bool-val">true</span>,
@@ -332,7 +332,7 @@
 }
 
 <span class="doccomment">/// Authoritatively check if a string is Stream-Safe NFC.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>is_nfc_stream_safe(s: <span class="kw-2">&amp;</span>str) -&gt; bool {
     <span class="kw">match </span>is_nfc_stream_safe_quick(s.chars()) {
         IsNormalized::Yes =&gt; <span class="bool-val">true</span>,
@@ -342,7 +342,7 @@
 }
 
 <span class="doccomment">/// Authoritatively check if a string is Stream-Safe NFD.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>is_nfd_stream_safe(s: <span class="kw-2">&amp;</span>str) -&gt; bool {
     <span class="kw">match </span>is_nfd_stream_safe_quick(s.chars()) {
         IsNormalized::Yes =&gt; <span class="bool-val">true</span>,
@@ -351,11 +351,11 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::{is_nfc_stream_safe_quick, is_nfd_stream_safe_quick, IsNormalized};
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_stream_safe_nfd() {
         <span class="kw">let </span>okay = <span class="string">&quot;Da\u{031b}\u{0316}\u{0317}\u{0318}\u{0319}\u{031c}\u{031d}\u{0300}\u{0301}\u{0302}\u{0303}\u{0304}\u{0305}\u{0306}\u{0307}\u{0308}\u{0309}\u{030a}\u{030b}\u{030c}\u{030d}\u{030e}\u{030f}\u{0310}\u{0311}\u{0312}\u{0313}\u{0314}\u{0315}\u{031a}ngerzone&quot;</span>;
         <span class="macro">assert_eq!</span>(is_nfd_stream_safe_quick(okay.chars()), IsNormalized::Yes);
@@ -364,7 +364,7 @@
         <span class="macro">assert_eq!</span>(is_nfd_stream_safe_quick(too_much.chars()), IsNormalized::No);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_stream_safe_nfc() {
         <span class="kw">let </span>okay = <span class="string">&quot;ok\u{e0}\u{031b}\u{0316}\u{0317}\u{0318}\u{0319}\u{031c}\u{031d}\u{0301}\u{0302}\u{0303}\u{0304}\u{0305}\u{0306}\u{0307}\u{0308}\u{0309}\u{030a}\u{030b}\u{030c}\u{030d}\u{030e}\u{030f}\u{0310}\u{0311}\u{0312}\u{0313}\u{0314}\u{0315}\u{031a}y&quot;</span>;
         <span class="macro">assert_eq!</span>(is_nfc_stream_safe_quick(okay.chars()), IsNormalized::Maybe);
@@ -374,4 +374,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="unicode_normalization" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="unicode_normalization" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

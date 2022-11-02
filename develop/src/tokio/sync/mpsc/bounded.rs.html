@@ -1448,7 +1448,7 @@
 ///     }
 /// }
 /// ```
-</span><span class="attribute">#[track_caller]
+</span><span class="attr">#[track_caller]
 </span><span class="kw">pub fn </span>channel&lt;T&gt;(buffer: usize) -&gt; (Sender&lt;T&gt;, Receiver&lt;T&gt;) {
     <span class="macro">assert!</span>(buffer &gt; <span class="number">0</span>, <span class="string">&quot;mpsc bounded channel requires buffer &gt; 0&quot;</span>);
     <span class="kw">let </span>semaphore = (semaphore::Semaphore::new(buffer), buffer);
@@ -1625,7 +1625,7 @@
     ///     sync_code.join().unwrap()
     /// }
     /// ```
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     #[cfg(feature = <span class="string">&quot;sync&quot;</span>)]
     </span><span class="kw">pub fn </span>blocking_recv(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;T&gt; {
         <span class="kw">crate</span>::future::block_on(<span class="self">self</span>.recv())
@@ -1941,7 +1941,7 @@
     ///     }
     /// }
     /// ```
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;time&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;time&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;time&quot;</span>)))]
     </span><span class="kw">pub async fn </span>send_timeout(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -1995,7 +1995,7 @@
     ///     sync_code.join().unwrap()
     /// }
     /// ```
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     #[cfg(feature = <span class="string">&quot;sync&quot;</span>)]
     </span><span class="kw">pub fn </span>blocking_send(<span class="kw-2">&amp;</span><span class="self">self</span>, value: T) -&gt; <span class="prelude-ty">Result</span>&lt;(), SendError&lt;T&gt;&gt; {
         <span class="kw">crate</span>::future::block_on(<span class="self">self</span>.send(value))
@@ -2615,4 +2615,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -1058,15 +1058,15 @@
 <span class="kw">use </span>core::time::Duration <span class="kw">as </span>StdDuration;
 
 <span class="kw">use </span><span class="kw">crate</span>::error;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::Instant;
 
 <span class="doccomment">/// By explicitly inserting this enum where padding is expected, the compiler is able to better
 /// perform niche value optimization.
-</span><span class="attribute">#[repr(u32)]
+</span><span class="attr">#[repr(u32)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>Padding {
-    <span class="attribute">#[allow(clippy::missing_docs_in_private_items)]
+    <span class="attr">#[allow(clippy::missing_docs_in_private_items)]
     </span>Optimize,
 }
 
@@ -1082,13 +1082,13 @@
 /// nanoseconds.
 ///
 /// This implementation allows for negative durations, unlike [`core::time::Duration`].
-</span><span class="attribute">#[derive(Clone, Copy, Default, PartialEq, Eq, Hash, PartialOrd, Ord)]
+</span><span class="attr">#[derive(Clone, Copy, Default, PartialEq, Eq, Hash, PartialOrd, Ord)]
 </span><span class="kw">pub struct </span>Duration {
     <span class="doccomment">/// Number of whole seconds.
     </span>seconds: i64,
     <span class="doccomment">/// Number of nanoseconds within the second. The sign always matches the `seconds` field.
     </span>nanoseconds: i32, <span class="comment">// always -10^9 &lt; nanoseconds &lt; 10^9
-    </span><span class="attribute">#[allow(clippy::missing_docs_in_private_items)]
+    </span><span class="attr">#[allow(clippy::missing_docs_in_private_items)]
     </span>padding: Padding,
 }
 
@@ -1236,8 +1236,8 @@
 
     <span class="doccomment">/// Convert the existing `Duration` to a `std::time::Duration` and its sign. This doesn&#39;t
     /// actually require the standard library, but is currently only used when it&#39;s enabled.
-    </span><span class="attribute">#[allow(clippy::missing_const_for_fn)] </span><span class="comment">// false positive
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+    </span><span class="attr">#[allow(clippy::missing_const_for_fn)] </span><span class="comment">// false positive
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>abs_std(<span class="self">self</span>) -&gt; StdDuration {
         StdDuration::new(<span class="self">self</span>.seconds.unsigned_abs(), <span class="self">self</span>.nanoseconds.unsigned_abs())
     }
@@ -1779,7 +1779,7 @@
 
     </span><span class="doccomment">/// Runs a closure, returning the duration of time it took to run. The return value of the
     /// closure is provided in the second part of the tuple.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     </span><span class="kw">pub fn </span>time_fn&lt;T&gt;(f: <span class="kw">impl </span>FnOnce() -&gt; T) -&gt; (<span class="self">Self</span>, T) {
         <span class="kw">let </span>start = Instant::now();
         <span class="kw">let </span>return_value = f();
@@ -2098,4 +2098,4 @@
 }
 <span class="comment">// endregion trait impls
 </span></code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

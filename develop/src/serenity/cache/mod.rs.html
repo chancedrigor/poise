@@ -1259,14 +1259,14 @@
 <span class="kw">use </span>std::collections::{HashMap, VecDeque};
 <span class="kw">use </span>std::hash::BuildHasher;
 <span class="kw">use </span>std::str::FromStr;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;temp_cache&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;temp_cache&quot;</span>)]
 </span><span class="kw">use </span>std::time::Duration;
 
 <span class="kw">use </span>dashmap::iter::Iter;
 <span class="kw">use </span>dashmap::mapref::entry::Entry;
 <span class="kw">use </span>dashmap::mapref::multiple::RefMulti;
 <span class="kw">use </span>dashmap::{DashMap, DashSet};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;temp_cache&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;temp_cache&quot;</span>)]
 </span><span class="kw">use </span>moka::dash::Cache <span class="kw">as </span>DashCache;
 <span class="kw">use </span>parking_lot::RwLock;
 <span class="kw">use </span>tracing::instrument;
@@ -1284,21 +1284,21 @@
 <span class="kw">pub trait </span>FromStrAndCache: Sized {
     <span class="kw">type </span><span class="prelude-val">Err</span>;
 
-    <span class="attribute">#[allow(clippy::missing_errors_doc)]
+    <span class="attr">#[allow(clippy::missing_errors_doc)]
     </span><span class="kw">fn </span>from_str&lt;CRL&gt;(cache: CRL, s: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Err&gt;
     <span class="kw">where
         </span>CRL: AsRef&lt;Cache&gt; + Send + Sync;
 }
 
 <span class="kw">pub trait </span>StrExt: Sized {
-    <span class="attribute">#[allow(clippy::missing_errors_doc)]
+    <span class="attr">#[allow(clippy::missing_errors_doc)]
     </span><span class="kw">fn </span>parse_cached&lt;CRL, F: FromStrAndCache&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, cache: CRL) -&gt; <span class="prelude-ty">Result</span>&lt;F, F::Err&gt;
     <span class="kw">where
         </span>CRL: AsRef&lt;Cache&gt; + Send + Sync;
 }
 
 <span class="kw">impl </span>StrExt <span class="kw">for </span><span class="kw-2">&amp;</span>str {
-    <span class="attribute">#[allow(clippy::missing_errors_doc)]
+    <span class="attr">#[allow(clippy::missing_errors_doc)]
     </span><span class="kw">fn </span>parse_cached&lt;CRL, F: FromStrAndCache&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, cache: CRL) -&gt; <span class="prelude-ty">Result</span>&lt;F, F::Err&gt;
     <span class="kw">where
         </span>CRL: AsRef&lt;Cache&gt; + Send + Sync,
@@ -1310,7 +1310,7 @@
 <span class="kw">impl</span>&lt;F: FromStr&gt; FromStrAndCache <span class="kw">for </span>F {
     <span class="kw">type </span><span class="prelude-val">Err </span>= F::Err;
 
-    <span class="attribute">#[allow(clippy::missing_errors_doc)]
+    <span class="attr">#[allow(clippy::missing_errors_doc)]
     </span><span class="kw">fn </span>from_str&lt;CRL&gt;(_cache: CRL, s: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Err&gt;
     <span class="kw">where
         </span>CRL: AsRef&lt;Cache&gt; + Send + Sync,
@@ -1321,7 +1321,7 @@
 
 <span class="doccomment">/// Iterator given to the selector closure in [`Cache::channel_messages_field`].
 </span><span class="comment">// Wrapper around a specific iterator type to allow swapping out iterators on cache design changes
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>MessageIterator&lt;<span class="lifetime">&#39;a</span>, S: BuildHasher + Clone&gt;(
     Iter&lt;<span class="lifetime">&#39;a</span>, MessageId, Message, S, DashMap&lt;MessageId, Message, S&gt;&gt;,
 );
@@ -1348,7 +1348,7 @@
 ///
 /// [`Shard`]: crate::gateway::Shard
 /// [`http`]: crate::http
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>Cache {
     <span class="doccomment">/// A map of channels in [`Guild`]s that the current user has received data
@@ -1361,7 +1361,7 @@
     <span class="doccomment">/// Cache of channels that have been fetched via to_channel.
     ///
     /// Each value has a maximum TTL of 1 hour.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;temp_cache&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;temp_cache&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) temp_channels: DashCache&lt;ChannelId, GuildChannel&gt;,
     <span class="doccomment">/// A map of channel categories.
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) categories: DashMap&lt;ChannelId, ChannelCategory&gt;,
@@ -1417,7 +1417,7 @@
     <span class="doccomment">/// Cache of users who have been fetched from `to_user`.
     ///
     /// Each value has a max TTL of 1 hour.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;temp_cache&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;temp_cache&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) temp_users: DashCache&lt;UserId, User&gt;,
     <span class="doccomment">/// The settings for the cache.
     </span>settings: RwLock&lt;Settings&gt;,
@@ -1425,7 +1425,7 @@
 
 <span class="kw">impl </span>Cache {
     <span class="doccomment">/// Creates a new cache.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[must_use]
     </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::default()
@@ -1443,7 +1443,7 @@
     ///
     /// let cache = Cache::new_with_settings(settings);
     /// ```
-    </span><span class="attribute">#[instrument]
+    </span><span class="attr">#[instrument]
     </span><span class="kw">pub fn </span>new_with_settings(settings: Settings) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             settings: RwLock::new(settings),
@@ -1578,7 +1578,7 @@
     ///
     /// - [`GuildChannel`]: [`Self::guild_channel`] or [`Self::guild_channels`]
     /// - [`PrivateChannel`]: [`Self::private_channel`] or [`Self::private_channels`]
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>channel&lt;C: Into&lt;ChannelId&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, id: C) -&gt; <span class="prelude-ty">Option</span>&lt;Channel&gt; {
         <span class="self">self</span>._channel(id.into())
     }
@@ -1589,7 +1589,7 @@
             <span class="kw">return </span><span class="prelude-val">Some</span>(Channel::Guild(channel));
         }
 
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;temp_cache&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;temp_cache&quot;</span>)]
         </span>{
             <span class="kw">if let </span><span class="prelude-val">Some</span>(channel) = <span class="self">self</span>.temp_channels.get(<span class="kw-2">&amp;</span>id) {
                 <span class="kw">return </span><span class="prelude-val">Some</span>(Channel::Guild(channel));
@@ -1644,7 +1644,7 @@
     ///     println!(&quot;Guild name: {}&quot;, guild.name);
     /// }
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>guild&lt;G: Into&lt;GuildId&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, id: G) -&gt; <span class="prelude-ty">Option</span>&lt;Guild&gt; {
         <span class="self">self</span>._guild(id.into())
     }
@@ -1669,7 +1669,7 @@
     /// #   Ok(())
     /// # }
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>guild_field&lt;Ret, Fun&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, id: <span class="kw">impl </span>Into&lt;GuildId&gt;, field_selector: Fun) -&gt; <span class="prelude-ty">Option</span>&lt;Ret&gt;
     <span class="kw">where
         </span>Fun: FnOnce(<span class="kw-2">&amp;</span>Guild) -&gt; Ret,
@@ -1739,7 +1739,7 @@
     /// ```
     ///
     /// [`EventHandler::message`]: crate::client::EventHandler::message
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>guild_channel&lt;C: Into&lt;ChannelId&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, id: C) -&gt; <span class="prelude-ty">Option</span>&lt;GuildChannel&gt; {
         <span class="self">self</span>._guild_channel(id.into())
     }
@@ -1764,7 +1764,7 @@
     /// #   Ok(())
     /// # }
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>guild_channel_field&lt;Ret, Fun&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         id: <span class="kw">impl </span>Into&lt;ChannelId&gt;,
@@ -1835,7 +1835,7 @@
     ///
     /// [`EventHandler::message`]: crate::client::EventHandler::message
     /// [`members`]: crate::model::guild::Guild::members
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>member&lt;G, U&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, guild_id: G, user_id: U) -&gt; <span class="prelude-ty">Option</span>&lt;Member&gt;
     <span class="kw">where
         </span>G: Into&lt;GuildId&gt;,
@@ -1867,7 +1867,7 @@
     /// #   Ok(())
     /// # }
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>member_field&lt;Ret, Fun&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         guild_id: <span class="kw">impl </span>Into&lt;GuildId&gt;,
@@ -1895,7 +1895,7 @@
         <span class="prelude-val">Some</span>(field_selector(member))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>guild_roles(<span class="kw-2">&amp;</span><span class="self">self</span>, guild_id: <span class="kw">impl </span>Into&lt;GuildId&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;HashMap&lt;RoleId, Role&gt;&gt; {
         <span class="self">self</span>._guild_roles(guild_id.into())
     }
@@ -1905,13 +1905,13 @@
     }
 
     <span class="doccomment">/// This method clones and returns all unavailable guilds.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>unavailable_guilds(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; DashSet&lt;GuildId&gt; {
         <span class="self">self</span>.unavailable_guilds.clone()
     }
 
     <span class="doccomment">/// This method returns all channels from a guild of with the given `guild_id`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>guild_channels(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         guild_id: <span class="kw">impl </span>Into&lt;GuildId&gt;,
@@ -1937,7 +1937,7 @@
     }
 
     <span class="doccomment">/// This method returns all categories from a guild of with the given `guild_id`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>guild_categories(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         guild_id: <span class="kw">impl </span>Into&lt;GuildId&gt;,
@@ -1958,7 +1958,7 @@
     }
 
     <span class="doccomment">/// Returns the number of shards.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>shard_count(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u64 {
         <span class="kw-2">*</span><span class="self">self</span>.shard_count.read()
     }
@@ -1987,7 +1987,7 @@
     /// ```
     ///
     /// [`EventHandler::message`]: crate::client::EventHandler::message
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>message&lt;C, M&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, channel_id: C, message_id: M) -&gt; <span class="prelude-ty">Option</span>&lt;Message&gt;
     <span class="kw">where
         </span>C: Into&lt;ChannelId&gt;,
@@ -2023,7 +2023,7 @@
     ///     println!(&quot;The recipient is {}&quot;, channel.recipient);
     /// }
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>private_channel(<span class="kw-2">&amp;</span><span class="self">self</span>, channel_id: <span class="kw">impl </span>Into&lt;ChannelId&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;PrivateChannel&gt; {
         <span class="self">self</span>._private_channel(channel_id.into())
     }
@@ -2053,7 +2053,7 @@
     ///     println!(&quot;Role with Id 77 is called {}&quot;, role.name);
     /// }
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>role&lt;G, R&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, guild_id: G, role_id: R) -&gt; <span class="prelude-ty">Option</span>&lt;Role&gt;
     <span class="kw">where
         </span>G: Into&lt;GuildId&gt;,
@@ -2112,12 +2112,12 @@
     /// #     Ok(())
     /// # }
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>user&lt;U: Into&lt;UserId&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, user_id: U) -&gt; <span class="prelude-ty">Option</span>&lt;User&gt; {
         <span class="self">self</span>._user(user_id.into())
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;temp_cache&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;temp_cache&quot;</span>)]
     </span><span class="kw">fn </span>_user(<span class="kw-2">&amp;</span><span class="self">self</span>, user_id: UserId) -&gt; <span class="prelude-ty">Option</span>&lt;User&gt; {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(user) = <span class="self">self</span>.users.get(<span class="kw-2">&amp;</span>user_id) {
             <span class="prelude-val">Some</span>(user.clone())
@@ -2126,25 +2126,25 @@
         }
     }
 
-    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;temp_cache&quot;</span>))]
+    <span class="attr">#[cfg(not(feature = <span class="string">&quot;temp_cache&quot;</span>))]
     </span><span class="kw">fn </span>_user(<span class="kw-2">&amp;</span><span class="self">self</span>, user_id: UserId) -&gt; <span class="prelude-ty">Option</span>&lt;User&gt; {
         <span class="self">self</span>.users.get(<span class="kw-2">&amp;</span>user_id).map(|u| u.clone())
     }
 
     <span class="doccomment">/// Clones all users and returns them.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>users(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; DashMap&lt;UserId, User&gt; {
         <span class="self">self</span>.users.clone()
     }
 
     <span class="doccomment">/// Returns the amount of cached users.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>user_count(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.users.len()
     }
 
     <span class="doccomment">/// Clones a category matching the `channel_id` and returns it.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>category&lt;C: Into&lt;ChannelId&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, channel_id: C) -&gt; <span class="prelude-ty">Option</span>&lt;ChannelCategory&gt; {
         <span class="self">self</span>._category(channel_id.into())
     }
@@ -2154,31 +2154,31 @@
     }
 
     <span class="doccomment">/// Clones all categories and returns them.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>categories(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; DashMap&lt;ChannelId, ChannelCategory&gt; {
         <span class="self">self</span>.categories.clone()
     }
 
     <span class="doccomment">/// Returns the amount of cached categories.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>category_count(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.categories.len()
     }
 
     <span class="doccomment">/// Returns the optional category ID of a channel.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>channel_category_id(<span class="kw-2">&amp;</span><span class="self">self</span>, channel_id: ChannelId) -&gt; <span class="prelude-ty">Option</span>&lt;ChannelId&gt; {
         <span class="self">self</span>.categories.get(<span class="kw-2">&amp;</span>channel_id).map(|category| category.id)
     }
 
     <span class="doccomment">/// This method clones and returns the user used by the bot.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>current_user(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; CurrentUser {
         <span class="self">self</span>.user.read().clone()
     }
 
     <span class="doccomment">/// This method returns the bot&#39;s ID.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>current_user_id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; UserId {
         <span class="self">self</span>.user.read().id
     }
@@ -2198,7 +2198,7 @@
     /// #   Ok(())
     /// # }
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>current_user_field&lt;Ret: Clone, Fun&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, field_selector: Fun) -&gt; Ret
     <span class="kw">where
         </span>Fun: FnOnce(<span class="kw-2">&amp;</span>CurrentUser) -&gt; Ret,
@@ -2218,7 +2218,7 @@
     /// Refer to the [`CacheUpdate` examples].
     ///
     /// [`CacheUpdate` examples]: CacheUpdate#examples
-    </span><span class="attribute">#[instrument(skip(<span class="self">self</span>, e))]
+    </span><span class="attr">#[instrument(skip(<span class="self">self</span>, e))]
     </span><span class="kw">pub fn </span>update&lt;E: CacheUpdate&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, e: <span class="kw-2">&amp;mut </span>E) -&gt; <span class="prelude-ty">Option</span>&lt;E::Output&gt; {
         e.update(<span class="self">self</span>)
     }
@@ -2239,7 +2239,7 @@
     <span class="kw">fn </span>default() -&gt; Cache {
         Cache {
             channels: DashMap::default(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;temp_cache&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;temp_cache&quot;</span>)]
             </span>temp_channels: DashCache::builder().time_to_live(Duration::from_secs(<span class="number">60 </span>* <span class="number">60</span>)).build(),
             categories: DashMap::default(),
             guilds: DashMap::default(),
@@ -2251,14 +2251,14 @@
             unavailable_guilds: DashSet::default(),
             user: RwLock::new(CurrentUser::default()),
             users: DashMap::default(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;temp_cache&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;temp_cache&quot;</span>)]
             </span>temp_users: DashCache::builder().time_to_live(Duration::from_secs(<span class="number">60 </span>* <span class="number">60</span>)).build(),
             message_queue: DashMap::default(),
         }
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use </span>std::collections::HashMap;
 
@@ -2266,7 +2266,7 @@
     <span class="kw">use </span><span class="kw">crate</span>::json::from_number;
     <span class="kw">use </span><span class="kw">crate</span>::model::prelude::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_cache_messages() {
         <span class="kw">let </span><span class="kw-2">mut </span>settings = Settings::new();
         settings.max_messages(<span class="number">2</span>);
@@ -2449,4 +2449,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

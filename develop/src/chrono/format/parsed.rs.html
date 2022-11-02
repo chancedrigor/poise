@@ -1305,7 +1305,7 @@
 ///
 /// - `to_*` methods try to make a concrete date and time value out of set fields.
 ///   It fully checks any remaining out-of-range conditions and inconsistent/impossible fields.
-</span><span class="attribute">#[allow(missing_copy_implementations)]
+</span><span class="attr">#[allow(missing_copy_implementations)]
 #[derive(Clone, PartialEq, Debug)]
 </span><span class="kw">pub struct </span>Parsed {
     <span class="doccomment">/// Year.
@@ -1395,7 +1395,7 @@
 
 <span class="doccomment">/// Checks if `old` is either empty or has the same value as `new` (i.e. &quot;consistent&quot;),
 /// and if it is empty, set `old` to `new` as well.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>set_if_consistent&lt;T: PartialEq&gt;(old: <span class="kw-2">&amp;mut </span><span class="prelude-ty">Option</span>&lt;T&gt;, new: T) -&gt; ParseResult&lt;()&gt; {
     <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>old) = <span class="kw-2">*</span>old {
         <span class="kw">if </span><span class="kw-2">*</span>old == new {
@@ -1444,13 +1444,13 @@
     }
 
     <span class="doccomment">/// Tries to set the [`year`](#structfield.year) field from given value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_year(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: i64) -&gt; ParseResult&lt;()&gt; {
         set_if_consistent(<span class="kw-2">&amp;mut </span><span class="self">self</span>.year, value.to_i32().ok_or(OUT_OF_RANGE)<span class="question-mark">?</span>)
     }
 
     <span class="doccomment">/// Tries to set the [`year_div_100`](#structfield.year_div_100) field from given value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_year_div_100(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: i64) -&gt; ParseResult&lt;()&gt; {
         <span class="kw">if </span>value &lt; <span class="number">0 </span>{
             <span class="kw">return </span><span class="prelude-val">Err</span>(OUT_OF_RANGE);
@@ -1459,7 +1459,7 @@
     }
 
     <span class="doccomment">/// Tries to set the [`year_mod_100`](#structfield.year_mod_100) field from given value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_year_mod_100(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: i64) -&gt; ParseResult&lt;()&gt; {
         <span class="kw">if </span>value &lt; <span class="number">0 </span>{
             <span class="kw">return </span><span class="prelude-val">Err</span>(OUT_OF_RANGE);
@@ -1468,13 +1468,13 @@
     }
 
     <span class="doccomment">/// Tries to set the [`isoyear`](#structfield.isoyear) field from given value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_isoyear(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: i64) -&gt; ParseResult&lt;()&gt; {
         set_if_consistent(<span class="kw-2">&amp;mut </span><span class="self">self</span>.isoyear, value.to_i32().ok_or(OUT_OF_RANGE)<span class="question-mark">?</span>)
     }
 
     <span class="doccomment">/// Tries to set the [`isoyear_div_100`](#structfield.isoyear_div_100) field from given value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_isoyear_div_100(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: i64) -&gt; ParseResult&lt;()&gt; {
         <span class="kw">if </span>value &lt; <span class="number">0 </span>{
             <span class="kw">return </span><span class="prelude-val">Err</span>(OUT_OF_RANGE);
@@ -1483,7 +1483,7 @@
     }
 
     <span class="doccomment">/// Tries to set the [`isoyear_mod_100`](#structfield.isoyear_mod_100) field from given value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_isoyear_mod_100(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: i64) -&gt; ParseResult&lt;()&gt; {
         <span class="kw">if </span>value &lt; <span class="number">0 </span>{
             <span class="kw">return </span><span class="prelude-val">Err</span>(OUT_OF_RANGE);
@@ -1492,57 +1492,57 @@
     }
 
     <span class="doccomment">/// Tries to set the [`month`](#structfield.month) field from given value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_month(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: i64) -&gt; ParseResult&lt;()&gt; {
         set_if_consistent(<span class="kw-2">&amp;mut </span><span class="self">self</span>.month, value.to_u32().ok_or(OUT_OF_RANGE)<span class="question-mark">?</span>)
     }
 
     <span class="doccomment">/// Tries to set the [`week_from_sun`](#structfield.week_from_sun) field from given value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_week_from_sun(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: i64) -&gt; ParseResult&lt;()&gt; {
         set_if_consistent(<span class="kw-2">&amp;mut </span><span class="self">self</span>.week_from_sun, value.to_u32().ok_or(OUT_OF_RANGE)<span class="question-mark">?</span>)
     }
 
     <span class="doccomment">/// Tries to set the [`week_from_mon`](#structfield.week_from_mon) field from given value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_week_from_mon(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: i64) -&gt; ParseResult&lt;()&gt; {
         set_if_consistent(<span class="kw-2">&amp;mut </span><span class="self">self</span>.week_from_mon, value.to_u32().ok_or(OUT_OF_RANGE)<span class="question-mark">?</span>)
     }
 
     <span class="doccomment">/// Tries to set the [`isoweek`](#structfield.isoweek) field from given value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_isoweek(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: i64) -&gt; ParseResult&lt;()&gt; {
         set_if_consistent(<span class="kw-2">&amp;mut </span><span class="self">self</span>.isoweek, value.to_u32().ok_or(OUT_OF_RANGE)<span class="question-mark">?</span>)
     }
 
     <span class="doccomment">/// Tries to set the [`weekday`](#structfield.weekday) field from given value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_weekday(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: Weekday) -&gt; ParseResult&lt;()&gt; {
         set_if_consistent(<span class="kw-2">&amp;mut </span><span class="self">self</span>.weekday, value)
     }
 
     <span class="doccomment">/// Tries to set the [`ordinal`](#structfield.ordinal) field from given value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_ordinal(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: i64) -&gt; ParseResult&lt;()&gt; {
         set_if_consistent(<span class="kw-2">&amp;mut </span><span class="self">self</span>.ordinal, value.to_u32().ok_or(OUT_OF_RANGE)<span class="question-mark">?</span>)
     }
 
     <span class="doccomment">/// Tries to set the [`day`](#structfield.day) field from given value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_day(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: i64) -&gt; ParseResult&lt;()&gt; {
         set_if_consistent(<span class="kw-2">&amp;mut </span><span class="self">self</span>.day, value.to_u32().ok_or(OUT_OF_RANGE)<span class="question-mark">?</span>)
     }
 
     <span class="doccomment">/// Tries to set the [`hour_div_12`](#structfield.hour_div_12) field from given value.
     /// (`false` for AM, `true` for PM)
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_ampm(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: bool) -&gt; ParseResult&lt;()&gt; {
         set_if_consistent(<span class="kw-2">&amp;mut </span><span class="self">self</span>.hour_div_12, <span class="kw">if </span>value { <span class="number">1 </span>} <span class="kw">else </span>{ <span class="number">0 </span>})
     }
 
     <span class="doccomment">/// Tries to set the [`hour_mod_12`](#structfield.hour_mod_12) field from
     /// given hour number in 12-hour clocks.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_hour12(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: i64) -&gt; ParseResult&lt;()&gt; {
         <span class="kw">if </span>value &lt; <span class="number">1 </span>|| value &gt; <span class="number">12 </span>{
             <span class="kw">return </span><span class="prelude-val">Err</span>(OUT_OF_RANGE);
@@ -1552,7 +1552,7 @@
 
     <span class="doccomment">/// Tries to set both [`hour_div_12`](#structfield.hour_div_12) and
     /// [`hour_mod_12`](#structfield.hour_mod_12) fields from given value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_hour(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: i64) -&gt; ParseResult&lt;()&gt; {
         <span class="kw">let </span>v = value.to_u32().ok_or(OUT_OF_RANGE)<span class="question-mark">?</span>;
         set_if_consistent(<span class="kw-2">&amp;mut </span><span class="self">self</span>.hour_div_12, v / <span class="number">12</span>)<span class="question-mark">?</span>;
@@ -1561,31 +1561,31 @@
     }
 
     <span class="doccomment">/// Tries to set the [`minute`](#structfield.minute) field from given value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_minute(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: i64) -&gt; ParseResult&lt;()&gt; {
         set_if_consistent(<span class="kw-2">&amp;mut </span><span class="self">self</span>.minute, value.to_u32().ok_or(OUT_OF_RANGE)<span class="question-mark">?</span>)
     }
 
     <span class="doccomment">/// Tries to set the [`second`](#structfield.second) field from given value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_second(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: i64) -&gt; ParseResult&lt;()&gt; {
         set_if_consistent(<span class="kw-2">&amp;mut </span><span class="self">self</span>.second, value.to_u32().ok_or(OUT_OF_RANGE)<span class="question-mark">?</span>)
     }
 
     <span class="doccomment">/// Tries to set the [`nanosecond`](#structfield.nanosecond) field from given value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_nanosecond(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: i64) -&gt; ParseResult&lt;()&gt; {
         set_if_consistent(<span class="kw-2">&amp;mut </span><span class="self">self</span>.nanosecond, value.to_u32().ok_or(OUT_OF_RANGE)<span class="question-mark">?</span>)
     }
 
     <span class="doccomment">/// Tries to set the [`timestamp`](#structfield.timestamp) field from given value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_timestamp(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: i64) -&gt; ParseResult&lt;()&gt; {
         set_if_consistent(<span class="kw-2">&amp;mut </span><span class="self">self</span>.timestamp, value)
     }
 
     <span class="doccomment">/// Tries to set the [`offset`](#structfield.offset) field from given value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_offset(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: i64) -&gt; ParseResult&lt;()&gt; {
         set_if_consistent(<span class="kw-2">&amp;mut </span><span class="self">self</span>.offset, value.to_i32().ok_or(OUT_OF_RANGE)<span class="question-mark">?</span>)
     }
@@ -2000,7 +2000,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::{IMPOSSIBLE, NOT_ENOUGH, OUT_OF_RANGE};
     <span class="kw">use </span><span class="kw">super</span>::Parsed;
@@ -2009,7 +2009,7 @@
     <span class="kw">use </span>Datelike;
     <span class="kw">use </span>Weekday::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_parsed_set_fields() {
         <span class="comment">// year*, isoyear*
         </span><span class="kw">let </span><span class="kw-2">mut </span>p = Parsed::new();
@@ -2080,7 +2080,7 @@
         <span class="macro">assert_eq!</span>(p.set_timestamp(<span class="number">1_234_567_891</span>), <span class="prelude-val">Err</span>(IMPOSSIBLE));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_parsed_to_naive_date() {
         <span class="macro">macro_rules! </span>parse {
             ($(<span class="macro-nonterminal">$k</span>:ident: <span class="macro-nonterminal">$v</span>:expr),<span class="kw-2">*</span>) =&gt; (
@@ -2267,7 +2267,7 @@
         <span class="comment">// technically unique (2014-12-31) but Chrono gives up
     </span>}
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_parsed_to_naive_time() {
         <span class="macro">macro_rules! </span>parse {
             ($(<span class="macro-nonterminal">$k</span>:ident: <span class="macro-nonterminal">$v</span>:expr),<span class="kw-2">*</span>) =&gt; (
@@ -2322,7 +2322,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_parsed_to_naive_datetime_with_offset() {
         <span class="macro">macro_rules! </span>parse {
             (offset = <span class="macro-nonterminal">$offset</span>:expr; $(<span class="macro-nonterminal">$k</span>:ident: <span class="macro-nonterminal">$v</span>:expr),<span class="kw-2">*</span>) =&gt; (
@@ -2472,7 +2472,7 @@
         ); <span class="comment">// `hour_div_12` is out of range
     </span>}
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_parsed_to_datetime() {
         <span class="macro">macro_rules! </span>parse {
             ($(<span class="macro-nonterminal">$k</span>:ident: <span class="macro-nonterminal">$v</span>:expr),<span class="kw-2">*</span>) =&gt; (
@@ -2512,7 +2512,7 @@
         ); <span class="comment">// `FixedOffset` does not support such huge offset
     </span>}
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_parsed_to_datetime_with_timezone() {
         <span class="macro">macro_rules! </span>parse {
             (<span class="macro-nonterminal">$tz</span>:expr; $(<span class="macro-nonterminal">$k</span>:ident: <span class="macro-nonterminal">$v</span>:expr),<span class="kw-2">*</span>) =&gt; (
@@ -2565,4 +2565,4 @@
     </span>}
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

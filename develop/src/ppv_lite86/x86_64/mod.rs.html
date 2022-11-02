@@ -442,34 +442,34 @@
 
 <span class="kw">mod </span>sse2;
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">pub struct </span>YesS3;
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">pub struct </span>NoS3;
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">pub struct </span>YesS4;
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">pub struct </span>NoS4;
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">pub struct </span>YesA1;
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">pub struct </span>NoA1;
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">pub struct </span>YesA2;
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">pub struct </span>NoA2;
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">pub struct </span>YesNI;
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">pub struct </span>NoNI;
 
 <span class="kw">use </span>core::marker::PhantomData;
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">pub struct </span>SseMachine&lt;S3, S4, NI&gt;(PhantomData&lt;(S3, S4, NI)&gt;);
 <span class="kw">impl</span>&lt;S3: Copy, S4: Copy, NI: Copy&gt; Machine <span class="kw">for </span>SseMachine&lt;S3, S4, NI&gt;
 <span class="kw">where
@@ -497,13 +497,13 @@
     <span class="kw">type </span>u64x2x4 = sse2::u64x2x4_sse2&lt;S3, S4, NI&gt;;
     <span class="kw">type </span>u128x4 = sse2::u128x4_sse2&lt;S3, S4, NI&gt;;
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">unsafe fn </span>instance() -&gt; <span class="self">Self </span>{
         SseMachine(PhantomData)
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">pub struct </span>Avx2Machine&lt;NI&gt;(PhantomData&lt;NI&gt;);
 <span class="kw">impl</span>&lt;NI: Copy&gt; Machine <span class="kw">for </span>Avx2Machine&lt;NI&gt;
 <span class="kw">where
@@ -525,7 +525,7 @@
     <span class="kw">type </span>u64x2x4 = sse2::u64x2x4_sse2&lt;YesS3, YesS4, NI&gt;;
     <span class="kw">type </span>u128x4 = sse2::u128x4_sse2&lt;YesS3, YesS4, NI&gt;;
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">unsafe fn </span>instance() -&gt; <span class="self">Self </span>{
         Avx2Machine(PhantomData)
     }
@@ -542,7 +542,7 @@
 <span class="doccomment">/// Generic wrapper for unparameterized storage of any of the possible impls.
 /// Converting into and out of this type should be essentially free, although it may be more
 /// aligned than a particular impl requires.
-</span><span class="attribute">#[allow(non_camel_case_types)]
+</span><span class="attr">#[allow(non_camel_case_types)]
 #[derive(Copy, Clone)]
 </span><span class="kw">pub union </span>vec128_storage {
     u32x4: [u32; <span class="number">4</span>],
@@ -551,38 +551,38 @@
     sse2: __m128i,
 }
 <span class="kw">impl </span>Store&lt;vec128_storage&gt; <span class="kw">for </span>vec128_storage {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">unsafe fn </span>unpack(p: vec128_storage) -&gt; <span class="self">Self </span>{
         p
     }
 }
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; From&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>vec128_storage&gt; <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u32; <span class="number">4</span>] {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>from(x: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>vec128_storage) -&gt; <span class="self">Self </span>{
         <span class="kw">unsafe </span>{ <span class="kw-2">&amp;</span>x.u32x4 }
     }
 }
 <span class="kw">impl </span>From&lt;[u32; <span class="number">4</span>]&gt; <span class="kw">for </span>vec128_storage {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>from(u32x4: [u32; <span class="number">4</span>]) -&gt; <span class="self">Self </span>{
         vec128_storage { u32x4 }
     }
 }
 <span class="kw">impl </span>Default <span class="kw">for </span>vec128_storage {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
         vec128_storage { u128x1: [<span class="number">0</span>] }
     }
 }
 <span class="kw">impl </span>Eq <span class="kw">for </span>vec128_storage {}
 <span class="kw">impl </span>PartialEq <span class="kw">for </span>vec128_storage {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, rhs: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ <span class="self">self</span>.u128x1 == rhs.u128x1 }
     }
 }
 
-<span class="attribute">#[allow(non_camel_case_types)]
+<span class="attr">#[allow(non_camel_case_types)]
 #[derive(Copy, Clone)]
 </span><span class="kw">pub union </span>vec256_storage {
     u32x8: [u32; <span class="number">8</span>],
@@ -592,36 +592,36 @@
     avx: __m256i,
 }
 <span class="kw">impl </span>From&lt;[u64; <span class="number">4</span>]&gt; <span class="kw">for </span>vec256_storage {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>from(u64x4: [u64; <span class="number">4</span>]) -&gt; <span class="self">Self </span>{
         vec256_storage { u64x4 }
     }
 }
 <span class="kw">impl </span>Default <span class="kw">for </span>vec256_storage {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
         vec256_storage { u128x2: [<span class="number">0</span>, <span class="number">0</span>] }
     }
 }
 <span class="kw">impl </span>vec256_storage {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>new128(xs: [vec128_storage; <span class="number">2</span>]) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{ sse2: xs }
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>split128(<span class="self">self</span>) -&gt; [vec128_storage; <span class="number">2</span>] {
         <span class="kw">unsafe </span>{ <span class="self">self</span>.sse2 }
     }
 }
 <span class="kw">impl </span>Eq <span class="kw">for </span>vec256_storage {}
 <span class="kw">impl </span>PartialEq <span class="kw">for </span>vec256_storage {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, rhs: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ <span class="self">self</span>.sse2 == rhs.sse2 }
     }
 }
 
-<span class="attribute">#[allow(non_camel_case_types)]
+<span class="attr">#[allow(non_camel_case_types)]
 #[derive(Copy, Clone)]
 </span><span class="kw">pub union </span>vec512_storage {
     u32x16: [u32; <span class="number">16</span>],
@@ -631,7 +631,7 @@
     avx: [vec256_storage; <span class="number">2</span>],
 }
 <span class="kw">impl </span>Default <span class="kw">for </span>vec512_storage {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
         vec512_storage {
             u128x4: [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],
@@ -639,18 +639,18 @@
     }
 }
 <span class="kw">impl </span>vec512_storage {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>new128(xs: [vec128_storage; <span class="number">4</span>]) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{ sse2: xs }
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>split128(<span class="self">self</span>) -&gt; [vec128_storage; <span class="number">4</span>] {
         <span class="kw">unsafe </span>{ <span class="self">self</span>.sse2 }
     }
 }
 <span class="kw">impl </span>Eq <span class="kw">for </span>vec512_storage {}
 <span class="kw">impl </span>PartialEq <span class="kw">for </span>vec512_storage {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, rhs: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ <span class="self">self</span>.avx == rhs.avx }
     }
@@ -659,7 +659,7 @@
 <span class="macro">macro_rules! </span>impl_into {
     (<span class="macro-nonterminal">$storage</span>:ident, <span class="macro-nonterminal">$array</span>:ty, <span class="macro-nonterminal">$name</span>:ident) =&gt; {
         <span class="kw">impl </span>From&lt;<span class="macro-nonterminal">$storage</span>&gt; <span class="kw">for </span><span class="macro-nonterminal">$array </span>{
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>from(vec: <span class="macro-nonterminal">$storage</span>) -&gt; <span class="self">Self </span>{
                 <span class="kw">unsafe </span>{ vec.<span class="macro-nonterminal">$name </span>}
             }
@@ -680,21 +680,21 @@
 /// hardware feature sets.
 ///
 /// This dispatcher is suitable for maximizing throughput.
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>dispatch {
     (<span class="macro-nonterminal">$mach</span>:ident, <span class="macro-nonterminal">$MTy</span>:ident, { $([<span class="macro-nonterminal">$</span><span class="kw">pub</span>:<span class="macro-nonterminal">tt</span>$((<span class="macro-nonterminal">$krate</span>:tt))<span class="kw-2">*</span>])* <span class="kw">fn </span><span class="macro-nonterminal">$name</span>:ident($(<span class="macro-nonterminal">$arg</span>:ident: <span class="macro-nonterminal">$argty</span>:ty),* $(,)<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret</span>:ty <span class="macro-nonterminal">$body</span>:block }) =&gt; {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
         </span>$(<span class="macro-nonterminal">$</span><span class="kw">pub</span>$((<span class="macro-nonterminal">$krate</span>))<span class="kw-2">*</span>)* <span class="kw">fn </span><span class="macro-nonterminal">$name</span>($(<span class="macro-nonterminal">$arg</span>: <span class="macro-nonterminal">$argty</span>),<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret </span>{
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>fn_impl&lt;<span class="macro-nonterminal">$MTy</span>: <span class="macro-nonterminal">$crate::Machine</span>&gt;(<span class="macro-nonterminal">$mach</span>: <span class="macro-nonterminal">$MTy</span>, $(<span class="macro-nonterminal">$arg</span>: <span class="macro-nonterminal">$argty</span>),<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret $body
             </span><span class="kw">use </span>std::arch::x86_64::<span class="kw-2">*</span>;
-            <span class="attribute">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
+            <span class="attr">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
             </span><span class="kw">unsafe fn </span>impl_avx2($(<span class="macro-nonterminal">$arg</span>: <span class="macro-nonterminal">$argty</span>),<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret </span>{
                 <span class="kw">let </span>ret = fn_impl(<span class="macro-nonterminal">$crate::x86_64::AVX2::instance</span>(), $(<span class="macro-nonterminal">$arg</span>),<span class="kw-2">*</span>);
                 _mm256_zeroupper();
                 ret
             }
-            <span class="attribute">#[target_feature(enable = <span class="string">&quot;avx&quot;</span>)]
+            <span class="attr">#[target_feature(enable = <span class="string">&quot;avx&quot;</span>)]
             #[target_feature(enable = <span class="string">&quot;sse4.1&quot;</span>)]
             #[target_feature(enable = <span class="string">&quot;ssse3&quot;</span>)]
             </span><span class="kw">unsafe fn </span>impl_avx($(<span class="macro-nonterminal">$arg</span>: <span class="macro-nonterminal">$argty</span>),<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret </span>{
@@ -702,16 +702,16 @@
                 _mm256_zeroupper();
                 ret
             }
-            <span class="attribute">#[target_feature(enable = <span class="string">&quot;sse4.1&quot;</span>)]
+            <span class="attr">#[target_feature(enable = <span class="string">&quot;sse4.1&quot;</span>)]
             #[target_feature(enable = <span class="string">&quot;ssse3&quot;</span>)]
             </span><span class="kw">unsafe fn </span>impl_sse41($(<span class="macro-nonterminal">$arg</span>: <span class="macro-nonterminal">$argty</span>),<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret </span>{
                 fn_impl(<span class="macro-nonterminal">$crate::x86_64::SSE41::instance</span>(), $(<span class="macro-nonterminal">$arg</span>),<span class="kw-2">*</span>)
             }
-            <span class="attribute">#[target_feature(enable = <span class="string">&quot;ssse3&quot;</span>)]
+            <span class="attr">#[target_feature(enable = <span class="string">&quot;ssse3&quot;</span>)]
             </span><span class="kw">unsafe fn </span>impl_ssse3($(<span class="macro-nonterminal">$arg</span>: <span class="macro-nonterminal">$argty</span>),<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret </span>{
                 fn_impl(<span class="macro-nonterminal">$crate::x86_64::SSSE3::instance</span>(), $(<span class="macro-nonterminal">$arg</span>),<span class="kw-2">*</span>)
             }
-            <span class="attribute">#[target_feature(enable = <span class="string">&quot;sse2&quot;</span>)]
+            <span class="attr">#[target_feature(enable = <span class="string">&quot;sse2&quot;</span>)]
             </span><span class="kw">unsafe fn </span>impl_sse2($(<span class="macro-nonterminal">$arg</span>: <span class="macro-nonterminal">$argty</span>),<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret </span>{
                 fn_impl(<span class="macro-nonterminal">$crate::x86_64::SSE2::instance</span>(), $(<span class="macro-nonterminal">$arg</span>),<span class="kw-2">*</span>)
             }
@@ -731,7 +731,7 @@
                 }
             }
         }
-        <span class="attribute">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
+        <span class="attr">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
         #[inline(always)]
         </span>$(<span class="macro-nonterminal">$</span><span class="kw">pub</span>$((<span class="macro-nonterminal">$krate</span>))<span class="kw-2">*</span>)* <span class="kw">fn </span><span class="macro-nonterminal">$name</span>($(<span class="macro-nonterminal">$arg</span>: <span class="macro-nonterminal">$argty</span>),<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret </span>{
             <span class="kw">unsafe fn </span>fn_impl&lt;<span class="macro-nonterminal">$MTy</span>: <span class="macro-nonterminal">$crate::Machine</span>&gt;(<span class="macro-nonterminal">$mach</span>: <span class="macro-nonterminal">$MTy</span>, $(<span class="macro-nonterminal">$arg</span>: <span class="macro-nonterminal">$argty</span>),<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret $body
@@ -763,19 +763,19 @@
 /// This dispatcher is suitable for vector operations that do not benefit from advanced hardware
 /// features (e.g. because they are done infrequently), so minimizing their contribution to code
 /// size is more important.
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>dispatch_light128 {
     (<span class="macro-nonterminal">$mach</span>:ident, <span class="macro-nonterminal">$MTy</span>:ident, { $([<span class="macro-nonterminal">$</span><span class="kw">pub</span>:<span class="macro-nonterminal">tt</span>$((<span class="macro-nonterminal">$krate</span>:tt))<span class="kw-2">*</span>])* <span class="kw">fn </span><span class="macro-nonterminal">$name</span>:ident($(<span class="macro-nonterminal">$arg</span>:ident: <span class="macro-nonterminal">$argty</span>:ty),* $(,)<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret</span>:ty <span class="macro-nonterminal">$body</span>:block }) =&gt; {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
         </span>$(<span class="macro-nonterminal">$</span><span class="kw">pub </span>$((<span class="macro-nonterminal">$krate</span>))<span class="kw-2">*</span>)* <span class="kw">fn </span><span class="macro-nonterminal">$name</span>($(<span class="macro-nonterminal">$arg</span>: <span class="macro-nonterminal">$argty</span>),<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret </span>{
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>fn_impl&lt;<span class="macro-nonterminal">$MTy</span>: <span class="macro-nonterminal">$crate::Machine</span>&gt;(<span class="macro-nonterminal">$mach</span>: <span class="macro-nonterminal">$MTy</span>, $(<span class="macro-nonterminal">$arg</span>: <span class="macro-nonterminal">$argty</span>),<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret $body
             </span><span class="kw">use </span>std::arch::x86_64::<span class="kw-2">*</span>;
-            <span class="attribute">#[target_feature(enable = <span class="string">&quot;avx&quot;</span>)]
+            <span class="attr">#[target_feature(enable = <span class="string">&quot;avx&quot;</span>)]
             </span><span class="kw">unsafe fn </span>impl_avx($(<span class="macro-nonterminal">$arg</span>: <span class="macro-nonterminal">$argty</span>),<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret </span>{
                 fn_impl(<span class="macro-nonterminal">$crate::x86_64::AVX::instance</span>(), $(<span class="macro-nonterminal">$arg</span>),<span class="kw-2">*</span>)
             }
-            <span class="attribute">#[target_feature(enable = <span class="string">&quot;sse2&quot;</span>)]
+            <span class="attr">#[target_feature(enable = <span class="string">&quot;sse2&quot;</span>)]
             </span><span class="kw">unsafe fn </span>impl_sse2($(<span class="macro-nonterminal">$arg</span>: <span class="macro-nonterminal">$argty</span>),<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret </span>{
                 fn_impl(<span class="macro-nonterminal">$crate::x86_64::SSE2::instance</span>(), $(<span class="macro-nonterminal">$arg</span>),<span class="kw-2">*</span>)
             }
@@ -789,7 +789,7 @@
                 }
             }
         }
-        <span class="attribute">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
+        <span class="attr">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
         #[inline(always)]
         </span>$(<span class="macro-nonterminal">$</span><span class="kw">pub</span>$((<span class="macro-nonterminal">$krate</span>))<span class="kw-2">*</span>)* <span class="kw">fn </span><span class="macro-nonterminal">$name</span>($(<span class="macro-nonterminal">$arg</span>: <span class="macro-nonterminal">$argty</span>),<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret </span>{
             <span class="kw">unsafe fn </span>fn_impl&lt;<span class="macro-nonterminal">$MTy</span>: <span class="macro-nonterminal">$crate::Machine</span>&gt;(<span class="macro-nonterminal">$mach</span>: <span class="macro-nonterminal">$MTy</span>, $(<span class="macro-nonterminal">$arg</span>: <span class="macro-nonterminal">$argty</span>),<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret $body
@@ -821,19 +821,19 @@
 /// This dispatcher is suitable for vector operations that do not benefit from advanced hardware
 /// features (e.g. because they are done infrequently), so minimizing their contribution to code
 /// size is more important.
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>dispatch_light256 {
     (<span class="macro-nonterminal">$mach</span>:ident, <span class="macro-nonterminal">$MTy</span>:ident, { $([<span class="macro-nonterminal">$</span><span class="kw">pub</span>:<span class="macro-nonterminal">tt</span>$((<span class="macro-nonterminal">$krate</span>:tt))<span class="kw-2">*</span>])* <span class="kw">fn </span><span class="macro-nonterminal">$name</span>:ident($(<span class="macro-nonterminal">$arg</span>:ident: <span class="macro-nonterminal">$argty</span>:ty),* $(,)<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret</span>:ty <span class="macro-nonterminal">$body</span>:block }) =&gt; {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
         </span>$([<span class="macro-nonterminal">$</span><span class="kw">pub </span>$((<span class="macro-nonterminal">$krate</span>))<span class="kw-2">*</span>])* <span class="kw">fn </span><span class="macro-nonterminal">$name</span>($(<span class="macro-nonterminal">$arg</span>: <span class="macro-nonterminal">$argty</span>),<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret </span>{
-            <span class="attribute">#[inline(always)]
+            <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>fn_impl&lt;<span class="macro-nonterminal">$MTy</span>: <span class="macro-nonterminal">$crate::Machine</span>&gt;(<span class="macro-nonterminal">$mach</span>: <span class="macro-nonterminal">$MTy</span>, $(<span class="macro-nonterminal">$arg</span>: <span class="macro-nonterminal">$argty</span>),<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret $body
             </span><span class="kw">use </span>std::arch::x86_64::<span class="kw-2">*</span>;
-            <span class="attribute">#[target_feature(enable = <span class="string">&quot;avx&quot;</span>)]
+            <span class="attr">#[target_feature(enable = <span class="string">&quot;avx&quot;</span>)]
             </span><span class="kw">unsafe fn </span>impl_avx($(<span class="macro-nonterminal">$arg</span>: <span class="macro-nonterminal">$argty</span>),<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret </span>{
                 fn_impl(<span class="macro-nonterminal">$crate::x86_64::AVX::instance</span>(), $(<span class="macro-nonterminal">$arg</span>),<span class="kw-2">*</span>)
             }
-            <span class="attribute">#[target_feature(enable = <span class="string">&quot;sse2&quot;</span>)]
+            <span class="attr">#[target_feature(enable = <span class="string">&quot;sse2&quot;</span>)]
             </span><span class="kw">unsafe fn </span>impl_sse2($(<span class="macro-nonterminal">$arg</span>: <span class="macro-nonterminal">$argty</span>),<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret </span>{
                 fn_impl(<span class="macro-nonterminal">$crate::x86_64::SSE2::instance</span>(), $(<span class="macro-nonterminal">$arg</span>),<span class="kw-2">*</span>)
             }
@@ -847,7 +847,7 @@
                 }
             }
         }
-        <span class="attribute">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
+        <span class="attr">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
         #[inline(always)]
         </span>$(<span class="macro-nonterminal">$</span><span class="kw">pub</span>$((<span class="macro-nonterminal">$krate</span>))<span class="kw-2">*</span>)* <span class="kw">fn </span><span class="macro-nonterminal">$name</span>($(<span class="macro-nonterminal">$arg</span>: <span class="macro-nonterminal">$argty</span>),<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret </span>{
             <span class="kw">unsafe fn </span>fn_impl&lt;<span class="macro-nonterminal">$MTy</span>: <span class="macro-nonterminal">$crate::Machine</span>&gt;(<span class="macro-nonterminal">$mach</span>: <span class="macro-nonterminal">$MTy</span>, $(<span class="macro-nonterminal">$arg</span>: <span class="macro-nonterminal">$argty</span>),<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$ret $body
@@ -873,4 +873,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ppv_lite86" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ppv_lite86" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

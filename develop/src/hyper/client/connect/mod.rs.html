@@ -496,7 +496,7 @@
 <span class="kw">use </span>::http::Extensions;
 
 <span class="macro">cfg_feature! </span>{
-    <span class="attribute">#![feature = <span class="string">&quot;tcp&quot;</span>]
+    <span class="attr">#![feature = <span class="string">&quot;tcp&quot;</span>]
 
     </span><span class="kw">pub use </span><span class="self">self</span>::http::{HttpConnector, HttpInfo};
 
@@ -505,7 +505,7 @@
 }
 
 <span class="macro">cfg_feature! </span>{
-    <span class="attribute">#![any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>)]
+    <span class="attr">#![any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>)]
 
     </span><span class="kw">pub use </span><span class="self">self</span>::sealed::Connect;
 }
@@ -520,7 +520,7 @@
 ///
 /// This can be used to inform recipients about things like if ALPN
 /// was used, or if connected to an HTTP proxy.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Connected {
     <span class="kw">pub</span>(<span class="kw">super</span>) alpn: Alpn,
     <span class="kw">pub</span>(<span class="kw">super</span>) is_proxied: bool,
@@ -529,7 +529,7 @@
 
 <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>Extra(Box&lt;<span class="kw">dyn </span>ExtraInner&gt;);
 
-<span class="attribute">#[derive(Clone, Copy, Debug, PartialEq)]
+<span class="attr">#[derive(Clone, Copy, Debug, PartialEq)]
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">enum </span>Alpn {
     H2,
     <span class="prelude-val">None</span>,
@@ -603,7 +603,7 @@
 
     <span class="comment">// Don&#39;t public expose that `Connected` is `Clone`, unsure if we want to
     // keep that contract...
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Connected {
         Connected {
             alpn: <span class="self">self</span>.alpn.clone(),
@@ -641,7 +641,7 @@
 <span class="comment">// This indirection allows the `Connected` to have a type-erased &quot;extra&quot; value,
 // while that type still knows its inner extra type. This allows the correct
 // TypeId to be used when inserting into `res.extensions_mut()`.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">struct </span>ExtraEnvelope&lt;T&gt;(T);
 
 <span class="kw">impl</span>&lt;T&gt; ExtraInner <span class="kw">for </span>ExtraEnvelope&lt;T&gt;
@@ -679,7 +679,7 @@
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">mod </span>sealed {
     <span class="kw">use </span>std::error::Error <span class="kw">as </span>StdError;
 
@@ -702,9 +702,9 @@
     </span><span class="comment">// The `Sized` bound is to prevent creating `dyn Connect`, since they cannot
     // fit the `Connect` bounds because of the blanket impl for `Service`.
     </span><span class="kw">pub trait </span>Connect: Sealed + Sized {
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         </span><span class="kw">type </span>_Svc: ConnectSvc;
-        <span class="attribute">#[doc(hidden)]
+        <span class="attr">#[doc(hidden)]
         </span><span class="kw">fn </span>connect(<span class="self">self</span>, internal_only: Internal, dst: Uri) -&gt; &lt;<span class="self">Self</span>::_Svc <span class="kw">as </span>ConnectSvc&gt;::Future;
     }
 
@@ -756,24 +756,24 @@
     }
 
     <span class="kw">pub trait </span>Sealed {}
-    <span class="attribute">#[allow(missing_debug_implementations)]
+    <span class="attr">#[allow(missing_debug_implementations)]
     </span><span class="kw">pub struct </span>Internal;
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::Connected;
 
-    <span class="attribute">#[derive(Clone, Debug, PartialEq)]
+    <span class="attr">#[derive(Clone, Debug, PartialEq)]
     </span><span class="kw">struct </span>Ex1(usize);
 
-    <span class="attribute">#[derive(Clone, Debug, PartialEq)]
+    <span class="attr">#[derive(Clone, Debug, PartialEq)]
     </span><span class="kw">struct </span>Ex2(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str);
 
-    <span class="attribute">#[derive(Clone, Debug, PartialEq)]
+    <span class="attr">#[derive(Clone, Debug, PartialEq)]
     </span><span class="kw">struct </span>Ex3(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str);
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_connected_extra() {
         <span class="kw">let </span>c1 = Connected::new().extra(Ex1(<span class="number">41</span>));
 
@@ -786,7 +786,7 @@
         <span class="macro">assert_eq!</span>(ex.get::&lt;Ex1&gt;(), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>Ex1(<span class="number">41</span>)));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_connected_extra_chain() {
         <span class="comment">// If a user composes connectors and at each stage, there&#39;s &quot;extra&quot;
         // info to attach, it shouldn&#39;t override the previous extras.
@@ -823,4 +823,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

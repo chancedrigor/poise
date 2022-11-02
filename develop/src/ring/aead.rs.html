@@ -757,7 +757,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>algorithm(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Algorithm {
         <span class="self">self</span>.key.algorithm
     }
@@ -783,7 +783,7 @@
     ///
     /// When `open_in_place()` returns `Err(..)`, `in_out` may have been
     /// overwritten in an unspecified way.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>open_in_place&lt;<span class="lifetime">&#39;in_out</span>, A&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         aad: Aad&lt;A&gt;,
@@ -838,7 +838,7 @@
     /// ```
     ///
     /// This reassembly be accomplished with three calls to `open_within()`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>open_within&lt;<span class="lifetime">&#39;in_out</span>, A&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         aad: Aad&lt;A&gt;,
@@ -858,7 +858,7 @@
     }
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>open_within_&lt;<span class="lifetime">&#39;in_out</span>, A: AsRef&lt;[u8]&gt;&gt;(
     key: <span class="kw-2">&amp;</span>UnboundKey,
     nonce: Nonce,
@@ -932,7 +932,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>algorithm(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Algorithm {
         <span class="self">self</span>.key.algorithm
     }
@@ -948,7 +948,7 @@
 
 <span class="kw">impl</span>&lt;N: NonceSequence&gt; SealingKey&lt;N&gt; {
     <span class="doccomment">/// Deprecated. Renamed to `seal_in_place_append_tag()`.
-    </span><span class="attribute">#[deprecated(note = <span class="string">&quot;Renamed to `seal_in_place_append_tag`.&quot;</span>)]
+    </span><span class="attr">#[deprecated(note = <span class="string">&quot;Renamed to `seal_in_place_append_tag`.&quot;</span>)]
     #[inline]
     </span><span class="kw">pub fn </span>seal_in_place&lt;A, InOut&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
@@ -971,7 +971,7 @@
     /// key.seal_in_place_separate_tag(aad, in_out.as_mut())
     ///     .map(|tag| in_out.extend(tag.as_ref()))
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>seal_in_place_append_tag&lt;A, InOut&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         aad: Aad&lt;A&gt;,
@@ -996,7 +996,7 @@
     /// will overwrite the plaintext with the ciphertext and return the tag.
     /// For most protocols, the caller must append the tag to the ciphertext.
     /// The tag will be `self.algorithm.tag_len()` bytes long.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>seal_in_place_separate_tag&lt;A&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         aad: Aad&lt;A&gt;,
@@ -1014,7 +1014,7 @@
     }
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>seal_in_place_separate_tag_(
     key: <span class="kw-2">&amp;</span>UnboundKey,
     nonce: Nonce,
@@ -1040,7 +1040,7 @@
 
 <span class="kw">impl</span>&lt;A: AsRef&lt;[u8]&gt;&gt; Aad&lt;A&gt; {
     <span class="doccomment">/// Construct the `Aad` from the given bytes.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>from(aad: A) -&gt; <span class="self">Self </span>{
         Aad(aad)
     }
@@ -1077,7 +1077,7 @@
     }
 }
 
-<span class="attribute">#[allow(clippy::large_enum_variant, variant_size_differences)]
+<span class="attr">#[allow(clippy::large_enum_variant, variant_size_differences)]
 </span><span class="kw">enum </span>KeyInner {
     AesGcm(aes_gcm::Key),
     ChaCha20Poly1305(chacha20_poly1305::Key),
@@ -1100,7 +1100,7 @@
     }
 
     <span class="doccomment">/// The key&#39;s AEAD algorithm.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>algorithm(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Algorithm {
         <span class="self">self</span>.algorithm
     }
@@ -1117,7 +1117,7 @@
 }
 
 <span class="kw">impl </span>hkdf::KeyType <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Algorithm {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.key_len()
     }
@@ -1140,7 +1140,7 @@
     <span class="doccomment">/// Like [`OpeningKey::open_in_place()`], except it accepts an arbitrary nonce.
     ///
     /// `nonce` must be unique for every use of the key to open data.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>open_in_place&lt;<span class="lifetime">&#39;in_out</span>, A&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         nonce: Nonce,
@@ -1156,7 +1156,7 @@
     <span class="doccomment">/// Like [`OpeningKey::open_within()`], except it accepts an arbitrary nonce.
     ///
     /// `nonce` must be unique for every use of the key to open data.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>open_within&lt;<span class="lifetime">&#39;in_out</span>, A&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         nonce: Nonce,
@@ -1171,7 +1171,7 @@
     }
 
     <span class="doccomment">/// Deprecated. Renamed to `seal_in_place_append_tag()`.
-    </span><span class="attribute">#[deprecated(note = <span class="string">&quot;Renamed to `seal_in_place_append_tag`.&quot;</span>)]
+    </span><span class="attr">#[deprecated(note = <span class="string">&quot;Renamed to `seal_in_place_append_tag`.&quot;</span>)]
     #[inline]
     </span><span class="kw">pub fn </span>seal_in_place&lt;A, InOut&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -1190,7 +1190,7 @@
     /// arbitrary nonce.
     ///
     /// `nonce` must be unique for every use of the key to seal data.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>seal_in_place_append_tag&lt;A, InOut&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         nonce: Nonce,
@@ -1209,7 +1209,7 @@
     /// arbitrary nonce.
     ///
     /// `nonce` must be unique for every use of the key to seal data.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>seal_in_place_separate_tag&lt;A&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         nonce: Nonce,
@@ -1223,7 +1223,7 @@
     }
 
     <span class="doccomment">/// The key&#39;s AEAD algorithm.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>algorithm(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Algorithm {
         <span class="kw-2">&amp;</span><span class="self">self</span>.key.algorithm
     }
@@ -1274,7 +1274,7 @@
 
 <span class="kw">impl </span>Algorithm {
     <span class="doccomment">/// The length of the key.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>key_len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.key_len
     }
@@ -1282,13 +1282,13 @@
     <span class="doccomment">/// The length of a tag.
     ///
     /// See also `MAX_TAG_LEN`.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>tag_len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         TAG_LEN
     }
 
     <span class="doccomment">/// The length of the nonces.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>nonce_len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         NONCE_LEN
     }
@@ -1296,7 +1296,7 @@
 
 <span class="macro">derive_debug_via_id!</span>(Algorithm);
 
-<span class="attribute">#[derive(Debug, Eq, PartialEq)]
+<span class="attr">#[derive(Debug, Eq, PartialEq)]
 </span><span class="kw">enum </span>AlgorithmID {
     AES_128_GCM,
     AES_256_GCM,
@@ -1312,7 +1312,7 @@
 <span class="kw">impl </span>Eq <span class="kw">for </span>Algorithm {}
 
 <span class="doccomment">/// An authentication tag.
-</span><span class="attribute">#[must_use]
+</span><span class="attr">#[must_use]
 #[repr(C)]
 </span><span class="kw">pub struct </span>Tag([u8; TAG_LEN]);
 
@@ -1337,7 +1337,7 @@
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[derive(Clone, Copy)]
+<span class="attr">#[derive(Clone, Copy)]
 </span><span class="kw">enum </span>Direction {
     Opening { in_prefix_len: usize },
     Sealing,
@@ -1357,4 +1357,4 @@
 <span class="kw">pub mod </span>quic;
 <span class="kw">mod </span>shift;
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

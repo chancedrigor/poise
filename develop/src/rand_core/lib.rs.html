@@ -530,7 +530,7 @@
 //!
 //! [`rand`]: https://docs.rs/rand
 
-</span><span class="attribute">#![doc(
+</span><span class="attr">#![doc(
     html_logo_url = <span class="string">&quot;https://www.rust-lang.org/logos/rust-logo-128x128-blk.png&quot;</span>,
     html_favicon_url = <span class="string">&quot;https://www.rust-lang.org/favicon.ico&quot;</span>,
     html_root_url = <span class="string">&quot;https://rust-random.github.io/rand/&quot;
@@ -544,19 +544,19 @@
 </span><span class="kw">use </span>core::convert::AsMut;
 <span class="kw">use </span>core::default::Default;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)] </span><span class="kw">extern crate </span>std;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)] </span><span class="kw">extern crate </span>alloc;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)] </span><span class="kw">use </span>alloc::boxed::Box;
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)] </span><span class="kw">extern crate </span>std;
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)] </span><span class="kw">extern crate </span>alloc;
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)] </span><span class="kw">use </span>alloc::boxed::Box;
 
 <span class="kw">pub use </span>error::Error;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;getrandom&quot;</span>)] </span><span class="kw">pub use </span>os::OsRng;
+<span class="attr">#[cfg(feature = <span class="string">&quot;getrandom&quot;</span>)] </span><span class="kw">pub use </span>os::OsRng;
 
 
 <span class="kw">pub mod </span>block;
 <span class="kw">mod </span>error;
 <span class="kw">pub mod </span>impls;
 <span class="kw">pub mod </span>le;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;getrandom&quot;</span>)] </span><span class="kw">mod </span>os;
+<span class="attr">#[cfg(feature = <span class="string">&quot;getrandom&quot;</span>)] </span><span class="kw">mod </span>os;
 
 
 <span class="doccomment">/// The core of a random number generator.
@@ -881,7 +881,7 @@
     /// If [`getrandom`] is unable to provide secure entropy this method will panic.
     ///
     /// [`getrandom`]: https://docs.rs/getrandom
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;getrandom&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;getrandom&quot;</span>)]
     #[cfg_attr(doc_cfg, doc(cfg(feature = <span class="string">&quot;getrandom&quot;</span>)))]
     </span><span class="kw">fn </span>from_entropy() -&gt; <span class="self">Self </span>{
         <span class="kw">let </span><span class="kw-2">mut </span>seed = <span class="self">Self</span>::Seed::default();
@@ -896,22 +896,22 @@
 // Force inlining all functions, so that it is up to the `RngCore`
 // implementation and the optimizer to decide on inlining.
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, R: RngCore + <span class="question-mark">?</span>Sized&gt; RngCore <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>R {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>next_u32(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; u32 {
         (<span class="kw-2">**</span><span class="self">self</span>).next_u32()
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>next_u64(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; u64 {
         (<span class="kw-2">**</span><span class="self">self</span>).next_u64()
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>fill_bytes(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dest: <span class="kw-2">&amp;mut </span>[u8]) {
         (<span class="kw-2">**</span><span class="self">self</span>).fill_bytes(dest)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>try_fill_bytes(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dest: <span class="kw-2">&amp;mut </span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
         (<span class="kw-2">**</span><span class="self">self</span>).try_fill_bytes(dest)
     }
@@ -920,30 +920,30 @@
 <span class="comment">// Implement `RngCore` for boxed references to an `RngCore`.
 // Force inlining all functions, so that it is up to the `RngCore`
 // implementation and the optimizer to decide on inlining.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">impl</span>&lt;R: RngCore + <span class="question-mark">?</span>Sized&gt; RngCore <span class="kw">for </span>Box&lt;R&gt; {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>next_u32(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; u32 {
         (<span class="kw-2">**</span><span class="self">self</span>).next_u32()
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>next_u64(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; u64 {
         (<span class="kw-2">**</span><span class="self">self</span>).next_u64()
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>fill_bytes(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dest: <span class="kw-2">&amp;mut </span>[u8]) {
         (<span class="kw-2">**</span><span class="self">self</span>).fill_bytes(dest)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>try_fill_bytes(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dest: <span class="kw-2">&amp;mut </span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
         (<span class="kw-2">**</span><span class="self">self</span>).try_fill_bytes(dest)
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>std::io::Read <span class="kw">for dyn </span>RngCore {
     <span class="kw">fn </span>read(<span class="kw-2">&amp;mut </span><span class="self">self</span>, buf: <span class="kw-2">&amp;mut </span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;usize, std::io::Error&gt; {
         <span class="self">self</span>.try_fill_bytes(buf)<span class="question-mark">?</span>;
@@ -955,14 +955,14 @@
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, R: CryptoRng + <span class="question-mark">?</span>Sized&gt; CryptoRng <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>R {}
 
 <span class="comment">// Implement `CryptoRng` for boxed references to an `CryptoRng`.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">impl</span>&lt;R: CryptoRng + <span class="question-mark">?</span>Sized&gt; CryptoRng <span class="kw">for </span>Box&lt;R&gt; {}
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_seed_from_u64() {
         <span class="kw">struct </span>SeedableNum(u64);
         <span class="kw">impl </span>SeedableRng <span class="kw">for </span>SeedableNum {
@@ -1004,4 +1004,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rand_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rand_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

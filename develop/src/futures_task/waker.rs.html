@@ -87,7 +87,7 @@
 <span class="comment">// FIXME: panics on Arc::clone / refcount changes could wreak havoc on the
 // code here. We should guard against this by aborting.
 
-</span><span class="attribute">#[allow(clippy::redundant_clone)] </span><span class="comment">// The clone here isn&#39;t actually redundant.
+</span><span class="attr">#[allow(clippy::redundant_clone)] </span><span class="comment">// The clone here isn&#39;t actually redundant.
 </span><span class="kw">unsafe fn </span>increase_refcount&lt;T: ArcWake&gt;(data: <span class="kw-2">*const </span>()) {
     <span class="comment">// Retain Arc, but don&#39;t touch refcount by wrapping in ManuallyDrop
     </span><span class="kw">let </span>arc = mem::ManuallyDrop::new(Arc::&lt;T&gt;::from_raw(data.cast::&lt;T&gt;()));
@@ -117,4 +117,4 @@
     drop(Arc::&lt;T&gt;::from_raw(data.cast::&lt;T&gt;()))
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="futures_task" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="futures_task" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

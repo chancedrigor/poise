@@ -292,7 +292,7 @@
     ///
     </span><span class="comment">// TODO: Examples
     </span><span class="kw">pub struct </span>BufReader&lt;R&gt; {
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span>inner: R,
         buffer: Box&lt;[u8]&gt;,
         pos: usize,
@@ -327,7 +327,7 @@
     }
 
     <span class="doccomment">/// Invalidates all data in the internal buffer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>discard_buffer(<span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;) {
         <span class="kw">let </span>this = <span class="self">self</span>.project();
         <span class="kw-2">*</span>this.pos = <span class="number">0</span>;
@@ -496,7 +496,7 @@
 }
 
 <span class="doccomment">/// Future for the [`BufReader::seek_relative`](self::BufReader::seek_relative) method.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 #[must_use = <span class="string">&quot;futures do nothing unless polled&quot;</span>]
 </span><span class="kw">pub struct </span>SeeKRelative&lt;<span class="lifetime">&#39;a</span>, R&gt; {
     inner: Pin&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>BufReader&lt;R&gt;&gt;,
@@ -525,4 +525,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

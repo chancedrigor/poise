@@ -605,7 +605,7 @@
 ///
 /// [`sleep`]: crate::time::sleep()
 /// [`.tick().await`]: Interval::tick
-</span><span class="attribute">#[track_caller]
+</span><span class="attr">#[track_caller]
 </span><span class="kw">pub fn </span>interval(period: Duration) -&gt; Interval {
     <span class="macro">assert!</span>(period &gt; Duration::new(<span class="number">0</span>, <span class="number">0</span>), <span class="string">&quot;`period` must be non-zero.&quot;</span>);
     internal_interval_at(Instant::now(), period, trace::caller_location())
@@ -640,19 +640,19 @@
 ///     // approximately 70ms have elapsed.
 /// }
 /// ```
-</span><span class="attribute">#[track_caller]
+</span><span class="attr">#[track_caller]
 </span><span class="kw">pub fn </span>interval_at(start: Instant, period: Duration) -&gt; Interval {
     <span class="macro">assert!</span>(period &gt; Duration::new(<span class="number">0</span>, <span class="number">0</span>), <span class="string">&quot;`period` must be non-zero.&quot;</span>);
     internal_interval_at(start, period, trace::caller_location())
 }
 
-<span class="attribute">#[cfg_attr(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)), allow(unused_variables))]
+<span class="attr">#[cfg_attr(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)), allow(unused_variables))]
 </span><span class="kw">fn </span>internal_interval_at(
     start: Instant,
     period: Duration,
     location: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Location&lt;<span class="lifetime">&#39;static</span>&gt;&gt;,
 ) -&gt; Interval {
-    <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+    <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
     </span><span class="kw">let </span>resource_span = {
         <span class="kw">let </span>location = location.expect(<span class="string">&quot;should have location if tracing&quot;</span>);
 
@@ -666,17 +666,17 @@
         )
     };
 
-    <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+    <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
     </span><span class="kw">let </span>delay = resource_span.in_scope(|| Box::pin(sleep_until(start)));
 
-    <span class="attribute">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
+    <span class="attr">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
     </span><span class="kw">let </span>delay = Box::pin(sleep_until(start));
 
     Interval {
         delay,
         period,
         missed_tick_behavior: Default::default(),
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span>resource_span,
     }
 }
@@ -713,7 +713,7 @@
 /// Note that because the executor cannot guarantee exact precision with timers,
 /// these strategies will only apply when the delay is greater than 5
 /// milliseconds.
-</span><span class="attribute">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+</span><span class="attr">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>MissedTickBehavior {
     <span class="doccomment">/// Ticks as fast as possible until caught up.
     ///
@@ -923,7 +923,7 @@
 ///
 /// [`IntervalStream`]: https://docs.rs/tokio-stream/latest/tokio_stream/wrappers/struct.IntervalStream.html
 /// [`sleep`]: crate::time::sleep
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Interval {
     <span class="doccomment">/// Future that completes the next time the `Interval` yields a value.
     </span>delay: Pin&lt;Box&lt;Sleep&gt;&gt;,
@@ -934,7 +934,7 @@
     <span class="doccomment">/// The strategy `Interval` should use when a tick is missed.
     </span>missed_tick_behavior: MissedTickBehavior,
 
-    <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+    <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
     </span>resource_span: tracing::Span,
 }
 
@@ -966,9 +966,9 @@
     /// }
     /// ```
     </span><span class="kw">pub async fn </span>tick(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; Instant {
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>resource_span = <span class="self">self</span>.resource_span.clone();
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>instant = trace::async_op(
             || poll_fn(|cx| <span class="self">self</span>.poll_tick(cx)),
             resource_span,
@@ -976,7 +976,7 @@
             <span class="string">&quot;poll_tick&quot;</span>,
             <span class="bool-val">false</span>,
         );
-        <span class="attribute">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
+        <span class="attr">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
         </span><span class="kw">let </span>instant = poll_fn(|cx| <span class="self">self</span>.poll_tick(cx));
 
         instant.<span class="kw">await
@@ -1069,4 +1069,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -339,7 +339,7 @@
 ///
 /// Note that this collection is not a set. The same pattern can appear more
 /// than once.
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>Patterns {
     <span class="doccomment">/// The match semantics supported by this collection of patterns.
     ///
@@ -484,7 +484,7 @@
     ///
     /// Callers must ensure that a pattern with the given identifier exists
     /// before using this method.
-    </span><span class="attribute">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
+    </span><span class="attr">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
     </span><span class="kw">pub unsafe fn </span>get_unchecked(<span class="kw-2">&amp;</span><span class="self">self</span>, id: PatternID) -&gt; Pattern&lt;<span class="lifetime">&#39;_</span>&gt; {
         Pattern(<span class="self">self</span>.by_id.get_unchecked(id <span class="kw">as </span>usize))
     }
@@ -519,7 +519,7 @@
 ///
 /// The lifetime `&#39;p` corresponds to the lifetime of the collection of patterns
 /// this is iterating over.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>PatternIter&lt;<span class="lifetime">&#39;p</span>&gt; {
     patterns: <span class="kw-2">&amp;</span><span class="lifetime">&#39;p </span>Patterns,
     i: usize,
@@ -540,7 +540,7 @@
 }
 
 <span class="doccomment">/// A pattern that is used in packed searching.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>Pattern&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]);
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; fmt::Debug <span class="kw">for </span>Pattern&lt;<span class="lifetime">&#39;a</span>&gt; {
@@ -564,7 +564,7 @@
 
     <span class="doccomment">/// Returns the first `len` low nybbles from this pattern. If this pattern
     /// is shorter than `len`, then this panics.
-    </span><span class="attribute">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
+    </span><span class="attr">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
     </span><span class="kw">pub fn </span>low_nybbles(<span class="kw-2">&amp;</span><span class="self">self</span>, len: usize) -&gt; Vec&lt;u8&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>nybs = <span class="macro">vec!</span>[];
         <span class="kw">for </span><span class="kw-2">&amp;</span>b <span class="kw">in </span><span class="self">self</span>.bytes().iter().take(len) {
@@ -574,13 +574,13 @@
     }
 
     <span class="doccomment">/// Returns true if this pattern is a prefix of the given bytes.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>is_prefix(<span class="kw-2">&amp;</span><span class="self">self</span>, bytes: <span class="kw-2">&amp;</span>[u8]) -&gt; bool {
         <span class="self">self</span>.len() &lt;= bytes.len() &amp;&amp; <span class="self">self</span>.equals(<span class="kw-2">&amp;</span>bytes[..<span class="self">self</span>.len()])
     }
 
     <span class="doccomment">/// Returns true if and only if this pattern equals the given bytes.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>equals(<span class="kw-2">&amp;</span><span class="self">self</span>, bytes: <span class="kw-2">&amp;</span>[u8]) -&gt; bool {
         <span class="comment">// Why not just use memcmp for this? Well, memcmp requires calling out
         // to libc, and this routine is called in fairly hot code paths. Other
@@ -635,4 +635,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="aho_corasick" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="aho_corasick" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

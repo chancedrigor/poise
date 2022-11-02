@@ -294,7 +294,7 @@
 </span><span class="kw">use </span>core::num::{NonZeroU16, NonZeroU8};
 
 <span class="kw">use </span><span class="kw">crate</span>::format_description::modifier;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;large-dates&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;large-dates&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::parsing::combinator::n_to_m_digits_padded;
 <span class="kw">use </span><span class="kw">crate</span>::parsing::combinator::{
     any_digit, exactly_n_digits, exactly_n_digits_padded, first_match, opt, sign,
@@ -308,10 +308,10 @@
     <span class="kw">match </span>modifiers.repr {
         modifier::YearRepr::Full =&gt; {
             <span class="kw">let </span>ParsedItem(input, sign) = opt(sign)(input);
-            <span class="attribute">#[cfg(not(feature = <span class="string">&quot;large-dates&quot;</span>))]
+            <span class="attr">#[cfg(not(feature = <span class="string">&quot;large-dates&quot;</span>))]
             </span><span class="kw">let </span>ParsedItem(input, year) =
                 exactly_n_digits_padded::&lt;u32, <span class="number">4</span>&gt;(modifiers.padding)(input)<span class="question-mark">?</span>;
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;large-dates&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;large-dates&quot;</span>)]
             </span><span class="kw">let </span>ParsedItem(input, year) =
                 n_to_m_digits_padded::&lt;u32, <span class="number">4</span>, <span class="number">6</span>&gt;(modifiers.padding)(input)<span class="question-mark">?</span>;
             <span class="kw">match </span>sign {
@@ -465,11 +465,11 @@
 
 // region: time components
 </span><span class="doccomment">/// Indicate whether the hour is &quot;am&quot; or &quot;pm&quot;.
-</span><span class="attribute">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+</span><span class="attr">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>Period {
-    <span class="attribute">#[allow(clippy::missing_docs_in_private_items)]
+    <span class="attr">#[allow(clippy::missing_docs_in_private_items)]
     </span>Am,
-    <span class="attribute">#[allow(clippy::missing_docs_in_private_items)]
+    <span class="attr">#[allow(clippy::missing_docs_in_private_items)]
     </span>Pm,
 }
 
@@ -580,4 +580,4 @@
 }
 <span class="comment">// endregion offset components
 </span></code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

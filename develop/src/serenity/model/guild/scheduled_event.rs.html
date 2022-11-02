@@ -93,7 +93,7 @@
 </pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::model::prelude::<span class="kw-2">*</span>;
 
 <span class="doccomment">/// Information about a guild scheduled event.
-</span><span class="attribute">#[derive(Clone, Debug, Serialize, Deserialize)]
+</span><span class="attr">#[derive(Clone, Debug, Serialize, Deserialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ScheduledEvent {
     <span class="doccomment">/// The Id of the scheduled event.
@@ -111,10 +111,10 @@
     <span class="doccomment">/// The description of the scheduled event, if any.
     </span><span class="kw">pub </span>description: <span class="prelude-ty">Option</span>&lt;String&gt;,
     <span class="doccomment">/// The event&#39;s starting time.
-    </span><span class="attribute">#[serde(rename = <span class="string">&quot;scheduled_start_time&quot;</span>)]
+    </span><span class="attr">#[serde(rename = <span class="string">&quot;scheduled_start_time&quot;</span>)]
     </span><span class="kw">pub </span>start_time: Timestamp,
     <span class="doccomment">/// The event&#39;s ending time; optional.
-    </span><span class="attribute">#[serde(rename = <span class="string">&quot;scheduled_end_time&quot;</span>)]
+    </span><span class="attr">#[serde(rename = <span class="string">&quot;scheduled_end_time&quot;</span>)]
     </span><span class="kw">pub </span>end_time: <span class="prelude-ty">Option</span>&lt;Timestamp&gt;,
     <span class="doccomment">/// The event&#39;s status; either Scheduled, Active, Completed, or Canceled.
     </span><span class="kw">pub </span>status: ScheduledEventStatus,
@@ -124,10 +124,10 @@
     </span><span class="kw">pub </span>creator: <span class="prelude-ty">Option</span>&lt;User&gt;,
     <span class="doccomment">/// The type of the event, indicating if it will take place in a Stage Instance, a Voice
     /// Channel, or at some External location.
-    </span><span class="attribute">#[serde(rename = <span class="string">&quot;entity_type&quot;</span>)]
+    </span><span class="attr">#[serde(rename = <span class="string">&quot;entity_type&quot;</span>)]
     </span><span class="kw">pub </span>kind: ScheduledEventType,
     <span class="doccomment">/// Optional event location, only required for External events.
-    </span><span class="attribute">#[serde(rename = <span class="string">&quot;entity_metadata&quot;</span>)]
+    </span><span class="attr">#[serde(rename = <span class="string">&quot;entity_metadata&quot;</span>)]
     </span><span class="kw">pub </span>metadata: <span class="prelude-ty">Option</span>&lt;ScheduledEventMetadata&gt;,
     <span class="doccomment">/// Number of users interested in the event.
     ///
@@ -138,7 +138,7 @@
     </span><span class="kw">pub </span>image: <span class="prelude-ty">Option</span>&lt;String&gt;,
 }
 
-<span class="attribute">#[derive(Copy, Clone, Debug)]
+<span class="attr">#[derive(Copy, Clone, Debug)]
 </span><span class="kw">pub enum </span>ScheduledEventStatus {
     Scheduled = <span class="number">1</span>,
     Active = <span class="number">2</span>,
@@ -154,7 +154,7 @@
     Canceled,
 });
 
-<span class="attribute">#[derive(Copy, Clone, Debug)]
+<span class="attr">#[derive(Copy, Clone, Debug)]
 </span><span class="kw">pub enum </span>ScheduledEventType {
     StageInstance = <span class="number">1</span>,
     Voice = <span class="number">2</span>,
@@ -168,19 +168,19 @@
     External,
 });
 
-<span class="attribute">#[derive(Clone, Debug, Serialize, Deserialize)]
+<span class="attr">#[derive(Clone, Debug, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>ScheduledEventMetadata {
     <span class="comment">// TODO: Change to `Option&lt;String&gt;` in next version.
-    </span><span class="attribute">#[serde(default)]
+    </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>location: String,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Serialize, Deserialize)]
+<span class="attr">#[derive(Clone, Debug, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>ScheduledEventUser {
-    <span class="attribute">#[serde(rename = <span class="string">&quot;guild_scheduled_event_id&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">&quot;guild_scheduled_event_id&quot;</span>)]
     </span><span class="kw">pub </span>event_id: ScheduledEventId,
     <span class="kw">pub </span>user: User,
     <span class="kw">pub </span>member: <span class="prelude-ty">Option</span>&lt;Member&gt;,
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

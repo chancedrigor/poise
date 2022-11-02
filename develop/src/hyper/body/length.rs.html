@@ -123,10 +123,10 @@
 <span id="123">123</span>
 </pre><pre class="rust"><code><span class="kw">use </span>std::fmt;
 
-<span class="attribute">#[derive(Clone, Copy, PartialEq, Eq)]
+<span class="attr">#[derive(Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>DecodedLength(u64);
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
 </span><span class="kw">impl </span>From&lt;<span class="prelude-ty">Option</span>&lt;u64&gt;&gt; <span class="kw">for </span>DecodedLength {
     <span class="kw">fn </span>from(len: <span class="prelude-ty">Option</span>&lt;u64&gt;) -&gt; <span class="self">Self </span>{
         len.and_then(|len| {
@@ -137,7 +137,7 @@
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>, test))]
 </span><span class="kw">const </span>MAX_LEN: u64 = std::u64::MAX - <span class="number">2</span>;
 
 <span class="kw">impl </span>DecodedLength {
@@ -145,7 +145,7 @@
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>CHUNKED: DecodedLength = DecodedLength(::std::u64::MAX - <span class="number">1</span>);
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>ZERO: DecodedLength = DecodedLength(<span class="number">0</span>);
 
-    <span class="attribute">#[cfg(test)]
+    <span class="attr">#[cfg(test)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(len: u64) -&gt; <span class="self">Self </span>{
         <span class="macro">debug_assert!</span>(len &lt;= MAX_LEN);
         DecodedLength(len)
@@ -155,7 +155,7 @@
     ///
     /// Should only be called if previously confirmed this isn&#39;t
     /// CLOSE_DELIMITED or CHUNKED.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[cfg(feature = <span class="string">&quot;http1&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>danger_len(<span class="self">self</span>) -&gt; u64 {
         <span class="macro">debug_assert!</span>(<span class="self">self</span>.<span class="number">0 </span>&lt; <span class="self">Self</span>::CHUNKED.<span class="number">0</span>);
@@ -171,7 +171,7 @@
     }
 
     <span class="doccomment">/// Checks the `u64` is within the maximum allowed for content-length.
-    </span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
+    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>checked_new(len: u64) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="kw">crate</span>::error::Parse&gt; {
         <span class="kw">use </span>tracing::warn;
 
@@ -197,7 +197,7 @@
     /// This includes 0, which of course is an exact known length.
     ///
     /// It would return false if &quot;chunked&quot; or otherwise size-unknown.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;http2&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>is_exact(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.<span class="number">0 </span>&lt;= MAX_LEN
     }
@@ -224,11 +224,11 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>sub_if_known() {
         <span class="kw">let </span><span class="kw-2">mut </span>len = DecodedLength::new(<span class="number">30</span>);
         len.sub_if(<span class="number">20</span>);
@@ -236,7 +236,7 @@
         <span class="macro">assert_eq!</span>(len.<span class="number">0</span>, <span class="number">10</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>sub_if_chunked() {
         <span class="kw">let </span><span class="kw-2">mut </span>len = DecodedLength::CHUNKED;
         len.sub_if(<span class="number">20</span>);
@@ -245,4 +245,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

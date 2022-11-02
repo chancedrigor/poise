@@ -1512,7 +1512,7 @@
 <span id="1512">1512</span>
 <span id="1513">1513</span>
 </pre><pre class="rust"><code><span class="kw">use </span>std::fmt;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
 </span><span class="kw">use </span>std::net::SocketAddr;
 <span class="kw">use </span>std::sync::Arc;
 
@@ -1523,12 +1523,12 @@
 <span class="kw">use </span>percent_encoding::percent_decode;
 <span class="kw">use </span>std::collections::HashMap;
 <span class="kw">use </span>std::env;
-<span class="attribute">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
+<span class="attr">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
 </span><span class="kw">use </span>std::error::Error;
 <span class="kw">use </span>std::net::IpAddr;
-<span class="attribute">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
+<span class="attr">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
 </span><span class="kw">use </span>winreg::enums::HKEY_CURRENT_USER;
-<span class="attribute">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
+<span class="attr">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
 </span><span class="kw">use </span>winreg::RegKey;
 
 <span class="doccomment">/// Configuration of a proxy that a `Client` should pass requests to.
@@ -1563,14 +1563,14 @@
 /// # Ok(())
 /// # }
 /// ```
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>Proxy {
     intercept: Intercept,
     no_proxy: <span class="prelude-ty">Option</span>&lt;NoProxy&gt;,
 }
 
 <span class="doccomment">/// Represents a possible matching entry for an IP address
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">enum </span>Ip {
     Address(IpAddr),
     Network(IpNet),
@@ -1578,16 +1578,16 @@
 
 <span class="doccomment">/// A wrapper around a list of IP cidr blocks or addresses with a [IpMatcher::contains] method for
 /// checking if an IP address is contained within the matcher
-</span><span class="attribute">#[derive(Clone, Debug, Default)]
+</span><span class="attr">#[derive(Clone, Debug, Default)]
 </span><span class="kw">struct </span>IpMatcher(Vec&lt;Ip&gt;);
 
 <span class="doccomment">/// A wrapper around a list of domains with a [DomainMatcher::contains] method for checking if a
 /// domain is contained within the matcher
-</span><span class="attribute">#[derive(Clone, Debug, Default)]
+</span><span class="attr">#[derive(Clone, Debug, Default)]
 </span><span class="kw">struct </span>DomainMatcher(Vec&lt;String&gt;);
 
 <span class="doccomment">/// A configuration for filtering out requests that shouldn&#39;t be proxied
-</span><span class="attribute">#[derive(Clone, Debug, Default)]
+</span><span class="attr">#[derive(Clone, Debug, Default)]
 </span><span class="kw">struct </span>NoProxy {
     ips: IpMatcher,
     domains: DomainMatcher,
@@ -1596,7 +1596,7 @@
 <span class="doccomment">/// A particular scheme used for proxying requests.
 ///
 /// For example, HTTP vs SOCKS5
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub enum </span>ProxyScheme {
     Http {
         auth: <span class="prelude-ty">Option</span>&lt;HeaderValue&gt;,
@@ -1606,7 +1606,7 @@
         auth: <span class="prelude-ty">Option</span>&lt;HeaderValue&gt;,
         host: http::uri::Authority,
     },
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
     </span>Socks5 {
         addr: SocketAddr,
         auth: <span class="prelude-ty">Option</span>&lt;(String, String)&gt;,
@@ -1618,7 +1618,7 @@
     <span class="kw">fn </span>maybe_http_auth(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>HeaderValue&gt; {
         <span class="kw">match </span><span class="self">self </span>{
             ProxyScheme::Http { auth, .. } | ProxyScheme::Https { auth, .. } =&gt; auth.as_ref(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
             </span><span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
         }
     }
@@ -2008,7 +2008,7 @@
     /// # Note
     ///
     /// Current SOCKS5 support is provided via blocking IO.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
     </span><span class="kw">fn </span>socks5(addr: SocketAddr) -&gt; <span class="kw">crate</span>::Result&lt;<span class="self">Self</span>&gt; {
         <span class="prelude-val">Ok</span>(ProxyScheme::Socks5 {
             addr,
@@ -2024,7 +2024,7 @@
     /// # Note
     ///
     /// Current SOCKS5 support is provided via blocking IO.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
     </span><span class="kw">fn </span>socks5h(addr: SocketAddr) -&gt; <span class="kw">crate</span>::Result&lt;<span class="self">Self</span>&gt; {
         <span class="prelude-val">Ok</span>(ProxyScheme::Socks5 {
             addr,
@@ -2053,7 +2053,7 @@
                 <span class="kw">let </span>header = encode_basic_auth(<span class="kw-2">&amp;</span>username.into(), <span class="kw-2">&amp;</span>password.into());
                 <span class="kw-2">*</span>auth = <span class="prelude-val">Some</span>(header);
             }
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
             </span>ProxyScheme::Socks5 { <span class="kw-2">ref mut </span>auth, .. } =&gt; {
                 <span class="kw-2">*</span>auth = <span class="prelude-val">Some</span>((username.into(), password.into()));
             }
@@ -2072,7 +2072,7 @@
                     <span class="kw-2">*</span>auth = update.clone();
                 }
             }
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
             </span>ProxyScheme::Socks5 { .. } =&gt; {}
         }
 
@@ -2087,7 +2087,7 @@
         <span class="kw">use </span>url::Position;
 
         <span class="comment">// Resolve URL to a host and port
-        </span><span class="attribute">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
+        </span><span class="attr">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
         </span><span class="kw">let </span>to_addr = || {
             <span class="kw">let </span>addrs = url
                 .socket_addrs(|| <span class="kw">match </span>url.scheme() {
@@ -2104,9 +2104,9 @@
         <span class="kw">let </span><span class="kw-2">mut </span>scheme = <span class="kw">match </span>url.scheme() {
             <span class="string">&quot;http&quot; </span>=&gt; <span class="self">Self</span>::http(<span class="kw-2">&amp;</span>url[Position::BeforeHost..Position::AfterPort])<span class="question-mark">?</span>,
             <span class="string">&quot;https&quot; </span>=&gt; <span class="self">Self</span>::https(<span class="kw-2">&amp;</span>url[Position::BeforeHost..Position::AfterPort])<span class="question-mark">?</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
             </span><span class="string">&quot;socks5&quot; </span>=&gt; <span class="self">Self</span>::socks5(to_addr()<span class="question-mark">?</span>)<span class="question-mark">?</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
             </span><span class="string">&quot;socks5h&quot; </span>=&gt; <span class="self">Self</span>::socks5h(to_addr()<span class="question-mark">?</span>)<span class="question-mark">?</span>,
             <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="kw">crate</span>::error::builder(<span class="string">&quot;unknown proxy scheme&quot;</span>)),
         };
@@ -2120,22 +2120,22 @@
         <span class="prelude-val">Ok</span>(scheme)
     }
 
-    <span class="attribute">#[cfg(test)]
+    <span class="attr">#[cfg(test)]
     </span><span class="kw">fn </span>scheme(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="kw">match </span><span class="self">self </span>{
             ProxyScheme::Http { .. } =&gt; <span class="string">&quot;http&quot;</span>,
             ProxyScheme::Https { .. } =&gt; <span class="string">&quot;https&quot;</span>,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
             </span>ProxyScheme::Socks5 { .. } =&gt; <span class="string">&quot;socks5&quot;</span>,
         }
     }
 
-    <span class="attribute">#[cfg(test)]
+    <span class="attr">#[cfg(test)]
     </span><span class="kw">fn </span>host(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="kw">match </span><span class="self">self </span>{
             ProxyScheme::Http { host, .. } =&gt; host.as_str(),
             ProxyScheme::Https { host, .. } =&gt; host.as_str(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
             </span>ProxyScheme::Socks5 { .. } =&gt; <span class="macro">panic!</span>(<span class="string">&quot;socks5&quot;</span>),
         }
     }
@@ -2146,7 +2146,7 @@
         <span class="kw">match </span><span class="self">self </span>{
             ProxyScheme::Http { auth: _auth, host } =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;http://{}&quot;</span>, host),
             ProxyScheme::Https { auth: _auth, host } =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;https://{}&quot;</span>, host),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
             </span>ProxyScheme::Socks5 {
                 addr,
                 auth: _auth,
@@ -2162,7 +2162,7 @@
 <span class="kw">type </span>SystemProxyMap = HashMap&lt;String, ProxyScheme&gt;;
 <span class="kw">type </span>RegistryProxyValues = (u32, String);
 
-<span class="attribute">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">enum </span>Intercept {
     All(ProxyScheme),
     Http(ProxyScheme),
@@ -2186,7 +2186,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone)]
+<span class="attr">#[derive(Clone)]
 </span><span class="kw">struct </span>Custom {
     <span class="comment">// This auth only applies if the returned ProxyScheme doesn&#39;t have an auth...
     </span>auth: <span class="prelude-ty">Option</span>&lt;HeaderValue&gt;,
@@ -2234,7 +2234,7 @@
     <span class="kw">fn </span>port(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;u16&gt;;
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>Dst <span class="kw">for </span>Uri {
     <span class="kw">fn </span>scheme(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="self">self</span>.scheme().expect(<span class="string">&quot;Uri should have a scheme&quot;</span>).as_str()
@@ -2263,14 +2263,14 @@
 ///     System proxies information as a hashmap like
 ///     {&quot;http&quot;: Url::parse(&quot;http://127.0.0.1:80&quot;), &quot;https&quot;: Url::parse(&quot;https://127.0.0.1:80&quot;)}
 </span><span class="kw">fn </span>get_sys_proxies(
-    <span class="attribute">#[cfg_attr(not(target_os = <span class="string">&quot;windows&quot;</span>), allow(unused_variables))] </span>registry_values: <span class="prelude-ty">Option</span>&lt;
+    <span class="attr">#[cfg_attr(not(target_os = <span class="string">&quot;windows&quot;</span>), allow(unused_variables))] </span>registry_values: <span class="prelude-ty">Option</span>&lt;
         RegistryProxyValues,
     &gt;,
 ) -&gt; SystemProxyMap {
     <span class="kw">let </span>proxies = get_from_environment();
 
     <span class="comment">// TODO: move the following #[cfg] to `if expression` when attributes on `if` expressions allowed
-    </span><span class="attribute">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
+    </span><span class="attr">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
     </span>{
         <span class="kw">if </span>proxies.is_empty() {
             <span class="comment">// don&#39;t care errors if can&#39;t get proxies from registry, just return an empty HashMap.
@@ -2328,7 +2328,7 @@
     env::var_os(<span class="string">&quot;REQUEST_METHOD&quot;</span>).is_some()
 }
 
-<span class="attribute">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
+<span class="attr">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
 </span><span class="kw">fn </span>get_from_registry_impl() -&gt; <span class="prelude-ty">Result</span>&lt;RegistryProxyValues, Box&lt;<span class="kw">dyn </span>Error&gt;&gt; {
     <span class="kw">let </span>hkcu = RegKey::predef(HKEY_CURRENT_USER);
     <span class="kw">let </span>internet_setting: RegKey =
@@ -2340,17 +2340,17 @@
     <span class="prelude-val">Ok</span>((proxy_enable, proxy_server))
 }
 
-<span class="attribute">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
+<span class="attr">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
 </span><span class="kw">fn </span>get_from_registry() -&gt; <span class="prelude-ty">Option</span>&lt;RegistryProxyValues&gt; {
     get_from_registry_impl().ok()
 }
 
-<span class="attribute">#[cfg(not(target_os = <span class="string">&quot;windows&quot;</span>))]
+<span class="attr">#[cfg(not(target_os = <span class="string">&quot;windows&quot;</span>))]
 </span><span class="kw">fn </span>get_from_registry() -&gt; <span class="prelude-ty">Option</span>&lt;RegistryProxyValues&gt; {
     <span class="prelude-val">None
 </span>}
 
-<span class="attribute">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
+<span class="attr">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
 </span><span class="kw">fn </span>parse_registry_values_impl(
     registry_values: RegistryProxyValues,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;SystemProxyMap, Box&lt;<span class="kw">dyn </span>Error&gt;&gt; {
@@ -2400,7 +2400,7 @@
 
 <span class="doccomment">/// Extract the protocol from the given address, if present
 /// For example, &quot;https://example.com&quot; will return Some(&quot;https&quot;)
-</span><span class="attribute">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
+</span><span class="attr">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
 </span><span class="kw">fn </span>extract_type_prefix(address: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt; {
     <span class="kw">if let </span><span class="prelude-val">Some</span>(indice) = address.find(<span class="string">&quot;://&quot;</span>) {
         <span class="kw">if </span>indice == <span class="number">0 </span>{
@@ -2420,12 +2420,12 @@
     </span>}
 }
 
-<span class="attribute">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
+<span class="attr">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
 </span><span class="kw">fn </span>parse_registry_values(registry_values: RegistryProxyValues) -&gt; SystemProxyMap {
     parse_registry_values_impl(registry_values).unwrap_or(HashMap::new())
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span>lazy_static::lazy_static;
@@ -2453,7 +2453,7 @@
         <span class="kw">let </span>(scheme, host) = <span class="kw">match </span>p.intercept(<span class="kw-2">&amp;</span>url(s)).unwrap() {
             ProxyScheme::Http { host, .. } =&gt; (<span class="string">&quot;http&quot;</span>, host),
             ProxyScheme::Https { host, .. } =&gt; (<span class="string">&quot;https&quot;</span>, host),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;socks&quot;</span>)]
             </span><span class="kw">_ </span>=&gt; <span class="macro">panic!</span>(<span class="string">&quot;intercepted as socks&quot;</span>),
         };
         http::Uri::builder()
@@ -2464,7 +2464,7 @@
             .expect(<span class="string">&quot;intercepted_uri&quot;</span>)
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_http() {
         <span class="kw">let </span>target = <span class="string">&quot;http://example.domain/&quot;</span>;
         <span class="kw">let </span>p = Proxy::http(target).unwrap();
@@ -2476,7 +2476,7 @@
         <span class="macro">assert!</span>(p.intercept(<span class="kw-2">&amp;</span>url(other)).is_none());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_https() {
         <span class="kw">let </span>target = <span class="string">&quot;http://example.domain/&quot;</span>;
         <span class="kw">let </span>p = Proxy::https(target).unwrap();
@@ -2488,7 +2488,7 @@
         <span class="macro">assert_eq!</span>(intercepted_uri(<span class="kw-2">&amp;</span>p, other), target);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_all() {
         <span class="kw">let </span>target = <span class="string">&quot;http://example.domain/&quot;</span>;
         <span class="kw">let </span>p = Proxy::all(target).unwrap();
@@ -2502,7 +2502,7 @@
         <span class="macro">assert_eq!</span>(intercepted_uri(<span class="kw-2">&amp;</span>p, other), target);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_custom() {
         <span class="kw">let </span>target1 = <span class="string">&quot;http://example.domain/&quot;</span>;
         <span class="kw">let </span>target2 = <span class="string">&quot;https://example.domain/&quot;</span>;
@@ -2525,7 +2525,7 @@
         <span class="macro">assert!</span>(p.intercept(<span class="kw-2">&amp;</span>url(other)).is_none());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_proxy_scheme_parse() {
         <span class="kw">let </span>ps = <span class="string">&quot;http://foo:bar@localhost:1239&quot;</span>.into_proxy_scheme().unwrap();
 
@@ -2538,7 +2538,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_proxy_scheme_ip_address_default_http() {
         <span class="kw">let </span>ps = <span class="string">&quot;192.168.1.1:8888&quot;</span>.into_proxy_scheme().unwrap();
 
@@ -2551,7 +2551,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_proxy_scheme_parse_default_http_with_auth() {
         <span class="comment">// this should fail because `foo` is interpreted as the scheme and no host can be found
         </span><span class="kw">let </span>ps = <span class="string">&quot;foo:bar@localhost:1239&quot;</span>.into_proxy_scheme().unwrap();
@@ -2572,7 +2572,7 @@
         <span class="kw">static </span><span class="kw-2">ref </span>ENVLOCK: Mutex&lt;MutexInner&gt; = Mutex::new(MutexInner);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_get_sys_proxies_parsing() {
         <span class="comment">// Stop other threads from modifying process-global ENV while we are.
         </span><span class="kw">let </span>_lock = ENVLOCK.lock();
@@ -2604,7 +2604,7 @@
         <span class="macro">assert_eq!</span>(p.host(), <span class="string">&quot;127.0.0.1&quot;</span>);
     }
 
-    <span class="attribute">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
+    <span class="attr">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
     #[test]
     </span><span class="kw">fn </span>test_get_sys_proxies_registry_parsing() {
         <span class="comment">// Stop other threads from modifying process-global ENV while we are.
@@ -2674,7 +2674,7 @@
         <span class="macro">assert_eq!</span>(p.host(), <span class="string">&quot;127.0.0.2:8888&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_get_sys_proxies_in_cgi() {
         <span class="comment">// Stop other threads from modifying process-global ENV while we are.
         </span><span class="kw">let </span>_lock = ENVLOCK.lock();
@@ -2704,7 +2704,7 @@
         </span><span class="macro">assert!</span>(!cgi_proxies.contains_key(<span class="string">&quot;http&quot;</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_sys_no_proxy() {
         <span class="comment">// Stop other threads from modifying process-global ENV while we are.
         </span><span class="kw">let </span>_lock = ENVLOCK.lock();
@@ -2765,7 +2765,7 @@
         </span>drop(_lock);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_wildcard_sys_no_proxy() {
         <span class="comment">// Stop other threads from modifying process-global ENV while we are.
         </span><span class="kw">let </span>_lock = ENVLOCK.lock();
@@ -2791,7 +2791,7 @@
         </span>drop(_lock);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_empty_sys_no_proxy() {
         <span class="comment">// Stop other threads from modifying process-global ENV while we are.
         </span><span class="kw">let </span>_lock = ENVLOCK.lock();
@@ -2818,7 +2818,7 @@
         </span>drop(_lock);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_no_proxy_load() {
         <span class="comment">// Stop other threads from modifying process-global ENV while we are.
         </span><span class="kw">let </span>_lock = ENVLOCK.lock();
@@ -2867,7 +2867,7 @@
         </span>drop(_lock);
     }
 
-    <span class="attribute">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
+    <span class="attr">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
     #[test]
     </span><span class="kw">fn </span>test_type_prefix_extraction() {
         <span class="macro">assert!</span>(extract_type_prefix(<span class="string">&quot;test&quot;</span>).is_none());
@@ -2903,7 +2903,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_has_http_auth() {
         <span class="kw">let </span>http_proxy_with_auth = Proxy {
             intercept: Intercept::Http(ProxyScheme::Http {
@@ -3025,4 +3025,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="reqwest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="reqwest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

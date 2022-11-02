@@ -206,7 +206,7 @@
 <span id="206">206</span>
 </pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::loom::sync::Mutex;
 <span class="kw">use </span><span class="kw">crate</span>::sync::watch;
-<span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+<span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::util::trace;
 
 <span class="doccomment">/// A barrier enables multiple tasks to synchronize the beginning of some computation.
@@ -244,16 +244,16 @@
 /// assert_eq!(num_leaders, 1);
 /// # }
 /// ```
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Barrier {
     state: Mutex&lt;BarrierState&gt;,
     wait: watch::Receiver&lt;usize&gt;,
     n: usize,
-    <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+    <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
     </span>resource_span: tracing::Span,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>BarrierState {
     waker: watch::Sender&lt;usize&gt;,
     arrived: usize,
@@ -265,7 +265,7 @@
     ///
     /// A barrier will block `n`-1 tasks which call [`Barrier::wait`] and then wake up all
     /// tasks at once when the `n`th task calls `wait`.
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>new(<span class="kw-2">mut </span>n: usize) -&gt; Barrier {
         <span class="kw">let </span>(waker, wait) = <span class="kw">crate</span>::sync::watch::channel(<span class="number">0</span>);
 
@@ -276,7 +276,7 @@
             </span>n = <span class="number">1</span>;
         }
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>resource_span = {
             <span class="kw">let </span>location = std::panic::Location::caller();
             <span class="kw">let </span>resource_span = <span class="macro">tracing::trace_span!</span>(
@@ -310,7 +310,7 @@
             }),
             n,
             wait,
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span>resource_span,
         }
     }
@@ -324,7 +324,7 @@
     /// [`BarrierWaitResult::is_leader`] when returning from this function, and all other tasks
     /// will receive a result that will return `false` from `is_leader`.
     </span><span class="kw">pub async fn </span>wait(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; BarrierWaitResult {
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">return </span>trace::async_op(
             || <span class="self">self</span>.wait_internal(),
             <span class="self">self</span>.resource_span.clone(),
@@ -334,7 +334,7 @@
         )
         .<span class="kw">await</span>;
 
-        <span class="attribute">#[cfg(any(not(tokio_unstable), not(feature = <span class="string">&quot;tracing&quot;</span>)))]
+        <span class="attr">#[cfg(any(not(tokio_unstable), not(feature = <span class="string">&quot;tracing&quot;</span>)))]
         </span><span class="kw">return </span><span class="self">self</span>.wait_internal().<span class="kw">await</span>;
     }
     <span class="kw">async fn </span>wait_internal(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; BarrierWaitResult {
@@ -349,19 +349,19 @@
             <span class="kw">let </span><span class="kw-2">mut </span>state = <span class="self">self</span>.state.lock();
             <span class="kw">let </span>generation = state.generation;
             state.arrived += <span class="number">1</span>;
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span><span class="macro">tracing::trace!</span>(
                 target: <span class="string">&quot;runtime::resource::state_update&quot;</span>,
                 arrived = <span class="number">1</span>,
                 arrived.op = <span class="string">&quot;add&quot;</span>,
             );
-            <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+            <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
             </span><span class="macro">tracing::trace!</span>(
                 target: <span class="string">&quot;runtime::resource::async_op::state_update&quot;</span>,
                 arrived = <span class="bool-val">true</span>,
             );
             <span class="kw">if </span>state.arrived == <span class="self">self</span>.n {
-                <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+                <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
                 </span><span class="macro">tracing::trace!</span>(
                     target: <span class="string">&quot;runtime::resource::async_op::state_update&quot;</span>,
                     is_leader = <span class="bool-val">true</span>,
@@ -398,7 +398,7 @@
 }
 
 <span class="doccomment">/// A `BarrierWaitResult` is returned by `wait` when all tasks in the `Barrier` have rendezvoused.
-</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone)]
 </span><span class="kw">pub struct </span>BarrierWaitResult(bool);
 
 <span class="kw">impl </span>BarrierWaitResult {
@@ -411,4 +411,4 @@
     </span>}
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

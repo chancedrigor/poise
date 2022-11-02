@@ -107,16 +107,16 @@
 <span class="kw">use </span>core::pin::Pin;
 <span class="kw">use </span>core::task::{Context, Poll};
 
-<span class="attribute">#[doc(no_inline)]
+<span class="attr">#[doc(no_inline)]
 </span><span class="kw">pub use </span>core::future::Future;
 
 <span class="doccomment">/// An owned dynamically typed [`Future`] for use in cases where you can&#39;t
 /// statically type your result or need to add some indirection.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub type </span>BoxFuture&lt;<span class="lifetime">&#39;a</span>, T&gt; = Pin&lt;alloc::boxed::Box&lt;<span class="kw">dyn </span>Future&lt;Output = T&gt; + Send + <span class="lifetime">&#39;a</span>&gt;&gt;;
 
 <span class="doccomment">/// `BoxFuture`, but without the `Send` requirement.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub type </span>LocalBoxFuture&lt;<span class="lifetime">&#39;a</span>, T&gt; = Pin&lt;alloc::boxed::Box&lt;<span class="kw">dyn </span>Future&lt;Output = T&gt; + <span class="lifetime">&#39;a</span>&gt;&gt;;
 
 <span class="doccomment">/// A future which tracks whether or not the underlying future
@@ -180,13 +180,13 @@
     <span class="kw">type </span><span class="prelude-val">Ok </span>= T;
     <span class="kw">type </span>Error = E;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_poll(<span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;<span class="self">Self</span>::Output&gt; {
         <span class="self">self</span>.poll(cx)
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">mod </span>if_alloc {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span>alloc::boxed::Box;
@@ -197,7 +197,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     </span><span class="kw">impl</span>&lt;F: FusedFuture&gt; FusedFuture <span class="kw">for </span>std::panic::AssertUnwindSafe&lt;F&gt; {
         <span class="kw">fn </span>is_terminated(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
             &lt;F <span class="kw">as </span>FusedFuture&gt;::is_terminated(<span class="kw-2">&amp;**</span><span class="self">self</span>)
@@ -205,4 +205,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="futures_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="futures_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

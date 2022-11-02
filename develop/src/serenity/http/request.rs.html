@@ -204,7 +204,7 @@
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; RequestBuilder&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>new(route_info: RouteInfo&lt;<span class="lifetime">&#39;a</span>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             body: <span class="prelude-val">None</span>,
@@ -214,7 +214,7 @@
         }
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; Request&lt;<span class="lifetime">&#39;a</span>&gt; {
         Request::new(<span class="self">self</span>)
     }
@@ -244,7 +244,7 @@
     </span>}
 }
 
-<span class="attribute">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>Request&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="kw">pub</span>(<span class="kw">super</span>) body: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]&gt;,
     <span class="kw">pub</span>(<span class="kw">super</span>) multipart: <span class="prelude-ty">Option</span>&lt;Multipart&lt;<span class="lifetime">&#39;a</span>&gt;&gt;,
@@ -253,7 +253,7 @@
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Request&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>new(builder: RequestBuilder&lt;<span class="lifetime">&#39;a</span>&gt;) -&gt; <span class="self">Self </span>{
         <span class="kw">let </span>RequestBuilder {
             body,
@@ -270,7 +270,7 @@
         }
     }
 
-    <span class="attribute">#[instrument(skip(token))]
+    <span class="attr">#[instrument(skip(token))]
     </span><span class="kw">pub async fn </span>build(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         client: <span class="kw-2">&amp;</span>Client,
@@ -326,35 +326,35 @@
         <span class="prelude-val">Ok</span>(builder.headers(headers))
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>body_ref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]&gt; {
         <span class="kw-2">&amp;</span><span class="self">self</span>.body
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>body_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span><span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]&gt; {
         <span class="kw-2">&amp;mut </span><span class="self">self</span>.body
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>headers_ref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;Headers&gt; {
         <span class="kw-2">&amp;</span><span class="self">self</span>.headers
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>headers_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span><span class="prelude-ty">Option</span>&lt;Headers&gt; {
         <span class="kw-2">&amp;mut </span><span class="self">self</span>.headers
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>route_ref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>RouteInfo&lt;<span class="lifetime">&#39;_</span>&gt; {
         <span class="kw-2">&amp;</span><span class="self">self</span>.route
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>route_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>RouteInfo&lt;<span class="lifetime">&#39;a</span>&gt; {
         <span class="kw-2">&amp;mut </span><span class="self">self</span>.route
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

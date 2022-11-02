@@ -162,14 +162,14 @@
 <span class="kw">use </span><span class="kw">crate</span>::common::{task, Pin, Poll};
 
 <span class="doccomment">/// Combine a buffer with an IO, rewinding reads to use the buffer.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Rewind&lt;T&gt; {
     pre: <span class="prelude-ty">Option</span>&lt;Bytes&gt;,
     inner: T,
 }
 
 <span class="kw">impl</span>&lt;T&gt; Rewind&lt;T&gt; {
-    <span class="attribute">#[cfg(any(all(feature = <span class="string">&quot;http2&quot;</span>, feature = <span class="string">&quot;server&quot;</span>), test))]
+    <span class="attr">#[cfg(any(all(feature = <span class="string">&quot;http2&quot;</span>, feature = <span class="string">&quot;server&quot;</span>), test))]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(io: T) -&gt; <span class="self">Self </span>{
         Rewind {
             pre: <span class="prelude-val">None</span>,
@@ -184,7 +184,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(any(all(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>, feature = <span class="string">&quot;server&quot;</span>), test))]
+    <span class="attr">#[cfg(any(all(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>, feature = <span class="string">&quot;server&quot;</span>), test))]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>rewind(<span class="kw-2">&amp;mut </span><span class="self">self</span>, bs: Bytes) {
         <span class="macro">debug_assert!</span>(<span class="self">self</span>.pre.is_none());
         <span class="self">self</span>.pre = <span class="prelude-val">Some</span>(bs);
@@ -260,7 +260,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="comment">// FIXME: re-implement tests with `async/await`, this import should
     // trigger a warning to remind us
@@ -268,7 +268,7 @@
     <span class="kw">use </span>bytes::Bytes;
     <span class="kw">use </span>tokio::io::AsyncReadExt;
 
-    <span class="attribute">#[tokio::test]
+    <span class="attr">#[tokio::test]
     </span><span class="kw">async fn </span>partial_rewind() {
         <span class="kw">let </span>underlying = [<span class="number">104</span>, <span class="number">101</span>, <span class="number">108</span>, <span class="number">108</span>, <span class="number">111</span>];
 
@@ -290,7 +290,7 @@
         </span><span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>buf, <span class="kw-2">&amp;</span>underlying);
     }
 
-    <span class="attribute">#[tokio::test]
+    <span class="attr">#[tokio::test]
     </span><span class="kw">async fn </span>full_rewind() {
         <span class="kw">let </span>underlying = [<span class="number">104</span>, <span class="number">101</span>, <span class="number">108</span>, <span class="number">108</span>, <span class="number">111</span>];
 
@@ -309,4 +309,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

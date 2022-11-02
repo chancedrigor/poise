@@ -237,11 +237,11 @@
 <span class="macro">macro_rules! </span>zero_impl {
     (<span class="macro-nonterminal">$t</span>:ty, <span class="macro-nonterminal">$v</span>:expr) =&gt; {
         <span class="kw">impl </span>Zero <span class="kw">for </span><span class="macro-nonterminal">$t </span>{
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>zero() -&gt; <span class="macro-nonterminal">$t </span>{
                 <span class="macro-nonterminal">$v
             </span>}
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>is_zero(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
                 <span class="kw-2">*</span><span class="self">self </span>== <span class="macro-nonterminal">$v
             </span>}
@@ -254,7 +254,7 @@
 <span class="macro">zero_impl!</span>(u16, <span class="number">0</span>);
 <span class="macro">zero_impl!</span>(u32, <span class="number">0</span>);
 <span class="macro">zero_impl!</span>(u64, <span class="number">0</span>);
-<span class="attribute">#[cfg(has_i128)]
+<span class="attr">#[cfg(has_i128)]
 </span><span class="macro">zero_impl!</span>(u128, <span class="number">0</span>);
 
 <span class="macro">zero_impl!</span>(isize, <span class="number">0</span>);
@@ -262,7 +262,7 @@
 <span class="macro">zero_impl!</span>(i16, <span class="number">0</span>);
 <span class="macro">zero_impl!</span>(i32, <span class="number">0</span>);
 <span class="macro">zero_impl!</span>(i64, <span class="number">0</span>);
-<span class="attribute">#[cfg(has_i128)]
+<span class="attr">#[cfg(has_i128)]
 </span><span class="macro">zero_impl!</span>(i128, <span class="number">0</span>);
 
 <span class="macro">zero_impl!</span>(f32, <span class="number">0.0</span>);
@@ -314,7 +314,7 @@
     /// For performance reasons, it&#39;s best to implement this manually.
     /// After a semver bump, this method will be required, and the
     /// `where Self: PartialEq` bound will be removed.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>is_one(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool
     <span class="kw">where
         </span><span class="self">Self</span>: PartialEq,
@@ -326,11 +326,11 @@
 <span class="macro">macro_rules! </span>one_impl {
     (<span class="macro-nonterminal">$t</span>:ty, <span class="macro-nonterminal">$v</span>:expr) =&gt; {
         <span class="kw">impl </span>One <span class="kw">for </span><span class="macro-nonterminal">$t </span>{
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>one() -&gt; <span class="macro-nonterminal">$t </span>{
                 <span class="macro-nonterminal">$v
             </span>}
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>is_one(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
                 <span class="kw-2">*</span><span class="self">self </span>== <span class="macro-nonterminal">$v
             </span>}
@@ -343,7 +343,7 @@
 <span class="macro">one_impl!</span>(u16, <span class="number">1</span>);
 <span class="macro">one_impl!</span>(u32, <span class="number">1</span>);
 <span class="macro">one_impl!</span>(u64, <span class="number">1</span>);
-<span class="attribute">#[cfg(has_i128)]
+<span class="attr">#[cfg(has_i128)]
 </span><span class="macro">one_impl!</span>(u128, <span class="number">1</span>);
 
 <span class="macro">one_impl!</span>(isize, <span class="number">1</span>);
@@ -351,7 +351,7 @@
 <span class="macro">one_impl!</span>(i16, <span class="number">1</span>);
 <span class="macro">one_impl!</span>(i32, <span class="number">1</span>);
 <span class="macro">one_impl!</span>(i64, <span class="number">1</span>);
-<span class="attribute">#[cfg(has_i128)]
+<span class="attr">#[cfg(has_i128)]
 </span><span class="macro">one_impl!</span>(i128, <span class="number">1</span>);
 
 <span class="macro">one_impl!</span>(f32, <span class="number">1.0</span>);
@@ -373,18 +373,18 @@
 <span class="comment">// Some helper functions provided for backwards compatibility.
 
 </span><span class="doccomment">/// Returns the additive identity, `0`.
-</span><span class="attribute">#[inline(always)]
+</span><span class="attr">#[inline(always)]
 </span><span class="kw">pub fn </span>zero&lt;T: Zero&gt;() -&gt; T {
     Zero::zero()
 }
 
 <span class="doccomment">/// Returns the multiplicative identity, `1`.
-</span><span class="attribute">#[inline(always)]
+</span><span class="attr">#[inline(always)]
 </span><span class="kw">pub fn </span>one&lt;T: One&gt;() -&gt; T {
     One::one()
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>wrapping_identities() {
     <span class="macro">macro_rules! </span>test_wrapping_identities {
         ($(<span class="macro-nonterminal">$t</span>:ty)+) =&gt; {
@@ -400,15 +400,15 @@
     <span class="macro">test_wrapping_identities!</span>(isize i8 i16 i32 i64 usize u8 u16 u32 u64);
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>wrapping_is_zero() {
     <span class="kw">fn </span>require_zero&lt;T: Zero&gt;(<span class="kw">_</span>: <span class="kw-2">&amp;</span>T) {}
     require_zero(<span class="kw-2">&amp;</span>Wrapping(<span class="number">42</span>));
 }
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>wrapping_is_one() {
     <span class="kw">fn </span>require_one&lt;T: One&gt;(<span class="kw">_</span>: <span class="kw-2">&amp;</span>T) {}
     require_one(<span class="kw-2">&amp;</span>Wrapping(<span class="number">42</span>));
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="num_traits" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="num_traits" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

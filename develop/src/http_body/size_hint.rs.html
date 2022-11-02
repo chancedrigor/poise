@@ -92,7 +92,7 @@
 ///
 /// * 0 for `lower`
 /// * `None` for `upper`.
-</span><span class="attribute">#[derive(Debug, Default, Clone)]
+</span><span class="attr">#[derive(Debug, Default, Clone)]
 </span><span class="kw">pub struct </span>SizeHint {
     lower: u64,
     upper: <span class="prelude-ty">Option</span>&lt;u64&gt;,
@@ -100,14 +100,14 @@
 
 <span class="kw">impl </span>SizeHint {
     <span class="doccomment">/// Returns a new `SizeHint` with default values
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new() -&gt; SizeHint {
         SizeHint::default()
     }
 
     <span class="doccomment">/// Returns a new `SizeHint` with both upper and lower bounds set to the
     /// given value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>with_exact(value: u64) -&gt; SizeHint {
         SizeHint {
             lower: value,
@@ -117,7 +117,7 @@
 
     <span class="doccomment">/// Returns the lower bound of data that the `Body` will yield before
     /// completing.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>lower(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u64 {
         <span class="self">self</span>.lower
     }
@@ -127,7 +127,7 @@
     /// # Panics
     ///
     /// The function panics if `value` is greater than `upper`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_lower(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: u64) {
         <span class="macro">assert!</span>(value &lt;= <span class="self">self</span>.upper.unwrap_or(u64::MAX));
         <span class="self">self</span>.lower = value;
@@ -135,7 +135,7 @@
 
     <span class="doccomment">/// Returns the upper bound of data the `Body` will yield before
     /// completing, or `None` if the value is unknown.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>upper(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;u64&gt; {
         <span class="self">self</span>.upper
     }
@@ -145,7 +145,7 @@
     /// # Panics
     ///
     /// This function panics if `value` is less than `lower`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_upper(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: u64) {
         <span class="macro">assert!</span>(value &gt;= <span class="self">self</span>.lower, <span class="string">&quot;`value` is less than than `lower`&quot;</span>);
 
@@ -154,7 +154,7 @@
 
     <span class="doccomment">/// Returns the exact size of data that will be yielded **if** the
     /// `lower` and `upper` bounds are equal.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>exact(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;u64&gt; {
         <span class="kw">if </span><span class="prelude-val">Some</span>(<span class="self">self</span>.lower) == <span class="self">self</span>.upper {
             <span class="self">self</span>.upper
@@ -164,11 +164,11 @@
     }
 
     <span class="doccomment">/// Set the value of the `lower` and `upper` bounds to exactly the same.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_exact(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: u64) {
         <span class="self">self</span>.lower = value;
         <span class="self">self</span>.upper = <span class="prelude-val">Some</span>(value);
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="http_body" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="http_body" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -158,7 +158,7 @@ Poise supports several pre-command checks (sorted by order of execution):
 </span><span class="kw">use crate</span>::{Context, Error};
 <span class="kw">use </span>poise::serenity_prelude <span class="kw">as </span>serenity;
 
-<span class="attribute">#[poise::command(prefix_command, owners_only, hide_in_help)]
+<span class="attr">#[poise::command(prefix_command, owners_only, hide_in_help)]
 </span><span class="kw">pub async fn </span>shutdown(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.framework()
         .shard_manager()
@@ -170,7 +170,7 @@ Poise supports several pre-command checks (sorted by order of execution):
 }
 
 <span class="doccomment">/// A moderator-only command, using required_permissions
-</span><span class="attribute">#[poise::command(
+</span><span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     <span class="comment">// Multiple permissions can be OR-ed together with `|` to make them all required
@@ -183,14 +183,14 @@ Poise supports several pre-command checks (sorted by order of execution):
 }
 
 <span class="doccomment">/// Deletes the given message
-</span><span class="attribute">#[poise::command(
+</span><span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     required_bot_permissions = <span class="string">&quot;MANAGE_MESSAGES&quot;
 </span>)]
 </span><span class="kw">pub async fn </span>delete(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Message to be deleted&quot;</span>] </span>msg: serenity::Message,
+    <span class="attr">#[description = <span class="string">&quot;Message to be deleted&quot;</span>] </span>msg: serenity::Message,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     msg.delete(ctx.discord()).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
@@ -214,7 +214,7 @@ Poise supports several pre-command checks (sorted by order of execution):
 }
 
 <span class="doccomment">/// Crab party... only for &quot;Ferris&quot;!
-</span><span class="attribute">#[poise::command(
+</span><span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     check = <span class="string">&quot;is_ferris&quot;</span>,
@@ -235,7 +235,7 @@ Poise supports several pre-command checks (sorted by order of execution):
 }
 
 <span class="doccomment">/// Add two numbers
-</span><span class="attribute">#[poise::command(
+</span><span class="attr">#[poise::command(
     prefix_command,
     track_edits,
     slash_command,
@@ -248,8 +248,8 @@ Poise supports several pre-command checks (sorted by order of execution):
 )]
 </span><span class="kw">pub async fn </span>add(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;First operand&quot;</span>] </span>a: f64,
-    <span class="attribute">#[description = <span class="string">&quot;Second operand&quot;</span>]
+    <span class="attr">#[description = <span class="string">&quot;First operand&quot;</span>] </span>a: f64,
+    <span class="attr">#[description = <span class="string">&quot;Second operand&quot;</span>]
     #[min = -<span class="number">15</span>]
     #[max = <span class="number">28.765</span>]
     </span>b: f32,
@@ -260,7 +260,7 @@ Poise supports several pre-command checks (sorted by order of execution):
 }
 
 <span class="doccomment">/// Get the guild name (guild-only)
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, guild_only)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, guild_only)]
 </span><span class="kw">pub async fn </span>get_guild_name(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.say(<span class="macro">format!</span>(
         <span class="string">&quot;The name of this guild is: {}&quot;</span>,
@@ -272,7 +272,7 @@ Poise supports several pre-command checks (sorted by order of execution):
 }
 
 <span class="doccomment">/// A dm-only command
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, dm_only)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, dm_only)]
 </span><span class="kw">pub async fn </span>only_in_dms(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.say(<span class="string">&quot;This is a dm channel&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
@@ -280,7 +280,7 @@ Poise supports several pre-command checks (sorted by order of execution):
 }
 
 <span class="doccomment">/// Only runs on NSFW channels
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, nsfw_only)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, nsfw_only)]
 </span><span class="kw">pub async fn </span>lennyface(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.say(<span class="string">&quot;( ͡° ͜ʖ ͡°)&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
@@ -288,11 +288,11 @@ Poise supports several pre-command checks (sorted by order of execution):
 }
 
 <span class="doccomment">/// Utilizes the permissions v2 `default_member_permissions` field
-</span><span class="attribute">#[poise::command(slash_command, default_member_permissions = <span class="string">&quot;ADMINISTRATOR&quot;</span>)]
+</span><span class="attr">#[poise::command(slash_command, default_member_permissions = <span class="string">&quot;ADMINISTRATOR&quot;</span>)]
 </span><span class="kw">pub async fn </span>permissions_v2(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.say(<span class="string">&quot;Whoop! You&#39;re authorized!&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="prelude-val">Ok</span>(())
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="framework_usage" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="framework_usage" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

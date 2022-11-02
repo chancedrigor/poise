@@ -280,12 +280,12 @@
 <span class="kw">use </span>std::convert::TryInto <span class="kw">as _</span>;
 <span class="kw">use </span>std::marker::PhantomData;
 
-<span class="attribute">#[allow(unused_imports)] </span><span class="comment">// import is required if serenity simdjson feature is enabled
+<span class="attr">#[allow(unused_imports)] </span><span class="comment">// import is required if serenity simdjson feature is enabled
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity::json::prelude::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
 
 <span class="doccomment">/// Implement this trait on types that you want to use as a slash command parameter.
-</span><span class="attribute">#[async_trait::async_trait]
+</span><span class="attr">#[async_trait::async_trait]
 </span><span class="kw">pub trait </span>SlashArgument: Sized {
     <span class="doccomment">/// Extract a Rust value of type T from the slash command argument, given via a
     /// [`serenity::json::Value`].
@@ -315,7 +315,7 @@
 ///
 /// Currently marked `#[doc(hidden)]` because implementing this trait requires some jank due to a
 /// `PhantomData` hack and the auto-deref specialization hack.
-</span><span class="attribute">#[doc(hidden)]
+</span><span class="attr">#[doc(hidden)]
 #[async_trait::async_trait]
 </span><span class="kw">pub trait </span>SlashArgumentHack&lt;T&gt;: Sized {
     <span class="kw">async fn </span>extract(
@@ -335,7 +335,7 @@
 <span class="doccomment">/// Full version of [`crate::SlashArgument::extract`].
 ///
 /// Uses specialization to get full coverage of types. Pass the type as the first argument
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>extract_slash_argument {
     (<span class="macro-nonterminal">$target</span>:ty, <span class="macro-nonterminal">$ctx</span>:expr, <span class="macro-nonterminal">$interaction</span>:expr, <span class="macro-nonterminal">$value</span>:expr) =&gt; {{
         <span class="kw">use </span><span class="macro-nonterminal">$crate::SlashArgumentHack </span><span class="kw">as _</span>;
@@ -345,7 +345,7 @@
 <span class="doccomment">/// Full version of [`crate::SlashArgument::create`].
 ///
 /// Uses specialization to get full coverage of types. Pass the type as the first argument
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>create_slash_argument {
     (<span class="macro-nonterminal">$target</span>:ty, <span class="macro-nonterminal">$builder</span>:expr) =&gt; {{
         <span class="kw">use </span><span class="macro-nonterminal">$crate::SlashArgumentHack </span><span class="kw">as _</span>;
@@ -355,7 +355,7 @@
 <span class="doccomment">/// Full version of [`crate::SlashArgument::choices`].
 ///
 /// Uses specialization to get full coverage of types. Pass the type as the first argument
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>slash_argument_choices {
     (<span class="macro-nonterminal">$target</span>:ty) =&gt; {{
         <span class="kw">use </span><span class="macro-nonterminal">$crate::SlashArgumentHack </span><span class="kw">as _</span>;
@@ -364,7 +364,7 @@
 }
 
 <span class="doccomment">/// Handles arbitrary types that can be parsed from string.
-</span><span class="attribute">#[async_trait::async_trait]
+</span><span class="attr">#[async_trait::async_trait]
 </span><span class="kw">impl</span>&lt;T&gt; SlashArgumentHack&lt;T&gt; <span class="kw">for </span>PhantomData&lt;T&gt;
 <span class="kw">where
     </span>T: serenity::ArgumentConvert + Send + Sync,
@@ -400,7 +400,7 @@
 <span class="doccomment">/// Implements slash argument trait for integer types
 </span><span class="macro">macro_rules! </span>impl_for_integer {
     ($(<span class="macro-nonterminal">$t</span>:ty)<span class="kw-2">*</span>) =&gt; { $(
-        <span class="attribute">#[async_trait::async_trait]
+        <span class="attr">#[async_trait::async_trait]
         </span><span class="kw">impl </span>SlashArgumentHack&lt;<span class="macro-nonterminal">$t</span>&gt; <span class="kw">for </span><span class="kw-2">&amp;</span>PhantomData&lt;<span class="macro-nonterminal">$t</span>&gt; {
             <span class="kw">async fn </span>extract(
                 <span class="self">self</span>,
@@ -429,7 +429,7 @@
 <span class="doccomment">/// Implements slash argument trait for float types
 </span><span class="macro">macro_rules! </span>impl_for_float {
     ($(<span class="macro-nonterminal">$t</span>:ty)<span class="kw-2">*</span>) =&gt; { $(
-        <span class="attribute">#[async_trait::async_trait]
+        <span class="attr">#[async_trait::async_trait]
         </span><span class="kw">impl </span>SlashArgumentHack&lt;<span class="macro-nonterminal">$t</span>&gt; <span class="kw">for </span><span class="kw-2">&amp;</span>PhantomData&lt;<span class="macro-nonterminal">$t</span>&gt; {
             <span class="kw">async fn </span>extract(
                 <span class="self">self</span>,
@@ -450,7 +450,7 @@
 }
 <span class="macro">impl_for_float!</span>(f32 f64);
 
-<span class="attribute">#[async_trait::async_trait]
+<span class="attr">#[async_trait::async_trait]
 </span><span class="kw">impl </span>SlashArgumentHack&lt;bool&gt; <span class="kw">for </span><span class="kw-2">&amp;</span>PhantomData&lt;bool&gt; {
     <span class="kw">async fn </span>extract(
         <span class="self">self</span>,
@@ -468,7 +468,7 @@
     }
 }
 
-<span class="attribute">#[async_trait::async_trait]
+<span class="attr">#[async_trait::async_trait]
 </span><span class="kw">impl </span>SlashArgumentHack&lt;serenity::Attachment&gt; <span class="kw">for </span><span class="kw-2">&amp;</span>PhantomData&lt;serenity::Attachment&gt; {
     <span class="kw">async fn </span>extract(
         <span class="self">self</span>,
@@ -504,7 +504,7 @@
     }
 }
 
-<span class="attribute">#[async_trait::async_trait]
+<span class="attr">#[async_trait::async_trait]
 </span><span class="kw">impl</span>&lt;T: SlashArgument + Sync&gt; SlashArgumentHack&lt;T&gt; <span class="kw">for </span><span class="kw-2">&amp;</span>PhantomData&lt;T&gt; {
     <span class="kw">async fn </span>extract(
         <span class="self">self</span>,
@@ -527,7 +527,7 @@
 <span class="doccomment">/// Implements `SlashArgumentHack` for a model type that is represented in interactions via an ID
 </span><span class="macro">macro_rules! </span>impl_slash_argument {
     (<span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty</span>, <span class="macro-nonterminal">$slash_param_type</span>:ident) =&gt; {
-        <span class="attribute">#[async_trait::async_trait]
+        <span class="attr">#[async_trait::async_trait]
         </span><span class="kw">impl </span>SlashArgumentHack&lt;<span class="macro-nonterminal">$</span><span class="kw">type</span>&gt; <span class="kw">for </span><span class="kw-2">&amp;</span><span class="macro-nonterminal">PhantomData</span>&lt;<span class="macro-nonterminal">$</span><span class="kw">type</span>&gt; {
             <span class="kw">async fn </span><span class="macro-nonterminal">extract</span>(
                 <span class="self">self</span>,
@@ -551,4 +551,4 @@
 <span class="macro">impl_slash_argument!</span>(serenity::GuildChannel, Channel);
 <span class="macro">impl_slash_argument!</span>(serenity::Role, Role);
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

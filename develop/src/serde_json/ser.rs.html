@@ -2273,7 +2273,7 @@
 <span class="kw">use </span>serde::serde_if_integer128;
 
 <span class="doccomment">/// A structure for serializing Rust values into JSON.
-</span><span class="attribute">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;std&quot;</span>)))]
+</span><span class="attr">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;std&quot;</span>)))]
 </span><span class="kw">pub struct </span>Serializer&lt;W, F = CompactFormatter&gt; {
     writer: W,
     formatter: F,
@@ -2284,7 +2284,7 @@
     </span>W: io::Write,
 {
     <span class="doccomment">/// Creates a new JSON serializer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new(writer: W) -&gt; <span class="self">Self </span>{
         Serializer::with_formatter(writer, CompactFormatter)
     }
@@ -2295,7 +2295,7 @@
     </span>W: io::Write,
 {
     <span class="doccomment">/// Creates a new JSON pretty print serializer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>pretty(writer: W) -&gt; <span class="self">Self </span>{
         Serializer::with_formatter(writer, PrettyFormatter::new())
     }
@@ -2308,13 +2308,13 @@
 {
     <span class="doccomment">/// Creates a new JSON visitor whose output will be written to the writer
     /// specified.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>with_formatter(writer: W, formatter: F) -&gt; <span class="self">Self </span>{
         Serializer { writer, formatter }
     }
 
     <span class="doccomment">/// Unwrap the `Writer` from the `Serializer`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>into_inner(<span class="self">self</span>) -&gt; W {
         <span class="self">self</span>.writer
     }
@@ -2336,7 +2336,7 @@
     <span class="kw">type </span>SerializeStruct = Compound&lt;<span class="lifetime">&#39;a</span>, W, F&gt;;
     <span class="kw">type </span>SerializeStructVariant = Compound&lt;<span class="lifetime">&#39;a</span>, W, F&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_bool(<span class="self">self</span>, value: bool) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="macro">tri!</span>(<span class="self">self
             </span>.formatter
@@ -2345,7 +2345,7 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_i8(<span class="self">self</span>, value: i8) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="macro">tri!</span>(<span class="self">self
             </span>.formatter
@@ -2354,7 +2354,7 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_i16(<span class="self">self</span>, value: i16) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="macro">tri!</span>(<span class="self">self
             </span>.formatter
@@ -2363,7 +2363,7 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_i32(<span class="self">self</span>, value: i32) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="macro">tri!</span>(<span class="self">self
             </span>.formatter
@@ -2372,7 +2372,7 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_i64(<span class="self">self</span>, value: i64) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="macro">tri!</span>(<span class="self">self
             </span>.formatter
@@ -2389,7 +2389,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_u8(<span class="self">self</span>, value: u8) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="macro">tri!</span>(<span class="self">self
             </span>.formatter
@@ -2398,7 +2398,7 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_u16(<span class="self">self</span>, value: u16) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="macro">tri!</span>(<span class="self">self
             </span>.formatter
@@ -2407,7 +2407,7 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_u32(<span class="self">self</span>, value: u32) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="macro">tri!</span>(<span class="self">self
             </span>.formatter
@@ -2416,7 +2416,7 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_u64(<span class="self">self</span>, value: u64) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="macro">tri!</span>(<span class="self">self
             </span>.formatter
@@ -2433,7 +2433,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_f32(<span class="self">self</span>, value: f32) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">match </span>value.classify() {
             FpCategory::Nan | FpCategory::Infinite =&gt; {
@@ -2452,7 +2452,7 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_f64(<span class="self">self</span>, value: f64) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">match </span>value.classify() {
             FpCategory::Nan | FpCategory::Infinite =&gt; {
@@ -2471,20 +2471,20 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_char(<span class="self">self</span>, value: char) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="comment">// A char encoded as UTF-8 takes 4 bytes at most.
         </span><span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">4</span>];
         <span class="self">self</span>.serialize_str(value.encode_utf8(<span class="kw-2">&amp;mut </span>buf))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_str(<span class="self">self</span>, value: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="macro">tri!</span>(format_escaped_str(<span class="kw-2">&amp;mut </span><span class="self">self</span>.writer, <span class="kw-2">&amp;mut </span><span class="self">self</span>.formatter, value).map_err(Error::io));
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_bytes(<span class="self">self</span>, value: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">use </span>serde::ser::SerializeSeq;
         <span class="kw">let </span><span class="kw-2">mut </span>seq = <span class="macro">tri!</span>(<span class="self">self</span>.serialize_seq(<span class="prelude-val">Some</span>(value.len())));
@@ -2494,7 +2494,7 @@
         seq.end()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_unit(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="macro">tri!</span>(<span class="self">self
             </span>.formatter
@@ -2503,12 +2503,12 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_unit_struct(<span class="self">self</span>, _name: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="self">self</span>.serialize_unit()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_unit_variant(
         <span class="self">self</span>,
         _name: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str,
@@ -2519,7 +2519,7 @@
     }
 
     <span class="doccomment">/// Serialize newtypes without an object wrapper.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_newtype_struct&lt;T&gt;(<span class="self">self</span>, _name: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str, value: <span class="kw-2">&amp;</span>T) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;
     <span class="kw">where
         </span>T: <span class="question-mark">?</span>Sized + Serialize,
@@ -2527,7 +2527,7 @@
         value.serialize(<span class="self">self</span>)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_newtype_variant&lt;T&gt;(
         <span class="self">self</span>,
         _name: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str,
@@ -2567,12 +2567,12 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_none(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="self">self</span>.serialize_unit()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_some&lt;T&gt;(<span class="self">self</span>, value: <span class="kw-2">&amp;</span>T) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;
     <span class="kw">where
         </span>T: <span class="question-mark">?</span>Sized + Serialize,
@@ -2580,7 +2580,7 @@
         value.serialize(<span class="self">self</span>)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_seq(<span class="self">self</span>, len: <span class="prelude-ty">Option</span>&lt;usize&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>::SerializeSeq&gt; {
         <span class="macro">tri!</span>(<span class="self">self
             </span>.formatter
@@ -2603,12 +2603,12 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_tuple(<span class="self">self</span>, len: usize) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>::SerializeTuple&gt; {
         <span class="self">self</span>.serialize_seq(<span class="prelude-val">Some</span>(len))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_tuple_struct(
         <span class="self">self</span>,
         _name: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str,
@@ -2617,7 +2617,7 @@
         <span class="self">self</span>.serialize_seq(<span class="prelude-val">Some</span>(len))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_tuple_variant(
         <span class="self">self</span>,
         _name: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str,
@@ -2645,7 +2645,7 @@
         <span class="self">self</span>.serialize_seq(<span class="prelude-val">Some</span>(len))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_map(<span class="self">self</span>, len: <span class="prelude-ty">Option</span>&lt;usize&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>::SerializeMap&gt; {
         <span class="macro">tri!</span>(<span class="self">self
             </span>.formatter
@@ -2668,18 +2668,18 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_struct(<span class="self">self</span>, name: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str, len: usize) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>::SerializeStruct&gt; {
         <span class="kw">match </span>name {
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
             </span><span class="kw">crate</span>::number::TOKEN =&gt; <span class="prelude-val">Ok</span>(Compound::Number { ser: <span class="self">self </span>}),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
             </span><span class="kw">crate</span>::raw::TOKEN =&gt; <span class="prelude-val">Ok</span>(Compound::RawValue { ser: <span class="self">self </span>}),
             <span class="kw">_ </span>=&gt; <span class="self">self</span>.serialize_map(<span class="prelude-val">Some</span>(len)),
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_struct_variant(
         <span class="self">self</span>,
         _name: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str,
@@ -2762,7 +2762,7 @@
 }
 
 <span class="comment">// Not public API. Should be pub(crate).
-</span><span class="attribute">#[doc(hidden)]
+</span><span class="attr">#[doc(hidden)]
 #[derive(Eq, PartialEq)]
 </span><span class="kw">pub enum </span>State {
     Empty,
@@ -2771,15 +2771,15 @@
 }
 
 <span class="comment">// Not public API. Should be pub(crate).
-</span><span class="attribute">#[doc(hidden)]
+</span><span class="attr">#[doc(hidden)]
 </span><span class="kw">pub enum </span>Compound&lt;<span class="lifetime">&#39;a</span>, W: <span class="lifetime">&#39;a</span>, F: <span class="lifetime">&#39;a</span>&gt; {
     Map {
         ser: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Serializer&lt;W, F&gt;,
         state: State,
     },
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
     </span>Number { ser: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Serializer&lt;W, F&gt; },
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
     </span>RawValue { ser: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Serializer&lt;W, F&gt; },
 }
 
@@ -2791,7 +2791,7 @@
     <span class="kw">type </span><span class="prelude-val">Ok </span>= ();
     <span class="kw">type </span>Error = Error;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_element&lt;T&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: <span class="kw-2">&amp;</span>T) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;
     <span class="kw">where
         </span>T: <span class="question-mark">?</span>Sized + Serialize,
@@ -2813,14 +2813,14 @@
                     .map_err(Error::io));
                 <span class="prelude-val">Ok</span>(())
             }
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
             </span>Compound::Number { .. } =&gt; <span class="macro">unreachable!</span>(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
             </span>Compound::RawValue { .. } =&gt; <span class="macro">unreachable!</span>(),
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>end(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">match </span><span class="self">self </span>{
             Compound::Map { ser, state } =&gt; {
@@ -2830,9 +2830,9 @@
                 }
                 <span class="prelude-val">Ok</span>(())
             }
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
             </span>Compound::Number { .. } =&gt; <span class="macro">unreachable!</span>(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
             </span>Compound::RawValue { .. } =&gt; <span class="macro">unreachable!</span>(),
         }
     }
@@ -2846,7 +2846,7 @@
     <span class="kw">type </span><span class="prelude-val">Ok </span>= ();
     <span class="kw">type </span>Error = Error;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_element&lt;T&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: <span class="kw-2">&amp;</span>T) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;
     <span class="kw">where
         </span>T: <span class="question-mark">?</span>Sized + Serialize,
@@ -2854,7 +2854,7 @@
         ser::SerializeSeq::serialize_element(<span class="self">self</span>, value)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>end(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         ser::SerializeSeq::end(<span class="self">self</span>)
     }
@@ -2868,7 +2868,7 @@
     <span class="kw">type </span><span class="prelude-val">Ok </span>= ();
     <span class="kw">type </span>Error = Error;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_field&lt;T&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: <span class="kw-2">&amp;</span>T) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;
     <span class="kw">where
         </span>T: <span class="question-mark">?</span>Sized + Serialize,
@@ -2876,7 +2876,7 @@
         ser::SerializeSeq::serialize_element(<span class="self">self</span>, value)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>end(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         ser::SerializeSeq::end(<span class="self">self</span>)
     }
@@ -2890,7 +2890,7 @@
     <span class="kw">type </span><span class="prelude-val">Ok </span>= ();
     <span class="kw">type </span>Error = Error;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_field&lt;T&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: <span class="kw-2">&amp;</span>T) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;
     <span class="kw">where
         </span>T: <span class="question-mark">?</span>Sized + Serialize,
@@ -2898,7 +2898,7 @@
         ser::SerializeSeq::serialize_element(<span class="self">self</span>, value)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>end(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">match </span><span class="self">self </span>{
             Compound::Map { ser, state } =&gt; {
@@ -2913,9 +2913,9 @@
                 <span class="macro">tri!</span>(ser.formatter.end_object(<span class="kw-2">&amp;mut </span>ser.writer).map_err(Error::io));
                 <span class="prelude-val">Ok</span>(())
             }
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
             </span>Compound::Number { .. } =&gt; <span class="macro">unreachable!</span>(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
             </span>Compound::RawValue { .. } =&gt; <span class="macro">unreachable!</span>(),
         }
     }
@@ -2929,7 +2929,7 @@
     <span class="kw">type </span><span class="prelude-val">Ok </span>= ();
     <span class="kw">type </span>Error = Error;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_key&lt;T&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>T) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;
     <span class="kw">where
         </span>T: <span class="question-mark">?</span>Sized + Serialize,
@@ -2953,14 +2953,14 @@
                     .map_err(Error::io));
                 <span class="prelude-val">Ok</span>(())
             }
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
             </span>Compound::Number { .. } =&gt; <span class="macro">unreachable!</span>(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
             </span>Compound::RawValue { .. } =&gt; <span class="macro">unreachable!</span>(),
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_value&lt;T&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: <span class="kw-2">&amp;</span>T) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;
     <span class="kw">where
         </span>T: <span class="question-mark">?</span>Sized + Serialize,
@@ -2978,14 +2978,14 @@
                     .map_err(Error::io));
                 <span class="prelude-val">Ok</span>(())
             }
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
             </span>Compound::Number { .. } =&gt; <span class="macro">unreachable!</span>(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
             </span>Compound::RawValue { .. } =&gt; <span class="macro">unreachable!</span>(),
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>end(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">match </span><span class="self">self </span>{
             Compound::Map { ser, state } =&gt; {
@@ -2995,9 +2995,9 @@
                 }
                 <span class="prelude-val">Ok</span>(())
             }
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
             </span>Compound::Number { .. } =&gt; <span class="macro">unreachable!</span>(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
             </span>Compound::RawValue { .. } =&gt; <span class="macro">unreachable!</span>(),
         }
     }
@@ -3011,14 +3011,14 @@
     <span class="kw">type </span><span class="prelude-val">Ok </span>= ();
     <span class="kw">type </span>Error = Error;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_field&lt;T&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, key: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str, value: <span class="kw-2">&amp;</span>T) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;
     <span class="kw">where
         </span>T: <span class="question-mark">?</span>Sized + Serialize,
     {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             Compound::Map { .. } =&gt; ser::SerializeMap::serialize_entry(<span class="self">self</span>, key, value),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
             </span>Compound::Number { <span class="kw-2">ref mut </span>ser, .. } =&gt; {
                 <span class="kw">if </span>key == <span class="kw">crate</span>::number::TOKEN {
                     <span class="macro">tri!</span>(value.serialize(NumberStrEmitter(ser)));
@@ -3027,7 +3027,7 @@
                     <span class="prelude-val">Err</span>(invalid_number())
                 }
             }
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
             </span>Compound::RawValue { <span class="kw-2">ref mut </span>ser, .. } =&gt; {
                 <span class="kw">if </span>key == <span class="kw">crate</span>::raw::TOKEN {
                     <span class="macro">tri!</span>(value.serialize(RawValueStrEmitter(ser)));
@@ -3039,13 +3039,13 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>end(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">match </span><span class="self">self </span>{
             Compound::Map { .. } =&gt; ser::SerializeMap::end(<span class="self">self</span>),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
             </span>Compound::Number { .. } =&gt; <span class="prelude-val">Ok</span>(()),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
             </span>Compound::RawValue { .. } =&gt; <span class="prelude-val">Ok</span>(()),
         }
     }
@@ -3059,21 +3059,21 @@
     <span class="kw">type </span><span class="prelude-val">Ok </span>= ();
     <span class="kw">type </span>Error = Error;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_field&lt;T&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, key: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str, value: <span class="kw-2">&amp;</span>T) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;
     <span class="kw">where
         </span>T: <span class="question-mark">?</span>Sized + Serialize,
     {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             Compound::Map { .. } =&gt; ser::SerializeStruct::serialize_field(<span class="self">self</span>, key, value),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
             </span>Compound::Number { .. } =&gt; <span class="macro">unreachable!</span>(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
             </span>Compound::RawValue { .. } =&gt; <span class="macro">unreachable!</span>(),
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>end(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">match </span><span class="self">self </span>{
             Compound::Map { ser, state } =&gt; {
@@ -3088,9 +3088,9 @@
                 <span class="macro">tri!</span>(ser.formatter.end_object(<span class="kw-2">&amp;mut </span>ser.writer).map_err(Error::io));
                 <span class="prelude-val">Ok</span>(())
             }
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
             </span>Compound::Number { .. } =&gt; <span class="macro">unreachable!</span>(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
             </span>Compound::RawValue { .. } =&gt; <span class="macro">unreachable!</span>(),
         }
     }
@@ -3100,12 +3100,12 @@
     ser: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Serializer&lt;W, F&gt;,
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
 </span><span class="kw">fn </span>invalid_number() -&gt; Error {
     Error::syntax(ErrorCode::InvalidNumber, <span class="number">0</span>, <span class="number">0</span>)
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
 </span><span class="kw">fn </span>invalid_raw_value() -&gt; Error {
     Error::syntax(ErrorCode::ExpectedSomeValue, <span class="number">0</span>, <span class="number">0</span>)
 }
@@ -3122,12 +3122,12 @@
     <span class="kw">type </span><span class="prelude-val">Ok </span>= ();
     <span class="kw">type </span>Error = Error;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_str(<span class="self">self</span>, value: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="self">self</span>.ser.serialize_str(value)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_unit_variant(
         <span class="self">self</span>,
         _name: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str,
@@ -3137,7 +3137,7 @@
         <span class="self">self</span>.ser.serialize_str(variant)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>serialize_newtype_struct&lt;T&gt;(<span class="self">self</span>, _name: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str, value: <span class="kw-2">&amp;</span>T) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;
     <span class="kw">where
         </span>T: <span class="question-mark">?</span>Sized + Serialize,
@@ -3451,10 +3451,10 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
 </span><span class="kw">struct </span>NumberStrEmitter&lt;<span class="lifetime">&#39;a</span>, W: <span class="lifetime">&#39;a </span>+ io::Write, F: <span class="lifetime">&#39;a </span>+ Formatter&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Serializer&lt;W, F&gt;);
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;arbitrary_precision&quot;</span>)]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, W: io::Write, F: Formatter&gt; ser::Serializer <span class="kw">for </span>NumberStrEmitter&lt;<span class="lifetime">&#39;a</span>, W, F&gt; {
     <span class="kw">type </span><span class="prelude-val">Ok </span>= ();
     <span class="kw">type </span>Error = Error;
@@ -3632,10 +3632,10 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
 </span><span class="kw">struct </span>RawValueStrEmitter&lt;<span class="lifetime">&#39;a</span>, W: <span class="lifetime">&#39;a </span>+ io::Write, F: <span class="lifetime">&#39;a </span>+ Formatter&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Serializer&lt;W, F&gt;);
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;raw_value&quot;</span>)]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, W: io::Write, F: Formatter&gt; ser::Serializer <span class="kw">for </span>RawValueStrEmitter&lt;<span class="lifetime">&#39;a</span>, W, F&gt; {
     <span class="kw">type </span><span class="prelude-val">Ok </span>= ();
     <span class="kw">type </span>Error = Error;
@@ -3844,7 +3844,7 @@
 }
 
 <span class="kw">impl </span>CharEscape {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from_escape_table(escape: u8, byte: u8) -&gt; CharEscape {
         <span class="kw">match </span>escape {
             <span class="self">self</span>::BB =&gt; CharEscape::Backspace,
@@ -3864,7 +3864,7 @@
 /// optionally pretty print the JSON output.
 </span><span class="kw">pub trait </span>Formatter {
     <span class="doccomment">/// Writes a `null` value to the specified writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_null&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -3873,7 +3873,7 @@
     }
 
     <span class="doccomment">/// Writes a `true` or `false` value to the specified writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_bool&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W, value: bool) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -3887,7 +3887,7 @@
     }
 
     <span class="doccomment">/// Writes an integer value like `-123` to the specified writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_i8&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W, value: i8) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -3898,7 +3898,7 @@
     }
 
     <span class="doccomment">/// Writes an integer value like `-123` to the specified writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_i16&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W, value: i16) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -3909,7 +3909,7 @@
     }
 
     <span class="doccomment">/// Writes an integer value like `-123` to the specified writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_i32&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W, value: i32) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -3920,7 +3920,7 @@
     }
 
     <span class="doccomment">/// Writes an integer value like `-123` to the specified writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_i64&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W, value: i64) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -3931,7 +3931,7 @@
     }
 
     <span class="doccomment">/// Writes an integer value like `123` to the specified writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u8&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W, value: u8) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -3942,7 +3942,7 @@
     }
 
     <span class="doccomment">/// Writes an integer value like `123` to the specified writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u16&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W, value: u16) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -3953,7 +3953,7 @@
     }
 
     <span class="doccomment">/// Writes an integer value like `123` to the specified writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u32&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W, value: u32) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -3964,7 +3964,7 @@
     }
 
     <span class="doccomment">/// Writes an integer value like `123` to the specified writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u64&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W, value: u64) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -3975,7 +3975,7 @@
     }
 
     <span class="doccomment">/// Writes a floating point value like `-31.26e+12` to the specified writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_f32&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W, value: f32) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -3986,7 +3986,7 @@
     }
 
     <span class="doccomment">/// Writes a floating point value like `-31.26e+12` to the specified writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_f64&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W, value: f64) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -3997,7 +3997,7 @@
     }
 
     <span class="doccomment">/// Writes a number that has already been rendered to a string.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_number_str&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W, value: <span class="kw-2">&amp;</span>str) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4007,7 +4007,7 @@
 
     <span class="doccomment">/// Called before each series of `write_string_fragment` and
     /// `write_char_escape`.  Writes a `&quot;` to the specified writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>begin_string&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4017,7 +4017,7 @@
 
     <span class="doccomment">/// Called after each series of `write_string_fragment` and
     /// `write_char_escape`.  Writes a `&quot;` to the specified writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>end_string&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4027,7 +4027,7 @@
 
     <span class="doccomment">/// Writes a string fragment that doesn&#39;t need any escaping to the
     /// specified writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_string_fragment&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W, fragment: <span class="kw-2">&amp;</span>str) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4036,7 +4036,7 @@
     }
 
     <span class="doccomment">/// Writes a character escape code to the specified writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_char_escape&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W, char_escape: CharEscape) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4071,7 +4071,7 @@
 
     <span class="doccomment">/// Called before every array.  Writes a `[` to the specified
     /// writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>begin_array&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4081,7 +4081,7 @@
 
     <span class="doccomment">/// Called after every array.  Writes a `]` to the specified
     /// writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>end_array&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4091,7 +4091,7 @@
 
     <span class="doccomment">/// Called before every array value.  Writes a `,` if needed to
     /// the specified writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>begin_array_value&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W, first: bool) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4104,7 +4104,7 @@
     }
 
     <span class="doccomment">/// Called after every array value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>end_array_value&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, _writer: <span class="kw-2">&amp;mut </span>W) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4114,7 +4114,7 @@
 
     <span class="doccomment">/// Called before every object.  Writes a `{` to the specified
     /// writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>begin_object&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4124,7 +4124,7 @@
 
     <span class="doccomment">/// Called after every object.  Writes a `}` to the specified
     /// writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>end_object&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4133,7 +4133,7 @@
     }
 
     <span class="doccomment">/// Called before every object key.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>begin_object_key&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W, first: bool) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4148,7 +4148,7 @@
     <span class="doccomment">/// Called after every object key.  A `:` should be written to the
     /// specified writer by either this method or
     /// `begin_object_value`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>end_object_key&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, _writer: <span class="kw-2">&amp;mut </span>W) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4159,7 +4159,7 @@
     <span class="doccomment">/// Called before every object value.  A `:` should be written to
     /// the specified writer by either this method or
     /// `end_object_key`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>begin_object_value&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4168,7 +4168,7 @@
     }
 
     <span class="doccomment">/// Called after every object value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>end_object_value&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, _writer: <span class="kw-2">&amp;mut </span>W) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4178,7 +4178,7 @@
 
     <span class="doccomment">/// Writes a raw JSON fragment that doesn&#39;t need any escaping to the
     /// specified writer.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_raw_fragment&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W, fragment: <span class="kw-2">&amp;</span>str) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4188,13 +4188,13 @@
 }
 
 <span class="doccomment">/// This structure compacts a JSON value with no extra whitespace.
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>CompactFormatter;
 
 <span class="kw">impl </span>Formatter <span class="kw">for </span>CompactFormatter {}
 
 <span class="doccomment">/// This structure pretty prints a JSON value to make it human readable.
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>PrettyFormatter&lt;<span class="lifetime">&#39;a</span>&gt; {
     current_indent: usize,
     has_value: bool,
@@ -4224,7 +4224,7 @@
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Formatter <span class="kw">for </span>PrettyFormatter&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>begin_array&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4234,7 +4234,7 @@
         writer.write_all(<span class="string">b&quot;[&quot;</span>)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>end_array&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4249,7 +4249,7 @@
         writer.write_all(<span class="string">b&quot;]&quot;</span>)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>begin_array_value&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W, first: bool) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4263,7 +4263,7 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>end_array_value&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, _writer: <span class="kw-2">&amp;mut </span>W) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4272,7 +4272,7 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>begin_object&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4282,7 +4282,7 @@
         writer.write_all(<span class="string">b&quot;{&quot;</span>)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>end_object&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4297,7 +4297,7 @@
         writer.write_all(<span class="string">b&quot;}&quot;</span>)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>begin_object_key&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W, first: bool) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4310,7 +4310,7 @@
         indent(writer, <span class="self">self</span>.current_indent, <span class="self">self</span>.indent)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>begin_object_value&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, writer: <span class="kw-2">&amp;mut </span>W) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4318,7 +4318,7 @@
         writer.write_all(<span class="string">b&quot;: &quot;</span>)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>end_object_value&lt;W&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, _writer: <span class="kw-2">&amp;mut </span>W) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>W: <span class="question-mark">?</span>Sized + io::Write,
@@ -4413,7 +4413,7 @@
 ///
 /// Serialization can fail if `T`&#39;s implementation of `Serialize` decides to
 /// fail, or if `T` contains a map with non-string keys.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;std&quot;</span>)))]
 </span><span class="kw">pub fn </span>to_writer&lt;W, T&gt;(writer: W, value: <span class="kw-2">&amp;</span>T) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;
 <span class="kw">where
@@ -4432,7 +4432,7 @@
 ///
 /// Serialization can fail if `T`&#39;s implementation of `Serialize` decides to
 /// fail, or if `T` contains a map with non-string keys.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;std&quot;</span>)))]
 </span><span class="kw">pub fn </span>to_writer_pretty&lt;W, T&gt;(writer: W, value: <span class="kw-2">&amp;</span>T) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;
 <span class="kw">where
@@ -4450,7 +4450,7 @@
 ///
 /// Serialization can fail if `T`&#39;s implementation of `Serialize` decides to
 /// fail, or if `T` contains a map with non-string keys.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>to_vec&lt;T&gt;(value: <span class="kw-2">&amp;</span>T) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;u8&gt;&gt;
 <span class="kw">where
     </span>T: <span class="question-mark">?</span>Sized + Serialize,
@@ -4466,7 +4466,7 @@
 ///
 /// Serialization can fail if `T`&#39;s implementation of `Serialize` decides to
 /// fail, or if `T` contains a map with non-string keys.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>to_vec_pretty&lt;T&gt;(value: <span class="kw-2">&amp;</span>T) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;u8&gt;&gt;
 <span class="kw">where
     </span>T: <span class="question-mark">?</span>Sized + Serialize,
@@ -4482,7 +4482,7 @@
 ///
 /// Serialization can fail if `T`&#39;s implementation of `Serialize` decides to
 /// fail, or if `T` contains a map with non-string keys.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>to_string&lt;T&gt;(value: <span class="kw-2">&amp;</span>T) -&gt; <span class="prelude-ty">Result</span>&lt;String&gt;
 <span class="kw">where
     </span>T: <span class="question-mark">?</span>Sized + Serialize,
@@ -4501,7 +4501,7 @@
 ///
 /// Serialization can fail if `T`&#39;s implementation of `Serialize` decides to
 /// fail, or if `T` contains a map with non-string keys.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>to_string_pretty&lt;T&gt;(value: <span class="kw-2">&amp;</span>T) -&gt; <span class="prelude-ty">Result</span>&lt;String&gt;
 <span class="kw">where
     </span>T: <span class="question-mark">?</span>Sized + Serialize,
@@ -4525,4 +4525,4 @@
     <span class="prelude-val">Ok</span>(())
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="serde_json" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="serde_json" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

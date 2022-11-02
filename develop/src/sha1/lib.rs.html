@@ -174,7 +174,7 @@
 //! [2]: https://sha-mbles.github.io/
 //! [3]: https://github.com/RustCrypto/hashes
 
-</span><span class="attribute">#![no_std]
+</span><span class="attr">#![no_std]
 #![cfg_attr(docsrs, feature(doc_cfg))]
 #![doc(
     html_logo_url = <span class="string">&quot;https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg&quot;</span>,
@@ -198,15 +198,15 @@
 
 <span class="kw">mod </span>compress;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;compress&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;compress&quot;</span>)]
 </span><span class="kw">pub use </span>compress::compress;
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;compress&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;compress&quot;</span>))]
 </span><span class="kw">use </span>compress::compress;
 
 <span class="kw">const </span>STATE_LEN: usize = <span class="number">5</span>;
 
 <span class="doccomment">/// Core SHA-1 hasher state.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>Sha1Core {
     h: [u32; STATE_LEN],
     block_len: u64,
@@ -227,7 +227,7 @@
 }
 
 <span class="kw">impl </span>UpdateCore <span class="kw">for </span>Sha1Core {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>update_blocks(<span class="kw-2">&amp;mut </span><span class="self">self</span>, blocks: <span class="kw-2">&amp;</span>[Block&lt;<span class="self">Self</span>&gt;]) {
         <span class="self">self</span>.block_len += blocks.len() <span class="kw">as </span>u64;
         compress(<span class="kw-2">&amp;mut </span><span class="self">self</span>.h, blocks);
@@ -235,7 +235,7 @@
 }
 
 <span class="kw">impl </span>FixedOutputCore <span class="kw">for </span>Sha1Core {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>finalize_fixed_core(<span class="kw-2">&amp;mut </span><span class="self">self</span>, buffer: <span class="kw-2">&amp;mut </span>Buffer&lt;<span class="self">Self</span>&gt;, out: <span class="kw-2">&amp;mut </span>Output&lt;<span class="self">Self</span>&gt;) {
         <span class="kw">let </span>bs = <span class="self">Self</span>::BlockSize::U64;
         <span class="kw">let </span>bit_len = <span class="number">8 </span>* (buffer.get_pos() <span class="kw">as </span>u64 + bs * <span class="self">self</span>.block_len);
@@ -249,7 +249,7 @@
 }
 
 <span class="kw">impl </span>Default <span class="kw">for </span>Sha1Core {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             h: [<span class="number">0x67452301</span>, <span class="number">0xEFCDAB89</span>, <span class="number">0x98BADCFE</span>, <span class="number">0x10325476</span>, <span class="number">0xC3D2E1F0</span>],
@@ -259,7 +259,7 @@
 }
 
 <span class="kw">impl </span>Reset <span class="kw">for </span>Sha1Core {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>reset(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="kw-2">*</span><span class="self">self </span>= Default::default();
     }
@@ -280,4 +280,4 @@
 <span class="doccomment">/// SHA-1 hasher state.
 </span><span class="kw">pub type </span>Sha1 = CoreWrapper&lt;Sha1Core&gt;;
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="sha1" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="sha1" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

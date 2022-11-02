@@ -453,7 +453,7 @@
     shutdown_rx: shutdown::Receiver,
 }
 
-<span class="attribute">#[derive(Clone)]
+<span class="attr">#[derive(Clone)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Spawner {
     inner: Arc&lt;Inner&gt;,
 }
@@ -510,9 +510,9 @@
     mandatory: Mandatory,
 }
 
-<span class="attribute">#[derive(PartialEq, Eq)]
+<span class="attr">#[derive(PartialEq, Eq)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>Mandatory {
-    <span class="attribute">#[cfg_attr(not(fs), allow(dead_code))]
+    <span class="attr">#[cfg_attr(not(fs), allow(dead_code))]
     </span>Mandatory,
     NonMandatory,
 }
@@ -558,7 +558,7 @@
 <span class="doccomment">/// Runs the provided function on an executor dedicated to blocking operations.
 /// Tasks will be scheduled as non-mandatory, meaning they may not get executed
 /// in case of runtime shutdown.
-</span><span class="attribute">#[track_caller]
+</span><span class="attr">#[track_caller]
 #[cfg_attr(tokio_wasi, allow(dead_code))]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>spawn_blocking&lt;F, R&gt;(func: F) -&gt; JoinHandle&lt;R&gt;
 <span class="kw">where
@@ -570,7 +570,7 @@
 }
 
 <span class="macro">cfg_fs! </span>{
-    <span class="attribute">#[cfg_attr(any(
+    <span class="attr">#[cfg_attr(any(
         all(loom, not(test)), <span class="comment">// the function is covered by loom tests
         </span>test
     ), allow(dead_code))]
@@ -759,7 +759,7 @@
 }
 
 <span class="comment">// Tells whether the error when spawning a thread is temporary.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>is_temporary_os_thread_error(error: <span class="kw-2">&amp;</span>std::io::Error) -&gt; bool {
     <span class="macro">matches!</span>(error.kind(), std::io::ErrorKind::WouldBlock)
 }
@@ -867,4 +867,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

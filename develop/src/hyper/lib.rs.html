@@ -107,7 +107,7 @@
 <span id="107">107</span>
 <span id="108">108</span>
 <span id="109">109</span>
-</pre><pre class="rust"><code><span class="attribute">#![deny(missing_docs)]
+</pre><pre class="rust"><code><span class="attr">#![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 #![cfg_attr(test, deny(rust_2018_idioms))]
 #![cfg_attr(all(test, feature = <span class="string">&quot;full&quot;</span>), deny(unreachable_pub))]
@@ -165,34 +165,34 @@
 //!
 //! [feature flags]: https://doc.rust-lang.org/cargo/reference/manifest.html#the-features-section
 
-</span><span class="attribute">#[doc(hidden)]
+</span><span class="attr">#[doc(hidden)]
 </span><span class="kw">pub use </span>http;
 
-<span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;nightly&quot;</span>))]
+<span class="attr">#[cfg(all(test, feature = <span class="string">&quot;nightly&quot;</span>))]
 </span><span class="kw">extern crate </span>test;
 
 <span class="kw">pub use </span><span class="kw">crate</span>::http::{header, Method, Request, Response, StatusCode, Uri, Version};
 
-<span class="attribute">#[doc(no_inline)]
+<span class="attr">#[doc(no_inline)]
 </span><span class="kw">pub use </span><span class="kw">crate</span>::http::HeaderMap;
 
 <span class="kw">pub use </span><span class="kw">crate</span>::body::Body;
 <span class="kw">pub use </span><span class="kw">crate</span>::error::{Error, <span class="prelude-ty">Result</span>};
 
-<span class="attribute">#[macro_use]
+<span class="attr">#[macro_use]
 </span><span class="kw">mod </span>cfg;
-<span class="attribute">#[macro_use]
+<span class="attr">#[macro_use]
 </span><span class="kw">mod </span>common;
 <span class="kw">pub mod </span>body;
 <span class="kw">mod </span>error;
 <span class="kw">pub mod </span>ext;
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>mock;
 <span class="kw">pub mod </span>rt;
 <span class="kw">pub mod </span>service;
 <span class="kw">pub mod </span>upgrade;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;ffi&quot;</span>)]
 </span><span class="kw">pub mod </span>ffi;
 
 <span class="macro">cfg_proto! </span>{
@@ -201,20 +201,20 @@
 }
 
 <span class="macro">cfg_feature! </span>{
-    <span class="attribute">#![feature = <span class="string">&quot;client&quot;</span>]
+    <span class="attr">#![feature = <span class="string">&quot;client&quot;</span>]
 
     </span><span class="kw">pub mod </span>client;
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;http1&quot;</span>, feature = <span class="string">&quot;http2&quot;</span>))]
     #[doc(no_inline)]
     </span><span class="kw">pub use </span><span class="kw">crate</span>::client::Client;
 }
 
 <span class="macro">cfg_feature! </span>{
-    <span class="attribute">#![feature = <span class="string">&quot;server&quot;</span>]
+    <span class="attr">#![feature = <span class="string">&quot;server&quot;</span>]
 
     </span><span class="kw">pub mod </span>server;
-    <span class="attribute">#[doc(no_inline)]
+    <span class="attr">#[doc(no_inline)]
     </span><span class="kw">pub use </span><span class="kw">crate</span>::server::Server;
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -264,7 +264,7 @@
 }
 
 <span class="doccomment">/// A mirror of `syn::GenericParam` which is generic over all its contents.
-</span><span class="attribute">#[derive(Debug, Clone, PartialEq, Eq)]
+</span><span class="attr">#[derive(Debug, Clone, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>GenericParam&lt;T = syn::TypeParam, L = syn::LifetimeDef, C = syn::ConstParam&gt; {
     Type(T),
     Lifetime(L),
@@ -323,7 +323,7 @@
 
 <span class="doccomment">/// A mirror of the `syn::Generics` type which can contain arbitrary representations
 /// of params and where clauses.
-</span><span class="attribute">#[derive(Debug, Clone, PartialEq, Eq)]
+</span><span class="attr">#[derive(Debug, Clone, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>Generics&lt;P, W = syn::WhereClause&gt; {
     <span class="kw">pub </span>params: Vec&lt;P&gt;,
     <span class="kw">pub </span>where_clause: <span class="prelude-ty">Option</span>&lt;W&gt;,
@@ -365,12 +365,12 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::{GenericParam, Generics};
     <span class="kw">use </span><span class="kw">crate</span>::FromGenerics;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>generics() {
         <span class="kw">let </span>g: syn::Generics = <span class="macro">parse_quote!</span>(&lt;T&gt;);
         <span class="kw">let </span>deified: Generics&lt;GenericParam&lt;syn::Ident&gt;&gt; = FromGenerics::from_generics(<span class="kw-2">&amp;</span>g).unwrap();
@@ -379,4 +379,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="darling_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="darling_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

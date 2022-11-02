@@ -1111,7 +1111,7 @@
     /// This option should only be exposed as unstable.
     </span><span class="kw">pub</span>(<span class="kw">super</span>) disable_lifo_slot: bool,
 
-    <span class="attribute">#[cfg(tokio_unstable)]
+    <span class="attr">#[cfg(tokio_unstable)]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) unhandled_panic: UnhandledPanic,
 }
 
@@ -1122,7 +1122,7 @@
     /// to configure the runtime behavior when a spawned task panics.
     ///
     /// See [`Builder::unhandled_panic`] for more details.
-    </span><span class="attribute">#[derive(Debug, Clone)]
+    </span><span class="attr">#[derive(Debug, Clone)]
     #[non_exhaustive]
     </span><span class="kw">pub enum </span>UnhandledPanic {
         <span class="doccomment">/// The runtime should ignore panics on spawned tasks.
@@ -1200,7 +1200,7 @@
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>Kind {
     CurrentThread,
-    <span class="attribute">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
+    <span class="attr">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
     </span>MultiThread,
 }
 
@@ -1214,10 +1214,10 @@
     ///
     /// [`LocalSet`]: crate::task::LocalSet
     </span><span class="kw">pub fn </span>new_current_thread() -&gt; Builder {
-        <span class="attribute">#[cfg(loom)]
+        <span class="attr">#[cfg(loom)]
         </span><span class="kw">const </span>EVENT_INTERVAL: u32 = <span class="number">4</span>;
         <span class="comment">// The number `61` is fairly arbitrary. I believe this value was copied from golang.
-        </span><span class="attribute">#[cfg(not(loom))]
+        </span><span class="attr">#[cfg(not(loom))]
         </span><span class="kw">const </span>EVENT_INTERVAL: u32 = <span class="number">61</span>;
 
         Builder::new(Kind::CurrentThread, <span class="number">31</span>, EVENT_INTERVAL)
@@ -1227,7 +1227,7 @@
         <span class="doccomment">/// Returns a new builder with the multi thread scheduler selected.
         ///
         /// Configuration methods can be chained on the return value.
-        </span><span class="attribute">#[cfg(feature = <span class="string">&quot;rt-multi-thread&quot;</span>)]
+        </span><span class="attr">#[cfg(feature = <span class="string">&quot;rt-multi-thread&quot;</span>)]
         #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;rt-multi-thread&quot;</span>)))]
         </span><span class="kw">pub fn </span>new_multi_thread() -&gt; Builder {
             <span class="comment">// The number `61` is fairly arbitrary. I believe this value was copied from golang.
@@ -1276,7 +1276,7 @@
             </span>global_queue_interval,
             event_interval,
 
-            <span class="attribute">#[cfg(tokio_unstable)]
+            <span class="attr">#[cfg(tokio_unstable)]
             </span>unhandled_panic: UnhandledPanic::Ignore,
 
             disable_lifo_slot: <span class="bool-val">false</span>,
@@ -1300,13 +1300,13 @@
     ///     .unwrap();
     /// ```
     </span><span class="kw">pub fn </span>enable_all(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
-        <span class="attribute">#[cfg(any(
+        <span class="attr">#[cfg(any(
             feature = <span class="string">&quot;net&quot;</span>,
             all(unix, feature = <span class="string">&quot;process&quot;</span>),
             all(unix, feature = <span class="string">&quot;signal&quot;</span>)
         ))]
         </span><span class="self">self</span>.enable_io();
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;time&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;time&quot;</span>)]
         </span><span class="self">self</span>.enable_time();
 
         <span class="self">self
@@ -1357,7 +1357,7 @@
     /// # Panics
     ///
     /// This will panic if `val` is not larger than `0`.
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>worker_threads(<span class="kw-2">&amp;mut </span><span class="self">self</span>, val: usize) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="macro">assert!</span>(val &gt; <span class="number">0</span>, <span class="string">&quot;Worker threads cannot be set to 0&quot;</span>);
         <span class="self">self</span>.worker_threads = <span class="prelude-val">Some</span>(val);
@@ -1385,7 +1385,7 @@
     /// [`spawn_blocking`]: fn@crate::task::spawn_blocking
     /// [`worker_threads`]: Self::worker_threads
     /// [`thread_keep_alive`]: Self::thread_keep_alive
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     #[cfg_attr(docsrs, doc(alias = <span class="string">&quot;max_threads&quot;</span>))]
     </span><span class="kw">pub fn </span>max_blocking_threads(<span class="kw-2">&amp;mut </span><span class="self">self</span>, val: usize) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="macro">assert!</span>(val &gt; <span class="number">0</span>, <span class="string">&quot;Max blocking threads cannot be set to 0&quot;</span>);
@@ -1482,7 +1482,7 @@
     ///     .build();
     /// # }
     /// ```
-    </span><span class="attribute">#[cfg(not(loom))]
+    </span><span class="attr">#[cfg(not(loom))]
     </span><span class="kw">pub fn </span>on_thread_start&lt;F&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, f: F) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self
     </span><span class="kw">where
         </span>F: Fn() + Send + Sync + <span class="lifetime">&#39;static</span>,
@@ -1507,7 +1507,7 @@
     ///     .build();
     /// # }
     /// ```
-    </span><span class="attribute">#[cfg(not(loom))]
+    </span><span class="attr">#[cfg(not(loom))]
     </span><span class="kw">pub fn </span>on_thread_stop&lt;F&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, f: F) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self
     </span><span class="kw">where
         </span>F: Fn() + Send + Sync + <span class="lifetime">&#39;static</span>,
@@ -1585,7 +1585,7 @@
     /// })
     /// # }
     /// ```
-    </span><span class="attribute">#[cfg(not(loom))]
+    </span><span class="attr">#[cfg(not(loom))]
     </span><span class="kw">pub fn </span>on_thread_park&lt;F&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, f: F) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self
     </span><span class="kw">where
         </span>F: Fn() + Send + Sync + <span class="lifetime">&#39;static</span>,
@@ -1620,7 +1620,7 @@
     /// })
     /// # }
     /// ```
-    </span><span class="attribute">#[cfg(not(loom))]
+    </span><span class="attr">#[cfg(not(loom))]
     </span><span class="kw">pub fn </span>on_thread_unpark&lt;F&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, f: F) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self
     </span><span class="kw">where
         </span>F: Fn() + Send + Sync + <span class="lifetime">&#39;static</span>,
@@ -1647,7 +1647,7 @@
     </span><span class="kw">pub fn </span>build(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; io::Result&lt;Runtime&gt; {
         <span class="kw">match </span><span class="kw-2">&amp;</span><span class="self">self</span>.kind {
             Kind::CurrentThread =&gt; <span class="self">self</span>.build_current_thread_runtime(),
-            <span class="attribute">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
+            <span class="attr">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
             </span>Kind::MultiThread =&gt; <span class="self">self</span>.build_threaded_runtime(),
         }
     }
@@ -1656,7 +1656,7 @@
         driver::Cfg {
             enable_pause_time: <span class="kw">match </span><span class="self">self</span>.kind {
                 Kind::CurrentThread =&gt; <span class="bool-val">true</span>,
-                <span class="attribute">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
+                <span class="attr">#[cfg(all(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, not(tokio_wasi)))]
                 </span>Kind::MultiThread =&gt; <span class="bool-val">false</span>,
             },
             enable_io: <span class="self">self</span>.enable_io,
@@ -1881,7 +1881,7 @@
                 after_unpark: <span class="self">self</span>.after_unpark.clone(),
                 global_queue_interval: <span class="self">self</span>.global_queue_interval,
                 event_interval: <span class="self">self</span>.event_interval,
-                <span class="attribute">#[cfg(tokio_unstable)]
+                <span class="attr">#[cfg(tokio_unstable)]
                 </span>unhandled_panic: <span class="self">self</span>.unhandled_panic.clone(),
                 disable_lifo_slot: <span class="self">self</span>.disable_lifo_slot,
             },
@@ -2000,7 +2000,7 @@
                     after_unpark: <span class="self">self</span>.after_unpark.clone(),
                     global_queue_interval: <span class="self">self</span>.global_queue_interval,
                     event_interval: <span class="self">self</span>.event_interval,
-                    <span class="attribute">#[cfg(tokio_unstable)]
+                    <span class="attr">#[cfg(tokio_unstable)]
                     </span>unhandled_panic: <span class="self">self</span>.unhandled_panic.clone(),
                     disable_lifo_slot: <span class="self">self</span>.disable_lifo_slot,
                 },
@@ -2041,4 +2041,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

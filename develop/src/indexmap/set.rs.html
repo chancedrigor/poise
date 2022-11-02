@@ -1892,10 +1892,10 @@
 <span id="1892">1892</span>
 </pre><pre class="rust"><code><span class="doccomment">//! A hash set implemented using `IndexMap`
 
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;rayon&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;rayon&quot;</span>)]
 </span><span class="kw">pub use </span><span class="kw">crate</span>::rayon::set <span class="kw">as </span>rayon;
 
-<span class="attribute">#[cfg(has_std)]
+<span class="attr">#[cfg(has_std)]
 </span><span class="kw">use </span>std::collections::hash_map::RandomState;
 
 <span class="kw">use </span><span class="kw">crate</span>::vec::{<span class="self">self</span>, Vec};
@@ -1951,11 +1951,11 @@
 /// assert!(letters.contains(&amp;&#39;u&#39;));
 /// assert!(!letters.contains(&amp;&#39;y&#39;));
 /// ```
-</span><span class="attribute">#[cfg(has_std)]
+</span><span class="attr">#[cfg(has_std)]
 </span><span class="kw">pub struct </span>IndexSet&lt;T, S = RandomState&gt; {
     <span class="kw">pub</span>(<span class="kw">crate</span>) map: IndexMap&lt;T, (), S&gt;,
 }
-<span class="attribute">#[cfg(not(has_std))]
+<span class="attr">#[cfg(not(has_std))]
 </span><span class="kw">pub struct </span>IndexSet&lt;T, S&gt; {
     <span class="kw">pub</span>(<span class="kw">crate</span>) map: IndexMap&lt;T, (), S&gt;,
 }
@@ -1979,17 +1979,17 @@
 <span class="kw">impl</span>&lt;T, S&gt; Entries <span class="kw">for </span>IndexSet&lt;T, S&gt; {
     <span class="kw">type </span>Entry = Bucket&lt;T&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>into_entries(<span class="self">self</span>) -&gt; Vec&lt;<span class="self">Self</span>::Entry&gt; {
         <span class="self">self</span>.map.into_entries()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>as_entries(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[<span class="self">Self</span>::Entry] {
         <span class="self">self</span>.map.as_entries()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>as_entries_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>[<span class="self">Self</span>::Entry] {
         <span class="self">self</span>.map.as_entries_mut()
     }
@@ -2016,7 +2016,7 @@
     }
 }
 
-<span class="attribute">#[cfg(has_std)]
+<span class="attr">#[cfg(has_std)]
 </span><span class="kw">impl</span>&lt;T&gt; IndexSet&lt;T&gt; {
     <span class="doccomment">/// Create a new set. (Does not allocate.)
     </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
@@ -2780,7 +2780,7 @@
     }
 }
 
-<span class="attribute">#[cfg(all(has_std, rustc_1_51))]
+<span class="attr">#[cfg(all(has_std, rustc_1_51))]
 </span><span class="kw">impl</span>&lt;T, <span class="kw">const </span>N: usize&gt; From&lt;[T; N]&gt; <span class="kw">for </span>IndexSet&lt;T, RandomState&gt;
 <span class="kw">where
     </span>T: Eq + Hash,
@@ -3255,13 +3255,13 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::util::enumerate;
     <span class="kw">use </span>std::string::String;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>it_works() {
         <span class="kw">let </span><span class="kw-2">mut </span>set = IndexSet::new();
         <span class="macro">assert_eq!</span>(set.is_empty(), <span class="bool-val">true</span>);
@@ -3272,7 +3272,7 @@
         <span class="macro">assert_eq!</span>(set.is_empty(), <span class="bool-val">false</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>new() {
         <span class="kw">let </span>set = IndexSet::&lt;String&gt;::new();
         <span class="macro">println!</span>(<span class="string">&quot;{:?}&quot;</span>, set);
@@ -3281,7 +3281,7 @@
         <span class="macro">assert_eq!</span>(set.is_empty(), <span class="bool-val">true</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>insert() {
         <span class="kw">let </span>insert = [<span class="number">0</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">12</span>, <span class="number">8</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">5</span>];
         <span class="kw">let </span>not_present = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">9</span>, <span class="number">10</span>];
@@ -3300,7 +3300,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>insert_full() {
         <span class="kw">let </span>insert = <span class="macro">vec!</span>[<span class="number">9</span>, <span class="number">2</span>, <span class="number">7</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">13</span>];
         <span class="kw">let </span>present = <span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">6</span>, <span class="number">2</span>];
@@ -3323,7 +3323,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>insert_2() {
         <span class="kw">let </span><span class="kw-2">mut </span>set = IndexSet::with_capacity(<span class="number">16</span>);
 
@@ -3348,7 +3348,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>insert_dup() {
         <span class="kw">let </span><span class="kw-2">mut </span>elements = <span class="macro">vec!</span>[<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>set: IndexSet&lt;u8&gt; = elements.drain(..).collect();
@@ -3368,7 +3368,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>insert_order() {
         <span class="kw">let </span>insert = [<span class="number">0</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">12</span>, <span class="number">8</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">22</span>, <span class="number">23</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>set = IndexSet::new();
@@ -3387,7 +3387,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>replace() {
         <span class="kw">let </span>replace = [<span class="number">0</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">12</span>, <span class="number">8</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">5</span>];
         <span class="kw">let </span>not_present = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">9</span>, <span class="number">10</span>];
@@ -3406,7 +3406,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>replace_full() {
         <span class="kw">let </span>replace = <span class="macro">vec!</span>[<span class="number">9</span>, <span class="number">2</span>, <span class="number">7</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">13</span>];
         <span class="kw">let </span>present = <span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">6</span>, <span class="number">2</span>];
@@ -3429,7 +3429,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>replace_2() {
         <span class="kw">let </span><span class="kw-2">mut </span>set = IndexSet::with_capacity(<span class="number">16</span>);
 
@@ -3454,7 +3454,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>replace_dup() {
         <span class="kw">let </span><span class="kw-2">mut </span>elements = <span class="macro">vec!</span>[<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>set: IndexSet&lt;u8&gt; = elements.drain(..).collect();
@@ -3474,7 +3474,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>replace_order() {
         <span class="kw">let </span>replace = [<span class="number">0</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">12</span>, <span class="number">8</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">22</span>, <span class="number">23</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>set = IndexSet::new();
@@ -3493,7 +3493,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>grow() {
         <span class="kw">let </span>insert = [<span class="number">0</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">12</span>, <span class="number">8</span>, <span class="number">7</span>, <span class="number">11</span>];
         <span class="kw">let </span>not_present = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">9</span>, <span class="number">10</span>];
@@ -3522,7 +3522,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>reserve() {
         <span class="kw">let </span><span class="kw-2">mut </span>set = IndexSet::&lt;usize&gt;::new();
         <span class="macro">assert_eq!</span>(set.capacity(), <span class="number">0</span>);
@@ -3542,7 +3542,7 @@
         <span class="macro">assert_eq!</span>(set.get(<span class="kw-2">&amp;</span>capacity), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>capacity));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>shrink_to_fit() {
         <span class="kw">let </span><span class="kw-2">mut </span>set = IndexSet::&lt;usize&gt;::new();
         <span class="macro">assert_eq!</span>(set.capacity(), <span class="number">0</span>);
@@ -3559,7 +3559,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>remove() {
         <span class="kw">let </span>insert = [<span class="number">0</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">12</span>, <span class="number">8</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">22</span>, <span class="number">23</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>set = IndexSet::new();
@@ -3595,7 +3595,7 @@
         <span class="macro">assert_eq!</span>(set.iter().count(), insert.len() - remove.len());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>swap_remove_index() {
         <span class="kw">let </span>insert = [<span class="number">0</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">12</span>, <span class="number">8</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">22</span>, <span class="number">23</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>set = IndexSet::new();
@@ -3620,7 +3620,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>partial_eq_and_eq() {
         <span class="kw">let </span><span class="kw-2">mut </span>set_a = IndexSet::new();
         set_a.insert(<span class="number">1</span>);
@@ -3635,7 +3635,7 @@
         <span class="macro">assert_ne!</span>(set_c, set_a);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>extend() {
         <span class="kw">let </span><span class="kw-2">mut </span>set = IndexSet::new();
         set.extend(<span class="macro">vec!</span>[<span class="kw-2">&amp;</span><span class="number">1</span>, <span class="kw-2">&amp;</span><span class="number">2</span>, <span class="kw-2">&amp;</span><span class="number">3</span>, <span class="kw-2">&amp;</span><span class="number">4</span>]);
@@ -3643,7 +3643,7 @@
         <span class="macro">assert_eq!</span>(set.into_iter().collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;(), <span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>comparisons() {
         <span class="kw">let </span>set_a: IndexSet&lt;<span class="kw">_</span>&gt; = (<span class="number">0</span>..<span class="number">3</span>).collect();
         <span class="kw">let </span>set_b: IndexSet&lt;<span class="kw">_</span>&gt; = (<span class="number">3</span>..<span class="number">6</span>).collect();
@@ -3676,7 +3676,7 @@
         <span class="macro">assert!</span>(!set_d.is_superset(<span class="kw-2">&amp;</span>set_c));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>iter_comparisons() {
         <span class="kw">use </span>std::iter::empty;
 
@@ -3729,7 +3729,7 @@
         check(set_d.union(<span class="kw-2">&amp;</span>set_c), (<span class="number">3</span>..<span class="number">9</span>).rev().chain(<span class="number">0</span>..<span class="number">3</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>ops() {
         <span class="kw">let </span>empty = IndexSet::&lt;i32&gt;::new();
         <span class="kw">let </span>set_a: IndexSet&lt;<span class="kw">_</span>&gt; = (<span class="number">0</span>..<span class="number">3</span>).collect();
@@ -3737,7 +3737,7 @@
         <span class="kw">let </span>set_c: IndexSet&lt;<span class="kw">_</span>&gt; = (<span class="number">0</span>..<span class="number">6</span>).collect();
         <span class="kw">let </span>set_d: IndexSet&lt;<span class="kw">_</span>&gt; = (<span class="number">3</span>..<span class="number">9</span>).rev().collect();
 
-        <span class="attribute">#[allow(clippy::eq_op)]
+        <span class="attr">#[allow(clippy::eq_op)]
         </span>{
             <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>set_a &amp; <span class="kw-2">&amp;</span>set_a, set_a);
             <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>set_a | <span class="kw-2">&amp;</span>set_a, set_a);
@@ -3773,7 +3773,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>set_d - <span class="kw-2">&amp;</span>set_c, <span class="kw-2">&amp;</span>set_d - <span class="kw-2">&amp;</span>set_b);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg(all(has_std, rustc_1_51))]
     </span><span class="kw">fn </span>from_array() {
         <span class="kw">let </span>set1 = IndexSet::from([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]);
@@ -3783,4 +3783,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="indexmap" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="indexmap" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

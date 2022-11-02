@@ -334,7 +334,7 @@
 </span><span class="kw">pub type </span><span class="prelude-ty">Result</span>&lt;T&gt; = result::Result&lt;T, Error&gt;;
 
 <span class="doccomment">/// This error type encompasses any error that can be returned by this crate.
-</span><span class="attribute">#[derive(Clone, Debug, Eq, PartialEq)]
+</span><span class="attr">#[derive(Clone, Debug, Eq, PartialEq)]
 </span><span class="kw">pub enum </span>Error {
     <span class="doccomment">/// An error that occurred while translating concrete syntax into abstract
     /// syntax (AST).
@@ -347,7 +347,7 @@
     /// This enum may grow additional variants, so this makes sure clients
     /// don&#39;t count on exhaustive matching. (Otherwise, adding a new variant
     /// could break existing code.)
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     </span>__Nonexhaustive,
 }
 
@@ -365,7 +365,7 @@
 
 <span class="kw">impl </span>error::Error <span class="kw">for </span>Error {
     <span class="comment">// TODO: Remove this method entirely on the next breaking semver release.
-    </span><span class="attribute">#[allow(deprecated)]
+    </span><span class="attr">#[allow(deprecated)]
     </span><span class="kw">fn </span>description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             Error::Parse(<span class="kw-2">ref </span>x) =&gt; x.description(),
@@ -390,7 +390,7 @@
 /// This type is responsible for reporting regex parse errors in a nice human
 /// readable format. Most of its complexity is from interspersing notational
 /// markers pointing out the position where an error occurred.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Formatter&lt;<span class="lifetime">&#39;e</span>, E&gt; {
     <span class="doccomment">/// The original regex pattern in which the error occurred.
     </span>pattern: <span class="kw-2">&amp;</span><span class="lifetime">&#39;e </span>str,
@@ -608,7 +608,7 @@
     ::std::iter::repeat(c).take(count).collect()
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">crate</span>::ast::parse::Parser;
 
@@ -625,7 +625,7 @@
     }
 
     <span class="comment">// See: https://github.com/rust-lang/regex/issues/464
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>regression_464() {
         <span class="kw">let </span>err = Parser::new().parse(<span class="string">&quot;a{\n&quot;</span>).unwrap_err();
         <span class="comment">// This test checks that the error formatter doesn&#39;t panic.
@@ -633,7 +633,7 @@
     }
 
     <span class="comment">// See: https://github.com/rust-lang/regex/issues/545
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>repetition_quantifier_expects_a_valid_decimal() {
         assert_panic_message(
             <span class="string">r&quot;\\u{[^}]*}&quot;</span>,
@@ -647,4 +647,4 @@ error: repetition quantifier expects a valid decimal
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="regex_syntax" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="regex_syntax" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

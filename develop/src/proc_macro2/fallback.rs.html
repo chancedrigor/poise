@@ -936,15 +936,15 @@
 <span id="936">936</span>
 </pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::parse::{<span class="self">self</span>, Cursor};
 <span class="kw">use crate</span>::{Delimiter, Spacing, TokenTree};
-<span class="attribute">#[cfg(span_locations)]
+<span class="attr">#[cfg(span_locations)]
 </span><span class="kw">use </span>std::cell::RefCell;
-<span class="attribute">#[cfg(span_locations)]
+<span class="attr">#[cfg(span_locations)]
 </span><span class="kw">use </span>std::cmp;
 <span class="kw">use </span>std::fmt::{<span class="self">self</span>, Debug, Display};
 <span class="kw">use </span>std::iter::FromIterator;
 <span class="kw">use </span>std::mem;
 <span class="kw">use </span>std::ops::RangeBounds;
-<span class="attribute">#[cfg(procmacro2_semver_exempt)]
+<span class="attr">#[cfg(procmacro2_semver_exempt)]
 </span><span class="kw">use </span>std::path::Path;
 <span class="kw">use </span>std::path::PathBuf;
 <span class="kw">use </span>std::str::FromStr;
@@ -954,23 +954,23 @@
 <span class="doccomment">/// Force use of proc-macro2&#39;s fallback implementation of the API for now, even
 /// if the compiler&#39;s implementation is available.
 </span><span class="kw">pub fn </span>force() {
-    <span class="attribute">#[cfg(wrap_proc_macro)]
+    <span class="attr">#[cfg(wrap_proc_macro)]
     </span><span class="kw">crate</span>::detection::force_fallback();
 }
 
 <span class="doccomment">/// Resume using the compiler&#39;s implementation of the proc macro API if it is
 /// available.
 </span><span class="kw">pub fn </span>unforce() {
-    <span class="attribute">#[cfg(wrap_proc_macro)]
+    <span class="attr">#[cfg(wrap_proc_macro)]
     </span><span class="kw">crate</span>::detection::unforce_fallback();
 }
 
-<span class="attribute">#[derive(Clone)]
+<span class="attr">#[derive(Clone)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>TokenStream {
     inner: Vec&lt;TokenTree&gt;,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>LexError {
     <span class="kw">pub</span>(<span class="kw">crate</span>) span: Span,
 }
@@ -1003,21 +1003,21 @@
     <span class="kw">fn </span>push_token(<span class="kw-2">&amp;mut </span><span class="self">self</span>, token: TokenTree) {
         <span class="comment">// https://github.com/dtolnay/proc-macro2/issues/235
         </span><span class="kw">match </span>token {
-            <span class="attribute">#[cfg(not(no_bind_by_move_pattern_guard))]
+            <span class="attr">#[cfg(not(no_bind_by_move_pattern_guard))]
             </span>TokenTree::Literal(<span class="kw">crate</span>::Literal {
-                <span class="attribute">#[cfg(wrap_proc_macro)]
+                <span class="attr">#[cfg(wrap_proc_macro)]
                     </span>inner: <span class="kw">crate</span>::imp::Literal::Fallback(literal),
-                <span class="attribute">#[cfg(not(wrap_proc_macro))]
+                <span class="attr">#[cfg(not(wrap_proc_macro))]
                     </span>inner: literal,
                 ..
             }) <span class="kw">if </span>literal.repr.starts_with(<span class="string">&#39;-&#39;</span>) =&gt; {
                 push_negative_literal(<span class="self">self</span>, literal);
             }
-            <span class="attribute">#[cfg(no_bind_by_move_pattern_guard)]
+            <span class="attr">#[cfg(no_bind_by_move_pattern_guard)]
             </span>TokenTree::Literal(<span class="kw">crate</span>::Literal {
-                <span class="attribute">#[cfg(wrap_proc_macro)]
+                <span class="attr">#[cfg(wrap_proc_macro)]
                     </span>inner: <span class="kw">crate</span>::imp::Literal::Fallback(literal),
-                <span class="attribute">#[cfg(not(wrap_proc_macro))]
+                <span class="attr">#[cfg(not(wrap_proc_macro))]
                     </span>inner: literal,
                 ..
             }) =&gt; {
@@ -1031,7 +1031,7 @@
             <span class="kw">_ </span>=&gt; <span class="self">self</span>.inner.push(token),
         }
 
-        <span class="attribute">#[cold]
+        <span class="attr">#[cold]
         </span><span class="kw">fn </span>push_negative_literal(stream: <span class="kw-2">&amp;mut </span>TokenStream, <span class="kw-2">mut </span>literal: Literal) {
             literal.repr.remove(<span class="number">0</span>);
             <span class="kw">let </span><span class="kw-2">mut </span>punct = <span class="kw">crate</span>::Punct::new(<span class="string">&#39;-&#39;</span>, Spacing::Alone);
@@ -1058,7 +1058,7 @@
                 TokenTree::Group(group) =&gt; group.inner,
                 <span class="kw">_ </span>=&gt; <span class="kw">continue</span>,
             };
-            <span class="attribute">#[cfg(wrap_proc_macro)]
+            <span class="attr">#[cfg(wrap_proc_macro)]
             </span><span class="kw">let </span>group = <span class="kw">match </span>group {
                 <span class="kw">crate</span>::imp::Group::Fallback(group) =&gt; group,
                 <span class="kw">crate</span>::imp::Group::Compiler(<span class="kw">_</span>) =&gt; <span class="kw">continue</span>,
@@ -1069,7 +1069,7 @@
     }
 }
 
-<span class="attribute">#[cfg(span_locations)]
+<span class="attr">#[cfg(span_locations)]
 </span><span class="kw">fn </span>get_cursor(src: <span class="kw-2">&amp;</span>str) -&gt; Cursor {
     <span class="comment">// Create a dummy file &amp; add it to the source map
     </span>SOURCE_MAP.with(|cm| {
@@ -1083,7 +1083,7 @@
     })
 }
 
-<span class="attribute">#[cfg(not(span_locations))]
+<span class="attr">#[cfg(not(span_locations))]
 </span><span class="kw">fn </span>get_cursor(src: <span class="kw-2">&amp;</span>str) -&gt; Cursor {
     Cursor { rest: src }
 }
@@ -1135,7 +1135,7 @@
     }
 }
 
-<span class="attribute">#[cfg(use_proc_macro)]
+<span class="attr">#[cfg(use_proc_macro)]
 </span><span class="kw">impl </span>From&lt;proc_macro::TokenStream&gt; <span class="kw">for </span>TokenStream {
     <span class="kw">fn </span>from(inner: proc_macro::TokenStream) -&gt; TokenStream {
         inner
@@ -1145,7 +1145,7 @@
     }
 }
 
-<span class="attribute">#[cfg(use_proc_macro)]
+<span class="attr">#[cfg(use_proc_macro)]
 </span><span class="kw">impl </span>From&lt;TokenStream&gt; <span class="kw">for </span>proc_macro::TokenStream {
     <span class="kw">fn </span>from(inner: TokenStream) -&gt; proc_macro::TokenStream {
         inner
@@ -1206,7 +1206,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, PartialEq, Eq)]
+<span class="attr">#[derive(Clone, PartialEq, Eq)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>SourceFile {
     path: PathBuf,
 }
@@ -1232,19 +1232,19 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+<span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>LineColumn {
     <span class="kw">pub </span>line: usize,
     <span class="kw">pub </span>column: usize,
 }
 
-<span class="attribute">#[cfg(span_locations)]
+<span class="attr">#[cfg(span_locations)]
 </span><span class="macro">thread_local! </span>{
     <span class="kw">static </span>SOURCE_MAP: RefCell&lt;SourceMap&gt; = RefCell::new(SourceMap {
         <span class="comment">// NOTE: We start with a single dummy file which all call_site() and
         // def_site() spans reference.
         </span>files: <span class="macro">vec!</span>[FileInfo {
-            <span class="attribute">#[cfg(procmacro2_semver_exempt)]
+            <span class="attr">#[cfg(procmacro2_semver_exempt)]
             </span>name: <span class="string">&quot;&lt;unspecified&gt;&quot;</span>.to_owned(),
             span: Span { lo: <span class="number">0</span>, hi: <span class="number">0 </span>},
             lines: <span class="macro">vec!</span>[<span class="number">0</span>],
@@ -1252,15 +1252,15 @@
     });
 }
 
-<span class="attribute">#[cfg(span_locations)]
+<span class="attr">#[cfg(span_locations)]
 </span><span class="kw">struct </span>FileInfo {
-    <span class="attribute">#[cfg(procmacro2_semver_exempt)]
+    <span class="attr">#[cfg(procmacro2_semver_exempt)]
     </span>name: String,
     span: Span,
     lines: Vec&lt;usize&gt;,
 }
 
-<span class="attribute">#[cfg(span_locations)]
+<span class="attr">#[cfg(span_locations)]
 </span><span class="kw">impl </span>FileInfo {
     <span class="kw">fn </span>offset_line_column(<span class="kw-2">&amp;</span><span class="self">self</span>, offset: usize) -&gt; LineColumn {
         <span class="macro">assert!</span>(<span class="self">self</span>.span_within(Span {
@@ -1287,7 +1287,7 @@
 
 <span class="doccomment">/// Computes the offsets of each line in the given source string
 /// and the total number of characters
-</span><span class="attribute">#[cfg(span_locations)]
+</span><span class="attr">#[cfg(span_locations)]
 </span><span class="kw">fn </span>lines_offsets(s: <span class="kw-2">&amp;</span>str) -&gt; (usize, Vec&lt;usize&gt;) {
     <span class="kw">let </span><span class="kw-2">mut </span>lines = <span class="macro">vec!</span>[<span class="number">0</span>];
     <span class="kw">let </span><span class="kw-2">mut </span>total = <span class="number">0</span>;
@@ -1302,12 +1302,12 @@
     (total, lines)
 }
 
-<span class="attribute">#[cfg(span_locations)]
+<span class="attr">#[cfg(span_locations)]
 </span><span class="kw">struct </span>SourceMap {
     files: Vec&lt;FileInfo&gt;,
 }
 
-<span class="attribute">#[cfg(span_locations)]
+<span class="attr">#[cfg(span_locations)]
 </span><span class="kw">impl </span>SourceMap {
     <span class="kw">fn </span>next_start_pos(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="comment">// Add 1 so there&#39;s always space between files.
@@ -1327,13 +1327,13 @@
         };
 
         <span class="self">self</span>.files.push(FileInfo {
-            <span class="attribute">#[cfg(procmacro2_semver_exempt)]
+            <span class="attr">#[cfg(procmacro2_semver_exempt)]
             </span>name: name.to_owned(),
             span,
             lines,
         });
 
-        <span class="attribute">#[cfg(not(procmacro2_semver_exempt))]
+        <span class="attr">#[cfg(not(procmacro2_semver_exempt))]
         </span><span class="kw">let _ </span>= name;
 
         span
@@ -1349,31 +1349,31 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Copy, PartialEq, Eq)]
+<span class="attr">#[derive(Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Span {
-    <span class="attribute">#[cfg(span_locations)]
+    <span class="attr">#[cfg(span_locations)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) lo: u32,
-    <span class="attribute">#[cfg(span_locations)]
+    <span class="attr">#[cfg(span_locations)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) hi: u32,
 }
 
 <span class="kw">impl </span>Span {
-    <span class="attribute">#[cfg(not(span_locations))]
+    <span class="attr">#[cfg(not(span_locations))]
     </span><span class="kw">pub fn </span>call_site() -&gt; <span class="self">Self </span>{
         Span {}
     }
 
-    <span class="attribute">#[cfg(span_locations)]
+    <span class="attr">#[cfg(span_locations)]
     </span><span class="kw">pub fn </span>call_site() -&gt; <span class="self">Self </span>{
         Span { lo: <span class="number">0</span>, hi: <span class="number">0 </span>}
     }
 
-    <span class="attribute">#[cfg(not(no_hygiene))]
+    <span class="attr">#[cfg(not(no_hygiene))]
     </span><span class="kw">pub fn </span>mixed_site() -&gt; <span class="self">Self </span>{
         Span::call_site()
     }
 
-    <span class="attribute">#[cfg(procmacro2_semver_exempt)]
+    <span class="attr">#[cfg(procmacro2_semver_exempt)]
     </span><span class="kw">pub fn </span>def_site() -&gt; <span class="self">Self </span>{
         Span::call_site()
     }
@@ -1389,7 +1389,7 @@
         other
     }
 
-    <span class="attribute">#[cfg(procmacro2_semver_exempt)]
+    <span class="attr">#[cfg(procmacro2_semver_exempt)]
     </span><span class="kw">pub fn </span>source_file(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SourceFile {
         SOURCE_MAP.with(|cm| {
             <span class="kw">let </span>cm = cm.borrow();
@@ -1400,7 +1400,7 @@
         })
     }
 
-    <span class="attribute">#[cfg(span_locations)]
+    <span class="attr">#[cfg(span_locations)]
     </span><span class="kw">pub fn </span>start(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; LineColumn {
         SOURCE_MAP.with(|cm| {
             <span class="kw">let </span>cm = cm.borrow();
@@ -1409,7 +1409,7 @@
         })
     }
 
-    <span class="attribute">#[cfg(span_locations)]
+    <span class="attr">#[cfg(span_locations)]
     </span><span class="kw">pub fn </span>end(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; LineColumn {
         SOURCE_MAP.with(|cm| {
             <span class="kw">let </span>cm = cm.borrow();
@@ -1418,12 +1418,12 @@
         })
     }
 
-    <span class="attribute">#[cfg(not(span_locations))]
+    <span class="attr">#[cfg(not(span_locations))]
     </span><span class="kw">pub fn </span>join(<span class="kw-2">&amp;</span><span class="self">self</span>, _other: Span) -&gt; <span class="prelude-ty">Option</span>&lt;Span&gt; {
         <span class="prelude-val">Some</span>(Span {})
     }
 
-    <span class="attribute">#[cfg(span_locations)]
+    <span class="attr">#[cfg(span_locations)]
     </span><span class="kw">pub fn </span>join(<span class="kw-2">&amp;</span><span class="self">self</span>, other: Span) -&gt; <span class="prelude-ty">Option</span>&lt;Span&gt; {
         SOURCE_MAP.with(|cm| {
             <span class="kw">let </span>cm = cm.borrow();
@@ -1438,12 +1438,12 @@
         })
     }
 
-    <span class="attribute">#[cfg(not(span_locations))]
+    <span class="attr">#[cfg(not(span_locations))]
     </span><span class="kw">fn </span>first_byte(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">self
     </span>}
 
-    <span class="attribute">#[cfg(span_locations)]
+    <span class="attr">#[cfg(span_locations)]
     </span><span class="kw">fn </span>first_byte(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         Span {
             lo: <span class="self">self</span>.lo,
@@ -1451,12 +1451,12 @@
         }
     }
 
-    <span class="attribute">#[cfg(not(span_locations))]
+    <span class="attr">#[cfg(not(span_locations))]
     </span><span class="kw">fn </span>last_byte(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">self
     </span>}
 
-    <span class="attribute">#[cfg(span_locations)]
+    <span class="attr">#[cfg(span_locations)]
     </span><span class="kw">fn </span>last_byte(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         Span {
             lo: cmp::max(<span class="self">self</span>.hi.saturating_sub(<span class="number">1</span>), <span class="self">self</span>.lo),
@@ -1467,16 +1467,16 @@
 
 <span class="kw">impl </span>Debug <span class="kw">for </span>Span {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
-        <span class="attribute">#[cfg(span_locations)]
+        <span class="attr">#[cfg(span_locations)]
         </span><span class="kw">return </span><span class="macro">write!</span>(f, <span class="string">&quot;bytes({}..{})&quot;</span>, <span class="self">self</span>.lo, <span class="self">self</span>.hi);
 
-        <span class="attribute">#[cfg(not(span_locations))]
+        <span class="attr">#[cfg(not(span_locations))]
         </span><span class="macro">write!</span>(f, <span class="string">&quot;Span&quot;</span>)
     }
 }
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>debug_span_field_if_nontrivial(debug: <span class="kw-2">&amp;mut </span>fmt::DebugStruct, span: Span) {
-    <span class="attribute">#[cfg(span_locations)]
+    <span class="attr">#[cfg(span_locations)]
     </span>{
         <span class="kw">if </span>span.lo == <span class="number">0 </span>&amp;&amp; span.hi == <span class="number">0 </span>{
             <span class="kw">return</span>;
@@ -1488,7 +1488,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone)]
+<span class="attr">#[derive(Clone)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Group {
     delimiter: Delimiter,
     stream: TokenStream,
@@ -1566,7 +1566,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone)]
+<span class="attr">#[derive(Clone)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Ident {
     sym: String,
     span: Span,
@@ -1669,7 +1669,7 @@
 
 <span class="kw">impl </span>Debug <span class="kw">for </span>Ident {
     <span class="comment">// Ident(proc_macro), Ident(r#union)
-    </span><span class="attribute">#[cfg(not(span_locations))]
+    </span><span class="attr">#[cfg(not(span_locations))]
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
         <span class="kw">let </span><span class="kw-2">mut </span>debug = f.debug_tuple(<span class="string">&quot;Ident&quot;</span>);
         debug.field(<span class="kw-2">&amp;</span><span class="macro">format_args!</span>(<span class="string">&quot;{}&quot;</span>, <span class="self">self</span>));
@@ -1680,7 +1680,7 @@
     //     sym: proc_macro,
     //     span: bytes(128..138)
     // }
-    </span><span class="attribute">#[cfg(span_locations)]
+    </span><span class="attr">#[cfg(span_locations)]
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
         <span class="kw">let </span><span class="kw-2">mut </span>debug = f.debug_struct(<span class="string">&quot;Ident&quot;</span>);
         debug.field(<span class="string">&quot;sym&quot;</span>, <span class="kw-2">&amp;</span><span class="macro">format_args!</span>(<span class="string">&quot;{}&quot;</span>, <span class="self">self</span>));
@@ -1689,7 +1689,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone)]
+<span class="attr">#[derive(Clone)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Literal {
     repr: String,
     span: Span,
@@ -1803,7 +1803,7 @@
     <span class="kw">pub fn </span>byte_string(bytes: <span class="kw-2">&amp;</span>[u8]) -&gt; Literal {
         <span class="kw">let </span><span class="kw-2">mut </span>escaped = <span class="string">&quot;b\&quot;&quot;</span>.to_string();
         <span class="kw">for </span>b <span class="kw">in </span>bytes {
-            <span class="attribute">#[allow(clippy::match_overlapping_arm)]
+            <span class="attr">#[allow(clippy::match_overlapping_arm)]
             </span><span class="kw">match </span><span class="kw-2">*</span>b {
                 <span class="string">b&#39;\0&#39; </span>=&gt; escaped.push_str(<span class="string">r&quot;\0&quot;</span>),
                 <span class="string">b&#39;\t&#39; </span>=&gt; escaped.push_str(<span class="string">r&quot;\t&quot;</span>),
@@ -1871,4 +1871,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="proc_macro2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="proc_macro2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

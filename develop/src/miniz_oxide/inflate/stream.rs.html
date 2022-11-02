@@ -448,7 +448,7 @@
 </span><span class="kw">pub struct </span>ZeroReset;
 
 <span class="kw">impl </span>ResetPolicy <span class="kw">for </span>ZeroReset {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>reset(<span class="kw-2">&amp;</span><span class="self">self</span>, state: <span class="kw-2">&amp;mut </span>InflateState) {
         MinReset.reset(state);
         state.dict = [<span class="number">0</span>; TINFL_LZ_DICT_SIZE];
@@ -461,7 +461,7 @@
 </span><span class="kw">pub struct </span>FullReset(<span class="kw">pub </span>DataFormat);
 
 <span class="kw">impl </span>ResetPolicy <span class="kw">for </span>FullReset {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>reset(<span class="kw-2">&amp;</span><span class="self">self</span>, state: <span class="kw-2">&amp;mut </span>InflateState) {
         ZeroReset.reset(state);
         state.data_format = <span class="self">self</span>.<span class="number">0</span>;
@@ -555,14 +555,14 @@
         b
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="doccomment">/// Reset the decompressor without re-allocating memory, using the given
     /// data format.
     </span><span class="kw">pub fn </span>reset(<span class="kw-2">&amp;mut </span><span class="self">self</span>, data_format: DataFormat) {
         <span class="self">self</span>.reset_as(FullReset(data_format));
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="doccomment">/// Resets the state according to specified policy.
     </span><span class="kw">pub fn </span>reset_as&lt;T: ResetPolicy&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, policy: T) {
         policy.reset(<span class="self">self</span>)
@@ -775,13 +775,13 @@
     n
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use super</span>::{inflate, InflateState};
     <span class="kw">use crate</span>::{DataFormat, MZFlush, MZStatus};
     <span class="kw">use </span>alloc::vec;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_state() {
         <span class="kw">let </span>encoded = [
             <span class="number">120u8</span>, <span class="number">156</span>, <span class="number">243</span>, <span class="number">72</span>, <span class="number">205</span>, <span class="number">201</span>, <span class="number">201</span>, <span class="number">215</span>, <span class="number">81</span>, <span class="number">168</span>, <span class="number">202</span>, <span class="number">201</span>, <span class="number">76</span>, <span class="number">82</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">27</span>, <span class="number">101</span>, <span class="number">4</span>,
@@ -827,4 +827,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="miniz_oxide" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="miniz_oxide" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

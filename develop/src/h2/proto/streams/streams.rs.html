@@ -1581,7 +1581,7 @@
 <span class="kw">use </span>std::sync::{Arc, Mutex};
 <span class="kw">use </span>std::{fmt, io};
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Streams&lt;B, P&gt;
 <span class="kw">where
     </span>P: Peer,
@@ -1605,7 +1605,7 @@
 
 <span class="comment">// Like `Streams` but with a `peer::Dyn` field instead of a static `P: Peer` type parameter.
 // Ensures that the methods only get one instantiation, instead of two (client and server)
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>DynStreams&lt;<span class="lifetime">&#39;a</span>, B&gt; {
     inner: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Mutex&lt;Inner&gt;,
 
@@ -1615,7 +1615,7 @@
 }
 
 <span class="doccomment">/// Reference to the stream state
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>StreamRef&lt;B&gt; {
     opaque: OpaqueStreamRef,
     send_buffer: Arc&lt;SendBuffer&lt;B&gt;&gt;,
@@ -1631,7 +1631,7 @@
 /// is mostly split out to make ownership happy.
 ///
 /// TODO: better name
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>Inner {
     <span class="doccomment">/// Tracks send &amp; recv stream concurrency.
     </span>counts: Counts,
@@ -1646,7 +1646,7 @@
     </span>refs: usize,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>Actions {
     <span class="doccomment">/// Manages state transitions initiated by receiving frames
     </span>recv: Recv,
@@ -1662,7 +1662,7 @@
 }
 
 <span class="doccomment">/// Contains the buffer of frames to be written to the wire.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>SendBuffer&lt;B&gt; {
     inner: Mutex&lt;Buffer&lt;Frame&lt;B&gt;&gt;&gt;,
 }
@@ -2532,7 +2532,7 @@
         <span class="self">self</span>.inner.lock().unwrap().counts.max_recv_streams()
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
     </span><span class="kw">pub fn </span>num_active_streams(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="kw">let </span>me = <span class="self">self</span>.inner.lock().unwrap();
         me.store.num_active_streams()
@@ -2548,7 +2548,7 @@
         me.counts.has_streams() || me.refs &gt; <span class="number">1
     </span>}
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;unstable&quot;</span>)]
     </span><span class="kw">pub fn </span>num_wired_streams(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="kw">let </span>me = <span class="self">self</span>.inner.lock().unwrap();
         me.store.num_wired_streams()
@@ -3129,4 +3129,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

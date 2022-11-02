@@ -267,12 +267,12 @@
 <span class="kw">pub struct </span>ReplaceSelf(<span class="kw">pub </span>Span);
 
 <span class="kw">impl </span>ReplaceSelf {
-    <span class="attribute">#[cfg_attr(not(self_span_hack), allow(clippy::unused_self))]
+    <span class="attr">#[cfg_attr(not(self_span_hack), allow(clippy::unused_self))]
     </span><span class="kw">fn </span>prepend_underscore_to_self(<span class="kw-2">&amp;</span><span class="self">self</span>, ident: <span class="kw-2">&amp;mut </span>Ident) -&gt; bool {
         <span class="kw">let </span>modified = ident == <span class="string">&quot;self&quot;</span>;
         <span class="kw">if </span>modified {
             <span class="kw-2">*</span>ident = Ident::new(<span class="string">&quot;__self&quot;</span>, ident.span());
-            <span class="attribute">#[cfg(self_span_hack)]
+            <span class="attr">#[cfg(self_span_hack)]
             </span>ident.set_span(<span class="self">self</span>.<span class="number">0</span>);
         }
         modified
@@ -357,4 +357,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="async_trait" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="async_trait" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

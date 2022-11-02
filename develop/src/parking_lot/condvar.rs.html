@@ -1290,12 +1290,12 @@
 
 <span class="doccomment">/// A type indicating whether a timed wait on a condition variable returned
 /// due to a time out or not.
-</span><span class="attribute">#[derive(Debug, PartialEq, Eq, Copy, Clone)]
+</span><span class="attr">#[derive(Debug, PartialEq, Eq, Copy, Clone)]
 </span><span class="kw">pub struct </span>WaitTimeoutResult(bool);
 
 <span class="kw">impl </span>WaitTimeoutResult {
     <span class="doccomment">/// Returns whether the wait was known to have timed out.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>timed_out(<span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.<span class="number">0
     </span>}
@@ -1365,7 +1365,7 @@
 <span class="kw">impl </span>Condvar {
     <span class="doccomment">/// Creates a new condition variable which is ready to be waited on and
     /// notified.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub const fn </span>new() -&gt; Condvar {
         Condvar {
             state: AtomicPtr::new(ptr::null_mut()),
@@ -1395,7 +1395,7 @@
     ///     println!(&quot;Nobody was listening for this.&quot;);
     /// }
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>notify_one(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="comment">// Nothing to do if there are no waiting threads
         </span><span class="kw">let </span>state = <span class="self">self</span>.state.load(Ordering::Relaxed);
@@ -1406,7 +1406,7 @@
         <span class="self">self</span>.notify_one_slow(state)
     }
 
-    <span class="attribute">#[cold]
+    <span class="attr">#[cold]
     </span><span class="kw">fn </span>notify_one_slow(<span class="kw-2">&amp;</span><span class="self">self</span>, mutex: <span class="kw-2">*mut </span>RawMutex) -&gt; bool {
         <span class="comment">// Unpark one thread and requeue the rest onto the mutex
         </span><span class="kw">let </span>from = <span class="self">self </span><span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_ as </span>usize;
@@ -1454,7 +1454,7 @@
     /// way.
     ///
     /// To wake up only one thread, see `notify_one()`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>notify_all(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="comment">// Nothing to do if there are no waiting threads
         </span><span class="kw">let </span>state = <span class="self">self</span>.state.load(Ordering::Relaxed);
@@ -1465,7 +1465,7 @@
         <span class="self">self</span>.notify_all_slow(state)
     }
 
-    <span class="attribute">#[cold]
+    <span class="attr">#[cold]
     </span><span class="kw">fn </span>notify_all_slow(<span class="kw-2">&amp;</span><span class="self">self</span>, mutex: <span class="kw-2">*mut </span>RawMutex) -&gt; usize {
             <span class="comment">// Unpark one thread and requeue the rest onto the mutex
             </span><span class="kw">let </span>from = <span class="self">self </span><span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_ as </span>usize;
@@ -1522,7 +1522,7 @@
     ///
     /// This function will panic if another thread is waiting on the `Condvar`
     /// with a different `Mutex` object.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>wait&lt;T: <span class="question-mark">?</span>Sized&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, mutex_guard: <span class="kw-2">&amp;mut </span>MutexGuard&lt;<span class="lifetime">&#39;_</span>, T&gt;) {
         <span class="self">self</span>.wait_until_internal(<span class="kw">unsafe </span>{ MutexGuard::mutex(mutex_guard).raw() }, <span class="prelude-val">None</span>);
     }
@@ -1550,7 +1550,7 @@
     ///
     /// This function will panic if another thread is waiting on the `Condvar`
     /// with a different `Mutex` object.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>wait_until&lt;T: <span class="question-mark">?</span>Sized&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         mutex_guard: <span class="kw-2">&amp;mut </span>MutexGuard&lt;<span class="lifetime">&#39;_</span>, T&gt;,
@@ -1646,7 +1646,7 @@
     ///
     /// Like `wait`, the lock specified will be re-acquired when this function
     /// returns, regardless of whether the timeout elapsed or not.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>wait_for&lt;T: <span class="question-mark">?</span>Sized&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         mutex_guard: <span class="kw-2">&amp;mut </span>MutexGuard&lt;<span class="lifetime">&#39;_</span>, T&gt;,
@@ -1656,7 +1656,7 @@
         <span class="self">self</span>.wait_until_internal(<span class="kw">unsafe </span>{ MutexGuard::mutex(mutex_guard).raw() }, deadline)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>wait_while_until_internal&lt;T, F&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         mutex_guard: <span class="kw-2">&amp;mut </span>MutexGuard&lt;<span class="lifetime">&#39;_</span>, T&gt;,
@@ -1692,7 +1692,7 @@
     ///
     /// This function will panic if another thread is waiting on the `Condvar`
     /// with a different `Mutex` object.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>wait_while&lt;T, F&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, mutex_guard: <span class="kw-2">&amp;mut </span>MutexGuard&lt;<span class="lifetime">&#39;_</span>, T&gt;, condition: F)
     <span class="kw">where
         </span>T: <span class="question-mark">?</span>Sized,
@@ -1728,7 +1728,7 @@
     ///
     /// This function will panic if another thread is waiting on the `Condvar`
     /// with a different `Mutex` object.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>wait_while_until&lt;T, F&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         mutex_guard: <span class="kw-2">&amp;mut </span>MutexGuard&lt;<span class="lifetime">&#39;_</span>, T&gt;,
@@ -1763,7 +1763,7 @@
     ///
     /// Like `wait`, the lock specified will be re-acquired when this function
     /// returns, regardless of whether the timeout elapsed or not.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>wait_while_for&lt;T: <span class="question-mark">?</span>Sized, F&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         mutex_guard: <span class="kw-2">&amp;mut </span>MutexGuard&lt;<span class="lifetime">&#39;_</span>, T&gt;,
@@ -1779,7 +1779,7 @@
 }
 
 <span class="kw">impl </span>Default <span class="kw">for </span>Condvar {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>default() -&gt; Condvar {
         Condvar::new()
     }
@@ -1791,7 +1791,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use crate</span>::{Condvar, Mutex, MutexGuard};
     <span class="kw">use </span>std::sync::mpsc::channel;
@@ -1802,14 +1802,14 @@
     <span class="kw">use </span>std::time::Duration;
     <span class="kw">use </span>std::time::Instant;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>smoke() {
         <span class="kw">let </span>c = Condvar::new();
         c.notify_one();
         c.notify_all();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>notify_one() {
         <span class="kw">let </span>m = Arc::new(Mutex::new(()));
         <span class="kw">let </span>m2 = m.clone();
@@ -1824,7 +1824,7 @@
         c.wait(<span class="kw-2">&amp;mut </span>g);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>notify_all() {
         <span class="kw">const </span>N: usize = <span class="number">10</span>;
 
@@ -1860,7 +1860,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>notify_one_return_true() {
         <span class="kw">let </span>m = Arc::new(Mutex::new(()));
         <span class="kw">let </span>m2 = m.clone();
@@ -1875,7 +1875,7 @@
         c.wait(<span class="kw-2">&amp;mut </span>g);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>notify_one_return_false() {
         <span class="kw">let </span>m = Arc::new(Mutex::new(()));
         <span class="kw">let </span>c = Arc::new(Condvar::new());
@@ -1886,7 +1886,7 @@
         });
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>notify_all_return() {
         <span class="kw">const </span>N: usize = <span class="number">10</span>;
 
@@ -1924,7 +1924,7 @@
         <span class="macro">assert_eq!</span>(cond.notify_all(), <span class="number">0</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>wait_for() {
         <span class="kw">let </span>m = Arc::new(Mutex::new(()));
         <span class="kw">let </span>m2 = m.clone();
@@ -1945,7 +1945,7 @@
         drop(g);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>wait_until() {
         <span class="kw">let </span>m = Arc::new(Mutex::new(()));
         <span class="kw">let </span>m2 = m.clone();
@@ -2005,7 +2005,7 @@
         })
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>wait_while_until_internal_does_not_wait_if_initially_false() {
         <span class="kw">let </span>mutex = Arc::new(Mutex::new(<span class="number">0</span>));
         <span class="kw">let </span>cv = Arc::new(Condvar::new());
@@ -2023,7 +2023,7 @@
         <span class="macro">assert!</span>(<span class="kw-2">*</span>mutex_guard == <span class="number">1</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>wait_while_until_internal_times_out_before_false() {
         <span class="kw">let </span>mutex = Arc::new(Mutex::new(<span class="number">0</span>));
         <span class="kw">let </span>cv = Arc::new(Condvar::new());
@@ -2049,7 +2049,7 @@
         handle.join().unwrap();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>wait_while_until_internal() {
         <span class="kw">let </span>mutex = Arc::new(Mutex::new(<span class="number">0</span>));
         <span class="kw">let </span>cv = Arc::new(Condvar::new());
@@ -2077,7 +2077,7 @@
         <span class="macro">assert!</span>(<span class="kw-2">*</span>mutex_guard == num_iters + <span class="number">2</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[should_panic]
     </span><span class="kw">fn </span>two_mutexes() {
         <span class="kw">let </span>m = Arc::new(Mutex::new(()));
@@ -2108,7 +2108,7 @@
         c.wait(<span class="kw-2">&amp;mut </span>m3.lock());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>two_mutexes_disjoint() {
         <span class="kw">let </span>m = Arc::new(Mutex::new(()));
         <span class="kw">let </span>m2 = m.clone();
@@ -2127,13 +2127,13 @@
         <span class="kw">let _ </span>= c.wait_for(<span class="kw-2">&amp;mut </span>m3.lock(), Duration::from_millis(<span class="number">1</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_debug_condvar() {
         <span class="kw">let </span>c = Condvar::new();
         <span class="macro">assert_eq!</span>(<span class="macro">format!</span>(<span class="string">&quot;{:?}&quot;</span>, c), <span class="string">&quot;Condvar { .. }&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_condvar_requeue() {
         <span class="kw">let </span>m = Arc::new(Mutex::new(()));
         <span class="kw">let </span>m2 = m.clone();
@@ -2157,7 +2157,7 @@
         t.join().unwrap();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_issue_129() {
         <span class="kw">let </span>locks = Arc::new((Mutex::new(()), Condvar::new()));
 
@@ -2185,18 +2185,18 @@
 
 <span class="doccomment">/// This module contains an integration test that is heavily inspired from WebKit&#39;s own integration
 /// tests for it&#39;s own Condvar.
-</span><span class="attribute">#[cfg(test)]
+</span><span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>webkit_queue_test {
     <span class="kw">use crate</span>::{Condvar, Mutex, MutexGuard};
     <span class="kw">use </span>std::{collections::VecDeque, sync::Arc, thread, time::Duration};
 
-    <span class="attribute">#[derive(Clone, Copy)]
+    <span class="attr">#[derive(Clone, Copy)]
     </span><span class="kw">enum </span>Timeout {
         Bounded(Duration),
         Forever,
     }
 
-    <span class="attribute">#[derive(Clone, Copy)]
+    <span class="attr">#[derive(Clone, Copy)]
     </span><span class="kw">enum </span>NotifyStyle {
         One,
         All,
@@ -2386,7 +2386,7 @@
             timeout: <span class="macro-nonterminal">$timeout</span>:expr,
             delay_seconds: <span class="macro-nonterminal">$delay_seconds</span>:expr);
         )* ) =&gt; {
-            $(<span class="attribute">#[test]
+            $(<span class="attr">#[test]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>() {
                 <span class="kw">let </span>delay = Duration::from_secs(<span class="macro-nonterminal">$delay_seconds</span>);
                 run_queue_test(
@@ -2541,4 +2541,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

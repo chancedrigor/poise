@@ -497,12 +497,12 @@
 </span><span class="kw">use crate</span>::{constant_time, digest, error, hkdf, rand};
 
 <span class="doccomment">/// An HMAC algorithm.
-</span><span class="attribute">#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>Algorithm(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>digest::Algorithm);
 
 <span class="kw">impl </span>Algorithm {
     <span class="doccomment">/// The digest algorithm this HMAC algorithm is based on.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>digest_algorithm(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>digest::Algorithm {
         <span class="self">self</span>.<span class="number">0
     </span>}
@@ -521,35 +521,35 @@
 </span><span class="kw">pub static </span>HMAC_SHA512: Algorithm = Algorithm(<span class="kw-2">&amp;</span>digest::SHA512);
 
 <span class="doccomment">/// A deprecated alias for `Tag`.
-</span><span class="attribute">#[deprecated(note = <span class="string">&quot;`Signature` was renamed to `Tag`. This alias will be removed soon.&quot;</span>)]
+</span><span class="attr">#[deprecated(note = <span class="string">&quot;`Signature` was renamed to `Tag`. This alias will be removed soon.&quot;</span>)]
 </span><span class="kw">pub type </span>Signature = Tag;
 
 <span class="doccomment">/// An HMAC tag.
 ///
 /// For a given tag `t`, use `t.as_ref()` to get the tag value as a byte slice.
-</span><span class="attribute">#[derive(Clone, Copy, Debug)]
+</span><span class="attr">#[derive(Clone, Copy, Debug)]
 </span><span class="kw">pub struct </span>Tag(digest::Digest);
 
 <span class="kw">impl </span>AsRef&lt;[u8]&gt; <span class="kw">for </span>Tag {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>as_ref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8] {
         <span class="self">self</span>.<span class="number">0</span>.as_ref()
     }
 }
 
 <span class="doccomment">/// A key to use for HMAC signing.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>Key {
     inner: digest::BlockContext,
     outer: digest::BlockContext,
 }
 
 <span class="doccomment">/// `hmac::SigningKey` was renamed to `hmac::Key`.
-</span><span class="attribute">#[deprecated(note = <span class="string">&quot;Renamed to `hmac::Key`.&quot;</span>)]
+</span><span class="attr">#[deprecated(note = <span class="string">&quot;Renamed to `hmac::Key`.&quot;</span>)]
 </span><span class="kw">pub type </span>SigningKey = Key;
 
 <span class="doccomment">/// `hmac::VerificationKey` was merged into `hmac::Key`.
-</span><span class="attribute">#[deprecated(
+</span><span class="attr">#[deprecated(
     note = <span class="string">&quot;The distinction between verification &amp; signing keys was removed. Use `hmac::Key`.&quot;
 </span>)]
 </span><span class="kw">pub type </span>VerificationKey = Key;
@@ -647,7 +647,7 @@
     }
 
     <span class="doccomment">/// The digest algorithm for the key.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>algorithm(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Algorithm {
         Algorithm(<span class="self">self</span>.inner.algorithm)
     }
@@ -668,14 +668,14 @@
 <span class="doccomment">/// A context for multi-step (Init-Update-Finish) HMAC signing.
 ///
 /// Use `sign` for single-step HMAC signing.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>Context {
     inner: digest::Context,
     outer: digest::BlockContext,
 }
 
 <span class="doccomment">/// `hmac::SigningContext` was renamed to `hmac::Context`.
-</span><span class="attribute">#[deprecated(note = <span class="string">&quot;Renamed to `hmac::Context`.&quot;</span>)]
+</span><span class="attr">#[deprecated(note = <span class="string">&quot;Renamed to `hmac::Context`.&quot;</span>)]
 </span><span class="kw">pub type </span>SigningContext = Context;
 
 <span class="kw">impl </span>core::fmt::Debug <span class="kw">for </span>Context {
@@ -742,13 +742,13 @@
     constant_time::verify_slices_are_equal(sign(key, data).as_ref(), tag)
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use crate</span>::{hmac, rand};
 
     <span class="comment">// Make sure that `Key::generate` and `verify_with_own_key` aren&#39;t
     // completely wacky.
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">pub fn </span>hmac_signing_key_coverage() {
         <span class="kw">let </span>rng = rand::SystemRandom::new();
 
@@ -769,4 +769,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

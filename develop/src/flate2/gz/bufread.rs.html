@@ -1006,7 +1006,7 @@
 ///     Ok(buffer)
 /// }
 /// ```
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>GzEncoder&lt;R&gt; {
     inner: deflate::bufread::DeflateEncoder&lt;CrcReader&lt;R&gt;&gt;,
     header: Vec&lt;u8&gt;,
@@ -1075,7 +1075,7 @@
     }
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>finish(buf: <span class="kw-2">&amp;</span>[u8; <span class="number">8</span>]) -&gt; (u32, u32) {
     <span class="kw">let </span>crc = ((buf[<span class="number">0</span>] <span class="kw">as </span>u32) &lt;&lt; <span class="number">0</span>)
         | ((buf[<span class="number">1</span>] <span class="kw">as </span>u32) &lt;&lt; <span class="number">8</span>)
@@ -1155,7 +1155,7 @@
 ///    Ok(s)
 /// }
 /// ```
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>GzDecoder&lt;R&gt; {
     inner: GzState,
     header: <span class="prelude-ty">Option</span>&lt;GzHeader&gt;,
@@ -1163,7 +1163,7 @@
     multi: bool,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub enum </span>GzHeaderParsingState {
     Start,
     Xlen,
@@ -1173,7 +1173,7 @@
     Crc,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>GzHeaderPartial {
     buf: Vec&lt;u8&gt;,
     state: GzHeaderParsingState,
@@ -1206,7 +1206,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">enum </span>GzState {
     Header(GzHeaderPartial),
     Body,
@@ -1507,7 +1507,7 @@
 ///    Ok(s)
 /// }
 /// ```
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>MultiGzDecoder&lt;R&gt;(GzDecoder&lt;R&gt;);
 
 <span class="kw">impl</span>&lt;R: BufRead&gt; MultiGzDecoder&lt;R&gt; {
@@ -1550,14 +1550,14 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">pub mod </span>tests {
     <span class="kw">use </span><span class="kw">crate</span>::gz::bufread::<span class="kw-2">*</span>;
     <span class="kw">use </span>std::io;
     <span class="kw">use </span>std::io::{Cursor, Read, Write};
 
     <span class="comment">//a cursor turning EOF into blocking errors
-    </span><span class="attribute">#[derive(Debug)]
+    </span><span class="attr">#[derive(Debug)]
     </span><span class="kw">pub struct </span>BlockingCursor {
         <span class="kw">pub </span>cursor: Cursor&lt;Vec&lt;u8&gt;&gt;,
     }
@@ -1606,7 +1606,7 @@
             <span class="kw">return </span>r;
         }
     }
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="comment">// test function read_and_forget of Buffer
     </span><span class="kw">fn </span>buffer_read_and_forget() {
         <span class="comment">// this is unused except for the buffering
@@ -1703,4 +1703,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="flate2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="flate2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

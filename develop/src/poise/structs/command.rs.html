@@ -256,19 +256,19 @@
 
 <span class="doccomment">/// Type returned from `#[poise::command]` annotated functions, which contains all of the generated
 /// prefix and application commands
-</span><span class="attribute">#[derive(derivative::Derivative)]
+</span><span class="attr">#[derive(derivative::Derivative)]
 #[derivative(Default, Debug(bound = <span class="string">&quot;&quot;</span>))]
 </span><span class="kw">pub struct </span>Command&lt;U, E&gt; {
     <span class="comment">// =============
     </span><span class="doccomment">/// Callback to execute when this command is invoked in a prefix context
-    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
     </span><span class="kw">pub </span>prefix_action: <span class="prelude-ty">Option</span>&lt;
         <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">fn</span>(
             <span class="kw">crate</span>::PrefixContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
         ) -&gt; BoxFuture&lt;<span class="lifetime">&#39;a</span>, <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt;&gt;,
     &gt;,
     <span class="doccomment">/// Callback to execute when this command is invoked in a slash context
-    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
     </span><span class="kw">pub </span>slash_action: <span class="prelude-ty">Option</span>&lt;
         <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">fn</span>(
             <span class="kw">crate</span>::ApplicationContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
@@ -342,17 +342,17 @@
     <span class="doccomment">/// If true, the command may only run in NSFW channels
     </span><span class="kw">pub </span>nsfw_only: bool,
     <span class="doccomment">/// Command-specific override for [`crate::FrameworkOptions::on_error`]
-    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
     </span><span class="kw">pub </span>on_error: <span class="prelude-ty">Option</span>&lt;<span class="kw">fn</span>(<span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;_</span>, U, E&gt;) -&gt; BoxFuture&lt;<span class="lifetime">&#39;_</span>, ()&gt;&gt;,
     <span class="doccomment">/// If any of these functions returns false, this command will not be executed.
-    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
     </span><span class="kw">pub </span>checks: Vec&lt;<span class="kw">fn</span>(<span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;_</span>, U, E&gt;) -&gt; BoxFuture&lt;<span class="lifetime">&#39;_</span>, <span class="prelude-ty">Result</span>&lt;bool, E&gt;&gt;&gt;,
     <span class="doccomment">/// List of parameters for this command
     ///
     /// Used for registering and parsing slash commands. Can also be used in help commands
     </span><span class="kw">pub </span>parameters: Vec&lt;<span class="kw">crate</span>::CommandParameter&lt;U, E&gt;&gt;,
     <span class="doccomment">/// Arbitrary data, useful for storing custom metadata about your commands
-    </span><span class="attribute">#[derivative(Default(value = <span class="string">&quot;Box::new(())&quot;</span>))]
+    </span><span class="attr">#[derivative(Default(value = <span class="string">&quot;Box::new(())&quot;</span>))]
     </span><span class="kw">pub </span>custom_data: Box&lt;<span class="kw">dyn </span>std::any::Any + Send + Sync&gt;,
 
     <span class="comment">// ============= Prefix-specific data
@@ -370,7 +370,7 @@
     </span><span class="kw">pub </span>ephemeral: bool,
 
     <span class="comment">// Like #[non_exhaustive], but #[poise::command] still needs to be able to create an instance
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     </span><span class="kw">pub </span>__non_exhaustive: (),
 }
 
@@ -484,14 +484,14 @@
     }
 
     <span class="doccomment">/// **Deprecated**
-    </span><span class="attribute">#[deprecated = <span class="string">&quot;Please use `poise::Command { category: \&quot;...\&quot;, ..command() }` instead&quot;</span>]
+    </span><span class="attr">#[deprecated = <span class="string">&quot;Please use `poise::Command { category: \&quot;...\&quot;, ..command() }` instead&quot;</span>]
     </span><span class="kw">pub fn </span>category(<span class="kw-2">&amp;mut </span><span class="self">self</span>, category: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.category = <span class="prelude-val">Some</span>(category);
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Insert a subcommand
-    </span><span class="attribute">#[deprecated = <span class="string">&quot;Please use `poise::Command { subcommands: vec![...], ..command() }` instead&quot;</span>]
+    </span><span class="attr">#[deprecated = <span class="string">&quot;Please use `poise::Command { subcommands: vec![...], ..command() }` instead&quot;</span>]
     </span><span class="kw">pub fn </span>subcommand(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         <span class="kw-2">mut </span>subcommand: <span class="kw">crate</span>::Command&lt;U, E&gt;,
@@ -503,4 +503,4 @@
     </span>}
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

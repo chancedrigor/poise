@@ -296,7 +296,7 @@
 <span id="296">296</span>
 <span id="297">297</span>
 <span id="298">298</span>
-</pre><pre class="rust"><code><span class="attribute">#![allow(non_camel_case_types)]
+</pre><pre class="rust"><code><span class="attr">#![allow(non_camel_case_types)]
 </span><span class="kw">use </span>core::ops::{Add, AddAssign, BitAnd, BitOr, BitXor, BitXorAssign, Not};
 
 <span class="kw">pub trait </span>AndNot {
@@ -353,7 +353,7 @@
 
 </span><span class="kw">use </span><span class="kw">crate</span>::arch::{vec128_storage, vec256_storage, vec512_storage};
 
-<span class="attribute">#[allow(clippy::missing_safety_doc)]
+<span class="attr">#[allow(clippy::missing_safety_doc)]
 </span><span class="kw">pub trait </span>UnsafeFrom&lt;T&gt; {
     <span class="kw">unsafe fn </span>unsafe_from(t: T) -&gt; <span class="self">Self</span>;
 }
@@ -520,7 +520,7 @@
 <span class="kw">where
     </span>V: MultiLane&lt;T&gt;,
 {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>vzip(<span class="self">self</span>) -&gt; V {
         V::from_lanes(<span class="self">self</span>)
     }
@@ -540,12 +540,12 @@
     <span class="kw">type </span>u64x2x4: u64x2x4&lt;<span class="self">Self</span>&gt;;
     <span class="kw">type </span>u128x4: u128x4&lt;<span class="self">Self</span>&gt;;
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>unpack&lt;S, V: Store&lt;S&gt;&gt;(<span class="self">self</span>, s: S) -&gt; V {
         <span class="kw">unsafe </span>{ V::unpack(s) }
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>vec&lt;V, A&gt;(<span class="self">self</span>, a: A) -&gt; V
     <span class="kw">where
         </span>V: MultiLane&lt;A&gt;,
@@ -553,7 +553,7 @@
         V::from_lanes(a)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>read_le&lt;V&gt;(<span class="self">self</span>, input: <span class="kw-2">&amp;</span>[u8]) -&gt; V
     <span class="kw">where
         </span>V: StoreBytes,
@@ -561,7 +561,7 @@
         <span class="kw">unsafe </span>{ V::unsafe_read_le(input) }
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>read_be&lt;V&gt;(<span class="self">self</span>, input: <span class="kw-2">&amp;</span>[u8]) -&gt; V
     <span class="kw">where
         </span>V: StoreBytes,
@@ -595,4 +595,4 @@
     <span class="kw">fn </span>write_be(<span class="self">self</span>, out: <span class="kw-2">&amp;mut </span>[u8]);
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ppv_lite86" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ppv_lite86" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -73,7 +73,7 @@
 <span class="kw">use </span>std::iter::repeat;
 
 <span class="doccomment">/// An error that occurred during parsing or compiling a regular expression.
-</span><span class="attribute">#[derive(Clone, PartialEq)]
+</span><span class="attr">#[derive(Clone, PartialEq)]
 </span><span class="kw">pub enum </span>Error {
     <span class="doccomment">/// A syntax error.
     </span>Syntax(String),
@@ -85,13 +85,13 @@
     /// This enum may grow additional variants, so this makes sure clients
     /// don&#39;t count on exhaustive matching. (Otherwise, adding a new variant
     /// could break existing code.)
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     </span>__Nonexhaustive,
 }
 
 <span class="kw">impl </span>::std::error::Error <span class="kw">for </span>Error {
     <span class="comment">// TODO: Remove this method entirely on the next breaking semver release.
-    </span><span class="attribute">#[allow(deprecated)]
+    </span><span class="attr">#[allow(deprecated)]
     </span><span class="kw">fn </span>description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             Error::Syntax(<span class="kw-2">ref </span>err) =&gt; err,
@@ -141,4 +141,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="regex" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="regex" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

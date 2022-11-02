@@ -718,82 +718,82 @@
 <span class="macro">macro_rules! </span>prim_int_impl {
     (<span class="macro-nonterminal">$T</span>:ty, <span class="macro-nonterminal">$S</span>:ty, <span class="macro-nonterminal">$U</span>:ty) =&gt; {
         <span class="kw">impl </span>PrimInt <span class="kw">for </span><span class="macro-nonterminal">$T </span>{
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>count_ones(<span class="self">self</span>) -&gt; u32 {
                 &lt;<span class="macro-nonterminal">$T</span>&gt;::count_ones(<span class="self">self</span>)
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>count_zeros(<span class="self">self</span>) -&gt; u32 {
                 &lt;<span class="macro-nonterminal">$T</span>&gt;::count_zeros(<span class="self">self</span>)
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>leading_zeros(<span class="self">self</span>) -&gt; u32 {
                 &lt;<span class="macro-nonterminal">$T</span>&gt;::leading_zeros(<span class="self">self</span>)
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>trailing_zeros(<span class="self">self</span>) -&gt; u32 {
                 &lt;<span class="macro-nonterminal">$T</span>&gt;::trailing_zeros(<span class="self">self</span>)
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>rotate_left(<span class="self">self</span>, n: u32) -&gt; <span class="self">Self </span>{
                 &lt;<span class="macro-nonterminal">$T</span>&gt;::rotate_left(<span class="self">self</span>, n)
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>rotate_right(<span class="self">self</span>, n: u32) -&gt; <span class="self">Self </span>{
                 &lt;<span class="macro-nonterminal">$T</span>&gt;::rotate_right(<span class="self">self</span>, n)
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>signed_shl(<span class="self">self</span>, n: u32) -&gt; <span class="self">Self </span>{
                 ((<span class="self">self </span><span class="kw">as </span><span class="macro-nonterminal">$S</span>) &lt;&lt; n) <span class="kw">as </span><span class="macro-nonterminal">$T
             </span>}
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>signed_shr(<span class="self">self</span>, n: u32) -&gt; <span class="self">Self </span>{
                 ((<span class="self">self </span><span class="kw">as </span><span class="macro-nonterminal">$S</span>) &gt;&gt; n) <span class="kw">as </span><span class="macro-nonterminal">$T
             </span>}
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>unsigned_shl(<span class="self">self</span>, n: u32) -&gt; <span class="self">Self </span>{
                 ((<span class="self">self </span><span class="kw">as </span><span class="macro-nonterminal">$U</span>) &lt;&lt; n) <span class="kw">as </span><span class="macro-nonterminal">$T
             </span>}
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>unsigned_shr(<span class="self">self</span>, n: u32) -&gt; <span class="self">Self </span>{
                 ((<span class="self">self </span><span class="kw">as </span><span class="macro-nonterminal">$U</span>) &gt;&gt; n) <span class="kw">as </span><span class="macro-nonterminal">$T
             </span>}
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>swap_bytes(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
                 &lt;<span class="macro-nonterminal">$T</span>&gt;::swap_bytes(<span class="self">self</span>)
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>from_be(x: <span class="self">Self</span>) -&gt; <span class="self">Self </span>{
                 &lt;<span class="macro-nonterminal">$T</span>&gt;::from_be(x)
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>from_le(x: <span class="self">Self</span>) -&gt; <span class="self">Self </span>{
                 &lt;<span class="macro-nonterminal">$T</span>&gt;::from_le(x)
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>to_be(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
                 &lt;<span class="macro-nonterminal">$T</span>&gt;::to_be(<span class="self">self</span>)
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>to_le(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
                 &lt;<span class="macro-nonterminal">$T</span>&gt;::to_le(<span class="self">self</span>)
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>pow(<span class="self">self</span>, exp: u32) -&gt; <span class="self">Self </span>{
                 &lt;<span class="macro-nonterminal">$T</span>&gt;::pow(<span class="self">self</span>, exp)
             }
@@ -806,15 +806,15 @@
 <span class="macro">prim_int_impl!</span>(u16, i16, u16);
 <span class="macro">prim_int_impl!</span>(u32, i32, u32);
 <span class="macro">prim_int_impl!</span>(u64, i64, u64);
-<span class="attribute">#[cfg(has_i128)]
+<span class="attr">#[cfg(has_i128)]
 </span><span class="macro">prim_int_impl!</span>(u128, i128, u128);
 <span class="macro">prim_int_impl!</span>(usize, isize, usize);
 <span class="macro">prim_int_impl!</span>(i8, i8, u8);
 <span class="macro">prim_int_impl!</span>(i16, i16, u16);
 <span class="macro">prim_int_impl!</span>(i32, i32, u32);
 <span class="macro">prim_int_impl!</span>(i64, i64, u64);
-<span class="attribute">#[cfg(has_i128)]
+<span class="attr">#[cfg(has_i128)]
 </span><span class="macro">prim_int_impl!</span>(i128, i128, u128);
 <span class="macro">prim_int_impl!</span>(isize, isize, usize);
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="num_traits" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="num_traits" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

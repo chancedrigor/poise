@@ -1543,7 +1543,7 @@
     /// The runtime is usually set implicitly when this function is called
     /// from a future driven by a tokio runtime, otherwise runtime can be set
     /// explicitly with [`Runtime::enter`](crate::runtime::Runtime::enter) function.
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>from_std(stream: std::net::TcpStream) -&gt; io::Result&lt;TcpStream&gt; {
         <span class="kw">let </span>io = mio::net::TcpStream::from_std(stream);
         <span class="kw">let </span>io = PollEvented::new(io)<span class="question-mark">?</span>;
@@ -1585,7 +1585,7 @@
     /// [`std::net::TcpStream`]: std::net::TcpStream
     /// [`set_nonblocking`]: fn@std::net::TcpStream::set_nonblocking
     </span><span class="kw">pub fn </span>into_std(<span class="self">self</span>) -&gt; io::Result&lt;std::net::TcpStream&gt; {
-        <span class="attribute">#[cfg(unix)]
+        <span class="attr">#[cfg(unix)]
         </span>{
             <span class="kw">use </span>std::os::unix::io::{FromRawFd, IntoRawFd};
             <span class="self">self</span>.io
@@ -1594,7 +1594,7 @@
                 .map(|raw_fd| <span class="kw">unsafe </span>{ std::net::TcpStream::from_raw_fd(raw_fd) })
         }
 
-        <span class="attribute">#[cfg(windows)]
+        <span class="attr">#[cfg(windows)]
         </span>{
             <span class="kw">use </span>std::os::windows::io::{FromRawSocket, IntoRawSocket};
             <span class="self">self</span>.io
@@ -1603,7 +1603,7 @@
                 .map(|raw_socket| <span class="kw">unsafe </span>{ std::net::TcpStream::from_raw_socket(raw_socket) })
         }
 
-        <span class="attribute">#[cfg(tokio_wasi)]
+        <span class="attr">#[cfg(tokio_wasi)]
         </span>{
             <span class="kw">use </span>std::os::wasi::io::{FromRawFd, IntoRawFd};
             <span class="self">self</span>.io
@@ -2543,7 +2543,7 @@
 
     <span class="comment">// These lifetime markers also appear in the generated documentation, and make
     // it more clear that this is a *borrowed* split.
-    </span><span class="attribute">#[allow(clippy::needless_lifetimes)]
+    </span><span class="attr">#[allow(clippy::needless_lifetimes)]
     </span><span class="doccomment">/// Splits a `TcpStream` into a read half and a write half, which can be used
     /// to read and write the stream concurrently.
     ///
@@ -2647,7 +2647,7 @@
         <span class="bool-val">true
     </span>}
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>poll_flush(<span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, <span class="kw">_</span>: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;io::Result&lt;()&gt;&gt; {
         <span class="comment">// tcp flush is a no-op
         </span>Poll::Ready(<span class="prelude-val">Ok</span>(()))
@@ -2665,7 +2665,7 @@
     }
 }
 
-<span class="attribute">#[cfg(unix)]
+<span class="attr">#[cfg(unix)]
 </span><span class="kw">mod </span>sys {
     <span class="kw">use </span><span class="kw">super</span>::TcpStream;
     <span class="kw">use </span>std::os::unix::prelude::<span class="kw-2">*</span>;
@@ -2677,7 +2677,7 @@
     }
 }
 
-<span class="attribute">#[cfg(windows)]
+<span class="attr">#[cfg(windows)]
 </span><span class="kw">mod </span>sys {
     <span class="kw">use </span><span class="kw">super</span>::TcpStream;
     <span class="kw">use </span>std::os::windows::prelude::<span class="kw-2">*</span>;
@@ -2689,7 +2689,7 @@
     }
 }
 
-<span class="attribute">#[cfg(all(tokio_unstable, tokio_wasi))]
+<span class="attr">#[cfg(all(tokio_unstable, tokio_wasi))]
 </span><span class="kw">mod </span>sys {
     <span class="kw">use </span><span class="kw">super</span>::TcpStream;
     <span class="kw">use </span>std::os::wasi::prelude::<span class="kw-2">*</span>;
@@ -2701,4 +2701,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -770,10 +770,10 @@ struct Owner;
 // You just have to set the metadata of the command like descriptions, to fit with the rest of your
 // bot. The actual help text generation is delegated to poise
 </span><span class="doccomment">/// Show a help menu
-</span><span class="attribute">#[poise::command(prefix_command, slash_command)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command)]
 </span><span class="kw">async fn </span>help(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Command to display specific information about&quot;</span>] </span>command: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="attr">#[description = <span class="string">&quot;Command to display specific information about&quot;</span>] </span>command: <span class="prelude-ty">Option</span>&lt;String&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>config = poise::builtins::HelpConfiguration {
         extra_text_at_bottom: <span class="string">&quot;\
@@ -789,7 +789,7 @@ If you want more information about a specific command, just pass the command as 
 }
 
 <span class="doccomment">/// Registers slash commands in this guild or globally
-</span><span class="attribute">#[poise::command(prefix_command, hide_in_help)]
+</span><span class="attr">#[poise::command(prefix_command, hide_in_help)]
 </span><span class="kw">async fn </span>register(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     poise::builtins::register_application_commands_buttons(ctx).<span class="kw">await</span><span class="question-mark">?</span>;
 
@@ -899,7 +899,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
     .boxed()
 }*/
 
-</span><span class="attribute">#[tokio::main]
+</span><span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() {
     <span class="kw">let </span>options = poise::FrameworkOptions {
         commands: <span class="macro">vec!</span>[
@@ -999,7 +999,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 
 <span class="comment">// Commands can be created via the attribute `#[poise::command()]` macro.
 // Options are passed as arguments to the macro.
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="comment">// INFO: not supported
 /*
 // Make this command use the &quot;complicated&quot; bucket.
@@ -1024,10 +1024,10 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 </span><span class="comment">// In this example channel mentions are excluded via the `ContentSafeOptions`.
 // The track_edits argument ensures that when the user edits their command invocation,
 // the bot updates the response message accordingly.
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, track_edits, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, track_edits, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="kw">async fn </span>say(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Text to repeat&quot;</span>]
+    <span class="attr">#[description = <span class="string">&quot;Text to repeat&quot;</span>]
     #[rest]
     </span>content: String,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
@@ -1079,10 +1079,10 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// This is a command with a deliberately long name
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="kw">async fn </span>some_long_command(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Arguments to this command&quot;</span>]
+    <span class="attr">#[description = <span class="string">&quot;Arguments to this command&quot;</span>]
     #[rest]
     </span>args: String,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
@@ -1092,7 +1092,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Retrieves the role ID of a role
-</span><span class="attribute">#[poise::command(prefix_command, slash_command)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command)]
 </span><span class="comment">// INFO: not implemented
 /*
 // Limits the usage of this command to roles named:
@@ -1100,7 +1100,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 */
 </span><span class="kw">async fn </span>about_role(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Name of the role&quot;</span>] </span>potential_role_name: String,
+    <span class="attr">#[description = <span class="string">&quot;Name of the role&quot;</span>] </span>potential_role_name: String,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">if let </span><span class="prelude-val">Some</span>(guild) = ctx.guild() {
         <span class="comment">// `role_by_name()` allows us to attempt attaining a reference to a role
@@ -1124,7 +1124,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Multiplies two numbers
-</span><span class="attribute">#[poise::command(
+</span><span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     <span class="comment">// Lets us also call `~math *` instead of just `~math multiply`.
@@ -1133,8 +1133,8 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 )]
 </span><span class="kw">async fn </span>multiply(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;First number&quot;</span>] </span>first: f64,
-    <span class="attribute">#[description = <span class="string">&quot;Second number&quot;</span>] </span>second: f64,
+    <span class="attr">#[description = <span class="string">&quot;First number&quot;</span>] </span>first: f64,
+    <span class="attr">#[description = <span class="string">&quot;Second number&quot;</span>] </span>second: f64,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>res = first * second;
 
@@ -1144,7 +1144,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Shows information about this bot
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="kw">async fn </span>about(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.say(<span class="string">&quot;This is a small test-bot! : )&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
@@ -1152,7 +1152,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Shows current latency of this bot
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="kw">async fn </span>latency(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="comment">// The shard manager is an interface for mutating, stopping, restarting, and
     // retrieving information about shards.
@@ -1174,7 +1174,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(
+<span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     check = <span class="string">&quot;owner_check&quot;</span>,
@@ -1193,7 +1193,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Sends an emoji with a cat.
-</span><span class="attribute">#[poise::command(
+</span><span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     <span class="comment">// Adds multiple aliases
@@ -1220,7 +1220,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Sends an emoji with a dog.
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;Emoji&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;Emoji&quot;</span>)]
 </span><span class="comment">// INFO: not implemented
 /*
 #[bucket = &quot;emoji&quot;]
@@ -1232,10 +1232,10 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Sends an emoji with a bird.
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;Emoji&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;Emoji&quot;</span>)]
 </span><span class="kw">async fn </span>bird(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Name of the bird you&#39;re searching for&quot;</span>] </span>bird_name: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="attr">#[description = <span class="string">&quot;Name of the bird you&#39;re searching for&quot;</span>] </span>bird_name: <span class="prelude-ty">Option</span>&lt;String&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>say_content = <span class="kw">match </span>bird_name {
         <span class="prelude-val">None </span>=&gt; <span class="string">&quot;:bird: can find animals for you.&quot;</span>.to_string(),
@@ -1250,7 +1250,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 <span class="comment">// We could also use `required_permissions = &quot;ADMINISTRATOR&quot;`
 // but that would not let us reply when it fails.
 </span><span class="doccomment">/// Tells you whether you are an admin on the server
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="kw">async fn </span>am_i_admin(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">if let </span><span class="prelude-val">Some</span>(guild_id) = ctx.guild_id() {
         <span class="kw">for </span>role <span class="kw">in </span>guild_id.member(ctx.discord(), ctx.author().id).<span class="kw">await</span><span class="question-mark">?</span>.roles {
@@ -1270,7 +1270,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Enable slowmode for a channel. Pass no argument to disable slowmode
-</span><span class="attribute">#[poise::command(
+</span><span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     check = <span class="string">&quot;owner_check&quot;</span>,
@@ -1278,7 +1278,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 </span>)]
 </span><span class="kw">async fn </span>slow_mode(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Minimum time between sending messages per user&quot;</span>] </span>rate_limit: <span class="prelude-ty">Option</span>&lt;u64&gt;,
+    <span class="attr">#[description = <span class="string">&quot;Minimum time between sending messages per user&quot;</span>] </span>rate_limit: <span class="prelude-ty">Option</span>&lt;u64&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>say_content = <span class="kw">if let </span><span class="prelude-val">Some</span>(rate_limit) = rate_limit {
         <span class="kw">if let </span><span class="prelude-val">Err</span>(why) = ctx
@@ -1311,7 +1311,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Dummy command to test subcommands
-</span><span class="attribute">#[poise::command(
+</span><span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     rename = <span class="string">&quot;upper&quot;</span>,
@@ -1327,7 +1327,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// &quot;This is `upper`&#39;s sub-command.
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, aliases(<span class="string">&quot;sub-command&quot;</span>, <span class="string">&quot;secret&quot;</span>))]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, aliases(<span class="string">&quot;sub-command&quot;</span>, <span class="string">&quot;secret&quot;</span>))]
 </span><span class="comment">// This will only be called if preceded by the `upper`-command.
 </span><span class="kw">async fn </span>sub(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.say(<span class="string">&quot;This is a sub function!&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
@@ -1335,4 +1335,4 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
     <span class="prelude-val">Ok</span>(())
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="serenity_example_port" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="serenity_example_port" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

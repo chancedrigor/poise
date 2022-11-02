@@ -459,12 +459,12 @@
 
 <span class="kw">use </span>serde::ser::{Serialize, SerializeSeq, Serializer};
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">super</span>::permissions::Permissions;
 <span class="kw">use </span><span class="kw">super</span>::prelude::<span class="kw-2">*</span>;
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::cache::Cache;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::internal::prelude::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::model::application::command::CommandOptionType;
 <span class="kw">use </span><span class="kw">crate</span>::model::application::interaction::application_command::{
@@ -478,7 +478,7 @@
 </span>}
 
 <span class="doccomment">/// Helper function for `#[serde(skip_serializing_if = &quot;is_false&quot;)]`
-</span><span class="attribute">#[allow(clippy::trivially_copy_pass_by_ref)]
+</span><span class="attr">#[allow(clippy::trivially_copy_pass_by_ref)]
 </span><span class="kw">pub fn </span>is_false(v: <span class="kw-2">&amp;</span>bool) -&gt; bool {
     !v
 }
@@ -693,7 +693,7 @@
 
     <span class="doccomment">/// Helper to deserialize `GuildRoleCreateEvent` and `GuildRoleUpdateEvent`.
     </span><span class="kw">pub fn </span>deserialize_event&lt;<span class="lifetime">&#39;de</span>, D: Deserializer&lt;<span class="lifetime">&#39;de</span>&gt;&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;Role, D::Error&gt; {
-        <span class="attribute">#[derive(Deserialize)]
+        <span class="attr">#[derive(Deserialize)]
         </span><span class="kw">struct </span>Event {
             guild_id: GuildId,
             role: InterimRole,
@@ -743,7 +743,7 @@
         <span class="prelude-val">Ok</span>(vec)
     }
 
-    <span class="attribute">#[allow(clippy::ptr_arg)]
+    <span class="attr">#[allow(clippy::ptr_arg)]
     </span><span class="kw">pub fn </span>serialize&lt;S: Serializer&gt;(vec: <span class="kw-2">&amp;</span>Vec&lt;String&gt;, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt; {
         serializer.serialize_str(<span class="kw-2">&amp;</span>vec.join(<span class="string">&quot;, &quot;</span>))
     }
@@ -800,7 +800,7 @@
 <span class="doccomment">/// Tries to find a user&#39;s permissions using the cache.
 /// Unlike [`user_has_perms`], this function will return `true` even when
 /// the permissions are not in the cache.
-</span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
+</span><span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
 #[inline]
 </span><span class="kw">pub fn </span>user_has_perms_cache(
     cache: <span class="kw">impl </span>AsRef&lt;Cache&gt;,
@@ -818,7 +818,7 @@
     }
 }
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
 </span><span class="kw">pub fn </span>user_has_perms(
     cache: <span class="kw">impl </span>AsRef&lt;Cache&gt;,
     channel_id: ChannelId,
@@ -907,4 +907,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

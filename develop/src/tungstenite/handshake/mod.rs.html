@@ -154,7 +154,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::error::Error;
 
 <span class="doccomment">/// A WebSocket handshake.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>MidHandshake&lt;Role: HandshakeRole&gt; {
     role: Role,
     machine: HandshakeMachine&lt;Role::InternalStream&gt;,
@@ -225,13 +225,13 @@
 
 <span class="doccomment">/// Handshake role.
 </span><span class="kw">pub trait </span>HandshakeRole {
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span><span class="kw">type </span>IncomingData: TryParse;
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span><span class="kw">type </span>InternalStream: Read + Write;
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span><span class="kw">type </span>FinalResult;
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     </span><span class="kw">fn </span>stage_finished(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         finish: StageResult&lt;<span class="self">Self</span>::IncomingData, <span class="self">Self</span>::InternalStream&gt;,
@@ -239,7 +239,7 @@
 }
 
 <span class="doccomment">/// Stage processing result.
-</span><span class="attribute">#[doc(hidden)]
+</span><span class="attr">#[doc(hidden)]
 #[derive(Debug)]
 </span><span class="kw">pub enum </span>ProcessingResult&lt;Stream, FinalResult&gt; {
     Continue(HandshakeMachine&lt;Stream&gt;),
@@ -260,15 +260,15 @@
     base64::encode(<span class="kw-2">&amp;</span>sha1.finalize())
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::derive_accept_key;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>key_conversion() {
         <span class="comment">// example from RFC 6455
         </span><span class="macro">assert_eq!</span>(derive_accept_key(<span class="string">b&quot;dGhlIHNhbXBsZSBub25jZQ==&quot;</span>), <span class="string">&quot;s3pPLMBiTxaQ9kYGzzhZRbK+xOo=&quot;</span>);
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

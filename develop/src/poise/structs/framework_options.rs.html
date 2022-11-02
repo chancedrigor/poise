@@ -116,25 +116,25 @@
 </span><span class="kw">use crate</span>::{serenity_prelude <span class="kw">as </span>serenity, BoxFuture};
 
 <span class="doccomment">/// Framework configuration
-</span><span class="attribute">#[derive(derivative::Derivative)]
+</span><span class="attr">#[derive(derivative::Derivative)]
 #[derivative(Debug(bound = <span class="string">&quot;&quot;</span>))]
 </span><span class="kw">pub struct </span>FrameworkOptions&lt;U, E&gt; {
     <span class="doccomment">/// List of commands in the framework
     </span><span class="kw">pub </span>commands: Vec&lt;<span class="kw">crate</span>::Command&lt;U, E&gt;&gt;,
     <span class="doccomment">/// Provide a callback to be invoked when any user code yields an error.
-    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
     </span><span class="kw">pub </span>on_error: <span class="kw">fn</span>(<span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;_</span>, U, E&gt;) -&gt; BoxFuture&lt;<span class="lifetime">&#39;_</span>, ()&gt;,
     <span class="doccomment">/// Called before every command
-    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
     </span><span class="kw">pub </span>pre_command: <span class="kw">fn</span>(<span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;_</span>, U, E&gt;) -&gt; BoxFuture&lt;<span class="lifetime">&#39;_</span>, ()&gt;,
     <span class="doccomment">/// Called after every command if it was successful (returned Ok)
-    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
     </span><span class="kw">pub </span>post_command: <span class="kw">fn</span>(<span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;_</span>, U, E&gt;) -&gt; BoxFuture&lt;<span class="lifetime">&#39;_</span>, ()&gt;,
     <span class="doccomment">/// Provide a callback to be invoked before every command. The command will only be executed
     /// if the callback returns true.
     ///
     /// If individual commands add their own check, both callbacks are run and must return true.
-    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
     </span><span class="kw">pub </span>command_check: <span class="prelude-ty">Option</span>&lt;<span class="kw">fn</span>(<span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;_</span>, U, E&gt;) -&gt; BoxFuture&lt;<span class="lifetime">&#39;_</span>, <span class="prelude-ty">Result</span>&lt;bool, E&gt;&gt;&gt;,
     <span class="doccomment">/// Default set of allowed mentions to use for all responses
     ///
@@ -143,7 +143,7 @@
     <span class="doccomment">/// Invoked before every message sent using [`crate::Context::say`] or [`crate::Context::send`]
     ///
     /// Allows you to modify every outgoing message in a central place
-    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
     </span><span class="kw">pub </span>reply_callback: <span class="prelude-ty">Option</span>&lt;<span class="kw">fn</span>(<span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;_</span>, U, E&gt;, <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::CreateReply&lt;<span class="lifetime">&#39;_</span>&gt;)&gt;,
     <span class="doccomment">/// If `true`, disables automatic cooldown handling before every command invocation.
     ///
@@ -157,7 +157,7 @@
     </span><span class="kw">pub </span>require_cache_for_guild_check: bool,
     <span class="doccomment">/// Called on every Discord event. Can be used to react to non-command events, like messages
     /// deletions or guild updates.
-    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
     </span><span class="kw">pub </span>listener: <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">fn</span>(
         <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context,
         <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Event&lt;<span class="lifetime">&#39;a</span>&gt;,
@@ -173,13 +173,13 @@
     /// owner and team members
     </span><span class="kw">pub </span>owners: std::collections::HashSet&lt;serenity::UserId&gt;,
     <span class="comment">// #[non_exhaustive] forbids struct update syntax for ?? reason
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     </span><span class="kw">pub </span>__non_exhaustive: (),
 }
 
 <span class="kw">impl</span>&lt;U, E&gt; FrameworkOptions&lt;U, E&gt; {
     <span class="doccomment">/// Add a new command to the framework
-    </span><span class="attribute">#[deprecated = <span class="string">&quot;supply commands in FrameworkOptions directly with `commands: vec![...]`&quot;</span>]
+    </span><span class="attr">#[deprecated = <span class="string">&quot;supply commands in FrameworkOptions directly with `commands: vec![...]`&quot;</span>]
     </span><span class="kw">pub fn </span>command(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         <span class="kw-2">mut </span>command: <span class="kw">crate</span>::Command&lt;U, E&gt;,
@@ -225,4 +225,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

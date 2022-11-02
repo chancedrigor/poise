@@ -769,7 +769,7 @@
 // from the loop unrolling.
 </span><span class="kw">const </span>LOOP_SIZE2: usize = <span class="number">2 </span>* VECTOR_SIZE;
 
-<span class="attribute">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
+<span class="attr">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
 </span><span class="kw">pub unsafe fn </span>memchr(n1: u8, haystack: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
     <span class="comment">// For a high level explanation for how this algorithm works, see the
     // sse2 implementation. The avx implementation here is the same, but with
@@ -782,7 +782,7 @@
     // improvement for the memchr1/crate/huge/never benchmark.
     //
     // Interestingly, I couldn&#39;t observe a similar improvement for memrchr.
-    </span><span class="attribute">#[cold]
+    </span><span class="attr">#[cold]
     #[inline(never)]
     #[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
     </span><span class="kw">unsafe fn </span>matched(
@@ -873,9 +873,9 @@
     <span class="prelude-val">None
 </span>}
 
-<span class="attribute">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
+<span class="attr">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
 </span><span class="kw">pub unsafe fn </span>memchr2(n1: u8, n2: u8, haystack: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
-    <span class="attribute">#[cold]
+    <span class="attr">#[cold]
     #[inline(never)]
     #[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
     </span><span class="kw">unsafe fn </span>matched(
@@ -956,14 +956,14 @@
     <span class="prelude-val">None
 </span>}
 
-<span class="attribute">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
+<span class="attr">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
 </span><span class="kw">pub unsafe fn </span>memchr3(
     n1: u8,
     n2: u8,
     n3: u8,
     haystack: <span class="kw-2">&amp;</span>[u8],
 ) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
-    <span class="attribute">#[cold]
+    <span class="attr">#[cold]
     #[inline(never)]
     #[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
     </span><span class="kw">unsafe fn </span>matched(
@@ -1057,7 +1057,7 @@
     <span class="prelude-val">None
 </span>}
 
-<span class="attribute">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
+<span class="attr">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
 </span><span class="kw">pub unsafe fn </span>memrchr(n1: u8, haystack: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
     <span class="kw">let </span>vn1 = _mm256_set1_epi8(n1 <span class="kw">as </span>i8);
     <span class="kw">let </span>len = haystack.len();
@@ -1136,7 +1136,7 @@
     <span class="prelude-val">None
 </span>}
 
-<span class="attribute">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
+<span class="attr">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
 </span><span class="kw">pub unsafe fn </span>memrchr2(n1: u8, n2: u8, haystack: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
     <span class="kw">let </span>vn1 = _mm256_set1_epi8(n1 <span class="kw">as </span>i8);
     <span class="kw">let </span>vn2 = _mm256_set1_epi8(n2 <span class="kw">as </span>i8);
@@ -1203,7 +1203,7 @@
     <span class="prelude-val">None
 </span>}
 
-<span class="attribute">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
+<span class="attr">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
 </span><span class="kw">pub unsafe fn </span>memrchr3(
     n1: u8,
     n2: u8,
@@ -1284,7 +1284,7 @@
     <span class="prelude-val">None
 </span>}
 
-<span class="attribute">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
+<span class="attr">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
 </span><span class="kw">unsafe fn </span>forward_search1(
     start_ptr: <span class="kw-2">*const </span>u8,
     end_ptr: <span class="kw-2">*const </span>u8,
@@ -1304,7 +1304,7 @@
     </span>}
 }
 
-<span class="attribute">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
+<span class="attr">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
 </span><span class="kw">unsafe fn </span>forward_search2(
     start_ptr: <span class="kw-2">*const </span>u8,
     end_ptr: <span class="kw-2">*const </span>u8,
@@ -1328,7 +1328,7 @@
     </span>}
 }
 
-<span class="attribute">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
+<span class="attr">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
 </span><span class="kw">unsafe fn </span>forward_search3(
     start_ptr: <span class="kw-2">*const </span>u8,
     end_ptr: <span class="kw-2">*const </span>u8,
@@ -1356,7 +1356,7 @@
     </span>}
 }
 
-<span class="attribute">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
+<span class="attr">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
 </span><span class="kw">unsafe fn </span>reverse_search1(
     start_ptr: <span class="kw-2">*const </span>u8,
     end_ptr: <span class="kw-2">*const </span>u8,
@@ -1376,7 +1376,7 @@
     </span>}
 }
 
-<span class="attribute">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
+<span class="attr">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
 </span><span class="kw">unsafe fn </span>reverse_search2(
     start_ptr: <span class="kw-2">*const </span>u8,
     end_ptr: <span class="kw-2">*const </span>u8,
@@ -1400,7 +1400,7 @@
     </span>}
 }
 
-<span class="attribute">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
+<span class="attr">#[target_feature(enable = <span class="string">&quot;avx2&quot;</span>)]
 </span><span class="kw">unsafe fn </span>reverse_search3(
     start_ptr: <span class="kw-2">*const </span>u8,
     end_ptr: <span class="kw-2">*const </span>u8,
@@ -1509,4 +1509,4 @@
     (a <span class="kw">as </span>usize) - (b <span class="kw">as </span>usize)
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="memchr" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="memchr" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

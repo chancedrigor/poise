@@ -168,35 +168,35 @@
 </span><span class="kw">use </span>std::collections::HashMap;
 <span class="kw">use </span>std::hash::{BuildHasher, Hash};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;gateway&quot;</span>)]
 </span><span class="kw">use </span>serde::de::Deserialize;
 <span class="kw">use </span>serde::de::DeserializeOwned;
 <span class="kw">use </span>serde::ser::Serialize;
 
 <span class="kw">use </span><span class="kw">crate</span>::Result;
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;simd-json&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;simd-json&quot;</span>))]
 </span><span class="kw">pub type </span>Value = serde_json::Value;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd-json&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd-json&quot;</span>)]
 </span><span class="kw">pub type </span>Value = simd_json::OwnedValue;
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;simd-json&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;simd-json&quot;</span>))]
 </span><span class="kw">pub use </span>serde_json::json;
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;simd-json&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;simd-json&quot;</span>))]
 </span><span class="kw">pub use </span>serde_json::Error <span class="kw">as </span>JsonError;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd-json&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd-json&quot;</span>)]
 </span><span class="kw">pub use </span>simd_json::json;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd-json&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd-json&quot;</span>)]
 </span><span class="kw">pub use </span>simd_json::Error <span class="kw">as </span>JsonError;
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;simd-json&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;simd-json&quot;</span>))]
 </span><span class="kw">pub type </span>JsonMap = serde_json::Map&lt;String, Value&gt;;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd-json&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd-json&quot;</span>)]
 </span><span class="kw">pub type </span>JsonMap = simd_json::owned::Object;
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;simd-json&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;simd-json&quot;</span>))]
 </span><span class="kw">pub const </span>NULL: Value = Value::Null;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd-json&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd-json&quot;</span>)]
 </span><span class="kw">pub const </span>NULL: Value = Value::Static(simd_json::StaticNode::Null);
 
 <span class="doccomment">/// Converts a HashMap into a final [`JsonMap`] representation.
@@ -208,7 +208,7 @@
     map.into_iter().map(|(k, v)| (k.to_string(), v)).collect()
 }
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;simd-json&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;simd-json&quot;</span>))]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>to_string&lt;T&gt;(v: <span class="kw-2">&amp;</span>T) -&gt; <span class="prelude-ty">Result</span>&lt;String&gt;
 <span class="kw">where
     </span>T: Serialize,
@@ -216,7 +216,7 @@
     <span class="prelude-val">Ok</span>(serde_json::to_string(v)<span class="question-mark">?</span>)
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd-json&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd-json&quot;</span>)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>to_string&lt;T&gt;(v: <span class="kw-2">&amp;</span>T) -&gt; <span class="prelude-ty">Result</span>&lt;String&gt;
 <span class="kw">where
     </span>T: Serialize,
@@ -224,7 +224,7 @@
     <span class="prelude-val">Ok</span>(simd_json::to_string(v)<span class="question-mark">?</span>)
 }
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;gateway&quot;</span>, not(feature = <span class="string">&quot;simd-json&quot;</span>)))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;gateway&quot;</span>, not(feature = <span class="string">&quot;simd-json&quot;</span>)))]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>from_str&lt;<span class="lifetime">&#39;a</span>, T&gt;(s: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>str) -&gt; <span class="prelude-ty">Result</span>&lt;T&gt;
 <span class="kw">where
     </span>T: Deserialize&lt;<span class="lifetime">&#39;a</span>&gt;,
@@ -232,7 +232,7 @@
     <span class="prelude-val">Ok</span>(serde_json::from_str(s)<span class="question-mark">?</span>)
 }
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;gateway&quot;</span>, feature = <span class="string">&quot;simd-json&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;gateway&quot;</span>, feature = <span class="string">&quot;simd-json&quot;</span>))]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>from_str&lt;<span class="lifetime">&#39;a</span>, T&gt;(s: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>str) -&gt; <span class="prelude-ty">Result</span>&lt;T&gt;
 <span class="kw">where
     </span>T: Deserialize&lt;<span class="lifetime">&#39;a</span>&gt;,
@@ -240,7 +240,7 @@
     <span class="prelude-val">Ok</span>(simd_json::from_str(s)<span class="question-mark">?</span>)
 }
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;simd-json&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;simd-json&quot;</span>))]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>from_value&lt;T&gt;(v: Value) -&gt; <span class="prelude-ty">Result</span>&lt;T&gt;
 <span class="kw">where
     </span>T: DeserializeOwned,
@@ -248,7 +248,7 @@
     <span class="prelude-val">Ok</span>(serde_json::from_value(v)<span class="question-mark">?</span>)
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd-json&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd-json&quot;</span>)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>from_value&lt;T&gt;(v: Value) -&gt; <span class="prelude-ty">Result</span>&lt;T&gt;
 <span class="kw">where
     </span>T: DeserializeOwned,
@@ -256,7 +256,7 @@
     <span class="prelude-val">Ok</span>(simd_json::serde::from_owned_value(v)<span class="question-mark">?</span>)
 }
 
-<span class="attribute">#[cfg(all(any(feature = <span class="string">&quot;builder&quot;</span>, feature = <span class="string">&quot;http&quot;</span>), not(feature = <span class="string">&quot;simd-json&quot;</span>)))]
+<span class="attr">#[cfg(all(any(feature = <span class="string">&quot;builder&quot;</span>, feature = <span class="string">&quot;http&quot;</span>), not(feature = <span class="string">&quot;simd-json&quot;</span>)))]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>to_value&lt;T&gt;(value: T) -&gt; <span class="prelude-ty">Result</span>&lt;Value&gt;
 <span class="kw">where
     </span>T: Serialize,
@@ -264,7 +264,7 @@
     <span class="prelude-val">Ok</span>(serde_json::to_value(value)<span class="question-mark">?</span>)
 }
 
-<span class="attribute">#[cfg(all(any(feature = <span class="string">&quot;builder&quot;</span>, feature = <span class="string">&quot;http&quot;</span>), feature = <span class="string">&quot;simd-json&quot;</span>))]
+<span class="attr">#[cfg(all(any(feature = <span class="string">&quot;builder&quot;</span>, feature = <span class="string">&quot;http&quot;</span>), feature = <span class="string">&quot;simd-json&quot;</span>))]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>to_value&lt;T&gt;(value: T) -&gt; <span class="prelude-ty">Result</span>&lt;Value&gt;
 <span class="kw">where
     </span>T: Serialize,
@@ -276,14 +276,14 @@
     <span class="kw">fn </span>to_number(<span class="self">self</span>) -&gt; Value;
 }
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;simd-json&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;simd-json&quot;</span>))]
 </span><span class="kw">impl</span>&lt;T: Into&lt;serde_json::Number&gt;&gt; ToNumber <span class="kw">for </span>T {
     <span class="kw">fn </span>to_number(<span class="self">self</span>) -&gt; Value {
         Value::Number(<span class="self">self</span>.into())
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;simd-json&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;simd-json&quot;</span>)]
 </span><span class="kw">impl</span>&lt;T: Into&lt;Value&gt;&gt; ToNumber <span class="kw">for </span>T {
     <span class="kw">fn </span>to_number(<span class="self">self</span>) -&gt; Value {
         <span class="self">self</span>.into()
@@ -295,7 +295,7 @@
 }
 
 <span class="kw">pub mod </span>prelude {
-    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;simd-json&quot;</span>))]
+    <span class="attr">#[cfg(not(feature = <span class="string">&quot;simd-json&quot;</span>))]
     </span><span class="kw">pub use </span>serde_json::{
         from_reader,
         from_slice,
@@ -307,7 +307,7 @@
         to_vec,
         to_vec_pretty,
     };
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;simd-json&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;simd-json&quot;</span>)]
     </span><span class="kw">pub use </span>simd_json::{
         from_reader,
         from_slice,
@@ -319,10 +319,10 @@
         to_vec,
         to_vec_pretty,
     };
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;simd-json&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;simd-json&quot;</span>)]
     </span><span class="kw">pub use </span>simd_json::{Builder, Mutable, StaticNode, Value <span class="kw">as </span>ValueTrait, ValueAccess};
 
     <span class="kw">pub use super</span>::<span class="kw-2">*</span>;
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -657,7 +657,7 @@
 ///
 /// Unlike the top-level `MatchKind` type, the default match semantics for this
 /// type are leftmost-first.
-</span><span class="attribute">#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 </span><span class="kw">pub enum </span>MatchKind {
     <span class="doccomment">/// Use leftmost-first match semantics, which reports leftmost matches.
     /// When there are multiple possible leftmost matches, the match
@@ -675,7 +675,7 @@
     /// This enum may grow additional variants, so this makes sure clients
     /// don&#39;t count on exhaustive matching. (Otherwise, adding a new variant
     /// could break existing code.)
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     </span>__Nonexhaustive,
 }
 
@@ -722,7 +722,7 @@
 /// #     assert!(example().is_none());
 /// # }
 /// ```
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>Config {
     kind: MatchKind,
     force: <span class="prelude-ty">Option</span>&lt;ForceAlgorithm&gt;,
@@ -735,7 +735,7 @@
 /// When an algorithm is forced, if a searcher could not be constructed for it,
 /// then no searcher will be returned even if an alternative algorithm would
 /// work.
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">enum </span>ForceAlgorithm {
     Teddy,
     RabinKarp,
@@ -778,7 +778,7 @@
     /// This is only exposed for more precise testing and benchmarks. Callers
     /// should not use it as it is not part of the API stability guarantees of
     /// this crate.
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     </span><span class="kw">pub fn </span>force_teddy(<span class="kw-2">&amp;mut </span><span class="self">self</span>, yes: bool) -&gt; <span class="kw-2">&amp;mut </span>Config {
         <span class="kw">if </span>yes {
             <span class="self">self</span>.force = <span class="prelude-val">Some</span>(ForceAlgorithm::Teddy);
@@ -793,7 +793,7 @@
     /// This is only exposed for more precise testing and benchmarks. Callers
     /// should not use it as it is not part of the API stability guarantees of
     /// this crate.
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     </span><span class="kw">pub fn </span>force_teddy_fat(<span class="kw-2">&amp;mut </span><span class="self">self</span>, yes: <span class="prelude-ty">Option</span>&lt;bool&gt;) -&gt; <span class="kw-2">&amp;mut </span>Config {
         <span class="self">self</span>.force_teddy_fat = yes;
         <span class="self">self
@@ -805,7 +805,7 @@
     /// This is only exposed for more precise testing and benchmarks. Callers
     /// should not use it as it is not part of the API stability guarantees of
     /// this crate.
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     </span><span class="kw">pub fn </span>force_avx(<span class="kw-2">&amp;mut </span><span class="self">self</span>, yes: <span class="prelude-ty">Option</span>&lt;bool&gt;) -&gt; <span class="kw-2">&amp;mut </span>Config {
         <span class="self">self</span>.force_avx = yes;
         <span class="self">self
@@ -816,7 +816,7 @@
     /// This is only exposed for more precise testing and benchmarks. Callers
     /// should not use it as it is not part of the API stability guarantees of
     /// this crate.
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     </span><span class="kw">pub fn </span>force_rabin_karp(<span class="kw-2">&amp;mut </span><span class="self">self</span>, yes: bool) -&gt; <span class="kw-2">&amp;mut </span>Config {
         <span class="kw">if </span>yes {
             <span class="self">self</span>.force = <span class="prelude-val">Some</span>(ForceAlgorithm::RabinKarp);
@@ -854,7 +854,7 @@
 /// #     assert!(example().is_none());
 /// # }
 /// ```
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>Builder {
     <span class="doccomment">/// The configuration of this builder and subsequent matcher.
     </span>config: Config,
@@ -1007,7 +1007,7 @@
 /// #     assert!(example().is_none());
 /// # }
 /// ```
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>Searcher {
     config: Config,
     patterns: Patterns,
@@ -1016,7 +1016,7 @@
     minimum_len: usize,
 }
 
-<span class="attribute">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">enum </span>SearchKind {
     Teddy(Teddy),
     RabinKarp,
@@ -1239,7 +1239,7 @@
 /// The lifetime `&#39;s` refers to the lifetime of the underlying
 /// [`Searcher`](struct.Searcher.html), while the lifetime `&#39;h` refers to the
 /// lifetime of the haystack being searched.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>FindIter&lt;<span class="lifetime">&#39;s</span>, <span class="lifetime">&#39;h</span>&gt; {
     searcher: <span class="kw-2">&amp;</span><span class="lifetime">&#39;s </span>Searcher,
     haystack: <span class="kw-2">&amp;</span><span class="lifetime">&#39;h </span>[u8],
@@ -1263,4 +1263,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="aho_corasick" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="aho_corasick" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

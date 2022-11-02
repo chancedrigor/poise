@@ -403,7 +403,7 @@
 <span id="403">403</span>
 <span id="404">404</span>
 <span id="405">405</span>
-</pre><pre class="rust"><code><span class="attribute">#![cfg_attr(not(feature = <span class="string">&quot;rt&quot;</span>), allow(dead_code))]
+</pre><pre class="rust"><code><span class="attr">#![cfg_attr(not(feature = <span class="string">&quot;rt&quot;</span>), allow(dead_code))]
 
 </span><span class="kw">mod </span>registration;
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>registration::Registration;
@@ -447,12 +447,12 @@
 }
 
 <span class="doccomment">/// A reference to an I/O driver.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Handle {
     <span class="kw">pub</span>(<span class="kw">super</span>) inner: Arc&lt;Inner&gt;,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>ReadyEvent {
     tick: u8,
     <span class="kw">pub</span>(<span class="kw">crate</span>) ready: Ready,
@@ -472,13 +472,13 @@
 
     <span class="doccomment">/// Used to wake up the reactor from a call to `turn`.
     /// Not supported on Wasi due to lack of threading support.
-    </span><span class="attribute">#[cfg(not(tokio_wasi))]
+    </span><span class="attr">#[cfg(not(tokio_wasi))]
     </span>waker: mio::Waker,
 
     metrics: IoDriverMetrics,
 }
 
-<span class="attribute">#[derive(Debug, Eq, PartialEq, Clone, Copy)]
+<span class="attr">#[derive(Debug, Eq, PartialEq, Clone, Copy)]
 </span><span class="kw">enum </span>Direction {
     Read,
     Write,
@@ -516,7 +516,7 @@
     /// creation.
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new() -&gt; io::Result&lt;Driver&gt; {
         <span class="kw">let </span>poll = mio::Poll::new()<span class="question-mark">?</span>;
-        <span class="attribute">#[cfg(not(tokio_wasi))]
+        <span class="attr">#[cfg(not(tokio_wasi))]
         </span><span class="kw">let </span>waker = mio::Waker::new(poll.registry(), TOKEN_WAKEUP)<span class="question-mark">?</span>;
         <span class="kw">let </span>registry = poll.registry().try_clone()<span class="question-mark">?</span>;
 
@@ -531,7 +531,7 @@
             inner: Arc::new(Inner {
                 registry,
                 io_dispatch: RwLock::new(IoDispatcher::new(allocator)),
-                <span class="attribute">#[cfg(not(tokio_wasi))]
+                <span class="attr">#[cfg(not(tokio_wasi))]
                 </span>waker,
                 metrics: IoDriverMetrics::default(),
             }),
@@ -567,7 +567,7 @@
         </span><span class="kw">match </span><span class="self">self</span>.poll.poll(<span class="kw-2">&amp;mut </span>events, max_wait) {
             <span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; {}
             <span class="prelude-val">Err</span>(<span class="kw-2">ref </span>e) <span class="kw">if </span>e.kind() == io::ErrorKind::Interrupted =&gt; {}
-            <span class="attribute">#[cfg(tokio_wasi)]
+            <span class="attr">#[cfg(tokio_wasi)]
             </span><span class="prelude-val">Err</span>(e) <span class="kw">if </span>e.kind() == io::ErrorKind::InvalidInput =&gt; {
                 <span class="comment">// In case of wasm32_wasi this error happens, when trying to poll without subscriptions
                 // just return from the park, as there would be nothing, which wakes us up.
@@ -666,7 +666,7 @@
         ///
         /// This function panics if there is no current reactor set and `rt` feature
         /// flag is not enabled.
-        </span><span class="attribute">#[track_caller]
+        </span><span class="attr">#[track_caller]
         </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>current() -&gt; <span class="self">Self </span>{
             <span class="kw">crate</span>::runtime::context::io_handle().expect(<span class="string">&quot;A Tokio 1.x context was found, but IO is disabled. Call `enable_io` on the runtime builder to enable IO.&quot;</span>)
         }
@@ -681,7 +681,7 @@
         ///
         /// This function panics if there is no current reactor set, or if the `rt`
         /// feature flag is not enabled.
-        </span><span class="attribute">#[track_caller]
+        </span><span class="attr">#[track_caller]
         </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>current() -&gt; <span class="self">Self </span>{
             <span class="macro">panic!</span>(<span class="string">&quot;{}&quot;</span>, <span class="kw">crate</span>::util::error::CONTEXT_MISSING_ERROR)
         }
@@ -709,7 +709,7 @@
     /// blocked in `turn`, then the next call to `turn` will not block and
     /// return immediately.
     </span><span class="kw">fn </span>wakeup(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="attribute">#[cfg(not(tokio_wasi))]
+        <span class="attr">#[cfg(not(tokio_wasi))]
         </span><span class="self">self</span>.inner.waker.wake().expect(<span class="string">&quot;failed to wake I/O driver&quot;</span>);
     }
 }
@@ -809,4 +809,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

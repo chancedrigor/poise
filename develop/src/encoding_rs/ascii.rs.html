@@ -1569,7 +1569,7 @@
 // on Raspberry Pi 3 measurements. The UTF-16 and UTF-8 ALU cases take
 // different approaches based on benchmarking on Raspberry Pi 3.
 
-</span><span class="attribute">#[cfg(all(
+</span><span class="attr">#[cfg(all(
     feature = <span class="string">&quot;simd-accel&quot;</span>,
     any(
         target_feature = <span class="string">&quot;sse2&quot;</span>,
@@ -1580,19 +1580,19 @@
 </span><span class="kw">use </span><span class="kw">crate</span>::simd_funcs::<span class="kw-2">*</span>;
 
 <span class="macro">cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(feature = <span class="string">&quot;simd-accel&quot;</span>)] </span>{
-        <span class="attribute">#[allow(unused_imports)]
+    <span class="kw">if </span><span class="attr">#[cfg(feature = <span class="string">&quot;simd-accel&quot;</span>)] </span>{
+        <span class="attr">#[allow(unused_imports)]
         </span><span class="kw">use </span>::core::intrinsics::unlikely;
-        <span class="attribute">#[allow(unused_imports)]
+        <span class="attr">#[allow(unused_imports)]
         </span><span class="kw">use </span>::core::intrinsics::likely;
     } <span class="kw">else </span>{
-        <span class="attribute">#[allow(dead_code)]
+        <span class="attr">#[allow(dead_code)]
         #[inline(always)]
         </span><span class="comment">// Unsafe to match the intrinsic, which is needlessly unsafe.
         </span><span class="kw">unsafe fn </span>unlikely(b: bool) -&gt; bool {
             b
         }
-        <span class="attribute">#[allow(dead_code)]
+        <span class="attr">#[allow(dead_code)]
         #[inline(always)]
         </span><span class="comment">// Unsafe to match the intrinsic, which is needlessly unsafe.
         </span><span class="kw">unsafe fn </span>likely(b: bool) -&gt; bool {
@@ -1602,17 +1602,17 @@
 }
 
 <span class="comment">// `as` truncates, so works on 32-bit, too.
-</span><span class="attribute">#[allow(dead_code)]
+</span><span class="attr">#[allow(dead_code)]
 </span><span class="kw">pub const </span>ASCII_MASK: usize = <span class="number">0x8080_8080_8080_8080u64 </span><span class="kw">as </span>usize;
 
 <span class="comment">// `as` truncates, so works on 32-bit, too.
-</span><span class="attribute">#[allow(dead_code)]
+</span><span class="attr">#[allow(dead_code)]
 </span><span class="kw">pub const </span>BASIC_LATIN_MASK: usize = <span class="number">0xFF80_FF80_FF80_FF80u64 </span><span class="kw">as </span>usize;
 
-<span class="attribute">#[allow(unused_macros)]
+<span class="attr">#[allow(unused_macros)]
 </span><span class="macro">macro_rules! </span>ascii_naive {
     (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$src_unit</span>:ty, <span class="macro-nonterminal">$dst_unit</span>:ty) =&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">pub unsafe fn </span><span class="macro-nonterminal">$name</span>(
             src: <span class="kw-2">*const </span><span class="macro-nonterminal">$src_unit</span>,
             dst: <span class="kw-2">*mut </span><span class="macro-nonterminal">$dst_unit</span>,
@@ -1632,13 +1632,13 @@
     };
 }
 
-<span class="attribute">#[allow(unused_macros)]
+<span class="attr">#[allow(unused_macros)]
 </span><span class="macro">macro_rules! </span>ascii_alu {
     (<span class="macro-nonterminal">$name</span>:ident,
      <span class="macro-nonterminal">$src_unit</span>:ty,
      <span class="macro-nonterminal">$dst_unit</span>:ty,
      <span class="macro-nonterminal">$stride_fn</span>:ident) =&gt; {
-        <span class="attribute">#[cfg_attr(feature = <span class="string">&quot;cargo-clippy&quot;</span>, allow(never_loop, cast_ptr_alignment))]
+        <span class="attr">#[cfg_attr(feature = <span class="string">&quot;cargo-clippy&quot;</span>, allow(never_loop, cast_ptr_alignment))]
         #[inline(always)]
         </span><span class="kw">pub unsafe fn </span><span class="macro-nonterminal">$name</span>(
             src: <span class="kw-2">*const </span><span class="macro-nonterminal">$src_unit</span>,
@@ -1723,13 +1723,13 @@
     };
 }
 
-<span class="attribute">#[allow(unused_macros)]
+<span class="attr">#[allow(unused_macros)]
 </span><span class="macro">macro_rules! </span>basic_latin_alu {
     (<span class="macro-nonterminal">$name</span>:ident,
      <span class="macro-nonterminal">$src_unit</span>:ty,
      <span class="macro-nonterminal">$dst_unit</span>:ty,
      <span class="macro-nonterminal">$stride_fn</span>:ident) =&gt; {
-        <span class="attribute">#[cfg_attr(
+        <span class="attr">#[cfg_attr(
             feature = <span class="string">&quot;cargo-clippy&quot;</span>,
             allow(never_loop, cast_ptr_alignment, cast_lossless)
         )]
@@ -1825,10 +1825,10 @@
     };
 }
 
-<span class="attribute">#[allow(unused_macros)]
+<span class="attr">#[allow(unused_macros)]
 </span><span class="macro">macro_rules! </span>latin1_alu {
     (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$src_unit</span>:ty, <span class="macro-nonterminal">$dst_unit</span>:ty, <span class="macro-nonterminal">$stride_fn</span>:ident) =&gt; {
-        <span class="attribute">#[cfg_attr(
+        <span class="attr">#[cfg_attr(
             feature = <span class="string">&quot;cargo-clippy&quot;</span>,
             allow(never_loop, cast_ptr_alignment, cast_lossless)
         )]
@@ -1892,7 +1892,7 @@
     };
 }
 
-<span class="attribute">#[allow(unused_macros)]
+<span class="attr">#[allow(unused_macros)]
 </span><span class="macro">macro_rules! </span>ascii_simd_check_align {
     (
         <span class="macro-nonterminal">$name</span>:ident,
@@ -1903,7 +1903,7 @@
         <span class="macro-nonterminal">$stride_dst_aligned</span>:ident,
         <span class="macro-nonterminal">$stride_neither_aligned</span>:ident
     ) =&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">pub unsafe fn </span><span class="macro-nonterminal">$name</span>(
             src: <span class="kw-2">*const </span><span class="macro-nonterminal">$src_unit</span>,
             dst: <span class="kw-2">*mut </span><span class="macro-nonterminal">$dst_unit</span>,
@@ -1977,7 +1977,7 @@
     };
 }
 
-<span class="attribute">#[allow(unused_macros)]
+<span class="attr">#[allow(unused_macros)]
 </span><span class="macro">macro_rules! </span>ascii_simd_check_align_unrolled {
     (
         <span class="macro-nonterminal">$name</span>:ident,
@@ -1989,7 +1989,7 @@
         <span class="macro-nonterminal">$double_stride_both_aligned</span>:ident,
         <span class="macro-nonterminal">$double_stride_src_aligned</span>:ident
     ) =&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">pub unsafe fn </span><span class="macro-nonterminal">$name</span>(
             src: <span class="kw-2">*const </span><span class="macro-nonterminal">$src_unit</span>,
             dst: <span class="kw-2">*mut </span><span class="macro-nonterminal">$dst_unit</span>,
@@ -2100,7 +2100,7 @@
     };
 }
 
-<span class="attribute">#[allow(unused_macros)]
+<span class="attr">#[allow(unused_macros)]
 </span><span class="macro">macro_rules! </span>latin1_simd_check_align {
     (
         <span class="macro-nonterminal">$name</span>:ident,
@@ -2111,7 +2111,7 @@
         <span class="macro-nonterminal">$stride_dst_aligned</span>:ident,
         <span class="macro-nonterminal">$stride_neither_aligned</span>:ident
     ) =&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">pub unsafe fn </span><span class="macro-nonterminal">$name</span>(src: <span class="kw-2">*const </span><span class="macro-nonterminal">$src_unit</span>, dst: <span class="kw-2">*mut </span><span class="macro-nonterminal">$dst_unit</span>, len: usize) {
             <span class="kw">let </span><span class="kw-2">mut </span>offset = <span class="number">0usize</span>;
             <span class="kw">if </span>SIMD_STRIDE_SIZE &lt;= len {
@@ -2164,7 +2164,7 @@
     };
 }
 
-<span class="attribute">#[allow(unused_macros)]
+<span class="attr">#[allow(unused_macros)]
 </span><span class="macro">macro_rules! </span>latin1_simd_check_align_unrolled {
     (
         <span class="macro-nonterminal">$name</span>:ident,
@@ -2175,7 +2175,7 @@
         <span class="macro-nonterminal">$stride_dst_aligned</span>:ident,
         <span class="macro-nonterminal">$stride_neither_aligned</span>:ident
     ) =&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">pub unsafe fn </span><span class="macro-nonterminal">$name</span>(src: <span class="kw-2">*const </span><span class="macro-nonterminal">$src_unit</span>, dst: <span class="kw-2">*mut </span><span class="macro-nonterminal">$dst_unit</span>, len: usize) {
             <span class="kw">let </span>unit_size = ::core::mem::size_of::&lt;<span class="macro-nonterminal">$src_unit</span>&gt;();
             <span class="kw">let </span><span class="kw-2">mut </span>offset = <span class="number">0usize</span>;
@@ -2241,10 +2241,10 @@
     };
 }
 
-<span class="attribute">#[allow(unused_macros)]
+<span class="attr">#[allow(unused_macros)]
 </span><span class="macro">macro_rules! </span>ascii_simd_unalign {
     (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$src_unit</span>:ty, <span class="macro-nonterminal">$dst_unit</span>:ty, <span class="macro-nonterminal">$stride_neither_aligned</span>:ident) =&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">pub unsafe fn </span><span class="macro-nonterminal">$name</span>(
             src: <span class="kw-2">*const </span><span class="macro-nonterminal">$src_unit</span>,
             dst: <span class="kw-2">*mut </span><span class="macro-nonterminal">$dst_unit</span>,
@@ -2276,10 +2276,10 @@
     };
 }
 
-<span class="attribute">#[allow(unused_macros)]
+<span class="attr">#[allow(unused_macros)]
 </span><span class="macro">macro_rules! </span>latin1_simd_unalign {
     (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$src_unit</span>:ty, <span class="macro-nonterminal">$dst_unit</span>:ty, <span class="macro-nonterminal">$stride_neither_aligned</span>:ident) =&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">pub unsafe fn </span><span class="macro-nonterminal">$name</span>(src: <span class="kw-2">*const </span><span class="macro-nonterminal">$src_unit</span>, dst: <span class="kw-2">*mut </span><span class="macro-nonterminal">$dst_unit</span>, len: usize) {
             <span class="kw">let </span><span class="kw-2">mut </span>offset = <span class="number">0usize</span>;
             <span class="kw">if </span>SIMD_STRIDE_SIZE &lt;= len {
@@ -2301,10 +2301,10 @@
     };
 }
 
-<span class="attribute">#[allow(unused_macros)]
+<span class="attr">#[allow(unused_macros)]
 </span><span class="macro">macro_rules! </span>ascii_to_ascii_simd_stride {
     (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$load</span>:ident, <span class="macro-nonterminal">$store</span>:ident) =&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">pub unsafe fn </span><span class="macro-nonterminal">$name</span>(src: <span class="kw-2">*const </span>u8, dst: <span class="kw-2">*mut </span>u8) -&gt; bool {
             <span class="kw">let </span>simd = <span class="macro-nonterminal">$load</span>(src);
             <span class="kw">if </span>!simd_is_ascii(simd) {
@@ -2316,10 +2316,10 @@
     };
 }
 
-<span class="attribute">#[allow(unused_macros)]
+<span class="attr">#[allow(unused_macros)]
 </span><span class="macro">macro_rules! </span>ascii_to_ascii_simd_double_stride {
     (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$store</span>:ident) =&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">pub unsafe fn </span><span class="macro-nonterminal">$name</span>(src: <span class="kw-2">*const </span>u8, dst: <span class="kw-2">*mut </span>u8) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
             <span class="kw">let </span>first = load16_aligned(src);
             <span class="kw">let </span>second = load16_aligned(src.add(SIMD_STRIDE_SIZE));
@@ -2339,10 +2339,10 @@
     };
 }
 
-<span class="attribute">#[allow(unused_macros)]
+<span class="attr">#[allow(unused_macros)]
 </span><span class="macro">macro_rules! </span>ascii_to_basic_latin_simd_stride {
     (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$load</span>:ident, <span class="macro-nonterminal">$store</span>:ident) =&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">pub unsafe fn </span><span class="macro-nonterminal">$name</span>(src: <span class="kw-2">*const </span>u8, dst: <span class="kw-2">*mut </span>u16) -&gt; bool {
             <span class="kw">let </span>simd = <span class="macro-nonterminal">$load</span>(src);
             <span class="kw">if </span>!simd_is_ascii(simd) {
@@ -2356,10 +2356,10 @@
     };
 }
 
-<span class="attribute">#[allow(unused_macros)]
+<span class="attr">#[allow(unused_macros)]
 </span><span class="macro">macro_rules! </span>ascii_to_basic_latin_simd_double_stride {
     (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$store</span>:ident) =&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">pub unsafe fn </span><span class="macro-nonterminal">$name</span>(src: <span class="kw-2">*const </span>u8, dst: <span class="kw-2">*mut </span>u16) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
             <span class="kw">let </span>first = load16_aligned(src);
             <span class="kw">let </span>second = load16_aligned(src.add(SIMD_STRIDE_SIZE));
@@ -2385,10 +2385,10 @@
     };
 }
 
-<span class="attribute">#[allow(unused_macros)]
+<span class="attr">#[allow(unused_macros)]
 </span><span class="macro">macro_rules! </span>unpack_simd_stride {
     (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$load</span>:ident, <span class="macro-nonterminal">$store</span>:ident) =&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">pub unsafe fn </span><span class="macro-nonterminal">$name</span>(src: <span class="kw-2">*const </span>u8, dst: <span class="kw-2">*mut </span>u16) {
             <span class="kw">let </span>simd = <span class="macro-nonterminal">$load</span>(src);
             <span class="kw">let </span>(first, second) = simd_unpack(simd);
@@ -2398,10 +2398,10 @@
     };
 }
 
-<span class="attribute">#[allow(unused_macros)]
+<span class="attr">#[allow(unused_macros)]
 </span><span class="macro">macro_rules! </span>basic_latin_to_ascii_simd_stride {
     (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$load</span>:ident, <span class="macro-nonterminal">$store</span>:ident) =&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">pub unsafe fn </span><span class="macro-nonterminal">$name</span>(src: <span class="kw-2">*const </span>u16, dst: <span class="kw-2">*mut </span>u8) -&gt; bool {
             <span class="kw">let </span>first = <span class="macro-nonterminal">$load</span>(src);
             <span class="kw">let </span>second = <span class="macro-nonterminal">$load</span>(src.add(<span class="number">8</span>));
@@ -2415,10 +2415,10 @@
     };
 }
 
-<span class="attribute">#[allow(unused_macros)]
+<span class="attr">#[allow(unused_macros)]
 </span><span class="macro">macro_rules! </span>pack_simd_stride {
     (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$load</span>:ident, <span class="macro-nonterminal">$store</span>:ident) =&gt; {
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">pub unsafe fn </span><span class="macro-nonterminal">$name</span>(src: <span class="kw-2">*const </span>u16, dst: <span class="kw-2">*mut </span>u8) {
             <span class="kw">let </span>first = <span class="macro-nonterminal">$load</span>(src);
             <span class="kw">let </span>second = <span class="macro-nonterminal">$load</span>(src.add(<span class="number">8</span>));
@@ -2428,7 +2428,7 @@
 }
 
 <span class="macro">cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;simd-accel&quot;</span>, target_endian = <span class="string">&quot;little&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>))] </span>{
+    <span class="kw">if </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;simd-accel&quot;</span>, target_endian = <span class="string">&quot;little&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>))] </span>{
         <span class="comment">// SIMD with the same instructions for aligned and unaligned loads and stores
 
         </span><span class="kw">pub const </span>SIMD_STRIDE_SIZE: usize = <span class="number">16</span>;
@@ -2456,7 +2456,7 @@
         <span class="macro">ascii_simd_unalign!</span>(basic_latin_to_ascii, u16, u8, basic_latin_to_ascii_stride_neither_aligned);
         <span class="macro">latin1_simd_unalign!</span>(unpack_latin1, u8, u16, unpack_stride_neither_aligned);
         <span class="macro">latin1_simd_unalign!</span>(pack_latin1, u16, u8, pack_stride_neither_aligned);
-    } <span class="kw">else if </span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;simd-accel&quot;</span>, target_endian = <span class="string">&quot;little&quot;</span>, target_feature = <span class="string">&quot;neon&quot;</span>))] </span>{
+    } <span class="kw">else if </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;simd-accel&quot;</span>, target_endian = <span class="string">&quot;little&quot;</span>, target_feature = <span class="string">&quot;neon&quot;</span>))] </span>{
         <span class="comment">// SIMD with different instructions for aligned and unaligned loads and stores.
         //
         // Newer microarchitectures are not supposed to have a performance difference between
@@ -2499,7 +2499,7 @@
         <span class="macro">ascii_simd_check_align!</span>(basic_latin_to_ascii, u16, u8, basic_latin_to_ascii_stride_both_aligned, basic_latin_to_ascii_stride_src_aligned, basic_latin_to_ascii_stride_dst_aligned, basic_latin_to_ascii_stride_neither_aligned);
         <span class="macro">latin1_simd_check_align!</span>(unpack_latin1, u8, u16, unpack_stride_both_aligned, unpack_stride_src_aligned, unpack_stride_dst_aligned, unpack_stride_neither_aligned);
         <span class="macro">latin1_simd_check_align!</span>(pack_latin1, u16, u8, pack_stride_both_aligned, pack_stride_src_aligned, pack_stride_dst_aligned, pack_stride_neither_aligned);
-    } <span class="kw">else if </span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;simd-accel&quot;</span>, target_feature = <span class="string">&quot;sse2&quot;</span>))] </span>{
+    } <span class="kw">else if </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;simd-accel&quot;</span>, target_feature = <span class="string">&quot;sse2&quot;</span>))] </span>{
         <span class="comment">// SIMD with different instructions for aligned and unaligned loads and stores.
         //
         // Newer microarchitectures are not supposed to have a performance difference between
@@ -2545,7 +2545,7 @@
         <span class="macro">ascii_simd_check_align!</span>(basic_latin_to_ascii, u16, u8, basic_latin_to_ascii_stride_both_aligned, basic_latin_to_ascii_stride_src_aligned, basic_latin_to_ascii_stride_dst_aligned, basic_latin_to_ascii_stride_neither_aligned);
         <span class="macro">latin1_simd_check_align_unrolled!</span>(unpack_latin1, u8, u16, unpack_stride_both_aligned, unpack_stride_src_aligned, unpack_stride_dst_aligned, unpack_stride_neither_aligned);
         <span class="macro">latin1_simd_check_align_unrolled!</span>(pack_latin1, u16, u8, pack_stride_both_aligned, pack_stride_src_aligned, pack_stride_dst_aligned, pack_stride_neither_aligned);
-    } <span class="kw">else if </span><span class="attribute">#[cfg(all(target_endian = <span class="string">&quot;little&quot;</span>, target_pointer_width = <span class="string">&quot;64&quot;</span>))] </span>{
+    } <span class="kw">else if </span><span class="attr">#[cfg(all(target_endian = <span class="string">&quot;little&quot;</span>, target_pointer_width = <span class="string">&quot;64&quot;</span>))] </span>{
         <span class="comment">// Aligned ALU word, little-endian, 64-bit
 
         </span><span class="kw">pub const </span>ALU_STRIDE_SIZE: usize = <span class="number">16</span>;
@@ -2556,7 +2556,7 @@
 
         <span class="kw">pub const </span>ALU_ALIGNMENT_MASK: usize = <span class="number">7</span>;
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>unpack_alu(word: usize, second_word: usize, dst: <span class="kw-2">*mut </span>usize) {
             <span class="kw">let </span>first = ((<span class="number">0x0000_0000_FF00_0000usize </span>&amp; word) &lt;&lt; <span class="number">24</span>) |
                         ((<span class="number">0x0000_0000_00FF_0000usize </span>&amp; word) &lt;&lt; <span class="number">16</span>) |
@@ -2580,7 +2580,7 @@
             <span class="kw-2">*</span>(dst.add(<span class="number">3</span>)) = fourth;
         }
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>pack_alu(first: usize, second: usize, third: usize, fourth: usize, dst: <span class="kw-2">*mut </span>usize) {
             <span class="kw">let </span>word = ((<span class="number">0x00FF_0000_0000_0000usize </span>&amp; second) &lt;&lt; <span class="number">8</span>) |
                        ((<span class="number">0x0000_00FF_0000_0000usize </span>&amp; second) &lt;&lt; <span class="number">16</span>) |
@@ -2601,7 +2601,7 @@
             <span class="kw-2">*</span>dst = word;
             <span class="kw-2">*</span>(dst.add(<span class="number">1</span>)) = second_word;
         }
-    } <span class="kw">else if </span><span class="attribute">#[cfg(all(target_endian = <span class="string">&quot;little&quot;</span>, target_pointer_width = <span class="string">&quot;32&quot;</span>))] </span>{
+    } <span class="kw">else if </span><span class="attr">#[cfg(all(target_endian = <span class="string">&quot;little&quot;</span>, target_pointer_width = <span class="string">&quot;32&quot;</span>))] </span>{
         <span class="comment">// Aligned ALU word, little-endian, 32-bit
 
         </span><span class="kw">pub const </span>ALU_STRIDE_SIZE: usize = <span class="number">8</span>;
@@ -2612,7 +2612,7 @@
 
         <span class="kw">pub const </span>ALU_ALIGNMENT_MASK: usize = <span class="number">3</span>;
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>unpack_alu(word: usize, second_word: usize, dst: <span class="kw-2">*mut </span>usize) {
             <span class="kw">let </span>first = ((<span class="number">0x0000_FF00usize </span>&amp; word) &lt;&lt; <span class="number">8</span>) |
                         (<span class="number">0x0000_00FFusize </span>&amp; word);
@@ -2628,7 +2628,7 @@
             <span class="kw-2">*</span>(dst.add(<span class="number">3</span>)) = fourth;
         }
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>pack_alu(first: usize, second: usize, third: usize, fourth: usize, dst: <span class="kw-2">*mut </span>usize) {
             <span class="kw">let </span>word = ((<span class="number">0x00FF_0000usize </span>&amp; second) &lt;&lt; <span class="number">8</span>) |
                        ((<span class="number">0x0000_00FFusize </span>&amp; second) &lt;&lt; <span class="number">16</span>) |
@@ -2641,7 +2641,7 @@
             <span class="kw-2">*</span>dst = word;
             <span class="kw-2">*</span>(dst.add(<span class="number">1</span>)) = second_word;
         }
-    } <span class="kw">else if </span><span class="attribute">#[cfg(all(target_endian = <span class="string">&quot;big&quot;</span>, target_pointer_width = <span class="string">&quot;64&quot;</span>))] </span>{
+    } <span class="kw">else if </span><span class="attr">#[cfg(all(target_endian = <span class="string">&quot;big&quot;</span>, target_pointer_width = <span class="string">&quot;64&quot;</span>))] </span>{
         <span class="comment">// Aligned ALU word, big-endian, 64-bit
 
         </span><span class="kw">pub const </span>ALU_STRIDE_SIZE: usize = <span class="number">16</span>;
@@ -2652,7 +2652,7 @@
 
         <span class="kw">pub const </span>ALU_ALIGNMENT_MASK: usize = <span class="number">7</span>;
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>unpack_alu(word: usize, second_word: usize, dst: <span class="kw-2">*mut </span>usize) {
             <span class="kw">let </span>first = ((<span class="number">0xFF00_0000_0000_0000usize </span>&amp; word) &gt;&gt; <span class="number">8</span>) |
                          ((<span class="number">0x00FF_0000_0000_0000usize </span>&amp; word) &gt;&gt; <span class="number">16</span>) |
@@ -2676,7 +2676,7 @@
             <span class="kw-2">*</span>(dst.add(<span class="number">3</span>)) = fourth;
         }
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>pack_alu(first: usize, second: usize, third: usize, fourth: usize, dst: <span class="kw-2">*mut </span>usize) {
             <span class="kw">let </span>word = ((<span class="number">0x00FF0000_00000000usize </span>&amp; first) &lt;&lt; <span class="number">8</span>) |
                        ((<span class="number">0x000000FF_00000000usize </span>&amp; first) &lt;&lt; <span class="number">16</span>) |
@@ -2697,7 +2697,7 @@
             <span class="kw-2">*</span>dst = word;
             <span class="kw-2">*</span>(dst.add(<span class="number">1</span>)) = second_word;
         }
-    } <span class="kw">else if </span><span class="attribute">#[cfg(all(target_endian = <span class="string">&quot;big&quot;</span>, target_pointer_width = <span class="string">&quot;32&quot;</span>))] </span>{
+    } <span class="kw">else if </span><span class="attr">#[cfg(all(target_endian = <span class="string">&quot;big&quot;</span>, target_pointer_width = <span class="string">&quot;32&quot;</span>))] </span>{
         <span class="comment">// Aligned ALU word, big-endian, 32-bit
 
         </span><span class="kw">pub const </span>ALU_STRIDE_SIZE: usize = <span class="number">8</span>;
@@ -2708,7 +2708,7 @@
 
         <span class="kw">pub const </span>ALU_ALIGNMENT_MASK: usize = <span class="number">3</span>;
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>unpack_alu(word: usize, second_word: usize, dst: <span class="kw-2">*mut </span>usize) {
             <span class="kw">let </span>first = ((<span class="number">0xFF00_0000usize </span>&amp; word) &gt;&gt; <span class="number">8</span>) |
                          ((<span class="number">0x00FF_0000usize </span>&amp; word) &gt;&gt; <span class="number">16</span>);
@@ -2724,7 +2724,7 @@
             <span class="kw-2">*</span>(dst.add(<span class="number">3</span>)) = fourth;
         }
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>pack_alu(first: usize, second: usize, third: usize, fourth: usize, dst: <span class="kw-2">*mut </span>usize) {
             <span class="kw">let </span>word = ((<span class="number">0x00FF_0000usize </span>&amp; first) &lt;&lt; <span class="number">8</span>) |
                        ((<span class="number">0x0000_00FFusize </span>&amp; first) &lt;&lt; <span class="number">16</span>) |
@@ -2745,14 +2745,14 @@
 }
 
 <span class="macro">cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(target_endian = <span class="string">&quot;little&quot;</span>)] </span>{
-        <span class="attribute">#[allow(dead_code)]
+    <span class="kw">if </span><span class="attr">#[cfg(target_endian = <span class="string">&quot;little&quot;</span>)] </span>{
+        <span class="attr">#[allow(dead_code)]
         #[inline(always)]
         </span><span class="kw">fn </span>count_zeros(word: usize) -&gt; u32 {
             word.trailing_zeros()
         }
     } <span class="kw">else </span>{
-        <span class="attribute">#[allow(dead_code)]
+        <span class="attr">#[allow(dead_code)]
         #[inline(always)]
         </span><span class="kw">fn </span>count_zeros(word: usize) -&gt; u32 {
             word.leading_zeros()
@@ -2761,8 +2761,8 @@
 }
 
 <span class="macro">cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;simd-accel&quot;</span>, target_endian = <span class="string">&quot;little&quot;</span>, target_arch = <span class="string">&quot;disabled&quot;</span>))] </span>{
-        <span class="attribute">#[inline(always)]
+    <span class="kw">if </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;simd-accel&quot;</span>, target_endian = <span class="string">&quot;little&quot;</span>, target_arch = <span class="string">&quot;disabled&quot;</span>))] </span>{
+        <span class="attr">#[inline(always)]
         </span><span class="kw">pub fn </span>validate_ascii(slice: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;(u8, usize)&gt; {
             <span class="kw">let </span>src = slice.as_ptr();
             <span class="kw">let </span>len = slice.len();
@@ -2789,8 +2789,8 @@
             }
             <span class="prelude-val">None
         </span>}
-    } <span class="kw">else if </span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;simd-accel&quot;</span>, target_feature = <span class="string">&quot;sse2&quot;</span>))] </span>{
-        <span class="attribute">#[inline(always)]
+    } <span class="kw">else if </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;simd-accel&quot;</span>, target_feature = <span class="string">&quot;sse2&quot;</span>))] </span>{
+        <span class="attr">#[inline(always)]
         </span><span class="kw">pub fn </span>validate_ascii(slice: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;(u8, usize)&gt; {
             <span class="kw">let </span>src = slice.as_ptr();
             <span class="kw">let </span>len = slice.len();
@@ -2890,7 +2890,7 @@
             <span class="prelude-val">None
         </span>}
     } <span class="kw">else </span>{
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">fn </span>find_non_ascii(word: usize, second_word: usize) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
             <span class="kw">let </span>word_masked = word &amp; ASCII_MASK;
             <span class="kw">let </span>second_masked = second_word &amp; ASCII_MASK;
@@ -2915,14 +2915,14 @@
             <span class="prelude-val">Some</span>(ALU_ALIGNMENT + num_ascii)
         }
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>validate_ascii_stride(src: <span class="kw-2">*const </span>usize) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
             <span class="kw">let </span>word = <span class="kw-2">*</span>src;
             <span class="kw">let </span>second_word = <span class="kw-2">*</span>(src.add(<span class="number">1</span>));
             find_non_ascii(word, second_word)
         }
 
-        <span class="attribute">#[cfg_attr(feature = <span class="string">&quot;cargo-clippy&quot;</span>, allow(cast_ptr_alignment))]
+        <span class="attr">#[cfg_attr(feature = <span class="string">&quot;cargo-clippy&quot;</span>, allow(cast_ptr_alignment))]
         #[inline(always)]
         </span><span class="kw">pub fn </span>validate_ascii(slice: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;(u8, usize)&gt; {
             <span class="kw">let </span>src = slice.as_ptr();
@@ -2965,9 +2965,9 @@
 }
 
 <span class="macro">cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;simd-accel&quot;</span>, any(target_feature = <span class="string">&quot;sse2&quot;</span>, all(target_endian = <span class="string">&quot;little&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>))))] </span>{
+    <span class="kw">if </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;simd-accel&quot;</span>, any(target_feature = <span class="string">&quot;sse2&quot;</span>, all(target_endian = <span class="string">&quot;little&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>))))] </span>{
 
-    } <span class="kw">else if </span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;simd-accel&quot;</span>, target_endian = <span class="string">&quot;little&quot;</span>, target_feature = <span class="string">&quot;neon&quot;</span>))] </span>{
+    } <span class="kw">else if </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;simd-accel&quot;</span>, target_endian = <span class="string">&quot;little&quot;</span>, target_feature = <span class="string">&quot;neon&quot;</span>))] </span>{
         <span class="comment">// Even with NEON enabled, we use the ALU path for ASCII validation, because testing
         // on Exynos 5 indicated that using NEON isn&#39;t worthwhile where there are only
         // vector reads without vector writes.
@@ -2978,14 +2978,14 @@
 
         <span class="kw">pub const </span>ALU_ALIGNMENT_MASK: usize = <span class="number">3</span>;
     } <span class="kw">else </span>{
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>unpack_latin1_stride_alu(src: <span class="kw-2">*const </span>usize, dst: <span class="kw-2">*mut </span>usize) {
             <span class="kw">let </span>word = <span class="kw-2">*</span>src;
             <span class="kw">let </span>second_word = <span class="kw-2">*</span>(src.add(<span class="number">1</span>));
             unpack_alu(word, second_word, dst);
         }
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>pack_latin1_stride_alu(src: <span class="kw-2">*const </span>usize, dst: <span class="kw-2">*mut </span>usize) {
             <span class="kw">let </span>first = <span class="kw-2">*</span>src;
             <span class="kw">let </span>second = <span class="kw-2">*</span>(src.add(<span class="number">1</span>));
@@ -2994,7 +2994,7 @@
             pack_alu(first, second, third, fourth, dst);
         }
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>ascii_to_basic_latin_stride_alu(src: <span class="kw-2">*const </span>usize, dst: <span class="kw-2">*mut </span>usize) -&gt; bool {
             <span class="kw">let </span>word = <span class="kw-2">*</span>src;
             <span class="kw">let </span>second_word = <span class="kw-2">*</span>(src.add(<span class="number">1</span>));
@@ -3006,7 +3006,7 @@
             <span class="bool-val">true
         </span>}
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>basic_latin_to_ascii_stride_alu(src: <span class="kw-2">*const </span>usize, dst: <span class="kw-2">*mut </span>usize) -&gt; bool {
             <span class="kw">let </span>first = <span class="kw-2">*</span>src;
             <span class="kw">let </span>second = <span class="kw-2">*</span>(src.add(<span class="number">1</span>));
@@ -3019,7 +3019,7 @@
             <span class="bool-val">true
         </span>}
 
-        <span class="attribute">#[inline(always)]
+        <span class="attr">#[inline(always)]
         </span><span class="kw">unsafe fn </span>ascii_to_ascii_stride(src: <span class="kw-2">*const </span>usize, dst: <span class="kw-2">*mut </span>usize) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
             <span class="kw">let </span>word = <span class="kw-2">*</span>src;
             <span class="kw">let </span>second_word = <span class="kw-2">*</span>(src.add(<span class="number">1</span>));
@@ -3056,14 +3056,14 @@
 <span class="comment">// Any copyright to the test code below this comment is dedicated to the
 // Public Domain. http://creativecommons.org/publicdomain/zero/1.0/
 
-</span><span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
+</span><span class="attr">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span>alloc::vec::Vec;
 
     <span class="macro">macro_rules! </span>test_ascii {
         (<span class="macro-nonterminal">$test_name</span>:ident, <span class="macro-nonterminal">$fn_tested</span>:ident, <span class="macro-nonterminal">$src_unit</span>:ty, <span class="macro-nonterminal">$dst_unit</span>:ty) =&gt; {
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$test_name</span>() {
                 <span class="kw">let </span><span class="kw-2">mut </span>src: Vec&lt;<span class="macro-nonterminal">$src_unit</span>&gt; = Vec::with_capacity(<span class="number">32</span>);
                 <span class="kw">let </span><span class="kw-2">mut </span>dst: Vec&lt;<span class="macro-nonterminal">$dst_unit</span>&gt; = Vec::with_capacity(<span class="number">32</span>);
@@ -3095,4 +3095,4 @@
     <span class="macro">test_ascii!</span>(test_basic_latin_to_ascii, basic_latin_to_ascii, u16, u8);
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="encoding_rs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="encoding_rs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

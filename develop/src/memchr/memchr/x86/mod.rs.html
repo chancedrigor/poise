@@ -150,7 +150,7 @@
 
 <span class="comment">// We only use AVX when we can detect at runtime whether it&#39;s available, which
 // requires std.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">mod </span>avx;
 <span class="kw">mod </span>sse2;
 
@@ -179,7 +179,7 @@
 /// # Safety
 ///
 /// Callers must ensure that fnty is function pointer type.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="macro">macro_rules! </span>unsafe_ifunc {
     (<span class="macro-nonterminal">$fnty</span>:ty, <span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$haystack</span>:ident, $(<span class="macro-nonterminal">$needle</span>:ident),+) =&gt; {{
         <span class="kw">use </span>std::{mem, sync::atomic::{AtomicPtr, Ordering}};
@@ -228,7 +228,7 @@
 /// There are no safety requirements for this definition of the macro. It is
 /// safe for all inputs since it is restricted to either the fallback routine
 /// or the SSE routine, which is always safe to call on x86_64.
-</span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
+</span><span class="attr">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
 </span><span class="macro">macro_rules! </span>unsafe_ifunc {
     (<span class="macro-nonterminal">$fnty</span>:ty, <span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$haystack</span>:ident, $(<span class="macro-nonterminal">$needle</span>:ident),+) =&gt; {{
         <span class="kw">if </span><span class="macro">cfg!</span>(memchr_runtime_sse2) {
@@ -239,12 +239,12 @@
     }}
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">pub fn </span>memchr(n1: u8, haystack: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
     <span class="macro">unsafe_ifunc!</span>(<span class="kw">fn</span>(u8, <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt;, memchr, haystack, n1)
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">pub fn </span>memchr2(n1: u8, n2: u8, haystack: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
     <span class="macro">unsafe_ifunc!</span>(
         <span class="kw">fn</span>(u8, u8, <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt;,
@@ -255,7 +255,7 @@
     )
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">pub fn </span>memchr3(n1: u8, n2: u8, n3: u8, haystack: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
     <span class="macro">unsafe_ifunc!</span>(
         <span class="kw">fn</span>(u8, u8, u8, <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt;,
@@ -267,12 +267,12 @@
     )
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">pub fn </span>memrchr(n1: u8, haystack: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
     <span class="macro">unsafe_ifunc!</span>(<span class="kw">fn</span>(u8, <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt;, memrchr, haystack, n1)
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">pub fn </span>memrchr2(n1: u8, n2: u8, haystack: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
     <span class="macro">unsafe_ifunc!</span>(
         <span class="kw">fn</span>(u8, u8, <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt;,
@@ -283,7 +283,7 @@
     )
 }
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">pub fn </span>memrchr3(n1: u8, n2: u8, n3: u8, haystack: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
     <span class="macro">unsafe_ifunc!</span>(
         <span class="kw">fn</span>(u8, u8, u8, <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt;,
@@ -295,4 +295,4 @@
     )
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="memchr" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="memchr" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

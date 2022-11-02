@@ -261,7 +261,7 @@
 /// a Connection `C` and an underlying transport `T`, such as a socket.
 ///
 /// This allows you to use a rustls Connection like a normal stream.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Stream&lt;<span class="lifetime">&#39;a</span>, C: <span class="lifetime">&#39;a </span>+ <span class="question-mark">?</span>Sized, T: <span class="lifetime">&#39;a </span>+ Read + Write + <span class="question-mark">?</span>Sized&gt; {
     <span class="doccomment">/// Our TLS connection
     </span><span class="kw">pub </span>conn: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>C,
@@ -327,7 +327,7 @@
         <span class="self">self</span>.conn.reader().read(buf)
     }
 
-    <span class="attribute">#[cfg(read_buf)]
+    <span class="attr">#[cfg(read_buf)]
     </span><span class="kw">fn </span>read_buf(<span class="kw-2">&amp;mut </span><span class="self">self</span>, buf: <span class="kw-2">&amp;mut </span>std::io::ReadBuf&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="self">self</span>.complete_prior_io()<span class="question-mark">?</span>;
 
@@ -404,7 +404,7 @@
 /// `T`, such as a socket.
 ///
 /// This allows you to use a rustls Connection like a normal stream.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>StreamOwned&lt;C: Sized, T: Read + Write + Sized&gt; {
     <span class="doccomment">/// Our conneciton
     </span><span class="kw">pub </span>conn: C,
@@ -463,7 +463,7 @@
         <span class="self">self</span>.as_stream().read(buf)
     }
 
-    <span class="attribute">#[cfg(read_buf)]
+    <span class="attr">#[cfg(read_buf)]
     </span><span class="kw">fn </span>read_buf(<span class="kw-2">&amp;mut </span><span class="self">self</span>, buf: <span class="kw-2">&amp;mut </span>std::io::ReadBuf&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="self">self</span>.as_stream().read_buf(buf)
     }
@@ -484,27 +484,27 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::{Stream, StreamOwned};
     <span class="kw">use </span><span class="kw">crate</span>::client::ClientConnection;
     <span class="kw">use </span><span class="kw">crate</span>::server::ServerConnection;
     <span class="kw">use </span>std::net::TcpStream;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>stream_can_be_created_for_connection_and_tcpstream() {
         <span class="kw">type </span>_Test&lt;<span class="lifetime">&#39;a</span>&gt; = Stream&lt;<span class="lifetime">&#39;a</span>, ClientConnection, TcpStream&gt;;
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>streamowned_can_be_created_for_client_and_tcpstream() {
         <span class="kw">type </span>_Test = StreamOwned&lt;ClientConnection, TcpStream&gt;;
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>streamowned_can_be_created_for_server_and_tcpstream() {
         <span class="kw">type </span>_Test = StreamOwned&lt;ServerConnection, TcpStream&gt;;
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

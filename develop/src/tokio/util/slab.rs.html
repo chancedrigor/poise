@@ -852,7 +852,7 @@
 <span id="852">852</span>
 <span id="853">853</span>
 <span id="854">854</span>
-</pre><pre class="rust"><code><span class="attribute">#![cfg_attr(not(feature = <span class="string">&quot;rt&quot;</span>), allow(dead_code))]
+</pre><pre class="rust"><code><span class="attr">#![cfg_attr(not(feature = <span class="string">&quot;rt&quot;</span>), allow(dead_code))]
 
 </span><span class="kw">use </span><span class="kw">crate</span>::loom::cell::UnsafeCell;
 <span class="kw">use </span><span class="kw">crate</span>::loom::sync::atomic::{AtomicBool, AtomicUsize};
@@ -934,7 +934,7 @@
 /// The I/O driver uses a counter to track the slot&#39;s generation. Once accessing
 /// the slot, the generations are compared. If they match, the value matches the
 /// address.
-</span><span class="attribute">#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+</span><span class="attr">#[derive(Debug, Copy, Clone, PartialEq, Eq)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Address(usize);
 
 <span class="doccomment">/// An entry in the slab.
@@ -1004,7 +1004,7 @@
 ///
 /// `#[repr(C)]` guarantees that the struct starts w/ `value`. We use pointer
 /// math to map a value pointer to an index in the page.
-</span><span class="attribute">#[repr(C)]
+</span><span class="attr">#[repr(C)]
 </span><span class="kw">struct </span>Slot&lt;T&gt; {
     <span class="doccomment">/// Pointed to by `Ref`.
     </span>value: UnsafeCell&lt;Value&lt;T&gt;&gt;,
@@ -1483,7 +1483,7 @@
         .finish()
 }
 
-<span class="attribute">#[cfg(all(test, not(loom)))]
+<span class="attr">#[cfg(all(test, not(loom)))]
 </span><span class="kw">mod </span>test {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span>std::sync::atomic::AtomicUsize;
@@ -1509,7 +1509,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>insert_remove() {
         <span class="kw">let </span><span class="kw-2">mut </span>slab = Slab::&lt;Foo&gt;::new();
         <span class="kw">let </span>alloc = slab.allocator();
@@ -1546,7 +1546,7 @@
         <span class="macro">assert!</span>(slab.get(addr3).is_some());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>insert_many() {
         <span class="kw">const </span>MANY: usize = normal_or_miri(<span class="number">10_000</span>, <span class="number">50</span>);
 
@@ -1579,7 +1579,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>insert_drop_reverse() {
         <span class="kw">let </span><span class="kw-2">mut </span>slab = Slab::&lt;Foo&gt;::new();
         <span class="kw">let </span>alloc = slab.allocator();
@@ -1605,7 +1605,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>no_compaction_if_page_still_in_use() {
         <span class="kw">let </span><span class="kw-2">mut </span>slab = Slab::&lt;Foo&gt;::new();
         <span class="kw">let </span>alloc = slab.allocator();
@@ -1638,7 +1638,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>compact_all() {
         <span class="kw">let </span><span class="kw-2">mut </span>slab = Slab::&lt;Foo&gt;::new();
         <span class="kw">let </span>alloc = slab.allocator();
@@ -1669,7 +1669,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>issue_3014() {
         <span class="kw">let </span><span class="kw-2">mut </span>slab = Slab::&lt;Foo&gt;::new();
         <span class="kw">let </span>alloc = slab.allocator();
@@ -1707,4 +1707,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

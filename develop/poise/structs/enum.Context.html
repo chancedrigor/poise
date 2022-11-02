@@ -41,14 +41,14 @@ dropped.</p>
 }
 
 <span class="doccomment">/// A subcommand of `parent`
-</span><span class="attribute">#[poise::command(prefix_command, slash_command)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command)]
 </span><span class="kw">pub async fn </span>child1(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.<span class="highlight">say</span>(<span class="string">&quot;You invoked the first child command!&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
 }
 
 <span class="doccomment">/// Another subcommand of `parent`
-</span><span class="attribute">#[poise::command(prefix_command, slash_command)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command)]
 </span><span class="kw">pub async fn </span>child2(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.<span class="highlight">say</span>(<span class="string">&quot;You invoked the second child command!&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
@@ -194,14 +194,14 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Deletes the given message
-</span><span class="attribute">#[poise::command(
+</span><span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     required_bot_permissions = <span class="string">&quot;MANAGE_MESSAGES&quot;
 </span>)]
 </span><span class="kw">pub async fn </span>delete(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Message to be deleted&quot;</span>] </span>msg: serenity::Message,
+    <span class="attr">#[description = <span class="string">&quot;Message to be deleted&quot;</span>] </span>msg: serenity::Message,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     msg.delete(ctx.discord()).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
@@ -225,7 +225,7 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Crab party... only for &quot;Ferris&quot;!
-</span><span class="attribute">#[poise::command(
+</span><span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     check = <span class="string">&quot;is_ferris&quot;</span>,
@@ -246,7 +246,7 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Add two numbers
-</span><span class="attribute">#[poise::command(
+</span><span class="attr">#[poise::command(
     prefix_command,
     track_edits,
     slash_command,
@@ -259,8 +259,8 @@ dropped.</p>
 )]
 </span><span class="kw">pub async fn </span>add(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;First operand&quot;</span>] </span>a: f64,
-    <span class="attribute">#[description = <span class="string">&quot;Second operand&quot;</span>]
+    <span class="attr">#[description = <span class="string">&quot;First operand&quot;</span>] </span>a: f64,
+    <span class="attr">#[description = <span class="string">&quot;Second operand&quot;</span>]
     #[min = -<span class="number">15</span>]
     #[max = <span class="number">28.765</span>]
     </span>b: f32,
@@ -271,7 +271,7 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Get the guild name (guild-only)
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, guild_only)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, guild_only)]
 </span><span class="kw">pub async fn </span>get_guild_name(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.<span class="highlight">say</span>(<span class="macro">format!</span>(
         <span class="string">&quot;The name of this guild is: {}&quot;</span>,
@@ -283,7 +283,7 @@ dropped.</p>
 }
 
 <span class="doccomment">/// A dm-only command
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, dm_only)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, dm_only)]
 </span><span class="kw">pub async fn </span>only_in_dms(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.<span class="highlight">say</span>(<span class="string">&quot;This is a dm channel&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
@@ -291,7 +291,7 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Only runs on NSFW channels
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, nsfw_only)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, nsfw_only)]
 </span><span class="kw">pub async fn </span>lennyface(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.<span class="highlight">say</span>(<span class="string">&quot;( ͡° ͜ʖ ͡°)&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
@@ -299,7 +299,7 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Utilizes the permissions v2 `default_member_permissions` field
-</span><span class="attribute">#[poise::command(slash_command, default_member_permissions = <span class="string">&quot;ADMINISTRATOR&quot;</span>)]
+</span><span class="attr">#[poise::command(slash_command, default_member_permissions = <span class="string">&quot;ADMINISTRATOR&quot;</span>)]
 </span><span class="kw">pub async fn </span>permissions_v2(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.<span class="highlight">say</span>(<span class="string">&quot;Whoop! You&#39;re authorized!&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
@@ -343,7 +343,7 @@ dropped.</p>
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(slash_command)]
+<span class="attr">#[poise::command(slash_command)]
 </span><span class="kw">pub async fn </span>info(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>guild = ctx
         .partial_guild()
@@ -707,10 +707,10 @@ dropped.</p>
 </span><span class="comment">// In this example channel mentions are excluded via the `ContentSafeOptions`.
 // The track_edits argument ensures that when the user edits their command invocation,
 // the bot updates the response message accordingly.
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, track_edits, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, track_edits, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="kw">async fn </span>say(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Text to repeat&quot;</span>]
+    <span class="attr">#[description = <span class="string">&quot;Text to repeat&quot;</span>]
     #[rest]
     </span>content: String,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
@@ -762,10 +762,10 @@ dropped.</p>
 }
 
 <span class="doccomment">/// This is a command with a deliberately long name
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="kw">async fn </span>some_long_command(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Arguments to this command&quot;</span>]
+    <span class="attr">#[description = <span class="string">&quot;Arguments to this command&quot;</span>]
     #[rest]
     </span>args: String,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
@@ -775,7 +775,7 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Retrieves the role ID of a role
-</span><span class="attribute">#[poise::command(prefix_command, slash_command)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command)]
 </span><span class="comment">// INFO: not implemented
 /*
 // Limits the usage of this command to roles named:
@@ -783,7 +783,7 @@ dropped.</p>
 */
 </span><span class="kw">async fn </span>about_role(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Name of the role&quot;</span>] </span>potential_role_name: String,
+    <span class="attr">#[description = <span class="string">&quot;Name of the role&quot;</span>] </span>potential_role_name: String,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">if let </span><span class="prelude-val">Some</span>(guild) = ctx.guild() {
         <span class="comment">// `role_by_name()` allows us to attempt attaining a reference to a role
@@ -807,7 +807,7 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Multiplies two numbers
-</span><span class="attribute">#[poise::command(
+</span><span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     <span class="comment">// Lets us also call `~math *` instead of just `~math multiply`.
@@ -816,8 +816,8 @@ dropped.</p>
 )]
 </span><span class="kw">async fn </span>multiply(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;First number&quot;</span>] </span>first: f64,
-    <span class="attribute">#[description = <span class="string">&quot;Second number&quot;</span>] </span>second: f64,
+    <span class="attr">#[description = <span class="string">&quot;First number&quot;</span>] </span>first: f64,
+    <span class="attr">#[description = <span class="string">&quot;Second number&quot;</span>] </span>second: f64,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>res = first * second;
 
@@ -827,7 +827,7 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Shows information about this bot
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="kw">async fn </span>about(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.<span class="highlight">say</span>(<span class="string">&quot;This is a small test-bot! : )&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
@@ -835,7 +835,7 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Shows current latency of this bot
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="kw">async fn </span>latency(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="comment">// The shard manager is an interface for mutating, stopping, restarting, and
     // retrieving information about shards.
@@ -857,7 +857,7 @@ dropped.</p>
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(
+<span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     check = <span class="string">&quot;owner_check&quot;</span>,
@@ -876,7 +876,7 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Sends an emoji with a cat.
-</span><span class="attribute">#[poise::command(
+</span><span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     <span class="comment">// Adds multiple aliases
@@ -903,7 +903,7 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Sends an emoji with a dog.
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;Emoji&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;Emoji&quot;</span>)]
 </span><span class="comment">// INFO: not implemented
 /*
 #[bucket = &quot;emoji&quot;]
@@ -915,10 +915,10 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Sends an emoji with a bird.
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;Emoji&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;Emoji&quot;</span>)]
 </span><span class="kw">async fn </span>bird(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Name of the bird you&#39;re searching for&quot;</span>] </span>bird_name: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="attr">#[description = <span class="string">&quot;Name of the bird you&#39;re searching for&quot;</span>] </span>bird_name: <span class="prelude-ty">Option</span>&lt;String&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>say_content = <span class="kw">match </span>bird_name {
         <span class="prelude-val">None </span>=&gt; <span class="string">&quot;:bird: can find animals for you.&quot;</span>.to_string(),
@@ -933,7 +933,7 @@ dropped.</p>
 <span class="comment">// We could also use `required_permissions = &quot;ADMINISTRATOR&quot;`
 // but that would not let us reply when it fails.
 </span><span class="doccomment">/// Tells you whether you are an admin on the server
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="kw">async fn </span>am_i_admin(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">if let </span><span class="prelude-val">Some</span>(guild_id) = ctx.guild_id() {
         <span class="kw">for </span>role <span class="kw">in </span>guild_id.member(ctx.discord(), ctx.author().id).<span class="kw">await</span><span class="question-mark">?</span>.roles {
@@ -953,7 +953,7 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Enable slowmode for a channel. Pass no argument to disable slowmode
-</span><span class="attribute">#[poise::command(
+</span><span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     check = <span class="string">&quot;owner_check&quot;</span>,
@@ -961,7 +961,7 @@ dropped.</p>
 </span>)]
 </span><span class="kw">async fn </span>slow_mode(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Minimum time between sending messages per user&quot;</span>] </span>rate_limit: <span class="prelude-ty">Option</span>&lt;u64&gt;,
+    <span class="attr">#[description = <span class="string">&quot;Minimum time between sending messages per user&quot;</span>] </span>rate_limit: <span class="prelude-ty">Option</span>&lt;u64&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>say_content = <span class="kw">if let </span><span class="prelude-val">Some</span>(rate_limit) = rate_limit {
         <span class="kw">if let </span><span class="prelude-val">Err</span>(why) = ctx
@@ -994,7 +994,7 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Dummy command to test subcommands
-</span><span class="attribute">#[poise::command(
+</span><span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     rename = <span class="string">&quot;upper&quot;</span>,
@@ -1010,7 +1010,7 @@ dropped.</p>
 }
 
 <span class="doccomment">/// &quot;This is `upper`&#39;s sub-command.
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, aliases(<span class="string">&quot;sub-command&quot;</span>, <span class="string">&quot;secret&quot;</span>))]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, aliases(<span class="string">&quot;sub-command&quot;</span>, <span class="string">&quot;secret&quot;</span>))]
 </span><span class="comment">// This will only be called if preceded by the `upper`-command.
 </span><span class="kw">async fn </span>sub(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.<span class="highlight">say</span>(<span class="string">&quot;This is a sub function!&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
@@ -1297,10 +1297,10 @@ dropped.</p>
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(slash_command)]
+<span class="attr">#[poise::command(slash_command)]
 </span><span class="kw">pub async fn </span>voiceinfo(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Information about a server voice channel&quot;</span>]
+    <span class="attr">#[description = <span class="string">&quot;Information about a server voice channel&quot;</span>]
     #[channel_types(<span class="string">&quot;Voice&quot;</span>)]
     </span>channel: serenity::GuildChannel,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
@@ -1324,7 +1324,7 @@ dropped.</p>
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(slash_command, prefix_command, reuse_response)]
+<span class="attr">#[poise::command(slash_command, prefix_command, reuse_response)]
 </span><span class="kw">pub async fn </span>test_reuse_response(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>image_url = <span class="string">&quot;https://raw.githubusercontent.com/serenity-rs/serenity/current/logo.png&quot;</span>;
     ctx.<span class="highlight">send</span>(|b| {
@@ -1363,10 +1363,10 @@ dropped.</p>
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(slash_command, prefix_command)]
+<span class="attr">#[poise::command(slash_command, prefix_command)]
 </span><span class="kw">pub async fn </span>oracle(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Take a decision&quot;</span>] </span>b: bool,
+    <span class="attr">#[description = <span class="string">&quot;Take a decision&quot;</span>] </span>b: bool,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">if </span>b {
         ctx.say(<span class="string">&quot;You seem to be an optimistic kind of person...&quot;</span>)
@@ -1378,7 +1378,7 @@ dropped.</p>
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(prefix_command)]
+<span class="attr">#[poise::command(prefix_command)]
 </span><span class="kw">pub async fn </span>code(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
     args: poise::KeyValueArgs,
@@ -1389,10 +1389,10 @@ dropped.</p>
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(prefix_command, slash_command)]
+<span class="attr">#[poise::command(prefix_command, slash_command)]
 </span><span class="kw">pub async fn </span>say(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[rest]
+    <span class="attr">#[rest]
     #[description = <span class="string">&quot;Text to say&quot;</span>]
     </span>msg: String,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
@@ -1401,11 +1401,11 @@ dropped.</p>
 }
 
 <span class="doccomment">/// View the difference between two file sizes
-</span><span class="attribute">#[poise::command(prefix_command, slash_command)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command)]
 </span><span class="kw">pub async fn </span>file_details(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;File to examine&quot;</span>] </span>file: serenity::Attachment,
-    <span class="attribute">#[description = <span class="string">&quot;Second file to examine&quot;</span>] </span>file_2: <span class="prelude-ty">Option</span>&lt;serenity::Attachment&gt;,
+    <span class="attr">#[description = <span class="string">&quot;File to examine&quot;</span>] </span>file: serenity::Attachment,
+    <span class="attr">#[description = <span class="string">&quot;Second file to examine&quot;</span>] </span>file_2: <span class="prelude-ty">Option</span>&lt;serenity::Attachment&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.say(<span class="macro">format!</span>(
         <span class="string">&quot;First file name: **{}**. File size difference: **{}** bytes&quot;</span>,
@@ -1416,10 +1416,10 @@ dropped.</p>
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(prefix_command)]
+<span class="attr">#[poise::command(prefix_command)]
 </span><span class="kw">pub async fn </span>totalsize(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;File to rename&quot;</span>] </span>files: Vec&lt;serenity::Attachment&gt;,
+    <span class="attr">#[description = <span class="string">&quot;File to rename&quot;</span>] </span>files: Vec&lt;serenity::Attachment&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>total = files.iter().map(|f| f.size).sum::&lt;u64&gt;();
 
@@ -1433,13 +1433,13 @@ dropped.</p>
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[derive(Debug, poise::Modal)]
+<span class="attr">#[derive(Debug, poise::Modal)]
 #[allow(dead_code)] </span><span class="comment">// fields only used for Debug print
 </span><span class="kw">struct </span>MyModal {
     first_input: String,
     second_input: <span class="prelude-ty">Option</span>&lt;String&gt;,
 }
-<span class="attribute">#[poise::command(slash_command)]
+<span class="attr">#[poise::command(slash_command)]
 </span><span class="kw">pub async fn </span>modal(
     ctx: poise::ApplicationContext&lt;<span class="lifetime">&#39;_</span>, <span class="kw">crate</span>::Data, <span class="kw">crate</span>::Error&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
@@ -1451,7 +1451,7 @@ dropped.</p>
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[derive(Debug, poise::ChoiceParameter)]
+<span class="attr">#[derive(Debug, poise::ChoiceParameter)]
 </span><span class="kw">pub enum </span>PunishType {
     Ban,
     Kick,
@@ -1459,13 +1459,13 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Punishment command for testing the rename macro
-</span><span class="attribute">#[poise::command(slash_command)]
+</span><span class="attr">#[poise::command(slash_command)]
 </span><span class="kw">pub async fn </span>punish(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Punishment type&quot;</span>]
+    <span class="attr">#[description = <span class="string">&quot;Punishment type&quot;</span>]
     #[rename = <span class="string">&quot;type&quot;</span>]
     </span>punish_type: PunishType,
-    <span class="attribute">#[description = <span class="string">&quot;User to execute the punishment on&quot;</span>] </span>user: serenity::User,
+    <span class="attr">#[description = <span class="string">&quot;User to execute the punishment on&quot;</span>] </span>user: serenity::User,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>text = <span class="kw">match </span>punish_type {
         PunishType::Ban =&gt; <span class="macro">format!</span>(<span class="string">&quot;{} has been banned!&quot;</span>, user.name),
@@ -1477,14 +1477,14 @@ dropped.</p>
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
 #[poise::command(slash_command, prefix_command)]
 </span><span class="kw">pub async fn </span>servers(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     poise::builtins::servers(ctx).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(slash_command, prefix_command)]
+<span class="attr">#[poise::command(slash_command, prefix_command)]
 </span><span class="kw">pub async fn </span>reply(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.<span class="highlight">send</span>(|b| {
         b.content(<span class="macro">format!</span>(<span class="string">&quot;Hello {}!&quot;</span>, ctx.author().name))
@@ -1514,7 +1514,7 @@ dropped.</p>
 <span>60</span>
 </pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">pub async fn </span>delete(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Message to be deleted&quot;</span>] </span>msg: serenity::Message,
+    <span class="attr">#[description = <span class="string">&quot;Message to be deleted&quot;</span>] </span>msg: serenity::Message,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     msg.delete(ctx.<span class="highlight focus">discord</span>()).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
@@ -1816,7 +1816,7 @@ dropped.</p>
 <span>643</span>
 </pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>say(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Text to repeat&quot;</span>]
+    <span class="attr">#[description = <span class="string">&quot;Text to repeat&quot;</span>]
     #[rest]
     </span>content: String,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
@@ -1868,10 +1868,10 @@ dropped.</p>
 }
 
 <span class="doccomment">/// This is a command with a deliberately long name
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="kw">async fn </span>some_long_command(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Arguments to this command&quot;</span>]
+    <span class="attr">#[description = <span class="string">&quot;Arguments to this command&quot;</span>]
     #[rest]
     </span>args: String,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
@@ -1881,7 +1881,7 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Retrieves the role ID of a role
-</span><span class="attribute">#[poise::command(prefix_command, slash_command)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command)]
 </span><span class="comment">// INFO: not implemented
 /*
 // Limits the usage of this command to roles named:
@@ -1889,7 +1889,7 @@ dropped.</p>
 */
 </span><span class="kw">async fn </span>about_role(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Name of the role&quot;</span>] </span>potential_role_name: String,
+    <span class="attr">#[description = <span class="string">&quot;Name of the role&quot;</span>] </span>potential_role_name: String,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">if let </span><span class="prelude-val">Some</span>(guild) = ctx.guild() {
         <span class="comment">// `role_by_name()` allows us to attempt attaining a reference to a role
@@ -1913,7 +1913,7 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Multiplies two numbers
-</span><span class="attribute">#[poise::command(
+</span><span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     <span class="comment">// Lets us also call `~math *` instead of just `~math multiply`.
@@ -1922,8 +1922,8 @@ dropped.</p>
 )]
 </span><span class="kw">async fn </span>multiply(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;First number&quot;</span>] </span>first: f64,
-    <span class="attribute">#[description = <span class="string">&quot;Second number&quot;</span>] </span>second: f64,
+    <span class="attr">#[description = <span class="string">&quot;First number&quot;</span>] </span>first: f64,
+    <span class="attr">#[description = <span class="string">&quot;Second number&quot;</span>] </span>second: f64,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>res = first * second;
 
@@ -1933,7 +1933,7 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Shows information about this bot
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="kw">async fn </span>about(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.say(<span class="string">&quot;This is a small test-bot! : )&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
@@ -1941,7 +1941,7 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Shows current latency of this bot
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="kw">async fn </span>latency(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="comment">// The shard manager is an interface for mutating, stopping, restarting, and
     // retrieving information about shards.
@@ -1963,7 +1963,7 @@ dropped.</p>
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(
+<span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     check = <span class="string">&quot;owner_check&quot;</span>,
@@ -1982,7 +1982,7 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Sends an emoji with a cat.
-</span><span class="attribute">#[poise::command(
+</span><span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     <span class="comment">// Adds multiple aliases
@@ -2009,7 +2009,7 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Sends an emoji with a dog.
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;Emoji&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;Emoji&quot;</span>)]
 </span><span class="comment">// INFO: not implemented
 /*
 #[bucket = &quot;emoji&quot;]
@@ -2021,10 +2021,10 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Sends an emoji with a bird.
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;Emoji&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;Emoji&quot;</span>)]
 </span><span class="kw">async fn </span>bird(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Name of the bird you&#39;re searching for&quot;</span>] </span>bird_name: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="attr">#[description = <span class="string">&quot;Name of the bird you&#39;re searching for&quot;</span>] </span>bird_name: <span class="prelude-ty">Option</span>&lt;String&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>say_content = <span class="kw">match </span>bird_name {
         <span class="prelude-val">None </span>=&gt; <span class="string">&quot;:bird: can find animals for you.&quot;</span>.to_string(),
@@ -2039,7 +2039,7 @@ dropped.</p>
 <span class="comment">// We could also use `required_permissions = &quot;ADMINISTRATOR&quot;`
 // but that would not let us reply when it fails.
 </span><span class="doccomment">/// Tells you whether you are an admin on the server
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="kw">async fn </span>am_i_admin(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">if let </span><span class="prelude-val">Some</span>(guild_id) = ctx.guild_id() {
         <span class="kw">for </span>role <span class="kw">in </span>guild_id.member(ctx.<span class="highlight">discord</span>(), ctx.author().id).<span class="kw">await</span><span class="question-mark">?</span>.roles {
@@ -2059,7 +2059,7 @@ dropped.</p>
 }
 
 <span class="doccomment">/// Enable slowmode for a channel. Pass no argument to disable slowmode
-</span><span class="attribute">#[poise::command(
+</span><span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     check = <span class="string">&quot;owner_check&quot;</span>,
@@ -2067,7 +2067,7 @@ dropped.</p>
 </span>)]
 </span><span class="kw">async fn </span>slow_mode(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Minimum time between sending messages per user&quot;</span>] </span>rate_limit: <span class="prelude-ty">Option</span>&lt;u64&gt;,
+    <span class="attr">#[description = <span class="string">&quot;Minimum time between sending messages per user&quot;</span>] </span>rate_limit: <span class="prelude-ty">Option</span>&lt;u64&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>say_content = <span class="kw">if let </span><span class="prelude-val">Some</span>(rate_limit) = rate_limit {
         <span class="kw">if let </span><span class="prelude-val">Err</span>(why) = ctx
@@ -2293,7 +2293,7 @@ dropped.</p>
 <span>61</span>
 </pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">pub async fn </span>vote(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;What to vote for&quot;</span>] </span>choice: String,
+    <span class="attr">#[description = <span class="string">&quot;What to vote for&quot;</span>] </span>choice: String,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>num_votes = {
         <span class="kw">let </span><span class="kw-2">mut </span>hash_map = ctx.<span class="highlight focus">data</span>().votes.lock().unwrap();
@@ -2317,10 +2317,10 @@ dropped.</p>
 /// ~getvotes
 /// ~getvotes pumpkin
 /// ```
-</span><span class="attribute">#[poise::command(prefix_command, track_edits, aliases(<span class="string">&quot;votes&quot;</span>), slash_command)]
+</span><span class="attr">#[poise::command(prefix_command, track_edits, aliases(<span class="string">&quot;votes&quot;</span>), slash_command)]
 </span><span class="kw">pub async fn </span>getvotes(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Choice to retrieve votes for&quot;</span>] </span>choice: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="attr">#[description = <span class="string">&quot;Choice to retrieve votes for&quot;</span>] </span>choice: <span class="prelude-ty">Option</span>&lt;String&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">if let </span><span class="prelude-val">Some</span>(choice) = choice {
         <span class="kw">let </span>num_votes = <span class="kw-2">*</span>ctx.<span class="highlight">data</span>().votes.lock().unwrap().get(<span class="kw-2">&amp;</span>choice).unwrap_or(<span class="kw-2">&amp;</span><span class="number">0</span>);
@@ -2668,7 +2668,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
     .boxed()
 }*/
 
-</span><span class="attribute">#[tokio::main]
+</span><span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() {
     <span class="kw">let </span>options = poise::FrameworkOptions {
         commands: <span class="macro">vec!</span>[
@@ -2768,7 +2768,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 
 <span class="comment">// Commands can be created via the attribute `#[poise::command()]` macro.
 // Options are passed as arguments to the macro.
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="comment">// INFO: not supported
 /*
 // Make this command use the &quot;complicated&quot; bucket.
@@ -2858,7 +2858,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 <span>643</span>
 </pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>slow_mode(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Minimum time between sending messages per user&quot;</span>] </span>rate_limit: <span class="prelude-ty">Option</span>&lt;u64&gt;,
+    <span class="attr">#[description = <span class="string">&quot;Minimum time between sending messages per user&quot;</span>] </span>rate_limit: <span class="prelude-ty">Option</span>&lt;u64&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>say_content = <span class="kw">if let </span><span class="prelude-val">Some</span>(rate_limit) = rate_limit {
         <span class="kw">if let </span><span class="prelude-val">Err</span>(why) = ctx
@@ -3233,7 +3233,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 <span>602</span>
 </pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>say(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Text to repeat&quot;</span>]
+    <span class="attr">#[description = <span class="string">&quot;Text to repeat&quot;</span>]
     #[rest]
     </span>content: String,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
@@ -3285,10 +3285,10 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// This is a command with a deliberately long name
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="kw">async fn </span>some_long_command(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Arguments to this command&quot;</span>]
+    <span class="attr">#[description = <span class="string">&quot;Arguments to this command&quot;</span>]
     #[rest]
     </span>args: String,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
@@ -3298,7 +3298,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Retrieves the role ID of a role
-</span><span class="attribute">#[poise::command(prefix_command, slash_command)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command)]
 </span><span class="comment">// INFO: not implemented
 /*
 // Limits the usage of this command to roles named:
@@ -3306,7 +3306,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 */
 </span><span class="kw">async fn </span>about_role(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Name of the role&quot;</span>] </span>potential_role_name: String,
+    <span class="attr">#[description = <span class="string">&quot;Name of the role&quot;</span>] </span>potential_role_name: String,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">if let </span><span class="prelude-val">Some</span>(guild) = ctx.guild() {
         <span class="comment">// `role_by_name()` allows us to attempt attaining a reference to a role
@@ -3330,7 +3330,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Multiplies two numbers
-</span><span class="attribute">#[poise::command(
+</span><span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     <span class="comment">// Lets us also call `~math *` instead of just `~math multiply`.
@@ -3339,8 +3339,8 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 )]
 </span><span class="kw">async fn </span>multiply(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;First number&quot;</span>] </span>first: f64,
-    <span class="attribute">#[description = <span class="string">&quot;Second number&quot;</span>] </span>second: f64,
+    <span class="attr">#[description = <span class="string">&quot;First number&quot;</span>] </span>first: f64,
+    <span class="attr">#[description = <span class="string">&quot;Second number&quot;</span>] </span>second: f64,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>res = first * second;
 
@@ -3350,7 +3350,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Shows information about this bot
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="kw">async fn </span>about(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.say(<span class="string">&quot;This is a small test-bot! : )&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
@@ -3358,7 +3358,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Shows current latency of this bot
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="kw">async fn </span>latency(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="comment">// The shard manager is an interface for mutating, stopping, restarting, and
     // retrieving information about shards.
@@ -3380,7 +3380,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(
+<span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     check = <span class="string">&quot;owner_check&quot;</span>,
@@ -3399,7 +3399,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Sends an emoji with a cat.
-</span><span class="attribute">#[poise::command(
+</span><span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     <span class="comment">// Adds multiple aliases
@@ -3426,7 +3426,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Sends an emoji with a dog.
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;Emoji&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;Emoji&quot;</span>)]
 </span><span class="comment">// INFO: not implemented
 /*
 #[bucket = &quot;emoji&quot;]
@@ -3438,10 +3438,10 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Sends an emoji with a bird.
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;Emoji&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;Emoji&quot;</span>)]
 </span><span class="kw">async fn </span>bird(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Name of the bird you&#39;re searching for&quot;</span>] </span>bird_name: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="attr">#[description = <span class="string">&quot;Name of the bird you&#39;re searching for&quot;</span>] </span>bird_name: <span class="prelude-ty">Option</span>&lt;String&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>say_content = <span class="kw">match </span>bird_name {
         <span class="prelude-val">None </span>=&gt; <span class="string">&quot;:bird: can find animals for you.&quot;</span>.to_string(),
@@ -3456,7 +3456,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 <span class="comment">// We could also use `required_permissions = &quot;ADMINISTRATOR&quot;`
 // but that would not let us reply when it fails.
 </span><span class="doccomment">/// Tells you whether you are an admin on the server
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="kw">async fn </span>am_i_admin(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">if let </span><span class="prelude-val">Some</span>(guild_id) = ctx.<span class="highlight">guild_id</span>() {
         <span class="kw">for </span>role <span class="kw">in </span>guild_id.member(ctx.discord(), ctx.author().id).<span class="kw">await</span><span class="question-mark">?</span>.roles {
@@ -3502,7 +3502,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 <span>456</span>
 </pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">async fn </span>about_role(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Name of the role&quot;</span>] </span>potential_role_name: String,
+    <span class="attr">#[description = <span class="string">&quot;Name of the role&quot;</span>] </span>potential_role_name: String,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">if let </span><span class="prelude-val">Some</span>(guild) = ctx.<span class="highlight focus">guild</span>() {
         <span class="comment">// `role_by_name()` allows us to attempt attaining a reference to a role
@@ -3599,7 +3599,7 @@ request failed</p>
 <span>18</span>
 </pre><pre class="rust"><code><span class="kw">async fn </span>age(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Selected user&quot;</span>] </span>user: <span class="prelude-ty">Option</span>&lt;serenity::User&gt;,
+    <span class="attr">#[description = <span class="string">&quot;Selected user&quot;</span>] </span>user: <span class="prelude-ty">Option</span>&lt;serenity::User&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>u = user.as_ref().unwrap_or_else(|| ctx.<span class="highlight focus">author</span>());
     <span class="kw">let </span>response = <span class="macro">format!</span>(<span class="string">&quot;{}&#39;s account was created at {}&quot;</span>, u.name, u.created_at());
@@ -4199,7 +4199,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
     .boxed()
 }*/
 
-</span><span class="attribute">#[tokio::main]
+</span><span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() {
     <span class="kw">let </span>options = poise::FrameworkOptions {
         commands: <span class="macro">vec!</span>[
@@ -4299,7 +4299,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 
 <span class="comment">// Commands can be created via the attribute `#[poise::command()]` macro.
 // Options are passed as arguments to the macro.
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="comment">// INFO: not supported
 /*
 // Make this command use the &quot;complicated&quot; bucket.
@@ -4324,10 +4324,10 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 </span><span class="comment">// In this example channel mentions are excluded via the `ContentSafeOptions`.
 // The track_edits argument ensures that when the user edits their command invocation,
 // the bot updates the response message accordingly.
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, track_edits, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, track_edits, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="kw">async fn </span>say(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Text to repeat&quot;</span>]
+    <span class="attr">#[description = <span class="string">&quot;Text to repeat&quot;</span>]
     #[rest]
     </span>content: String,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
@@ -4379,10 +4379,10 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// This is a command with a deliberately long name
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="kw">async fn </span>some_long_command(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Arguments to this command&quot;</span>]
+    <span class="attr">#[description = <span class="string">&quot;Arguments to this command&quot;</span>]
     #[rest]
     </span>args: String,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
@@ -4392,7 +4392,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Retrieves the role ID of a role
-</span><span class="attribute">#[poise::command(prefix_command, slash_command)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command)]
 </span><span class="comment">// INFO: not implemented
 /*
 // Limits the usage of this command to roles named:
@@ -4400,7 +4400,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 */
 </span><span class="kw">async fn </span>about_role(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Name of the role&quot;</span>] </span>potential_role_name: String,
+    <span class="attr">#[description = <span class="string">&quot;Name of the role&quot;</span>] </span>potential_role_name: String,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">if let </span><span class="prelude-val">Some</span>(guild) = ctx.guild() {
         <span class="comment">// `role_by_name()` allows us to attempt attaining a reference to a role
@@ -4424,7 +4424,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Multiplies two numbers
-</span><span class="attribute">#[poise::command(
+</span><span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     <span class="comment">// Lets us also call `~math *` instead of just `~math multiply`.
@@ -4433,8 +4433,8 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 )]
 </span><span class="kw">async fn </span>multiply(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;First number&quot;</span>] </span>first: f64,
-    <span class="attribute">#[description = <span class="string">&quot;Second number&quot;</span>] </span>second: f64,
+    <span class="attr">#[description = <span class="string">&quot;First number&quot;</span>] </span>first: f64,
+    <span class="attr">#[description = <span class="string">&quot;Second number&quot;</span>] </span>second: f64,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>res = first * second;
 
@@ -4444,7 +4444,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Shows information about this bot
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="kw">async fn </span>about(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.say(<span class="string">&quot;This is a small test-bot! : )&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
@@ -4452,7 +4452,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Shows current latency of this bot
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="kw">async fn </span>latency(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="comment">// The shard manager is an interface for mutating, stopping, restarting, and
     // retrieving information about shards.
@@ -4474,7 +4474,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(
+<span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     check = <span class="string">&quot;owner_check&quot;</span>,
@@ -4493,7 +4493,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Sends an emoji with a cat.
-</span><span class="attribute">#[poise::command(
+</span><span class="attr">#[poise::command(
     prefix_command,
     slash_command,
     <span class="comment">// Adds multiple aliases
@@ -4520,7 +4520,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Sends an emoji with a dog.
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;Emoji&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;Emoji&quot;</span>)]
 </span><span class="comment">// INFO: not implemented
 /*
 #[bucket = &quot;emoji&quot;]
@@ -4532,10 +4532,10 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Sends an emoji with a bird.
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;Emoji&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;Emoji&quot;</span>)]
 </span><span class="kw">async fn </span>bird(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Name of the bird you&#39;re searching for&quot;</span>] </span>bird_name: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="attr">#[description = <span class="string">&quot;Name of the bird you&#39;re searching for&quot;</span>] </span>bird_name: <span class="prelude-ty">Option</span>&lt;String&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>say_content = <span class="kw">match </span>bird_name {
         <span class="prelude-val">None </span>=&gt; <span class="string">&quot;:bird: can find animals for you.&quot;</span>.to_string(),
@@ -4550,7 +4550,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 <span class="comment">// We could also use `required_permissions = &quot;ADMINISTRATOR&quot;`
 // but that would not let us reply when it fails.
 </span><span class="doccomment">/// Tells you whether you are an admin on the server
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, category = <span class="string">&quot;General&quot;</span>)]
 </span><span class="kw">async fn </span>am_i_admin(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">if let </span><span class="prelude-val">Some</span>(guild_id) = ctx.guild_id() {
         <span class="kw">for </span>role <span class="kw">in </span>guild_id.member(ctx.discord(), ctx.<span class="highlight">author</span>().id).<span class="kw">await</span><span class="question-mark">?</span>.roles {
@@ -4846,10 +4846,10 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(slash_command)]
+<span class="attr">#[poise::command(slash_command)]
 </span><span class="kw">pub async fn </span>voiceinfo(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Information about a server voice channel&quot;</span>]
+    <span class="attr">#[description = <span class="string">&quot;Information about a server voice channel&quot;</span>]
     #[channel_types(<span class="string">&quot;Voice&quot;</span>)]
     </span>channel: serenity::GuildChannel,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
@@ -4873,7 +4873,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(slash_command, prefix_command, reuse_response)]
+<span class="attr">#[poise::command(slash_command, prefix_command, reuse_response)]
 </span><span class="kw">pub async fn </span>test_reuse_response(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>image_url = <span class="string">&quot;https://raw.githubusercontent.com/serenity-rs/serenity/current/logo.png&quot;</span>;
     ctx.send(|b| {
@@ -4912,10 +4912,10 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(slash_command, prefix_command)]
+<span class="attr">#[poise::command(slash_command, prefix_command)]
 </span><span class="kw">pub async fn </span>oracle(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Take a decision&quot;</span>] </span>b: bool,
+    <span class="attr">#[description = <span class="string">&quot;Take a decision&quot;</span>] </span>b: bool,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">if </span>b {
         ctx.say(<span class="string">&quot;You seem to be an optimistic kind of person...&quot;</span>)
@@ -4927,7 +4927,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(prefix_command)]
+<span class="attr">#[poise::command(prefix_command)]
 </span><span class="kw">pub async fn </span>code(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
     args: poise::KeyValueArgs,
@@ -4938,10 +4938,10 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(prefix_command, slash_command)]
+<span class="attr">#[poise::command(prefix_command, slash_command)]
 </span><span class="kw">pub async fn </span>say(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[rest]
+    <span class="attr">#[rest]
     #[description = <span class="string">&quot;Text to say&quot;</span>]
     </span>msg: String,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
@@ -4950,11 +4950,11 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// View the difference between two file sizes
-</span><span class="attribute">#[poise::command(prefix_command, slash_command)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command)]
 </span><span class="kw">pub async fn </span>file_details(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;File to examine&quot;</span>] </span>file: serenity::Attachment,
-    <span class="attribute">#[description = <span class="string">&quot;Second file to examine&quot;</span>] </span>file_2: <span class="prelude-ty">Option</span>&lt;serenity::Attachment&gt;,
+    <span class="attr">#[description = <span class="string">&quot;File to examine&quot;</span>] </span>file: serenity::Attachment,
+    <span class="attr">#[description = <span class="string">&quot;Second file to examine&quot;</span>] </span>file_2: <span class="prelude-ty">Option</span>&lt;serenity::Attachment&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.say(<span class="macro">format!</span>(
         <span class="string">&quot;First file name: **{}**. File size difference: **{}** bytes&quot;</span>,
@@ -4965,10 +4965,10 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(prefix_command)]
+<span class="attr">#[poise::command(prefix_command)]
 </span><span class="kw">pub async fn </span>totalsize(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;File to rename&quot;</span>] </span>files: Vec&lt;serenity::Attachment&gt;,
+    <span class="attr">#[description = <span class="string">&quot;File to rename&quot;</span>] </span>files: Vec&lt;serenity::Attachment&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>total = files.iter().map(|f| f.size).sum::&lt;u64&gt;();
 
@@ -4982,13 +4982,13 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[derive(Debug, poise::Modal)]
+<span class="attr">#[derive(Debug, poise::Modal)]
 #[allow(dead_code)] </span><span class="comment">// fields only used for Debug print
 </span><span class="kw">struct </span>MyModal {
     first_input: String,
     second_input: <span class="prelude-ty">Option</span>&lt;String&gt;,
 }
-<span class="attribute">#[poise::command(slash_command)]
+<span class="attr">#[poise::command(slash_command)]
 </span><span class="kw">pub async fn </span>modal(
     ctx: poise::ApplicationContext&lt;<span class="lifetime">&#39;_</span>, <span class="kw">crate</span>::Data, <span class="kw">crate</span>::Error&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
@@ -5000,7 +5000,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[derive(Debug, poise::ChoiceParameter)]
+<span class="attr">#[derive(Debug, poise::ChoiceParameter)]
 </span><span class="kw">pub enum </span>PunishType {
     Ban,
     Kick,
@@ -5008,13 +5008,13 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
 }
 
 <span class="doccomment">/// Punishment command for testing the rename macro
-</span><span class="attribute">#[poise::command(slash_command)]
+</span><span class="attr">#[poise::command(slash_command)]
 </span><span class="kw">pub async fn </span>punish(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Punishment type&quot;</span>]
+    <span class="attr">#[description = <span class="string">&quot;Punishment type&quot;</span>]
     #[rename = <span class="string">&quot;type&quot;</span>]
     </span>punish_type: PunishType,
-    <span class="attribute">#[description = <span class="string">&quot;User to execute the punishment on&quot;</span>] </span>user: serenity::User,
+    <span class="attr">#[description = <span class="string">&quot;User to execute the punishment on&quot;</span>] </span>user: serenity::User,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     <span class="kw">let </span>text = <span class="kw">match </span>punish_type {
         PunishType::Ban =&gt; <span class="macro">format!</span>(<span class="string">&quot;{} has been banned!&quot;</span>, user.name),
@@ -5026,14 +5026,14 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
 #[poise::command(slash_command, prefix_command)]
 </span><span class="kw">pub async fn </span>servers(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     poise::builtins::servers(ctx).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="attribute">#[poise::command(slash_command, prefix_command)]
+<span class="attr">#[poise::command(slash_command, prefix_command)]
 </span><span class="kw">pub async fn </span>reply(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     ctx.send(|b| {
         b.content(<span class="macro">format!</span>(<span class="string">&quot;Hello {}!&quot;</span>, ctx.<span class="highlight">author</span>().name))
@@ -5163,7 +5163,7 @@ fn _dispatch_error_no_macro&lt;&#39;fut&gt;(
             general::totalsize(),
             general::modal(),
             general::punish(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
             </span>general::servers(),
             general::reply(),
             context_menu::user_info(),
@@ -5561,7 +5561,7 @@ downwards.</p>
     }
 }
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() {
     env_logger::init();
 
@@ -5583,7 +5583,7 @@ downwards.</p>
             general::totalsize(),
             general::modal(),
             general::punish(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
             </span>general::servers(),
             general::reply(),
             context_menu::user_info(),
@@ -5967,10 +5967,10 @@ execution.</p>
 }
 
 <span class="doccomment">/// Test command to ensure that invocation_data works
-</span><span class="attribute">#[poise::command(prefix_command, slash_command, check = <span class="string">&quot;my_check&quot;</span>)]
+</span><span class="attr">#[poise::command(prefix_command, slash_command, check = <span class="string">&quot;my_check&quot;</span>)]
 </span><span class="kw">pub async fn </span>invocation_data_test(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Whether this command should succeed (yes if 0, no otherwise)&quot;</span>]
+    <span class="attr">#[description = <span class="string">&quot;Whether this command should succeed (yes if 0, no otherwise)&quot;</span>]
     #[autocomplete = <span class="string">&quot;my_autocomplete&quot;</span>]
     </span>should_succeed: u32,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
@@ -5986,7 +5986,7 @@ execution.</p>
     }
 }
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() {
     poise::Framework::builder()
         .token(std::env::var(<span class="string">&quot;TOKEN&quot;</span>).unwrap())
@@ -6081,11 +6081,11 @@ execution.</p>
 <span>49</span>
 </pre><pre class="rust"><code><span class="expand">&varr;</span><span class="kw">pub async fn </span>welcome(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[name_localized(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;nutzer&quot;</span>)]
+    <span class="attr">#[name_localized(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;nutzer&quot;</span>)]
     #[description_localized(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;Der zu begrüßende Nutzer&quot;</span>)]
     #[description = <span class="string">&quot;The user to welcome&quot;</span>]
     </span>user: serenity::User,
-    <span class="attribute">#[name_localized(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;nachricht&quot;</span>)]
+    <span class="attr">#[name_localized(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;nachricht&quot;</span>)]
     #[description_localized(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;Die versendete Nachricht&quot;</span>)]
     #[description = <span class="string">&quot;The message to send&quot;</span>]
     </span>message: WelcomeChoice,
@@ -6138,6 +6138,6 @@ execution.</p>
 <code>Instrumented</code> wrapper. <a href="../../tracing/instrument/trait.Instrument.html#method.in_current_span">Read more</a></div></details></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-Into%3CU%3E-for-Context%3C%27a%2C%20U%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#717">source</a><a href="#impl-Into%3CU%3E-for-Context%3C%27a%2C%20U%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;T, U&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;U&gt; for T<span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;T&gt;,</span></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><section id="method.into" class="method trait-impl has-srclink"><span class="rightside"><span class="since" title="const unstable">const: <a href="https://github.com/rust-lang/rust/issues/88674" title="Tracking issue for const_convert">unstable</a></span> · <a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#725">source</a></span><a href="#method.into" class="anchor"></a><h4 class="code-header">fn <a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html#tymethod.into" class="fnname">into</a>(self) -&gt; U</h4></section></summary><div class="docblock"><p>Calls <code>U::from(self)</code>.</p>
 <p>That is, this conversion is whatever the implementation of
 <code><a href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="From">From</a>&lt;T&gt; for U</code> chooses to do.</p>
-</div></details></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-Same%3CT%3E-for-Context%3C%27a%2C%20U%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="../../src/typenum/type_operators.rs.html#34">source</a><a href="#impl-Same%3CT%3E-for-Context%3C%27a%2C%20U%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;T&gt; <a class="trait" href="../../typenum/type_operators/trait.Same.html" title="trait typenum::type_operators::Same">Same</a>&lt;T&gt; for T</h3></section></summary><div class="impl-items"><details class="rustdoc-toggle" open><summary><section id="associatedtype.Output" class="associatedtype trait-impl has-srclink"><a href="#associatedtype.Output" class="anchor"></a><h4 class="code-header">type <a href="../../typenum/type_operators/trait.Same.html#associatedtype.Output" class="associatedtype">Output</a> = T</h4></section></summary><div class='docblock'>Should always be <code>Self</code></div></details></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-ToOwned-for-Context%3C%27a%2C%20U%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#82">source</a><a href="#impl-ToOwned-for-Context%3C%27a%2C%20U%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;T&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html" title="trait alloc::borrow::ToOwned">ToOwned</a> for T<span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a>,</span></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle" open><summary><section id="associatedtype.Owned" class="associatedtype trait-impl has-srclink"><a href="#associatedtype.Owned" class="anchor"></a><h4 class="code-header">type <a href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#associatedtype.Owned" class="associatedtype">Owned</a> = T</h4></section></summary><div class='docblock'>The resulting type after obtaining ownership.</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.to_owned" class="method trait-impl has-srclink"><a class="srclink rightside" href="https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#87">source</a><a href="#method.to_owned" class="anchor"></a><h4 class="code-header">fn <a href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned" class="fnname">to_owned</a>(&amp;self) -&gt; T</h4></section></summary><div class='docblock'>Creates owned data from borrowed data, usually by cloning. <a href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned">Read more</a></div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.clone_into" class="method trait-impl has-srclink"><a class="srclink rightside" href="https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#91">source</a><a href="#method.clone_into" class="anchor"></a><h4 class="code-header">fn <a href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into" class="fnname">clone_into</a>(&amp;self, target: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;mut </a>T)</h4></section></summary><div class='docblock'>Uses borrowed data to replace owned data, usually by cloning. <a href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into">Read more</a></div></details></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-TryFrom%3CU%3E-for-Context%3C%27a%2C%20U%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#775">source</a><a href="#impl-TryFrom%3CU%3E-for-Context%3C%27a%2C%20U%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;T, U&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;U&gt; for T<span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;T&gt;,</span></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle" open><summary><section id="associatedtype.Error-1" class="associatedtype trait-impl has-srclink"><a href="#associatedtype.Error-1" class="anchor"></a><h4 class="code-header">type <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" class="associatedtype">Error</a> = <a class="enum" href="https://doc.rust-lang.org/nightly/core/convert/enum.Infallible.html" title="enum core::convert::Infallible">Infallible</a></h4></section></summary><div class='docblock'>The type returned in the event of a conversion error.</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.try_from" class="method trait-impl has-srclink"><span class="rightside"><span class="since" title="const unstable">const: <a href="https://github.com/rust-lang/rust/issues/88674" title="Tracking issue for const_convert">unstable</a></span> · <a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#781">source</a></span><a href="#method.try_from" class="anchor"></a><h4 class="code-header">fn <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#tymethod.try_from" class="fnname">try_from</a>(value: U) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;T, &lt;T as <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;U&gt;&gt;::<a class="associatedtype" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" title="type core::convert::TryFrom::Error">Error</a>&gt;</h4></section></summary><div class='docblock'>Performs the conversion.</div></details></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-TryInto%3CU%3E-for-Context%3C%27a%2C%20U%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#760">source</a><a href="#impl-TryInto%3CU%3E-for-Context%3C%27a%2C%20U%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;T, U&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html" title="trait core::convert::TryInto">TryInto</a>&lt;U&gt; for T<span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;T&gt;,</span></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle" open><summary><section id="associatedtype.Error" class="associatedtype trait-impl has-srclink"><a href="#associatedtype.Error" class="anchor"></a><h4 class="code-header">type <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#associatedtype.Error" class="associatedtype">Error</a> = &lt;U as <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;T&gt;&gt;::<a class="associatedtype" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" title="type core::convert::TryFrom::Error">Error</a></h4></section></summary><div class='docblock'>The type returned in the event of a conversion error.</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.try_into" class="method trait-impl has-srclink"><span class="rightside"><span class="since" title="const unstable">const: <a href="https://github.com/rust-lang/rust/issues/88674" title="Tracking issue for const_convert">unstable</a></span> · <a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#766">source</a></span><a href="#method.try_into" class="anchor"></a><h4 class="code-header">fn <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#tymethod.try_into" class="fnname">try_into</a>(self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;U, &lt;U as <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;T&gt;&gt;::<a class="associatedtype" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" title="type core::convert::TryFrom::Error">Error</a>&gt;</h4></section></summary><div class='docblock'>Performs the conversion.</div></details></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-VZip%3CV%3E-for-Context%3C%27a%2C%20U%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="../../src/ppv_lite86/types.rs.html#221">source</a><a href="#impl-VZip%3CV%3E-for-Context%3C%27a%2C%20U%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;V, T&gt; <a class="trait" href="../../ppv_lite86/types/trait.VZip.html" title="trait ppv_lite86::types::VZip">VZip</a>&lt;V&gt; for T<span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;V: <a class="trait" href="../../ppv_lite86/types/trait.MultiLane.html" title="trait ppv_lite86::types::MultiLane">MultiLane</a>&lt;T&gt;,</span></h3></section></summary><div class="impl-items"><section id="method.vzip" class="method trait-impl has-srclink"><a class="srclink rightside" href="../../src/ppv_lite86/types.rs.html#226">source</a><a href="#method.vzip" class="anchor"></a><h4 class="code-header">fn <a href="../../ppv_lite86/types/trait.VZip.html#tymethod.vzip" class="fnname">vzip</a>(self) -&gt; V</h4></section></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-WithSubscriber-for-Context%3C%27a%2C%20U%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="../../src/tracing/instrument.rs.html#334">source</a><a href="#impl-WithSubscriber-for-Context%3C%27a%2C%20U%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;T&gt; <a class="trait" href="../../tracing/instrument/trait.WithSubscriber.html" title="trait tracing::instrument::WithSubscriber">WithSubscriber</a> for T</h3></section></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><section id="method.with_subscriber" class="method trait-impl has-srclink"><a class="srclink rightside" href="../../src/tracing/instrument.rs.html#169-171">source</a><a href="#method.with_subscriber" class="anchor"></a><h4 class="code-header">fn <a href="../../tracing/instrument/trait.WithSubscriber.html#method.with_subscriber" class="fnname">with_subscriber</a>&lt;S&gt;(self, subscriber: S) -&gt; <a class="struct" href="../../tracing/instrument/struct.WithDispatch.html" title="struct tracing::instrument::WithDispatch">WithDispatch</a>&lt;Self&gt;<span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;S: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="../../tracing_core/dispatcher/struct.Dispatch.html" title="struct tracing_core::dispatcher::Dispatch">Dispatch</a>&gt;,</span></h4></section></summary><div class='docblock'>Attaches the provided <a href="../../tracing_core/subscriber/trait.Subscriber.html"><code>Subscriber</code></a> to this type, returning a
+</div></details></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-Same%3CT%3E-for-Context%3C%27a%2C%20U%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="../../src/typenum/type_operators.rs.html#34">source</a><a href="#impl-Same%3CT%3E-for-Context%3C%27a%2C%20U%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;T&gt; <a class="trait" href="../../typenum/type_operators/trait.Same.html" title="trait typenum::type_operators::Same">Same</a>&lt;T&gt; for T</h3></section></summary><div class="impl-items"><details class="rustdoc-toggle" open><summary><section id="associatedtype.Output" class="associatedtype trait-impl has-srclink"><a href="#associatedtype.Output" class="anchor"></a><h4 class="code-header">type <a href="../../typenum/type_operators/trait.Same.html#associatedtype.Output" class="associatedtype">Output</a> = T</h4></section></summary><div class='docblock'>Should always be <code>Self</code></div></details></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-ToOwned-for-Context%3C%27a%2C%20U%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#82">source</a><a href="#impl-ToOwned-for-Context%3C%27a%2C%20U%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;T&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html" title="trait alloc::borrow::ToOwned">ToOwned</a> for T<span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a>,</span></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle" open><summary><section id="associatedtype.Owned" class="associatedtype trait-impl has-srclink"><a href="#associatedtype.Owned" class="anchor"></a><h4 class="code-header">type <a href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#associatedtype.Owned" class="associatedtype">Owned</a> = T</h4></section></summary><div class='docblock'>The resulting type after obtaining ownership.</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.to_owned" class="method trait-impl has-srclink"><a class="srclink rightside" href="https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#87">source</a><a href="#method.to_owned" class="anchor"></a><h4 class="code-header">fn <a href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned" class="fnname">to_owned</a>(&amp;self) -&gt; T</h4></section></summary><div class='docblock'>Creates owned data from borrowed data, usually by cloning. <a href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned">Read more</a></div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.clone_into" class="method trait-impl has-srclink"><a class="srclink rightside" href="https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#91">source</a><a href="#method.clone_into" class="anchor"></a><h4 class="code-header">fn <a href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into" class="fnname">clone_into</a>(&amp;self, target: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;mut </a>T)</h4></section></summary><div class='docblock'>Uses borrowed data to replace owned data, usually by cloning. <a href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into">Read more</a></div></details></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-TryFrom%3CU%3E-for-Context%3C%27a%2C%20U%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#775">source</a><a href="#impl-TryFrom%3CU%3E-for-Context%3C%27a%2C%20U%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;T, U&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;U&gt; for T<span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;T&gt;,</span></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle" open><summary><section id="associatedtype.Error" class="associatedtype trait-impl has-srclink"><a href="#associatedtype.Error" class="anchor"></a><h4 class="code-header">type <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" class="associatedtype">Error</a> = <a class="enum" href="https://doc.rust-lang.org/nightly/core/convert/enum.Infallible.html" title="enum core::convert::Infallible">Infallible</a></h4></section></summary><div class='docblock'>The type returned in the event of a conversion error.</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.try_from" class="method trait-impl has-srclink"><span class="rightside"><span class="since" title="const unstable">const: <a href="https://github.com/rust-lang/rust/issues/88674" title="Tracking issue for const_convert">unstable</a></span> · <a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#781">source</a></span><a href="#method.try_from" class="anchor"></a><h4 class="code-header">fn <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#tymethod.try_from" class="fnname">try_from</a>(value: U) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;T, &lt;T as <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;U&gt;&gt;::<a class="associatedtype" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" title="type core::convert::TryFrom::Error">Error</a>&gt;</h4></section></summary><div class='docblock'>Performs the conversion.</div></details></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-TryInto%3CU%3E-for-Context%3C%27a%2C%20U%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#760">source</a><a href="#impl-TryInto%3CU%3E-for-Context%3C%27a%2C%20U%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;T, U&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html" title="trait core::convert::TryInto">TryInto</a>&lt;U&gt; for T<span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;T&gt;,</span></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle" open><summary><section id="associatedtype.Error-1" class="associatedtype trait-impl has-srclink"><a href="#associatedtype.Error-1" class="anchor"></a><h4 class="code-header">type <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#associatedtype.Error" class="associatedtype">Error</a> = &lt;U as <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;T&gt;&gt;::<a class="associatedtype" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" title="type core::convert::TryFrom::Error">Error</a></h4></section></summary><div class='docblock'>The type returned in the event of a conversion error.</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.try_into" class="method trait-impl has-srclink"><span class="rightside"><span class="since" title="const unstable">const: <a href="https://github.com/rust-lang/rust/issues/88674" title="Tracking issue for const_convert">unstable</a></span> · <a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#766">source</a></span><a href="#method.try_into" class="anchor"></a><h4 class="code-header">fn <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#tymethod.try_into" class="fnname">try_into</a>(self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;U, &lt;U as <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;T&gt;&gt;::<a class="associatedtype" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" title="type core::convert::TryFrom::Error">Error</a>&gt;</h4></section></summary><div class='docblock'>Performs the conversion.</div></details></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-VZip%3CV%3E-for-Context%3C%27a%2C%20U%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="../../src/ppv_lite86/types.rs.html#221">source</a><a href="#impl-VZip%3CV%3E-for-Context%3C%27a%2C%20U%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;V, T&gt; <a class="trait" href="../../ppv_lite86/types/trait.VZip.html" title="trait ppv_lite86::types::VZip">VZip</a>&lt;V&gt; for T<span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;V: <a class="trait" href="../../ppv_lite86/types/trait.MultiLane.html" title="trait ppv_lite86::types::MultiLane">MultiLane</a>&lt;T&gt;,</span></h3></section></summary><div class="impl-items"><section id="method.vzip" class="method trait-impl has-srclink"><a class="srclink rightside" href="../../src/ppv_lite86/types.rs.html#226">source</a><a href="#method.vzip" class="anchor"></a><h4 class="code-header">fn <a href="../../ppv_lite86/types/trait.VZip.html#tymethod.vzip" class="fnname">vzip</a>(self) -&gt; V</h4></section></div></details><details class="rustdoc-toggle implementors-toggle"><summary><section id="impl-WithSubscriber-for-Context%3C%27a%2C%20U%2C%20E%3E" class="impl has-srclink"><a class="srclink rightside" href="../../src/tracing/instrument.rs.html#334">source</a><a href="#impl-WithSubscriber-for-Context%3C%27a%2C%20U%2C%20E%3E" class="anchor"></a><h3 class="code-header">impl&lt;T&gt; <a class="trait" href="../../tracing/instrument/trait.WithSubscriber.html" title="trait tracing::instrument::WithSubscriber">WithSubscriber</a> for T</h3></section></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><section id="method.with_subscriber" class="method trait-impl has-srclink"><a class="srclink rightside" href="../../src/tracing/instrument.rs.html#169-171">source</a><a href="#method.with_subscriber" class="anchor"></a><h4 class="code-header">fn <a href="../../tracing/instrument/trait.WithSubscriber.html#method.with_subscriber" class="fnname">with_subscriber</a>&lt;S&gt;(self, subscriber: S) -&gt; <a class="struct" href="../../tracing/instrument/struct.WithDispatch.html" title="struct tracing::instrument::WithDispatch">WithDispatch</a>&lt;Self&gt;<span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;S: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="../../tracing_core/dispatcher/struct.Dispatch.html" title="struct tracing_core::dispatcher::Dispatch">Dispatch</a>&gt;,</span></h4></section></summary><div class='docblock'>Attaches the provided <a href="../../tracing_core/subscriber/trait.Subscriber.html"><code>Subscriber</code></a> to this type, returning a
 <a href="../../tracing/instrument/struct.WithDispatch.html" title="WithDispatch"><code>WithDispatch</code></a> wrapper. <a href="../../tracing/instrument/trait.WithSubscriber.html#method.with_subscriber">Read more</a></div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.with_current_subscriber" class="method trait-impl has-srclink"><a class="srclink rightside" href="../../src/tracing/instrument.rs.html#221">source</a><a href="#method.with_current_subscriber" class="anchor"></a><h4 class="code-header">fn <a href="../../tracing/instrument/trait.WithSubscriber.html#method.with_current_subscriber" class="fnname">with_current_subscriber</a>(self) -&gt; <a class="struct" href="../../tracing/instrument/struct.WithDispatch.html" title="struct tracing::instrument::WithDispatch">WithDispatch</a>&lt;Self&gt;</h4></section></summary><div class='docblock'>Attaches the current <a href="../../tracing/dispatcher/index.html#setting-the-default-subscriber">default</a> <a href="../../tracing_core/subscriber/trait.Subscriber.html"><code>Subscriber</code></a> to this type, returning a
-<a href="../../tracing/instrument/struct.WithDispatch.html" title="WithDispatch"><code>WithDispatch</code></a> wrapper. <a href="../../tracing/instrument/trait.WithSubscriber.html#method.with_current_subscriber">Read more</a></div></details></div></details></div></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+<a href="../../tracing/instrument/struct.WithDispatch.html" title="WithDispatch"><code>WithDispatch</code></a> wrapper. <a href="../../tracing/instrument/trait.WithSubscriber.html#method.with_current_subscriber">Read more</a></div></details></div></details></div></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

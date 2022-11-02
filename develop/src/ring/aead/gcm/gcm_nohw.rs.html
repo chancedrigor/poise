@@ -268,19 +268,19 @@
 <span class="kw">use </span><span class="kw">crate</span>::endian::BigEndian;
 <span class="kw">use </span>core::convert::TryInto;
 
-<span class="attribute">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
+<span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
 </span><span class="kw">fn </span>gcm_mul64_nohw(a: u64, b: u64) -&gt; (u64, u64) {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>lo(a: u128) -&gt; u64 {
         a <span class="kw">as </span>u64
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>hi(a: u128) -&gt; u64 {
         lo(a &gt;&gt; <span class="number">64</span>)
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>mul(a: u64, b: u64) -&gt; u128 {
         u128::from(a) * u128::from(b)
     }
@@ -328,9 +328,9 @@
     (lo, hi)
 }
 
-<span class="attribute">#[cfg(not(target_pointer_width = <span class="string">&quot;64&quot;</span>))]
+<span class="attr">#[cfg(not(target_pointer_width = <span class="string">&quot;64&quot;</span>))]
 </span><span class="kw">fn </span>gcm_mul32_nohw(a: u32, b: u32) -&gt; u64 {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>mul(a: u32, b: u32) -&gt; u64 {
         u64::from(a) * u64::from(b)
     }
@@ -358,13 +358,13 @@
         | (c3 &amp; <span class="number">0x8888888888888888</span>)
 }
 
-<span class="attribute">#[cfg(not(target_pointer_width = <span class="string">&quot;64&quot;</span>))]
+<span class="attr">#[cfg(not(target_pointer_width = <span class="string">&quot;64&quot;</span>))]
 </span><span class="kw">fn </span>gcm_mul64_nohw(a: u64, b: u64) -&gt; (u64, u64) {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>lo(a: u64) -&gt; u32 {
         a <span class="kw">as </span>u32
     }
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>hi(a: u64) -&gt; u32 {
         lo(a &gt;&gt; <span class="number">32</span>)
     }
@@ -475,7 +475,7 @@
     });
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>with_swapped_xi(Xi(xi): <span class="kw-2">&amp;mut </span>Xi, f: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;mut </span>[u64; <span class="number">2</span>])) {
     <span class="kw">let </span>unswapped = xi.u64s_be_to_native();
     <span class="kw">let </span><span class="kw-2">mut </span>swapped: [u64; <span class="number">2</span>] = [unswapped[<span class="number">1</span>], unswapped[<span class="number">0</span>]];
@@ -483,4 +483,4 @@
     <span class="kw-2">*</span>xi = Block::from_u64_be(BigEndian::from(swapped[<span class="number">1</span>]), BigEndian::from(swapped[<span class="number">0</span>]))
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

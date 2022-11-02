@@ -788,7 +788,7 @@
 <span id="788">788</span>
 </pre><pre class="rust"><code><span class="doccomment">//! An intrusive double linked list of data
 
-</span><span class="attribute">#![allow(dead_code, unreachable_pub)]
+</span><span class="attr">#![allow(dead_code, unreachable_pub)]
 
 </span><span class="kw">use </span>core::{
     marker::PhantomPinned,
@@ -797,7 +797,7 @@
 };
 
 <span class="doccomment">/// A node which carries data of type `T` and is stored in an intrusive list
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ListNode&lt;T&gt; {
     <span class="doccomment">/// The previous node in the list. `None` if there is no previous node.
     </span>prev: <span class="prelude-ty">Option</span>&lt;NonNull&lt;ListNode&lt;T&gt;&gt;&gt;,
@@ -838,7 +838,7 @@
 
 <span class="doccomment">/// An intrusive linked list of nodes, where each node carries associated data
 /// of type `T`.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>LinkedList&lt;T&gt; {
     head: <span class="prelude-ty">Option</span>&lt;NonNull&lt;ListNode&lt;T&gt;&gt;&gt;,
     tail: <span class="prelude-ty">Option</span>&lt;NonNull&lt;ListNode&lt;T&gt;&gt;&gt;,
@@ -956,7 +956,7 @@
 
     <span class="doccomment">/// Removes the first node from the linked list
     </span><span class="kw">pub fn </span>remove_first(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>ListNode&lt;T&gt;&gt; {
-        <span class="attribute">#![allow(clippy::debug_assert_with_mut_call)]
+        <span class="attr">#![allow(clippy::debug_assert_with_mut_call)]
 
         </span><span class="comment">// Safety: When the node was inserted it was promised that it is alive
         // until it gets removed from the list
@@ -984,7 +984,7 @@
 
     <span class="doccomment">/// Removes the last node from the linked list and returns it
     </span><span class="kw">pub fn </span>remove_last(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>ListNode&lt;T&gt;&gt; {
-        <span class="attribute">#![allow(clippy::debug_assert_with_mut_call)]
+        <span class="attr">#![allow(clippy::debug_assert_with_mut_call)]
 
         </span><span class="comment">// Safety: When the node was inserted it was promised that it is alive
         // until it gets removed from the list
@@ -1026,7 +1026,7 @@
     /// list, or of no list at all. If `node` is part of another list, the
     /// behavior is undefined.
     </span><span class="kw">pub unsafe fn </span>remove(<span class="kw-2">&amp;mut </span><span class="self">self</span>, node: <span class="kw-2">&amp;mut </span>ListNode&lt;T&gt;) -&gt; bool {
-        <span class="attribute">#![allow(clippy::debug_assert_with_mut_call)]
+        <span class="attr">#![allow(clippy::debug_assert_with_mut_call)]
 
         </span><span class="kw">match </span>node.prev {
             <span class="prelude-val">None </span>=&gt; {
@@ -1134,7 +1134,7 @@
     }
 }
 
-<span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;std&quot;</span>))] </span><span class="comment">// Tests make use of Vec at the moment
+<span class="attr">#[cfg(all(test, feature = <span class="string">&quot;std&quot;</span>))] </span><span class="comment">// Tests make use of Vec at the moment
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
@@ -1165,7 +1165,7 @@
         <span class="macro">assert!</span>(node.prev.is_none());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>insert_and_iterate() {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>a = ListNode::new(<span class="number">5</span>);
@@ -1195,7 +1195,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>add_sorted() {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>a = ListNode::new(<span class="number">5</span>);
@@ -1263,7 +1263,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>drain_and_collect() {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>a = ListNode::new(<span class="number">5</span>);
@@ -1278,7 +1278,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>peek_last() {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>a = ListNode::new(<span class="number">5</span>);
@@ -1305,7 +1305,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>remove_first() {
         <span class="kw">unsafe </span>{
             <span class="comment">// We iterate forward and backwards through the manipulated lists
@@ -1364,7 +1364,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>remove_last() {
         <span class="kw">unsafe </span>{
             <span class="comment">// We iterate forward and backwards through the manipulated lists
@@ -1423,7 +1423,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>remove_by_address() {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>a = ListNode::new(<span class="number">5</span>);
@@ -1575,4 +1575,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

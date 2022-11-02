@@ -557,7 +557,7 @@
 <span class="kw">use </span>{Date, DateTime};
 
 <span class="doccomment">/// The conversion result from the local time to the timezone-aware datetime types.
-</span><span class="attribute">#[derive(Clone, PartialEq, Debug, Copy, Eq, Hash)]
+</span><span class="attr">#[derive(Clone, PartialEq, Debug, Copy, Eq, Hash)]
 </span><span class="kw">pub enum </span>LocalResult&lt;T&gt; {
     <span class="doccomment">/// Given local time representation is invalid.
     /// This can occur when, for example, the positive timezone transition.
@@ -609,7 +609,7 @@
     /// The offset in the current date is preserved.
     ///
     /// Propagates any error. Ambiguous result would be discarded.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>and_time(<span class="self">self</span>, time: NaiveTime) -&gt; LocalResult&lt;DateTime&lt;Tz&gt;&gt; {
         <span class="kw">match </span><span class="self">self </span>{
             LocalResult::Single(d) =&gt; {
@@ -623,7 +623,7 @@
     /// The offset in the current date is preserved.
     ///
     /// Propagates any error. Ambiguous result would be discarded.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>and_hms_opt(<span class="self">self</span>, hour: u32, min: u32, sec: u32) -&gt; LocalResult&lt;DateTime&lt;Tz&gt;&gt; {
         <span class="kw">match </span><span class="self">self </span>{
             LocalResult::Single(d) =&gt; {
@@ -638,7 +638,7 @@
     /// The offset in the current date is preserved.
     ///
     /// Propagates any error. Ambiguous result would be discarded.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>and_hms_milli_opt(
         <span class="self">self</span>,
         hour: u32,
@@ -659,7 +659,7 @@
     /// The offset in the current date is preserved.
     ///
     /// Propagates any error. Ambiguous result would be discarded.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>and_hms_micro_opt(
         <span class="self">self</span>,
         hour: u32,
@@ -680,7 +680,7 @@
     /// The offset in the current date is preserved.
     ///
     /// Propagates any error. Ambiguous result would be discarded.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>and_hms_nano_opt(
         <span class="self">self</span>,
         hour: u32,
@@ -993,20 +993,20 @@
 }
 
 <span class="kw">mod </span>fixed;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
 </span><span class="kw">mod </span>local;
 <span class="kw">mod </span>utc;
 
 <span class="kw">pub use </span><span class="self">self</span>::fixed::FixedOffset;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
 </span><span class="kw">pub use </span><span class="self">self</span>::local::Local;
 <span class="kw">pub use </span><span class="self">self</span>::utc::Utc;
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_negative_millis() {
         <span class="kw">let </span>dt = Utc.timestamp_millis(-<span class="number">1000</span>);
         <span class="macro">assert_eq!</span>(dt.to_string(), <span class="string">&quot;1969-12-31 23:59:59 UTC&quot;</span>);
@@ -1039,7 +1039,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_negative_nanos() {
         <span class="kw">let </span>dt = Utc.timestamp_nanos(-<span class="number">1_000_000_000</span>);
         <span class="macro">assert_eq!</span>(dt.to_string(), <span class="string">&quot;1969-12-31 23:59:59 UTC&quot;</span>);
@@ -1053,7 +1053,7 @@
         <span class="macro">assert_eq!</span>(dt.to_string(), <span class="string">&quot;1969-12-31 23:00:00 UTC&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_nanos_never_panics() {
         Utc.timestamp_nanos(i64::max_value());
         Utc.timestamp_nanos(i64::default());
@@ -1061,4 +1061,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

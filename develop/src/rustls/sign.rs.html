@@ -556,7 +556,7 @@
 
 <span class="doccomment">/// A packaged-together certificate chain, matching `SigningKey` and
 /// optional stapled OCSP response and/or SCT list.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>CertifiedKey {
     <span class="doccomment">/// The certificate chain.
     </span><span class="kw">pub </span>cert: Vec&lt;key::Certificate&gt;,
@@ -695,7 +695,7 @@
 ///
 /// This is used by the test suite, so it must be `pub`, but it isn&#39;t part of
 /// the public, stable, API.
-</span><span class="attribute">#[doc(hidden)]
+</span><span class="attr">#[doc(hidden)]
 </span><span class="kw">pub struct </span>RsaSigningKey {
     key: Arc&lt;RsaKeyPair&gt;,
 }
@@ -733,7 +733,7 @@
     }
 }
 
-<span class="attribute">#[allow(clippy::upper_case_acronyms)]
+<span class="attr">#[allow(clippy::upper_case_acronyms)]
 #[doc(hidden)]
 #[deprecated(since = <span class="string">&quot;0.20.0&quot;</span>, note = <span class="string">&quot;Use RsaSigningKey&quot;</span>)]
 </span><span class="kw">pub type </span>RSASigningKey = RsaSigningKey;
@@ -976,7 +976,7 @@
 }
 
 <span class="doccomment">/// Errors while signing
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>SignError(());
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>SignError {
@@ -987,7 +987,7 @@
 
 <span class="kw">impl </span>StdError <span class="kw">for </span>SignError {}
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>can_load_ecdsa_nistp256_pkcs8() {
     <span class="kw">let </span>key = key::PrivateKey(<span class="macro">include_bytes!</span>(<span class="string">&quot;testdata/nistp256key.pkcs8.der&quot;</span>).to_vec());
     <span class="macro">assert!</span>(any_supported_type(<span class="kw-2">&amp;</span>key).is_ok());
@@ -995,7 +995,7 @@
     <span class="macro">assert!</span>(any_eddsa_type(<span class="kw-2">&amp;</span>key).is_err());
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>can_load_ecdsa_nistp256_sec1() {
     <span class="kw">let </span>key = key::PrivateKey(<span class="macro">include_bytes!</span>(<span class="string">&quot;testdata/nistp256key.der&quot;</span>).to_vec());
     <span class="macro">assert!</span>(any_supported_type(<span class="kw-2">&amp;</span>key).is_ok());
@@ -1003,7 +1003,7 @@
     <span class="macro">assert!</span>(any_eddsa_type(<span class="kw-2">&amp;</span>key).is_err());
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>can_load_ecdsa_nistp384_pkcs8() {
     <span class="kw">let </span>key = key::PrivateKey(<span class="macro">include_bytes!</span>(<span class="string">&quot;testdata/nistp384key.pkcs8.der&quot;</span>).to_vec());
     <span class="macro">assert!</span>(any_supported_type(<span class="kw-2">&amp;</span>key).is_ok());
@@ -1011,7 +1011,7 @@
     <span class="macro">assert!</span>(any_eddsa_type(<span class="kw-2">&amp;</span>key).is_err());
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>can_load_ecdsa_nistp384_sec1() {
     <span class="kw">let </span>key = key::PrivateKey(<span class="macro">include_bytes!</span>(<span class="string">&quot;testdata/nistp384key.der&quot;</span>).to_vec());
     <span class="macro">assert!</span>(any_supported_type(<span class="kw-2">&amp;</span>key).is_ok());
@@ -1019,7 +1019,7 @@
     <span class="macro">assert!</span>(any_eddsa_type(<span class="kw-2">&amp;</span>key).is_err());
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>can_load_eddsa_pkcs8() {
     <span class="kw">let </span>key = key::PrivateKey(<span class="macro">include_bytes!</span>(<span class="string">&quot;testdata/eddsakey.der&quot;</span>).to_vec());
     <span class="macro">assert!</span>(any_supported_type(<span class="kw-2">&amp;</span>key).is_ok());
@@ -1027,7 +1027,7 @@
     <span class="macro">assert!</span>(any_ecdsa_type(<span class="kw-2">&amp;</span>key).is_err());
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>can_load_rsa2048_pkcs8() {
     <span class="kw">let </span>key = key::PrivateKey(<span class="macro">include_bytes!</span>(<span class="string">&quot;testdata/rsa2048key.pkcs8.der&quot;</span>).to_vec());
     <span class="macro">assert!</span>(any_supported_type(<span class="kw-2">&amp;</span>key).is_ok());
@@ -1035,7 +1035,7 @@
     <span class="macro">assert!</span>(any_ecdsa_type(<span class="kw-2">&amp;</span>key).is_err());
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>can_load_rsa2048_pkcs1() {
     <span class="kw">let </span>key = key::PrivateKey(<span class="macro">include_bytes!</span>(<span class="string">&quot;testdata/rsa2048key.pkcs1.der&quot;</span>).to_vec());
     <span class="macro">assert!</span>(any_supported_type(<span class="kw-2">&amp;</span>key).is_ok());
@@ -1043,4 +1043,4 @@
     <span class="macro">assert!</span>(any_ecdsa_type(<span class="kw-2">&amp;</span>key).is_err());
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

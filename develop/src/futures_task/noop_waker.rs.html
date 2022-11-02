@@ -88,7 +88,7 @@
 /// let waker = noop_waker();
 /// waker.wake();
 /// ```
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>noop_waker() -&gt; Waker {
     <span class="comment">// FIXME: Since 1.46.0 we can use transmute in consts, allowing this function to be const.
     </span><span class="kw">unsafe </span>{ Waker::from_raw(noop_raw_waker()) }
@@ -104,7 +104,7 @@
 /// let waker = noop_waker_ref();
 /// waker.wake_by_ref();
 /// ```
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>noop_waker_ref() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Waker {
     <span class="kw">struct </span>SyncRawWaker(RawWaker);
     <span class="kw">unsafe impl </span>Sync <span class="kw">for </span>SyncRawWaker {}
@@ -115,9 +115,9 @@
     </span><span class="kw">unsafe </span>{ <span class="kw-2">&amp;*</span>(<span class="kw-2">&amp;</span>NOOP_WAKER_INSTANCE.<span class="number">0 </span><span class="kw">as </span><span class="kw-2">*const </span>RawWaker <span class="kw">as </span><span class="kw-2">*const </span>Waker) }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     </span><span class="kw">fn </span>issue_2091_cross_thread_segfault() {
         <span class="kw">let </span>waker = std::thread::spawn(<span class="kw">super</span>::noop_waker_ref).join().unwrap();
@@ -125,4 +125,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="futures_task" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="futures_task" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

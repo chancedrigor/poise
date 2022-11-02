@@ -1323,22 +1323,22 @@
 </pre><pre class="rust"><code><span class="doccomment">//! The [`OffsetDateTime`] struct and its associated `impl`s.
 
 </span><span class="kw">use </span>core::cmp::Ordering;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">use </span>core::convert::From;
 <span class="kw">use </span>core::fmt;
 <span class="kw">use </span>core::hash::{Hash, Hasher};
 <span class="kw">use </span>core::ops::{Add, Sub};
 <span class="kw">use </span>core::time::Duration <span class="kw">as </span>StdDuration;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
 </span><span class="kw">use </span>std::io;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">use </span>std::time::SystemTime;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::formatting::Formattable;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::parsing::Parsable;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::util;
 <span class="kw">use crate</span>::{error, Date, Duration, Month, PrimitiveDateTime, Time, UtcOffset, Weekday};
 
@@ -1351,7 +1351,7 @@
 </span><span class="comment">// Internally, an `OffsetDateTime` is a thin wrapper around a [`PrimitiveDateTime`] coupled with a
 // [`UtcOffset`]. This offset is added to the date, time, or datetime as necessary for presentation
 // or returning from a function.
-</span><span class="attribute">#[derive(Debug, Clone, Copy, Eq)]
+</span><span class="attr">#[derive(Debug, Clone, Copy, Eq)]
 </span><span class="kw">pub struct </span>OffsetDateTime {
     <span class="doccomment">/// The [`PrimitiveDateTime`], which is _always_ UTC.
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) utc_datetime: PrimitiveDateTime,
@@ -1378,7 +1378,7 @@
     /// assert!(OffsetDateTime::now_utc().year() &gt;= 2019);
     /// assert_eq!(OffsetDateTime::now_utc().offset(), offset!(UTC));
     /// ```
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     #[cfg_attr(__time_03_docs, doc(cfg(feature = <span class="string">&quot;std&quot;</span>)))]
     </span><span class="kw">pub fn </span>now_utc() -&gt; <span class="self">Self </span>{
         SystemTime::now().into()
@@ -1393,7 +1393,7 @@
     /// assert!(OffsetDateTime::now_local().is_ok());
     /// # }
     /// ```
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;local-offset&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;local-offset&quot;</span>)]
     #[cfg_attr(__time_03_docs, doc(cfg(feature = <span class="string">&quot;local-offset&quot;</span>)))]
     </span><span class="kw">pub fn </span>now_local() -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, error::IndeterminateOffset&gt; {
         <span class="kw">let </span>t = <span class="self">Self</span>::now_utc();
@@ -1458,9 +1458,9 @@
     /// # Ok::&lt;_, time::Error&gt;(())
     /// ```
     </span><span class="kw">pub const fn </span>from_unix_timestamp(timestamp: i64) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, error::ComponentRange&gt; {
-        <span class="attribute">#[allow(clippy::missing_docs_in_private_items)]
+        <span class="attr">#[allow(clippy::missing_docs_in_private_items)]
         </span><span class="kw">const </span>MIN_TIMESTAMP: i64 = Date::MIN.midnight().assume_utc().unix_timestamp();
-        <span class="attribute">#[allow(clippy::missing_docs_in_private_items)]
+        <span class="attr">#[allow(clippy::missing_docs_in_private_items)]
         </span><span class="kw">const </span>MAX_TIMESTAMP: i64 = Date::MAX
             .with_time(Time::__from_hms_nanos_unchecked(<span class="number">23</span>, <span class="number">59</span>, <span class="number">59</span>, <span class="number">999_999_999</span>))
             .assume_utc()
@@ -2145,7 +2145,7 @@
     ///     datetime!(2020-01-01 12:00 +1)
     /// );
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `OffsetDateTime`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `OffsetDateTime`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_time(<span class="self">self</span>, time: Time) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.utc_datetime
             .utc_to_offset(<span class="self">self</span>.offset)
@@ -2167,7 +2167,7 @@
     ///     datetime!(2020-01-30 0:00 +1)
     /// );
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `OffsetDateTime`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `OffsetDateTime`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_date(<span class="self">self</span>, date: Date) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.utc_datetime
             .utc_to_offset(<span class="self">self</span>.offset)
@@ -2189,7 +2189,7 @@
     ///     datetime!(2020-01-30 0:00 +1)
     /// );
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `OffsetDateTime`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `OffsetDateTime`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_date_time(<span class="self">self</span>, date_time: PrimitiveDateTime) -&gt; <span class="self">Self </span>{
         date_time.assume_offset(<span class="self">self</span>.offset)
     }
@@ -2203,7 +2203,7 @@
     ///     datetime!(2020-01-01 0:00 -5)
     /// );
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `OffsetDateTime`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `OffsetDateTime`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_offset(<span class="self">self</span>, offset: UtcOffset) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.utc_datetime.assume_offset(offset)
     }
@@ -2391,7 +2391,7 @@
 <span class="comment">// endregion replacement
 
 // region: formatting &amp; parsing
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
 </span><span class="kw">impl </span>OffsetDateTime {
     <span class="doccomment">/// Format the `OffsetDateTime` using the provided [format
     /// description](crate::format_description).
@@ -2430,7 +2430,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">impl </span>OffsetDateTime {
     <span class="doccomment">/// Parse an `OffsetDateTime` from the input using the provided [format
     /// description](crate::format_description).
@@ -2539,7 +2539,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>Add&lt;Duration&gt; <span class="kw">for </span>SystemTime {
     <span class="kw">type </span>Output = <span class="self">Self</span>;
 
@@ -2555,9 +2555,9 @@
     }
 }
 
-<span class="macro">impl_add_assign!</span>(SystemTime: <span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)] </span>Duration);
+<span class="macro">impl_add_assign!</span>(SystemTime: <span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)] </span>Duration);
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>Sub&lt;Duration&gt; <span class="kw">for </span>SystemTime {
     <span class="kw">type </span>Output = <span class="self">Self</span>;
 
@@ -2566,9 +2566,9 @@
     }
 }
 
-<span class="macro">impl_sub_assign!</span>(SystemTime: <span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)] </span>Duration);
+<span class="macro">impl_sub_assign!</span>(SystemTime: <span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)] </span>Duration);
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>Sub&lt;SystemTime&gt; <span class="kw">for </span>OffsetDateTime {
     <span class="kw">type </span>Output = Duration;
 
@@ -2577,7 +2577,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>Sub&lt;OffsetDateTime&gt; <span class="kw">for </span>SystemTime {
     <span class="kw">type </span>Output = Duration;
 
@@ -2586,35 +2586,35 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>PartialEq&lt;SystemTime&gt; <span class="kw">for </span>OffsetDateTime {
     <span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, rhs: <span class="kw-2">&amp;</span>SystemTime) -&gt; bool {
         <span class="self">self </span>== <span class="kw-2">&amp;</span><span class="self">Self</span>::from(<span class="kw-2">*</span>rhs)
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>PartialEq&lt;OffsetDateTime&gt; <span class="kw">for </span>SystemTime {
     <span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, rhs: <span class="kw-2">&amp;</span>OffsetDateTime) -&gt; bool {
         <span class="kw-2">&amp;</span>OffsetDateTime::from(<span class="kw-2">*</span><span class="self">self</span>) == rhs
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>PartialOrd&lt;SystemTime&gt; <span class="kw">for </span>OffsetDateTime {
     <span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>SystemTime) -&gt; <span class="prelude-ty">Option</span>&lt;Ordering&gt; {
         <span class="self">self</span>.partial_cmp(<span class="kw-2">&amp;</span><span class="self">Self</span>::from(<span class="kw-2">*</span>other))
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>PartialOrd&lt;OffsetDateTime&gt; <span class="kw">for </span>SystemTime {
     <span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>OffsetDateTime) -&gt; <span class="prelude-ty">Option</span>&lt;Ordering&gt; {
         OffsetDateTime::from(<span class="kw-2">*</span><span class="self">self</span>).partial_cmp(other)
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>From&lt;SystemTime&gt; <span class="kw">for </span>OffsetDateTime {
     <span class="kw">fn </span>from(system_time: SystemTime) -&gt; <span class="self">Self </span>{
         <span class="kw">match </span>system_time.duration_since(SystemTime::UNIX_EPOCH) {
@@ -2624,8 +2624,8 @@
     }
 }
 
-<span class="attribute">#[allow(clippy::fallible_impl_from)] </span><span class="comment">// caused by `debug_assert!`
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[allow(clippy::fallible_impl_from)] </span><span class="comment">// caused by `debug_assert!`
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>From&lt;OffsetDateTime&gt; <span class="kw">for </span>SystemTime {
     <span class="kw">fn </span>from(datetime: OffsetDateTime) -&gt; <span class="self">Self </span>{
         <span class="kw">let </span>duration = datetime - OffsetDateTime::UNIX_EPOCH;
@@ -2642,4 +2642,4 @@
 }
 <span class="comment">// endregion trait impls
 </span></code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -922,7 +922,7 @@
 /// This is the handle to a timer that is controlled by the requester of the
 /// timer. As this participates in intrusive data structures, it must be pinned
 /// before polling.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>TimerEntry {
     <span class="doccomment">/// Arc reference to the driver. We can only free the driver after
     /// deregistering everything from their respective timer wheels.
@@ -954,7 +954,7 @@
 /// immediately before registering the timer, and is consumed when firing the
 /// timer, to help minimize mistakes. Still, because TimerHandle cannot enforce
 /// memory safety, all operations are unsafe.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>TimerHandle {
     inner: NonNull&lt;TimerShared&gt;,
 }
@@ -965,7 +965,7 @@
 /// frontend (`Entry`) and driver backend.
 ///
 /// Note that this structure is located inside the `TimerEntry` structure.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 #[repr(C)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>TimerShared {
     <span class="doccomment">/// Data manipulated by the driver thread itself, only.
@@ -1274,9 +1274,9 @@
     }
 }
 
-<span class="attribute">#[cfg_attr(target_arch = <span class="string">&quot;x86_64&quot;</span>, repr(align(<span class="number">128</span>)))]
+<span class="attr">#[cfg_attr(target_arch = <span class="string">&quot;x86_64&quot;</span>, repr(align(<span class="number">128</span>)))]
 #[cfg_attr(not(target_arch = <span class="string">&quot;x86_64&quot;</span>), repr(align(<span class="number">64</span>)))]
 #[derive(Debug, Default)]
 </span><span class="kw">struct </span>CachePadded&lt;T&gt;(T);
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

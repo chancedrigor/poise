@@ -677,7 +677,7 @@
     </span>unhandled_panic: bool,
 }
 
-<span class="attribute">#[derive(Clone)]
+<span class="attr">#[derive(Clone)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Spawner {
     shared: Arc&lt;Shared&gt;,
 }
@@ -763,7 +763,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>.spawner
     }
 
-    <span class="attribute">#[track_caller]
+    <span class="attr">#[track_caller]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>block_on&lt;F: Future&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, future: F) -&gt; F::Output {
         <span class="macro">pin!</span>(future);
 
@@ -906,7 +906,7 @@
         <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = <span class="kw-2">&amp;</span><span class="self">self</span>.spawner.shared.config.before_park {
             <span class="comment">// Incorrect lint, the closures are actually different types so `f`
             // cannot be passed as an argument to `enter`.
-            </span><span class="attribute">#[allow(clippy::redundant_closure)]
+            </span><span class="attr">#[allow(clippy::redundant_closure)]
             </span><span class="kw">let </span>(c, <span class="kw">_</span>) = <span class="self">self</span>.enter(core, || f());
             core = c;
         }
@@ -929,7 +929,7 @@
         <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = <span class="kw-2">&amp;</span><span class="self">self</span>.spawner.shared.config.after_unpark {
             <span class="comment">// Incorrect lint, the closures are actually different types so `f`
             // cannot be passed as an argument to `enter`.
-            </span><span class="attribute">#[allow(clippy::redundant_closure)]
+            </span><span class="attr">#[allow(clippy::redundant_closure)]
             </span><span class="kw">let </span>(c, <span class="kw">_</span>) = <span class="self">self</span>.enter(core, || f());
             core = c;
         }
@@ -1124,7 +1124,7 @@
 }
 
 <span class="kw">impl </span>CoreGuard&lt;<span class="lifetime">&#39;_</span>&gt; {
-    <span class="attribute">#[track_caller]
+    <span class="attr">#[track_caller]
     </span><span class="kw">fn </span>block_on&lt;F: Future&gt;(<span class="self">self</span>, future: F) -&gt; F::Output {
         <span class="kw">let </span>ret = <span class="self">self</span>.enter(|<span class="kw-2">mut </span>core, context| {
             <span class="kw">let </span>_enter = <span class="kw">crate</span>::runtime::enter(<span class="bool-val">false</span>);
@@ -1227,4 +1227,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

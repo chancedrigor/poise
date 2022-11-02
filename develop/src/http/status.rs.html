@@ -629,7 +629,7 @@
 /// assert_eq!(StatusCode::NOT_FOUND.as_u16(), 404);
 /// assert!(StatusCode::OK.is_success());
 /// ```
-</span><span class="attribute">#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+</span><span class="attr">#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 </span><span class="kw">pub struct </span>StatusCode(NonZeroU16);
 
 <span class="doccomment">/// A possible error value when converting a `StatusCode` from a `u16` or `&amp;str`
@@ -657,7 +657,7 @@
     /// let err = StatusCode::from_u16(99);
     /// assert!(err.is_err());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>from_u16(src: u16) -&gt; <span class="prelude-ty">Result</span>&lt;StatusCode, InvalidStatusCode&gt; {
         <span class="kw">if </span>src &lt; <span class="number">100 </span>|| src &gt;= <span class="number">1000 </span>{
             <span class="kw">return </span><span class="prelude-val">Err</span>(InvalidStatusCode::new());
@@ -703,7 +703,7 @@
     /// let status = http::StatusCode::OK;
     /// assert_eq!(status.as_u16(), 200);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>as_u16(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u16 {
         (<span class="kw-2">*</span><span class="self">self</span>).into()
     }
@@ -719,7 +719,7 @@
     /// let status = http::StatusCode::OK;
     /// assert_eq!(status.as_str(), &quot;200&quot;);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>as_str(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="kw">let </span>offset = (<span class="self">self</span>.<span class="number">0</span>.get() - <span class="number">100</span>) <span class="kw">as </span>usize;
         <span class="kw">let </span>offset = offset * <span class="number">3</span>;
@@ -727,10 +727,10 @@
         <span class="comment">// Invariant: self has checked range [100, 999] and CODE_DIGITS is
         // ASCII-only, of length 900 * 3 = 2700 bytes
 
-        </span><span class="attribute">#[cfg(debug_assertions)]
+        </span><span class="attr">#[cfg(debug_assertions)]
         </span>{ <span class="kw-2">&amp;</span>CODE_DIGITS[offset..offset+<span class="number">3</span>] }
 
-        <span class="attribute">#[cfg(not(debug_assertions))]
+        <span class="attr">#[cfg(not(debug_assertions))]
         </span><span class="kw">unsafe </span>{ CODE_DIGITS.get_unchecked(offset..offset+<span class="number">3</span>) }
     }
 
@@ -757,31 +757,31 @@
     }
 
     <span class="doccomment">/// Check if status is within 100-199.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_informational(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="number">200 </span>&gt; <span class="self">self</span>.<span class="number">0</span>.get() &amp;&amp; <span class="self">self</span>.<span class="number">0</span>.get() &gt;= <span class="number">100
     </span>}
 
     <span class="doccomment">/// Check if status is within 200-299.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_success(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="number">300 </span>&gt; <span class="self">self</span>.<span class="number">0</span>.get() &amp;&amp; <span class="self">self</span>.<span class="number">0</span>.get() &gt;= <span class="number">200
     </span>}
 
     <span class="doccomment">/// Check if status is within 300-399.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_redirection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="number">400 </span>&gt; <span class="self">self</span>.<span class="number">0</span>.get() &amp;&amp; <span class="self">self</span>.<span class="number">0</span>.get() &gt;= <span class="number">300
     </span>}
 
     <span class="doccomment">/// Check if status is within 400-499.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_client_error(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="number">500 </span>&gt; <span class="self">self</span>.<span class="number">0</span>.get() &amp;&amp; <span class="self">self</span>.<span class="number">0</span>.get() &gt;= <span class="number">400
     </span>}
 
     <span class="doccomment">/// Check if status is within 500-599.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_server_error(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="number">600 </span>&gt; <span class="self">self</span>.<span class="number">0</span>.get() &amp;&amp; <span class="self">self</span>.<span class="number">0</span>.get() &gt;= <span class="number">500
     </span>}
@@ -813,28 +813,28 @@
 }
 
 <span class="kw">impl </span>Default <span class="kw">for </span>StatusCode {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>default() -&gt; StatusCode {
         StatusCode::OK
     }
 }
 
 <span class="kw">impl </span>PartialEq&lt;u16&gt; <span class="kw">for </span>StatusCode {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>u16) -&gt; bool {
         <span class="self">self</span>.as_u16() == <span class="kw-2">*</span>other
     }
 }
 
 <span class="kw">impl </span>PartialEq&lt;StatusCode&gt; <span class="kw">for </span>u16 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>StatusCode) -&gt; bool {
         <span class="kw-2">*</span><span class="self">self </span>== other.as_u16()
     }
 }
 
 <span class="kw">impl </span>From&lt;StatusCode&gt; <span class="kw">for </span>u16 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(status: StatusCode) -&gt; u16 {
         status.<span class="number">0</span>.get()
     }
@@ -849,7 +849,7 @@
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; From&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>StatusCode&gt; <span class="kw">for </span>StatusCode {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(t: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>StatusCode) -&gt; <span class="self">Self </span>{
         t.clone()
     }
@@ -858,7 +858,7 @@
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; TryFrom&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]&gt; <span class="kw">for </span>StatusCode {
     <span class="kw">type </span>Error = InvalidStatusCode;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_from(t: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
         StatusCode::from_bytes(t)
     }
@@ -867,7 +867,7 @@
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; TryFrom&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt; <span class="kw">for </span>StatusCode {
     <span class="kw">type </span>Error = InvalidStatusCode;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_from(t: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
         t.parse()
     }
@@ -876,7 +876,7 @@
 <span class="kw">impl </span>TryFrom&lt;u16&gt; <span class="kw">for </span>StatusCode {
     <span class="kw">type </span>Error = InvalidStatusCode;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_from(t: u16) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
         StatusCode::from_u16(t)
     }
@@ -885,13 +885,13 @@
 <span class="macro">macro_rules! </span>status_codes {
     (
         $(
-            $(<span class="attribute">#[<span class="macro-nonterminal">$docs</span>:meta]</span>)*
+            $(<span class="attr">#[<span class="macro-nonterminal">$docs</span>:meta]</span>)*
             (<span class="macro-nonterminal">$num</span>:expr, <span class="macro-nonterminal">$konst</span>:ident, <span class="macro-nonterminal">$phrase</span>:expr);
         )+
     ) =&gt; {
         <span class="kw">impl </span>StatusCode {
         $(
-            $(<span class="attribute">#[<span class="macro-nonterminal">$docs</span>]</span>)*
+            $(<span class="attr">#[<span class="macro-nonterminal">$docs</span>]</span>)*
             <span class="kw">pub const </span><span class="macro-nonterminal">$konst</span>: StatusCode = StatusCode(<span class="kw">unsafe </span>{ NonZeroU16::new_unchecked(<span class="macro-nonterminal">$num</span>) });
         )+
 
@@ -1175,4 +1175,4 @@
 960961962963964965966967968969970971972973974975976977978979\
 980981982983984985986987988989990991992993994995996997998999&quot;</span>;
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="http" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="http" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

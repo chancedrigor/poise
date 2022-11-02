@@ -140,33 +140,33 @@
 //!   from a closure that defines its return value, and [`ready`](ready()),
 //!   which constructs a future with an immediate defined value.
 
-</span><span class="attribute">#[doc(no_inline)]
+</span><span class="attr">#[doc(no_inline)]
 </span><span class="kw">pub use </span>core::future::Future;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub use </span>futures_core::future::{BoxFuture, LocalBoxFuture};
 <span class="kw">pub use </span>futures_core::future::{FusedFuture, TryFuture};
 <span class="kw">pub use </span>futures_task::{FutureObj, LocalFutureObj, UnsafeFutureObj};
 
 <span class="comment">// Extension traits and combinators
-</span><span class="attribute">#[allow(clippy::module_inception)]
+</span><span class="attr">#[allow(clippy::module_inception)]
 </span><span class="kw">mod </span>future;
 <span class="kw">pub use </span><span class="self">self</span>::future::{
     Flatten, Fuse, FutureExt, Inspect, IntoStream, Map, MapInto, NeverError, Then, UnitError,
 };
 
-<span class="attribute">#[deprecated(note = <span class="string">&quot;This is now an alias for [Flatten](Flatten)&quot;</span>)]
+<span class="attr">#[deprecated(note = <span class="string">&quot;This is now an alias for [Flatten](Flatten)&quot;</span>)]
 </span><span class="kw">pub use </span><span class="self">self</span>::future::FlattenStream;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">pub use </span><span class="self">self</span>::future::CatchUnwind;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;channel&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;channel&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;channel&quot;</span>)))]
 #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">pub use </span><span class="self">self</span>::future::{Remote, RemoteHandle};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">pub use </span><span class="self">self</span>::future::{Shared, WeakShared};
 
 <span class="kw">mod </span>try_future;
@@ -175,7 +175,7 @@
     OrElse, TryFlatten, TryFlattenStream, TryFutureExt, UnwrapOrElse,
 };
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;sink&quot;</span>)))]
 </span><span class="kw">pub use </span><span class="self">self</span>::try_future::FlattenSink;
 
@@ -208,17 +208,17 @@
 <span class="kw">mod </span>join;
 <span class="kw">pub use </span><span class="self">self</span>::join::{join, join3, join4, join5, Join, Join3, Join4, Join5};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">mod </span>join_all;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub use </span><span class="self">self</span>::join_all::{join_all, JoinAll};
 
 <span class="kw">mod </span>select;
 <span class="kw">pub use </span><span class="self">self</span>::select::{select, Select};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">mod </span>select_all;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub use </span><span class="self">self</span>::select_all::{select_all, SelectAll};
 
 <span class="kw">mod </span>try_join;
@@ -226,29 +226,29 @@
     try_join, try_join3, try_join4, try_join5, TryJoin, TryJoin3, TryJoin4, TryJoin5,
 };
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">mod </span>try_join_all;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub use </span><span class="self">self</span>::try_join_all::{try_join_all, TryJoinAll};
 
 <span class="kw">mod </span>try_select;
 <span class="kw">pub use </span><span class="self">self</span>::try_select::{try_select, TrySelect};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">mod </span>select_ok;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub use </span><span class="self">self</span>::select_ok::{select_ok, SelectOk};
 
 <span class="kw">mod </span>either;
 <span class="kw">pub use </span><span class="self">self</span>::either::Either;
 
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">mod </span>abortable;
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub use </span><span class="kw">crate</span>::abortable::{AbortHandle, AbortRegistration, Abortable, Aborted};
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub use </span>abortable::abortable;
 
@@ -261,4 +261,4 @@
     future
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

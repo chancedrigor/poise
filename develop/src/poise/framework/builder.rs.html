@@ -288,14 +288,14 @@
 
 <span class="kw">impl</span>&lt;U, E&gt; FrameworkBuilder&lt;U, E&gt; {
     <span class="doccomment">/// Set a prefix for commands
-    </span><span class="attribute">#[deprecated = <span class="string">&quot;Please set the prefix via FrameworkOptions::prefix_options::prefix&quot;</span>]
+    </span><span class="attr">#[deprecated = <span class="string">&quot;Please set the prefix via FrameworkOptions::prefix_options::prefix&quot;</span>]
     #[must_use]
     </span><span class="kw">pub fn </span>prefix(<span class="self">self</span>, _prefix: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="self">Self </span>{
         <span class="macro">panic!</span>(<span class="string">&quot;Please set the prefix via FrameworkOptions::prefix_options::prefix&quot;</span>);
     }
 
     <span class="doccomment">/// Set a callback to be invoked to create the user data instance
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>user_data_setup&lt;F&gt;(<span class="kw-2">mut </span><span class="self">self</span>, user_data_setup: F) -&gt; <span class="self">Self
     </span><span class="kw">where
         </span>F: Send
@@ -312,7 +312,7 @@
     </span>}
 
     <span class="doccomment">/// Configure framework options
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>options(<span class="kw-2">mut </span><span class="self">self</span>, options: <span class="kw">crate</span>::FrameworkOptions&lt;U, E&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.options = <span class="prelude-val">Some</span>(options);
         <span class="self">self
@@ -323,7 +323,7 @@
     ///
     /// Note: the builder&#39;s token will be overridden by the
     /// [`FrameworkBuilder`]; use [`FrameworkBuilder::token`] to supply a token.
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>client_settings(
         <span class="kw-2">mut </span><span class="self">self</span>,
         f: <span class="kw">impl </span>FnOnce(serenity::ClientBuilder) -&gt; serenity::ClientBuilder + Send + Sync + <span class="lifetime">&#39;static</span>,
@@ -333,21 +333,21 @@
     </span>}
 
     <span class="doccomment">/// The bot token
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>token(<span class="kw-2">mut </span><span class="self">self</span>, token: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.token = <span class="prelude-val">Some</span>(token.into());
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// The gateway intents
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>intents(<span class="kw-2">mut </span><span class="self">self</span>, intents: serenity::GatewayIntents) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.intents = <span class="prelude-val">Some</span>(intents);
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Add a new command to the framework
-    </span><span class="attribute">#[deprecated = <span class="string">&quot;supply commands in FrameworkOptions directly with `commands: vec![...]`&quot;</span>]
+    </span><span class="attr">#[deprecated = <span class="string">&quot;supply commands in FrameworkOptions directly with `commands: vec![...]`&quot;</span>]
     #[must_use]
     </span><span class="kw">pub fn </span>command(
         <span class="kw-2">mut </span><span class="self">self</span>,
@@ -376,7 +376,7 @@
     ///     // framework startup...
     /// # ;
     /// ```
-    </span><span class="attribute">#[deprecated = <span class="string">&quot;supply commands in FrameworkOptions directly with `commands: vec![...]`&quot;</span>]
+    </span><span class="attr">#[deprecated = <span class="string">&quot;supply commands in FrameworkOptions directly with `commands: vec![...]`&quot;</span>]
     #[must_use]
     </span><span class="kw">pub fn </span>commands(
         <span class="kw-2">mut </span><span class="self">self</span>,
@@ -461,4 +461,4 @@ and enable MESSAGE_CONTENT in your Discord bot dashboard
     </span>}
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

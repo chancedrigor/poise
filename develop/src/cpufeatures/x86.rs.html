@@ -90,33 +90,33 @@
 //
 // The `$body` expression is not evaluated on SGX targets, and returns false
 // on these targets unless *all* supplied target features are enabled.
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 #[doc(hidden)]
 </span><span class="macro">macro_rules! </span>__unless_target_features {
     ($(<span class="macro-nonterminal">$tf</span>:tt),+ =&gt; <span class="macro-nonterminal">$body</span>:expr ) =&gt; {{
-        <span class="attribute">#[cfg(not(all($(target_feature=<span class="macro-nonterminal">$tf</span>,)<span class="kw-2">*</span>)))]
+        <span class="attr">#[cfg(not(all($(target_feature=<span class="macro-nonterminal">$tf</span>,)<span class="kw-2">*</span>)))]
         </span>{
-            <span class="attribute">#[cfg(not(target_env = <span class="string">&quot;sgx&quot;</span>))]
+            <span class="attr">#[cfg(not(target_env = <span class="string">&quot;sgx&quot;</span>))]
             </span><span class="macro-nonterminal">$body
 
             </span><span class="comment">// CPUID is not available on SGX targets
-            </span><span class="attribute">#[cfg(target_env = <span class="string">&quot;sgx&quot;</span>)]
+            </span><span class="attr">#[cfg(target_env = <span class="string">&quot;sgx&quot;</span>)]
             </span><span class="bool-val">false
         </span>}
 
-        <span class="attribute">#[cfg(all($(target_feature=<span class="macro-nonterminal">$tf</span>,)<span class="kw-2">*</span>))]
+        <span class="attr">#[cfg(all($(target_feature=<span class="macro-nonterminal">$tf</span>,)<span class="kw-2">*</span>))]
         </span><span class="bool-val">true
     </span>}};
 }
 
 <span class="comment">// Use CPUID to detect the presence of all supplied target features.
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 #[doc(hidden)]
 </span><span class="macro">macro_rules! </span>__detect_target_features {
     ($(<span class="macro-nonterminal">$tf</span>:tt),+) =&gt; {{
-        <span class="attribute">#[cfg(target_arch = <span class="string">&quot;x86&quot;</span>)]
+        <span class="attr">#[cfg(target_arch = <span class="string">&quot;x86&quot;</span>)]
         </span><span class="kw">use </span>core::arch::x86::{__cpuid, __cpuid_count};
-        <span class="attribute">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
+        <span class="attr">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
         </span><span class="kw">use </span>core::arch::x86_64::{__cpuid, __cpuid_count};
 
         <span class="kw">let </span>cr = <span class="kw">unsafe </span>{
@@ -129,7 +129,7 @@
 
 <span class="macro">macro_rules! </span>__expand_check_macro {
     ($((<span class="macro-nonterminal">$name</span>:tt, <span class="macro-nonterminal">$i</span>:expr, <span class="macro-nonterminal">$reg</span>:ident, <span class="macro-nonterminal">$offset</span>:expr)),* $(,)<span class="question-mark">?</span>) =&gt; {
-        <span class="attribute">#[macro_export]
+        <span class="attr">#[macro_export]
         #[doc(hidden)]
         </span><span class="macro">macro_rules! </span>check {
             $(
@@ -162,4 +162,4 @@
     (<span class="string">&quot;sha&quot;</span>, <span class="number">1</span>, ebx, <span class="number">29</span>),
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="cpufeatures" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="cpufeatures" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -1072,7 +1072,7 @@
 //! This module contains a number of functions for working with `Streams`s
 //! that return `Result`s, allowing for short-circuiting computations.
 
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;compat&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;compat&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::compat::Compat;
 <span class="kw">use </span><span class="kw">crate</span>::fns::{
     inspect_err_fn, inspect_ok_fn, into_fn, map_err_fn, map_ok_fn, InspectErrFn, InspectOkFn,
@@ -1081,7 +1081,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::future::assert_future;
 <span class="kw">use </span><span class="kw">crate</span>::stream::assert_stream;
 <span class="kw">use </span><span class="kw">crate</span>::stream::{Inspect, Map};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span>alloc::vec::Vec;
 <span class="kw">use </span>core::pin::Pin;
 <span class="kw">use </span>futures_core::{
@@ -1091,7 +1091,7 @@
 };
 
 <span class="kw">mod </span>and_then;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::and_then::AndThen;
 
 <span class="macro">delegate_all!</span>(
@@ -1116,7 +1116,7 @@
 );
 
 <span class="kw">mod </span>into_stream;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::into_stream::IntoStream;
 
 <span class="macro">delegate_all!</span>(
@@ -1134,87 +1134,87 @@
 );
 
 <span class="kw">mod </span>or_else;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::or_else::OrElse;
 
 <span class="kw">mod </span>try_next;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::try_next::TryNext;
 
 <span class="kw">mod </span>try_for_each;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::try_for_each::TryForEach;
 
 <span class="kw">mod </span>try_filter;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::try_filter::TryFilter;
 
 <span class="kw">mod </span>try_filter_map;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::try_filter_map::TryFilterMap;
 
 <span class="kw">mod </span>try_flatten;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::try_flatten::TryFlatten;
 
 <span class="kw">mod </span>try_collect;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::try_collect::TryCollect;
 
 <span class="kw">mod </span>try_concat;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::try_concat::TryConcat;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">mod </span>try_chunks;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 #[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::try_chunks::{TryChunks, TryChunksError};
 
 <span class="kw">mod </span>try_fold;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::try_fold::TryFold;
 
 <span class="kw">mod </span>try_unfold;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::try_unfold::{try_unfold, TryUnfold};
 
 <span class="kw">mod </span>try_skip_while;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::try_skip_while::TrySkipWhile;
 
 <span class="kw">mod </span>try_take_while;
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::try_take_while::TryTakeWhile;
 
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">mod </span>try_buffer_unordered;
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 #[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::try_buffer_unordered::TryBufferUnordered;
 
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">mod </span>try_buffered;
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 #[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::try_buffered::TryBuffered;
 
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">mod </span>try_for_each_concurrent;
-<span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+<span class="attr">#[cfg(not(futures_no_atomic_cas))]
 #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 #[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::try_for_each_concurrent::TryForEachConcurrent;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;io&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;io&quot;</span>)]
 #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">mod </span>into_async_read;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;io&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;io&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;io&quot;</span>)))]
 #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 #[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
@@ -1597,7 +1597,7 @@
     /// assert_eq!(Err(oneshot::Canceled), fut.await);
     /// # })
     /// ```
-    </span><span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+    </span><span class="attr">#[cfg(not(futures_no_atomic_cas))]
     #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">fn </span>try_for_each_concurrent&lt;Fut, F&gt;(
         <span class="self">self</span>,
@@ -1690,7 +1690,7 @@
     /// # Panics
     ///
     /// This method will panic if `capacity` is zero.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">fn </span>try_chunks(<span class="self">self</span>, capacity: usize) -&gt; TryChunks&lt;<span class="self">Self</span>&gt;
     <span class="kw">where
         </span><span class="self">Self</span>: Sized,
@@ -1969,7 +1969,7 @@
     /// assert_eq!(buffered.next().await, Some(Err(&quot;error in the stream&quot;)));
     /// # Ok::&lt;(), Box&lt;dyn std::error::Error&gt;&gt;(()) }).unwrap();
     /// ```
-    </span><span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+    </span><span class="attr">#[cfg(not(futures_no_atomic_cas))]
     #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">fn </span>try_buffer_unordered(<span class="self">self</span>, n: usize) -&gt; TryBufferUnordered&lt;<span class="self">Self</span>&gt;
     <span class="kw">where
@@ -2045,7 +2045,7 @@
     /// assert_eq!(buffered.next().await, Some(Err(&quot;error in the stream&quot;)));
     /// # Ok::&lt;(), Box&lt;dyn std::error::Error&gt;&gt;(()) }).unwrap();
     /// ```
-    </span><span class="attribute">#[cfg(not(futures_no_atomic_cas))]
+    </span><span class="attr">#[cfg(not(futures_no_atomic_cas))]
     #[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">fn </span>try_buffered(<span class="self">self</span>, n: usize) -&gt; TryBuffered&lt;<span class="self">Self</span>&gt;
     <span class="kw">where
@@ -2091,7 +2091,7 @@
     /// tokio::run(future01);
     /// # assert_eq!(42, futures::executor::block_on(rx).unwrap());
     /// ```
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;compat&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;compat&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;compat&quot;</span>)))]
     </span><span class="kw">fn </span>compat(<span class="self">self</span>) -&gt; Compat&lt;<span class="self">Self</span>&gt;
     <span class="kw">where
@@ -2125,7 +2125,7 @@
     /// assert_eq!(buf, &amp;[1, 2, 3, 4, 5]);
     /// # })
     /// ```
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;io&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;io&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;io&quot;</span>)))]
     #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     </span><span class="kw">fn </span>into_async_read(<span class="self">self</span>) -&gt; IntoAsyncRead&lt;<span class="self">Self</span>&gt;
@@ -2137,4 +2137,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

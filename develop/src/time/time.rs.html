@@ -756,22 +756,22 @@
 </span><span class="kw">use </span>core::fmt;
 <span class="kw">use </span>core::ops::{Add, Sub};
 <span class="kw">use </span>core::time::Duration <span class="kw">as </span>StdDuration;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
 </span><span class="kw">use </span>std::io;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::formatting::Formattable;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::parsing::Parsable;
 <span class="kw">use </span><span class="kw">crate</span>::util::DateAdjustment;
 <span class="kw">use crate</span>::{error, Duration};
 
 <span class="doccomment">/// By explicitly inserting this enum where padding is expected, the compiler is able to better
 /// perform niche value optimization.
-</span><span class="attribute">#[repr(u8)]
+</span><span class="attr">#[repr(u8)]
 #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>Padding {
-    <span class="attribute">#[allow(clippy::missing_docs_in_private_items)]
+    <span class="attr">#[allow(clippy::missing_docs_in_private_items)]
     </span>Optimize,
 }
 
@@ -781,17 +781,17 @@
 /// (either positive or negative).
 ///
 /// When comparing two `Time`s, they are assumed to be in the same calendar date.
-</span><span class="attribute">#[derive(Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
+</span><span class="attr">#[derive(Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
 </span><span class="kw">pub struct </span>Time {
-    <span class="attribute">#[allow(clippy::missing_docs_in_private_items)]
+    <span class="attr">#[allow(clippy::missing_docs_in_private_items)]
     </span>hour: u8,
-    <span class="attribute">#[allow(clippy::missing_docs_in_private_items)]
+    <span class="attr">#[allow(clippy::missing_docs_in_private_items)]
     </span>minute: u8,
-    <span class="attribute">#[allow(clippy::missing_docs_in_private_items)]
+    <span class="attr">#[allow(clippy::missing_docs_in_private_items)]
     </span>second: u8,
-    <span class="attribute">#[allow(clippy::missing_docs_in_private_items)]
+    <span class="attr">#[allow(clippy::missing_docs_in_private_items)]
     </span>nanosecond: u32,
-    <span class="attribute">#[allow(clippy::missing_docs_in_private_items)]
+    <span class="attr">#[allow(clippy::missing_docs_in_private_items)]
     </span>padding: Padding,
 }
 
@@ -827,7 +827,7 @@
 
     <span class="comment">// region: constructors
     </span><span class="doccomment">/// Create a `Time` from its components.
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     </span><span class="kw">pub const fn </span>__from_hms_nanos_unchecked(
         hour: u8,
         minute: u8,
@@ -1213,7 +1213,7 @@
     /// );
     /// assert!(time!(01:02:03.004_005_006).replace_hour(24).is_err()); // 24 isn&#39;t a valid hour
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `Time`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `Time`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_hour(<span class="self">self</span>, hour: u8) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, error::ComponentRange&gt; {
         <span class="macro">ensure_value_in_range!</span>(hour <span class="kw">in </span><span class="number">0 </span>=&gt; <span class="number">23</span>);
         <span class="prelude-val">Ok</span>(<span class="self">Self</span>::__from_hms_nanos_unchecked(
@@ -1234,7 +1234,7 @@
     /// );
     /// assert!(time!(01:02:03.004_005_006).replace_minute(60).is_err()); // 60 isn&#39;t a valid minute
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `Time`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `Time`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_minute(<span class="self">self</span>, minute: u8) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, error::ComponentRange&gt; {
         <span class="macro">ensure_value_in_range!</span>(minute <span class="kw">in </span><span class="number">0 </span>=&gt; <span class="number">59</span>);
         <span class="prelude-val">Ok</span>(<span class="self">Self</span>::__from_hms_nanos_unchecked(
@@ -1255,7 +1255,7 @@
     /// );
     /// assert!(time!(01:02:03.004_005_006).replace_second(60).is_err()); // 60 isn&#39;t a valid second
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `Time`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `Time`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_second(<span class="self">self</span>, second: u8) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, error::ComponentRange&gt; {
         <span class="macro">ensure_value_in_range!</span>(second <span class="kw">in </span><span class="number">0 </span>=&gt; <span class="number">59</span>);
         <span class="prelude-val">Ok</span>(<span class="self">Self</span>::__from_hms_nanos_unchecked(
@@ -1276,7 +1276,7 @@
     /// );
     /// assert!(time!(01:02:03.004_005_006).replace_millisecond(1_000).is_err()); // 1_000 isn&#39;t a valid millisecond
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `Time`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `Time`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_millisecond(
         <span class="self">self</span>,
         millisecond: u16,
@@ -1300,7 +1300,7 @@
     /// );
     /// assert!(time!(01:02:03.004_005_006).replace_microsecond(1_000_000).is_err()); // 1_000_000 isn&#39;t a valid microsecond
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `Time`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `Time`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_microsecond(
         <span class="self">self</span>,
         microsecond: u32,
@@ -1324,7 +1324,7 @@
     /// );
     /// assert!(time!(01:02:03.004_005_006).replace_nanosecond(1_000_000_000).is_err()); // 1_000_000_000 isn&#39;t a valid nanosecond
     /// ```
-    </span><span class="attribute">#[must_use = <span class="string">&quot;This method does not mutate the original `Time`.&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;This method does not mutate the original `Time`.&quot;</span>]
     </span><span class="kw">pub const fn </span>replace_nanosecond(<span class="self">self</span>, nanosecond: u32) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, error::ComponentRange&gt; {
         <span class="macro">ensure_value_in_range!</span>(nanosecond <span class="kw">in </span><span class="number">0 </span>=&gt; <span class="number">999_999_999</span>);
         <span class="prelude-val">Ok</span>(<span class="self">Self</span>::__from_hms_nanos_unchecked(
@@ -1338,7 +1338,7 @@
 </span>}
 
 <span class="comment">// region: formatting &amp; parsing
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;formatting&quot;</span>)]
 </span><span class="kw">impl </span>Time {
     <span class="doccomment">/// Format the `Time` using the provided [format description](crate::format_description).
     </span><span class="kw">pub fn </span>format_into(
@@ -1365,7 +1365,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;parsing&quot;</span>)]
 </span><span class="kw">impl </span>Time {
     <span class="doccomment">/// Parse a `Time` from the input using the provided [format
     /// description](crate::format_description).
@@ -1504,4 +1504,4 @@
 }
 <span class="comment">// endregion trait impls
 </span></code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

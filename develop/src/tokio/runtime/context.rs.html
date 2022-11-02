@@ -128,7 +128,7 @@
     }
 }
 
-<span class="attribute">#[track_caller]
+<span class="attr">#[track_caller]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>current() -&gt; Handle {
     <span class="kw">match </span>try_current() {
         <span class="prelude-val">Ok</span>(handle) =&gt; handle,
@@ -137,7 +137,7 @@
 }
 
 <span class="macro">cfg_io_driver! </span>{
-    <span class="attribute">#[track_caller]
+    <span class="attr">#[track_caller]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>io_handle() -&gt; <span class="kw">crate</span>::runtime::driver::IoHandle {
         <span class="kw">match </span>CONTEXT.try_with(|ctx| {
             <span class="kw">let </span>ctx = ctx.borrow();
@@ -150,7 +150,7 @@
 }
 
 <span class="macro">cfg_signal_internal! </span>{
-    <span class="attribute">#[cfg(unix)]
+    <span class="attr">#[cfg(unix)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>signal_handle() -&gt; <span class="kw">crate</span>::runtime::driver::SignalHandle {
         <span class="kw">match </span>CONTEXT.try_with(|ctx| {
             <span class="kw">let </span>ctx = ctx.borrow();
@@ -214,7 +214,7 @@
         .ok()
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>EnterGuard(<span class="prelude-ty">Option</span>&lt;Handle&gt;);
 
 <span class="kw">impl </span>Drop <span class="kw">for </span>EnterGuard {
@@ -225,4 +225,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -672,7 +672,7 @@
 <span class="comment">// Any copyright to the test code below this comment is dedicated to the
 // Public Domain. http://creativecommons.org/publicdomain/zero/1.0/
 
-</span><span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
+</span><span class="attr">#[cfg(all(test, feature = <span class="string">&quot;alloc&quot;</span>))]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::testing::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::<span class="kw-2">*</span>;
@@ -693,7 +693,7 @@
         encode(UTF_16BE, string, expect);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_utf_16_decode() {
         decode_utf_16le(<span class="string">b&quot;&quot;</span>, <span class="string">&quot;&quot;</span>);
         decode_utf_16be(<span class="string">b&quot;&quot;</span>, <span class="string">&quot;&quot;</span>);
@@ -729,7 +729,7 @@
         decode_utf_16be(<span class="kw-2">&amp;</span>long_be[long_be.len() / <span class="number">2 </span>+ <span class="number">1</span>..], long_expect);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_utf_16_encode() {
         <span class="comment">// Empty
         </span>encode_utf_16be(<span class="string">&quot;&quot;</span>, <span class="string">b&quot;&quot;</span>);
@@ -742,7 +742,7 @@
         encode_utf_16be(<span class="string">&quot;\u{1F4A9}\u{2603}&quot;</span>, <span class="string">&quot;\u{1F4A9}\u{2603}&quot;</span>.as_bytes());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_utf_16be_decode_one_by_one() {
         <span class="kw">let </span>input = <span class="string">b&quot;\x00\x61\x00\xE4\x26\x03\xD8\x3D\xDC\xA9&quot;</span>;
         <span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0u16</span>; <span class="number">20</span>];
@@ -758,7 +758,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_utf_16le_decode_one_by_one() {
         <span class="kw">let </span>input = <span class="string">b&quot;\x61\x00\xE4\x00\x03\x26\x3D\xD8\xA9\xDC&quot;</span>;
         <span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0u16</span>; <span class="number">20</span>];
@@ -774,7 +774,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_utf_16be_decode_three_at_a_time() {
         <span class="kw">let </span>input = <span class="string">b&quot;\x00\xE4\x26\x03\xD8\x3D\xDC\xA9\x00\x61\x00\xE4&quot;</span>;
         <span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0u16</span>; <span class="number">20</span>];
@@ -790,7 +790,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_utf_16le_decode_three_at_a_time() {
         <span class="kw">let </span>input = <span class="string">b&quot;\xE4\x00\x03\x26\x3D\xD8\xA9\xDC\x61\x00\xE4\x00&quot;</span>;
         <span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0u16</span>; <span class="number">20</span>];
@@ -806,7 +806,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_utf_16le_decode_bom_prefixed_split_byte_pair() {
         <span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0u16</span>; <span class="number">20</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = UTF_16LE.new_decoder();
@@ -831,7 +831,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_utf_16be_decode_bom_prefixed_split_byte_pair() {
         <span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0u16</span>; <span class="number">20</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = UTF_16BE.new_decoder();
@@ -856,7 +856,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_utf_16le_decode_bom_prefix() {
         <span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0u16</span>; <span class="number">20</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = UTF_16LE.new_decoder();
@@ -872,7 +872,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_utf_16be_decode_bom_prefix() {
         <span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0u16</span>; <span class="number">20</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = UTF_16BE.new_decoder();
@@ -888,7 +888,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_utf_16le_decode_near_end() {
         <span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0u8</span>; <span class="number">4</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = UTF_16LE.new_decoder();
@@ -915,7 +915,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_utf_16be_decode_near_end() {
         <span class="kw">let </span><span class="kw-2">mut </span>output = [<span class="number">0u8</span>; <span class="number">4</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>decoder = UTF_16BE.new_decoder();
@@ -943,4 +943,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="encoding_rs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="encoding_rs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -144,7 +144,7 @@
 <span class="doccomment">/// Full version of [`crate::PopArgument::pop_from`].
 ///
 /// Uses specialization to get full coverage of types. Pass the type as the first argument
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>pop_prefix_argument {
     (<span class="macro-nonterminal">$target</span>:ty, <span class="macro-nonterminal">$args</span>:expr, <span class="macro-nonterminal">$attachment_id</span>:expr, <span class="macro-nonterminal">$ctx</span>:expr, <span class="macro-nonterminal">$msg</span>:expr) =&gt; {{
         <span class="kw">use </span><span class="macro-nonterminal">$crate::PopArgumentHack </span><span class="kw">as _</span>;
@@ -160,7 +160,7 @@
 /// sake and also because it keeps open the possibility of parsing whitespace.
 ///
 /// Similar in spirit to [`std::str::FromStr`].
-</span><span class="attribute">#[async_trait::async_trait]
+</span><span class="attr">#[async_trait::async_trait]
 </span><span class="kw">pub trait </span>PopArgument&lt;<span class="lifetime">&#39;a</span>&gt;: Sized {
     <span class="doccomment">/// Parse [`Self`] from the front of the given string and return a tuple of the remaining string
     /// and [`Self`]. If parsing failed, an error is returned and, if applicable, the string on
@@ -177,7 +177,7 @@
     ) -&gt; <span class="prelude-ty">Result</span>&lt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str, usize, <span class="self">Self</span>), (Box&lt;<span class="kw">dyn </span>std::error::Error + Send + Sync&gt;, <span class="prelude-ty">Option</span>&lt;String&gt;)&gt;;
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 #[async_trait::async_trait]
 </span><span class="kw">pub trait </span>PopArgumentHack&lt;<span class="lifetime">&#39;a</span>, T&gt;: Sized {
     <span class="kw">async fn </span>pop_from(
@@ -189,7 +189,7 @@
     ) -&gt; <span class="prelude-ty">Result</span>&lt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str, usize, T), (Box&lt;<span class="kw">dyn </span>std::error::Error + Send + Sync&gt;, <span class="prelude-ty">Option</span>&lt;String&gt;)&gt;;
 }
 
-<span class="attribute">#[async_trait::async_trait]
+<span class="attr">#[async_trait::async_trait]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, T: serenity::ArgumentConvert + Send&gt; PopArgumentHack&lt;<span class="lifetime">&#39;a</span>, T&gt; <span class="kw">for </span>PhantomData&lt;T&gt;
 <span class="kw">where
     </span>T::Err: std::error::Error + Send + Sync + <span class="lifetime">&#39;static</span>,
@@ -211,7 +211,7 @@
     }
 }
 
-<span class="attribute">#[async_trait::async_trait]
+<span class="attr">#[async_trait::async_trait]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, T: PopArgument&lt;<span class="lifetime">&#39;a</span>&gt; + Send + Sync&gt; PopArgumentHack&lt;<span class="lifetime">&#39;a</span>, T&gt; <span class="kw">for </span><span class="kw-2">&amp;</span>PhantomData&lt;T&gt; {
     <span class="kw">async fn </span>pop_from(
         <span class="self">self</span>,
@@ -225,7 +225,7 @@
     </span>}
 }
 
-<span class="attribute">#[async_trait::async_trait]
+<span class="attr">#[async_trait::async_trait]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; PopArgumentHack&lt;<span class="lifetime">&#39;a</span>, bool&gt; <span class="kw">for </span><span class="kw-2">&amp;</span>PhantomData&lt;bool&gt; {
     <span class="kw">async fn </span>pop_from(
         <span class="self">self</span>,
@@ -247,7 +247,7 @@
     }
 }
 
-<span class="attribute">#[async_trait::async_trait]
+<span class="attr">#[async_trait::async_trait]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; PopArgumentHack&lt;<span class="lifetime">&#39;a</span>, serenity::Attachment&gt; <span class="kw">for </span><span class="kw-2">&amp;</span>PhantomData&lt;serenity::Attachment&gt; {
     <span class="kw">async fn </span>pop_from(
         <span class="self">self</span>,
@@ -269,4 +269,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

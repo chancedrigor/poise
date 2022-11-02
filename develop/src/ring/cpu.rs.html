@@ -397,14 +397,14 @@
 /// tries to read the cached values before they are written.
 ///
 /// This is a zero-sized type so that it can be &quot;stored&quot; wherever convenient.
-</span><span class="attribute">#[derive(Copy, Clone)]
+</span><span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Features(());
 
-<span class="attribute">#[inline(always)]
+<span class="attr">#[inline(always)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>features() -&gt; Features {
     <span class="comment">// We don&#39;t do runtime feature detection on aarch64-apple-* as all AAarch64
     // features we use are available on every device since the first devices.
-    </span><span class="attribute">#[cfg(any(
+    </span><span class="attr">#[cfg(any(
         target_arch = <span class="string">&quot;x86&quot;</span>,
         target_arch = <span class="string">&quot;x86_64&quot;</span>,
         all(
@@ -415,7 +415,7 @@
     </span>{
         <span class="kw">static </span>INIT: spin::Once&lt;()&gt; = spin::Once::new();
         <span class="kw">let </span>() = INIT.call_once(|| {
-            <span class="attribute">#[cfg(any(target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))]
+            <span class="attr">#[cfg(any(target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))]
             </span>{
                 <span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
                     <span class="kw">fn </span>GFp_cpuid_setup();
@@ -425,7 +425,7 @@
                 }
             }
 
-            <span class="attribute">#[cfg(all(
+            <span class="attr">#[cfg(all(
                 any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;arm&quot;</span>),
                 any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;fuchsia&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>)
             ))]
@@ -439,7 +439,7 @@
 }
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>arm {
-    <span class="attribute">#[cfg(all(
+    <span class="attr">#[cfg(all(
         any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>),
         any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;arm&quot;</span>)
     ))]
@@ -454,17 +454,17 @@
 
         <span class="kw">const </span>AT_HWCAP: c_ulong = <span class="number">16</span>;
 
-        <span class="attribute">#[cfg(target_arch = <span class="string">&quot;aarch64&quot;</span>)]
+        <span class="attr">#[cfg(target_arch = <span class="string">&quot;aarch64&quot;</span>)]
         </span><span class="kw">const </span>HWCAP_NEON: c_ulong = <span class="number">1 </span>&lt;&lt; <span class="number">1</span>;
 
-        <span class="attribute">#[cfg(target_arch = <span class="string">&quot;arm&quot;</span>)]
+        <span class="attr">#[cfg(target_arch = <span class="string">&quot;arm&quot;</span>)]
         </span><span class="kw">const </span>HWCAP_NEON: c_ulong = <span class="number">1 </span>&lt;&lt; <span class="number">12</span>;
 
         <span class="kw">let </span>caps = <span class="kw">unsafe </span>{ getauxval(AT_HWCAP) };
 
         <span class="comment">// We assume NEON is available on AARCH64 because it is a required
         // feature.
-        </span><span class="attribute">#[cfg(target_arch = <span class="string">&quot;aarch64&quot;</span>)]
+        </span><span class="attr">#[cfg(target_arch = <span class="string">&quot;aarch64&quot;</span>)]
         </span><span class="macro">debug_assert!</span>(caps &amp; HWCAP_NEON == HWCAP_NEON);
 
         <span class="comment">// OpenSSL and BoringSSL don&#39;t enable any other features if NEON isn&#39;t
@@ -472,13 +472,13 @@
         </span><span class="kw">if </span>caps &amp; HWCAP_NEON == HWCAP_NEON {
             <span class="kw">let </span><span class="kw-2">mut </span>features = NEON.mask;
 
-            <span class="attribute">#[cfg(target_arch = <span class="string">&quot;aarch64&quot;</span>)]
+            <span class="attr">#[cfg(target_arch = <span class="string">&quot;aarch64&quot;</span>)]
             </span><span class="kw">const </span>OFFSET: c_ulong = <span class="number">3</span>;
 
-            <span class="attribute">#[cfg(target_arch = <span class="string">&quot;arm&quot;</span>)]
+            <span class="attr">#[cfg(target_arch = <span class="string">&quot;arm&quot;</span>)]
             </span><span class="kw">const </span>OFFSET: c_ulong = <span class="number">0</span>;
 
-            <span class="attribute">#[cfg(target_arch = <span class="string">&quot;arm&quot;</span>)]
+            <span class="attr">#[cfg(target_arch = <span class="string">&quot;arm&quot;</span>)]
             </span><span class="kw">let </span>caps = {
                 <span class="kw">const </span>AT_HWCAP2: c_ulong = <span class="number">26</span>;
                 <span class="kw">unsafe </span>{ getauxval(AT_HWCAP2) }
@@ -502,11 +502,11 @@
         }
     }
 
-    <span class="attribute">#[cfg(all(target_os = <span class="string">&quot;fuchsia&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>))]
+    <span class="attr">#[cfg(all(target_os = <span class="string">&quot;fuchsia&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>))]
     </span><span class="kw">pub fn </span>setup() {
         <span class="kw">type </span>zx_status_t = i32;
 
-        <span class="attribute">#[link(name = <span class="string">&quot;zircon&quot;</span>)]
+        <span class="attr">#[link(name = <span class="string">&quot;zircon&quot;</span>)]
         </span><span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
             <span class="kw">fn </span>zx_system_get_features(kind: u32, features: <span class="kw-2">*mut </span>u32) -&gt; zx_status_t;
         }
@@ -559,7 +559,7 @@
             , <span class="comment">// trailing comma is required.
         </span>} =&gt; {
             $(
-                <span class="attribute">#[allow(dead_code)]
+                <span class="attr">#[allow(dead_code)]
                 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span><span class="macro-nonterminal">$name</span>: Feature = Feature {
                     mask: <span class="macro-nonterminal">$mask</span>,
                 };
@@ -583,14 +583,14 @@
             // TODO: Add static feature detection to other targets.
             // TODO: Combine static feature detection with runtime feature
             //       detection.
-            </span><span class="attribute">#[cfg(all(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_vendor = <span class="string">&quot;apple&quot;</span>))]
+            </span><span class="attr">#[cfg(all(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_vendor = <span class="string">&quot;apple&quot;</span>))]
             </span><span class="kw">const </span>ARMCAP_STATIC: u32 = <span class="number">0
                 </span>$(  | <span class="macro-nonterminal">$name</span>.mask
                 )+;
-            <span class="attribute">#[cfg(not(all(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_vendor = <span class="string">&quot;apple&quot;</span>)))]
+            <span class="attr">#[cfg(not(all(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_vendor = <span class="string">&quot;apple&quot;</span>)))]
             </span><span class="kw">const </span>ARMCAP_STATIC: u32 = <span class="number">0</span>;
 
-            <span class="attribute">#[cfg(all(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_vendor = <span class="string">&quot;apple&quot;</span>))]
+            <span class="attr">#[cfg(all(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_vendor = <span class="string">&quot;apple&quot;</span>))]
             #[test]
             </span><span class="kw">fn </span>test_armcap_static_available() {
                 <span class="kw">let </span>features = <span class="kw">crate</span>::cpu::features();
@@ -601,20 +601,20 @@
         }
     }
 
-    <span class="attribute">#[allow(dead_code)]
+    <span class="attr">#[allow(dead_code)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Feature {
         mask: u32,
     }
 
     <span class="kw">impl </span>Feature {
-        <span class="attribute">#[allow(dead_code)]
+        <span class="attr">#[allow(dead_code)]
         #[inline(always)]
         </span><span class="kw">pub fn </span>available(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw">super</span>::Features) -&gt; bool {
             <span class="kw">if </span><span class="self">self</span>.mask == <span class="self">self</span>.mask &amp; ARMCAP_STATIC {
                 <span class="kw">return </span><span class="bool-val">true</span>;
             }
 
-            <span class="attribute">#[cfg(all(
+            <span class="attr">#[cfg(all(
                 any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;fuchsia&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>),
                 any(target_arch = <span class="string">&quot;arm&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>)
             ))]
@@ -661,11 +661,11 @@
     //
     // TODO: This should have &quot;hidden&quot; visibility but we don&#39;t have a way of
     // controlling that yet: https://github.com/rust-lang/rust/issues/73958.
-    </span><span class="attribute">#[cfg(any(target_arch = <span class="string">&quot;arm&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>))]
+    </span><span class="attr">#[cfg(any(target_arch = <span class="string">&quot;arm&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>))]
     #[no_mangle]
     </span><span class="kw">static </span><span class="kw-2">mut </span>GFp_armcap_P: u32 = ARMCAP_STATIC;
 
-    <span class="attribute">#[cfg(all(
+    <span class="attr">#[cfg(all(
         any(target_arch = <span class="string">&quot;arm&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>),
         target_vendor = <span class="string">&quot;apple&quot;
     </span>))]
@@ -676,7 +676,7 @@
     }
 }
 
-<span class="attribute">#[cfg_attr(
+<span class="attr">#[cfg_attr(
     not(any(target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>)),
     allow(dead_code)
 )]
@@ -687,10 +687,10 @@
     }
 
     <span class="kw">impl </span>Feature {
-        <span class="attribute">#[allow(clippy::needless_return)]
+        <span class="attr">#[allow(clippy::needless_return)]
         #[inline(always)]
         </span><span class="kw">pub fn </span>available(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw">super</span>::Features) -&gt; bool {
-            <span class="attribute">#[cfg(any(target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))]
+            <span class="attr">#[cfg(any(target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))]
             </span>{
                 <span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
                     <span class="kw">static </span><span class="kw-2">mut </span>GFp_ia32cap_P: [u32; <span class="number">4</span>];
@@ -698,7 +698,7 @@
                 <span class="kw">return </span><span class="self">self</span>.mask == <span class="self">self</span>.mask &amp; <span class="kw">unsafe </span>{ GFp_ia32cap_P[<span class="self">self</span>.word] };
             }
 
-            <span class="attribute">#[cfg(not(any(target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>)))]
+            <span class="attr">#[cfg(not(any(target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>)))]
             </span>{
                 <span class="kw">return </span><span class="bool-val">false</span>;
             }
@@ -720,13 +720,13 @@
         mask: <span class="number">1 </span>&lt;&lt; <span class="number">9</span>,
     };
 
-    <span class="attribute">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
+    <span class="attr">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>SSE41: Feature = Feature {
         word: <span class="number">1</span>,
         mask: <span class="number">1 </span>&lt;&lt; <span class="number">19</span>,
     };
 
-    <span class="attribute">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
+    <span class="attr">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>MOVBE: Feature = Feature {
         word: <span class="number">1</span>,
         mask: <span class="number">1 </span>&lt;&lt; <span class="number">22</span>,
@@ -737,17 +737,17 @@
         mask: <span class="number">1 </span>&lt;&lt; <span class="number">25</span>,
     };
 
-    <span class="attribute">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
+    <span class="attr">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>AVX: Feature = Feature {
         word: <span class="number">1</span>,
         mask: <span class="number">1 </span>&lt;&lt; <span class="number">28</span>,
     };
 
-    <span class="attribute">#[cfg(all(target_arch = <span class="string">&quot;x86_64&quot;</span>, test))]
+    <span class="attr">#[cfg(all(target_arch = <span class="string">&quot;x86_64&quot;</span>, test))]
     </span><span class="kw">mod </span>x86_64_tests {
         <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-        <span class="attribute">#[test]
+        <span class="attr">#[test]
         </span><span class="kw">fn </span>test_avx_movbe_mask() {
             <span class="comment">// This is the OpenSSL style of testing these bits.
             </span><span class="macro">assert_eq!</span>((AVX.mask | MOVBE.mask) &gt;&gt; <span class="number">22</span>, <span class="number">0x41</span>);
@@ -755,4 +755,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

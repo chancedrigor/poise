@@ -495,7 +495,7 @@
 <span class="kw">use crate</span>::{CryptoRng, Error, RngCore, SeedableRng};
 <span class="kw">use </span>core::convert::AsRef;
 <span class="kw">use </span>core::fmt;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde1&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde1&quot;</span>)]
 </span><span class="kw">use </span>serde::{Deserialize, Serialize};
 
 <span class="doccomment">/// A trait for RNGs which do not generate random numbers individually, but in
@@ -550,7 +550,7 @@
 /// [`next_u64`]: RngCore::next_u64
 /// [`fill_bytes`]: RngCore::fill_bytes
 /// [`try_fill_bytes`]: RngCore::try_fill_bytes
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 #[cfg_attr(feature = <span class="string">&quot;serde1&quot;</span>, derive(Serialize, Deserialize))]
 #[cfg_attr(
     feature = <span class="string">&quot;serde1&quot;</span>,
@@ -579,7 +579,7 @@
 <span class="kw">impl</span>&lt;R: BlockRngCore&gt; BlockRng&lt;R&gt; {
     <span class="doccomment">/// Create a new `BlockRng` from an existing RNG implementing
     /// `BlockRngCore`. Results will be generated on first use.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new(core: R) -&gt; BlockRng&lt;R&gt; {
         <span class="kw">let </span>results_empty = R::Results::default();
         BlockRng {
@@ -594,21 +594,21 @@
     /// If this is equal to or larger than the size of the result buffer then
     /// the buffer is &quot;empty&quot; and `generate()` must be called to produce new
     /// results.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>index(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.index
     }
 
     <span class="doccomment">/// Reset the number of available results.
     /// This will force a new set of results to be generated on next use.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>reset(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.index = <span class="self">self</span>.results.as_ref().len();
     }
 
     <span class="doccomment">/// Generate a new set of results immediately, setting the index to the
     /// given value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>generate_and_set(<span class="kw-2">&amp;mut </span><span class="self">self</span>, index: usize) {
         <span class="macro">assert!</span>(index &lt; <span class="self">self</span>.results.as_ref().len());
         <span class="self">self</span>.core.generate(<span class="kw-2">&amp;mut </span><span class="self">self</span>.results);
@@ -620,7 +620,7 @@
 <span class="kw">where
     </span>&lt;R <span class="kw">as </span>BlockRngCore&gt;::Results: AsRef&lt;[u32]&gt; + AsMut&lt;[u32]&gt;,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>next_u32(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; u32 {
         <span class="kw">if </span><span class="self">self</span>.index &gt;= <span class="self">self</span>.results.as_ref().len() {
             <span class="self">self</span>.generate_and_set(<span class="number">0</span>);
@@ -631,7 +631,7 @@
         value
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>next_u64(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; u64 {
         <span class="kw">let </span>read_u64 = |results: <span class="kw-2">&amp;</span>[u32], index| {
             <span class="kw">let </span>data = <span class="kw-2">&amp;</span>results[index..=index + <span class="number">1</span>];
@@ -656,7 +656,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>fill_bytes(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dest: <span class="kw-2">&amp;mut </span>[u8]) {
         <span class="kw">let </span><span class="kw-2">mut </span>read_len = <span class="number">0</span>;
         <span class="kw">while </span>read_len &lt; dest.len() {
@@ -671,7 +671,7 @@
         }
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>try_fill_bytes(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dest: <span class="kw-2">&amp;mut </span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
         <span class="self">self</span>.fill_bytes(dest);
         <span class="prelude-val">Ok</span>(())
@@ -681,17 +681,17 @@
 <span class="kw">impl</span>&lt;R: BlockRngCore + SeedableRng&gt; SeedableRng <span class="kw">for </span>BlockRng&lt;R&gt; {
     <span class="kw">type </span>Seed = R::Seed;
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>from_seed(seed: <span class="self">Self</span>::Seed) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(R::from_seed(seed))
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>seed_from_u64(seed: u64) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(R::seed_from_u64(seed))
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>from_rng&lt;S: RngCore&gt;(rng: S) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, Error&gt; {
         <span class="prelude-val">Ok</span>(<span class="self">Self</span>::new(R::from_rng(rng)<span class="question-mark">?</span>))
     }
@@ -719,7 +719,7 @@
 /// [`next_u64`]: RngCore::next_u64
 /// [`fill_bytes`]: RngCore::fill_bytes
 /// [`try_fill_bytes`]: RngCore::try_fill_bytes
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 #[cfg_attr(feature = <span class="string">&quot;serde1&quot;</span>, derive(Serialize, Deserialize))]
 </span><span class="kw">pub struct </span>BlockRng64&lt;R: BlockRngCore + <span class="question-mark">?</span>Sized&gt; {
     results: R::Results,
@@ -744,7 +744,7 @@
 <span class="kw">impl</span>&lt;R: BlockRngCore&gt; BlockRng64&lt;R&gt; {
     <span class="doccomment">/// Create a new `BlockRng` from an existing RNG implementing
     /// `BlockRngCore`. Results will be generated on first use.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new(core: R) -&gt; BlockRng64&lt;R&gt; {
         <span class="kw">let </span>results_empty = R::Results::default();
         BlockRng64 {
@@ -760,14 +760,14 @@
     /// If this is equal to or larger than the size of the result buffer then
     /// the buffer is &quot;empty&quot; and `generate()` must be called to produce new
     /// results.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>index(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.index
     }
 
     <span class="doccomment">/// Reset the number of available results.
     /// This will force a new set of results to be generated on next use.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>reset(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.index = <span class="self">self</span>.results.as_ref().len();
         <span class="self">self</span>.half_used = <span class="bool-val">false</span>;
@@ -775,7 +775,7 @@
 
     <span class="doccomment">/// Generate a new set of results immediately, setting the index to the
     /// given value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>generate_and_set(<span class="kw-2">&amp;mut </span><span class="self">self</span>, index: usize) {
         <span class="macro">assert!</span>(index &lt; <span class="self">self</span>.results.as_ref().len());
         <span class="self">self</span>.core.generate(<span class="kw-2">&amp;mut </span><span class="self">self</span>.results);
@@ -788,7 +788,7 @@
 <span class="kw">where
     </span>&lt;R <span class="kw">as </span>BlockRngCore&gt;::Results: AsRef&lt;[u64]&gt; + AsMut&lt;[u64]&gt;,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>next_u32(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; u32 {
         <span class="kw">let </span><span class="kw-2">mut </span>index = <span class="self">self</span>.index * <span class="number">2 </span>- <span class="self">self</span>.half_used <span class="kw">as </span>usize;
         <span class="kw">if </span>index &gt;= <span class="self">self</span>.results.as_ref().len() * <span class="number">2 </span>{
@@ -813,7 +813,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>next_u64(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; u64 {
         <span class="kw">if </span><span class="self">self</span>.index &gt;= <span class="self">self</span>.results.as_ref().len() {
             <span class="self">self</span>.core.generate(<span class="kw-2">&amp;mut </span><span class="self">self</span>.results);
@@ -826,7 +826,7 @@
         value
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>fill_bytes(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dest: <span class="kw-2">&amp;mut </span>[u8]) {
         <span class="kw">let </span><span class="kw-2">mut </span>read_len = <span class="number">0</span>;
         <span class="self">self</span>.half_used = <span class="bool-val">false</span>;
@@ -846,7 +846,7 @@
         }
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>try_fill_bytes(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dest: <span class="kw-2">&amp;mut </span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
         <span class="self">self</span>.fill_bytes(dest);
         <span class="prelude-val">Ok</span>(())
@@ -856,17 +856,17 @@
 <span class="kw">impl</span>&lt;R: BlockRngCore + SeedableRng&gt; SeedableRng <span class="kw">for </span>BlockRng64&lt;R&gt; {
     <span class="kw">type </span>Seed = R::Seed;
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>from_seed(seed: <span class="self">Self</span>::Seed) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(R::from_seed(seed))
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>seed_from_u64(seed: u64) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(R::seed_from_u64(seed))
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>from_rng&lt;S: RngCore&gt;(rng: S) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, Error&gt; {
         <span class="prelude-val">Ok</span>(<span class="self">Self</span>::new(R::from_rng(rng)<span class="question-mark">?</span>))
     }
@@ -874,4 +874,4 @@
 
 <span class="kw">impl</span>&lt;R: BlockRngCore + CryptoRng&gt; CryptoRng <span class="kw">for </span>BlockRng&lt;R&gt; {}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rand_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rand_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

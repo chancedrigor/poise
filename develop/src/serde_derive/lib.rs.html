@@ -120,10 +120,10 @@
 //!
 //! [https://serde.rs/derive.html]: https://serde.rs/derive.html
 
-</span><span class="attribute">#![doc(html_root_url = <span class="string">&quot;https://docs.rs/serde_derive/1.0.136&quot;</span>)]
+</span><span class="attr">#![doc(html_root_url = <span class="string">&quot;https://docs.rs/serde_derive/1.0.136&quot;</span>)]
 #![allow(unknown_lints, bare_trait_objects)]
 </span><span class="comment">// Ignored clippy lints
-</span><span class="attribute">#![allow(
+</span><span class="attr">#![allow(
     <span class="comment">// clippy false positive: https://github.com/rust-lang/rust-clippy/issues/7054
     </span>clippy::branches_sharing_code,
     clippy::cognitive_complexity,
@@ -142,7 +142,7 @@
     </span>clippy::unnested_or_patterns,
 )]
 </span><span class="comment">// Ignored clippy_pedantic lints
-</span><span class="attribute">#![allow(
+</span><span class="attr">#![allow(
     clippy::cast_possible_truncation,
     clippy::checked_conversions,
     clippy::doc_markdown,
@@ -170,7 +170,7 @@
 
 #[macro_use]
 </span><span class="kw">extern crate </span>quote;
-<span class="attribute">#[macro_use]
+<span class="attr">#[macro_use]
 </span><span class="kw">extern crate </span>syn;
 
 <span class="kw">extern crate </span>proc_macro;
@@ -181,9 +181,9 @@
 <span class="kw">use </span>proc_macro::TokenStream;
 <span class="kw">use </span>syn::DeriveInput;
 
-<span class="attribute">#[macro_use]
+<span class="attr">#[macro_use]
 </span><span class="kw">mod </span>bound;
-<span class="attribute">#[macro_use]
+<span class="attr">#[macro_use]
 </span><span class="kw">mod </span>fragment;
 
 <span class="kw">mod </span>de;
@@ -192,7 +192,7 @@
 <span class="kw">mod </span>ser;
 <span class="kw">mod try</span>;
 
-<span class="attribute">#[proc_macro_derive(Serialize, attributes(serde))]
+<span class="attr">#[proc_macro_derive(Serialize, attributes(serde))]
 </span><span class="kw">pub fn </span>derive_serialize(input: TokenStream) -&gt; TokenStream {
     <span class="kw">let </span><span class="kw-2">mut </span>input = <span class="macro">parse_macro_input!</span>(input <span class="kw">as </span>DeriveInput);
     ser::expand_derive_serialize(<span class="kw-2">&amp;mut </span>input)
@@ -200,7 +200,7 @@
         .into()
 }
 
-<span class="attribute">#[proc_macro_derive(Deserialize, attributes(serde))]
+<span class="attr">#[proc_macro_derive(Deserialize, attributes(serde))]
 </span><span class="kw">pub fn </span>derive_deserialize(input: TokenStream) -&gt; TokenStream {
     <span class="kw">let </span><span class="kw-2">mut </span>input = <span class="macro">parse_macro_input!</span>(input <span class="kw">as </span>DeriveInput);
     de::expand_derive_deserialize(<span class="kw-2">&amp;mut </span>input)
@@ -213,4 +213,4 @@
     <span class="macro">quote!</span>(#(#compile_errors)<span class="kw-2">*</span>)
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="serde_derive" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="serde_derive" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -960,7 +960,7 @@
 //! }
 //! ```
 
-</span><span class="attribute">#![doc(html_root_url = <span class="string">&quot;https://docs.rs/mime/0.3.16&quot;</span>)]
+</span><span class="attr">#![doc(html_root_url = <span class="string">&quot;https://docs.rs/mime/0.3.16&quot;</span>)]
 #![deny(warnings)]
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
@@ -976,7 +976,7 @@
 <span class="kw">mod </span>parse;
 
 <span class="doccomment">/// A parsed mime or media type.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>Mime {
     source: Source,
     slash: usize,
@@ -990,7 +990,7 @@
 /// `image`, `svg`, and `xml`.
 ///
 /// In most cases, `Name`s are compared ignoring case.
-</span><span class="attribute">#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+</span><span class="attr">#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 </span><span class="kw">pub struct </span>Name&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="comment">// TODO: optimize with an Atom-like thing
     // There a `const` Names, and so it is possible for the statis strings
@@ -1005,7 +1005,7 @@
 }
 
 <span class="doccomment">/// An error when parsing a `Mime` from a string.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>FromStrError {
     inner: parse::ParseError,
 }
@@ -1024,13 +1024,13 @@
 
 <span class="kw">impl </span>Error <span class="kw">for </span>FromStrError {
     <span class="comment">// Minimum Rust is 1.15, Error::description was still required then
-    </span><span class="attribute">#[allow(deprecated)]
+    </span><span class="attr">#[allow(deprecated)]
     </span><span class="kw">fn </span>description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="self">self</span>.s()
     }
 }
 
-<span class="attribute">#[derive(Clone)]
+<span class="attr">#[derive(Clone)]
 </span><span class="kw">enum </span>Source {
     Atom(u8, <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str),
     Dynamic(String),
@@ -1045,14 +1045,14 @@
     }
 }
 
-<span class="attribute">#[derive(Clone)]
+<span class="attr">#[derive(Clone)]
 </span><span class="kw">enum </span>ParamSource {
     Utf8(usize),
     Custom(usize, Vec&lt;(Indexed, Indexed)&gt;),
     <span class="prelude-val">None</span>,
 }
 
-<span class="attribute">#[derive(Clone, Copy)]
+<span class="attr">#[derive(Clone, Copy)]
 </span><span class="kw">struct </span>Indexed(usize, usize);
 
 <span class="kw">impl </span>Mime {
@@ -1065,7 +1065,7 @@
     /// assert_eq!(mime.type_(), &quot;text&quot;);
     /// assert_eq!(mime.type_(), mime::TEXT);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>type_(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Name {
         Name {
             source: <span class="kw-2">&amp;</span><span class="self">self</span>.source.as_ref()[..<span class="self">self</span>.slash],
@@ -1082,7 +1082,7 @@
     /// assert_eq!(mime.subtype(), &quot;plain&quot;);
     /// assert_eq!(mime.subtype(), mime::PLAIN);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>subtype(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Name {
         <span class="kw">let </span>end = <span class="self">self</span>.plus.unwrap_or_else(|| {
             <span class="kw">return </span><span class="self">self</span>.semicolon().unwrap_or(<span class="self">self</span>.source.as_ref().len())
@@ -1105,7 +1105,7 @@
     ///
     /// assert!(mime::TEXT_PLAIN.suffix().is_none());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>suffix(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Name&gt; {
         <span class="kw">let </span>end = <span class="self">self</span>.semicolon().unwrap_or(<span class="self">self</span>.source.as_ref().len());
         <span class="self">self</span>.plus.map(|idx| Name {
@@ -1133,7 +1133,7 @@
     }
 
     <span class="doccomment">/// Returns an iterator over the parameters.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>params&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>) -&gt; Params&lt;<span class="lifetime">&#39;a</span>&gt; {
         <span class="kw">let </span>inner = <span class="kw">match </span><span class="self">self</span>.params {
             ParamSource::Utf8(<span class="kw">_</span>) =&gt; ParamsInner::Utf8,
@@ -1158,7 +1158,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>.source.as_ref()[..end]
     }
 
-    <span class="attribute">#[cfg(test)]
+    <span class="attr">#[cfg(test)]
     </span><span class="kw">fn </span>has_params(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">match </span><span class="self">self</span>.params {
             ParamSource::None =&gt; <span class="bool-val">false</span>,
@@ -1166,7 +1166,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>semicolon(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
         <span class="kw">match </span><span class="self">self</span>.params {
             ParamSource::Utf8(i) |
@@ -1188,7 +1188,7 @@
 </span><span class="kw">fn </span>eq_ascii(a: <span class="kw-2">&amp;</span>str, b: <span class="kw-2">&amp;</span>str) -&gt; bool {
     <span class="comment">// str::eq_ignore_ascii_case didn&#39;t stabilize until Rust 1.23.
     // So while our MSRV is 1.15, gotta import this trait.
-    </span><span class="attribute">#[allow(deprecated, unused)]
+    </span><span class="attr">#[allow(deprecated, unused)]
     </span><span class="kw">use </span>std::ascii::AsciiExt;
 
     a.eq_ignore_ascii_case(b)
@@ -1233,12 +1233,12 @@
             <span class="comment">//name
             </span><span class="kw">if let </span><span class="prelude-val">Some</span>(a_idx) = a.find(<span class="string">&#39;=&#39;</span>) {
                 <span class="kw">let </span>a_name = {
-                    <span class="attribute">#[allow(deprecated)]
+                    <span class="attr">#[allow(deprecated)]
                     </span>{ a[..a_idx].trim_left() }
                 };
                 <span class="kw">if let </span><span class="prelude-val">Some</span>(b_idx) = b.find(<span class="string">&#39;=&#39;</span>) {
                     <span class="kw">let </span>b_name = {
-                        <span class="attribute">#[allow(deprecated)]
+                        <span class="attr">#[allow(deprecated)]
                         </span>{ b[..b_idx].trim_left() }
                     };
                     <span class="kw">if </span>!eq_ascii(a_name, b_name) {
@@ -1303,7 +1303,7 @@
 }
 
 <span class="kw">impl </span>PartialEq <span class="kw">for </span>Mime {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Mime) -&gt; bool {
         <span class="kw">match </span>(<span class="self">self</span>.atom(), other.atom()) {
             <span class="comment">// TODO:
@@ -1339,14 +1339,14 @@
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; PartialEq&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt; <span class="kw">for </span>Mime {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, s: &amp; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; bool {
         mime_eq_str(<span class="self">self</span>, <span class="kw-2">*</span>s)
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; PartialEq&lt;Mime&gt; <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, mime: <span class="kw-2">&amp;</span>Mime) -&gt; bool {
         mime_eq_str(mime, <span class="kw-2">*</span><span class="self">self</span>)
     }
@@ -1361,21 +1361,21 @@
 }
 
 <span class="kw">impl </span>AsRef&lt;str&gt; <span class="kw">for </span>Mime {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>as_ref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="self">self</span>.source.as_ref()
     }
 }
 
 <span class="kw">impl </span>fmt::Debug <span class="kw">for </span>Mime {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
         fmt::Debug::fmt(<span class="self">self</span>.source.as_ref(), f)
     }
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Mime {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
         fmt::Display::fmt(<span class="self">self</span>.source.as_ref(), f)
     }
@@ -1403,42 +1403,42 @@
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>&gt; PartialEq&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span>str&gt; <span class="kw">for </span>Name&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: &amp; <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span>str) -&gt; bool {
         name_eq_str(<span class="self">self</span>, <span class="kw-2">*</span>other)
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>&gt; PartialEq&lt;Name&lt;<span class="lifetime">&#39;a</span>&gt;&gt; <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span>str {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Name&lt;<span class="lifetime">&#39;a</span>&gt;) -&gt; bool {
         name_eq_str(other, <span class="kw-2">*</span><span class="self">self</span>)
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; AsRef&lt;str&gt; <span class="kw">for </span>Name&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>as_ref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="self">self</span>.source
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; From&lt;Name&lt;<span class="lifetime">&#39;a</span>&gt;&gt; <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(name: Name&lt;<span class="lifetime">&#39;a</span>&gt;) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str {
         name.source
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; fmt::Debug <span class="kw">for </span>Name&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
         fmt::Debug::fmt(<span class="self">self</span>.source, f)
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; fmt::Display <span class="kw">for </span>Name&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
         fmt::Display::fmt(<span class="self">self</span>.source, f)
     }
@@ -1467,7 +1467,7 @@
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Iterator <span class="kw">for </span>Params&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="kw">type </span>Item = (Name&lt;<span class="lifetime">&#39;a</span>&gt;, Name&lt;<span class="lifetime">&#39;a</span>&gt;);
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>next(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(Name&lt;<span class="lifetime">&#39;a</span>&gt;, Name&lt;<span class="lifetime">&#39;a</span>&gt;)&gt; {
         <span class="kw">match </span><span class="self">self</span>.<span class="number">0 </span>{
             ParamsInner::Utf8 =&gt; {
@@ -1492,7 +1492,7 @@
         </span>}
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>size_hint(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (usize, <span class="prelude-ty">Option</span>&lt;usize&gt;) {
         <span class="kw">match </span><span class="self">self</span>.<span class="number">0 </span>{
             ParamsInner::Utf8 =&gt; (<span class="number">1</span>, <span class="prelude-val">Some</span>(<span class="number">1</span>)),
@@ -1505,16 +1505,16 @@
 <span class="macro">macro_rules! </span>names {
     ($(<span class="macro-nonterminal">$id</span>:ident, <span class="macro-nonterminal">$e</span>:expr;)<span class="kw-2">*</span>) =&gt; (
         $(
-        <span class="attribute">#[doc = <span class="macro-nonterminal">$e</span>]
+        <span class="attr">#[doc = <span class="macro-nonterminal">$e</span>]
         </span><span class="kw">pub const </span><span class="macro-nonterminal">$id</span>: Name&lt;<span class="lifetime">&#39;static</span>&gt; = Name {
             source: <span class="macro-nonterminal">$e</span>,
             insensitive: <span class="bool-val">true</span>,
         };
         )*
 
-        <span class="attribute">#[test]
+        <span class="attr">#[test]
         </span><span class="kw">fn </span>test_names_macro_consts() {
-            <span class="attribute">#[allow(unused, deprecated)]
+            <span class="attr">#[allow(unused, deprecated)]
             </span><span class="kw">use </span>std::ascii::AsciiExt;
             $(
             <span class="macro">assert_eq!</span>(<span class="macro-nonterminal">$id</span>.source.to_ascii_lowercase(), <span class="macro-nonterminal">$id</span>.source);
@@ -1581,7 +1581,7 @@
 
 <span class="macro">macro_rules! </span>mimes {
     ($(<span class="macro-nonterminal">$id</span>:ident, $(<span class="macro-nonterminal">$piece</span>:expr),<span class="kw-2">*</span>;)<span class="kw-2">*</span>) =&gt; (
-        <span class="attribute">#[allow(non_camel_case_types)]
+        <span class="attr">#[allow(non_camel_case_types)]
         </span><span class="kw">enum </span>__Atoms {
             __Dynamic,
         $(
@@ -1595,7 +1595,7 @@
             }
         )*
 
-        <span class="attribute">#[test]
+        <span class="attr">#[test]
         </span><span class="kw">fn </span>test_mimes_macro_consts() {
             <span class="kw">let _ </span>= [
             $(
@@ -1624,7 +1624,7 @@
 
 
     (FULL <span class="macro-nonterminal">$id</span>:ident, <span class="macro-nonterminal">$src</span>:expr, <span class="macro-nonterminal">$slash</span>:expr, <span class="macro-nonterminal">$plus</span>:expr, <span class="macro-nonterminal">$params</span>:expr) =&gt; (
-        <span class="attribute">#[doc = <span class="string">&quot;`&quot;</span>]
+        <span class="attr">#[doc = <span class="string">&quot;`&quot;</span>]
         #[doc = <span class="macro-nonterminal">$src</span>]
         #[doc = <span class="string">&quot;`&quot;</span>]
         </span><span class="kw">pub const </span><span class="macro-nonterminal">$id</span>: Mime = Mime {
@@ -1637,7 +1637,7 @@
 }
 
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="macro">macro_rules! </span>mime_constant_test {
     (<span class="macro-nonterminal">$id</span>:ident, <span class="macro-nonterminal">$src</span>:expr, <span class="macro-nonterminal">$slash</span>:expr) =&gt; (
         <span class="macro">mime_constant_test!</span>(<span class="macro-nonterminal">$id</span>, <span class="macro-nonterminal">$src</span>, <span class="macro-nonterminal">$slash</span>, <span class="prelude-val">None</span>);
@@ -1713,23 +1713,23 @@
     MULTIPART_FORM_DATA, <span class="string">&quot;multipart/form-data&quot;</span>, <span class="number">9</span>;
 }
 
-<span class="attribute">#[deprecated(since=<span class="string">&quot;0.3.1&quot;</span>, note=<span class="string">&quot;please use `TEXT_JAVASCRIPT` instead&quot;</span>)]
+<span class="attr">#[deprecated(since=<span class="string">&quot;0.3.1&quot;</span>, note=<span class="string">&quot;please use `TEXT_JAVASCRIPT` instead&quot;</span>)]
 #[doc(hidden)]
 </span><span class="kw">pub const </span>TEXT_JAVSCRIPT: Mime = TEXT_JAVASCRIPT;
 
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>std::str::FromStr;
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_type_() {
         <span class="macro">assert_eq!</span>(TEXT_PLAIN.type_(), TEXT);
     }
 
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_subtype() {
         <span class="macro">assert_eq!</span>(TEXT_PLAIN.subtype(), PLAIN);
         <span class="macro">assert_eq!</span>(TEXT_PLAIN_UTF_8.subtype(), PLAIN);
@@ -1737,7 +1737,7 @@
         <span class="macro">assert_eq!</span>(mime.subtype(), HTML);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_matching() {
         <span class="kw">match </span>(TEXT_PLAIN.type_(), TEXT_PLAIN.subtype()) {
             (TEXT, PLAIN) =&gt; (),
@@ -1745,14 +1745,14 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_suffix() {
         <span class="macro">assert_eq!</span>(TEXT_PLAIN.suffix(), <span class="prelude-val">None</span>);
         <span class="kw">let </span>mime = Mime::from_str(<span class="string">&quot;text/html+xml&quot;</span>).unwrap();
         <span class="macro">assert_eq!</span>(mime.suffix(), <span class="prelude-val">Some</span>(XML));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_mime_fmt() {
         <span class="kw">let </span>mime = TEXT_PLAIN;
         <span class="macro">assert_eq!</span>(mime.to_string(), <span class="string">&quot;text/plain&quot;</span>);
@@ -1760,7 +1760,7 @@
         <span class="macro">assert_eq!</span>(mime.to_string(), <span class="string">&quot;text/plain; charset=utf-8&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_mime_from_str() {
         <span class="macro">assert_eq!</span>(Mime::from_str(<span class="string">&quot;text/plain&quot;</span>).unwrap(), TEXT_PLAIN);
         <span class="macro">assert_eq!</span>(Mime::from_str(<span class="string">&quot;TEXT/PLAIN&quot;</span>).unwrap(), TEXT_PLAIN);
@@ -1802,7 +1802,7 @@
         Mime::from_str(<span class="string">&quot;text/plain; charset=\&quot;\r\nutf-8\&quot;&quot;</span>).unwrap_err();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_mime_from_str_empty_parameter_list() {
         <span class="kw">static </span>CASES: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str] = <span class="kw-2">&amp;</span>[
             <span class="string">&quot;text/event-stream;&quot;</span>,
@@ -1820,7 +1820,7 @@
 
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_case_sensitive_values() {
         <span class="kw">let </span>mime = Mime::from_str(<span class="string">&quot;multipart/form-data; charset=BASE64; boundary=ABCDEFG&quot;</span>).unwrap();
         <span class="macro">assert_eq!</span>(mime.get_param(CHARSET).unwrap(), <span class="string">&quot;bAsE64&quot;</span>);
@@ -1828,7 +1828,7 @@
         <span class="macro">assert_ne!</span>(mime.get_param(BOUNDARY).unwrap(), <span class="string">&quot;abcdefg&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_get_param() {
         <span class="macro">assert_eq!</span>(TEXT_PLAIN.get_param(<span class="string">&quot;charset&quot;</span>), <span class="prelude-val">None</span>);
         <span class="macro">assert_eq!</span>(TEXT_PLAIN.get_param(<span class="string">&quot;baz&quot;</span>), <span class="prelude-val">None</span>);
@@ -1846,7 +1846,7 @@
         <span class="macro">assert_eq!</span>(mime.get_param(CHARSET), <span class="prelude-val">Some</span>(UTF_8));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_name_eq() {
         <span class="macro">assert_eq!</span>(TEXT, TEXT);
         <span class="macro">assert_eq!</span>(TEXT, <span class="string">&quot;text&quot;</span>);
@@ -1865,7 +1865,7 @@
         <span class="macro">assert_ne!</span>(<span class="string">&quot;abc&quot;</span>, param);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_essence_str() {
         <span class="macro">assert_eq!</span>(TEXT_PLAIN.essence_str(), <span class="string">&quot;text/plain&quot;</span>);
         <span class="macro">assert_eq!</span>(TEXT_PLAIN_UTF_8.essence_str(), <span class="string">&quot;text/plain&quot;</span>);
@@ -1873,4 +1873,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="mime" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="mime" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

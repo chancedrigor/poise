@@ -334,7 +334,7 @@ https://github.com/BurntSushi/aho-corasick/blob/3852632f10587db0ff72ef29e88d58bf
 }
 
 <span class="doccomment">/// A hash derived from a needle.
-</span><span class="attribute">#[derive(Clone, Copy, Debug, Default)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, Default)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>NeedleHash {
     <span class="doccomment">/// The actual hash.
     </span>hash: Hash,
@@ -384,7 +384,7 @@ https://github.com/BurntSushi/aho-corasick/blob/3852632f10587db0ff72ef29e88d58bf
 
 <span class="doccomment">/// A Rabin-Karp hash. This might represent the hash of a needle, or the hash
 /// of a rolling window in the haystack.
-</span><span class="attribute">#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Hash(u32);
 
 <span class="kw">impl </span>Hash {
@@ -440,7 +440,7 @@ https://github.com/BurntSushi/aho-corasick/blob/3852632f10587db0ff72ef29e88d58bf
 /// it is unlikely to be called. This causes the inner rabinkarp loop above
 /// to be a bit tighter and leads to some performance improvement. See the
 /// memmem/krate/prebuilt/sliceslice-words/words benchmark.
-</span><span class="attribute">#[cold]
+</span><span class="attr">#[cold]
 #[inline(never)]
 </span><span class="kw">fn </span>is_prefix(haystack: <span class="kw-2">&amp;</span>[u8], needle: <span class="kw-2">&amp;</span>[u8]) -&gt; bool {
     <span class="kw">crate</span>::memmem::util::is_prefix(haystack, needle)
@@ -449,20 +449,20 @@ https://github.com/BurntSushi/aho-corasick/blob/3852632f10587db0ff72ef29e88d58bf
 <span class="doccomment">/// Returns true if the given needle is a suffix of the given haystack.
 ///
 /// See is_prefix for why this is forcefully not inlined.
-</span><span class="attribute">#[cold]
+</span><span class="attr">#[cold]
 #[inline(never)]
 </span><span class="kw">fn </span>is_suffix(haystack: <span class="kw-2">&amp;</span>[u8], needle: <span class="kw-2">&amp;</span>[u8]) -&gt; bool {
     <span class="kw">crate</span>::memmem::util::is_suffix(haystack, needle)
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>simpletests {
     <span class="macro">define_memmem_simple_tests!</span>(<span class="kw">super</span>::find, <span class="kw">super</span>::rfind);
 }
 
-<span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;std&quot;</span>, not(miri)))]
+<span class="attr">#[cfg(all(test, feature = <span class="string">&quot;std&quot;</span>, not(miri)))]
 </span><span class="kw">mod </span>proptests {
     <span class="macro">define_memmem_quickcheck_tests!</span>(<span class="kw">super</span>::find, <span class="kw">super</span>::rfind);
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="memchr" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="memchr" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

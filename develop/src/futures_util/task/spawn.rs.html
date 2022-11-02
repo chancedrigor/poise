@@ -166,17 +166,17 @@
 <span id="166">166</span>
 </pre><pre class="rust"><code><span class="kw">use </span>futures_task::{LocalSpawn, Spawn};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;compat&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;compat&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::compat::Compat;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;channel&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;channel&quot;</span>)]
 #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::future::{FutureExt, RemoteHandle};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span>alloc::boxed::Box;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span>futures_core::future::Future;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span>futures_task::{FutureObj, LocalFutureObj, SpawnError};
 
 <span class="kw">impl</span>&lt;Sp: <span class="question-mark">?</span>Sized&gt; SpawnExt <span class="kw">for </span>Sp <span class="kw">where </span>Sp: Spawn {}
@@ -209,7 +209,7 @@
     /// let future = async { /* ... */ };
     /// executor.spawn(future).unwrap();
     /// ```
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">fn </span>spawn&lt;Fut&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, future: Fut) -&gt; <span class="prelude-ty">Result</span>&lt;(), SpawnError&gt;
     <span class="kw">where
         </span>Fut: Future&lt;Output = ()&gt; + Send + <span class="lifetime">&#39;static</span>,
@@ -236,7 +236,7 @@
     /// let join_handle_fut = executor.spawn_with_handle(future).unwrap();
     /// assert_eq!(block_on(join_handle_fut), 1);
     /// ```
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;channel&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;channel&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;channel&quot;</span>)))]
     #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     </span><span class="kw">fn </span>spawn_with_handle&lt;Fut&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, future: Fut) -&gt; <span class="prelude-ty">Result</span>&lt;RemoteHandle&lt;Fut::Output&gt;, SpawnError&gt;
@@ -251,7 +251,7 @@
 
     <span class="doccomment">/// Wraps a [`Spawn`] and makes it usable as a futures 0.1 `Executor`.
     /// Requires the `compat` feature to enable.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;compat&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;compat&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;compat&quot;</span>)))]
     </span><span class="kw">fn </span>compat(<span class="self">self</span>) -&gt; Compat&lt;<span class="self">Self</span>&gt;
     <span class="kw">where
@@ -288,7 +288,7 @@
     /// let future = async { /* ... */ };
     /// spawner.spawn_local(future).unwrap();
     /// ```
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">fn </span>spawn_local&lt;Fut&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, future: Fut) -&gt; <span class="prelude-ty">Result</span>&lt;(), SpawnError&gt;
     <span class="kw">where
         </span>Fut: Future&lt;Output = ()&gt; + <span class="lifetime">&#39;static</span>,
@@ -315,7 +315,7 @@
     /// let join_handle_fut = spawner.spawn_local_with_handle(future).unwrap();
     /// assert_eq!(executor.run_until(join_handle_fut), 1);
     /// ```
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;channel&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;channel&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;channel&quot;</span>)))]
     #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     </span><span class="kw">fn </span>spawn_local_with_handle&lt;Fut&gt;(
@@ -331,4 +331,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

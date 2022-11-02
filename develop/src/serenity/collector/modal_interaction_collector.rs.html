@@ -413,7 +413,7 @@
 }
 
 <span class="doccomment">/// Filters events on the shard&#39;s end and sends them to the collector.
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>ModalInteractionFilter {
     filtered: u32,
     collected: u32,
@@ -482,7 +482,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Default)]
+<span class="attr">#[derive(Clone, Default)]
 </span><span class="kw">struct </span>FilterOptions {
     filter_limit: <span class="prelude-ty">Option</span>&lt;u32&gt;,
     collect_limit: <span class="prelude-ty">Option</span>&lt;u32&gt;,
@@ -513,7 +513,7 @@
     ModalInteractionCollectorBuilder;
 }
 
-<span class="attribute">#[must_use = <span class="string">&quot;Builders do nothing unless built&quot;</span>]
+<span class="attr">#[must_use = <span class="string">&quot;Builders do nothing unless built&quot;</span>]
 </span><span class="kw">pub struct </span>ModalInteractionCollectorBuilder {
     filter: <span class="prelude-ty">Option</span>&lt;FilterOptions&gt;,
     shard: <span class="prelude-ty">Option</span>&lt;ShardMessenger&gt;,
@@ -530,7 +530,7 @@
     }
 
     <span class="doccomment">/// Use the given configuration to build the [`ModalInteractionCollector`].
-    </span><span class="attribute">#[allow(clippy::unwrap_used)]
+    </span><span class="attr">#[allow(clippy::unwrap_used)]
     #[must_use]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; ModalInteractionCollector {
         <span class="kw">let </span>shard_messenger = <span class="self">self</span>.shard.unwrap();
@@ -546,7 +546,7 @@
     }
 }
 
-<span class="attribute">#[must_use = <span class="string">&quot;builders do nothing unless awaited&quot;</span>]
+<span class="attr">#[must_use = <span class="string">&quot;builders do nothing unless awaited&quot;</span>]
 </span><span class="kw">pub struct </span>CollectModalInteraction {
     filter: <span class="prelude-ty">Option</span>&lt;FilterOptions&gt;,
     shard: <span class="prelude-ty">Option</span>&lt;ShardMessenger&gt;,
@@ -567,7 +567,7 @@
 
 <span class="kw">impl </span>Future <span class="kw">for </span>CollectModalInteraction {
     <span class="kw">type </span>Output = <span class="prelude-ty">Option</span>&lt;Arc&lt;ModalSubmitInteraction&gt;&gt;;
-    <span class="attribute">#[allow(clippy::unwrap_used)]
+    <span class="attr">#[allow(clippy::unwrap_used)]
     </span><span class="kw">fn </span>poll(<span class="kw-2">mut </span><span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, ctx: <span class="kw-2">&amp;mut </span>FutContext&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;<span class="self">Self</span>::Output&gt; {
         <span class="kw">if </span><span class="self">self</span>.fut.is_none() {
             <span class="kw">let </span>shard_messenger = <span class="self">self</span>.shard.take().unwrap();
@@ -629,4 +629,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

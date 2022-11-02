@@ -167,15 +167,15 @@
     };
     (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$ty</span>:ty, <span class="macro-nonterminal">$writer</span>:ident, <span class="macro-nonterminal">$bytes</span>:expr) =&gt; {
         <span class="macro">pin_project! </span>{
-            <span class="attribute">#[doc(hidden)]
+            <span class="attr">#[doc(hidden)]
             #[must_use = <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]
             </span><span class="kw">pub struct </span><span class="macro-nonterminal">$name</span>&lt;W&gt; {
-                <span class="attribute">#[pin]
+                <span class="attr">#[pin]
                 </span>dst: W,
                 buf: [u8; <span class="macro-nonterminal">$bytes</span>],
                 written: u8,
                 <span class="comment">// Make this future `!Unpin` for compatibility with async trait methods.
-                </span><span class="attribute">#[pin]
+                </span><span class="attr">#[pin]
                 </span>_pin: PhantomPinned,
             }
         }
@@ -229,14 +229,14 @@
 <span class="macro">macro_rules! </span>writer8 {
     (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$ty</span>:ty) =&gt; {
         <span class="macro">pin_project! </span>{
-            <span class="attribute">#[doc(hidden)]
+            <span class="attr">#[doc(hidden)]
             #[must_use = <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]
             </span><span class="kw">pub struct </span><span class="macro-nonterminal">$name</span>&lt;W&gt; {
-                <span class="attribute">#[pin]
+                <span class="attr">#[pin]
                 </span>dst: W,
                 byte: <span class="macro-nonterminal">$ty</span>,
                 <span class="comment">// Make this future `!Unpin` for compatibility with async trait methods.
-                </span><span class="attribute">#[pin]
+                </span><span class="attr">#[pin]
                 </span>_pin: PhantomPinned,
             }
         }
@@ -303,4 +303,4 @@
 <span class="macro">writer!</span>(WriteF32Le, f32, put_f32_le);
 <span class="macro">writer!</span>(WriteF64Le, f64, put_f64_le);
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

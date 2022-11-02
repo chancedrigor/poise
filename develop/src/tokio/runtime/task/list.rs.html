@@ -412,7 +412,7 @@
 
     <span class="doccomment">/// Asserts that the given task is owned by this OwnedTasks and convert it to
     /// a LocalNotified, giving the thread permission to poll this task.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>assert_owner(<span class="kw-2">&amp;</span><span class="self">self</span>, task: Notified&lt;S&gt;) -&gt; LocalNotified&lt;S&gt; {
         <span class="macro">assert_eq!</span>(task.header().get_owner_id(), <span class="self">self</span>.id);
 
@@ -544,7 +544,7 @@
 
     <span class="doccomment">/// Asserts that the given task is owned by this LocalOwnedTasks and convert
     /// it to a LocalNotified, giving the thread permission to poll this task.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>assert_owner(<span class="kw-2">&amp;</span><span class="self">self</span>, task: Notified&lt;S&gt;) -&gt; LocalNotified&lt;S&gt; {
         <span class="macro">assert_eq!</span>(task.header().get_owner_id(), <span class="self">self</span>.id);
 
@@ -557,7 +557,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>with_inner&lt;F, T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; T
     <span class="kw">where
         </span>F: FnOnce(<span class="kw-2">&amp;mut </span>OwnedTasksInner&lt;S&gt;) -&gt; T,
@@ -577,13 +577,13 @@
     }
 }
 
-<span class="attribute">#[cfg(all(test))]
+<span class="attr">#[cfg(all(test))]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
     <span class="comment">// This test may run in parallel with other tests, so we only test that ids
     // come in increasing order.
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>test_id_not_broken() {
         <span class="kw">let </span><span class="kw-2">mut </span>last_id = get_next_id();
         <span class="macro">assert_ne!</span>(last_id, <span class="number">0</span>);
@@ -597,4 +597,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

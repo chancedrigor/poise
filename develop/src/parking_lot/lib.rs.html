@@ -65,7 +65,7 @@
 //! `Once` that are smaller, faster and more flexible than those in the Rust
 //! standard library. It also provides a `ReentrantMutex` type.
 
-</span><span class="attribute">#![warn(missing_docs)]
+</span><span class="attr">#![warn(missing_docs)]
 #![warn(rust_2018_idioms)]
 
 </span><span class="kw">mod </span>condvar;
@@ -80,18 +80,18 @@
 <span class="kw">mod </span>rwlock;
 <span class="kw">mod </span>util;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;deadlock_detection&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;deadlock_detection&quot;</span>)]
 </span><span class="kw">pub mod </span>deadlock;
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;deadlock_detection&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;deadlock_detection&quot;</span>))]
 </span><span class="kw">mod </span>deadlock;
 
 <span class="comment">// If deadlock detection is enabled, we cannot allow lock guards to be sent to
 // other threads.
-</span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;send_guard&quot;</span>, feature = <span class="string">&quot;deadlock_detection&quot;</span>))]
+</span><span class="attr">#[cfg(all(feature = <span class="string">&quot;send_guard&quot;</span>, feature = <span class="string">&quot;deadlock_detection&quot;</span>))]
 </span><span class="macro">compile_error!</span>(<span class="string">&quot;the `send_guard` and `deadlock_detection` features cannot be used together&quot;</span>);
-<span class="attribute">#[cfg(feature = <span class="string">&quot;send_guard&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;send_guard&quot;</span>)]
 </span><span class="kw">type </span>GuardMarker = lock_api::GuardSend;
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;send_guard&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;send_guard&quot;</span>))]
 </span><span class="kw">type </span>GuardMarker = lock_api::GuardNoSend;
 
 <span class="kw">pub use </span><span class="self">self</span>::condvar::{Condvar, WaitTimeoutResult};
@@ -111,4 +111,4 @@
 };
 <span class="kw">pub use </span>::lock_api;
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="parking_lot" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

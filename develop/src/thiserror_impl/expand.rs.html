@@ -636,7 +636,7 @@
         display_implied_bounds = display.implied_bounds.clone();
         <span class="kw">let </span>use_as_display = <span class="kw">if </span>display.has_bonus_display {
             <span class="prelude-val">Some</span>(<span class="macro">quote! </span>{
-                <span class="attribute">#[allow(unused_imports)]
+                <span class="attr">#[allow(unused_imports)]
                 </span><span class="kw">use </span>thiserror::private::{DisplayAsDisplay, PathAsDisplay};
             })
         } <span class="kw">else </span>{
@@ -645,7 +645,7 @@
         <span class="kw">let </span>pat = fields_pat(<span class="kw-2">&amp;</span>input.fields);
         <span class="prelude-val">Some</span>(<span class="macro">quote! </span>{
             #use_as_display
-            <span class="attribute">#[allow(unused_variables, deprecated)]
+            <span class="attr">#[allow(unused_variables, deprecated)]
             </span><span class="kw">let </span><span class="self">Self </span>#pat = <span class="self">self</span>;
             #display
         })
@@ -662,9 +662,9 @@
         }
         <span class="kw">let </span>display_where_clause = display_inferred_bounds.augment_where_clause(input.generics);
         <span class="macro">quote! </span>{
-            <span class="attribute">#[allow(unused_qualifications)]
+            <span class="attr">#[allow(unused_qualifications)]
             </span><span class="kw">impl </span>#impl_generics std::fmt::Display <span class="kw">for </span>#ty #ty_generics #display_where_clause {
-                <span class="attribute">#[allow(clippy::used_underscore_binding)]
+                <span class="attr">#[allow(clippy::used_underscore_binding)]
                 </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, __formatter: <span class="kw-2">&amp;mut </span>std::fmt::Formatter) -&gt; std::fmt::Result {
                     #body
                 }
@@ -677,9 +677,9 @@
         <span class="kw">let </span>from = unoptional_type(from_field.ty);
         <span class="kw">let </span>body = from_initializer(from_field, backtrace_field);
         <span class="macro">quote! </span>{
-            <span class="attribute">#[allow(unused_qualifications)]
+            <span class="attr">#[allow(unused_qualifications)]
             </span><span class="kw">impl </span>#impl_generics std::convert::From&lt;#from&gt; <span class="kw">for </span>#ty #ty_generics #where_clause {
-                <span class="attribute">#[allow(deprecated)]
+                <span class="attr">#[allow(deprecated)]
                 </span><span class="kw">fn </span>from(source: #from) -&gt; <span class="self">Self </span>{
                     #ty #body
                 }
@@ -696,7 +696,7 @@
     <span class="kw">let </span>error_where_clause = error_inferred_bounds.augment_where_clause(input.generics);
 
     <span class="macro">quote! </span>{
-        <span class="attribute">#[allow(unused_qualifications)]
+        <span class="attr">#[allow(unused_qualifications)]
         </span><span class="kw">impl </span>#impl_generics #error_trait <span class="kw">for </span>#ty #ty_generics #error_where_clause {
             #source_method
             #backtrace_method
@@ -749,7 +749,7 @@
         <span class="prelude-val">Some</span>(<span class="macro">quote! </span>{
             <span class="kw">fn </span>source(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; std::option::Option&lt;<span class="kw-2">&amp;</span>(<span class="kw">dyn </span>std::error::Error + <span class="lifetime">&#39;static</span>)&gt; {
                 <span class="kw">use </span>thiserror::private::AsDynError;
-                <span class="attribute">#[allow(deprecated)]
+                <span class="attr">#[allow(deprecated)]
                 </span><span class="kw">match </span><span class="self">self </span>{
                     #(#arms)*
                 }
@@ -837,7 +837,7 @@
         });
         <span class="prelude-val">Some</span>(<span class="macro">quote! </span>{
             <span class="kw">fn </span>backtrace(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; std::option::Option&lt;<span class="kw-2">&amp;</span>std::backtrace::Backtrace&gt; {
-                <span class="attribute">#[allow(deprecated)]
+                <span class="attr">#[allow(deprecated)]
                 </span><span class="kw">match </span><span class="self">self </span>{
                     #(#arms)*
                 }
@@ -856,7 +856,7 @@
                 .map_or(<span class="bool-val">false</span>, |display| display.has_bonus_display)
         }) {
             <span class="prelude-val">Some</span>(<span class="macro">quote! </span>{
-                <span class="attribute">#[allow(unused_imports)]
+                <span class="attr">#[allow(unused_imports)]
                 </span><span class="kw">use </span>thiserror::private::{DisplayAsDisplay, PathAsDisplay};
             })
         } <span class="kw">else </span>{
@@ -898,11 +898,11 @@
         <span class="kw">let </span>arms = arms.collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
         <span class="kw">let </span>display_where_clause = display_inferred_bounds.augment_where_clause(input.generics);
         <span class="prelude-val">Some</span>(<span class="macro">quote! </span>{
-            <span class="attribute">#[allow(unused_qualifications)]
+            <span class="attr">#[allow(unused_qualifications)]
             </span><span class="kw">impl </span>#impl_generics std::fmt::Display <span class="kw">for </span>#ty #ty_generics #display_where_clause {
                 <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, __formatter: <span class="kw-2">&amp;mut </span>std::fmt::Formatter) -&gt; std::fmt::Result {
                     #use_as_display
-                    <span class="attribute">#[allow(unused_variables, deprecated, clippy::used_underscore_binding)]
+                    <span class="attr">#[allow(unused_variables, deprecated, clippy::used_underscore_binding)]
                     </span><span class="kw">match </span>#void_deref <span class="self">self </span>{
                         #(#arms,)*
                     }
@@ -920,9 +920,9 @@
         <span class="kw">let </span>from = unoptional_type(from_field.ty);
         <span class="kw">let </span>body = from_initializer(from_field, backtrace_field);
         <span class="prelude-val">Some</span>(<span class="macro">quote! </span>{
-            <span class="attribute">#[allow(unused_qualifications)]
+            <span class="attr">#[allow(unused_qualifications)]
             </span><span class="kw">impl </span>#impl_generics std::convert::From&lt;#from&gt; <span class="kw">for </span>#ty #ty_generics #where_clause {
-                <span class="attribute">#[allow(deprecated)]
+                <span class="attr">#[allow(deprecated)]
                 </span><span class="kw">fn </span>from(source: #from) -&gt; <span class="self">Self </span>{
                     #ty::#variant #body
                 }
@@ -939,7 +939,7 @@
     <span class="kw">let </span>error_where_clause = error_inferred_bounds.augment_where_clause(input.generics);
 
     <span class="macro">quote! </span>{
-        <span class="attribute">#[allow(unused_qualifications)]
+        <span class="attr">#[allow(unused_qualifications)]
         </span><span class="kw">impl </span>#impl_generics #error_trait <span class="kw">for </span>#ty #ty_generics #error_where_clause {
             #source_method
             #backtrace_method
@@ -1043,4 +1043,4 @@
     <span class="macro">quote!</span>(#path #error)
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="thiserror_impl" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="thiserror_impl" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

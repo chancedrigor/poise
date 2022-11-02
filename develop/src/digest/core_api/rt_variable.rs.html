@@ -166,7 +166,7 @@
 <span id="165">165</span>
 <span id="166">166</span>
 </pre><pre class="rust"><code><span class="kw">use super</span>::{AlgorithmName, TruncSide, UpdateCore, VariableOutputCore};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;mac&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;mac&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::MacMarker;
 <span class="kw">use crate</span>::{HashMarker, InvalidBufferSize};
 <span class="kw">use crate</span>::{InvalidOutputSize, Reset, Update, VariableOutput, VariableOutputReset};
@@ -176,7 +176,7 @@
 
 <span class="doccomment">/// Wrapper around [`VariableOutputCore`] which selects output size
 /// at run time.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>RtVariableCoreWrapper&lt;T&gt;
 <span class="kw">where
     </span>T: VariableOutputCore + UpdateCore,
@@ -194,7 +194,7 @@
     T::BlockSize: IsLess&lt;U256&gt;,
     Le&lt;T::BlockSize, U256&gt;: NonZero,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>finalize_dirty(<span class="kw-2">&amp;mut </span><span class="self">self</span>, out: <span class="kw-2">&amp;mut </span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;(), InvalidBufferSize&gt; {
         <span class="kw">let </span><span class="self">Self </span>{
             core,
@@ -224,7 +224,7 @@
 {
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;mac&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;mac&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;mac&quot;</span>)))]
 </span><span class="kw">impl</span>&lt;T&gt; MacMarker <span class="kw">for </span>RtVariableCoreWrapper&lt;T&gt;
 <span class="kw">where
@@ -240,7 +240,7 @@
     T::BlockSize: IsLess&lt;U256&gt;,
     Le&lt;T::BlockSize, U256&gt;: NonZero,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>reset(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.buffer.reset();
         <span class="self">self</span>.core.reset();
@@ -253,7 +253,7 @@
     T::BlockSize: IsLess&lt;U256&gt;,
     Le&lt;T::BlockSize, U256&gt;: NonZero,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>update(<span class="kw-2">&amp;mut </span><span class="self">self</span>, input: <span class="kw-2">&amp;</span>[u8]) {
         <span class="kw">let </span><span class="self">Self </span>{ core, buffer, .. } = <span class="self">self</span>;
         buffer.digest_blocks(input, |blocks| core.update_blocks(blocks));
@@ -312,7 +312,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;std&quot;</span>)))]
 </span><span class="kw">impl</span>&lt;T&gt; std::io::Write <span class="kw">for </span>RtVariableCoreWrapper&lt;T&gt;
 <span class="kw">where
@@ -320,16 +320,16 @@
     T::BlockSize: IsLess&lt;U256&gt;,
     Le&lt;T::BlockSize, U256&gt;: NonZero,
 {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write(<span class="kw-2">&amp;mut </span><span class="self">self</span>, buf: <span class="kw-2">&amp;</span>[u8]) -&gt; std::io::Result&lt;usize&gt; {
         Update::update(<span class="self">self</span>, buf);
         <span class="prelude-val">Ok</span>(buf.len())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>flush(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; std::io::Result&lt;()&gt; {
         <span class="prelude-val">Ok</span>(())
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="digest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="digest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

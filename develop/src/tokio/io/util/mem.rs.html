@@ -339,7 +339,7 @@
 /// # Ok(())
 /// # }
 /// ```
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;io-util&quot;</span>)))]
 </span><span class="kw">pub struct </span>DuplexStream {
     read: Arc&lt;Mutex&lt;Pipe&gt;&gt;,
@@ -349,7 +349,7 @@
 <span class="doccomment">/// A unidirectional IO over a piece of memory.
 ///
 /// Data can be written to the pipe, and reading will return that data.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>Pipe {
     <span class="doccomment">/// The buffer storing the bytes written, also read from.
     ///
@@ -376,7 +376,7 @@
 ///
 /// The `max_buf_size` argument is the maximum amount of bytes that can be
 /// written to a side before the write returns `Poll::Pending`.
-</span><span class="attribute">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;io-util&quot;</span>)))]
+</span><span class="attr">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;io-util&quot;</span>)))]
 </span><span class="kw">pub fn </span>duplex(max_buf_size: usize) -&gt; (DuplexStream, DuplexStream) {
     <span class="kw">let </span>one = Arc::new(Mutex::new(Pipe::new(max_buf_size)));
     <span class="kw">let </span>two = Arc::new(Mutex::new(Pipe::new(max_buf_size)));
@@ -399,7 +399,7 @@
     // compatibility, we include the `mut` and `allow` the lint.
     //
     // See https://github.com/rust-lang/rust/issues/73592
-    </span><span class="attribute">#[allow(unused_mut)]
+    </span><span class="attr">#[allow(unused_mut)]
     </span><span class="kw">fn </span>poll_read(
         <span class="kw-2">mut </span><span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;,
         cx: <span class="kw-2">&amp;mut </span>task::Context&lt;<span class="lifetime">&#39;_</span>&gt;,
@@ -410,7 +410,7 @@
 }
 
 <span class="kw">impl </span>AsyncWrite <span class="kw">for </span>DuplexStream {
-    <span class="attribute">#[allow(unused_mut)]
+    <span class="attr">#[allow(unused_mut)]
     </span><span class="kw">fn </span>poll_write(
         <span class="kw-2">mut </span><span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;,
         cx: <span class="kw-2">&amp;mut </span>task::Context&lt;<span class="lifetime">&#39;_</span>&gt;,
@@ -419,7 +419,7 @@
         Pin::new(<span class="kw-2">&amp;mut *</span><span class="self">self</span>.write.lock()).poll_write(cx, buf)
     }
 
-    <span class="attribute">#[allow(unused_mut)]
+    <span class="attr">#[allow(unused_mut)]
     </span><span class="kw">fn </span>poll_flush(
         <span class="kw-2">mut </span><span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;,
         cx: <span class="kw-2">&amp;mut </span>task::Context&lt;<span class="lifetime">&#39;_</span>&gt;,
@@ -427,7 +427,7 @@
         Pin::new(<span class="kw-2">&amp;mut *</span><span class="self">self</span>.write.lock()).poll_flush(cx)
     }
 
-    <span class="attribute">#[allow(unused_mut)]
+    <span class="attr">#[allow(unused_mut)]
     </span><span class="kw">fn </span>poll_shutdown(
         <span class="kw-2">mut </span><span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;,
         cx: <span class="kw-2">&amp;mut </span>task::Context&lt;<span class="lifetime">&#39;_</span>&gt;,
@@ -589,4 +589,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

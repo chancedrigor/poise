@@ -175,7 +175,7 @@
 </pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::compat::{AllowStd, SetWaker};
 <span class="kw">use </span><span class="kw">crate</span>::WebSocketStream;
 <span class="kw">use </span>futures_io::{AsyncRead, AsyncWrite};
-<span class="attribute">#[allow(unused_imports)]
+<span class="attr">#[allow(unused_imports)]
 </span><span class="kw">use </span>log::<span class="kw-2">*</span>;
 <span class="kw">use </span>std::future::Future;
 <span class="kw">use </span>std::io::{Read, Write};
@@ -218,7 +218,7 @@
             .<span class="number">0
             </span>.take()
             .expect(<span class="string">&quot;future polled after completion&quot;</span>);
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;verbose-logging&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;verbose-logging&quot;</span>)]
         </span><span class="macro">trace!</span>(<span class="string">&quot;Setting context when skipping handshake&quot;</span>);
         <span class="kw">let </span>stream = AllowStd::new(inner.stream, ctx.waker());
 
@@ -305,7 +305,7 @@
 
     <span class="kw">fn </span>poll(<span class="kw-2">mut </span><span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, ctx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;<span class="self">Self</span>::Output&gt; {
         <span class="kw">let </span>inner = <span class="self">self</span>.<span class="number">0</span>.take().expect(<span class="string">&quot;future polled after completion&quot;</span>);
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;verbose-logging&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;verbose-logging&quot;</span>)]
         </span><span class="macro">trace!</span>(<span class="string">&quot;Setting ctx when starting handshake&quot;</span>);
         <span class="kw">let </span>stream = AllowStd::new(inner.stream, ctx.waker());
 
@@ -332,7 +332,7 @@
             .expect(<span class="string">&quot;future polled after completion&quot;</span>);
 
         <span class="kw">let </span>machine = s.get_mut();
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;verbose-logging&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;verbose-logging&quot;</span>)]
         </span><span class="macro">trace!</span>(<span class="string">&quot;Setting context in handshake&quot;</span>);
         machine.get_mut().set_waker(cx.waker());
 
@@ -347,4 +347,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="async_tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="async_tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

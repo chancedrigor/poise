@@ -711,9 +711,9 @@
 <span class="kw">use </span>std::io;
 <span class="kw">use </span>std::net;
 <span class="kw">use </span>std::net::{Ipv4Addr, Ipv6Addr, SocketAddr};
-<span class="attribute">#[cfg(unix)]
+<span class="attr">#[cfg(unix)]
 </span><span class="kw">use </span>std::os::unix::io::{AsRawFd, FromRawFd, IntoRawFd, RawFd};
-<span class="attribute">#[cfg(windows)]
+<span class="attr">#[cfg(windows)]
 </span><span class="kw">use </span>std::os::windows::io::{AsRawSocket, FromRawSocket, IntoRawSocket, RawSocket};
 
 <span class="doccomment">/// A User Datagram Protocol socket.
@@ -724,7 +724,7 @@
 ///
 /// # Examples
 ///
-</span><span class="attribute">#[cfg_attr(feature = <span class="string">&quot;os-poll&quot;</span>, doc = <span class="string">&quot;```&quot;</span>)]
+</span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;os-poll&quot;</span>, doc = <span class="string">&quot;```&quot;</span>)]
 #[cfg_attr(not(feature = <span class="string">&quot;os-poll&quot;</span>), doc = <span class="string">&quot;```ignore&quot;</span>)]
 </span><span class="doccomment">/// # use std::error::Error;
 /// #
@@ -794,7 +794,7 @@
     ///
     /// # Examples
     ///
-    </span><span class="attribute">#[cfg_attr(feature = <span class="string">&quot;os-poll&quot;</span>, doc = <span class="string">&quot;```&quot;</span>)]
+    </span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;os-poll&quot;</span>, doc = <span class="string">&quot;```&quot;</span>)]
     #[cfg_attr(not(feature = <span class="string">&quot;os-poll&quot;</span>), doc = <span class="string">&quot;```ignore&quot;</span>)]
     </span><span class="doccomment">/// # use std::error::Error;
     /// #
@@ -838,7 +838,7 @@
     </span><span class="comment">// This assertion is almost, but not quite, universal.  It fails on
     // shared-IP FreeBSD jails.  It&#39;s hard for mio to know whether we&#39;re jailed,
     // so simply disable the test on FreeBSD.
-    </span><span class="attribute">#[cfg_attr(all(feature = <span class="string">&quot;os-poll&quot;</span>, not(target_os = <span class="string">&quot;freebsd&quot;</span>)), doc = <span class="string">&quot;```&quot;</span>)]
+    </span><span class="attr">#[cfg_attr(all(feature = <span class="string">&quot;os-poll&quot;</span>, not(target_os = <span class="string">&quot;freebsd&quot;</span>)), doc = <span class="string">&quot;```&quot;</span>)]
     #[cfg_attr(
         any(not(feature = <span class="string">&quot;os-poll&quot;</span>), target_os = <span class="string">&quot;freebsd&quot;</span>),
         doc = <span class="string">&quot;```ignore&quot;
@@ -862,7 +862,7 @@
     ///
     /// # Examples
     ///
-    </span><span class="attribute">#[cfg_attr(feature = <span class="string">&quot;os-poll&quot;</span>, doc = <span class="string">&quot;```&quot;</span>)]
+    </span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;os-poll&quot;</span>, doc = <span class="string">&quot;```&quot;</span>)]
     #[cfg_attr(not(feature = <span class="string">&quot;os-poll&quot;</span>), doc = <span class="string">&quot;```ignore&quot;</span>)]
     </span><span class="doccomment">/// # use std::error::Error;
     /// #
@@ -1032,7 +1032,7 @@
     ///
     /// # Examples
     ///
-    </span><span class="attribute">#[cfg_attr(feature = <span class="string">&quot;os-poll&quot;</span>, doc = <span class="string">&quot;```&quot;</span>)]
+    </span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;os-poll&quot;</span>, doc = <span class="string">&quot;```&quot;</span>)]
     #[cfg_attr(not(feature = <span class="string">&quot;os-poll&quot;</span>), doc = <span class="string">&quot;```ignore&quot;</span>)]
     </span><span class="doccomment">/// # use std::error::Error;
     /// #
@@ -1062,7 +1062,7 @@
     ///
     /// # Examples
     ///
-    </span><span class="attribute">#[cfg_attr(feature = <span class="string">&quot;os-poll&quot;</span>, doc = <span class="string">&quot;```&quot;</span>)]
+    </span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;os-poll&quot;</span>, doc = <span class="string">&quot;```&quot;</span>)]
     #[cfg_attr(not(feature = <span class="string">&quot;os-poll&quot;</span>), doc = <span class="string">&quot;```ignore&quot;</span>)]
     </span><span class="doccomment">/// # use std::error::Error;
     /// #
@@ -1143,7 +1143,7 @@
     ///
     /// # Examples
     ///
-    </span><span class="attribute">#[cfg_attr(feature = <span class="string">&quot;os-poll&quot;</span>, doc = <span class="string">&quot;```&quot;</span>)]
+    </span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;os-poll&quot;</span>, doc = <span class="string">&quot;```&quot;</span>)]
     #[cfg_attr(not(feature = <span class="string">&quot;os-poll&quot;</span>), doc = <span class="string">&quot;```ignore&quot;</span>)]
     </span><span class="doccomment">/// # use std::error::Error;
     /// #
@@ -1172,7 +1172,7 @@
     ///
     /// # Examples
     ///
-    </span><span class="attribute">#[cfg_attr(feature = <span class="string">&quot;os-poll&quot;</span>, doc = <span class="string">&quot;```&quot;</span>)]
+    </span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;os-poll&quot;</span>, doc = <span class="string">&quot;```&quot;</span>)]
     #[cfg_attr(not(feature = <span class="string">&quot;os-poll&quot;</span>), doc = <span class="string">&quot;```ignore&quot;</span>)]
     </span><span class="doccomment">/// # use std::error::Error;
     /// #
@@ -1198,7 +1198,7 @@
     /// address of the local interface with which the system should join the
     /// multicast group. If it&#39;s equal to `INADDR_ANY` then an appropriate
     /// interface is chosen by the system.
-    </span><span class="attribute">#[allow(clippy::trivially_copy_pass_by_ref)]
+    </span><span class="attr">#[allow(clippy::trivially_copy_pass_by_ref)]
     </span><span class="kw">pub fn </span>join_multicast_v4(<span class="kw-2">&amp;</span><span class="self">self</span>, multiaddr: <span class="kw-2">&amp;</span>Ipv4Addr, interface: <span class="kw-2">&amp;</span>Ipv4Addr) -&gt; io::Result&lt;()&gt; {
         <span class="self">self</span>.inner.join_multicast_v4(multiaddr, interface)
     }
@@ -1208,7 +1208,7 @@
     /// This function specifies a new multicast group for this socket to join.
     /// The address must be a valid multicast address, and `interface` is the
     /// index of the interface to join/leave (or 0 to indicate any interface).
-    </span><span class="attribute">#[allow(clippy::trivially_copy_pass_by_ref)]
+    </span><span class="attr">#[allow(clippy::trivially_copy_pass_by_ref)]
     </span><span class="kw">pub fn </span>join_multicast_v6(<span class="kw-2">&amp;</span><span class="self">self</span>, multiaddr: <span class="kw-2">&amp;</span>Ipv6Addr, interface: u32) -&gt; io::Result&lt;()&gt; {
         <span class="self">self</span>.inner.join_multicast_v6(multiaddr, interface)
     }
@@ -1219,7 +1219,7 @@
     /// [`join_multicast_v4`][link].
     ///
     /// [link]: #method.join_multicast_v4
-    </span><span class="attribute">#[allow(clippy::trivially_copy_pass_by_ref)]
+    </span><span class="attr">#[allow(clippy::trivially_copy_pass_by_ref)]
     </span><span class="kw">pub fn </span>leave_multicast_v4(<span class="kw-2">&amp;</span><span class="self">self</span>, multiaddr: <span class="kw-2">&amp;</span>Ipv4Addr, interface: <span class="kw-2">&amp;</span>Ipv4Addr) -&gt; io::Result&lt;()&gt; {
         <span class="self">self</span>.inner.leave_multicast_v4(multiaddr, interface)
     }
@@ -1230,13 +1230,13 @@
     /// [`join_multicast_v6`][link].
     ///
     /// [link]: #method.join_multicast_v6
-    </span><span class="attribute">#[allow(clippy::trivially_copy_pass_by_ref)]
+    </span><span class="attr">#[allow(clippy::trivially_copy_pass_by_ref)]
     </span><span class="kw">pub fn </span>leave_multicast_v6(<span class="kw-2">&amp;</span><span class="self">self</span>, multiaddr: <span class="kw-2">&amp;</span>Ipv6Addr, interface: u32) -&gt; io::Result&lt;()&gt; {
         <span class="self">self</span>.inner.leave_multicast_v6(multiaddr, interface)
     }
 
     <span class="doccomment">/// Get the value of the `IPV6_V6ONLY` option on this socket.
-    </span><span class="attribute">#[allow(clippy::trivially_copy_pass_by_ref)]
+    </span><span class="attr">#[allow(clippy::trivially_copy_pass_by_ref)]
     </span><span class="kw">pub fn </span>only_v6(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; io::Result&lt;bool&gt; {
         sys::udp::only_v6(<span class="kw-2">&amp;</span><span class="self">self</span>.inner)
     }
@@ -1263,7 +1263,7 @@
     ///
     /// # Examples
     ///
-    </span><span class="attribute">#[cfg_attr(unix, doc = <span class="string">&quot;```no_run&quot;</span>)]
+    </span><span class="attr">#[cfg_attr(unix, doc = <span class="string">&quot;```no_run&quot;</span>)]
     #[cfg_attr(windows, doc = <span class="string">&quot;```ignore&quot;</span>)]
     </span><span class="doccomment">/// # use std::error::Error;
     /// #
@@ -1339,21 +1339,21 @@
     }
 }
 
-<span class="attribute">#[cfg(unix)]
+<span class="attr">#[cfg(unix)]
 </span><span class="kw">impl </span>IntoRawFd <span class="kw">for </span>UdpSocket {
     <span class="kw">fn </span>into_raw_fd(<span class="self">self</span>) -&gt; RawFd {
         <span class="self">self</span>.inner.into_inner().into_raw_fd()
     }
 }
 
-<span class="attribute">#[cfg(unix)]
+<span class="attr">#[cfg(unix)]
 </span><span class="kw">impl </span>AsRawFd <span class="kw">for </span>UdpSocket {
     <span class="kw">fn </span>as_raw_fd(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; RawFd {
         <span class="self">self</span>.inner.as_raw_fd()
     }
 }
 
-<span class="attribute">#[cfg(unix)]
+<span class="attr">#[cfg(unix)]
 </span><span class="kw">impl </span>FromRawFd <span class="kw">for </span>UdpSocket {
     <span class="doccomment">/// Converts a `RawFd` to a `UdpSocket`.
     ///
@@ -1366,21 +1366,21 @@
     }
 }
 
-<span class="attribute">#[cfg(windows)]
+<span class="attr">#[cfg(windows)]
 </span><span class="kw">impl </span>IntoRawSocket <span class="kw">for </span>UdpSocket {
     <span class="kw">fn </span>into_raw_socket(<span class="self">self</span>) -&gt; RawSocket {
         <span class="self">self</span>.inner.into_inner().into_raw_socket()
     }
 }
 
-<span class="attribute">#[cfg(windows)]
+<span class="attr">#[cfg(windows)]
 </span><span class="kw">impl </span>AsRawSocket <span class="kw">for </span>UdpSocket {
     <span class="kw">fn </span>as_raw_socket(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; RawSocket {
         <span class="self">self</span>.inner.as_raw_socket()
     }
 }
 
-<span class="attribute">#[cfg(windows)]
+<span class="attr">#[cfg(windows)]
 </span><span class="kw">impl </span>FromRawSocket <span class="kw">for </span>UdpSocket {
     <span class="doccomment">/// Converts a `RawSocket` to a `UdpSocket`.
     ///
@@ -1393,4 +1393,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="mio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="mio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -273,7 +273,7 @@
 
 </span><span class="kw">pub mod </span>coding;
 
-<span class="attribute">#[allow(clippy::module_inception)]
+<span class="attr">#[allow(clippy::module_inception)]
 </span><span class="kw">mod </span>frame;
 <span class="kw">mod </span>mask;
 
@@ -288,7 +288,7 @@
 };
 
 <span class="doccomment">/// A reader and writer for WebSocket frames.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>FrameSocket&lt;Stream&gt; {
     <span class="doccomment">/// The underlying network stream.
     </span>stream: Stream,
@@ -353,7 +353,7 @@
 }
 
 <span class="doccomment">/// A codec for WebSocket frames.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>FrameCodec {
     <span class="doccomment">/// Buffer to read data from the stream.
     </span>in_buffer: ReadBuffer,
@@ -469,7 +469,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
 
     <span class="kw">use </span><span class="kw">crate</span>::error::{CapacityError, Error};
@@ -478,7 +478,7 @@
 
     <span class="kw">use </span>std::io::Cursor;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>read_frames() {
         <span class="kw">let </span>raw = Cursor::new(<span class="macro">vec!</span>[
             <span class="number">0x82</span>, <span class="number">0x07</span>, <span class="number">0x01</span>, <span class="number">0x02</span>, <span class="number">0x03</span>, <span class="number">0x04</span>, <span class="number">0x05</span>, <span class="number">0x06</span>, <span class="number">0x07</span>, <span class="number">0x82</span>, <span class="number">0x03</span>, <span class="number">0x03</span>, <span class="number">0x02</span>, <span class="number">0x01</span>,
@@ -497,7 +497,7 @@
         <span class="macro">assert_eq!</span>(rest, <span class="macro">vec!</span>[<span class="number">0x99</span>]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>from_partially_read() {
         <span class="kw">let </span>raw = Cursor::new(<span class="macro">vec!</span>[<span class="number">0x02</span>, <span class="number">0x03</span>, <span class="number">0x04</span>, <span class="number">0x05</span>, <span class="number">0x06</span>, <span class="number">0x07</span>]);
         <span class="kw">let </span><span class="kw-2">mut </span>sock = FrameSocket::from_partially_read(raw, <span class="macro">vec!</span>[<span class="number">0x82</span>, <span class="number">0x07</span>, <span class="number">0x01</span>]);
@@ -507,7 +507,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>write_frames() {
         <span class="kw">let </span><span class="kw-2">mut </span>sock = FrameSocket::new(Vec::new());
 
@@ -521,7 +521,7 @@
         <span class="macro">assert_eq!</span>(buf, <span class="macro">vec!</span>[<span class="number">0x89</span>, <span class="number">0x02</span>, <span class="number">0x04</span>, <span class="number">0x05</span>, <span class="number">0x8a</span>, <span class="number">0x01</span>, <span class="number">0x01</span>]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>parse_overflow() {
         <span class="kw">let </span>raw = Cursor::new(<span class="macro">vec!</span>[
             <span class="number">0x83</span>, <span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,
@@ -530,7 +530,7 @@
         <span class="kw">let _ </span>= sock.read_frame(<span class="prelude-val">None</span>); <span class="comment">// should not crash
     </span>}
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>size_limit_hit() {
         <span class="kw">let </span>raw = Cursor::new(<span class="macro">vec!</span>[<span class="number">0x82</span>, <span class="number">0x07</span>, <span class="number">0x01</span>, <span class="number">0x02</span>, <span class="number">0x03</span>, <span class="number">0x04</span>, <span class="number">0x05</span>, <span class="number">0x06</span>, <span class="number">0x07</span>]);
         <span class="kw">let </span><span class="kw-2">mut </span>sock = FrameSocket::new(raw);
@@ -541,4 +541,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

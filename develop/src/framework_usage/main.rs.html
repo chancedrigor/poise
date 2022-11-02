@@ -163,7 +163,7 @@
 <span id="163">163</span>
 <span id="164">164</span>
 <span id="165">165</span>
-</pre><pre class="rust"><code><span class="attribute">#![warn(clippy::str_to_string)]
+</pre><pre class="rust"><code><span class="attr">#![warn(clippy::str_to_string)]
 
 </span><span class="kw">mod </span>commands;
 <span class="kw">use </span>commands::<span class="kw-2">*</span>;
@@ -181,10 +181,10 @@
 }
 
 <span class="doccomment">/// Show this help menu
-</span><span class="attribute">#[poise::command(prefix_command, track_edits, slash_command)]
+</span><span class="attr">#[poise::command(prefix_command, track_edits, slash_command)]
 </span><span class="kw">async fn </span>help(
     ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    <span class="attribute">#[description = <span class="string">&quot;Specific command to show help about&quot;</span>]
+    <span class="attr">#[description = <span class="string">&quot;Specific command to show help about&quot;</span>]
     #[autocomplete = <span class="string">&quot;poise::builtins::autocomplete_command&quot;</span>]
     </span>command: <span class="prelude-ty">Option</span>&lt;String&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
@@ -203,7 +203,7 @@ This is an example bot made to showcase features of my custom Discord bot framew
 }
 
 <span class="doccomment">/// Registers or unregisters application commands in this guild or globally
-</span><span class="attribute">#[poise::command(prefix_command, hide_in_help)]
+</span><span class="attr">#[poise::command(prefix_command, hide_in_help)]
 </span><span class="kw">async fn </span>register(ctx: Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
     poise::builtins::register_application_commands_buttons(ctx).<span class="kw">await</span><span class="question-mark">?</span>;
 
@@ -227,7 +227,7 @@ This is an example bot made to showcase features of my custom Discord bot framew
     }
 }
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() {
     env_logger::init();
 
@@ -249,7 +249,7 @@ This is an example bot made to showcase features of my custom Discord bot framew
             general::totalsize(),
             general::modal(),
             general::punish(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
             </span>general::servers(),
             general::reply(),
             context_menu::user_info(),
@@ -329,4 +329,4 @@ This is an example bot made to showcase features of my custom Discord bot framew
         </span>.unwrap();
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="framework_usage" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="framework_usage" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

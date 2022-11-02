@@ -1402,7 +1402,7 @@
 <span id="1402">1402</span>
 </pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::error::Error;
 <span class="kw">use </span><span class="kw">crate</span>::key;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::log::{debug, error, trace, warn};
 <span class="kw">use </span><span class="kw">crate</span>::msgs::alert::AlertMessagePayload;
 <span class="kw">use </span><span class="kw">crate</span>::msgs::base::Payload;
@@ -1415,11 +1415,11 @@
 <span class="kw">use </span><span class="kw">crate</span>::msgs::message::{
     BorrowedPlainMessage, Message, MessagePayload, OpaqueMessage, PlainMessage,
 };
-<span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::quic;
 <span class="kw">use </span><span class="kw">crate</span>::record_layer;
 <span class="kw">use </span><span class="kw">crate</span>::suites::SupportedCipherSuite;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::tls12::ConnectionSecrets;
 <span class="kw">use </span><span class="kw">crate</span>::vecbuf::ChunkVecBuffer;
 
@@ -1504,7 +1504,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
 </span><span class="kw">impl </span><span class="kw">crate</span>::quic::QuicExt <span class="kw">for </span>Connection {
     <span class="kw">fn </span>quic_transport_parameters(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>[u8]&gt; {
         <span class="kw">match </span><span class="self">self </span>{
@@ -1564,7 +1564,7 @@
 
 <span class="doccomment">/// Values of this structure are returned from [`Connection::process_new_packets`]
 /// and tell the caller the current I/O state of the TLS connection.
-</span><span class="attribute">#[derive(Debug, PartialEq)]
+</span><span class="attr">#[derive(Debug, PartialEq)]
 </span><span class="kw">pub struct </span>IoState {
     tls_bytes_to_write: usize,
     plaintext_bytes_to_read: usize,
@@ -1665,7 +1665,7 @@
     ///
     /// You may learn the number of bytes available at any time by inspecting
     /// the return of [`Connection::process_new_packets`].
-    </span><span class="attribute">#[cfg(read_buf)]
+    </span><span class="attr">#[cfg(read_buf)]
     </span><span class="kw">fn </span>read_buf(<span class="kw-2">&amp;mut </span><span class="self">self</span>, buf: <span class="kw-2">&amp;mut </span>io::ReadBuf&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; io::Result&lt;()&gt; {
         <span class="kw">let </span>before = buf.filled_len();
         <span class="self">self</span>.received_plaintext.read_buf(buf)<span class="question-mark">?</span>;
@@ -1724,7 +1724,7 @@
     ///
     /// This is not an external interface.  Get one of these objects
     /// from [`Connection::writer`].
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     </span><span class="kw">pub fn </span>new(sink: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="kw">dyn </span>PlaintextSink) -&gt; Writer&lt;<span class="lifetime">&#39;a</span>&gt; {
         Writer { sink }
     }
@@ -1753,14 +1753,14 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone, Eq, PartialEq)]
+<span class="attr">#[derive(Copy, Clone, Eq, PartialEq)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>Protocol {
     Tcp,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
     </span>Quic,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>ConnectionRandoms {
     <span class="kw">pub</span>(<span class="kw">crate</span>) client: [u8; <span class="number">32</span>],
     <span class="kw">pub</span>(<span class="kw">crate</span>) server: [u8; <span class="number">32</span>],
@@ -2141,7 +2141,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
 </span><span class="kw">impl</span>&lt;Data&gt; ConnectionCommon&lt;Data&gt; {
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>read_quic_hs(<span class="kw-2">&amp;mut </span><span class="self">self</span>, plaintext: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
         <span class="kw">let </span>state = <span class="kw">match </span>mem::replace(<span class="kw-2">&amp;mut </span><span class="self">self</span>.state, <span class="prelude-val">Err</span>(Error::HandshakeNotComplete)) {
@@ -2207,10 +2207,10 @@
     received_plaintext: ChunkVecBuffer,
     sendable_plaintext: ChunkVecBuffer,
     <span class="kw">pub</span>(<span class="kw">crate</span>) sendable_tls: ChunkVecBuffer,
-    <span class="attribute">#[allow(dead_code)] </span><span class="comment">// only read for QUIC
+    <span class="attr">#[allow(dead_code)] </span><span class="comment">// only read for QUIC
     </span><span class="doccomment">/// Protocol whose key schedule should be used. Unused for TLS &lt; 1.3.
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) protocol: Protocol,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) quic: Quic,
 }
 
@@ -2238,7 +2238,7 @@
             sendable_tls: ChunkVecBuffer::new(<span class="prelude-val">Some</span>(DEFAULT_BUFFER_LIMIT)),
 
             protocol: Protocol::Tcp,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
             </span>quic: Quic::new(),
         })
     }
@@ -2589,7 +2589,7 @@
 
     <span class="doccomment">/// Send a raw TLS message, fragmenting it if needed.
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>send_msg(<span class="kw-2">&amp;mut </span><span class="self">self</span>, m: Message, must_encrypt: bool) {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
         </span>{
             <span class="kw">if let </span>Protocol::Quic = <span class="self">self</span>.protocol {
                 <span class="kw">if let </span>MessagePayload::Alert(alert) = m.payload {
@@ -2624,7 +2624,7 @@
         <span class="self">self</span>.received_plaintext.append(bytes.<span class="number">0</span>);
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>start_encryption_tls12(<span class="kw-2">&amp;mut </span><span class="self">self</span>, secrets: <span class="kw-2">&amp;</span>ConnectionSecrets, side: Side) {
         <span class="kw">let </span>(dec, enc) = secrets.make_cipher_pair(side);
         <span class="self">self</span>.record_layer
@@ -2633,7 +2633,7 @@
             .prepare_message_decrypter(dec);
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>missing_extension(<span class="kw-2">&amp;mut </span><span class="self">self</span>, why: <span class="kw-2">&amp;</span>str) -&gt; Error {
         <span class="self">self</span>.send_fatal_alert(AlertDescription::MissingExtension);
         Error::PeerMisbehavedError(why.to_string())
@@ -2731,11 +2731,11 @@
     }
 
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>is_quic(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
         </span>{
             <span class="self">self</span>.protocol == Protocol::Quic
         }
-        <span class="attribute">#[cfg(not(feature = <span class="string">&quot;quic&quot;</span>))]
+        <span class="attr">#[cfg(not(feature = <span class="string">&quot;quic&quot;</span>))]
         </span><span class="bool-val">false
     </span>}
 }
@@ -2764,7 +2764,7 @@
     <span class="kw">pub</span>(<span class="kw">crate</span>) data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Data,
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Quic {
     <span class="doccomment">/// QUIC transport parameters received from the peer during the handshake
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) params: <span class="prelude-ty">Option</span>&lt;Vec&lt;u8&gt;&gt;,
@@ -2777,7 +2777,7 @@
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) returned_traffic_keys: bool,
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
 </span><span class="kw">impl </span>Quic {
     <span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
@@ -2792,7 +2792,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Copy, Debug, PartialEq)]
+<span class="attr">#[derive(Clone, Copy, Debug, PartialEq)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>Side {
     Client,
     Server,
@@ -2803,4 +2803,4 @@
 
 <span class="kw">const </span>DEFAULT_BUFFER_LIMIT: usize = <span class="number">64 </span>* <span class="number">1024</span>;
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

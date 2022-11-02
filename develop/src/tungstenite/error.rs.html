@@ -280,7 +280,7 @@
 </span><span class="kw">pub type </span><span class="prelude-ty">Result</span>&lt;T, E = Error&gt; = result::Result&lt;T, E&gt;;
 
 <span class="doccomment">/// Possible WebSocket errors.
-</span><span class="attribute">#[derive(Error, Debug)]
+</span><span class="attr">#[derive(Error, Debug)]
 </span><span class="kw">pub enum </span>Error {
     <span class="doccomment">/// WebSocket connection closed normally. This informs you of the close.
     /// It&#39;s not an error as such and nothing wrong happened.
@@ -293,7 +293,7 @@
     ///
     /// Receiving this error means that the WebSocket object is not usable anymore and the
     /// only meaningful action with it is dropping it.
-    </span><span class="attribute">#[error(<span class="string">&quot;Connection closed normally&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Connection closed normally&quot;</span>)]
     </span>ConnectionClosed,
     <span class="doccomment">/// Trying to work with already closed connection.
     ///
@@ -302,41 +302,41 @@
     /// As opposed to `ConnectionClosed`, this indicates your code tries to operate on the
     /// connection when it really shouldn&#39;t anymore, so this really indicates a programmer
     /// error on your part.
-    </span><span class="attribute">#[error(<span class="string">&quot;Trying to work with closed connection&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Trying to work with closed connection&quot;</span>)]
     </span>AlreadyClosed,
     <span class="doccomment">/// Input-output error. Apart from WouldBlock, these are generally errors with the
     /// underlying connection and you should probably consider them fatal.
-    </span><span class="attribute">#[error(<span class="string">&quot;IO error: {0}&quot;</span>)]
-    </span>Io(<span class="attribute">#[from] </span>io::Error),
+    </span><span class="attr">#[error(<span class="string">&quot;IO error: {0}&quot;</span>)]
+    </span>Io(<span class="attr">#[from] </span>io::Error),
     <span class="doccomment">/// TLS error.
     ///
     /// Note that this error variant is enabled unconditionally even if no TLS feature is enabled,
     /// to provide a feature-agnostic API surface.
-    </span><span class="attribute">#[error(<span class="string">&quot;TLS error: {0}&quot;</span>)]
-    </span>Tls(<span class="attribute">#[from] </span>TlsError),
+    </span><span class="attr">#[error(<span class="string">&quot;TLS error: {0}&quot;</span>)]
+    </span>Tls(<span class="attr">#[from] </span>TlsError),
     <span class="doccomment">/// - When reading: buffer capacity exhausted.
     /// - When writing: your message is bigger than the configured max message size
     ///   (64MB by default).
-    </span><span class="attribute">#[error(<span class="string">&quot;Space limit exceeded: {0}&quot;</span>)]
-    </span>Capacity(<span class="attribute">#[from] </span>CapacityError),
+    </span><span class="attr">#[error(<span class="string">&quot;Space limit exceeded: {0}&quot;</span>)]
+    </span>Capacity(<span class="attr">#[from] </span>CapacityError),
     <span class="doccomment">/// Protocol violation.
-    </span><span class="attribute">#[error(<span class="string">&quot;WebSocket protocol error: {0}&quot;</span>)]
-    </span>Protocol(<span class="attribute">#[from] </span>ProtocolError),
+    </span><span class="attr">#[error(<span class="string">&quot;WebSocket protocol error: {0}&quot;</span>)]
+    </span>Protocol(<span class="attr">#[from] </span>ProtocolError),
     <span class="doccomment">/// Message send queue full.
-    </span><span class="attribute">#[error(<span class="string">&quot;Send queue is full&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Send queue is full&quot;</span>)]
     </span>SendQueueFull(Message),
     <span class="doccomment">/// UTF coding error.
-    </span><span class="attribute">#[error(<span class="string">&quot;UTF-8 encoding error&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;UTF-8 encoding error&quot;</span>)]
     </span>Utf8,
     <span class="doccomment">/// Invalid URL.
-    </span><span class="attribute">#[error(<span class="string">&quot;URL error: {0}&quot;</span>)]
-    </span>Url(<span class="attribute">#[from] </span>UrlError),
+    </span><span class="attr">#[error(<span class="string">&quot;URL error: {0}&quot;</span>)]
+    </span>Url(<span class="attr">#[from] </span>UrlError),
     <span class="doccomment">/// HTTP error.
-    </span><span class="attribute">#[error(<span class="string">&quot;HTTP error: {}&quot;</span>, .<span class="number">0</span>.status())]
+    </span><span class="attr">#[error(<span class="string">&quot;HTTP error: {}&quot;</span>, .<span class="number">0</span>.status())]
     </span>Http(Response&lt;<span class="prelude-ty">Option</span>&lt;String&gt;&gt;),
     <span class="doccomment">/// HTTP format error.
-    </span><span class="attribute">#[error(<span class="string">&quot;HTTP format error: {0}&quot;</span>)]
-    </span>HttpFormat(<span class="attribute">#[from] </span>http::Error),
+    </span><span class="attr">#[error(<span class="string">&quot;HTTP format error: {0}&quot;</span>)]
+    </span>HttpFormat(<span class="attr">#[from] </span>http::Error),
 }
 
 <span class="kw">impl </span>From&lt;str::Utf8Error&gt; <span class="kw">for </span>Error {
@@ -391,14 +391,14 @@
 }
 
 <span class="doccomment">/// Indicates the specific type/cause of a capacity error.
-</span><span class="attribute">#[derive(Error, Debug, PartialEq, Eq, Clone, Copy)]
+</span><span class="attr">#[derive(Error, Debug, PartialEq, Eq, Clone, Copy)]
 </span><span class="kw">pub enum </span>CapacityError {
     <span class="doccomment">/// Too many headers provided (see [`httparse::Error::TooManyHeaders`]).
-    </span><span class="attribute">#[error(<span class="string">&quot;Too many headers&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Too many headers&quot;</span>)]
     </span>TooManyHeaders,
     <span class="doccomment">/// Received header is too long.
     /// Message is bigger than the maximum allowed size.
-    </span><span class="attribute">#[error(<span class="string">&quot;Message too long: {size} &gt; {max_size}&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Message too long: {size} &gt; {max_size}&quot;</span>)]
     </span>MessageTooLong {
         <span class="doccomment">/// The size of the message.
         </span>size: usize,
@@ -408,108 +408,108 @@
 }
 
 <span class="doccomment">/// Indicates the specific type/cause of a protocol error.
-</span><span class="attribute">#[derive(Error, Debug, PartialEq, Eq, Clone)]
+</span><span class="attr">#[derive(Error, Debug, PartialEq, Eq, Clone)]
 </span><span class="kw">pub enum </span>ProtocolError {
     <span class="doccomment">/// Use of the wrong HTTP method (the WebSocket protocol requires the GET method be used).
-    </span><span class="attribute">#[error(<span class="string">&quot;Unsupported HTTP method used - only GET is allowed&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Unsupported HTTP method used - only GET is allowed&quot;</span>)]
     </span>WrongHttpMethod,
     <span class="doccomment">/// Wrong HTTP version used (the WebSocket protocol requires version 1.1 or higher).
-    </span><span class="attribute">#[error(<span class="string">&quot;HTTP version must be 1.1 or higher&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;HTTP version must be 1.1 or higher&quot;</span>)]
     </span>WrongHttpVersion,
     <span class="doccomment">/// Missing `Connection: upgrade` HTTP header.
-    </span><span class="attribute">#[error(<span class="string">&quot;No \&quot;Connection: upgrade\&quot; header&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;No \&quot;Connection: upgrade\&quot; header&quot;</span>)]
     </span>MissingConnectionUpgradeHeader,
     <span class="doccomment">/// Missing `Upgrade: websocket` HTTP header.
-    </span><span class="attribute">#[error(<span class="string">&quot;No \&quot;Upgrade: websocket\&quot; header&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;No \&quot;Upgrade: websocket\&quot; header&quot;</span>)]
     </span>MissingUpgradeWebSocketHeader,
     <span class="doccomment">/// Missing `Sec-WebSocket-Version: 13` HTTP header.
-    </span><span class="attribute">#[error(<span class="string">&quot;No \&quot;Sec-WebSocket-Version: 13\&quot; header&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;No \&quot;Sec-WebSocket-Version: 13\&quot; header&quot;</span>)]
     </span>MissingSecWebSocketVersionHeader,
     <span class="doccomment">/// Missing `Sec-WebSocket-Key` HTTP header.
-    </span><span class="attribute">#[error(<span class="string">&quot;No \&quot;Sec-WebSocket-Key\&quot; header&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;No \&quot;Sec-WebSocket-Key\&quot; header&quot;</span>)]
     </span>MissingSecWebSocketKey,
     <span class="doccomment">/// The `Sec-WebSocket-Accept` header is either not present or does not specify the correct key value.
-    </span><span class="attribute">#[error(<span class="string">&quot;Key mismatch in \&quot;Sec-WebSocket-Accept\&quot; header&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Key mismatch in \&quot;Sec-WebSocket-Accept\&quot; header&quot;</span>)]
     </span>SecWebSocketAcceptKeyMismatch,
     <span class="doccomment">/// Garbage data encountered after client request.
-    </span><span class="attribute">#[error(<span class="string">&quot;Junk after client request&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Junk after client request&quot;</span>)]
     </span>JunkAfterRequest,
     <span class="doccomment">/// Custom responses must be unsuccessful.
-    </span><span class="attribute">#[error(<span class="string">&quot;Custom response must not be successful&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Custom response must not be successful&quot;</span>)]
     </span>CustomResponseSuccessful,
     <span class="doccomment">/// Invalid header is passed. Or the header is missing in the request. Or not present at all. Check the request that you pass.
-    </span><span class="attribute">#[error(<span class="string">&quot;Missing, duplicated or incorrect header {0}&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Missing, duplicated or incorrect header {0}&quot;</span>)]
     </span>InvalidHeader(HeaderName),
     <span class="doccomment">/// No more data while still performing handshake.
-    </span><span class="attribute">#[error(<span class="string">&quot;Handshake not finished&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Handshake not finished&quot;</span>)]
     </span>HandshakeIncomplete,
     <span class="doccomment">/// Wrapper around a [`httparse::Error`] value.
-    </span><span class="attribute">#[error(<span class="string">&quot;httparse error: {0}&quot;</span>)]
-    </span>HttparseError(<span class="attribute">#[from] </span>httparse::Error),
+    </span><span class="attr">#[error(<span class="string">&quot;httparse error: {0}&quot;</span>)]
+    </span>HttparseError(<span class="attr">#[from] </span>httparse::Error),
     <span class="doccomment">/// Not allowed to send after having sent a closing frame.
-    </span><span class="attribute">#[error(<span class="string">&quot;Sending after closing is not allowed&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Sending after closing is not allowed&quot;</span>)]
     </span>SendAfterClosing,
     <span class="doccomment">/// Remote sent data after sending a closing frame.
-    </span><span class="attribute">#[error(<span class="string">&quot;Remote sent after having closed&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Remote sent after having closed&quot;</span>)]
     </span>ReceivedAfterClosing,
     <span class="doccomment">/// Reserved bits in frame header are non-zero.
-    </span><span class="attribute">#[error(<span class="string">&quot;Reserved bits are non-zero&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Reserved bits are non-zero&quot;</span>)]
     </span>NonZeroReservedBits,
     <span class="doccomment">/// The server must close the connection when an unmasked frame is received.
-    </span><span class="attribute">#[error(<span class="string">&quot;Received an unmasked frame from client&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Received an unmasked frame from client&quot;</span>)]
     </span>UnmaskedFrameFromClient,
     <span class="doccomment">/// The client must close the connection when a masked frame is received.
-    </span><span class="attribute">#[error(<span class="string">&quot;Received a masked frame from server&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Received a masked frame from server&quot;</span>)]
     </span>MaskedFrameFromServer,
     <span class="doccomment">/// Control frames must not be fragmented.
-    </span><span class="attribute">#[error(<span class="string">&quot;Fragmented control frame&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Fragmented control frame&quot;</span>)]
     </span>FragmentedControlFrame,
     <span class="doccomment">/// Control frames must have a payload of 125 bytes or less.
-    </span><span class="attribute">#[error(<span class="string">&quot;Control frame too big (payload must be 125 bytes or less)&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Control frame too big (payload must be 125 bytes or less)&quot;</span>)]
     </span>ControlFrameTooBig,
     <span class="doccomment">/// Type of control frame not recognised.
-    </span><span class="attribute">#[error(<span class="string">&quot;Unknown control frame type: {0}&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Unknown control frame type: {0}&quot;</span>)]
     </span>UnknownControlFrameType(u8),
     <span class="doccomment">/// Type of data frame not recognised.
-    </span><span class="attribute">#[error(<span class="string">&quot;Unknown data frame type: {0}&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Unknown data frame type: {0}&quot;</span>)]
     </span>UnknownDataFrameType(u8),
     <span class="doccomment">/// Received a continue frame despite there being nothing to continue.
-    </span><span class="attribute">#[error(<span class="string">&quot;Continue frame but nothing to continue&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Continue frame but nothing to continue&quot;</span>)]
     </span>UnexpectedContinueFrame,
     <span class="doccomment">/// Received data while waiting for more fragments.
-    </span><span class="attribute">#[error(<span class="string">&quot;While waiting for more fragments received: {0}&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;While waiting for more fragments received: {0}&quot;</span>)]
     </span>ExpectedFragment(Data),
     <span class="doccomment">/// Connection closed without performing the closing handshake.
-    </span><span class="attribute">#[error(<span class="string">&quot;Connection reset without closing handshake&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Connection reset without closing handshake&quot;</span>)]
     </span>ResetWithoutClosingHandshake,
     <span class="doccomment">/// Encountered an invalid opcode.
-    </span><span class="attribute">#[error(<span class="string">&quot;Encountered invalid opcode: {0}&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Encountered invalid opcode: {0}&quot;</span>)]
     </span>InvalidOpcode(u8),
     <span class="doccomment">/// The payload for the closing frame is invalid.
-    </span><span class="attribute">#[error(<span class="string">&quot;Invalid close sequence&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Invalid close sequence&quot;</span>)]
     </span>InvalidCloseSequence,
 }
 
 <span class="doccomment">/// Indicates the specific type/cause of URL error.
-</span><span class="attribute">#[derive(Error, Debug, PartialEq, Eq)]
+</span><span class="attr">#[derive(Error, Debug, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>UrlError {
     <span class="doccomment">/// TLS is used despite not being compiled with the TLS feature enabled.
-    </span><span class="attribute">#[error(<span class="string">&quot;TLS support not compiled in&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;TLS support not compiled in&quot;</span>)]
     </span>TlsFeatureNotEnabled,
     <span class="doccomment">/// The URL does not include a host name.
-    </span><span class="attribute">#[error(<span class="string">&quot;No host name in the URL&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;No host name in the URL&quot;</span>)]
     </span>NoHostName,
     <span class="doccomment">/// Failed to connect with this URL.
-    </span><span class="attribute">#[error(<span class="string">&quot;Unable to connect to {0}&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;Unable to connect to {0}&quot;</span>)]
     </span>UnableToConnect(String),
     <span class="doccomment">/// Unsupported URL scheme used (only `ws://` or `wss://` may be used).
-    </span><span class="attribute">#[error(<span class="string">&quot;URL scheme not supported&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;URL scheme not supported&quot;</span>)]
     </span>UnsupportedUrlScheme,
     <span class="doccomment">/// The URL host name, though included, is empty.
-    </span><span class="attribute">#[error(<span class="string">&quot;URL contains empty host name&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;URL contains empty host name&quot;</span>)]
     </span>EmptyHostName,
     <span class="doccomment">/// The URL does not include a path/query.
-    </span><span class="attribute">#[error(<span class="string">&quot;No path/query in URL&quot;</span>)]
+    </span><span class="attr">#[error(<span class="string">&quot;No path/query in URL&quot;</span>)]
     </span>NoPathOrQuery,
 }
 
@@ -517,26 +517,26 @@
 ///
 /// Note that even if you enable only the rustls-based TLS support, the error at runtime could still
 /// be `Native`, as another crate in the dependency graph may enable native TLS support.
-</span><span class="attribute">#[allow(missing_copy_implementations)]
+</span><span class="attr">#[allow(missing_copy_implementations)]
 #[derive(Error, Debug)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>TlsError {
     <span class="doccomment">/// Native TLS error.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
     #[error(<span class="string">&quot;native-tls error: {0}&quot;</span>)]
-    </span>Native(<span class="attribute">#[from] </span>native_tls_crate::Error),
+    </span>Native(<span class="attr">#[from] </span>native_tls_crate::Error),
     <span class="doccomment">/// Rustls error.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
     #[error(<span class="string">&quot;rustls error: {0}&quot;</span>)]
-    </span>Rustls(<span class="attribute">#[from] </span>rustls::Error),
+    </span>Rustls(<span class="attr">#[from] </span>rustls::Error),
     <span class="doccomment">/// Webpki error.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
     #[error(<span class="string">&quot;webpki error: {0}&quot;</span>)]
-    </span>Webpki(<span class="attribute">#[from] </span>webpki::Error),
+    </span>Webpki(<span class="attr">#[from] </span>webpki::Error),
     <span class="doccomment">/// DNS name resolution error.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
     #[error(<span class="string">&quot;Invalid DNS name&quot;</span>)]
     </span>InvalidDnsName,
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

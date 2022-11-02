@@ -72,7 +72,7 @@
 <span class="kw">use </span>std::pin::Pin;
 
 <span class="doccomment">/// Reader for the [`repeat()`] function.
-</span><span class="attribute">#[must_use = <span class="string">&quot;readers do nothing unless polled&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;readers do nothing unless polled&quot;</span>]
 </span><span class="kw">pub struct </span>Repeat {
     byte: u8,
 }
@@ -99,7 +99,7 @@
 }
 
 <span class="kw">impl </span>AsyncRead <span class="kw">for </span>Repeat {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>poll_read(
         <span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;,
         <span class="kw">_</span>: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;,
@@ -111,7 +111,7 @@
         Poll::Ready(<span class="prelude-val">Ok</span>(buf.len()))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>poll_read_vectored(
         <span class="kw-2">mut </span><span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;,
         cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;,
@@ -131,4 +131,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -775,7 +775,7 @@
 <span class="kw">use </span>std::{cmp, mem, usize};
 
 <span class="doccomment">/// HPACK encoder table
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Table {
     mask: usize,
     indices: Vec&lt;<span class="prelude-ty">Option</span>&lt;Pos&gt;&gt;,
@@ -786,7 +786,7 @@
     max_size: usize,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub enum </span>Index {
     <span class="comment">// The header is already fully indexed
     </span>Indexed(usize, Header),
@@ -804,20 +804,20 @@
     </span>NotIndexed(Header),
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>Slot {
     hash: HashValue,
     header: Header,
     next: <span class="prelude-ty">Option</span>&lt;usize&gt;,
 }
 
-<span class="attribute">#[derive(Debug, Clone, Copy, Eq, PartialEq)]
+<span class="attr">#[derive(Debug, Clone, Copy, Eq, PartialEq)]
 </span><span class="kw">struct </span>Pos {
     index: usize,
     hash: HashValue,
 }
 
-<span class="attribute">#[derive(Debug, Copy, Clone, Eq, PartialEq)]
+<span class="attr">#[derive(Debug, Copy, Clone, Eq, PartialEq)]
 </span><span class="kw">struct </span>HashValue(usize);
 
 <span class="kw">const </span>MAX_SIZE: usize = <span class="number">1 </span>&lt;&lt; <span class="number">16</span>;
@@ -862,7 +862,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>capacity(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         usable_capacity(<span class="self">self</span>.indices.len())
     }
@@ -1231,7 +1231,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>grow(<span class="kw-2">&amp;mut </span><span class="self">self</span>, new_raw_cap: usize) {
         <span class="comment">// This path can never be reached when handling the first allocation in
         // the map.
@@ -1289,12 +1289,12 @@
         }
     }
 
-    <span class="attribute">#[cfg(not(test))]
+    <span class="attr">#[cfg(not(test))]
     </span><span class="kw">fn </span>assert_valid_state(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str) -&gt; bool {
         <span class="bool-val">true
     </span>}
 
-    <span class="attribute">#[cfg(test)]
+    <span class="attr">#[cfg(test)]
     </span><span class="kw">fn </span>assert_valid_state(<span class="kw-2">&amp;</span><span class="self">self</span>, _msg: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str) -&gt; bool {
         <span class="comment">/*
             // Checks that the internal map structure is valid
@@ -1387,7 +1387,7 @@
     </span>}
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">impl </span>Table {
     <span class="doccomment">/// Returns the number of headers in the table
     </span><span class="kw">pub fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
@@ -1410,22 +1410,22 @@
     }
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>usable_capacity(cap: usize) -&gt; usize {
     cap - cap / <span class="number">4
 </span>}
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>to_raw_capacity(n: usize) -&gt; usize {
     n + n / <span class="number">3
 </span>}
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>desired_pos(mask: usize, hash: HashValue) -&gt; usize {
     (hash.<span class="number">0 </span>&amp; mask) <span class="kw">as </span>usize
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>probe_distance(mask: usize, hash: HashValue, current: usize) -&gt; usize {
     current.wrapping_sub(desired_pos(mask, hash)) &amp; mask <span class="kw">as </span>usize
 }
@@ -1531,4 +1531,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="h2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

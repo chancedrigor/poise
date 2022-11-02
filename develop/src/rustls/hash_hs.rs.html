@@ -278,7 +278,7 @@
     }
 
     <span class="doccomment">/// Hash or buffer a byte slice.
-    </span><span class="attribute">#[cfg(test)]
+    </span><span class="attr">#[cfg(test)]
     </span><span class="kw">fn </span>update_raw(<span class="kw-2">&amp;mut </span><span class="self">self</span>, buf: <span class="kw-2">&amp;</span>[u8]) {
         <span class="self">self</span>.buffer.extend_from_slice(buf);
     }
@@ -392,7 +392,7 @@
     <span class="doccomment">/// Takes this object&#39;s buffer containing all handshake messages
     /// so far.  This method only works once; it resets the buffer
     /// to empty.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>take_handshake_buf(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Vec&lt;u8&gt;&gt; {
         <span class="self">self</span>.client_auth.take()
     }
@@ -403,12 +403,12 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use </span><span class="kw">super</span>::HandshakeHashBuffer;
     <span class="kw">use </span>ring::digest;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>hashes_correctly() {
         <span class="kw">let </span><span class="kw-2">mut </span>hhb = HandshakeHashBuffer::new();
         hhb.update_raw(<span class="string">b&quot;hello&quot;</span>);
@@ -424,7 +424,7 @@
         <span class="macro">assert_eq!</span>(h[<span class="number">3</span>], <span class="number">0x5c</span>);
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
     #[test]
     </span><span class="kw">fn </span>buffers_correctly() {
         <span class="kw">let </span><span class="kw-2">mut </span>hhb = HandshakeHashBuffer::new();
@@ -455,7 +455,7 @@
         <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">b&quot;helloworld&quot;</span>.to_vec()), buf);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>abandon() {
         <span class="kw">let </span><span class="kw-2">mut </span>hhb = HandshakeHashBuffer::new();
         hhb.set_client_auth_enabled();
@@ -481,4 +481,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

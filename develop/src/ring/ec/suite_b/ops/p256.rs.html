@@ -467,12 +467,12 @@
     //
     //    0xffffffff00000001000000000000000000000000fffffffffffffffffffffffc
 
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>sqr_mul(a: <span class="kw-2">&amp;</span>Elem&lt;R&gt;, squarings: usize, b: <span class="kw-2">&amp;</span>Elem&lt;R&gt;) -&gt; Elem&lt;R&gt; {
         elem_sqr_mul(<span class="kw-2">&amp;</span>COMMON_OPS, a, squarings, b)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sqr_mul_acc(a: <span class="kw-2">&amp;mut </span>Elem&lt;R&gt;, squarings: usize, b: <span class="kw-2">&amp;</span>Elem&lt;R&gt;) {
         elem_sqr_mul_acc(<span class="kw-2">&amp;</span>COMMON_OPS, a, squarings, b)
     }
@@ -512,7 +512,7 @@
     // with the logic for deciding whether to test `GFp_nistz256_point_add_affine`
     // in suite_b/ops.rs.
 
-    </span><span class="attribute">#[cfg(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))]
+    </span><span class="attr">#[cfg(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))]
     </span>{
         <span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
             <span class="kw">fn </span>GFp_nistz256_point_mul_base(
@@ -525,7 +525,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(not(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>)))]
+    <span class="attr">#[cfg(not(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>)))]
     </span>{
         <span class="kw">static </span>GENERATOR: (Elem&lt;R&gt;, Elem&lt;R&gt;) = (
             Elem {
@@ -604,12 +604,12 @@
     //
     //    0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc63254f
 
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>mul(a: <span class="kw-2">&amp;</span>Scalar&lt;R&gt;, b: <span class="kw-2">&amp;</span>Scalar&lt;R&gt;) -&gt; Scalar&lt;R&gt; {
         binary_op(GFp_p256_scalar_mul_mont, a, b)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sqr(a: <span class="kw-2">&amp;</span>Scalar&lt;R&gt;) -&gt; Scalar&lt;R&gt; {
         unary_op(GFp_p256_scalar_sqr_mont, a)
     }
@@ -763,4 +763,4 @@
     );
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

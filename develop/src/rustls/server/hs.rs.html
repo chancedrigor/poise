@@ -523,13 +523,13 @@
 </pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::conn::{CommonState, ConnectionRandoms, State};
 <span class="kw">use </span><span class="kw">crate</span>::error::Error;
 <span class="kw">use </span><span class="kw">crate</span>::hash_hs::{HandshakeHash, HandshakeHashBuffer};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::log::{debug, trace};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::msgs::enums::CipherSuite;
 <span class="kw">use </span><span class="kw">crate</span>::msgs::enums::{AlertDescription, Compression, ExtensionType};
 <span class="kw">use </span><span class="kw">crate</span>::msgs::enums::{HandshakeType, ProtocolVersion, SignatureScheme};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::msgs::handshake::SessionID;
 <span class="kw">use </span><span class="kw">crate</span>::msgs::handshake::{ClientHelloPayload, Random, ServerExtension};
 <span class="kw">use </span><span class="kw">crate</span>::msgs::handshake::{ConvertProtocolNameList, ConvertServerNameList, HandshakePayload};
@@ -540,7 +540,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::SupportedCipherSuite;
 
 <span class="kw">use </span><span class="kw">super</span>::server_conn::ServerConnectionData;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">super</span>::tls12;
 <span class="kw">use </span><span class="kw">crate</span>::server::common::ActiveCertifiedKey;
 <span class="kw">use </span><span class="kw">crate</span>::server::tls13;
@@ -584,11 +584,11 @@
         &amp;&amp; <span class="kw-2">&amp;</span>resumedata.sni == sni
 }
 
-<span class="attribute">#[derive(Default)]
+<span class="attr">#[derive(Default)]
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>ExtensionProcessing {
     <span class="comment">// extensions to reply with
     </span><span class="kw">pub</span>(<span class="kw">super</span>) exts: Vec&lt;ServerExtension&gt;,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) send_ticket: bool,
 }
 
@@ -637,7 +637,7 @@
             }
         }
 
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
         </span>{
             <span class="kw">if </span>cx.common.is_quic() {
                 <span class="comment">// QUIC has strict ALPN, unlike TLS&#39;s more backwards-compatible behavior. RFC 9001
@@ -714,7 +714,7 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>process_tls12(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         config: <span class="kw-2">&amp;</span>ServerConfig,
@@ -760,9 +760,9 @@
     <span class="kw">pub</span>(<span class="kw">super</span>) config: Arc&lt;ServerConfig&gt;,
     <span class="kw">pub</span>(<span class="kw">super</span>) extra_exts: Vec&lt;ServerExtension&gt;,
     <span class="kw">pub</span>(<span class="kw">super</span>) transcript: HandshakeHashOrBuffer,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) session_id: SessionID,
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) using_ems: bool,
     <span class="kw">pub</span>(<span class="kw">super</span>) done_retry: bool,
     <span class="kw">pub</span>(<span class="kw">super</span>) send_ticket: bool,
@@ -780,9 +780,9 @@
             config,
             extra_exts,
             transcript: HandshakeHashOrBuffer::Buffer(transcript_buffer),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
             </span>session_id: SessionID::empty(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
             </span>using_ems: <span class="bool-val">false</span>,
             done_retry: <span class="bool-val">false</span>,
             send_ticket: <span class="bool-val">false</span>,
@@ -907,7 +907,7 @@
                 extra_exts: <span class="self">self</span>.extra_exts,
             }
             .handle_client_hello(cx, certkey, m, client_hello, sig_schemes),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;tls12&quot;</span>)]
             </span>SupportedCipherSuite::Tls12(suite) =&gt; tls12::CompleteClientHelloHandling {
                 config: <span class="self">self</span>.config,
                 transcript,
@@ -1037,10 +1037,10 @@
     <span class="prelude-val">Ok</span>((client_hello, sig_schemes))
 }
 
-<span class="attribute">#[allow(clippy::large_enum_variant)]
+<span class="attr">#[allow(clippy::large_enum_variant)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>HandshakeHashOrBuffer {
     Buffer(HandshakeHashBuffer),
     Hash(HandshakeHash),
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

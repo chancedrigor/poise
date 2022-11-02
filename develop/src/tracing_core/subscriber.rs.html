@@ -1110,7 +1110,7 @@
     /// The default implementation of this function does nothing.
     ///
     /// [`try_close`]: trait.Subscriber.html#method.try_close
-    </span><span class="attribute">#[deprecated(since = <span class="string">&quot;0.1.2&quot;</span>, note = <span class="string">&quot;use `Subscriber::try_close` instead&quot;</span>)]
+    </span><span class="attr">#[deprecated(since = <span class="string">&quot;0.1.2&quot;</span>, note = <span class="string">&quot;use `Subscriber::try_close` instead&quot;</span>)]
     </span><span class="kw">fn </span>drop_span(<span class="kw-2">&amp;</span><span class="self">self</span>, _id: span::Id) {}
 
     <span class="doccomment">/// Notifies the subscriber that a [span ID] has been dropped, and returns
@@ -1150,7 +1150,7 @@
     /// [`clone_span`]: trait.Subscriber.html#method.clone_span
     /// [`drop_span`]: trait.Subscriber.html#method.drop_span
     </span><span class="kw">fn </span>try_close(<span class="kw-2">&amp;</span><span class="self">self</span>, id: span::Id) -&gt; bool {
-        <span class="attribute">#[allow(deprecated)]
+        <span class="attr">#[allow(deprecated)]
         </span><span class="self">self</span>.drop_span(id);
         <span class="bool-val">false
     </span>}
@@ -1235,10 +1235,10 @@
 ///
 /// [`Subscriber`]: ../trait.Subscriber.html
 /// [`register_callsite`]: ../trait.Subscriber.html#method.register_callsite
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>Interest(InterestKind);
 
-<span class="attribute">#[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
+<span class="attr">#[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
 </span><span class="kw">enum </span>InterestKind {
     Never = <span class="number">0</span>,
     Sometimes = <span class="number">1</span>,
@@ -1251,7 +1251,7 @@
     ///
     /// If all active subscribers are `never()` interested in a callsite, it will
     /// be completely disabled unless a new subscriber becomes active.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>never() -&gt; <span class="self">Self </span>{
         Interest(InterestKind::Never)
     }
@@ -1263,7 +1263,7 @@
     /// callsite, the currently active subscriber will be asked to filter that
     /// callsite every time it creates a span. This will be the case until a new
     /// subscriber expresses that it is `always` interested in the callsite.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>sometimes() -&gt; <span class="self">Self </span>{
         Interest(InterestKind::Sometimes)
     }
@@ -1273,28 +1273,28 @@
     ///
     /// If any subscriber expresses that it is `always()` interested in a given
     /// callsite, then the callsite will always be enabled.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>always() -&gt; <span class="self">Self </span>{
         Interest(InterestKind::Always)
     }
 
     <span class="doccomment">/// Returns `true` if the subscriber is never interested in being notified
     /// about this callsite.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_never(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="macro">matches!</span>(<span class="self">self</span>.<span class="number">0</span>, InterestKind::Never)
     }
 
     <span class="doccomment">/// Returns `true` if the subscriber is sometimes interested in being notified
     /// about this callsite.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_sometimes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="macro">matches!</span>(<span class="self">self</span>.<span class="number">0</span>, InterestKind::Sometimes)
     }
 
     <span class="doccomment">/// Returns `true` if the subscriber is always interested in being notified
     /// about this callsite.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_always(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="macro">matches!</span>(<span class="self">self</span>.<span class="number">0</span>, InterestKind::Always)
     }
@@ -1318,11 +1318,11 @@
 ///
 /// [`NoSubscriber`] implements the [`Subscriber`] trait by never being enabled,
 /// never being interested in any callsite, and dropping all spans and events.
-</span><span class="attribute">#[derive(Copy, Clone, Debug, Default)]
+</span><span class="attr">#[derive(Copy, Clone, Debug, Default)]
 </span><span class="kw">pub struct </span>NoSubscriber(());
 
 <span class="kw">impl </span>Subscriber <span class="kw">for </span>NoSubscriber {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>register_callsite(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Metadata&lt;<span class="lifetime">&#39;static</span>&gt;) -&gt; Interest {
         Interest::never()
     }
@@ -1337,7 +1337,7 @@
 
     <span class="kw">fn </span>record_follows_from(<span class="kw-2">&amp;</span><span class="self">self</span>, _span: <span class="kw-2">&amp;</span>span::Id, _follows: <span class="kw-2">&amp;</span>span::Id) {}
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>enabled(<span class="kw-2">&amp;</span><span class="self">self</span>, _metadata: <span class="kw-2">&amp;</span>Metadata&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; bool {
         <span class="bool-val">false
     </span>}
@@ -1347,73 +1347,73 @@
 }
 
 <span class="kw">impl </span>Subscriber <span class="kw">for </span>Box&lt;<span class="kw">dyn </span>Subscriber + Send + Sync + <span class="lifetime">&#39;static</span>&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>register_callsite(<span class="kw-2">&amp;</span><span class="self">self</span>, metadata: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Metadata&lt;<span class="lifetime">&#39;static</span>&gt;) -&gt; Interest {
         <span class="self">self</span>.as_ref().register_callsite(metadata)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>enabled(<span class="kw-2">&amp;</span><span class="self">self</span>, metadata: <span class="kw-2">&amp;</span>Metadata&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; bool {
         <span class="self">self</span>.as_ref().enabled(metadata)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>max_level_hint(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;LevelFilter&gt; {
         <span class="self">self</span>.as_ref().max_level_hint()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>new_span(<span class="kw-2">&amp;</span><span class="self">self</span>, span: <span class="kw-2">&amp;</span>span::Attributes&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; span::Id {
         <span class="self">self</span>.as_ref().new_span(span)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>record(<span class="kw-2">&amp;</span><span class="self">self</span>, span: <span class="kw-2">&amp;</span>span::Id, values: <span class="kw-2">&amp;</span>span::Record&lt;<span class="lifetime">&#39;_</span>&gt;) {
         <span class="self">self</span>.as_ref().record(span, values)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>record_follows_from(<span class="kw-2">&amp;</span><span class="self">self</span>, span: <span class="kw-2">&amp;</span>span::Id, follows: <span class="kw-2">&amp;</span>span::Id) {
         <span class="self">self</span>.as_ref().record_follows_from(span, follows)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>event(<span class="kw-2">&amp;</span><span class="self">self</span>, event: <span class="kw-2">&amp;</span>Event&lt;<span class="lifetime">&#39;_</span>&gt;) {
         <span class="self">self</span>.as_ref().event(event)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>enter(<span class="kw-2">&amp;</span><span class="self">self</span>, span: <span class="kw-2">&amp;</span>span::Id) {
         <span class="self">self</span>.as_ref().enter(span)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>exit(<span class="kw-2">&amp;</span><span class="self">self</span>, span: <span class="kw-2">&amp;</span>span::Id) {
         <span class="self">self</span>.as_ref().exit(span)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>clone_span(<span class="kw-2">&amp;</span><span class="self">self</span>, id: <span class="kw-2">&amp;</span>span::Id) -&gt; span::Id {
         <span class="self">self</span>.as_ref().clone_span(id)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_close(<span class="kw-2">&amp;</span><span class="self">self</span>, id: span::Id) -&gt; bool {
         <span class="self">self</span>.as_ref().try_close(id)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     #[allow(deprecated)]
     </span><span class="kw">fn </span>drop_span(<span class="kw-2">&amp;</span><span class="self">self</span>, id: span::Id) {
         <span class="self">self</span>.as_ref().try_close(id);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>current_span(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; span::Current {
         <span class="self">self</span>.as_ref().current_span()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>downcast_raw(<span class="kw-2">&amp;</span><span class="self">self</span>, id: TypeId) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">*const </span>()&gt; {
         <span class="kw">if </span>id == TypeId::of::&lt;<span class="self">Self</span>&gt;() {
             <span class="kw">return </span><span class="prelude-val">Some</span>(<span class="self">self </span><span class="kw">as </span><span class="kw-2">*const </span><span class="self">Self </span><span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>);
@@ -1424,73 +1424,73 @@
 }
 
 <span class="kw">impl </span>Subscriber <span class="kw">for </span>Arc&lt;<span class="kw">dyn </span>Subscriber + Send + Sync + <span class="lifetime">&#39;static</span>&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>register_callsite(<span class="kw-2">&amp;</span><span class="self">self</span>, metadata: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Metadata&lt;<span class="lifetime">&#39;static</span>&gt;) -&gt; Interest {
         <span class="self">self</span>.as_ref().register_callsite(metadata)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>enabled(<span class="kw-2">&amp;</span><span class="self">self</span>, metadata: <span class="kw-2">&amp;</span>Metadata&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; bool {
         <span class="self">self</span>.as_ref().enabled(metadata)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>max_level_hint(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;LevelFilter&gt; {
         <span class="self">self</span>.as_ref().max_level_hint()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>new_span(<span class="kw-2">&amp;</span><span class="self">self</span>, span: <span class="kw-2">&amp;</span>span::Attributes&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; span::Id {
         <span class="self">self</span>.as_ref().new_span(span)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>record(<span class="kw-2">&amp;</span><span class="self">self</span>, span: <span class="kw-2">&amp;</span>span::Id, values: <span class="kw-2">&amp;</span>span::Record&lt;<span class="lifetime">&#39;_</span>&gt;) {
         <span class="self">self</span>.as_ref().record(span, values)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>record_follows_from(<span class="kw-2">&amp;</span><span class="self">self</span>, span: <span class="kw-2">&amp;</span>span::Id, follows: <span class="kw-2">&amp;</span>span::Id) {
         <span class="self">self</span>.as_ref().record_follows_from(span, follows)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>event(<span class="kw-2">&amp;</span><span class="self">self</span>, event: <span class="kw-2">&amp;</span>Event&lt;<span class="lifetime">&#39;_</span>&gt;) {
         <span class="self">self</span>.as_ref().event(event)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>enter(<span class="kw-2">&amp;</span><span class="self">self</span>, span: <span class="kw-2">&amp;</span>span::Id) {
         <span class="self">self</span>.as_ref().enter(span)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>exit(<span class="kw-2">&amp;</span><span class="self">self</span>, span: <span class="kw-2">&amp;</span>span::Id) {
         <span class="self">self</span>.as_ref().exit(span)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>clone_span(<span class="kw-2">&amp;</span><span class="self">self</span>, id: <span class="kw-2">&amp;</span>span::Id) -&gt; span::Id {
         <span class="self">self</span>.as_ref().clone_span(id)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_close(<span class="kw-2">&amp;</span><span class="self">self</span>, id: span::Id) -&gt; bool {
         <span class="self">self</span>.as_ref().try_close(id)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     #[allow(deprecated)]
     </span><span class="kw">fn </span>drop_span(<span class="kw-2">&amp;</span><span class="self">self</span>, id: span::Id) {
         <span class="self">self</span>.as_ref().try_close(id);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>current_span(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; span::Current {
         <span class="self">self</span>.as_ref().current_span()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>downcast_raw(<span class="kw-2">&amp;</span><span class="self">self</span>, id: TypeId) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">*const </span>()&gt; {
         <span class="kw">if </span>id == TypeId::of::&lt;<span class="self">Self</span>&gt;() {
             <span class="kw">return </span><span class="prelude-val">Some</span>(<span class="self">self </span><span class="kw">as </span><span class="kw-2">*const </span><span class="self">Self </span><span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>);
@@ -1500,4 +1500,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tracing_core" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

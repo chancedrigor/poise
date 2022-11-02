@@ -573,7 +573,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::json::{<span class="self">self</span>, from_number, json, Value};
 <span class="kw">use </span><span class="kw">crate</span>::model::channel::Embed;
 <span class="kw">use </span><span class="kw">crate</span>::model::Timestamp;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;utils&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;utils&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::utils::Colour;
 
 <span class="doccomment">/// A builder to create a fake [`Embed`] object, for use with the
@@ -587,7 +587,7 @@
 /// [`ChannelId::send_message`]: crate::model::id::ChannelId::send_message
 /// [`Embed`]: crate::model::channel::Embed
 /// [`ExecuteWebhook::embeds`]: crate::builder::ExecuteWebhook::embeds
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>CreateEmbed(<span class="kw">pub </span>HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str, Value&gt;);
 
 <span class="kw">impl </span>CreateEmbed {
@@ -615,7 +615,7 @@
     <span class="doccomment">/// Set the colour of the left-hand side of the embed.
     ///
     /// This is an alias of [`Self::colour`].
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;utils&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;utils&quot;</span>)]
     #[inline]
     </span><span class="kw">pub fn </span>color&lt;C: Into&lt;Colour&gt;&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, colour: C) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.colour(colour);
@@ -623,14 +623,14 @@
     </span>}
 
     <span class="doccomment">/// Set the colour of the left-hand side of the embed.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;utils&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;utils&quot;</span>)]
     #[inline]
     </span><span class="kw">pub fn </span>colour&lt;C: Into&lt;Colour&gt;&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, colour: C) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>._colour(colour.into());
         <span class="self">self
     </span>}
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;utils&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;utils&quot;</span>)]
     </span><span class="kw">fn </span>_colour(<span class="kw-2">&amp;mut </span><span class="self">self</span>, colour: Colour) {
         <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;color&quot;</span>, from_number(u64::from(colour.<span class="number">0</span>)));
     }
@@ -638,7 +638,7 @@
     <span class="doccomment">/// Set the colour of the left-hand side of the embed.
     ///
     /// This is an alias of [`colour`].
-    </span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;utils&quot;</span>))]
+    </span><span class="attr">#[cfg(not(feature = <span class="string">&quot;utils&quot;</span>))]
     #[inline]
     </span><span class="kw">pub fn </span>color(<span class="kw-2">&amp;mut </span><span class="self">self</span>, colour: u32) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.colour(colour);
@@ -646,7 +646,7 @@
     </span>}
 
     <span class="doccomment">/// Set the colour of the left-hand side of the embed.
-    </span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;utils&quot;</span>))]
+    </span><span class="attr">#[cfg(not(feature = <span class="string">&quot;utils&quot;</span>))]
     </span><span class="kw">pub fn </span>colour(<span class="kw-2">&amp;mut </span><span class="self">self</span>, colour: u32) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;color&quot;</span>, from_number(colour));
         <span class="self">self
@@ -655,7 +655,7 @@
     <span class="doccomment">/// Set the description of the embed.
     ///
     /// **Note**: This can&#39;t be longer than 4096 characters.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>description&lt;D: ToString&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, description: D) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;description&quot;</span>, Value::from(description.to_string()));
         <span class="self">self
@@ -666,7 +666,7 @@
     ///
     /// **Note**: Maximum amount of characters you can put is 256 in a field
     /// name and 1024 in a field value.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>field&lt;T, U&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, name: T, value: U, inline: bool) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self
     </span><span class="kw">where
         </span>T: ToString,
@@ -738,7 +738,7 @@
     </span>}
 
     <span class="doccomment">/// Set the image associated with the embed. This only supports HTTP(S).
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>image&lt;S: ToString&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, url: S) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.url_object(<span class="string">&quot;image&quot;</span>, url.to_string());
 
@@ -746,7 +746,7 @@
     </span>}
 
     <span class="doccomment">/// Set the thumbnail of the embed. This only supports HTTP(S).
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>thumbnail&lt;S: ToString&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, url: S) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.url_object(<span class="string">&quot;thumbnail&quot;</span>, url.to_string());
         <span class="self">self
@@ -847,7 +847,7 @@
     /// #     Ok(())
     /// # }
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>timestamp&lt;T: Into&lt;Timestamp&gt;&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, timestamp: T) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>._timestamp(timestamp.into());
         <span class="self">self
@@ -858,14 +858,14 @@
     }
 
     <span class="doccomment">/// Set the title of the embed.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>title&lt;D: ToString&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, title: D) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;title&quot;</span>, Value::from(title.to_string()));
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Set the URL to direct to when clicking on the title.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>url&lt;S: ToString&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, url: S) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;url&quot;</span>, Value::from(url.to_string()));
         <span class="self">self
@@ -877,7 +877,7 @@
     /// with the provided filename. Or else this won&#39;t work.
     ///
     /// [`ChannelId::send_files`]: crate::model::id::ChannelId::send_files
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>attachment&lt;S: ToString&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, filename: S) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="kw">let </span><span class="kw-2">mut </span>filename = filename.to_string();
         filename.insert_str(<span class="number">0</span>, <span class="string">&quot;attachment://&quot;</span>);
@@ -971,7 +971,7 @@
 /// Requires that you specify a [`Self::name`].
 ///
 /// [`Embed`]: crate::model::channel::Embed
-</span><span class="attribute">#[derive(Clone, Debug, Default)]
+</span><span class="attr">#[derive(Clone, Debug, Default)]
 </span><span class="kw">pub struct </span>CreateEmbedAuthor(<span class="kw">pub </span>HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str, Value&gt;);
 
 <span class="kw">impl </span>CreateEmbedAuthor {
@@ -1000,7 +1000,7 @@
 /// This does not require any field be set.
 ///
 /// [`Embed`]: crate::model::channel::Embed
-</span><span class="attribute">#[derive(Clone, Debug, Default)]
+</span><span class="attr">#[derive(Clone, Debug, Default)]
 </span><span class="kw">pub struct </span>CreateEmbedFooter(<span class="kw">pub </span>HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str, Value&gt;);
 
 <span class="kw">impl </span>CreateEmbedFooter {
@@ -1017,14 +1017,14 @@
     </span>}
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use </span><span class="kw">super</span>::CreateEmbed;
     <span class="kw">use </span><span class="kw">crate</span>::json::{<span class="self">self</span>, json, Value};
     <span class="kw">use </span><span class="kw">crate</span>::model::channel::{Embed, EmbedField, EmbedFooter, EmbedImage, EmbedVideo};
     <span class="kw">use </span><span class="kw">crate</span>::utils::Colour;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_from_embed() {
         <span class="kw">let </span>embed = Embed {
             author: <span class="prelude-val">None</span>,
@@ -1107,4 +1107,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

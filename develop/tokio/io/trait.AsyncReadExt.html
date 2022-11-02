@@ -65,7 +65,7 @@
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>tokio::fs::File;
 <span class="kw">use </span>tokio::io::{<span class="self">self</span>, AsyncReadExt};
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>f = File::open(<span class="string">&quot;foo.txt&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="kw">let </span><span class="kw-2">mut </span>buffer = [<span class="number">0</span>; <span class="number">10</span>];
@@ -87,7 +87,7 @@ output of <code>next</code>.</p>
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>tokio::fs::File;
 <span class="kw">use </span>tokio::io::{<span class="self">self</span>, AsyncReadExt};
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span>f1 = File::open(<span class="string">&quot;foo.txt&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="kw">let </span>f2 = File::open(<span class="string">&quot;bar.txt&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
@@ -142,7 +142,7 @@ completes first, then it is guaranteed that no data was read.</p>
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>tokio::fs::File;
 <span class="kw">use </span>tokio::io::{<span class="self">self</span>, AsyncReadExt};
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>f = File::open(<span class="string">&quot;foo.txt&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="kw">let </span><span class="kw-2">mut </span>buffer = [<span class="number">0</span>; <span class="number">10</span>];
@@ -188,7 +188,7 @@ completes first, then it is guaranteed that no data was read.</p>
 
 <span class="kw">use </span>bytes::BytesMut;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>f = File::open(<span class="string">&quot;foo.txt&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="kw">let </span><span class="kw-2">mut </span>buffer = BytesMut::with_capacity(<span class="number">10</span>);
@@ -231,7 +231,7 @@ read into <code>buf</code>.</p>
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>tokio::fs::File;
 <span class="kw">use </span>tokio::io::{<span class="self">self</span>, AsyncReadExt};
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>f = File::open(<span class="string">&quot;foo.txt&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="kw">let </span><span class="kw-2">mut </span>buffer = [<span class="number">0</span>; <span class="number">10</span>];
@@ -255,7 +255,7 @@ syscalls.</p>
 
 <span class="kw">use </span>std::io::Cursor;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>reader = Cursor::new(<span class="macro">vec!</span>[<span class="number">2</span>, <span class="number">5</span>]);
 
@@ -279,7 +279,7 @@ syscalls.</p>
 
 <span class="kw">use </span>std::io::Cursor;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>reader = Cursor::new(<span class="macro">vec!</span>[<span class="number">0x02</span>, <span class="number">0xfb</span>]);
 
@@ -304,7 +304,7 @@ syscalls.</p>
 
 <span class="kw">use </span>std::io::Cursor;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>reader = Cursor::new(<span class="macro">vec!</span>[<span class="number">2</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">0</span>]);
 
@@ -328,7 +328,7 @@ syscalls.</p>
 
 <span class="kw">use </span>std::io::Cursor;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>reader = Cursor::new(<span class="macro">vec!</span>[<span class="number">0x00</span>, <span class="number">0xc1</span>, <span class="number">0xff</span>, <span class="number">0x7c</span>]);
 
@@ -352,7 +352,7 @@ syscalls.</p>
 
 <span class="kw">use </span>std::io::Cursor;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>reader = Cursor::new(<span class="macro">vec!</span>[<span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x01</span>, <span class="number">0x0b</span>]);
 
@@ -375,7 +375,7 @@ syscalls.</p>
 
 <span class="kw">use </span>std::io::Cursor;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>reader = Cursor::new(<span class="macro">vec!</span>[<span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0x7a</span>, <span class="number">0x33</span>]);
 
@@ -398,7 +398,7 @@ syscalls.</p>
 
 <span class="kw">use </span>std::io::Cursor;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>reader = Cursor::new(<span class="macro">vec!</span>[
         <span class="number">0x00</span>, <span class="number">0x03</span>, <span class="number">0x43</span>, <span class="number">0x95</span>, <span class="number">0x4d</span>, <span class="number">0x60</span>, <span class="number">0x86</span>, <span class="number">0x83
@@ -423,7 +423,7 @@ syscalls.</p>
 
 <span class="kw">use </span>std::io::Cursor;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>reader = Cursor::new(<span class="macro">vec!</span>[<span class="number">0x80</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]);
 
@@ -446,7 +446,7 @@ syscalls.</p>
 
 <span class="kw">use </span>std::io::Cursor;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>reader = Cursor::new(<span class="macro">vec!</span>[
         <span class="number">0x00</span>, <span class="number">0x03</span>, <span class="number">0x43</span>, <span class="number">0x95</span>, <span class="number">0x4d</span>, <span class="number">0x60</span>, <span class="number">0x86</span>, <span class="number">0x83</span>,
@@ -472,7 +472,7 @@ syscalls.</p>
 
 <span class="kw">use </span>std::io::Cursor;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>reader = Cursor::new(<span class="macro">vec!</span>[
         <span class="number">0x80</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>,
@@ -498,7 +498,7 @@ syscalls.</p>
 
 <span class="kw">use </span>std::io::Cursor;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>reader = Cursor::new(<span class="macro">vec!</span>[<span class="number">0xff</span>, <span class="number">0x7f</span>, <span class="number">0xff</span>, <span class="number">0xff</span>]);
 
@@ -521,7 +521,7 @@ syscalls.</p>
 
 <span class="kw">use </span>std::io::Cursor;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>reader = Cursor::new(<span class="macro">vec!</span>[
         <span class="number">0xff</span>, <span class="number">0xef</span>, <span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0xff
@@ -546,7 +546,7 @@ syscalls.</p>
 
 <span class="kw">use </span>std::io::Cursor;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>reader = Cursor::new(<span class="macro">vec!</span>[<span class="number">2</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">0</span>]);
 
@@ -570,7 +570,7 @@ syscalls.</p>
 
 <span class="kw">use </span>std::io::Cursor;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>reader = Cursor::new(<span class="macro">vec!</span>[<span class="number">0x00</span>, <span class="number">0xc1</span>, <span class="number">0xff</span>, <span class="number">0x7c</span>]);
 
@@ -594,7 +594,7 @@ syscalls.</p>
 
 <span class="kw">use </span>std::io::Cursor;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>reader = Cursor::new(<span class="macro">vec!</span>[<span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x01</span>, <span class="number">0x0b</span>]);
 
@@ -617,7 +617,7 @@ syscalls.</p>
 
 <span class="kw">use </span>std::io::Cursor;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>reader = Cursor::new(<span class="macro">vec!</span>[<span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0x7a</span>, <span class="number">0x33</span>]);
 
@@ -640,7 +640,7 @@ syscalls.</p>
 
 <span class="kw">use </span>std::io::Cursor;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>reader = Cursor::new(<span class="macro">vec!</span>[
         <span class="number">0x00</span>, <span class="number">0x03</span>, <span class="number">0x43</span>, <span class="number">0x95</span>, <span class="number">0x4d</span>, <span class="number">0x60</span>, <span class="number">0x86</span>, <span class="number">0x83
@@ -665,7 +665,7 @@ syscalls.</p>
 
 <span class="kw">use </span>std::io::Cursor;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>reader = Cursor::new(<span class="macro">vec!</span>[<span class="number">0x80</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]);
 
@@ -688,7 +688,7 @@ syscalls.</p>
 
 <span class="kw">use </span>std::io::Cursor;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>reader = Cursor::new(<span class="macro">vec!</span>[
         <span class="number">0x00</span>, <span class="number">0x03</span>, <span class="number">0x43</span>, <span class="number">0x95</span>, <span class="number">0x4d</span>, <span class="number">0x60</span>, <span class="number">0x86</span>, <span class="number">0x83</span>,
@@ -714,7 +714,7 @@ syscalls.</p>
 
 <span class="kw">use </span>std::io::Cursor;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>reader = Cursor::new(<span class="macro">vec!</span>[
         <span class="number">0x80</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>,
@@ -740,7 +740,7 @@ syscalls.</p>
 
 <span class="kw">use </span>std::io::Cursor;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>reader = Cursor::new(<span class="macro">vec!</span>[<span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0x7f</span>, <span class="number">0xff</span>]);
 
@@ -763,7 +763,7 @@ syscalls.</p>
 
 <span class="kw">use </span>std::io::Cursor;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>reader = Cursor::new(<span class="macro">vec!</span>[
         <span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0xef</span>, <span class="number">0xff
@@ -790,7 +790,7 @@ be appended to <code>buf</code>.</p>
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>tokio::io::{<span class="self">self</span>, AsyncReadExt};
 <span class="kw">use </span>tokio::fs::File;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>f = File::open(<span class="string">&quot;foo.txt&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="kw">let </span><span class="kw-2">mut </span>buffer = Vec::new();
@@ -817,7 +817,7 @@ returned and <code>buf</code> is unchanged.</p>
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>tokio::io::{<span class="self">self</span>, AsyncReadExt};
 <span class="kw">use </span>tokio::fs::File;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>f = File::open(<span class="string">&quot;foo.txt&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="kw">let </span><span class="kw-2">mut </span>buffer = String::new();
@@ -838,7 +838,7 @@ bytes read and future calls to <a href="trait.AsyncReadExt.html#method.read"><co
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>tokio::io::{<span class="self">self</span>, AsyncReadExt};
 <span class="kw">use </span>tokio::fs::File;
 
-<span class="attribute">#[tokio::main]
+<span class="attr">#[tokio::main]
 </span><span class="kw">async fn </span>main() -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span>f = File::open(<span class="string">&quot;foo.txt&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="kw">let </span><span class="kw-2">mut </span>buffer = [<span class="number">0</span>; <span class="number">5</span>];
@@ -849,4 +849,4 @@ bytes read and future calls to <a href="trait.AsyncReadExt.html#method.read"><co
     handle.read(<span class="kw-2">&amp;mut </span>buffer).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
 }</code></pre></div>
-</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor"></a></h2><div id="implementors-list"><section id="impl-AsyncReadExt-for-R" class="impl has-srclink"><a class="srclink rightside" href="../../src/tokio/io/util/async_read_ext.rs.html#1294">source</a><a href="#impl-AsyncReadExt-for-R" class="anchor"></a><h3 class="code-header">impl&lt;R:&nbsp;<a class="trait" href="trait.AsyncRead.html" title="trait tokio::io::AsyncRead">AsyncRead</a> + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>&gt; <a class="trait" href="trait.AsyncReadExt.html" title="trait tokio::io::AsyncReadExt">AsyncReadExt</a> for R</h3></section></div><script src="../../implementors/tokio/io/util/async_read_ext/trait.AsyncReadExt.js" async></script></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor"></a></h2><div id="implementors-list"><section id="impl-AsyncReadExt-for-R" class="impl has-srclink"><a class="srclink rightside" href="../../src/tokio/io/util/async_read_ext.rs.html#1294">source</a><a href="#impl-AsyncReadExt-for-R" class="anchor"></a><h3 class="code-header">impl&lt;R:&nbsp;<a class="trait" href="trait.AsyncRead.html" title="trait tokio::io::AsyncRead">AsyncRead</a> + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>&gt; <a class="trait" href="trait.AsyncReadExt.html" title="trait tokio::io::AsyncReadExt">AsyncReadExt</a> for R</h3></section></div><script src="../../implementors/tokio/io/util/async_read_ext/trait.AsyncReadExt.js" async></script></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

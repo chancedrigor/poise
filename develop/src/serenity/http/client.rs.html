@@ -4092,7 +4092,7 @@
 <span id="4092">4092</span>
 <span id="4093">4093</span>
 <span id="4094">4094</span>
-</pre><pre class="rust"><code><span class="attribute">#![allow(clippy::missing_errors_doc)]
+</pre><pre class="rust"><code><span class="attr">#![allow(clippy::missing_errors_doc)]
 
 </span><span class="kw">use </span>std::borrow::Cow;
 <span class="kw">use </span>std::convert::TryFrom;
@@ -4163,7 +4163,7 @@
     }
 
     <span class="doccomment">/// Sets the application_id to use interactions.
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>application_id(<span class="kw-2">mut </span><span class="self">self</span>, application_id: u64) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.application_id = <span class="prelude-val">Some</span>(application_id);
 
@@ -4172,7 +4172,7 @@
 
     <span class="doccomment">/// Sets a token for the bot. If the token is not prefixed &quot;Bot &quot;, this
     /// method will automatically do so.
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>token(<span class="kw-2">mut </span><span class="self">self</span>, token: <span class="kw">impl </span>AsRef&lt;str&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.token = parse_token(token);
 
@@ -4181,7 +4181,7 @@
 
     <span class="doccomment">/// Sets the [`reqwest::Client`]. If one isn&#39;t provided, a default one will
     /// be used.
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>client(<span class="kw-2">mut </span><span class="self">self</span>, client: Client) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.client = <span class="prelude-val">Some</span>(client);
 
@@ -4190,7 +4190,7 @@
 
     <span class="doccomment">/// Sets the ratelimiter to be used. If one isn&#39;t provided, a default one
     /// will be used.
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>ratelimiter(<span class="kw-2">mut </span><span class="self">self</span>, ratelimiter: Ratelimiter) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.ratelimiter = <span class="prelude-val">Some</span>(ratelimiter);
 
@@ -4205,7 +4205,7 @@
     /// another form of rate limiting. Disabling the ratelimiter has the main
     /// purpose of delegating rate limiting to an API proxy via [`Self::proxy`]
     /// instead of the current process.
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>ratelimiter_disabled(<span class="kw-2">mut </span><span class="self">self</span>, ratelimiter_disabled: bool) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.ratelimiter_disabled = ratelimiter_disabled;
 
@@ -4236,7 +4236,7 @@
     }
 
     <span class="doccomment">/// Use the given configuration to build the `Http` client.
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; Http {
         <span class="kw">let </span>token = <span class="self">self</span>.token;
 
@@ -4311,7 +4311,7 @@
 }
 
 <span class="kw">impl </span>Http {
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>new(token: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
         <span class="kw">let </span>builder = configure_client_backend(Client::builder());
 
@@ -4330,7 +4330,7 @@
         }
     }
 
-    <span class="attribute">#[must_use]
+    <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>new_with_application_id(token: <span class="kw-2">&amp;</span>str, application_id: u64) -&gt; <span class="self">Self </span>{
         <span class="kw">let </span>http = <span class="self">Self</span>::new(token);
 
@@ -6445,9 +6445,9 @@
     ///
     /// Does not require authentication.
     </span><span class="kw">pub async fn </span>get_active_maintenances(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Maintenance&gt;&gt; {
-        <span class="attribute">#[derive(Deserialize)]
+        <span class="attr">#[derive(Deserialize)]
         </span><span class="kw">struct </span>StatusResponse {
-            <span class="attribute">#[serde(default)]
+            <span class="attr">#[serde(default)]
             </span>scheduled_maintenances: Vec&lt;Maintenance&gt;,
         }
 
@@ -7073,7 +7073,7 @@
 
     <span class="doccomment">/// Gets a guild&#39;s vanity URL if it has one.
     </span><span class="kw">pub async fn </span>get_guild_vanity_url(<span class="kw-2">&amp;</span><span class="self">self</span>, guild_id: u64) -&gt; <span class="prelude-ty">Result</span>&lt;String&gt; {
-        <span class="attribute">#[derive(Deserialize)]
+        <span class="attr">#[derive(Deserialize)]
         </span><span class="kw">struct </span>GuildVanityUrl {
             code: String,
         }
@@ -7138,7 +7138,7 @@
     <span class="doccomment">/// Gets the amount of users that can be pruned.
     </span><span class="kw">pub async fn </span>get_guild_prune_count(<span class="kw-2">&amp;</span><span class="self">self</span>, guild_id: u64, map: <span class="kw-2">&amp;</span>Value) -&gt; <span class="prelude-ty">Result</span>&lt;GuildPrune&gt; {
         <span class="comment">// Note for 0.6.x: turn this into a function parameter.
-        </span><span class="attribute">#[derive(Deserialize)]
+        </span><span class="attr">#[derive(Deserialize)]
         </span><span class="kw">struct </span>GetGuildPruneCountRequest {
             days: u64,
         }
@@ -7441,7 +7441,7 @@
         expiration: bool,
         event_id: <span class="prelude-ty">Option</span>&lt;u64&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;Invite&gt; {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;utils&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;utils&quot;</span>)]
         </span>{
             code = utils::parse_invite(code);
         }
@@ -7513,7 +7513,7 @@
 
     <span class="doccomment">/// Retrieves a list of all nitro sticker packs.
     </span><span class="kw">pub async fn </span>get_nitro_stickers(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;StickerPack&gt;&gt; {
-        <span class="attribute">#[derive(Deserialize)]
+        <span class="attr">#[derive(Deserialize)]
         </span><span class="kw">struct </span>StickerPacks {
             sticker_packs: Vec&lt;StickerPack&gt;,
         }
@@ -7587,9 +7587,9 @@
     ///
     /// Does not require authentication.
     </span><span class="kw">pub async fn </span>get_unresolved_incidents(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Incident&gt;&gt; {
-        <span class="attribute">#[derive(Deserialize)]
+        <span class="attr">#[derive(Deserialize)]
         </span><span class="kw">struct </span>StatusResponse {
-            <span class="attribute">#[serde(default)]
+            <span class="attr">#[serde(default)]
             </span>incidents: Vec&lt;Incident&gt;,
         }
 
@@ -7610,9 +7610,9 @@
     ///
     /// Does not require authentication.
     </span><span class="kw">pub async fn </span>get_upcoming_maintenances(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Maintenance&gt;&gt; {
-        <span class="attribute">#[derive(Deserialize)]
+        <span class="attr">#[derive(Deserialize)]
         </span><span class="kw">struct </span>StatusResponse {
-            <span class="attribute">#[serde(default)]
+            <span class="attr">#[serde(default)]
             </span>scheduled_maintenances: Vec&lt;Maintenance&gt;,
         }
 
@@ -8134,7 +8134,7 @@
     /// #     Ok(())
     /// # }
     /// ```
-    </span><span class="attribute">#[instrument]
+    </span><span class="attr">#[instrument]
     </span><span class="kw">pub async fn </span>request(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut </span>req: Request&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;ReqwestResponse&gt; {
         <span class="kw">let </span>response = <span class="kw">if </span><span class="self">self</span>.ratelimiter_disabled {
             <span class="kw">let </span>request =
@@ -8171,12 +8171,12 @@
     }
 }
 
-<span class="attribute">#[cfg(not(feature = <span class="string">&quot;native_tls_backend&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">&quot;native_tls_backend&quot;</span>))]
 </span><span class="kw">fn </span>configure_client_backend(builder: ClientBuilder) -&gt; ClientBuilder {
     builder.use_rustls_tls()
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;native_tls_backend&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;native_tls_backend&quot;</span>)]
 </span><span class="kw">fn </span>configure_client_backend(builder: ClientBuilder) -&gt; ClientBuilder {
     builder.use_native_tls()
 }
@@ -8187,4 +8187,4 @@
     </span>}
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

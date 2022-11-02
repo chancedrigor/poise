@@ -173,7 +173,7 @@
 <span class="kw">use </span>core::sync::atomic::Ordering::Relaxed;
 
 <span class="doccomment">/// Mutable iterator over all futures in the unordered set.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>IterPinMut&lt;<span class="lifetime">&#39;a</span>, Fut&gt; {
     <span class="kw">pub</span>(<span class="kw">super</span>) task: <span class="kw-2">*const </span>Task&lt;Fut&gt;,
     <span class="kw">pub</span>(<span class="kw">super</span>) len: usize,
@@ -181,11 +181,11 @@
 }
 
 <span class="doccomment">/// Mutable iterator over all futures in the unordered set.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>IterMut&lt;<span class="lifetime">&#39;a</span>, Fut: Unpin&gt;(<span class="kw">pub</span>(<span class="kw">super</span>) IterPinMut&lt;<span class="lifetime">&#39;a</span>, Fut&gt;);
 
 <span class="doccomment">/// Immutable iterator over all futures in the unordered set.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>IterPinRef&lt;<span class="lifetime">&#39;a</span>, Fut&gt; {
     <span class="kw">pub</span>(<span class="kw">super</span>) task: <span class="kw-2">*const </span>Task&lt;Fut&gt;,
     <span class="kw">pub</span>(<span class="kw">super</span>) len: usize,
@@ -194,11 +194,11 @@
 }
 
 <span class="doccomment">/// Immutable iterator over all the futures in the unordered set.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Iter&lt;<span class="lifetime">&#39;a</span>, Fut: Unpin&gt;(<span class="kw">pub</span>(<span class="kw">super</span>) IterPinRef&lt;<span class="lifetime">&#39;a</span>, Fut&gt;);
 
 <span class="doccomment">/// Owned iterator over all futures in the unordered set.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>IntoIter&lt;Fut: Unpin&gt; {
     <span class="kw">pub</span>(<span class="kw">super</span>) len: usize,
     <span class="kw">pub</span>(<span class="kw">super</span>) inner: FuturesUnordered&lt;Fut&gt;,
@@ -335,4 +335,4 @@
 <span class="kw">unsafe impl</span>&lt;Fut: Send + Unpin&gt; Send <span class="kw">for </span>IntoIter&lt;Fut&gt; {}
 <span class="kw">unsafe impl</span>&lt;Fut: Sync + Unpin&gt; Sync <span class="kw">for </span>IntoIter&lt;Fut&gt; {}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

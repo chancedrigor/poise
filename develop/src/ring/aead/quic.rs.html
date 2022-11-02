@@ -214,7 +214,7 @@
     algorithm: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Algorithm,
 }
 
-<span class="attribute">#[allow(clippy::large_enum_variant, variant_size_differences)]
+<span class="attr">#[allow(clippy::large_enum_variant, variant_size_differences)]
 </span><span class="kw">enum </span>KeyInner {
     Aes(aes::Key),
     ChaCha20(chacha::Key),
@@ -255,7 +255,7 @@
     }
 
     <span class="doccomment">/// The key&#39;s algorithm.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>algorithm(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Algorithm {
         <span class="self">self</span>.algorithm
     }
@@ -277,7 +277,7 @@
 }
 
 <span class="kw">impl </span>hkdf::KeyType <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Algorithm {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.key_len()
     }
@@ -285,13 +285,13 @@
 
 <span class="kw">impl </span>Algorithm {
     <span class="doccomment">/// The length of the key.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>key_len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.key_len
     }
 
     <span class="doccomment">/// The required sample length.
-    </span><span class="attribute">#[inline(always)]
+    </span><span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>sample_len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         SAMPLE_LEN
     }
@@ -299,7 +299,7 @@
 
 <span class="macro">derive_debug_via_id!</span>(Algorithm);
 
-<span class="attribute">#[derive(Debug, Eq, PartialEq)]
+<span class="attr">#[derive(Debug, Eq, PartialEq)]
 </span><span class="kw">enum </span>AlgorithmID {
     AES_128,
     AES_256,
@@ -371,4 +371,4 @@
     chacha20_key.new_mask(sample)
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

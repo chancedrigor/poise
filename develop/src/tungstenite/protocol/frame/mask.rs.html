@@ -72,19 +72,19 @@
 <span id="72">72</span>
 <span id="73">73</span>
 </pre><pre class="rust"><code><span class="doccomment">/// Generate a random frame mask.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>generate_mask() -&gt; [u8; <span class="number">4</span>] {
     rand::random()
 }
 
 <span class="doccomment">/// Mask/unmask a frame.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>apply_mask(buf: <span class="kw-2">&amp;mut </span>[u8], mask: [u8; <span class="number">4</span>]) {
     apply_mask_fast32(buf, mask)
 }
 
 <span class="doccomment">/// A safe unoptimized mask application.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>apply_mask_fallback(buf: <span class="kw-2">&amp;mut </span>[u8], mask: [u8; <span class="number">4</span>]) {
     <span class="kw">for </span>(i, byte) <span class="kw">in </span>buf.iter_mut().enumerate() {
         <span class="kw-2">*</span>byte ^= mask[i &amp; <span class="number">3</span>];
@@ -92,7 +92,7 @@
 }
 
 <span class="doccomment">/// Faster version of `apply_mask()` which operates on 4-byte blocks.
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>apply_mask_fast32(buf: <span class="kw-2">&amp;mut </span>[u8], mask: [u8; <span class="number">4</span>]) {
     <span class="kw">let </span>mask_u32 = u32::from_ne_bytes(mask);
 
@@ -114,11 +114,11 @@
     apply_mask_fallback(suffix, mask_u32.to_ne_bytes());
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_apply_mask() {
         <span class="kw">let </span>mask = [<span class="number">0x6d</span>, <span class="number">0xb6</span>, <span class="number">0xb2</span>, <span class="number">0x80</span>];
         <span class="kw">let </span>unmasked = <span class="macro">vec!</span>[
@@ -145,4 +145,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

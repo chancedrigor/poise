@@ -149,7 +149,7 @@
 //! `native_tls` or `openssl` will work as long as there is a TLS stream supporting standard
 //! `Read + Write` traits.
 
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
 </span><span class="kw">use </span>std::ops::Deref;
 <span class="kw">use </span>std::{
     fmt::{<span class="self">self</span>, Debug},
@@ -158,13 +158,13 @@
 
 <span class="kw">use </span>std::net::TcpStream;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
 </span><span class="kw">use </span>native_tls_crate::TlsStream;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
 </span><span class="kw">use </span>rustls::StreamOwned;
 
 <span class="doccomment">/// Stream mode, either plain TCP or TLS.
-</span><span class="attribute">#[derive(Clone, Copy, Debug)]
+</span><span class="attr">#[derive(Clone, Copy, Debug)]
 </span><span class="kw">pub enum </span>Mode {
     <span class="doccomment">/// Plain mode (`ws://` URL).
     </span>Plain,
@@ -184,14 +184,14 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
 </span><span class="kw">impl</span>&lt;S: Read + Write + NoDelay&gt; NoDelay <span class="kw">for </span>TlsStream&lt;S&gt; {
     <span class="kw">fn </span>set_nodelay(<span class="kw-2">&amp;mut </span><span class="self">self</span>, nodelay: bool) -&gt; IoResult&lt;()&gt; {
         <span class="self">self</span>.get_mut().set_nodelay(nodelay)
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
 </span><span class="kw">impl</span>&lt;S, SD, T&gt; NoDelay <span class="kw">for </span>StreamOwned&lt;S, T&gt;
 <span class="kw">where
     </span>S: Deref&lt;Target = rustls::ConnectionCommon&lt;SD&gt;&gt;,
@@ -204,14 +204,14 @@
 }
 
 <span class="doccomment">/// A stream that might be protected with TLS.
-</span><span class="attribute">#[non_exhaustive]
+</span><span class="attr">#[non_exhaustive]
 </span><span class="kw">pub enum </span>MaybeTlsStream&lt;S: Read + Write&gt; {
     <span class="doccomment">/// Unencrypted socket stream.
     </span>Plain(S),
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
     </span><span class="doccomment">/// Encrypted socket stream using `native-tls`.
     </span>NativeTls(native_tls_crate::TlsStream&lt;S&gt;),
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
     </span><span class="doccomment">/// Encrypted socket stream using `rustls`.
     </span>Rustls(rustls::StreamOwned&lt;rustls::ClientConnection, S&gt;),
 }
@@ -220,9 +220,9 @@
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="self">self </span>{
             <span class="self">Self</span>::Plain(s) =&gt; f.debug_tuple(<span class="string">&quot;MaybeTlsStream::Plain&quot;</span>).field(s).finish(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
             </span><span class="self">Self</span>::NativeTls(s) =&gt; f.debug_tuple(<span class="string">&quot;MaybeTlsStream::NativeTls&quot;</span>).field(s).finish(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
             </span><span class="self">Self</span>::Rustls(s) =&gt; {
                 <span class="kw">struct </span>RustlsStreamDebug&lt;<span class="lifetime">&#39;a</span>, S: Read + Write&gt;(
                     <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>rustls::StreamOwned&lt;rustls::ClientConnection, S&gt;,
@@ -247,9 +247,9 @@
     <span class="kw">fn </span>read(<span class="kw-2">&amp;mut </span><span class="self">self</span>, buf: <span class="kw-2">&amp;mut </span>[u8]) -&gt; IoResult&lt;usize&gt; {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             MaybeTlsStream::Plain(<span class="kw-2">ref mut </span>s) =&gt; s.read(buf),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
             </span>MaybeTlsStream::NativeTls(<span class="kw-2">ref mut </span>s) =&gt; s.read(buf),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
             </span>MaybeTlsStream::Rustls(<span class="kw-2">ref mut </span>s) =&gt; s.read(buf),
         }
     }
@@ -259,9 +259,9 @@
     <span class="kw">fn </span>write(<span class="kw-2">&amp;mut </span><span class="self">self</span>, buf: <span class="kw-2">&amp;</span>[u8]) -&gt; IoResult&lt;usize&gt; {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             MaybeTlsStream::Plain(<span class="kw-2">ref mut </span>s) =&gt; s.write(buf),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
             </span>MaybeTlsStream::NativeTls(<span class="kw-2">ref mut </span>s) =&gt; s.write(buf),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
             </span>MaybeTlsStream::Rustls(<span class="kw-2">ref mut </span>s) =&gt; s.write(buf),
         }
     }
@@ -269,9 +269,9 @@
     <span class="kw">fn </span>flush(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; IoResult&lt;()&gt; {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             MaybeTlsStream::Plain(<span class="kw-2">ref mut </span>s) =&gt; s.flush(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
             </span>MaybeTlsStream::NativeTls(<span class="kw-2">ref mut </span>s) =&gt; s.flush(),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
             </span>MaybeTlsStream::Rustls(<span class="kw-2">ref mut </span>s) =&gt; s.flush(),
         }
     }
@@ -281,12 +281,12 @@
     <span class="kw">fn </span>set_nodelay(<span class="kw-2">&amp;mut </span><span class="self">self</span>, nodelay: bool) -&gt; IoResult&lt;()&gt; {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             MaybeTlsStream::Plain(<span class="kw-2">ref mut </span>s) =&gt; s.set_nodelay(nodelay),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;native-tls&quot;</span>)]
             </span>MaybeTlsStream::NativeTls(<span class="kw-2">ref mut </span>s) =&gt; s.set_nodelay(nodelay),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;__rustls-tls&quot;</span>)]
             </span>MaybeTlsStream::Rustls(<span class="kw-2">ref mut </span>s) =&gt; s.set_nodelay(nodelay),
         }
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -102,7 +102,7 @@
 <span class="doccomment">/// An error type indicating that a component provided to a method was out of range, causing a
 /// failure.
 </span><span class="comment">// i64 is the narrowest type fitting all use cases. This eliminates the need for a type parameter.
-</span><span class="attribute">#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+</span><span class="attr">#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 </span><span class="kw">pub struct </span>ComponentRange {
     <span class="doccomment">/// Name of the component.
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) name: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str,
@@ -164,7 +164,7 @@
 }
 
 <span class="doccomment">/// **This trait implementation is deprecated and will be removed in a future breaking release.**
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">impl </span>serde::de::Expected <span class="kw">for </span>ComponentRange {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
         <span class="macro">write!</span>(
@@ -175,7 +175,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">impl </span>ComponentRange {
     <span class="doccomment">/// Convert the error to a deserialization error.
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>into_de_error&lt;E: serde::de::Error&gt;(<span class="self">self</span>) -&gt; E {
@@ -183,7 +183,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>std::error::Error <span class="kw">for </span>ComponentRange {}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="time" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

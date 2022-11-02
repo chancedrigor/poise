@@ -88,7 +88,7 @@
 <span class="kw">use </span>std::io;
 <span class="kw">use </span>std::pin::Pin;
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>Block&lt;Item&gt; {
     offset: usize,
     bytes: Item,
@@ -96,11 +96,11 @@
 
 <span class="macro">pin_project! </span>{
     <span class="doccomment">/// Sink for the [`into_sink`](super::AsyncWriteExt::into_sink) method.
-    </span><span class="attribute">#[must_use = <span class="string">&quot;sinks do nothing unless polled&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;sinks do nothing unless polled&quot;</span>]
     #[derive(Debug)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;sink&quot;</span>)))]
     </span><span class="kw">pub struct </span>IntoSink&lt;W, Item&gt; {
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span>writer: W,
         <span class="comment">// An outstanding block for us to push into the underlying writer, along with an offset of how
         // far into this block we have written already.
@@ -163,4 +163,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

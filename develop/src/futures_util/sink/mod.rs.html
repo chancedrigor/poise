@@ -356,7 +356,7 @@
 <span class="kw">use </span>futures_core::stream::{Stream, TryStream};
 <span class="kw">use </span>futures_core::task::{Context, Poll};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;compat&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;compat&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::compat::CompatSink;
 
 <span class="kw">pub use </span>futures_sink::Sink;
@@ -397,9 +397,9 @@
 <span class="kw">mod </span>with_flat_map;
 <span class="kw">pub use </span><span class="self">self</span>::with_flat_map::WithFlatMap;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">mod </span>buffer;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">pub use </span><span class="self">self</span>::buffer::Buffer;
 
 <span class="kw">impl</span>&lt;T: <span class="question-mark">?</span>Sized, Item&gt; SinkExt&lt;Item&gt; <span class="kw">for </span>T <span class="kw">where </span>T: Sink&lt;Item&gt; {}
@@ -515,7 +515,7 @@
     ///
     /// This method is only available when the `std` or `alloc` feature of this
     /// library is activated, and it is activated by default.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">fn </span>buffer(<span class="self">self</span>, capacity: usize) -&gt; Buffer&lt;<span class="self">Self</span>, Item&gt;
     <span class="kw">where
         </span><span class="self">Self</span>: Sized,
@@ -632,7 +632,7 @@
 
     <span class="doccomment">/// Wraps a [`Sink`] into a sink compatible with libraries using
     /// futures 0.1 `Sink`. Requires the `compat` feature to be enabled.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;compat&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;compat&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;compat&quot;</span>)))]
     </span><span class="kw">fn </span>compat(<span class="self">self</span>) -&gt; CompatSink&lt;<span class="self">Self</span>, Item&gt;
     <span class="kw">where
@@ -687,4 +687,4 @@
     sink
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

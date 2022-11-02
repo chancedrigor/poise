@@ -828,8 +828,8 @@
 //! but the conversion keeps the valid value valid and the invalid value invalid
 //! so that the user-facing `NaiveDate` can validate the input as late as possible.
 
-</span><span class="attribute">#![allow(dead_code)] </span><span class="comment">// some internal methods have been left for consistency
-</span><span class="attribute">#![cfg_attr(feature = <span class="string">&quot;__internal_bench&quot;</span>, allow(missing_docs))]
+</span><span class="attr">#![allow(dead_code)] </span><span class="comment">// some internal methods have been left for consistency
+</span><span class="attr">#![cfg_attr(feature = <span class="string">&quot;__internal_bench&quot;</span>, allow(missing_docs))]
 
 </span><span class="kw">use </span>core::{fmt, i32};
 <span class="kw">use </span>div::{div_rem, mod_floor};
@@ -850,7 +850,7 @@
 /// where `a` is `1` for the common year (simplifies the `Of` validation)
 /// and `bbb` is a non-zero `Weekday` (mapping `Mon` to 7) of the last day in the past year
 /// (simplifies the day of week calculation from the 1-based ordinal).
-</span><span class="attribute">#[derive(PartialEq, Eq, Copy, Clone)]
+</span><span class="attr">#[derive(PartialEq, Eq, Copy, Clone)]
 </span><span class="kw">pub struct </span>YearFlags(<span class="kw">pub </span>u8);
 
 <span class="kw">pub const </span>A: YearFlags = YearFlags(<span class="number">0o15</span>);
@@ -926,24 +926,24 @@
 </span>}
 
 <span class="kw">impl </span>YearFlags {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>from_year(year: i32) -&gt; YearFlags {
         <span class="kw">let </span>year = mod_floor(year, <span class="number">400</span>);
         YearFlags::from_year_mod_400(year)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>from_year_mod_400(year: i32) -&gt; YearFlags {
         YEAR_TO_FLAGS[year <span class="kw">as </span>usize]
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>ndays(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="kw">let </span>YearFlags(flags) = <span class="kw-2">*</span><span class="self">self</span>;
         <span class="number">366 </span>- u32::from(flags &gt;&gt; <span class="number">3</span>)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>isoweek_delta(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="kw">let </span>YearFlags(flags) = <span class="kw-2">*</span><span class="self">self</span>;
         <span class="kw">let </span><span class="kw-2">mut </span>delta = u32::from(flags) &amp; <span class="number">0b0111</span>;
@@ -953,7 +953,7 @@
         delta
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>nisoweeks(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="kw">let </span>YearFlags(flags) = <span class="kw-2">*</span><span class="self">self</span>;
         <span class="number">52 </span>+ ((<span class="number">0b0000_0100_0000_0110 </span>&gt;&gt; flags <span class="kw">as </span>usize) &amp; <span class="number">1</span>)
@@ -1079,11 +1079,11 @@
 ///
 /// The whole bits except for the least 3 bits are referred as `Ol` (ordinal and leap flag),
 /// which is an index to the `OL_TO_MDL` lookup table.
-</span><span class="attribute">#[derive(PartialEq, PartialOrd, Copy, Clone)]
+</span><span class="attr">#[derive(PartialEq, PartialOrd, Copy, Clone)]
 </span><span class="kw">pub struct </span>Of(<span class="kw">pub </span>u32);
 
 <span class="kw">impl </span>Of {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>clamp_ordinal(ordinal: u32) -&gt; u32 {
         <span class="kw">if </span>ordinal &gt; <span class="number">366 </span>{
             <span class="number">0
@@ -1092,13 +1092,13 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new(ordinal: u32, YearFlags(flags): YearFlags) -&gt; Of {
         <span class="kw">let </span>ordinal = Of::clamp_ordinal(ordinal);
         Of((ordinal &lt;&lt; <span class="number">4</span>) | u32::from(flags))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>from_mdf(Mdf(mdf): Mdf) -&gt; Of {
         <span class="kw">let </span>mdl = mdf &gt;&gt; <span class="number">3</span>;
         <span class="kw">match </span>MDL_TO_OL.get(mdl <span class="kw">as </span>usize) {
@@ -1107,45 +1107,45 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>valid(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">let </span>Of(of) = <span class="kw-2">*</span><span class="self">self</span>;
         <span class="kw">let </span>ol = of &gt;&gt; <span class="number">3</span>;
         MIN_OL &lt;= ol &amp;&amp; ol &lt;= MAX_OL
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>ordinal(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="kw">let </span>Of(of) = <span class="kw-2">*</span><span class="self">self</span>;
         of &gt;&gt; <span class="number">4
     </span>}
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>with_ordinal(<span class="kw-2">&amp;</span><span class="self">self</span>, ordinal: u32) -&gt; Of {
         <span class="kw">let </span>ordinal = Of::clamp_ordinal(ordinal);
         <span class="kw">let </span>Of(of) = <span class="kw-2">*</span><span class="self">self</span>;
         Of((of &amp; <span class="number">0b1111</span>) | (ordinal &lt;&lt; <span class="number">4</span>))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>flags(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; YearFlags {
         <span class="kw">let </span>Of(of) = <span class="kw-2">*</span><span class="self">self</span>;
         YearFlags((of &amp; <span class="number">0b1111</span>) <span class="kw">as </span>u8)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>with_flags(<span class="kw-2">&amp;</span><span class="self">self</span>, YearFlags(flags): YearFlags) -&gt; Of {
         <span class="kw">let </span>Of(of) = <span class="kw-2">*</span><span class="self">self</span>;
         Of((of &amp; !<span class="number">0b1111</span>) | u32::from(flags))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>weekday(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Weekday {
         <span class="kw">let </span>Of(of) = <span class="kw-2">*</span><span class="self">self</span>;
         Weekday::from_u32(((of &gt;&gt; <span class="number">4</span>) + (of &amp; <span class="number">0b111</span>)) % <span class="number">7</span>).unwrap()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>isoweekdate_raw(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (u32, Weekday) {
         <span class="comment">// week ordinal = ordinal + delta
         </span><span class="kw">let </span>Of(of) = <span class="kw-2">*</span><span class="self">self</span>;
@@ -1153,18 +1153,18 @@
         (weekord / <span class="number">7</span>, Weekday::from_u32(weekord % <span class="number">7</span>).unwrap())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>to_mdf(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Mdf {
         Mdf::from_of(<span class="kw-2">*</span><span class="self">self</span>)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>succ(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Of {
         <span class="kw">let </span>Of(of) = <span class="kw-2">*</span><span class="self">self</span>;
         Of(of + (<span class="number">1 </span>&lt;&lt; <span class="number">4</span>))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>pred(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Of {
         <span class="kw">let </span>Of(of) = <span class="kw-2">*</span><span class="self">self</span>;
         Of(of - (<span class="number">1 </span>&lt;&lt; <span class="number">4</span>))
@@ -1189,11 +1189,11 @@
 /// The whole bits except for the least 3 bits are referred as `Mdl`
 /// (month, day of month and leap flag),
 /// which is an index to the `MDL_TO_OL` lookup table.
-</span><span class="attribute">#[derive(PartialEq, PartialOrd, Copy, Clone)]
+</span><span class="attr">#[derive(PartialEq, PartialOrd, Copy, Clone)]
 </span><span class="kw">pub struct </span>Mdf(<span class="kw">pub </span>u32);
 
 <span class="kw">impl </span>Mdf {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>clamp_month(month: u32) -&gt; u32 {
         <span class="kw">if </span>month &gt; <span class="number">12 </span>{
             <span class="number">0
@@ -1202,7 +1202,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>clamp_day(day: u32) -&gt; u32 {
         <span class="kw">if </span>day &gt; <span class="number">31 </span>{
             <span class="number">0
@@ -1211,14 +1211,14 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new(month: u32, day: u32, YearFlags(flags): YearFlags) -&gt; Mdf {
         <span class="kw">let </span>month = Mdf::clamp_month(month);
         <span class="kw">let </span>day = Mdf::clamp_day(day);
         Mdf((month &lt;&lt; <span class="number">9</span>) | (day &lt;&lt; <span class="number">4</span>) | u32::from(flags))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>from_of(Of(of): Of) -&gt; Mdf {
         <span class="kw">let </span>ol = of &gt;&gt; <span class="number">3</span>;
         <span class="kw">match </span>OL_TO_MDL.get(ol <span class="kw">as </span>usize) {
@@ -1227,7 +1227,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>valid(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">let </span>Mdf(mdf) = <span class="kw-2">*</span><span class="self">self</span>;
         <span class="kw">let </span>mdl = mdf &gt;&gt; <span class="number">3</span>;
@@ -1237,45 +1237,45 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>month(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="kw">let </span>Mdf(mdf) = <span class="kw-2">*</span><span class="self">self</span>;
         mdf &gt;&gt; <span class="number">9
     </span>}
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>with_month(<span class="kw-2">&amp;</span><span class="self">self</span>, month: u32) -&gt; Mdf {
         <span class="kw">let </span>month = Mdf::clamp_month(month);
         <span class="kw">let </span>Mdf(mdf) = <span class="kw-2">*</span><span class="self">self</span>;
         Mdf((mdf &amp; <span class="number">0b1_1111_1111</span>) | (month &lt;&lt; <span class="number">9</span>))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>day(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="kw">let </span>Mdf(mdf) = <span class="kw-2">*</span><span class="self">self</span>;
         (mdf &gt;&gt; <span class="number">4</span>) &amp; <span class="number">0b1_1111
     </span>}
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>with_day(<span class="kw-2">&amp;</span><span class="self">self</span>, day: u32) -&gt; Mdf {
         <span class="kw">let </span>day = Mdf::clamp_day(day);
         <span class="kw">let </span>Mdf(mdf) = <span class="kw-2">*</span><span class="self">self</span>;
         Mdf((mdf &amp; !<span class="number">0b1_1111_0000</span>) | (day &lt;&lt; <span class="number">4</span>))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>flags(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; YearFlags {
         <span class="kw">let </span>Mdf(mdf) = <span class="kw-2">*</span><span class="self">self</span>;
         YearFlags((mdf &amp; <span class="number">0b1111</span>) <span class="kw">as </span>u8)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>with_flags(<span class="kw-2">&amp;</span><span class="self">self</span>, YearFlags(flags): YearFlags) -&gt; Mdf {
         <span class="kw">let </span>Mdf(mdf) = <span class="kw-2">*</span><span class="self">self</span>;
         Mdf((mdf &amp; !<span class="number">0b1111</span>) | u32::from(flags))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>to_of(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Of {
         Of::from_mdf(<span class="kw-2">*</span><span class="self">self</span>)
     }
@@ -1295,9 +1295,9 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
-    <span class="attribute">#[cfg(test)]
+    <span class="attr">#[cfg(test)]
     </span><span class="kw">extern crate </span>num_iter;
 
     <span class="kw">use </span><span class="self">self</span>::num_iter::range_inclusive;
@@ -1310,7 +1310,7 @@
     <span class="kw">const </span>LEAP_FLAGS: [YearFlags; <span class="number">7</span>] = [AG, BA, CB, DC, ED, FE, GF];
     <span class="kw">const </span>FLAGS: [YearFlags; <span class="number">14</span>] = [A, B, C, D, E, F, G, AG, BA, CB, DC, ED, FE, GF];
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_year_flags_ndays_from_year() {
         <span class="macro">assert_eq!</span>(YearFlags::from_year(<span class="number">2014</span>).ndays(), <span class="number">365</span>);
         <span class="macro">assert_eq!</span>(YearFlags::from_year(<span class="number">2012</span>).ndays(), <span class="number">366</span>);
@@ -1327,7 +1327,7 @@
         </span><span class="macro">assert_eq!</span>(YearFlags::from_year(-<span class="number">400</span>).ndays(), <span class="number">366</span>); <span class="comment">// 401 BCE
     </span>}
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_year_flags_nisoweeks() {
         <span class="macro">assert_eq!</span>(A.nisoweeks(), <span class="number">52</span>);
         <span class="macro">assert_eq!</span>(B.nisoweeks(), <span class="number">52</span>);
@@ -1345,7 +1345,7 @@
         <span class="macro">assert_eq!</span>(GF.nisoweeks(), <span class="number">52</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_of() {
         <span class="kw">fn </span>check(expected: bool, flags: YearFlags, ordinal1: u32, ordinal2: u32) {
             <span class="kw">for </span>ordinal <span class="kw">in </span>range_inclusive(ordinal1, ordinal2) {
@@ -1376,7 +1376,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_mdf_valid() {
         <span class="kw">fn </span>check(expected: bool, flags: YearFlags, month1: u32, day1: u32, month2: u32, day2: u32) {
             <span class="kw">for </span>month <span class="kw">in </span>range_inclusive(month1, month2) {
@@ -1462,7 +1462,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_of_fields() {
         <span class="kw">for </span><span class="kw-2">&amp;</span>flags <span class="kw">in </span>FLAGS.iter() {
             <span class="kw">for </span>ordinal <span class="kw">in </span>range_inclusive(<span class="number">1u32</span>, <span class="number">366</span>) {
@@ -1474,7 +1474,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_of_with_fields() {
         <span class="kw">fn </span>check(flags: YearFlags, ordinal: u32) {
             <span class="kw">let </span>of = Of::new(ordinal, flags);
@@ -1498,7 +1498,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_of_weekday() {
         <span class="macro">assert_eq!</span>(Of::new(<span class="number">1</span>, A).weekday(), Weekday::Sun);
         <span class="macro">assert_eq!</span>(Of::new(<span class="number">1</span>, B).weekday(), Weekday::Sat);
@@ -1526,7 +1526,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_mdf_fields() {
         <span class="kw">for </span><span class="kw-2">&amp;</span>flags <span class="kw">in </span>FLAGS.iter() {
             <span class="kw">for </span>month <span class="kw">in </span>range_inclusive(<span class="number">1u32</span>, <span class="number">12</span>) {
@@ -1541,7 +1541,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_mdf_with_fields() {
         <span class="kw">fn </span>check(flags: YearFlags, month: u32, day: u32) {
             <span class="kw">let </span>mdf = Mdf::new(month, day, flags);
@@ -1583,7 +1583,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_of_isoweekdate_raw() {
         <span class="kw">for </span><span class="kw-2">&amp;</span>flags <span class="kw">in </span>FLAGS.iter() {
             <span class="comment">// January 4 should be in the first week
@@ -1592,7 +1592,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_of_to_mdf() {
         <span class="kw">for </span>i <span class="kw">in </span>range_inclusive(<span class="number">0u32</span>, <span class="number">8192</span>) {
             <span class="kw">let </span>of = Of(i);
@@ -1600,7 +1600,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_mdf_to_of() {
         <span class="kw">for </span>i <span class="kw">in </span>range_inclusive(<span class="number">0u32</span>, <span class="number">8192</span>) {
             <span class="kw">let </span>mdf = Mdf(i);
@@ -1608,7 +1608,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_of_to_mdf_to_of() {
         <span class="kw">for </span>i <span class="kw">in </span>range_inclusive(<span class="number">0u32</span>, <span class="number">8192</span>) {
             <span class="kw">let </span>of = Of(i);
@@ -1618,7 +1618,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_mdf_to_of_to_mdf() {
         <span class="kw">for </span>i <span class="kw">in </span>range_inclusive(<span class="number">0u32</span>, <span class="number">8192</span>) {
             <span class="kw">let </span>mdf = Mdf(i);
@@ -1629,4 +1629,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

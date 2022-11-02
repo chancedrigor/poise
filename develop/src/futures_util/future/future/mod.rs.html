@@ -613,7 +613,7 @@
 //! This module contains a number of functions for working with `Future`s,
 //! including the `FutureExt` trait which adds methods to `Future` types.
 
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span>alloc::boxed::Box;
 <span class="kw">use </span>core::pin::Pin;
 
@@ -621,7 +621,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::future::{assert_future, Either};
 <span class="kw">use </span><span class="kw">crate</span>::never::Never;
 <span class="kw">use </span><span class="kw">crate</span>::stream::assert_stream;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
 </span><span class="kw">use </span>futures_core::future::{BoxFuture, LocalBoxFuture};
 <span class="kw">use </span>futures_core::{
     future::Future,
@@ -652,7 +652,7 @@
     <span class="kw">where </span>F: Future
 );
 
-<span class="attribute">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
+<span class="attr">#[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span>fuse::Fuse;
 
 <span class="macro">delegate_all!</span>(
@@ -704,25 +704,25 @@
     ): Debug + Future + FusedFuture + New[|x: Fut| Map::new(x, ok_fn())]
 );
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">mod </span>catch_unwind;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 #[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::catch_unwind::CatchUnwind;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;channel&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;channel&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;channel&quot;</span>)))]
 #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">mod </span>remote_handle;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;channel&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;channel&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;channel&quot;</span>)))]
 #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 #[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::remote_handle::{Remote, RemoteHandle};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">mod </span>shared;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 #[allow(unreachable_pub)] </span><span class="comment">// https://github.com/rust-lang/rust/issues/57411
 </span><span class="kw">pub use </span><span class="self">self</span>::shared::{Shared, WeakShared};
 
@@ -1037,7 +1037,7 @@
     /// assert!(future.catch_unwind().await.is_err());
     /// # });
     /// ```
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     </span><span class="kw">fn </span>catch_unwind(<span class="self">self</span>) -&gt; CatchUnwind&lt;<span class="self">Self</span>&gt;
     <span class="kw">where
         </span><span class="self">Self</span>: Sized + ::std::panic::UnwindSafe,
@@ -1092,7 +1092,7 @@
     /// join_handle.join().unwrap();
     /// # });
     /// ```
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     </span><span class="kw">fn </span>shared(<span class="self">self</span>) -&gt; Shared&lt;<span class="self">Self</span>&gt;
     <span class="kw">where
         </span><span class="self">Self</span>: Sized,
@@ -1109,7 +1109,7 @@
     ///
     /// This method is only available when the `std` feature of this
     /// library is activated, and it is activated by default.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;channel&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;channel&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;channel&quot;</span>)))]
     #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     </span><span class="kw">fn </span>remote_handle(<span class="self">self</span>) -&gt; (Remote&lt;<span class="self">Self</span>&gt;, RemoteHandle&lt;<span class="self">Self</span>::Output&gt;)
@@ -1124,7 +1124,7 @@
     ///
     /// This method is only available when the `std` or `alloc` feature of this
     /// library is activated, and it is activated by default.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">fn </span>boxed&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="self">self</span>) -&gt; BoxFuture&lt;<span class="lifetime">&#39;a</span>, <span class="self">Self</span>::Output&gt;
     <span class="kw">where
         </span><span class="self">Self</span>: Sized + Send + <span class="lifetime">&#39;a</span>,
@@ -1138,7 +1138,7 @@
     ///
     /// This method is only available when the `std` or `alloc` feature of this
     /// library is activated, and it is activated by default.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
     </span><span class="kw">fn </span>boxed_local&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="self">self</span>) -&gt; LocalBoxFuture&lt;<span class="lifetime">&#39;a</span>, <span class="self">Self</span>::Output&gt;
     <span class="kw">where
         </span><span class="self">Self</span>: Sized + <span class="lifetime">&#39;a</span>,
@@ -1219,4 +1219,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -243,7 +243,7 @@
 /// This is used in an FSM to reduce the size of the transition table. This can
 /// have a particularly large impact not only on the total size of an FSM, but
 /// also on compile times.
-</span><span class="attribute">#[derive(Clone, Copy)]
+</span><span class="attr">#[derive(Clone, Copy)]
 </span><span class="kw">pub struct </span>ByteClasses([u8; <span class="number">256</span>]);
 
 <span class="kw">impl </span>ByteClasses {
@@ -264,13 +264,13 @@
     }
 
     <span class="doccomment">/// Set the equivalence class for the given byte.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set(<span class="kw-2">&amp;mut </span><span class="self">self</span>, byte: u8, class: u8) {
         <span class="self">self</span>.<span class="number">0</span>[byte <span class="kw">as </span>usize] = class;
     }
 
     <span class="doccomment">/// Get the equivalence class for the given byte.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>get(<span class="kw-2">&amp;</span><span class="self">self</span>, byte: u8) -&gt; u8 {
         <span class="comment">// SAFETY: This is safe because all dense transitions have
         // exactly 256 elements, so all u8 values are valid indices.
@@ -280,7 +280,7 @@
     <span class="doccomment">/// Return the total number of elements in the alphabet represented by
     /// these equivalence classes. Equivalently, this returns the total number
     /// of equivalence classes.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>alphabet_len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.<span class="number">0</span>[<span class="number">255</span>] <span class="kw">as </span>usize + <span class="number">1
     </span>}
@@ -288,7 +288,7 @@
     <span class="doccomment">/// Returns true if and only if every byte in this class maps to its own
     /// equivalence class. Equivalently, there are 256 equivalence classes
     /// and each class contains exactly one byte.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_singleton(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.alphabet_len() == <span class="number">256
     </span>}
@@ -338,7 +338,7 @@
 }
 
 <span class="doccomment">/// An iterator over representative bytes from each equivalence class.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ByteClassRepresentatives&lt;<span class="lifetime">&#39;a</span>&gt; {
     classes: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>ByteClasses,
     byte: usize,
@@ -388,7 +388,7 @@
 /// This particular representation only permits contiguous ranges of bytes to
 /// be in the same equivalence class, which means that we can never discover
 /// the true minimal set of equivalence classes.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ByteClassBuilder(Vec&lt;bool&gt;);
 
 <span class="kw">impl </span>ByteClassBuilder {
@@ -429,11 +429,11 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>byte_classes() {
         <span class="kw">let </span><span class="kw-2">mut </span>set = ByteClassBuilder::new();
         set.set_range(<span class="string">b&#39;a&#39;</span>, <span class="string">b&#39;z&#39;</span>);
@@ -465,7 +465,7 @@
         <span class="macro">assert_eq!</span>(classes.get(<span class="number">255</span>), <span class="number">3</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>full_byte_classes() {
         <span class="kw">let </span><span class="kw-2">mut </span>set = ByteClassBuilder::new();
         <span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..<span class="number">256u16 </span>{
@@ -475,4 +475,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="aho_corasick" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="aho_corasick" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

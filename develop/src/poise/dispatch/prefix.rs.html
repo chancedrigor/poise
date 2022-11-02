@@ -307,6 +307,14 @@
 <span id="307">307</span>
 <span id="308">308</span>
 <span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Dispatches incoming messages and message edits onto framework commands
 
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
@@ -425,18 +433,26 @@
 /// async fn command3(ctx: poise::Context&lt;&#39;_, (), ()&gt;) -&gt; Result&lt;(), ()&gt; { Ok(()) }
 /// let commands = vec![command1(), command2()];
 ///
+/// let mut parent_commands = Vec::new();
 /// assert_eq!(
-///     poise::find_command(&amp;commands, &quot;command1 my arguments&quot;, false),
+///     poise::find_command(&amp;commands, &quot;command1 my arguments&quot;, false, &amp;mut parent_commands),
 ///     Some((&amp;commands[0], &quot;command1&quot;, &quot;my arguments&quot;)),
 /// );
+/// assert!(parent_commands.is_empty());
+///
+/// parent_commands.clear();
 /// assert_eq!(
-///     poise::find_command(&amp;commands, &quot;command2 command3 my arguments&quot;, false),
+///     poise::find_command(&amp;commands, &quot;command2 command3 my arguments&quot;, false, &amp;mut parent_commands),
 ///     Some((&amp;commands[1].subcommands[0], &quot;command3&quot;, &quot;my arguments&quot;)),
 /// );
+/// assert_eq!(&amp;parent_commands, &amp;[&amp;commands[1]]);
+///
+/// parent_commands.clear();
 /// assert_eq!(
-///     poise::find_command(&amp;commands, &quot;CoMmAnD2 cOmMaNd99 my arguments&quot;, true),
+///     poise::find_command(&amp;commands, &quot;CoMmAnD2 cOmMaNd99 my arguments&quot;, true, &amp;mut parent_commands),
 ///     Some((&amp;commands[1], &quot;CoMmAnD2&quot;, &quot;cOmMaNd99 my arguments&quot;)),
 /// );
+/// assert!(parent_commands.is_empty());
 </span><span class="kw">pub fn </span>find_command&lt;<span class="lifetime">&#39;a</span>, U, E&gt;(
     commands: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[<span class="kw">crate</span>::Command&lt;U, E&gt;],
     remaining_message: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
@@ -617,4 +633,4 @@
     <span class="prelude-val">Ok</span>(())
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

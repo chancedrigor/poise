@@ -57,7 +57,7 @@ macro.</p>
 <span class="kw">use </span>proc_macro::TokenStream;
 <span class="kw">use </span>quote::quote;
 
-<span class="attribute">#[proc_macro_derive(HeapSize)]
+<span class="attr">#[proc_macro_derive(HeapSize)]
 </span><span class="kw">pub fn </span>derive_heap_size(input: TokenStream) -&gt; TokenStream {
     <span class="comment">// Parse the input and figure out what implementation to generate...
     </span><span class="kw">let </span>name = <span class="comment">/* ... */</span>;
@@ -156,14 +156,14 @@ quote:</p>
 </span>}</code></pre></div>
 
 <div class="example-wrap compile_fail"><div class='tooltip'>ⓘ</div><pre class="rust rust-example-rendered"><code><span class="macro">quote! </span>{
-    <span class="attribute">#[doc = <span class="string">&quot;try to interpolate: #ident&quot;</span>]
+    <span class="attr">#[doc = <span class="string">&quot;try to interpolate: #ident&quot;</span>]
 </span>}</code></pre></div>
 <p>Instead the best way to build doc comments that involve variables is by
 formatting the doc string literal outside of quote.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>msg = <span class="macro">format!</span>(...);
 <span class="macro">quote! </span>{
-    <span class="attribute">#[doc = #msg]
+    <span class="attr">#[doc = #msg]
     </span><span class="doccomment">///
     /// ...
 </span>}</code></pre></div>
@@ -187,4 +187,4 @@ instead.</p>
 </span><span class="macro">quote! </span>{
     <span class="number">0 </span>#( + <span class="self">self</span>.#i.heap_size() )*
 }</code></pre></div>
-</div></details></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="quote" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</div></details></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="quote" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

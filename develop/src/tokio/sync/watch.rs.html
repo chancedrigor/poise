@@ -1058,7 +1058,7 @@
 <span id="1058">1058</span>
 <span id="1059">1059</span>
 <span id="1060">1060</span>
-</pre><pre class="rust"><code><span class="attribute">#![cfg_attr(not(feature = <span class="string">&quot;sync&quot;</span>), allow(dead_code, unreachable_pub))]
+</pre><pre class="rust"><code><span class="attr">#![cfg_attr(not(feature = <span class="string">&quot;sync&quot;</span>), allow(dead_code, unreachable_pub))]
 
 </span><span class="doccomment">//! A single-producer, multi-consumer channel that only retains the *last* sent
 //! value.
@@ -1130,7 +1130,7 @@
 /// wrapper.
 ///
 /// [`WatchStream`]: https://docs.rs/tokio-stream/0.1/tokio_stream/wrappers/struct.WatchStream.html
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Receiver&lt;T&gt; {
     <span class="doccomment">/// Pointer to the shared state
     </span>shared: Arc&lt;Shared&lt;T&gt;&gt;,
@@ -1142,7 +1142,7 @@
 <span class="doccomment">/// Sends values to the associated [`Receiver`](struct@Receiver).
 ///
 /// Instances are created by the [`channel`](fn@channel) function.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Sender&lt;T&gt; {
     shared: Arc&lt;Shared&lt;T&gt;&gt;,
 }
@@ -1171,7 +1171,7 @@
 /// let _ref2 = rx.borrow();   |
 /// ```
 /// &lt;/details&gt;
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Ref&lt;<span class="lifetime">&#39;a</span>, T&gt; {
     inner: RwLockReadGuard&lt;<span class="lifetime">&#39;a</span>, T&gt;,
     has_changed: bool,
@@ -1225,7 +1225,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>Shared&lt;T&gt; {
     <span class="doccomment">/// The most recent value.
     </span>value: RwLock&lt;T&gt;,
@@ -1252,7 +1252,7 @@
     </span><span class="kw">use </span>std::fmt;
 
     <span class="doccomment">/// Error produced when sending a value fails.
-    </span><span class="attribute">#[derive(Debug)]
+    </span><span class="attr">#[derive(Debug)]
     </span><span class="kw">pub struct </span>SendError&lt;T&gt;(<span class="kw">pub </span>T);
 
     <span class="comment">// ===== impl SendError =====
@@ -1266,7 +1266,7 @@
     <span class="kw">impl</span>&lt;T: fmt::Debug&gt; std::error::Error <span class="kw">for </span>SendError&lt;T&gt; {}
 
     <span class="doccomment">/// Error produced when receiving a change notification.
-    </span><span class="attribute">#[derive(Debug, Clone)]
+    </span><span class="attr">#[derive(Debug, Clone)]
     </span><span class="kw">pub struct </span>RecvError(<span class="kw">pub</span>(<span class="kw">super</span>) ());
 
     <span class="comment">// ===== impl RecvError =====
@@ -1288,7 +1288,7 @@
     <span class="kw">const </span>CLOSED: usize = <span class="number">1</span>;
 
     <span class="doccomment">/// The version part of the state. The lowest bit is always zero.
-    </span><span class="attribute">#[derive(Copy, Clone, Debug, Eq, PartialEq)]
+    </span><span class="attr">#[derive(Copy, Clone, Debug, Eq, PartialEq)]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>Version(usize);
 
     <span class="doccomment">/// Snapshot of the state. The first bit is used as the CLOSED bit.
@@ -1296,11 +1296,11 @@
     ///
     /// The CLOSED bit tracks whether the Sender has been dropped. Dropping all
     /// receivers does not set it.
-    </span><span class="attribute">#[derive(Copy, Clone, Debug)]
+    </span><span class="attr">#[derive(Copy, Clone, Debug)]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>StateSnapshot(usize);
 
     <span class="doccomment">/// The state stored in an atomic integer.
-    </span><span class="attribute">#[derive(Debug)]
+    </span><span class="attr">#[derive(Debug)]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>AtomicState(AtomicUsize);
 
     <span class="kw">impl </span>Version {
@@ -2038,13 +2038,13 @@
     }
 }
 
-<span class="attribute">#[cfg(all(test, loom))]
+<span class="attr">#[cfg(all(test, loom))]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>futures::future::FutureExt;
     <span class="kw">use </span>loom::thread;
 
     <span class="comment">// test for https://github.com/tokio-rs/tokio/issues/3168
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">fn </span>watch_spurious_wakeup() {
         loom::model(|| {
             <span class="kw">let </span>(send, <span class="kw-2">mut </span>recv) = <span class="kw">crate</span>::sync::watch::channel(<span class="number">0i32</span>);
@@ -2078,7 +2078,7 @@
         });
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>watch_borrow() {
         loom::model(|| {
             <span class="kw">let </span>(send, <span class="kw-2">mut </span>recv) = <span class="kw">crate</span>::sync::watch::channel(<span class="number">0i32</span>);
@@ -2119,4 +2119,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

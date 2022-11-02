@@ -313,7 +313,7 @@
     /// The runtime is usually set implicitly when this function is called
     /// from a future driven by a tokio runtime, otherwise runtime can be set
     /// explicitly with [`Runtime::enter`](crate::runtime::Runtime::enter) function.
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     #[cfg_attr(feature = <span class="string">&quot;signal&quot;</span>, allow(unused))]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(io: E) -&gt; io::Result&lt;<span class="self">Self</span>&gt; {
         PollEvented::new_with_interest(io, Interest::READABLE | Interest::WRITABLE)
@@ -334,7 +334,7 @@
     /// a future driven by a tokio runtime, otherwise runtime can be set
     /// explicitly with [`Runtime::enter`](crate::runtime::Runtime::enter)
     /// function.
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     #[cfg_attr(feature = <span class="string">&quot;signal&quot;</span>, allow(unused))]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new_with_interest(io: E, interest: Interest) -&gt; io::Result&lt;<span class="self">Self</span>&gt; {
         <span class="self">Self</span>::new_with_interest_and_handle(io, interest, Handle::current())
@@ -353,7 +353,7 @@
     }
 
     <span class="doccomment">/// Returns a reference to the registration.
-    </span><span class="attribute">#[cfg(any(
+    </span><span class="attr">#[cfg(any(
         feature = <span class="string">&quot;net&quot;</span>,
         all(unix, feature = <span class="string">&quot;process&quot;</span>),
         all(unix, feature = <span class="string">&quot;signal&quot;</span>),
@@ -363,7 +363,7 @@
     }
 
     <span class="doccomment">/// Deregisters the inner io from the registration and returns a Result containing the inner io.
-    </span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;net&quot;</span>, feature = <span class="string">&quot;process&quot;</span>))]
+    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;net&quot;</span>, feature = <span class="string">&quot;process&quot;</span>))]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>into_inner(<span class="kw-2">mut </span><span class="self">self</span>) -&gt; io::Result&lt;E&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>inner = <span class="self">self</span>.io.take().unwrap(); <span class="comment">// As io shouldn&#39;t ever be None, just unwrap here.
         </span><span class="self">self</span>.registration.deregister(<span class="kw-2">&amp;mut </span>inner)<span class="question-mark">?</span>;
@@ -372,7 +372,7 @@
 }
 
 <span class="macro">feature! </span>{
-    <span class="attribute">#![any(feature = <span class="string">&quot;net&quot;</span>, all(unix, feature = <span class="string">&quot;process&quot;</span>))]
+    <span class="attr">#![any(feature = <span class="string">&quot;net&quot;</span>, all(unix, feature = <span class="string">&quot;process&quot;</span>))]
 
     </span><span class="kw">use </span><span class="kw">crate</span>::io::ReadBuf;
     <span class="kw">use </span>std::task::{Context, Poll};
@@ -425,7 +425,7 @@
             <span class="self">self</span>.registration.poll_write_io(cx, || <span class="self">self</span>.io.as_ref().unwrap().write(buf))
         }
 
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;net&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;net&quot;</span>)]
         </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>poll_write_vectored&lt;<span class="lifetime">&#39;a</span>&gt;(
             <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>,
             cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;,
@@ -467,4 +467,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

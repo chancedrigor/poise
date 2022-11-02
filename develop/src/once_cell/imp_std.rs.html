@@ -380,7 +380,7 @@
 
 <span class="kw">use </span><span class="kw">crate</span>::take_unchecked;
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>OnceCell&lt;T&gt; {
     <span class="comment">// This `state` word is actually an encoded version of just a pointer to a
     // `Waiter`, so we add the `PhantomData` appropriately.
@@ -411,7 +411,7 @@
 </span><span class="kw">const </span>STATE_MASK: usize = <span class="number">0x3</span>;
 
 <span class="comment">// Representation of a node in the linked list of waiters in the RUNNING state.
-</span><span class="attribute">#[repr(align(<span class="number">4</span>))] </span><span class="comment">// Ensure the two lower bits are free to use as state bits.
+</span><span class="attr">#[repr(align(<span class="number">4</span>))] </span><span class="comment">// Ensure the two lower bits are free to use as state bits.
 </span><span class="kw">struct </span>Waiter {
     thread: Cell&lt;<span class="prelude-ty">Option</span>&lt;Thread&gt;&gt;,
     signaled: AtomicBool,
@@ -436,7 +436,7 @@
     }
 
     <span class="doccomment">/// Safety: synchronizes with store to value via Release/(Acquire|SeqCst).
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>is_initialized(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="comment">// An `Acquire` load is enough because that makes all the initialization
         // operations visible to us, and, this being a fast path, weaker
@@ -448,7 +448,7 @@
     <span class="doccomment">/// Safety: synchronizes with store to value via SeqCst read from state,
     /// writes value only once because we never get to INCOMPLETE state after a
     /// successful write.
-    </span><span class="attribute">#[cold]
+    </span><span class="attr">#[cold]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>initialize&lt;F, E&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <span class="prelude-ty">Result</span>&lt;(), E&gt;
     <span class="kw">where
         </span>F: FnOnce() -&gt; <span class="prelude-ty">Result</span>&lt;T, E&gt;,
@@ -501,7 +501,7 @@
 
     <span class="doccomment">/// Consumes this `OnceCell`, returning the wrapped value.
     /// Returns `None` if the cell was empty.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>into_inner(<span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;T&gt; {
         <span class="comment">// Because `into_inner` takes `self` by value, the compiler statically
         // verifies that it is not currently borrowed.
@@ -512,7 +512,7 @@
 
 <span class="comment">// Corresponds to `std::sync::Once::call_inner`
 // Note: this is intentionally monomorphic
-</span><span class="attribute">#[inline(never)]
+</span><span class="attr">#[inline(never)]
 </span><span class="kw">fn </span>initialize_inner(my_state_and_queue: <span class="kw-2">&amp;</span>AtomicUsize, init: <span class="kw-2">&amp;mut </span><span class="kw">dyn </span>FnMut() -&gt; bool) -&gt; bool {
     <span class="kw">let </span><span class="kw-2">mut </span>state_and_queue = my_state_and_queue.load(Ordering::Acquire);
 
@@ -603,7 +603,7 @@
 }
 
 <span class="comment">// These test are snatched from std as well.
-</span><span class="attribute">#[cfg(test)]
+</span><span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>std::panic;
     <span class="kw">use </span>std::{sync::mpsc::channel, thread};
@@ -617,7 +617,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>smoke_once() {
         <span class="kw">static </span>O: OnceCell&lt;()&gt; = OnceCell::new();
         <span class="kw">let </span><span class="kw-2">mut </span>a = <span class="number">0</span>;
@@ -627,7 +627,7 @@
         <span class="macro">assert_eq!</span>(a, <span class="number">1</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg(not(miri))]
     </span><span class="kw">fn </span>stampede_once() {
         <span class="kw">static </span>O: OnceCell&lt;()&gt; = OnceCell::new();
@@ -664,7 +664,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>poison_bad() {
         <span class="kw">static </span>O: OnceCell&lt;()&gt; = OnceCell::new();
 
@@ -685,7 +685,7 @@
         </span>O.init(|| {});
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>wait_for_force_to_finish() {
         <span class="kw">static </span>O: OnceCell&lt;()&gt; = OnceCell::new();
 
@@ -722,7 +722,7 @@
         <span class="macro">assert!</span>(t2.join().is_ok());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
     </span><span class="kw">fn </span>test_size() {
         <span class="kw">use </span>std::mem::size_of;
@@ -731,4 +731,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="once_cell" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="once_cell" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

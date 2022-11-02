@@ -222,7 +222,7 @@
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Bytes&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new(slice: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]) -&gt; Bytes&lt;<span class="lifetime">&#39;a</span>&gt; {
         Bytes {
             slice,
@@ -230,35 +230,35 @@
         </span>}
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>pos(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.pos
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>peek(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;u8&gt; {
         <span class="self">self</span>.slice.get(<span class="self">self</span>.pos).cloned()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub unsafe fn </span>bump(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="macro">debug_assert!</span>(<span class="self">self</span>.pos &lt; <span class="self">self</span>.slice.len(), <span class="string">&quot;overflow&quot;</span>);
         <span class="self">self</span>.pos += <span class="number">1</span>;
     }
 
-    <span class="attribute">#[allow(unused)]
+    <span class="attr">#[allow(unused)]
     #[inline]
     </span><span class="kw">pub unsafe fn </span>advance(<span class="kw-2">&amp;mut </span><span class="self">self</span>, n: usize) {
         <span class="macro">debug_assert!</span>(<span class="self">self</span>.pos + n &lt;= <span class="self">self</span>.slice.len(), <span class="string">&quot;overflow&quot;</span>);
         <span class="self">self</span>.pos += n;
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.slice.len()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>slice(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8] {
         <span class="comment">// not moving position at all, so it&#39;s safe
         </span><span class="kw">unsafe </span>{
@@ -266,7 +266,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub unsafe fn </span>slice_skip(<span class="kw-2">&amp;mut </span><span class="self">self</span>, skip: usize) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8] {
         <span class="macro">debug_assert!</span>(<span class="self">self</span>.pos &gt;= skip);
         <span class="kw">let </span>head_pos = <span class="self">self</span>.pos - skip;
@@ -278,7 +278,7 @@
         head
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>next_8&lt;<span class="lifetime">&#39;b</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span><span class="kw-2">mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Bytes8&lt;<span class="lifetime">&#39;b</span>, <span class="lifetime">&#39;a</span>&gt;&gt; {
         <span class="kw">if </span><span class="self">self</span>.slice.len() &gt;= <span class="self">self</span>.pos + <span class="number">8 </span>{
             <span class="prelude-val">Some</span>(Bytes8::new(<span class="self">self</span>))
@@ -289,7 +289,7 @@
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; AsRef&lt;[u8]&gt; <span class="kw">for </span>Bytes&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>as_ref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8] {
         <span class="kw-2">&amp;</span><span class="self">self</span>.slice[<span class="self">self</span>.pos..]
     }
@@ -298,7 +298,7 @@
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Iterator <span class="kw">for </span>Bytes&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="kw">type </span>Item = u8;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>next(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;u8&gt; {
         <span class="kw">if </span><span class="self">self</span>.slice.len() &gt; <span class="self">self</span>.pos {
             <span class="kw">let </span>b = <span class="kw">unsafe </span>{ <span class="kw-2">*</span><span class="self">self</span>.slice.get_unchecked(<span class="self">self</span>.pos) };
@@ -312,13 +312,13 @@
 
 <span class="kw">pub struct </span>Bytes8&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>: <span class="lifetime">&#39;a</span>&gt; {
     bytes: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Bytes&lt;<span class="lifetime">&#39;b</span>&gt;,
-    <span class="attribute">#[cfg(debug_assertions)]
+    <span class="attr">#[cfg(debug_assertions)]
     </span>pos: usize
 }
 
 <span class="macro">macro_rules! </span>bytes8_methods {
     (<span class="macro-nonterminal">$f</span>:ident, <span class="macro-nonterminal">$pos</span>:expr) =&gt; {
-        <span class="attribute">#[inline]
+        <span class="attr">#[inline]
         </span><span class="kw">pub fn </span><span class="macro-nonterminal">$f</span>(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; u8 {
             <span class="self">self</span>.assert_pos(<span class="macro-nonterminal">$pos</span>);
             <span class="kw">let </span>b = <span class="kw">unsafe </span>{ <span class="kw-2">*</span><span class="self">self</span>.bytes.slice.get_unchecked(<span class="self">self</span>.bytes.pos) };
@@ -341,7 +341,7 @@
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>: <span class="lifetime">&#39;a</span>&gt; Bytes8&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>&gt; {
     <span class="macro">bytes8_methods! </span>{}
 
-    <span class="attribute">#[cfg(not(debug_assertions))]
+    <span class="attr">#[cfg(not(debug_assertions))]
     #[inline]
     </span><span class="kw">fn </span>new(bytes: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Bytes&lt;<span class="lifetime">&#39;b</span>&gt;) -&gt; Bytes8&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>&gt; {
         Bytes8 {
@@ -349,7 +349,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(debug_assertions)]
+    <span class="attr">#[cfg(debug_assertions)]
     #[inline]
     </span><span class="kw">fn </span>new(bytes: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Bytes&lt;<span class="lifetime">&#39;b</span>&gt;) -&gt; Bytes8&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>&gt; {
         Bytes8 {
@@ -358,12 +358,12 @@
         }
     }
 
-    <span class="attribute">#[cfg(not(debug_assertions))]
+    <span class="attr">#[cfg(not(debug_assertions))]
     #[inline]
     </span><span class="kw">fn </span>assert_pos(<span class="kw-2">&amp;mut </span><span class="self">self</span>, _pos: usize) {
     }
 
-    <span class="attribute">#[cfg(debug_assertions)]
+    <span class="attr">#[cfg(debug_assertions)]
     #[inline]
     </span><span class="kw">fn </span>assert_pos(<span class="kw-2">&amp;mut </span><span class="self">self</span>, pos: usize) {
         <span class="macro">assert!</span>(<span class="self">self</span>.pos == pos);
@@ -371,11 +371,11 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::Bytes;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_next_8_too_short() {
         <span class="comment">// Start with 10 bytes.
         </span><span class="kw">let </span>slice = [<span class="number">0u8</span>, <span class="number">1u8</span>, <span class="number">2u8</span>, <span class="number">3u8</span>, <span class="number">4u8</span>, <span class="number">5u8</span>, <span class="number">6u8</span>, <span class="number">7u8</span>, <span class="number">8u8</span>, <span class="number">9u8</span>];
@@ -386,7 +386,7 @@
         </span><span class="macro">assert!</span>(bytes.next_8().is_none());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_next_8_just_right() {
         <span class="comment">// Start with 10 bytes.
         </span><span class="kw">let </span>slice = [<span class="number">0u8</span>, <span class="number">1u8</span>, <span class="number">2u8</span>, <span class="number">3u8</span>, <span class="number">4u8</span>, <span class="number">5u8</span>, <span class="number">6u8</span>, <span class="number">7u8</span>, <span class="number">8u8</span>, <span class="number">9u8</span>];
@@ -408,7 +408,7 @@
         <span class="macro">assert_eq!</span>(ret._7(), <span class="number">9u8</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_next_8_extra() {
         <span class="comment">// Start with 10 bytes.
         </span><span class="kw">let </span>slice = [<span class="number">0u8</span>, <span class="number">1u8</span>, <span class="number">2u8</span>, <span class="number">3u8</span>, <span class="number">4u8</span>, <span class="number">5u8</span>, <span class="number">6u8</span>, <span class="number">7u8</span>, <span class="number">8u8</span>, <span class="number">9u8</span>];
@@ -431,4 +431,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="httparse" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="httparse" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

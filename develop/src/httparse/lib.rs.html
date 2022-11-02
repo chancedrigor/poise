@@ -1900,7 +1900,7 @@
 <span id="1900">1900</span>
 <span id="1901">1901</span>
 <span id="1902">1902</span>
-</pre><pre class="rust"><code><span class="attribute">#![cfg_attr(not(feature = <span class="string">&quot;std&quot;</span>), no_std)]
+</pre><pre class="rust"><code><span class="attr">#![cfg_attr(not(feature = <span class="string">&quot;std&quot;</span>), no_std)]
 #![deny(missing_docs)]
 #![cfg_attr(test, deny(warnings))]
 
@@ -1922,7 +1922,7 @@
 //! If compiling for a specific target, remembering to include
 //! `-C target_cpu=native` allows the detection to become compile time checks,
 //! making it *even* faster.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">extern crate </span>std <span class="kw">as </span>core;
 
 <span class="kw">use </span>core::{fmt, result, str};
@@ -1931,7 +1931,7 @@
 <span class="kw">use </span>iter::Bytes;
 
 <span class="kw">mod </span>iter;
-<span class="attribute">#[macro_use] </span><span class="kw">mod </span>macros;
+<span class="attr">#[macro_use] </span><span class="kw">mod </span>macros;
 <span class="kw">mod </span>simd;
 
 <span class="doccomment">/// Determines if byte is a token char.
@@ -1944,7 +1944,7 @@
 /// &gt;                / DIGIT / ALPHA
 /// &gt;                ; any VCHAR, except delimiters
 /// &gt; ```
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>is_token(b: u8) -&gt; bool {
     b &gt; <span class="number">0x1F </span>&amp;&amp; b &lt; <span class="number">0x7F
 </span>}
@@ -1980,7 +1980,7 @@
     <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>,
 ];
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>is_uri_token(b: u8) -&gt; bool {
     URI_MAP[b <span class="kw">as </span>usize]
 }
@@ -2004,7 +2004,7 @@
     <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>,
 ];
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>is_header_name_token(b: u8) -&gt; bool {
     HEADER_NAME_MAP[b <span class="kw">as </span>usize]
 }
@@ -2029,13 +2029,13 @@
 ];
 
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>is_header_value_token(b: u8) -&gt; bool {
     HEADER_VALUE_MAP[b <span class="kw">as </span>usize]
 }
 
 <span class="doccomment">/// An error in parsing.
-</span><span class="attribute">#[derive(Copy, Clone, PartialEq, Eq, Debug)]
+</span><span class="attr">#[derive(Copy, Clone, PartialEq, Eq, Debug)]
 </span><span class="kw">pub enum </span>Error {
     <span class="doccomment">/// Invalid byte in header name.
     </span>HeaderName,
@@ -2054,7 +2054,7 @@
 }
 
 <span class="kw">impl </span>Error {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>description_str(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             Error::HeaderName =&gt; <span class="string">&quot;invalid header name&quot;</span>,
@@ -2074,7 +2074,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">impl </span>std::error::Error <span class="kw">for </span>Error {
     <span class="kw">fn </span>description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="self">self</span>.description_str()
@@ -2083,7 +2083,7 @@
 
 <span class="doccomment">/// An error in parsing a chunk size.
 </span><span class="comment">// Note: Move this into the error enum once v2.0 is released.
-</span><span class="attribute">#[derive(Debug, PartialEq, Eq)]
+</span><span class="attr">#[derive(Debug, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>InvalidChunkSize;
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>InvalidChunkSize {
@@ -2104,7 +2104,7 @@
 /// `Complete` is used when the buffer contained the complete value.
 /// `Partial` is used when parsing did not reach the end of the expected value,
 /// but no invalid data was found.
-</span><span class="attribute">#[derive(Copy, Clone, Eq, PartialEq, Debug)]
+</span><span class="attr">#[derive(Copy, Clone, Eq, PartialEq, Debug)]
 </span><span class="kw">pub enum </span>Status&lt;T&gt; {
     <span class="doccomment">/// The completed result.
     </span>Complete(T),
@@ -2114,7 +2114,7 @@
 
 <span class="kw">impl</span>&lt;T&gt; Status&lt;T&gt; {
     <span class="doccomment">/// Convenience method to check if status is complete.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_complete(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             Status::Complete(..) =&gt; <span class="bool-val">true</span>,
@@ -2123,7 +2123,7 @@
     }
 
     <span class="doccomment">/// Convenience method to check if status is partial.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_partial(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
             Status::Complete(..) =&gt; <span class="bool-val">false</span>,
@@ -2133,7 +2133,7 @@
 
     <span class="doccomment">/// Convenience method to unwrap a Complete value. Panics if the status is
     /// `Partial`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>unwrap(<span class="self">self</span>) -&gt; T {
         <span class="kw">match </span><span class="self">self </span>{
             Status::Complete(t) =&gt; t,
@@ -2143,7 +2143,7 @@
 }
 
 <span class="doccomment">/// Parser configuration.
-</span><span class="attribute">#[derive(Clone, Debug, Default)]
+</span><span class="attr">#[derive(Clone, Debug, Default)]
 </span><span class="kw">pub struct </span>ParserConfig {
     allow_spaces_after_header_name_in_responses: bool,
     allow_obsolete_multiline_headers_in_responses: bool,
@@ -2308,7 +2308,7 @@
 ///     }
 /// }
 /// ```
-</span><span class="attribute">#[derive(Debug, Eq, PartialEq)]
+</span><span class="attr">#[derive(Debug, Eq, PartialEq)]
 </span><span class="kw">pub struct </span>Request&lt;<span class="lifetime">&#39;headers</span>, <span class="lifetime">&#39;buf</span>: <span class="lifetime">&#39;headers</span>&gt; {
     <span class="doccomment">/// The request method, such as `GET`.
     </span><span class="kw">pub </span>method: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;buf </span>str&gt;,
@@ -2322,7 +2322,7 @@
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;h</span>, <span class="lifetime">&#39;b</span>&gt; Request&lt;<span class="lifetime">&#39;h</span>, <span class="lifetime">&#39;b</span>&gt; {
     <span class="doccomment">/// Creates a new Request, using a slice of headers you allocate.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new(headers: <span class="kw-2">&amp;</span><span class="lifetime">&#39;h </span><span class="kw-2">mut </span>[Header&lt;<span class="lifetime">&#39;b</span>&gt;]) -&gt; Request&lt;<span class="lifetime">&#39;h</span>, <span class="lifetime">&#39;b</span>&gt; {
         Request {
             method: <span class="prelude-val">None</span>,
@@ -2402,7 +2402,7 @@
     }
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>skip_empty_lines(bytes: <span class="kw-2">&amp;mut </span>Bytes) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
     <span class="kw">loop </span>{
         <span class="kw">let </span>b = bytes.peek();
@@ -2425,7 +2425,7 @@
     }
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>skip_spaces(bytes: <span class="kw-2">&amp;mut </span>Bytes) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
     <span class="kw">loop </span>{
         <span class="kw">let </span>b = bytes.peek();
@@ -2446,7 +2446,7 @@
 <span class="doccomment">/// A parsed Response.
 ///
 /// See `Request` docs for explanation of optional values.
-</span><span class="attribute">#[derive(Debug, Eq, PartialEq)]
+</span><span class="attr">#[derive(Debug, Eq, PartialEq)]
 </span><span class="kw">pub struct </span>Response&lt;<span class="lifetime">&#39;headers</span>, <span class="lifetime">&#39;buf</span>: <span class="lifetime">&#39;headers</span>&gt; {
     <span class="doccomment">/// The response version, such as `HTTP/1.1`.
     </span><span class="kw">pub </span>version: <span class="prelude-ty">Option</span>&lt;u8&gt;,
@@ -2462,7 +2462,7 @@
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;h</span>, <span class="lifetime">&#39;b</span>&gt; Response&lt;<span class="lifetime">&#39;h</span>, <span class="lifetime">&#39;b</span>&gt; {
     <span class="doccomment">/// Creates a new `Response` using a slice of `Header`s you have allocated.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new(headers: <span class="kw-2">&amp;</span><span class="lifetime">&#39;h </span><span class="kw-2">mut </span>[Header&lt;<span class="lifetime">&#39;b</span>&gt;]) -&gt; Response&lt;<span class="lifetime">&#39;h</span>, <span class="lifetime">&#39;b</span>&gt; {
         Response {
             version: <span class="prelude-val">None</span>,
@@ -2554,7 +2554,7 @@
 }
 
 <span class="doccomment">/// Represents a parsed header.
-</span><span class="attribute">#[derive(Copy, Clone, Eq, PartialEq)]
+</span><span class="attr">#[derive(Copy, Clone, Eq, PartialEq)]
 </span><span class="kw">pub struct </span>Header&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="doccomment">/// The name portion of a header.
     ///
@@ -2590,7 +2590,7 @@
 /// ```
 </span><span class="kw">pub const </span>EMPTY_HEADER: Header&lt;<span class="lifetime">&#39;static</span>&gt; = Header { name: <span class="string">&quot;&quot;</span>, value: <span class="string">b&quot;&quot; </span>};
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>parse_version(bytes: <span class="kw-2">&amp;mut </span>Bytes) -&gt; <span class="prelude-ty">Result</span>&lt;u8&gt; {
     <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">mut </span>eight) = bytes.next_8() {
         <span class="macro">expect!</span>(eight._0() =&gt; <span class="string">b&#39;H&#39; </span>|<span class="question-mark">? </span><span class="prelude-val">Err</span>(Error::Version));
@@ -2635,7 +2635,7 @@
 /// &gt;
 /// &gt; Non-US-ASCII content in header fields and the reason phrase
 /// &gt; has been obsoleted and made opaque (the TEXT rule was removed).
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>parse_reason&lt;<span class="lifetime">&#39;a</span>&gt;(bytes: <span class="kw-2">&amp;mut </span>Bytes&lt;<span class="lifetime">&#39;a</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>seen_obs_text = <span class="bool-val">false</span>;
     <span class="kw">loop </span>{
@@ -2671,7 +2671,7 @@
     }
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>parse_token&lt;<span class="lifetime">&#39;a</span>&gt;(bytes: <span class="kw-2">&amp;mut </span>Bytes&lt;<span class="lifetime">&#39;a</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt; {
     <span class="kw">let </span>b = <span class="macro">next!</span>(bytes);
     <span class="kw">if </span>!is_token(b) {
@@ -2692,7 +2692,7 @@
     }
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>parse_uri&lt;<span class="lifetime">&#39;a</span>&gt;(bytes: <span class="kw-2">&amp;mut </span>Bytes&lt;<span class="lifetime">&#39;a</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt; {
     <span class="kw">let </span>b = <span class="macro">next!</span>(bytes);
     <span class="kw">if </span>!is_uri_token(b) {
@@ -2716,7 +2716,7 @@
 }
 
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>parse_code(bytes: <span class="kw-2">&amp;mut </span>Bytes) -&gt; <span class="prelude-ty">Result</span>&lt;u16&gt; {
     <span class="kw">let </span>hundreds = <span class="macro">expect!</span>(bytes.next() == <span class="string">b&#39;0&#39;</span>..=<span class="string">b&#39;9&#39; </span>=&gt; <span class="prelude-val">Err</span>(Error::Status));
     <span class="kw">let </span>tens = <span class="macro">expect!</span>(bytes.next() == <span class="string">b&#39;0&#39;</span>..=<span class="string">b&#39;9&#39; </span>=&gt; <span class="prelude-val">Err</span>(Error::Status));
@@ -2754,7 +2754,7 @@
     <span class="prelude-val">Ok</span>(Status::Complete((pos, dst)))
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>parse_headers_iter&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>&gt;(
     headers: <span class="kw-2">&amp;mut &amp;mut </span>[Header&lt;<span class="lifetime">&#39;a</span>&gt;],
     bytes: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span><span class="kw-2">mut </span>Bytes&lt;<span class="lifetime">&#39;a</span>&gt;,
@@ -3100,7 +3100,7 @@
     <span class="prelude-val">Ok</span>(Status::Complete((bytes.pos(), size)))
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::{Request, Response, Status, EMPTY_HEADER, parse_chunk_size};
 
@@ -3111,7 +3111,7 @@
             <span class="macro">req! </span>{<span class="macro-nonterminal">$name</span>, <span class="macro-nonterminal">$buf</span>, <span class="prelude-val">Ok</span>(Status::Complete(<span class="macro-nonterminal">$buf</span>.len())), |<span class="macro-nonterminal">$arg</span>| <span class="macro-nonterminal">$body </span>}
         );
         (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$buf</span>:expr, <span class="macro-nonterminal">$len</span>:expr, |<span class="macro-nonterminal">$arg</span>:ident| <span class="macro-nonterminal">$body</span>:expr) =&gt; (
-        <span class="attribute">#[test]
+        <span class="attr">#[test]
         </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>() {
             <span class="kw">let </span><span class="kw-2">mut </span>headers = [EMPTY_HEADER; NUM_OF_HEADERS];
             <span class="kw">let </span><span class="kw-2">mut </span>req = Request::new(<span class="kw-2">&amp;mut </span>headers[..]);
@@ -3361,7 +3361,7 @@
             <span class="macro">res! </span>{<span class="macro-nonterminal">$name</span>, <span class="macro-nonterminal">$buf</span>, <span class="prelude-val">Ok</span>(Status::Complete(<span class="macro-nonterminal">$buf</span>.len())), |<span class="macro-nonterminal">$arg</span>| <span class="macro-nonterminal">$body </span>}
         );
         (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$buf</span>:expr, <span class="macro-nonterminal">$len</span>:expr, |<span class="macro-nonterminal">$arg</span>:ident| <span class="macro-nonterminal">$body</span>:expr) =&gt; (
-        <span class="attribute">#[test]
+        <span class="attr">#[test]
         </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>() {
             <span class="kw">let </span><span class="kw-2">mut </span>headers = [EMPTY_HEADER; NUM_OF_HEADERS];
             <span class="kw">let </span><span class="kw-2">mut </span>res = Response::new(<span class="kw-2">&amp;mut </span>headers[..]);
@@ -3504,7 +3504,7 @@
     <span class="kw">static </span>RESPONSE_WITH_WHITESPACE_BETWEEN_HEADER_NAME_AND_COLON: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[u8] =
         <span class="string">b&quot;HTTP/1.1 200 OK\r\nAccess-Control-Allow-Credentials : true\r\n\r\n&quot;</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_forbid_response_with_whitespace_between_header_name_and_colon() {
         <span class="kw">let </span><span class="kw-2">mut </span>headers = [EMPTY_HEADER; <span class="number">1</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>response = Response::new(<span class="kw-2">&amp;mut </span>headers[..]);
@@ -3513,7 +3513,7 @@
         <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Err</span>(::Error::HeaderName));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_allow_response_with_whitespace_between_header_name_and_colon() {
         <span class="kw">let </span><span class="kw-2">mut </span>headers = [EMPTY_HEADER; <span class="number">1</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>response = Response::new(<span class="kw-2">&amp;mut </span>headers[..]);
@@ -3533,7 +3533,7 @@
     <span class="kw">static </span>REQUEST_WITH_WHITESPACE_BETWEEN_HEADER_NAME_AND_COLON: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[u8] =
         <span class="string">b&quot;GET / HTTP/1.1\r\nHost : localhost\r\n\r\n&quot;</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_forbid_request_with_whitespace_between_header_name_and_colon() {
         <span class="kw">let </span><span class="kw-2">mut </span>headers = [EMPTY_HEADER; <span class="number">1</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>request = Request::new(<span class="kw-2">&amp;mut </span>headers[..]);
@@ -3545,7 +3545,7 @@
     <span class="kw">static </span>RESPONSE_WITH_OBSOLETE_LINE_FOLDING_AT_START: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[u8] =
         <span class="string">b&quot;HTTP/1.1 200 OK\r\nLine-Folded-Header: \r\n   \r\n hello there\r\n\r\n&quot;</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_forbid_response_with_obsolete_line_folding_at_start() {
         <span class="kw">let </span><span class="kw-2">mut </span>headers = [EMPTY_HEADER; <span class="number">1</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>response = Response::new(<span class="kw-2">&amp;mut </span>headers[..]);
@@ -3554,7 +3554,7 @@
         <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Err</span>(::Error::HeaderName));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_allow_response_with_obsolete_line_folding_at_start() {
         <span class="kw">let </span><span class="kw-2">mut </span>headers = [EMPTY_HEADER; <span class="number">1</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>response = Response::new(<span class="kw-2">&amp;mut </span>headers[..]);
@@ -3574,7 +3574,7 @@
     <span class="kw">static </span>RESPONSE_WITH_OBSOLETE_LINE_FOLDING_AT_END: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[u8] =
         <span class="string">b&quot;HTTP/1.1 200 OK\r\nLine-Folded-Header: hello there\r\n   \r\n \r\n\r\n&quot;</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_forbid_response_with_obsolete_line_folding_at_end() {
         <span class="kw">let </span><span class="kw-2">mut </span>headers = [EMPTY_HEADER; <span class="number">1</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>response = Response::new(<span class="kw-2">&amp;mut </span>headers[..]);
@@ -3583,7 +3583,7 @@
         <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Err</span>(::Error::HeaderName));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_allow_response_with_obsolete_line_folding_at_end() {
         <span class="kw">let </span><span class="kw-2">mut </span>headers = [EMPTY_HEADER; <span class="number">1</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>response = Response::new(<span class="kw-2">&amp;mut </span>headers[..]);
@@ -3603,7 +3603,7 @@
     <span class="kw">static </span>RESPONSE_WITH_OBSOLETE_LINE_FOLDING_IN_MIDDLE: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[u8] =
         <span class="string">b&quot;HTTP/1.1 200 OK\r\nLine-Folded-Header: hello  \r\n \r\n there\r\n\r\n&quot;</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_forbid_response_with_obsolete_line_folding_in_middle() {
         <span class="kw">let </span><span class="kw-2">mut </span>headers = [EMPTY_HEADER; <span class="number">1</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>response = Response::new(<span class="kw-2">&amp;mut </span>headers[..]);
@@ -3612,7 +3612,7 @@
         <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Err</span>(::Error::HeaderName));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_allow_response_with_obsolete_line_folding_in_middle() {
         <span class="kw">let </span><span class="kw-2">mut </span>headers = [EMPTY_HEADER; <span class="number">1</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>response = Response::new(<span class="kw-2">&amp;mut </span>headers[..]);
@@ -3632,7 +3632,7 @@
     <span class="kw">static </span>RESPONSE_WITH_OBSOLETE_LINE_FOLDING_IN_EMPTY_HEADER: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[u8] =
         <span class="string">b&quot;HTTP/1.1 200 OK\r\nLine-Folded-Header:   \r\n \r\n \r\n\r\n&quot;</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_forbid_response_with_obsolete_line_folding_in_empty_header() {
         <span class="kw">let </span><span class="kw-2">mut </span>headers = [EMPTY_HEADER; <span class="number">1</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>response = Response::new(<span class="kw-2">&amp;mut </span>headers[..]);
@@ -3641,7 +3641,7 @@
         <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Err</span>(::Error::HeaderName));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_allow_response_with_obsolete_line_folding_in_empty_header() {
         <span class="kw">let </span><span class="kw-2">mut </span>headers = [EMPTY_HEADER; <span class="number">1</span>];
         <span class="kw">let </span><span class="kw-2">mut </span>response = Response::new(<span class="kw-2">&amp;mut </span>headers[..]);
@@ -3658,7 +3658,7 @@
         <span class="macro">assert_eq!</span>(response.headers[<span class="number">0</span>].value, <span class="kw-2">&amp;</span><span class="string">b&quot;&quot;</span>[..]);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_chunk_size() {
         <span class="macro">assert_eq!</span>(parse_chunk_size(<span class="string">b&quot;0\r\n&quot;</span>), <span class="prelude-val">Ok</span>(Status::Complete((<span class="number">3</span>, <span class="number">0</span>))));
         <span class="macro">assert_eq!</span>(parse_chunk_size(<span class="string">b&quot;12\r\nchunk&quot;</span>), <span class="prelude-val">Ok</span>(Status::Complete((<span class="number">4</span>, <span class="number">18</span>))));
@@ -3679,7 +3679,7 @@
     <span class="kw">static </span>RESPONSE_WITH_MULTIPLE_SPACE_DELIMITERS: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[u8] =
         <span class="string">b&quot;HTTP/1.1   200  OK\r\n\r\n&quot;</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_forbid_response_with_multiple_space_delimiters() {
         <span class="kw">let </span><span class="kw-2">mut </span>headers = [EMPTY_HEADER; NUM_OF_HEADERS];
         <span class="kw">let </span><span class="kw-2">mut </span>response = Response::new(<span class="kw-2">&amp;mut </span>headers[..]);
@@ -3688,7 +3688,7 @@
         <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Err</span>(::Error::Status));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_allow_response_with_multiple_space_delimiters() {
         <span class="kw">let </span><span class="kw-2">mut </span>headers = [EMPTY_HEADER; NUM_OF_HEADERS];
         <span class="kw">let </span><span class="kw-2">mut </span>response = Response::new(<span class="kw-2">&amp;mut </span>headers[..]);
@@ -3708,7 +3708,7 @@
     </span><span class="kw">static </span>RESPONSE_WITH_WEIRD_WHITESPACE_DELIMITERS: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[u8] =
         <span class="string">b&quot;HTTP/1.1 200\rOK\r\n\r\n&quot;</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_forbid_response_with_weird_whitespace_delimiters() {
         <span class="kw">let </span><span class="kw-2">mut </span>headers = [EMPTY_HEADER; NUM_OF_HEADERS];
         <span class="kw">let </span><span class="kw-2">mut </span>response = Response::new(<span class="kw-2">&amp;mut </span>headers[..]);
@@ -3717,7 +3717,7 @@
         <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Err</span>(::Error::Status));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_still_forbid_response_with_weird_whitespace_delimiters() {
         <span class="kw">let </span><span class="kw-2">mut </span>headers = [EMPTY_HEADER; NUM_OF_HEADERS];
         <span class="kw">let </span><span class="kw-2">mut </span>response = Response::new(<span class="kw-2">&amp;mut </span>headers[..]);
@@ -3730,7 +3730,7 @@
     <span class="kw">static </span>REQUEST_WITH_MULTIPLE_SPACE_DELIMITERS: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[u8] =
         <span class="string">b&quot;GET  /    HTTP/1.1\r\n\r\n&quot;</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_forbid_request_with_multiple_space_delimiters() {
         <span class="kw">let </span><span class="kw-2">mut </span>headers = [EMPTY_HEADER; NUM_OF_HEADERS];
         <span class="kw">let </span><span class="kw-2">mut </span>request = Request::new(<span class="kw-2">&amp;mut </span>headers[..]);
@@ -3739,7 +3739,7 @@
         <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Err</span>(::Error::Token));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_allow_request_with_multiple_space_delimiters() {
         <span class="kw">let </span><span class="kw-2">mut </span>headers = [EMPTY_HEADER; NUM_OF_HEADERS];
         <span class="kw">let </span><span class="kw-2">mut </span>request = Request::new(<span class="kw-2">&amp;mut </span>headers[..]);
@@ -3759,7 +3759,7 @@
     </span><span class="kw">static </span>REQUEST_WITH_WEIRD_WHITESPACE_DELIMITERS: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[u8] =
         <span class="string">b&quot;GET\r/\rHTTP/1.1\r\n\r\n&quot;</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_forbid_request_with_weird_whitespace_delimiters() {
         <span class="kw">let </span><span class="kw-2">mut </span>headers = [EMPTY_HEADER; NUM_OF_HEADERS];
         <span class="kw">let </span><span class="kw-2">mut </span>request = Request::new(<span class="kw-2">&amp;mut </span>headers[..]);
@@ -3768,7 +3768,7 @@
         <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Err</span>(::Error::Token));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_still_forbid_request_with_weird_whitespace_delimiters() {
         <span class="kw">let </span><span class="kw-2">mut </span>headers = [EMPTY_HEADER; NUM_OF_HEADERS];
         <span class="kw">let </span><span class="kw-2">mut </span>request = Request::new(<span class="kw-2">&amp;mut </span>headers[..]);
@@ -3780,7 +3780,7 @@
 
     <span class="kw">static </span>REQUEST_WITH_MULTIPLE_SPACES_AND_BAD_PATH: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[u8] = <span class="string">b&quot;GET   /foo&gt;ohno HTTP/1.1\r\n\r\n&quot;</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_request_with_multiple_spaces_and_bad_path() {
         <span class="kw">let </span><span class="kw-2">mut </span>headers = [EMPTY_HEADER; NUM_OF_HEADERS];
         <span class="kw">let </span><span class="kw-2">mut </span>request = Request::new(<span class="kw-2">&amp;mut </span>headers[..]);
@@ -3792,7 +3792,7 @@
 
     <span class="kw">static </span>RESPONSE_WITH_SPACES_IN_CODE: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[u8] = <span class="string">b&quot;HTTP/1.1 99 200 OK\r\n\r\n&quot;</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_response_with_spaces_in_code() {
         <span class="kw">let </span><span class="kw-2">mut </span>headers = [EMPTY_HEADER; NUM_OF_HEADERS];
         <span class="kw">let </span><span class="kw-2">mut </span>response = Response::new(<span class="kw-2">&amp;mut </span>headers[..]);
@@ -3803,4 +3803,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="httparse" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="httparse" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

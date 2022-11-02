@@ -299,7 +299,7 @@
 <span class="kw">use </span>core::task::{Context, Poll};
 <span class="kw">use </span>futures_core::future::{FusedFuture, Future};
 <span class="kw">use </span>futures_core::stream::{FusedStream, Stream};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
 </span><span class="kw">use </span>futures_sink::Sink;
 
 <span class="doccomment">/// Combines two different futures, streams, or sinks having the same associated types into a single type.
@@ -321,7 +321,7 @@
 /// assert_eq!(fut.await, 12);
 /// # })
 /// ```
-</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone)]
 </span><span class="kw">pub enum </span>Either&lt;A, B&gt; {
     <span class="doccomment">/// First branch of the type
     </span>Left(<span class="comment">/* #[pin] */ </span>A),
@@ -437,7 +437,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;sink&quot;</span>)]
 </span><span class="kw">impl</span>&lt;A, B, Item&gt; Sink&lt;Item&gt; <span class="kw">for </span>Either&lt;A, B&gt;
 <span class="kw">where
     </span>A: Sink&lt;Item&gt;,
@@ -474,7 +474,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;io&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;io&quot;</span>)]
 #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">mod </span>if_std {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
@@ -593,4 +593,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

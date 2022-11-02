@@ -216,23 +216,23 @@
 
 <span class="doccomment">/// A **Marker trait** for the types `Greater`, `Equal`, and `Less`.
 </span><span class="kw">pub trait </span>Ord: Sealed {
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">fn </span>to_ordering() -&gt; ::core::cmp::Ordering;
 }
 
 <span class="doccomment">/// The **marker trait** for compile time bits.
 </span><span class="kw">pub trait </span>Bit: Sealed + Copy + Default + <span class="lifetime">&#39;static </span>{
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">const </span>U8: u8;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">const </span>BOOL: bool;
 
     <span class="doccomment">/// Instantiates a singleton representing this bit.
     </span><span class="kw">fn </span>new() -&gt; <span class="self">Self</span>;
 
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">fn </span>to_u8() -&gt; u8;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">fn </span>to_bool() -&gt; bool;
 }
 
@@ -246,60 +246,60 @@
 /// assert_eq!(U3::I32, 3);
 /// ```
 </span><span class="kw">pub trait </span>Unsigned: Sealed + Copy + Default + <span class="lifetime">&#39;static </span>{
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">const </span>U8: u8;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">const </span>U16: u16;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">const </span>U32: u32;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">const </span>U64: u64;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
     #[allow(missing_docs)]
     </span><span class="kw">const </span>U128: u128;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">const </span>USIZE: usize;
 
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">const </span>I8: i8;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">const </span>I16: i16;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">const </span>I32: i32;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">const </span>I64: i64;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
     #[allow(missing_docs)]
     </span><span class="kw">const </span>I128: i128;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">const </span>ISIZE: isize;
 
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">fn </span>to_u8() -&gt; u8;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">fn </span>to_u16() -&gt; u16;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">fn </span>to_u32() -&gt; u32;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">fn </span>to_u64() -&gt; u64;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
     #[allow(missing_docs)]
     </span><span class="kw">fn </span>to_u128() -&gt; u128;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">fn </span>to_usize() -&gt; usize;
 
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">fn </span>to_i8() -&gt; i8;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">fn </span>to_i16() -&gt; i16;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">fn </span>to_i32() -&gt; i32;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">fn </span>to_i64() -&gt; i64;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
     #[allow(missing_docs)]
     </span><span class="kw">fn </span>to_i128() -&gt; i128;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">fn </span>to_isize() -&gt; isize;
 }
 
@@ -313,32 +313,32 @@
 /// assert_eq!(P3::I32, 3);
 /// ```
 </span><span class="kw">pub trait </span>Integer: Sealed + Copy + Default + <span class="lifetime">&#39;static </span>{
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">const </span>I8: i8;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">const </span>I16: i16;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">const </span>I32: i32;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">const </span>I64: i64;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
     #[allow(missing_docs)]
     </span><span class="kw">const </span>I128: i128;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">const </span>ISIZE: isize;
 
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">fn </span>to_i8() -&gt; i8;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">fn </span>to_i16() -&gt; i16;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">fn </span>to_i32() -&gt; i32;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">fn </span>to_i64() -&gt; i64;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;i128&quot;</span>)]
     #[allow(missing_docs)]
     </span><span class="kw">fn </span>to_i128() -&gt; i128;
-    <span class="attribute">#[allow(missing_docs)]
+    <span class="attr">#[allow(missing_docs)]
     </span><span class="kw">fn </span>to_isize() -&gt; isize;
 }
 
@@ -377,4 +377,4 @@
 /// ```
 </span><span class="kw">pub trait </span>PowerOfTwo: Sealed {}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="typenum" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="typenum" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

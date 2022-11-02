@@ -392,7 +392,7 @@
     )
 }
 
-<span class="attribute">#[inline(always)] </span><span class="comment">// Avoid branching on `direction`.
+<span class="attr">#[inline(always)] </span><span class="comment">// Avoid branching on `direction`.
 </span><span class="kw">fn </span>aead(
     key: <span class="kw-2">&amp;</span>aead::KeyInner,
     nonce: Nonce,
@@ -496,7 +496,7 @@
 }
 
 <span class="comment">// Returns the data that wasn&#39;t processed.
-</span><span class="attribute">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
+</span><span class="attr">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
 #[inline] </span><span class="comment">// Optimize out the match on `direction`.
 </span><span class="kw">fn </span>integrated_aes_gcm&lt;<span class="lifetime">&#39;a</span>&gt;(
     aes_key: <span class="kw-2">&amp;</span>aes::Key,
@@ -562,7 +562,7 @@
     <span class="kw-2">&amp;mut </span>in_out[processed..]
 }
 
-<span class="attribute">#[cfg(not(target_arch = <span class="string">&quot;x86_64&quot;</span>))]
+<span class="attr">#[cfg(not(target_arch = <span class="string">&quot;x86_64&quot;</span>))]
 #[inline]
 </span><span class="kw">fn </span>integrated_aes_gcm&lt;<span class="lifetime">&#39;a</span>&gt;(
     <span class="kw">_</span>: <span class="kw-2">&amp;</span>aes::Key,
@@ -577,9 +577,9 @@
 
 <span class="kw">const </span>AES_GCM_MAX_INPUT_LEN: u64 = <span class="kw">super</span>::max_input_len(BLOCK_LEN, <span class="number">2</span>);
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>max_input_len_test() {
         <span class="comment">// [NIST SP800-38D] Section 5.2.1.1. Note that [RFC 5116 Section 5.1] and
         // [RFC 5116 Section 5.2] have an off-by-one error in `P_MAX`.
@@ -601,4 +601,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

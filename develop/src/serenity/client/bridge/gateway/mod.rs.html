@@ -223,7 +223,7 @@
 
 <span class="doccomment">/// A message either for a [`ShardManager`] or a [`ShardRunner`].
 </span><span class="comment">// Once we can use `Box` as part of a pattern, we will reconsider boxing.
-</span><span class="attribute">#[allow(clippy::large_enum_variant)]
+</span><span class="attr">#[allow(clippy::large_enum_variant)]
 #[derive(Clone, Debug)]
 </span><span class="kw">pub enum </span>ShardClientMessage {
     <span class="doccomment">/// A message intended to be worked with by a [`ShardManager`].
@@ -233,7 +233,7 @@
 }
 
 <span class="doccomment">/// A message for a [`ShardManager`] relating to an operation with a shard.
-</span><span class="attribute">#[derive(Clone, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
+</span><span class="attr">#[derive(Clone, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
 </span><span class="kw">pub enum </span>ShardManagerMessage {
     <span class="doccomment">/// Indicator that a [`ShardManagerMonitor`] should restart a shard.
     </span>Restart(ShardId),
@@ -273,7 +273,7 @@
 <span class="doccomment">/// A message to be sent to the [`ShardQueuer`].
 ///
 /// This should usually be wrapped in a [`ShardClientMessage`].
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub enum </span>ShardQueuerMessage {
     <span class="doccomment">/// Message to start a shard, where the 0-index element is the ID of the
     /// Shard to start and the 1-index element is the total shards in use.
@@ -286,7 +286,7 @@
 
 <span class="doccomment">/// A light tuplestruct wrapper around a u64 to verify type correctness when
 /// working with the IDs of shards.
-</span><span class="attribute">#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
 </span><span class="kw">pub struct </span>ShardId(<span class="kw">pub </span>u64);
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>ShardId {
@@ -299,7 +299,7 @@
 ///
 /// The [`ShardId`] is not included because, as it stands, you probably already
 /// know the Id if you obtained this.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ShardRunnerInfo {
     <span class="doccomment">/// The latency between when a heartbeat was sent and when the
     /// acknowledgement was received.
@@ -317,4 +317,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

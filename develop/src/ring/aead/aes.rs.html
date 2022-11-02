@@ -472,7 +472,7 @@
     }};
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>set_encrypt_key(
     f: <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(<span class="kw-2">*const </span>u8, c::uint, <span class="kw-2">&amp;mut </span>AES_KEY) -&gt; c::int,
     bytes: <span class="kw-2">&amp;</span>[u8],
@@ -496,7 +496,7 @@
     }};
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>encrypt_block_(
     f: <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(<span class="kw-2">&amp;</span>Block, <span class="kw-2">*mut </span>Block, <span class="kw-2">&amp;</span>AES_KEY),
     a: Block,
@@ -524,7 +524,7 @@
     }};
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>ctr32_encrypt_blocks_(
     f: <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(
         input: <span class="kw-2">*const </span>u8,
@@ -555,7 +555,7 @@
 }
 
 <span class="kw">impl </span>Key {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new(
         bytes: <span class="kw-2">&amp;</span>[u8],
         variant: Variant,
@@ -575,7 +575,7 @@
         };
 
         <span class="kw">match </span>detect_implementation(cpu_features) {
-            <span class="attribute">#[cfg(any(
+            <span class="attr">#[cfg(any(
                 target_arch = <span class="string">&quot;aarch64&quot;</span>,
                 target_arch = <span class="string">&quot;arm&quot;</span>,
                 target_arch = <span class="string">&quot;x86_64&quot;</span>,
@@ -585,7 +585,7 @@
                 <span class="macro">set_encrypt_key!</span>(GFp_aes_hw_set_encrypt_key, bytes, key_bits, <span class="kw-2">&amp;mut </span>key)<span class="question-mark">?
             </span>}
 
-            <span class="attribute">#[cfg(any(
+            <span class="attr">#[cfg(any(
                 target_arch = <span class="string">&quot;aarch64&quot;</span>,
                 target_arch = <span class="string">&quot;arm&quot;</span>,
                 target_arch = <span class="string">&quot;x86_64&quot;</span>,
@@ -595,7 +595,7 @@
                 <span class="macro">set_encrypt_key!</span>(GFp_vpaes_set_encrypt_key, bytes, key_bits, <span class="kw-2">&amp;mut </span>key)<span class="question-mark">?
             </span>}
 
-            <span class="attribute">#[cfg(not(target_arch = <span class="string">&quot;aarch64&quot;</span>))]
+            <span class="attr">#[cfg(not(target_arch = <span class="string">&quot;aarch64&quot;</span>))]
             </span>Implementation::NOHW =&gt; {
                 <span class="macro">set_encrypt_key!</span>(GFp_aes_nohw_set_encrypt_key, bytes, key_bits, <span class="kw-2">&amp;mut </span>key)<span class="question-mark">?
             </span>}
@@ -607,10 +607,10 @@
         })
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>encrypt_block(<span class="kw-2">&amp;</span><span class="self">self</span>, a: Block) -&gt; Block {
         <span class="kw">match </span>detect_implementation(<span class="self">self</span>.cpu_features) {
-            <span class="attribute">#[cfg(any(
+            <span class="attr">#[cfg(any(
                 target_arch = <span class="string">&quot;aarch64&quot;</span>,
                 target_arch = <span class="string">&quot;arm&quot;</span>,
                 target_arch = <span class="string">&quot;x86_64&quot;</span>,
@@ -618,7 +618,7 @@
             </span>))]
             </span>Implementation::HWAES =&gt; <span class="macro">encrypt_block!</span>(GFp_aes_hw_encrypt, a, <span class="self">self</span>),
 
-            <span class="attribute">#[cfg(any(
+            <span class="attr">#[cfg(any(
                 target_arch = <span class="string">&quot;aarch64&quot;</span>,
                 target_arch = <span class="string">&quot;arm&quot;</span>,
                 target_arch = <span class="string">&quot;x86_64&quot;</span>,
@@ -626,19 +626,19 @@
             </span>))]
             </span>Implementation::VPAES_BSAES =&gt; <span class="macro">encrypt_block!</span>(GFp_vpaes_encrypt, a, <span class="self">self</span>),
 
-            <span class="attribute">#[cfg(not(target_arch = <span class="string">&quot;aarch64&quot;</span>))]
+            <span class="attr">#[cfg(not(target_arch = <span class="string">&quot;aarch64&quot;</span>))]
             </span>Implementation::NOHW =&gt; <span class="macro">encrypt_block!</span>(GFp_aes_nohw_encrypt, a, <span class="self">self</span>),
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>encrypt_iv_xor_block(<span class="kw-2">&amp;</span><span class="self">self</span>, iv: Iv, input: Block) -&gt; Block {
         <span class="kw">let </span><span class="kw-2">mut </span>output = <span class="self">self</span>.encrypt_block(Block::from(<span class="kw-2">&amp;</span>iv.into_bytes_less_safe()));
         output.bitxor_assign(input);
         output
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>ctr32_encrypt_blocks(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         in_out: <span class="kw-2">&amp;mut </span>[u8],
@@ -655,7 +655,7 @@
         <span class="macro">assert_eq!</span>(in_out_len % BLOCK_LEN, <span class="number">0</span>);
 
         <span class="kw">match </span>detect_implementation(<span class="self">self</span>.cpu_features) {
-            <span class="attribute">#[cfg(any(
+            <span class="attr">#[cfg(any(
                 target_arch = <span class="string">&quot;aarch64&quot;</span>,
                 target_arch = <span class="string">&quot;arm&quot;</span>,
                 target_arch = <span class="string">&quot;x86_64&quot;</span>,
@@ -669,10 +669,10 @@
                 ctr
             ),
 
-            <span class="attribute">#[cfg(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;arm&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))]
+            <span class="attr">#[cfg(any(target_arch = <span class="string">&quot;aarch64&quot;</span>, target_arch = <span class="string">&quot;arm&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>))]
             </span>Implementation::VPAES_BSAES =&gt; {
                 <span class="comment">// 8 blocks is the cut-off point where it&#39;s faster to use BSAES.
-                </span><span class="attribute">#[cfg(target_arch = <span class="string">&quot;arm&quot;</span>)]
+                </span><span class="attr">#[cfg(target_arch = <span class="string">&quot;arm&quot;</span>)]
                 </span><span class="kw">let </span>in_out = <span class="kw">if </span>in_out_len &gt;= <span class="number">8 </span>* BLOCK_LEN {
                     <span class="kw">let </span>remainder = in_out_len % (<span class="number">8 </span>* BLOCK_LEN);
                     <span class="kw">let </span>bsaes_in_out_len = <span class="kw">if </span>remainder &lt; (<span class="number">4 </span>* BLOCK_LEN) {
@@ -716,14 +716,14 @@
                 )
             }
 
-            <span class="attribute">#[cfg(any(target_arch = <span class="string">&quot;x86&quot;</span>))]
+            <span class="attr">#[cfg(any(target_arch = <span class="string">&quot;x86&quot;</span>))]
             </span>Implementation::VPAES_BSAES =&gt; {
                 <span class="kw">super</span>::shift::shift_full_blocks(in_out, in_prefix_len, |input| {
                     <span class="self">self</span>.encrypt_iv_xor_block(ctr.increment(), Block::from(input))
                 });
             }
 
-            <span class="attribute">#[cfg(not(target_arch = <span class="string">&quot;aarch64&quot;</span>))]
+            <span class="attr">#[cfg(not(target_arch = <span class="string">&quot;aarch64&quot;</span>))]
             </span>Implementation::NOHW =&gt; <span class="macro">ctr32_encrypt_blocks!</span>(
                 GFp_aes_nohw_ctr32_encrypt_blocks,
                 in_out,
@@ -745,7 +745,7 @@
 
     <span class="comment">// TODO: use `matches!` when MSRV increases to 1.42.0 and remove this
     // `#[allow(...)]`
-    </span><span class="attribute">#[allow(clippy::unknown_clippy_lints)]
+    </span><span class="attr">#[allow(clippy::unknown_clippy_lints)]
     #[allow(clippy::match_like_matches_macro)]
     #[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
     #[must_use]
@@ -756,7 +756,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
+    <span class="attr">#[cfg(target_arch = <span class="string">&quot;x86_64&quot;</span>)]
     #[must_use]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>inner_less_safe(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>AES_KEY {
         <span class="kw-2">&amp;</span><span class="self">self</span>.inner
@@ -764,7 +764,7 @@
 }
 
 <span class="comment">// Keep this in sync with AES_KEY in aes.h.
-</span><span class="attribute">#[repr(C)]
+</span><span class="attr">#[repr(C)]
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>AES_KEY {
     <span class="kw">pub </span>rd_key: [u32; <span class="number">4 </span>* (MAX_ROUNDS + <span class="number">1</span>)],
     <span class="kw">pub </span>rounds: c::uint,
@@ -780,10 +780,10 @@
 
 <span class="kw">pub type </span>Counter = counter::Counter&lt;BigEndian&lt;u32&gt;&gt;;
 
-<span class="attribute">#[repr(C)] </span><span class="comment">// Only so `Key` can be `#[repr(C)]`
-</span><span class="attribute">#[derive(Clone, Copy)]
+<span class="attr">#[repr(C)] </span><span class="comment">// Only so `Key` can be `#[repr(C)]`
+</span><span class="attr">#[derive(Clone, Copy)]
 </span><span class="kw">pub enum </span>Implementation {
-    <span class="attribute">#[cfg(any(
+    <span class="attr">#[cfg(any(
         target_arch = <span class="string">&quot;aarch64&quot;</span>,
         target_arch = <span class="string">&quot;arm&quot;</span>,
         target_arch = <span class="string">&quot;x86_64&quot;</span>,
@@ -792,7 +792,7 @@
     </span>HWAES = <span class="number">1</span>,
 
     <span class="comment">// On &quot;arm&quot; only, this indicates that the bsaes implementation may be used.
-    </span><span class="attribute">#[cfg(any(
+    </span><span class="attr">#[cfg(any(
         target_arch = <span class="string">&quot;aarch64&quot;</span>,
         target_arch = <span class="string">&quot;arm&quot;</span>,
         target_arch = <span class="string">&quot;x86_64&quot;</span>,
@@ -800,13 +800,13 @@
     </span>))]
     </span>VPAES_BSAES = <span class="number">2</span>,
 
-    <span class="attribute">#[cfg(not(target_arch = <span class="string">&quot;aarch64&quot;</span>))]
+    <span class="attr">#[cfg(not(target_arch = <span class="string">&quot;aarch64&quot;</span>))]
     </span>NOHW = <span class="number">3</span>,
 }
 
 <span class="kw">fn </span>detect_implementation(cpu_features: cpu::Features) -&gt; Implementation {
     <span class="comment">// `cpu_features` is only used for specific platforms.
-    </span><span class="attribute">#[cfg(not(any(
+    </span><span class="attr">#[cfg(not(any(
         target_arch = <span class="string">&quot;aarch64&quot;</span>,
         target_arch = <span class="string">&quot;arm&quot;</span>,
         target_arch = <span class="string">&quot;x86_64&quot;</span>,
@@ -814,7 +814,7 @@
     </span>)))]
     </span><span class="kw">let </span>_cpu_features = cpu_features;
 
-    <span class="attribute">#[cfg(any(
+    <span class="attr">#[cfg(any(
         target_arch = <span class="string">&quot;aarch64&quot;</span>,
         target_arch = <span class="string">&quot;arm&quot;</span>,
         target_arch = <span class="string">&quot;x86_64&quot;</span>,
@@ -826,38 +826,38 @@
         }
     }
 
-    <span class="attribute">#[cfg(any(target_arch = <span class="string">&quot;x86_64&quot;</span>, target_arch = <span class="string">&quot;x86&quot;</span>))]
+    <span class="attr">#[cfg(any(target_arch = <span class="string">&quot;x86_64&quot;</span>, target_arch = <span class="string">&quot;x86&quot;</span>))]
     </span>{
         <span class="kw">if </span>cpu::intel::SSSE3.available(cpu_features) {
             <span class="kw">return </span>Implementation::VPAES_BSAES;
         }
     }
 
-    <span class="attribute">#[cfg(target_arch = <span class="string">&quot;arm&quot;</span>)]
+    <span class="attr">#[cfg(target_arch = <span class="string">&quot;arm&quot;</span>)]
     </span>{
         <span class="kw">if </span>cpu::arm::NEON.available(cpu_features) {
             <span class="kw">return </span>Implementation::VPAES_BSAES;
         }
     }
 
-    <span class="attribute">#[cfg(target_arch = <span class="string">&quot;aarch64&quot;</span>)]
+    <span class="attr">#[cfg(target_arch = <span class="string">&quot;aarch64&quot;</span>)]
     </span>{
         Implementation::VPAES_BSAES
     }
 
-    <span class="attribute">#[cfg(not(target_arch = <span class="string">&quot;aarch64&quot;</span>))]
+    <span class="attr">#[cfg(not(target_arch = <span class="string">&quot;aarch64&quot;</span>))]
     </span>{
         Implementation::NOHW
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::{<span class="kw">super</span>::BLOCK_LEN, <span class="kw-2">*</span>};
     <span class="kw">use </span><span class="kw">crate</span>::test;
     <span class="kw">use </span>core::convert::TryInto;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">pub fn </span>test_aes() {
         test::run(<span class="macro">test_file!</span>(<span class="string">&quot;aes_tests.txt&quot;</span>), |section, test_case| {
             <span class="macro">assert_eq!</span>(section, <span class="string">&quot;&quot;</span>);
@@ -885,4 +885,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

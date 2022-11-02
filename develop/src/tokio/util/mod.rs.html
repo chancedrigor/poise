@@ -93,19 +93,19 @@
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>slab;
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;rt&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;rt&quot;</span>)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>atomic_cell;
 
 <span class="macro">cfg_has_atomic_u64! </span>{
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;signal&quot;</span>, all(unix, feature = <span class="string">&quot;process&quot;</span>)))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;signal&quot;</span>, all(unix, feature = <span class="string">&quot;process&quot;</span>)))]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>once_cell;
 }
 <span class="macro">cfg_not_has_atomic_u64! </span>{
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;rt&quot;</span>, feature = <span class="string">&quot;signal&quot;</span>, all(unix, feature = <span class="string">&quot;process&quot;</span>)))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;rt&quot;</span>, feature = <span class="string">&quot;signal&quot;</span>, all(unix, feature = <span class="string">&quot;process&quot;</span>)))]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>once_cell;
 }
 
-<span class="attribute">#[cfg(any(
+<span class="attr">#[cfg(any(
     <span class="comment">// io driver uses `WakeList` directly
     </span>feature = <span class="string">&quot;net&quot;</span>,
     feature = <span class="string">&quot;process&quot;</span>,
@@ -118,7 +118,7 @@
     feature = <span class="string">&quot;signal&quot;</span>,
 ))]
 </span><span class="kw">mod </span>wake_list;
-<span class="attribute">#[cfg(any(
+<span class="attr">#[cfg(any(
     feature = <span class="string">&quot;net&quot;</span>,
     feature = <span class="string">&quot;process&quot;</span>,
     feature = <span class="string">&quot;sync&quot;</span>,
@@ -128,7 +128,7 @@
 ))]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>wake_list::WakeList;
 
-<span class="attribute">#[cfg(any(
+<span class="attr">#[cfg(any(
     feature = <span class="string">&quot;fs&quot;</span>,
     feature = <span class="string">&quot;net&quot;</span>,
     feature = <span class="string">&quot;process&quot;</span>,
@@ -139,7 +139,7 @@
 ))]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>linked_list;
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, feature = <span class="string">&quot;macros&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;rt-multi-thread&quot;</span>, feature = <span class="string">&quot;macros&quot;</span>))]
 </span><span class="kw">mod </span>rand;
 
 <span class="macro">cfg_rt! </span>{
@@ -166,11 +166,11 @@
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>trace;
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;macros&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;macros&quot;</span>))]
 #[cfg_attr(not(feature = <span class="string">&quot;macros&quot;</span>), allow(unreachable_pub))]
 </span><span class="kw">pub use </span><span class="self">self</span>::rand::thread_rng_n;
 
-<span class="attribute">#[cfg(any(
+<span class="attr">#[cfg(any(
     feature = <span class="string">&quot;rt&quot;</span>,
     feature = <span class="string">&quot;time&quot;</span>,
     feature = <span class="string">&quot;net&quot;</span>,
@@ -179,4 +179,4 @@
 ))]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>error;
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

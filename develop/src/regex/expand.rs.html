@@ -333,7 +333,7 @@
 ///
 /// It is also tagged with the position in the text following the
 /// capture reference.
-</span><span class="attribute">#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 </span><span class="kw">struct </span>CaptureRef&lt;<span class="lifetime">&#39;a</span>&gt; {
     cap: Ref&lt;<span class="lifetime">&#39;a</span>&gt;,
     end: usize,
@@ -342,7 +342,7 @@
 <span class="doccomment">/// A reference to a capture group in some text.
 ///
 /// e.g., `$2`, `$foo`, `${foo}`.
-</span><span class="attribute">#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 </span><span class="kw">enum </span>Ref&lt;<span class="lifetime">&#39;a</span>&gt; {
     Named(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str),
     Number(usize),
@@ -429,19 +429,19 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::{find_cap_ref, CaptureRef};
 
     <span class="macro">macro_rules! </span>find {
         (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$text</span>:expr) =&gt; {
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>() {
                 <span class="macro">assert_eq!</span>(<span class="prelude-val">None</span>, find_cap_ref(<span class="macro-nonterminal">$text</span>.as_bytes()));
             }
         };
         (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$text</span>:expr, <span class="macro-nonterminal">$capref</span>:expr) =&gt; {
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>() {
                 <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="macro-nonterminal">$capref</span>), find_cap_ref(<span class="macro-nonterminal">$text</span>.as_bytes()));
             }
@@ -477,4 +477,4 @@
     <span class="macro">find!</span>(find_cap_ref19, <span class="string">&quot;${Z[}&quot;</span>, <span class="macro">c!</span>(<span class="string">&quot;Z[&quot;</span>, <span class="number">5</span>));
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="regex" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="regex" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

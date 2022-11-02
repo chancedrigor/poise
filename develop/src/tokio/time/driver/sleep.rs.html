@@ -439,7 +439,7 @@
 <span id="439">439</span>
 <span id="440">440</span>
 <span id="441">441</span>
-</pre><pre class="rust"><code><span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+</pre><pre class="rust"><code><span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::time::driver::ClockTime;
 <span class="kw">use </span><span class="kw">crate</span>::time::driver::{Handle, TimerEntry};
 <span class="kw">use </span><span class="kw">crate</span>::time::{error::Error, Duration, Instant};
@@ -500,7 +500,7 @@
 /// [`Builder::enable_time`]: crate::runtime::Builder::enable_time
 /// [`Builder::enable_all`]: crate::runtime::Builder::enable_all
 </span><span class="comment">// Alias for old name in 0.x
-</span><span class="attribute">#[cfg_attr(docsrs, doc(alias = <span class="string">&quot;delay_until&quot;</span>))]
+</span><span class="attr">#[cfg_attr(docsrs, doc(alias = <span class="string">&quot;delay_until&quot;</span>))]
 #[track_caller]
 </span><span class="kw">pub fn </span>sleep_until(deadline: Instant) -&gt; Sleep {
     <span class="kw">return </span>Sleep::new_timeout(deadline, trace::caller_location());
@@ -562,7 +562,7 @@
 /// [`Builder::enable_time`]: crate::runtime::Builder::enable_time
 /// [`Builder::enable_all`]: crate::runtime::Builder::enable_all
 </span><span class="comment">// Alias for old name in 0.x
-</span><span class="attribute">#[cfg_attr(docsrs, doc(alias = <span class="string">&quot;delay_for&quot;</span>))]
+</span><span class="attr">#[cfg_attr(docsrs, doc(alias = <span class="string">&quot;delay_for&quot;</span>))]
 #[cfg_attr(docsrs, doc(alias = <span class="string">&quot;wait&quot;</span>))]
 #[track_caller]
 </span><span class="kw">pub fn </span>sleep(duration: Duration) -&gt; Sleep {
@@ -663,20 +663,20 @@
     /// [`select!`]: ../macro.select.html
     /// [`tokio::pin!`]: ../macro.pin.html
     </span><span class="comment">// Alias for old name in 0.2
-    </span><span class="attribute">#[cfg_attr(docsrs, doc(alias = <span class="string">&quot;Delay&quot;</span>))]
+    </span><span class="attr">#[cfg_attr(docsrs, doc(alias = <span class="string">&quot;Delay&quot;</span>))]
     #[derive(Debug)]
     #[must_use = <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]
     </span><span class="kw">pub struct </span>Sleep {
         inner: Inner,
 
         <span class="comment">// The link between the `Sleep` instance and the timer that drives it.
-        </span><span class="attribute">#[pin]
+        </span><span class="attr">#[pin]
         </span>entry: TimerEntry,
     }
 }
 
 <span class="macro">cfg_trace! </span>{
-    <span class="attribute">#[derive(Debug)]
+    <span class="attr">#[derive(Debug)]
     </span><span class="kw">struct </span>Inner {
         deadline: Instant,
         ctx: trace::AsyncOpTracingCtx,
@@ -685,14 +685,14 @@
 }
 
 <span class="macro">cfg_not_trace! </span>{
-    <span class="attribute">#[derive(Debug)]
+    <span class="attr">#[derive(Debug)]
     </span><span class="kw">struct </span>Inner {
         deadline: Instant,
     }
 }
 
 <span class="kw">impl </span>Sleep {
-    <span class="attribute">#[cfg_attr(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)), allow(unused_variables))]
+    <span class="attr">#[cfg_attr(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)), allow(unused_variables))]
     #[track_caller]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new_timeout(
         deadline: Instant,
@@ -701,7 +701,7 @@
         <span class="kw">let </span>handle = Handle::current();
         <span class="kw">let </span>entry = TimerEntry::new(<span class="kw-2">&amp;</span>handle, deadline);
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>inner = {
             <span class="kw">let </span>time_source = handle.time_source().clone();
             <span class="kw">let </span>deadline_tick = time_source.deadline_to_tick(deadline);
@@ -744,7 +744,7 @@
             }
         };
 
-        <span class="attribute">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
+        <span class="attr">#[cfg(not(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>)))]
         </span><span class="kw">let </span>inner = Inner { deadline };
 
         Sleep { inner, entry }
@@ -804,7 +804,7 @@
         me.entry.reset(deadline);
         (<span class="kw-2">*</span>me.inner).deadline = deadline;
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span>{
             <span class="kw">let </span>_resource_enter = me.inner.ctx.resource_span.enter();
             me.inner.ctx.async_op_span =
@@ -833,13 +833,13 @@
         <span class="kw">let </span>me = <span class="self">self</span>.project();
 
         <span class="comment">// Keep track of task budget
-        </span><span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        </span><span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>coop = <span class="macro">ready!</span>(<span class="macro">trace_poll_op!</span>(
             <span class="string">&quot;poll_elapsed&quot;</span>,
             <span class="kw">crate</span>::coop::poll_proceed(cx),
         ));
 
-        <span class="attribute">#[cfg(any(not(tokio_unstable), not(feature = <span class="string">&quot;tracing&quot;</span>)))]
+        <span class="attr">#[cfg(any(not(tokio_unstable), not(feature = <span class="string">&quot;tracing&quot;</span>)))]
         </span><span class="kw">let </span>coop = <span class="macro">ready!</span>(<span class="kw">crate</span>::coop::poll_proceed(cx));
 
         <span class="kw">let </span>result = me.entry.poll_elapsed(cx).map(<span class="kw">move </span>|r| {
@@ -847,10 +847,10 @@
             r
         });
 
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">return </span><span class="macro">trace_poll_op!</span>(<span class="string">&quot;poll_elapsed&quot;</span>, result);
 
-        <span class="attribute">#[cfg(any(not(tokio_unstable), not(feature = <span class="string">&quot;tracing&quot;</span>)))]
+        <span class="attr">#[cfg(any(not(tokio_unstable), not(feature = <span class="string">&quot;tracing&quot;</span>)))]
         </span><span class="kw">return </span>result;
     }
 }
@@ -868,11 +868,11 @@
     // &quot;logic errors&quot;, so we just panic in this case. A user couldn&#39;t
     // really do much better if we passed the error onwards.
     </span><span class="kw">fn </span>poll(<span class="kw-2">mut </span><span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, cx: <span class="kw-2">&amp;mut </span>task::Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;<span class="self">Self</span>::Output&gt; {
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>_res_span = <span class="self">self</span>.inner.ctx.resource_span.clone().entered();
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>_ao_span = <span class="self">self</span>.inner.ctx.async_op_span.clone().entered();
-        <span class="attribute">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
+        <span class="attr">#[cfg(all(tokio_unstable, feature = <span class="string">&quot;tracing&quot;</span>))]
         </span><span class="kw">let </span>_ao_poll_span = <span class="self">self</span>.inner.ctx.async_op_poll_span.clone().entered();
         <span class="kw">match </span><span class="macro">ready!</span>(<span class="self">self</span>.as_mut().poll_elapsed(cx)) {
             <span class="prelude-val">Ok</span>(()) =&gt; Poll::Ready(()),
@@ -881,4 +881,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

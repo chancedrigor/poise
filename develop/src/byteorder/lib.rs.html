@@ -4119,44 +4119,44 @@ cases.
 [`Write`]: https://doc.rust-lang.org/std/io/trait.Write.html
 */
 
-</span><span class="attribute">#![deny(missing_docs)]
+</span><span class="attr">#![deny(missing_docs)]
 #![cfg_attr(not(feature = <span class="string">&quot;std&quot;</span>), no_std)]
 
 </span><span class="kw">use </span>core::{
     convert::TryInto, fmt::Debug, hash::Hash, ptr::copy_nonoverlapping, slice,
 };
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">pub use </span><span class="kw">crate</span>::io::{ReadBytesExt, WriteBytesExt};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">mod </span>io;
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>extend_sign(val: u64, nbytes: usize) -&gt; i64 {
     <span class="kw">let </span>shift = (<span class="number">8 </span>- nbytes) * <span class="number">8</span>;
     (val &lt;&lt; shift) <span class="kw">as </span>i64 &gt;&gt; shift
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>extend_sign128(val: u128, nbytes: usize) -&gt; i128 {
     <span class="kw">let </span>shift = (<span class="number">16 </span>- nbytes) * <span class="number">8</span>;
     (val &lt;&lt; shift) <span class="kw">as </span>i128 &gt;&gt; shift
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>unextend_sign(val: i64, nbytes: usize) -&gt; u64 {
     <span class="kw">let </span>shift = (<span class="number">8 </span>- nbytes) * <span class="number">8</span>;
     (val &lt;&lt; shift) <span class="kw">as </span>u64 &gt;&gt; shift
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>unextend_sign128(val: i128, nbytes: usize) -&gt; u128 {
     <span class="kw">let </span>shift = (<span class="number">16 </span>- nbytes) * <span class="number">8</span>;
     (val &lt;&lt; shift) <span class="kw">as </span>u128 &gt;&gt; shift
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>pack_size(n: u64) -&gt; usize {
     <span class="kw">if </span>n &lt; <span class="number">1 </span>&lt;&lt; <span class="number">8 </span>{
         <span class="number">1
@@ -4177,7 +4177,7 @@ cases.
     </span>}
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>pack_size128(n: u128) -&gt; usize {
     <span class="kw">if </span>n &lt; <span class="number">1 </span>&lt;&lt; <span class="number">8 </span>{
         <span class="number">1
@@ -4590,7 +4590,7 @@ cases.
     /// LittleEndian::write_i16(&amp;mut buf, -1_000);
     /// assert_eq!(-1_000, LittleEndian::read_i16(&amp;buf));
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_i16(buf: <span class="kw-2">&amp;</span>[u8]) -&gt; i16 {
         <span class="self">Self</span>::read_u16(buf) <span class="kw">as </span>i16
     }
@@ -4612,7 +4612,7 @@ cases.
     /// LittleEndian::write_i24(&amp;mut buf, -1_000_000);
     /// assert_eq!(-1_000_000, LittleEndian::read_i24(&amp;buf));
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_i24(buf: <span class="kw-2">&amp;</span>[u8]) -&gt; i32 {
         <span class="self">Self</span>::read_int(buf, <span class="number">3</span>) <span class="kw">as </span>i32
     }
@@ -4634,7 +4634,7 @@ cases.
     /// LittleEndian::write_i32(&amp;mut buf, -1_000_000);
     /// assert_eq!(-1_000_000, LittleEndian::read_i32(&amp;buf));
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_i32(buf: <span class="kw-2">&amp;</span>[u8]) -&gt; i32 {
         <span class="self">Self</span>::read_u32(buf) <span class="kw">as </span>i32
     }
@@ -4656,7 +4656,7 @@ cases.
     /// LittleEndian::write_i48(&amp;mut buf, -1_000_000_000_000);
     /// assert_eq!(-1_000_000_000_000, LittleEndian::read_i48(&amp;buf));
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_i48(buf: <span class="kw-2">&amp;</span>[u8]) -&gt; i64 {
         <span class="self">Self</span>::read_int(buf, <span class="number">6</span>) <span class="kw">as </span>i64
     }
@@ -4678,7 +4678,7 @@ cases.
     /// LittleEndian::write_i64(&amp;mut buf, -1_000_000_000);
     /// assert_eq!(-1_000_000_000, LittleEndian::read_i64(&amp;buf));
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_i64(buf: <span class="kw-2">&amp;</span>[u8]) -&gt; i64 {
         <span class="self">Self</span>::read_u64(buf) <span class="kw">as </span>i64
     }
@@ -4700,7 +4700,7 @@ cases.
     /// LittleEndian::write_i128(&amp;mut buf, -1_000_000_000);
     /// assert_eq!(-1_000_000_000, LittleEndian::read_i128(&amp;buf));
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_i128(buf: <span class="kw-2">&amp;</span>[u8]) -&gt; i128 {
         <span class="self">Self</span>::read_u128(buf) <span class="kw">as </span>i128
     }
@@ -4723,7 +4723,7 @@ cases.
     /// LittleEndian::write_int(&amp;mut buf, -1_000, 3);
     /// assert_eq!(-1_000, LittleEndian::read_int(&amp;buf, 3));
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_int(buf: <span class="kw-2">&amp;</span>[u8], nbytes: usize) -&gt; i64 {
         extend_sign(<span class="self">Self</span>::read_uint(buf, nbytes), nbytes)
     }
@@ -4746,7 +4746,7 @@ cases.
     /// LittleEndian::write_int128(&amp;mut buf, -1_000, 3);
     /// assert_eq!(-1_000, LittleEndian::read_int128(&amp;buf, 3));
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_int128(buf: <span class="kw-2">&amp;</span>[u8], nbytes: usize) -&gt; i128 {
         extend_sign128(<span class="self">Self</span>::read_uint128(buf, nbytes), nbytes)
     }
@@ -4769,7 +4769,7 @@ cases.
     /// LittleEndian::write_f32(&amp;mut buf, e);
     /// assert_eq!(e, LittleEndian::read_f32(&amp;buf));
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_f32(buf: <span class="kw-2">&amp;</span>[u8]) -&gt; f32 {
         f32::from_bits(<span class="self">Self</span>::read_u32(buf))
     }
@@ -4792,7 +4792,7 @@ cases.
     /// LittleEndian::write_f64(&amp;mut buf, phi);
     /// assert_eq!(phi, LittleEndian::read_f64(&amp;buf));
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_f64(buf: <span class="kw-2">&amp;</span>[u8]) -&gt; f64 {
         f64::from_bits(<span class="self">Self</span>::read_u64(buf))
     }
@@ -4814,7 +4814,7 @@ cases.
     /// LittleEndian::write_i16(&amp;mut buf, -1_000);
     /// assert_eq!(-1_000, LittleEndian::read_i16(&amp;buf));
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_i16(buf: <span class="kw-2">&amp;mut </span>[u8], n: i16) {
         <span class="self">Self</span>::write_u16(buf, n <span class="kw">as </span>u16)
     }
@@ -4836,7 +4836,7 @@ cases.
     /// LittleEndian::write_i24(&amp;mut buf, -1_000_000);
     /// assert_eq!(-1_000_000, LittleEndian::read_i24(&amp;buf));
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_i24(buf: <span class="kw-2">&amp;mut </span>[u8], n: i32) {
         <span class="self">Self</span>::write_int(buf, n <span class="kw">as </span>i64, <span class="number">3</span>)
     }
@@ -4858,7 +4858,7 @@ cases.
     /// LittleEndian::write_i32(&amp;mut buf, -1_000_000);
     /// assert_eq!(-1_000_000, LittleEndian::read_i32(&amp;buf));
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_i32(buf: <span class="kw-2">&amp;mut </span>[u8], n: i32) {
         <span class="self">Self</span>::write_u32(buf, n <span class="kw">as </span>u32)
     }
@@ -4880,7 +4880,7 @@ cases.
     /// LittleEndian::write_i48(&amp;mut buf, -1_000_000_000_000);
     /// assert_eq!(-1_000_000_000_000, LittleEndian::read_i48(&amp;buf));
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_i48(buf: <span class="kw-2">&amp;mut </span>[u8], n: i64) {
         <span class="self">Self</span>::write_int(buf, n <span class="kw">as </span>i64, <span class="number">6</span>)
     }
@@ -4902,7 +4902,7 @@ cases.
     /// LittleEndian::write_i64(&amp;mut buf, -1_000_000_000);
     /// assert_eq!(-1_000_000_000, LittleEndian::read_i64(&amp;buf));
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_i64(buf: <span class="kw-2">&amp;mut </span>[u8], n: i64) {
         <span class="self">Self</span>::write_u64(buf, n <span class="kw">as </span>u64)
     }
@@ -4924,7 +4924,7 @@ cases.
     /// LittleEndian::write_i128(&amp;mut buf, -1_000_000_000);
     /// assert_eq!(-1_000_000_000, LittleEndian::read_i128(&amp;buf));
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_i128(buf: <span class="kw-2">&amp;mut </span>[u8], n: i128) {
         <span class="self">Self</span>::write_u128(buf, n <span class="kw">as </span>u128)
     }
@@ -4947,7 +4947,7 @@ cases.
     /// LittleEndian::write_int(&amp;mut buf, -1_000, 3);
     /// assert_eq!(-1_000, LittleEndian::read_int(&amp;buf, 3));
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_int(buf: <span class="kw-2">&amp;mut </span>[u8], n: i64, nbytes: usize) {
         <span class="self">Self</span>::write_uint(buf, unextend_sign(n, nbytes), nbytes)
     }
@@ -4970,7 +4970,7 @@ cases.
     /// LittleEndian::write_int128(&amp;mut buf, -1_000, 3);
     /// assert_eq!(-1_000, LittleEndian::read_int128(&amp;buf, 3));
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_int128(buf: <span class="kw-2">&amp;mut </span>[u8], n: i128, nbytes: usize) {
         <span class="self">Self</span>::write_uint128(buf, unextend_sign128(n, nbytes), nbytes)
     }
@@ -4993,7 +4993,7 @@ cases.
     /// LittleEndian::write_f32(&amp;mut buf, e);
     /// assert_eq!(e, LittleEndian::read_f32(&amp;buf));
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_f32(buf: <span class="kw-2">&amp;mut </span>[u8], n: f32) {
         <span class="self">Self</span>::write_u32(buf, n.to_bits())
     }
@@ -5016,7 +5016,7 @@ cases.
     /// LittleEndian::write_f64(&amp;mut buf, phi);
     /// assert_eq!(phi, LittleEndian::read_f64(&amp;buf));
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>write_f64(buf: <span class="kw-2">&amp;mut </span>[u8], n: f64) {
         <span class="self">Self</span>::write_u64(buf, n.to_bits())
     }
@@ -5134,7 +5134,7 @@ cases.
     /// LittleEndian::read_i16_into(&amp;bytes, &amp;mut numbers_got);
     /// assert_eq!(numbers_given, numbers_got);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_i16_into(src: <span class="kw-2">&amp;</span>[u8], dst: <span class="kw-2">&amp;mut </span>[i16]) {
         <span class="kw">let </span>dst = <span class="kw">unsafe </span>{
             slice::from_raw_parts_mut(dst.as_mut_ptr() <span class="kw">as </span><span class="kw-2">*mut </span>u16, dst.len())
@@ -5163,7 +5163,7 @@ cases.
     /// LittleEndian::read_i32_into(&amp;bytes, &amp;mut numbers_got);
     /// assert_eq!(numbers_given, numbers_got);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_i32_into(src: <span class="kw-2">&amp;</span>[u8], dst: <span class="kw-2">&amp;mut </span>[i32]) {
         <span class="kw">let </span>dst = <span class="kw">unsafe </span>{
             slice::from_raw_parts_mut(dst.as_mut_ptr() <span class="kw">as </span><span class="kw-2">*mut </span>u32, dst.len())
@@ -5192,7 +5192,7 @@ cases.
     /// LittleEndian::read_i64_into(&amp;bytes, &amp;mut numbers_got);
     /// assert_eq!(numbers_given, numbers_got);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_i64_into(src: <span class="kw-2">&amp;</span>[u8], dst: <span class="kw-2">&amp;mut </span>[i64]) {
         <span class="kw">let </span>dst = <span class="kw">unsafe </span>{
             slice::from_raw_parts_mut(dst.as_mut_ptr() <span class="kw">as </span><span class="kw-2">*mut </span>u64, dst.len())
@@ -5221,7 +5221,7 @@ cases.
     /// LittleEndian::read_i128_into(&amp;bytes, &amp;mut numbers_got);
     /// assert_eq!(numbers_given, numbers_got);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_i128_into(src: <span class="kw-2">&amp;</span>[u8], dst: <span class="kw-2">&amp;mut </span>[i128]) {
         <span class="kw">let </span>dst = <span class="kw">unsafe </span>{
             slice::from_raw_parts_mut(dst.as_mut_ptr() <span class="kw">as </span><span class="kw-2">*mut </span>u128, dst.len())
@@ -5251,7 +5251,7 @@ cases.
     /// LittleEndian::read_f32_into(&amp;bytes, &amp;mut numbers_got);
     /// assert_eq!(numbers_given, numbers_got);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_f32_into(src: <span class="kw-2">&amp;</span>[u8], dst: <span class="kw-2">&amp;mut </span>[f32]) {
         <span class="kw">let </span>dst = <span class="kw">unsafe </span>{
             slice::from_raw_parts_mut(dst.as_mut_ptr() <span class="kw">as </span><span class="kw-2">*mut </span>u32, dst.len())
@@ -5284,7 +5284,7 @@ cases.
     /// LittleEndian::read_f32_into_unchecked(&amp;bytes, &amp;mut numbers_got);
     /// assert_eq!(numbers_given, numbers_got);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[deprecated(since = <span class="string">&quot;1.3.0&quot;</span>, note = <span class="string">&quot;please use `read_f32_into` instead&quot;</span>)]
     </span><span class="kw">fn </span>read_f32_into_unchecked(src: <span class="kw-2">&amp;</span>[u8], dst: <span class="kw-2">&amp;mut </span>[f32]) {
         <span class="self">Self</span>::read_f32_into(src, dst);
@@ -5312,7 +5312,7 @@ cases.
     /// LittleEndian::read_f64_into(&amp;bytes, &amp;mut numbers_got);
     /// assert_eq!(numbers_given, numbers_got);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>read_f64_into(src: <span class="kw-2">&amp;</span>[u8], dst: <span class="kw-2">&amp;mut </span>[f64]) {
         <span class="kw">let </span>dst = <span class="kw">unsafe </span>{
             slice::from_raw_parts_mut(dst.as_mut_ptr() <span class="kw">as </span><span class="kw-2">*mut </span>u64, dst.len())
@@ -5346,7 +5346,7 @@ cases.
     /// LittleEndian::read_f64_into_unchecked(&amp;bytes, &amp;mut numbers_got);
     /// assert_eq!(numbers_given, numbers_got);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[deprecated(since = <span class="string">&quot;1.3.0&quot;</span>, note = <span class="string">&quot;please use `read_f64_into` instead&quot;</span>)]
     </span><span class="kw">fn </span>read_f64_into_unchecked(src: <span class="kw-2">&amp;</span>[u8], dst: <span class="kw-2">&amp;mut </span>[f64]) {
         <span class="self">Self</span>::read_f64_into(src, dst);
@@ -5741,7 +5741,7 @@ cases.
     /// BigEndian::from_slice_i16(&amp;mut numbers);
     /// assert_eq!(numbers, [5i16.to_be(), 6500i16.to_be()]);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>from_slice_i16(src: <span class="kw-2">&amp;mut </span>[i16]) {
         <span class="kw">let </span>src = <span class="kw">unsafe </span>{
             slice::from_raw_parts_mut(src.as_mut_ptr() <span class="kw">as </span><span class="kw-2">*mut </span>u16, src.len())
@@ -5766,7 +5766,7 @@ cases.
     /// BigEndian::from_slice_i32(&amp;mut numbers);
     /// assert_eq!(numbers, [5i32.to_be(), 65000i32.to_be()]);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>from_slice_i32(src: <span class="kw-2">&amp;mut </span>[i32]) {
         <span class="kw">let </span>src = <span class="kw">unsafe </span>{
             slice::from_raw_parts_mut(src.as_mut_ptr() <span class="kw">as </span><span class="kw-2">*mut </span>u32, src.len())
@@ -5791,7 +5791,7 @@ cases.
     /// BigEndian::from_slice_i64(&amp;mut numbers);
     /// assert_eq!(numbers, [5i64.to_be(), 65000i64.to_be()]);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>from_slice_i64(src: <span class="kw-2">&amp;mut </span>[i64]) {
         <span class="kw">let </span>src = <span class="kw">unsafe </span>{
             slice::from_raw_parts_mut(src.as_mut_ptr() <span class="kw">as </span><span class="kw-2">*mut </span>u64, src.len())
@@ -5816,7 +5816,7 @@ cases.
     /// BigEndian::from_slice_i128(&amp;mut numbers);
     /// assert_eq!(numbers, [5i128.to_be(), 65000i128.to_be()]);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>from_slice_i128(src: <span class="kw-2">&amp;mut </span>[i128]) {
         <span class="kw">let </span>src = <span class="kw">unsafe </span>{
             slice::from_raw_parts_mut(src.as_mut_ptr() <span class="kw">as </span><span class="kw-2">*mut </span>u128, src.len())
@@ -5855,7 +5855,7 @@ cases.
 /// BigEndian::write_u32(&amp;mut buf, 1_000_000);
 /// assert_eq!(1_000_000, BigEndian::read_u32(&amp;buf));
 /// ```
-</span><span class="attribute">#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 </span><span class="kw">pub enum </span>BigEndian {}
 
 <span class="kw">impl </span>Default <span class="kw">for </span>BigEndian {
@@ -5885,7 +5885,7 @@ cases.
 /// LittleEndian::write_u32(&amp;mut buf, 1_000_000);
 /// assert_eq!(1_000_000, LittleEndian::read_u32(&amp;buf));
 /// ```
-</span><span class="attribute">#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 </span><span class="kw">pub enum </span>LittleEndian {}
 
 <span class="kw">impl </span>Default <span class="kw">for </span>LittleEndian {
@@ -5933,7 +5933,7 @@ cases.
 /// On this platform, this is an alias for [`LittleEndian`].
 ///
 /// [`LittleEndian`]: enum.LittleEndian.html
-</span><span class="attribute">#[cfg(target_endian = <span class="string">&quot;little&quot;</span>)]
+</span><span class="attr">#[cfg(target_endian = <span class="string">&quot;little&quot;</span>)]
 </span><span class="kw">pub type </span>NativeEndian = LittleEndian;
 
 <span class="doccomment">/// Defines system native-endian serialization.
@@ -5944,7 +5944,7 @@ cases.
 /// On this platform, this is an alias for [`BigEndian`].
 ///
 /// [`BigEndian`]: enum.BigEndian.html
-</span><span class="attribute">#[cfg(target_endian = <span class="string">&quot;big&quot;</span>)]
+</span><span class="attr">#[cfg(target_endian = <span class="string">&quot;big&quot;</span>)]
 </span><span class="kw">pub type </span>NativeEndian = BigEndian;
 
 <span class="doccomment">/// Copies $size bytes from a number $n to a &amp;mut [u8] $dst. $ty represents the
@@ -6020,27 +6020,27 @@ cases.
 }
 
 <span class="kw">impl </span>ByteOrder <span class="kw">for </span>BigEndian {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u16(buf: <span class="kw-2">&amp;</span>[u8]) -&gt; u16 {
         u16::from_be_bytes(buf[..<span class="number">2</span>].try_into().unwrap())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u32(buf: <span class="kw-2">&amp;</span>[u8]) -&gt; u32 {
         u32::from_be_bytes(buf[..<span class="number">4</span>].try_into().unwrap())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u64(buf: <span class="kw-2">&amp;</span>[u8]) -&gt; u64 {
         u64::from_be_bytes(buf[..<span class="number">8</span>].try_into().unwrap())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u128(buf: <span class="kw-2">&amp;</span>[u8]) -&gt; u128 {
         u128::from_be_bytes(buf[..<span class="number">16</span>].try_into().unwrap())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>read_uint(buf: <span class="kw-2">&amp;</span>[u8], nbytes: usize) -&gt; u64 {
         <span class="macro">assert!</span>(<span class="number">1 </span>&lt;= nbytes &amp;&amp; nbytes &lt;= <span class="number">8 </span>&amp;&amp; nbytes &lt;= buf.len());
         <span class="kw">let </span><span class="kw-2">mut </span>out = <span class="number">0u64</span>;
@@ -6055,7 +6055,7 @@ cases.
         out.to_be()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>read_uint128(buf: <span class="kw-2">&amp;</span>[u8], nbytes: usize) -&gt; u128 {
         <span class="macro">assert!</span>(<span class="number">1 </span>&lt;= nbytes &amp;&amp; nbytes &lt;= <span class="number">16 </span>&amp;&amp; nbytes &lt;= buf.len());
         <span class="kw">let </span><span class="kw-2">mut </span>out: u128 = <span class="number">0</span>;
@@ -6070,27 +6070,27 @@ cases.
         out.to_be()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u16(buf: <span class="kw-2">&amp;mut </span>[u8], n: u16) {
         <span class="macro">unsafe_write_num_bytes!</span>(u16, <span class="number">2</span>, n, buf, to_be);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u32(buf: <span class="kw-2">&amp;mut </span>[u8], n: u32) {
         <span class="macro">unsafe_write_num_bytes!</span>(u32, <span class="number">4</span>, n, buf, to_be);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u64(buf: <span class="kw-2">&amp;mut </span>[u8], n: u64) {
         <span class="macro">unsafe_write_num_bytes!</span>(u64, <span class="number">8</span>, n, buf, to_be);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u128(buf: <span class="kw-2">&amp;mut </span>[u8], n: u128) {
         <span class="macro">unsafe_write_num_bytes!</span>(u128, <span class="number">16</span>, n, buf, to_be);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_uint(buf: <span class="kw-2">&amp;mut </span>[u8], n: u64, nbytes: usize) {
         <span class="macro">assert!</span>(pack_size(n) &lt;= nbytes &amp;&amp; nbytes &lt;= <span class="number">8</span>);
         <span class="macro">assert!</span>(nbytes &lt;= buf.len());
@@ -6104,7 +6104,7 @@ cases.
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_uint128(buf: <span class="kw-2">&amp;mut </span>[u8], n: u128, nbytes: usize) {
         <span class="macro">assert!</span>(pack_size128(n) &lt;= nbytes &amp;&amp; nbytes &lt;= <span class="number">16</span>);
         <span class="macro">assert!</span>(nbytes &lt;= buf.len());
@@ -6118,27 +6118,27 @@ cases.
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u16_into(src: <span class="kw-2">&amp;</span>[u8], dst: <span class="kw-2">&amp;mut </span>[u16]) {
         <span class="macro">unsafe_read_slice!</span>(src, dst, <span class="number">2</span>, to_be);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u32_into(src: <span class="kw-2">&amp;</span>[u8], dst: <span class="kw-2">&amp;mut </span>[u32]) {
         <span class="macro">unsafe_read_slice!</span>(src, dst, <span class="number">4</span>, to_be);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u64_into(src: <span class="kw-2">&amp;</span>[u8], dst: <span class="kw-2">&amp;mut </span>[u64]) {
         <span class="macro">unsafe_read_slice!</span>(src, dst, <span class="number">8</span>, to_be);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u128_into(src: <span class="kw-2">&amp;</span>[u8], dst: <span class="kw-2">&amp;mut </span>[u128]) {
         <span class="macro">unsafe_read_slice!</span>(src, dst, <span class="number">16</span>, to_be);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u16_into(src: <span class="kw-2">&amp;</span>[u16], dst: <span class="kw-2">&amp;mut </span>[u8]) {
         <span class="kw">if </span><span class="macro">cfg!</span>(target_endian = <span class="string">&quot;big&quot;</span>) {
             <span class="macro">unsafe_write_slice_native!</span>(src, dst, u16);
@@ -6147,7 +6147,7 @@ cases.
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u32_into(src: <span class="kw-2">&amp;</span>[u32], dst: <span class="kw-2">&amp;mut </span>[u8]) {
         <span class="kw">if </span><span class="macro">cfg!</span>(target_endian = <span class="string">&quot;big&quot;</span>) {
             <span class="macro">unsafe_write_slice_native!</span>(src, dst, u32);
@@ -6156,7 +6156,7 @@ cases.
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u64_into(src: <span class="kw-2">&amp;</span>[u64], dst: <span class="kw-2">&amp;mut </span>[u8]) {
         <span class="kw">if </span><span class="macro">cfg!</span>(target_endian = <span class="string">&quot;big&quot;</span>) {
             <span class="macro">unsafe_write_slice_native!</span>(src, dst, u64);
@@ -6165,7 +6165,7 @@ cases.
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u128_into(src: <span class="kw-2">&amp;</span>[u128], dst: <span class="kw-2">&amp;mut </span>[u8]) {
         <span class="kw">if </span><span class="macro">cfg!</span>(target_endian = <span class="string">&quot;big&quot;</span>) {
             <span class="macro">unsafe_write_slice_native!</span>(src, dst, u128);
@@ -6174,7 +6174,7 @@ cases.
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from_slice_u16(numbers: <span class="kw-2">&amp;mut </span>[u16]) {
         <span class="kw">if </span><span class="macro">cfg!</span>(target_endian = <span class="string">&quot;little&quot;</span>) {
             <span class="kw">for </span>n <span class="kw">in </span>numbers {
@@ -6183,7 +6183,7 @@ cases.
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from_slice_u32(numbers: <span class="kw-2">&amp;mut </span>[u32]) {
         <span class="kw">if </span><span class="macro">cfg!</span>(target_endian = <span class="string">&quot;little&quot;</span>) {
             <span class="kw">for </span>n <span class="kw">in </span>numbers {
@@ -6192,7 +6192,7 @@ cases.
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from_slice_u64(numbers: <span class="kw-2">&amp;mut </span>[u64]) {
         <span class="kw">if </span><span class="macro">cfg!</span>(target_endian = <span class="string">&quot;little&quot;</span>) {
             <span class="kw">for </span>n <span class="kw">in </span>numbers {
@@ -6201,7 +6201,7 @@ cases.
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from_slice_u128(numbers: <span class="kw-2">&amp;mut </span>[u128]) {
         <span class="kw">if </span><span class="macro">cfg!</span>(target_endian = <span class="string">&quot;little&quot;</span>) {
             <span class="kw">for </span>n <span class="kw">in </span>numbers {
@@ -6210,7 +6210,7 @@ cases.
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from_slice_f32(numbers: <span class="kw-2">&amp;mut </span>[f32]) {
         <span class="kw">if </span><span class="macro">cfg!</span>(target_endian = <span class="string">&quot;little&quot;</span>) {
             <span class="kw">for </span>n <span class="kw">in </span>numbers {
@@ -6222,7 +6222,7 @@ cases.
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from_slice_f64(numbers: <span class="kw-2">&amp;mut </span>[f64]) {
         <span class="kw">if </span><span class="macro">cfg!</span>(target_endian = <span class="string">&quot;little&quot;</span>) {
             <span class="kw">for </span>n <span class="kw">in </span>numbers {
@@ -6236,27 +6236,27 @@ cases.
 }
 
 <span class="kw">impl </span>ByteOrder <span class="kw">for </span>LittleEndian {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u16(buf: <span class="kw-2">&amp;</span>[u8]) -&gt; u16 {
         u16::from_le_bytes(buf[..<span class="number">2</span>].try_into().unwrap())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u32(buf: <span class="kw-2">&amp;</span>[u8]) -&gt; u32 {
         u32::from_le_bytes(buf[..<span class="number">4</span>].try_into().unwrap())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u64(buf: <span class="kw-2">&amp;</span>[u8]) -&gt; u64 {
         u64::from_le_bytes(buf[..<span class="number">8</span>].try_into().unwrap())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u128(buf: <span class="kw-2">&amp;</span>[u8]) -&gt; u128 {
         u128::from_le_bytes(buf[..<span class="number">16</span>].try_into().unwrap())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>read_uint(buf: <span class="kw-2">&amp;</span>[u8], nbytes: usize) -&gt; u64 {
         <span class="macro">assert!</span>(<span class="number">1 </span>&lt;= nbytes &amp;&amp; nbytes &lt;= <span class="number">8 </span>&amp;&amp; nbytes &lt;= buf.len());
         <span class="kw">let </span><span class="kw-2">mut </span>out = <span class="number">0u64</span>;
@@ -6267,7 +6267,7 @@ cases.
         out.to_le()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>read_uint128(buf: <span class="kw-2">&amp;</span>[u8], nbytes: usize) -&gt; u128 {
         <span class="macro">assert!</span>(<span class="number">1 </span>&lt;= nbytes &amp;&amp; nbytes &lt;= <span class="number">16 </span>&amp;&amp; nbytes &lt;= buf.len());
         <span class="kw">let </span><span class="kw-2">mut </span>out: u128 = <span class="number">0</span>;
@@ -6278,27 +6278,27 @@ cases.
         out.to_le()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u16(buf: <span class="kw-2">&amp;mut </span>[u8], n: u16) {
         <span class="macro">unsafe_write_num_bytes!</span>(u16, <span class="number">2</span>, n, buf, to_le);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u32(buf: <span class="kw-2">&amp;mut </span>[u8], n: u32) {
         <span class="macro">unsafe_write_num_bytes!</span>(u32, <span class="number">4</span>, n, buf, to_le);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u64(buf: <span class="kw-2">&amp;mut </span>[u8], n: u64) {
         <span class="macro">unsafe_write_num_bytes!</span>(u64, <span class="number">8</span>, n, buf, to_le);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u128(buf: <span class="kw-2">&amp;mut </span>[u8], n: u128) {
         <span class="macro">unsafe_write_num_bytes!</span>(u128, <span class="number">16</span>, n, buf, to_le);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_uint(buf: <span class="kw-2">&amp;mut </span>[u8], n: u64, nbytes: usize) {
         <span class="macro">assert!</span>(pack_size(n <span class="kw">as </span>u64) &lt;= nbytes &amp;&amp; nbytes &lt;= <span class="number">8</span>);
         <span class="macro">assert!</span>(nbytes &lt;= buf.len());
@@ -6308,7 +6308,7 @@ cases.
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_uint128(buf: <span class="kw-2">&amp;mut </span>[u8], n: u128, nbytes: usize) {
         <span class="macro">assert!</span>(pack_size128(n <span class="kw">as </span>u128) &lt;= nbytes &amp;&amp; nbytes &lt;= <span class="number">16</span>);
         <span class="macro">assert!</span>(nbytes &lt;= buf.len());
@@ -6318,27 +6318,27 @@ cases.
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u16_into(src: <span class="kw-2">&amp;</span>[u8], dst: <span class="kw-2">&amp;mut </span>[u16]) {
         <span class="macro">unsafe_read_slice!</span>(src, dst, <span class="number">2</span>, to_le);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u32_into(src: <span class="kw-2">&amp;</span>[u8], dst: <span class="kw-2">&amp;mut </span>[u32]) {
         <span class="macro">unsafe_read_slice!</span>(src, dst, <span class="number">4</span>, to_le);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u64_into(src: <span class="kw-2">&amp;</span>[u8], dst: <span class="kw-2">&amp;mut </span>[u64]) {
         <span class="macro">unsafe_read_slice!</span>(src, dst, <span class="number">8</span>, to_le);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>read_u128_into(src: <span class="kw-2">&amp;</span>[u8], dst: <span class="kw-2">&amp;mut </span>[u128]) {
         <span class="macro">unsafe_read_slice!</span>(src, dst, <span class="number">16</span>, to_le);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u16_into(src: <span class="kw-2">&amp;</span>[u16], dst: <span class="kw-2">&amp;mut </span>[u8]) {
         <span class="kw">if </span><span class="macro">cfg!</span>(target_endian = <span class="string">&quot;little&quot;</span>) {
             <span class="macro">unsafe_write_slice_native!</span>(src, dst, u16);
@@ -6347,7 +6347,7 @@ cases.
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u32_into(src: <span class="kw-2">&amp;</span>[u32], dst: <span class="kw-2">&amp;mut </span>[u8]) {
         <span class="kw">if </span><span class="macro">cfg!</span>(target_endian = <span class="string">&quot;little&quot;</span>) {
             <span class="macro">unsafe_write_slice_native!</span>(src, dst, u32);
@@ -6356,7 +6356,7 @@ cases.
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u64_into(src: <span class="kw-2">&amp;</span>[u64], dst: <span class="kw-2">&amp;mut </span>[u8]) {
         <span class="kw">if </span><span class="macro">cfg!</span>(target_endian = <span class="string">&quot;little&quot;</span>) {
             <span class="macro">unsafe_write_slice_native!</span>(src, dst, u64);
@@ -6365,7 +6365,7 @@ cases.
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u128_into(src: <span class="kw-2">&amp;</span>[u128], dst: <span class="kw-2">&amp;mut </span>[u8]) {
         <span class="kw">if </span><span class="macro">cfg!</span>(target_endian = <span class="string">&quot;little&quot;</span>) {
             <span class="macro">unsafe_write_slice_native!</span>(src, dst, u128);
@@ -6374,7 +6374,7 @@ cases.
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from_slice_u16(numbers: <span class="kw-2">&amp;mut </span>[u16]) {
         <span class="kw">if </span><span class="macro">cfg!</span>(target_endian = <span class="string">&quot;big&quot;</span>) {
             <span class="kw">for </span>n <span class="kw">in </span>numbers {
@@ -6383,7 +6383,7 @@ cases.
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from_slice_u32(numbers: <span class="kw-2">&amp;mut </span>[u32]) {
         <span class="kw">if </span><span class="macro">cfg!</span>(target_endian = <span class="string">&quot;big&quot;</span>) {
             <span class="kw">for </span>n <span class="kw">in </span>numbers {
@@ -6392,7 +6392,7 @@ cases.
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from_slice_u64(numbers: <span class="kw-2">&amp;mut </span>[u64]) {
         <span class="kw">if </span><span class="macro">cfg!</span>(target_endian = <span class="string">&quot;big&quot;</span>) {
             <span class="kw">for </span>n <span class="kw">in </span>numbers {
@@ -6401,7 +6401,7 @@ cases.
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from_slice_u128(numbers: <span class="kw-2">&amp;mut </span>[u128]) {
         <span class="kw">if </span><span class="macro">cfg!</span>(target_endian = <span class="string">&quot;big&quot;</span>) {
             <span class="kw">for </span>n <span class="kw">in </span>numbers {
@@ -6410,7 +6410,7 @@ cases.
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from_slice_f32(numbers: <span class="kw-2">&amp;mut </span>[f32]) {
         <span class="kw">if </span><span class="macro">cfg!</span>(target_endian = <span class="string">&quot;big&quot;</span>) {
             <span class="kw">for </span>n <span class="kw">in </span>numbers {
@@ -6422,7 +6422,7 @@ cases.
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from_slice_f64(numbers: <span class="kw-2">&amp;mut </span>[f64]) {
         <span class="kw">if </span><span class="macro">cfg!</span>(target_endian = <span class="string">&quot;big&quot;</span>) {
             <span class="kw">for </span>n <span class="kw">in </span>numbers {
@@ -6435,7 +6435,7 @@ cases.
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use </span>quickcheck::{Arbitrary, Gen, QuickCheck, StdGen, Testable};
     <span class="kw">use </span>rand::{thread_rng, Rng};
@@ -6457,7 +6457,7 @@ cases.
         };
     }
 
-    <span class="attribute">#[derive(Clone, Debug)]
+    <span class="attr">#[derive(Clone, Debug)]
     </span><span class="kw">pub struct </span>Wi128&lt;T&gt;(<span class="kw">pub </span>T);
 
     <span class="kw">impl</span>&lt;T: Clone&gt; Wi128&lt;T&gt; {
@@ -6502,13 +6502,13 @@ cases.
         (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$ty_int</span>:ty, <span class="macro-nonterminal">$max</span>:expr,
          <span class="macro-nonterminal">$bytes</span>:expr, <span class="macro-nonterminal">$read</span>:ident, <span class="macro-nonterminal">$write</span>:ident) =&gt; {
             <span class="kw">mod </span><span class="macro-nonterminal">$name </span>{
-                <span class="attribute">#[allow(unused_imports)]
+                <span class="attr">#[allow(unused_imports)]
                 </span><span class="kw">use super</span>::{qc_sized, Wi128};
                 <span class="kw">use crate</span>::{
                     BigEndian, ByteOrder, LittleEndian, NativeEndian,
                 };
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 </span><span class="kw">fn </span>big_endian() {
                     <span class="kw">fn </span>prop(n: <span class="macro-nonterminal">$ty_int</span>) -&gt; bool {
                         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">16</span>];
@@ -6518,7 +6518,7 @@ cases.
                     qc_sized(prop <span class="kw">as fn</span>(<span class="macro-nonterminal">$ty_int</span>) -&gt; bool, <span class="macro-nonterminal">$max</span>);
                 }
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 </span><span class="kw">fn </span>little_endian() {
                     <span class="kw">fn </span>prop(n: <span class="macro-nonterminal">$ty_int</span>) -&gt; bool {
                         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">16</span>];
@@ -6528,7 +6528,7 @@ cases.
                     qc_sized(prop <span class="kw">as fn</span>(<span class="macro-nonterminal">$ty_int</span>) -&gt; bool, <span class="macro-nonterminal">$max</span>);
                 }
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 </span><span class="kw">fn </span>native_endian() {
                     <span class="kw">fn </span>prop(n: <span class="macro-nonterminal">$ty_int</span>) -&gt; bool {
                         <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="number">16</span>];
@@ -6542,14 +6542,14 @@ cases.
         (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$ty_int</span>:ty, <span class="macro-nonterminal">$max</span>:expr,
          <span class="macro-nonterminal">$read</span>:ident, <span class="macro-nonterminal">$write</span>:ident) =&gt; {
             <span class="kw">mod </span><span class="macro-nonterminal">$name </span>{
-                <span class="attribute">#[allow(unused_imports)]
+                <span class="attr">#[allow(unused_imports)]
                 </span><span class="kw">use super</span>::{qc_sized, Wi128};
                 <span class="kw">use crate</span>::{
                     BigEndian, ByteOrder, LittleEndian, NativeEndian,
                 };
                 <span class="kw">use </span>core::mem::size_of;
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 </span><span class="kw">fn </span>big_endian() {
                     <span class="kw">fn </span>prop(n: <span class="macro-nonterminal">$ty_int</span>) -&gt; bool {
                         <span class="kw">let </span>bytes = size_of::&lt;<span class="macro-nonterminal">$ty_int</span>&gt;();
@@ -6560,7 +6560,7 @@ cases.
                     qc_sized(prop <span class="kw">as fn</span>(<span class="macro-nonterminal">$ty_int</span>) -&gt; bool, <span class="macro-nonterminal">$max </span>- <span class="number">1</span>);
                 }
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 </span><span class="kw">fn </span>little_endian() {
                     <span class="kw">fn </span>prop(n: <span class="macro-nonterminal">$ty_int</span>) -&gt; bool {
                         <span class="kw">let </span>bytes = size_of::&lt;<span class="macro-nonterminal">$ty_int</span>&gt;();
@@ -6571,7 +6571,7 @@ cases.
                     qc_sized(prop <span class="kw">as fn</span>(<span class="macro-nonterminal">$ty_int</span>) -&gt; bool, <span class="macro-nonterminal">$max </span>- <span class="number">1</span>);
                 }
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 </span><span class="kw">fn </span>native_endian() {
                     <span class="kw">fn </span>prop(n: <span class="macro-nonterminal">$ty_int</span>) -&gt; bool {
                         <span class="kw">let </span>bytes = size_of::&lt;<span class="macro-nonterminal">$ty_int</span>&gt;();
@@ -7074,42 +7074,42 @@ cases.
                     BigEndian, ByteOrder, LittleEndian, NativeEndian,
                 };
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 #[should_panic]
                 </span><span class="kw">fn </span>read_big_endian() {
                     <span class="kw">let </span>buf = [<span class="number">0</span>; <span class="macro-nonterminal">$maximally_small</span>];
                     BigEndian::<span class="macro-nonterminal">$read</span>(<span class="kw-2">&amp;</span>buf);
                 }
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 #[should_panic]
                 </span><span class="kw">fn </span>read_little_endian() {
                     <span class="kw">let </span>buf = [<span class="number">0</span>; <span class="macro-nonterminal">$maximally_small</span>];
                     LittleEndian::<span class="macro-nonterminal">$read</span>(<span class="kw-2">&amp;</span>buf);
                 }
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 #[should_panic]
                 </span><span class="kw">fn </span>read_native_endian() {
                     <span class="kw">let </span>buf = [<span class="number">0</span>; <span class="macro-nonterminal">$maximally_small</span>];
                     NativeEndian::<span class="macro-nonterminal">$read</span>(<span class="kw-2">&amp;</span>buf);
                 }
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 #[should_panic]
                 </span><span class="kw">fn </span>write_big_endian() {
                     <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="macro-nonterminal">$maximally_small</span>];
                     BigEndian::<span class="macro-nonterminal">$write</span>(<span class="kw-2">&amp;mut </span>buf, <span class="macro-nonterminal">$zero</span>);
                 }
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 #[should_panic]
                 </span><span class="kw">fn </span>write_little_endian() {
                     <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="macro-nonterminal">$maximally_small</span>];
                     LittleEndian::<span class="macro-nonterminal">$write</span>(<span class="kw-2">&amp;mut </span>buf, <span class="macro-nonterminal">$zero</span>);
                 }
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 #[should_panic]
                 </span><span class="kw">fn </span>write_native_endian() {
                     <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0</span>; <span class="macro-nonterminal">$maximally_small</span>];
@@ -7123,21 +7123,21 @@ cases.
                     BigEndian, ByteOrder, LittleEndian, NativeEndian,
                 };
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 #[should_panic]
                 </span><span class="kw">fn </span>read_big_endian() {
                     <span class="kw">let </span>buf = [<span class="number">0</span>; <span class="macro-nonterminal">$maximally_small</span>];
                     BigEndian::<span class="macro-nonterminal">$read</span>(<span class="kw-2">&amp;</span>buf, <span class="macro-nonterminal">$maximally_small </span>+ <span class="number">1</span>);
                 }
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 #[should_panic]
                 </span><span class="kw">fn </span>read_little_endian() {
                     <span class="kw">let </span>buf = [<span class="number">0</span>; <span class="macro-nonterminal">$maximally_small</span>];
                     LittleEndian::<span class="macro-nonterminal">$read</span>(<span class="kw-2">&amp;</span>buf, <span class="macro-nonterminal">$maximally_small </span>+ <span class="number">1</span>);
                 }
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 #[should_panic]
                 </span><span class="kw">fn </span>read_native_endian() {
                     <span class="kw">let </span>buf = [<span class="number">0</span>; <span class="macro-nonterminal">$maximally_small</span>];
@@ -7215,7 +7215,7 @@ cases.
                     BigEndian, ByteOrder, LittleEndian, NativeEndian,
                 };
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 #[should_panic]
                 </span><span class="kw">fn </span>read_big_endian() {
                     <span class="kw">let </span>bytes = [<span class="number">0</span>; <span class="macro-nonterminal">$num_bytes</span>];
@@ -7223,7 +7223,7 @@ cases.
                     BigEndian::<span class="macro-nonterminal">$read</span>(<span class="kw-2">&amp;</span>bytes, <span class="kw-2">&amp;mut </span>numbers);
                 }
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 #[should_panic]
                 </span><span class="kw">fn </span>read_little_endian() {
                     <span class="kw">let </span>bytes = [<span class="number">0</span>; <span class="macro-nonterminal">$num_bytes</span>];
@@ -7231,7 +7231,7 @@ cases.
                     LittleEndian::<span class="macro-nonterminal">$read</span>(<span class="kw-2">&amp;</span>bytes, <span class="kw-2">&amp;mut </span>numbers);
                 }
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 #[should_panic]
                 </span><span class="kw">fn </span>read_native_endian() {
                     <span class="kw">let </span>bytes = [<span class="number">0</span>; <span class="macro-nonterminal">$num_bytes</span>];
@@ -7239,7 +7239,7 @@ cases.
                     NativeEndian::<span class="macro-nonterminal">$read</span>(<span class="kw-2">&amp;</span>bytes, <span class="kw-2">&amp;mut </span>numbers);
                 }
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 #[should_panic]
                 </span><span class="kw">fn </span>write_big_endian() {
                     <span class="kw">let </span><span class="kw-2">mut </span>bytes = [<span class="number">0</span>; <span class="macro-nonterminal">$num_bytes</span>];
@@ -7247,7 +7247,7 @@ cases.
                     BigEndian::<span class="macro-nonterminal">$write</span>(<span class="kw-2">&amp;</span>numbers, <span class="kw-2">&amp;mut </span>bytes);
                 }
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 #[should_panic]
                 </span><span class="kw">fn </span>write_little_endian() {
                     <span class="kw">let </span><span class="kw-2">mut </span>bytes = [<span class="number">0</span>; <span class="macro-nonterminal">$num_bytes</span>];
@@ -7255,7 +7255,7 @@ cases.
                     LittleEndian::<span class="macro-nonterminal">$write</span>(<span class="kw-2">&amp;</span>numbers, <span class="kw-2">&amp;mut </span>bytes);
                 }
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 #[should_panic]
                 </span><span class="kw">fn </span>write_native_endian() {
                     <span class="kw">let </span><span class="kw-2">mut </span>bytes = [<span class="number">0</span>; <span class="macro-nonterminal">$num_bytes</span>];
@@ -7382,14 +7382,14 @@ cases.
         [<span class="number">0</span>, <span class="number">0</span>]
     );
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>uint_bigger_buffer() {
         <span class="kw">use crate</span>::{ByteOrder, LittleEndian};
         <span class="kw">let </span>n = LittleEndian::read_uint(<span class="kw-2">&amp;</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>], <span class="number">5</span>);
         <span class="macro">assert_eq!</span>(n, <span class="number">0x05_0403_0201</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>regression173_array_impl() {
         <span class="kw">use crate</span>::{BigEndian, ByteOrder, LittleEndian};
 
@@ -7431,7 +7431,7 @@ cases.
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">mod </span>stdtests {
     <span class="kw">extern crate </span>quickcheck;
@@ -7458,7 +7458,7 @@ cases.
         (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$ty_int</span>:ty, <span class="macro-nonterminal">$max</span>:expr,
          <span class="macro-nonterminal">$bytes</span>:expr, <span class="macro-nonterminal">$read</span>:ident, <span class="macro-nonterminal">$write</span>:ident) =&gt; {
             <span class="kw">mod </span><span class="macro-nonterminal">$name </span>{
-                <span class="attribute">#[allow(unused_imports)]
+                <span class="attr">#[allow(unused_imports)]
                 </span><span class="kw">use </span><span class="kw">crate</span>::test::{qc_sized, Wi128};
                 <span class="kw">use crate</span>::{
                     BigEndian, LittleEndian, NativeEndian, ReadBytesExt,
@@ -7466,7 +7466,7 @@ cases.
                 };
                 <span class="kw">use </span>std::io::Cursor;
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 </span><span class="kw">fn </span>big_endian() {
                     <span class="kw">fn </span>prop(n: <span class="macro-nonterminal">$ty_int</span>) -&gt; bool {
                         <span class="kw">let </span><span class="kw-2">mut </span>wtr = <span class="macro">vec!</span>[];
@@ -7478,7 +7478,7 @@ cases.
                     qc_sized(prop <span class="kw">as fn</span>(<span class="macro-nonterminal">$ty_int</span>) -&gt; bool, <span class="macro-nonterminal">$max</span>);
                 }
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 </span><span class="kw">fn </span>little_endian() {
                     <span class="kw">fn </span>prop(n: <span class="macro-nonterminal">$ty_int</span>) -&gt; bool {
                         <span class="kw">let </span><span class="kw-2">mut </span>wtr = <span class="macro">vec!</span>[];
@@ -7489,7 +7489,7 @@ cases.
                     qc_sized(prop <span class="kw">as fn</span>(<span class="macro-nonterminal">$ty_int</span>) -&gt; bool, <span class="macro-nonterminal">$max</span>);
                 }
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 </span><span class="kw">fn </span>native_endian() {
                     <span class="kw">fn </span>prop(n: <span class="macro-nonterminal">$ty_int</span>) -&gt; bool {
                         <span class="kw">let </span><span class="kw-2">mut </span>wtr = <span class="macro">vec!</span>[];
@@ -7508,7 +7508,7 @@ cases.
         };
         (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$ty_int</span>:ty, <span class="macro-nonterminal">$max</span>:expr, <span class="macro-nonterminal">$read</span>:ident, <span class="macro-nonterminal">$write</span>:ident) =&gt; {
             <span class="kw">mod </span><span class="macro-nonterminal">$name </span>{
-                <span class="attribute">#[allow(unused_imports)]
+                <span class="attr">#[allow(unused_imports)]
                 </span><span class="kw">use </span><span class="kw">crate</span>::test::{qc_sized, Wi128};
                 <span class="kw">use crate</span>::{
                     BigEndian, LittleEndian, NativeEndian, ReadBytesExt,
@@ -7516,7 +7516,7 @@ cases.
                 };
                 <span class="kw">use </span>std::io::Cursor;
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 </span><span class="kw">fn </span>big_endian() {
                     <span class="kw">fn </span>prop(n: <span class="macro-nonterminal">$ty_int</span>) -&gt; bool {
                         <span class="kw">let </span><span class="kw-2">mut </span>wtr = <span class="macro">vec!</span>[];
@@ -7527,7 +7527,7 @@ cases.
                     qc_sized(prop <span class="kw">as fn</span>(<span class="macro-nonterminal">$ty_int</span>) -&gt; bool, <span class="macro-nonterminal">$max </span>- <span class="number">1</span>);
                 }
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 </span><span class="kw">fn </span>little_endian() {
                     <span class="kw">fn </span>prop(n: <span class="macro-nonterminal">$ty_int</span>) -&gt; bool {
                         <span class="kw">let </span><span class="kw-2">mut </span>wtr = <span class="macro">vec!</span>[];
@@ -7538,7 +7538,7 @@ cases.
                     qc_sized(prop <span class="kw">as fn</span>(<span class="macro-nonterminal">$ty_int</span>) -&gt; bool, <span class="macro-nonterminal">$max </span>- <span class="number">1</span>);
                 }
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 </span><span class="kw">fn </span>native_endian() {
                     <span class="kw">fn </span>prop(n: <span class="macro-nonterminal">$ty_int</span>) -&gt; bool {
                         <span class="kw">let </span><span class="kw-2">mut </span>wtr = <span class="macro">vec!</span>[];
@@ -8005,16 +8005,16 @@ cases.
         (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$ty_int</span>:ty, <span class="macro-nonterminal">$read</span>:ident, <span class="macro-nonterminal">$write</span>:ident, <span class="macro-nonterminal">$zero</span>:expr) =&gt; {
             <span class="kw">mod </span><span class="macro-nonterminal">$name </span>{
                 <span class="kw">use </span><span class="kw">super</span>::qc_unsized;
-                <span class="attribute">#[allow(unused_imports)]
+                <span class="attr">#[allow(unused_imports)]
                 </span><span class="kw">use </span><span class="kw">crate</span>::test::Wi128;
                 <span class="kw">use crate</span>::{
                     BigEndian, ByteOrder, LittleEndian, NativeEndian,
                 };
                 <span class="kw">use </span>core::mem::size_of;
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 </span><span class="kw">fn </span>big_endian() {
-                    <span class="attribute">#[allow(unused_unsafe)]
+                    <span class="attr">#[allow(unused_unsafe)]
                     </span><span class="kw">fn </span>prop(numbers: Vec&lt;<span class="macro-nonterminal">$ty_int</span>&gt;) -&gt; bool {
                         <span class="kw">let </span>numbers: Vec&lt;<span class="kw">_</span>&gt; =
                             numbers.into_iter().map(|x| x.clone()).collect();
@@ -8033,9 +8033,9 @@ cases.
                     qc_unsized(prop <span class="kw">as fn</span>(<span class="kw">_</span>) -&gt; bool);
                 }
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 </span><span class="kw">fn </span>little_endian() {
-                    <span class="attribute">#[allow(unused_unsafe)]
+                    <span class="attr">#[allow(unused_unsafe)]
                     </span><span class="kw">fn </span>prop(numbers: Vec&lt;<span class="macro-nonterminal">$ty_int</span>&gt;) -&gt; bool {
                         <span class="kw">let </span>numbers: Vec&lt;<span class="kw">_</span>&gt; =
                             numbers.into_iter().map(|x| x.clone()).collect();
@@ -8054,9 +8054,9 @@ cases.
                     qc_unsized(prop <span class="kw">as fn</span>(<span class="kw">_</span>) -&gt; bool);
                 }
 
-                <span class="attribute">#[test]
+                <span class="attr">#[test]
                 </span><span class="kw">fn </span>native_endian() {
-                    <span class="attribute">#[allow(unused_unsafe)]
+                    <span class="attr">#[allow(unused_unsafe)]
                     </span><span class="kw">fn </span>prop(numbers: Vec&lt;<span class="macro-nonterminal">$ty_int</span>&gt;) -&gt; bool {
                         <span class="kw">let </span>numbers: Vec&lt;<span class="kw">_</span>&gt; =
                             numbers.into_iter().map(|x| x.clone()).collect();
@@ -8103,4 +8103,4 @@ cases.
     <span class="macro">qc_slice!</span>(prop_slice_f64, f64, read_f64_into, write_f64_into, <span class="number">0.0</span>);
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="byteorder" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="byteorder" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

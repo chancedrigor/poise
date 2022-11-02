@@ -171,7 +171,7 @@
 
     <span class="comment">// On platforms that support it we can use `accept4(2)` to set `NONBLOCK`
     // and `CLOEXEC` in the call to accept the connection.
-    </span><span class="attribute">#[cfg(any(
+    </span><span class="attr">#[cfg(any(
         <span class="comment">// Android x86&#39;s seccomp profile forbids calls to `accept4(2)`
         // See https://github.com/tokio-rs/mio/issues/1445 for details
         </span>all(
@@ -198,7 +198,7 @@
     <span class="comment">// But not all platforms have the `accept4(2)` call. Luckily BSD (derived)
     // OSes inherit the non-blocking flag from the listener, so we just have to
     // set `CLOEXEC`.
-    </span><span class="attribute">#[cfg(any(
+    </span><span class="attr">#[cfg(any(
         all(target_arch = <span class="string">&quot;x86&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>),
         target_os = <span class="string">&quot;ios&quot;</span>,
         target_os = <span class="string">&quot;macos&quot;</span>,
@@ -215,7 +215,7 @@
             <span class="macro">syscall!</span>(fcntl(s.as_raw_fd(), libc::F_SETFD, libc::FD_CLOEXEC))<span class="question-mark">?</span>;
 
             <span class="comment">// See https://github.com/tokio-rs/mio/issues/1450
-            </span><span class="attribute">#[cfg(all(target_arch = <span class="string">&quot;x86&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>))]
+            </span><span class="attr">#[cfg(all(target_arch = <span class="string">&quot;x86&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>))]
             </span><span class="macro">syscall!</span>(fcntl(s.as_raw_fd(), libc::F_SETFL, libc::O_NONBLOCK))<span class="question-mark">?</span>;
 
             <span class="prelude-val">Ok</span>(s)
@@ -227,4 +227,4 @@
     </span><span class="kw">unsafe </span>{ to_socket_addr(addr.as_ptr()) }.map(|addr| (stream, addr))
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="mio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="mio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

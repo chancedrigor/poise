@@ -128,27 +128,27 @@
 ///
 /// [rand_chacha]: https://crates.io/crates/rand_chacha
 /// [rand issue]: https://github.com/rust-random/rand/issues/932
-</span><span class="attribute">#[cfg_attr(doc_cfg, doc(cfg(feature = <span class="string">&quot;std_rng&quot;</span>)))]
+</span><span class="attr">#[cfg_attr(doc_cfg, doc(cfg(feature = <span class="string">&quot;std_rng&quot;</span>)))]
 #[derive(Clone, Debug, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>StdRng(Rng);
 
 <span class="kw">impl </span>RngCore <span class="kw">for </span>StdRng {
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>next_u32(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.<span class="number">0</span>.next_u32()
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>next_u64(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; u64 {
         <span class="self">self</span>.<span class="number">0</span>.next_u64()
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>fill_bytes(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dest: <span class="kw-2">&amp;mut </span>[u8]) {
         <span class="self">self</span>.<span class="number">0</span>.fill_bytes(dest);
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>try_fill_bytes(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dest: <span class="kw-2">&amp;mut </span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
         <span class="self">self</span>.<span class="number">0</span>.try_fill_bytes(dest)
     }
@@ -157,12 +157,12 @@
 <span class="kw">impl </span>SeedableRng <span class="kw">for </span>StdRng {
     <span class="kw">type </span>Seed = &lt;Rng <span class="kw">as </span>SeedableRng&gt;::Seed;
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>from_seed(seed: <span class="self">Self</span>::Seed) -&gt; <span class="self">Self </span>{
         StdRng(Rng::from_seed(seed))
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">fn </span>from_rng&lt;R: RngCore&gt;(rng: R) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, Error&gt; {
         Rng::from_rng(rng).map(StdRng)
     }
@@ -171,16 +171,16 @@
 <span class="kw">impl </span>CryptoRng <span class="kw">for </span>StdRng {}
 
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use </span><span class="kw">crate</span>::rngs::StdRng;
     <span class="kw">use crate</span>::{RngCore, SeedableRng};
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_stdrng_construction() {
         <span class="comment">// Test value-stability of StdRng. This is expected to break any time
         // the algorithm is changed.
-        </span><span class="attribute">#[rustfmt::skip]
+        </span><span class="attr">#[rustfmt::skip]
         </span><span class="kw">let </span>seed = [<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>, <span class="number">23</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>, <span class="number">200</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>, <span class="number">210</span>,<span class="number">30</span>,<span class="number">0</span>,<span class="number">0</span>,
                     <span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>, <span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>, <span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>, <span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>];
 
@@ -196,4 +196,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rand" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rand" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

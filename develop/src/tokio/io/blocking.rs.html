@@ -292,7 +292,7 @@
 <span class="kw">use </span><span class="self">self</span>::State::<span class="kw-2">*</span>;
 
 <span class="doccomment">/// `T` should not implement _both_ Read and Write.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Blocking&lt;T&gt; {
     inner: <span class="prelude-ty">Option</span>&lt;T&gt;,
     state: State&lt;T&gt;,
@@ -300,7 +300,7 @@
     </span>need_flush: bool,
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Buf {
     buf: Vec&lt;u8&gt;,
     pos: usize,
@@ -308,7 +308,7 @@
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>MAX_BUF: usize = <span class="number">16 </span>* <span class="number">1024</span>;
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">enum </span>State&lt;T&gt; {
     Idle(<span class="prelude-ty">Option</span>&lt;Buf&gt;),
     Busy(sys::Blocking&lt;(io::Result&lt;usize&gt;, Buf, T)&gt;),
@@ -316,7 +316,7 @@
 
 <span class="macro">cfg_io_blocking! </span>{
     <span class="kw">impl</span>&lt;T&gt; Blocking&lt;T&gt; {
-        <span class="attribute">#[cfg_attr(feature = <span class="string">&quot;fs&quot;</span>, allow(dead_code))]
+        <span class="attr">#[cfg_attr(feature = <span class="string">&quot;fs&quot;</span>, allow(dead_code))]
         </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(inner: T) -&gt; Blocking&lt;T&gt; {
             Blocking {
                 inner: <span class="prelude-val">Some</span>(inner),
@@ -559,4 +559,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

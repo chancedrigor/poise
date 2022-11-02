@@ -147,13 +147,13 @@
 <span class="kw">use </span><span class="kw">crate</span>::json::prelude::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::model::id::{RoleId, UserId};
 
-<span class="attribute">#[derive(Debug, Clone, Serialize, Deserialize)]
+<span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub enum </span>ParseValue {
-    <span class="attribute">#[serde(rename = <span class="string">&quot;everyone&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">&quot;everyone&quot;</span>)]
     </span>Everyone,
-    <span class="attribute">#[serde(rename = <span class="string">&quot;users&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">&quot;users&quot;</span>)]
     </span>Users,
-    <span class="attribute">#[serde(rename = <span class="string">&quot;roles&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">&quot;roles&quot;</span>)]
     </span>Roles,
 }
 
@@ -189,7 +189,7 @@
 ///
 /// [`ChannelId::send_message`]: crate::model::id::ChannelId::send_message
 /// [`ChannelId::edit_message`]: crate::model::id::ChannelId::edit_message
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>CreateAllowedMentions(<span class="kw">pub </span>HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str, Value&gt;);
 
 <span class="kw">impl </span>CreateAllowedMentions {
@@ -197,7 +197,7 @@
     ///
     /// If users or roles is specified, [`Self::users`] and [`Self::roles`] will not work.\
     /// If you use either, do not specify it&#39;s same type here.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>parse(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: ParseValue) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="kw">let </span>val = <span class="self">self</span>.<span class="number">0</span>.entry(<span class="string">&quot;parse&quot;</span>).or_insert_with(|| Value::from(Vec::&lt;Value&gt;::new()));
 
@@ -211,7 +211,7 @@
     ///
     /// If parse is empty, the message will not mention anyone, unless they are specified on
     /// [`Self::users`] or [`Self::roles`].
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>empty_parse(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="kw">let </span>val = <span class="self">self</span>.<span class="number">0</span>.entry(<span class="string">&quot;parse&quot;</span>).or_insert_with(|| Value::from(Vec::&lt;Value&gt;::new()));
 
@@ -222,7 +222,7 @@
     </span>}
 
     <span class="doccomment">/// Sets the users that will be allowed to be mentioned.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>users&lt;U: Into&lt;UserId&gt;&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, users: <span class="kw">impl </span>IntoIterator&lt;Item = U&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.<span class="number">0</span>.insert(
             <span class="string">&quot;users&quot;</span>,
@@ -234,7 +234,7 @@
     </span>}
 
     <span class="doccomment">/// Makes users unable to be mentioned.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>empty_users(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="kw">let </span>val = <span class="self">self</span>.<span class="number">0</span>.entry(<span class="string">&quot;users&quot;</span>).or_insert_with(|| Value::from(Vec::&lt;Value&gt;::new()));
 
@@ -245,7 +245,7 @@
     </span>}
 
     <span class="doccomment">/// Sets the roles that will be allowed to be mentioned.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>roles&lt;R: Into&lt;RoleId&gt;&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, users: <span class="kw">impl </span>IntoIterator&lt;Item = R&gt;) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.<span class="number">0</span>.insert(
             <span class="string">&quot;roles&quot;</span>,
@@ -257,7 +257,7 @@
     </span>}
 
     <span class="doccomment">/// Makes roles unable to be mentioned.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>empty_roles(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="kw">let </span>val = <span class="self">self</span>.<span class="number">0</span>.entry(<span class="string">&quot;roles&quot;</span>).or_insert_with(|| Value::from(Vec::&lt;Value&gt;::new()));
 
@@ -268,7 +268,7 @@
     </span>}
 
     <span class="doccomment">/// Makes the reply mention/ping the user.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>replied_user(<span class="kw-2">&amp;mut </span><span class="self">self</span>, mention_user: bool) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.<span class="number">0</span>.insert(<span class="string">&quot;replied_user&quot;</span>, Value::from(mention_user));
 
@@ -283,4 +283,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

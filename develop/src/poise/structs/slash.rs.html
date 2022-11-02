@@ -283,7 +283,7 @@
 /// [`crate::ApplicationContext`] because command checks are invoked for autocomplete interactions
 /// too: we don&#39;t want poise accidentally leaking sensitive information through autocomplete
 /// suggestions
-</span><span class="attribute">#[derive(Copy, Clone, Debug)]
+</span><span class="attr">#[derive(Copy, Clone, Debug)]
 </span><span class="kw">pub enum </span>ApplicationCommandOrAutocompleteInteraction&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="doccomment">/// An application command interaction
     </span>ApplicationCommand(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::ApplicationCommandInteraction),
@@ -360,11 +360,11 @@
 }
 
 <span class="doccomment">/// Application command specific context passed to command invocations.
-</span><span class="attribute">#[derive(derivative::Derivative)]
+</span><span class="attr">#[derive(derivative::Derivative)]
 #[derivative(Debug(bound = <span class="string">&quot;&quot;</span>))]
 </span><span class="kw">pub struct </span>ApplicationContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt; {
     <span class="doccomment">/// Serenity&#39;s context, like HTTP or cache
-    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
     </span><span class="kw">pub </span>discord: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context,
     <span class="doccomment">/// The interaction which triggered this command execution.
     </span><span class="kw">pub </span>interaction: ApplicationCommandOrAutocompleteInteraction&lt;<span class="lifetime">&#39;a</span>&gt;,
@@ -381,7 +381,7 @@
     <span class="doccomment">/// Read-only reference to the framework
     ///
     /// Useful if you need the list of commands, for example for a custom help command
-    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
     </span><span class="kw">pub </span>framework: <span class="kw">crate</span>::FrameworkContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     <span class="doccomment">/// If the invoked command was a subcommand, these are the parent commands, ordered top down.
     </span><span class="kw">pub </span>parent_commands: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;],
@@ -389,12 +389,12 @@
     </span><span class="kw">pub </span>command: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;,
     <span class="doccomment">/// Your custom user data
     </span><span class="comment">// TODO: redundant with framework
-    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
     </span><span class="kw">pub </span>data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>U,
     <span class="doccomment">/// Custom user data carried across a single command invocation
     </span><span class="kw">pub </span>invocation_data: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>tokio::sync::Mutex&lt;Box&lt;<span class="kw">dyn </span>std::any::Any + Send + Sync&gt;&gt;,
     <span class="comment">// #[non_exhaustive] forbids struct update syntax for ?? reason
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     </span><span class="kw">pub </span>__non_exhaustive: (),
 }
 <span class="kw">impl</span>&lt;U, E&gt; Clone <span class="kw">for </span>ApplicationContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt; {
@@ -434,12 +434,12 @@
 }
 
 <span class="doccomment">/// Possible actions that a context menu entry can have
-</span><span class="attribute">#[derive(derivative::Derivative)]
+</span><span class="attr">#[derive(derivative::Derivative)]
 #[derivative(Debug(bound = <span class="string">&quot;&quot;</span>))]
 </span><span class="kw">pub enum </span>ContextMenuCommandAction&lt;U, E&gt; {
     <span class="doccomment">/// Context menu entry on a user
     </span>User(
-        <span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+        <span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
         </span><span class="kw">fn</span>(
             ApplicationContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt;,
             serenity::User,
@@ -447,7 +447,7 @@
     ),
     <span class="doccomment">/// Context menu entry on a message
     </span>Message(
-        <span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+        <span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
         </span><span class="kw">fn</span>(
             ApplicationContext&lt;<span class="lifetime">&#39;_</span>, U, E&gt;,
             serenity::Message,
@@ -462,7 +462,7 @@
 }
 
 <span class="doccomment">/// A single drop-down choice in a slash command choice parameter
-</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone)]
 </span><span class="kw">pub struct </span>CommandParameterChoice {
     <span class="doccomment">/// Label of this choice
     </span><span class="kw">pub </span>name: String,
@@ -471,7 +471,7 @@
 }
 
 <span class="doccomment">/// A single parameter of a [`crate::Command`]
-</span><span class="attribute">#[derive(Clone, derivative::Derivative)]
+</span><span class="attr">#[derive(Clone, derivative::Derivative)]
 #[derivative(Debug(bound = <span class="string">&quot;&quot;</span>))]
 </span><span class="kw">pub struct </span>CommandParameter&lt;U, E&gt; {
     <span class="doccomment">/// Name of this command parameter
@@ -499,12 +499,12 @@
     /// |b| b.kind(serenity::CommandOptionType::Integer).min_int_value(0).max_int_value(u32::MAX)
     /// # ;
     /// ```
-    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
     </span><span class="kw">pub </span>type_setter: <span class="prelude-ty">Option</span>&lt;<span class="kw">fn</span>(<span class="kw-2">&amp;mut </span>serenity::CreateApplicationCommandOption)&gt;,
     <span class="doccomment">/// Optionally, a callback that is invoked on autocomplete interactions. This closure should
     /// extract the partial argument from the given JSON value and generate the autocomplete
     /// response which contains the list of autocomplete suggestions.
-    </span><span class="attribute">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
+    </span><span class="attr">#[derivative(Debug = <span class="string">&quot;ignore&quot;</span>)]
     </span><span class="kw">pub </span>autocomplete_callback: <span class="prelude-ty">Option</span>&lt;
         <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">fn</span>(
             <span class="kw">crate</span>::ApplicationContext&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
@@ -549,4 +549,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

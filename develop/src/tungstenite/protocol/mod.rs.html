@@ -757,7 +757,7 @@
 };
 
 <span class="doccomment">/// Indicates a Client or Server role of the websocket
-</span><span class="attribute">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+</span><span class="attr">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>Role {
     <span class="doccomment">/// This socket is a server
     </span>Server,
@@ -766,7 +766,7 @@
 }
 
 <span class="doccomment">/// The configuration for WebSocket connection.
-</span><span class="attribute">#[derive(Debug, Clone, Copy)]
+</span><span class="attr">#[derive(Debug, Clone, Copy)]
 </span><span class="kw">pub struct </span>WebSocketConfig {
     <span class="doccomment">/// The size of the send queue. You can use it to turn on/off the backpressure features. `None`
     /// means here that the size of the queue is unlimited. The default value is the unlimited
@@ -804,7 +804,7 @@
 ///
 /// This is THE structure you want to create to be able to speak the WebSocket protocol.
 /// It may be created by calling `connect`, `accept` or `client` functions.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>WebSocket&lt;Stream&gt; {
     <span class="doccomment">/// The underlying socket.
     </span>socket: Stream,
@@ -956,7 +956,7 @@
 }
 
 <span class="doccomment">/// A context for managing WebSocket stream.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>WebSocketContext {
     <span class="doccomment">/// Server or client?
     </span>role: Role,
@@ -1282,7 +1282,7 @@
     }
 
     <span class="doccomment">/// Received a close frame. Tells if we need to return a close frame to the user.
-    </span><span class="attribute">#[allow(clippy::option_option)]
+    </span><span class="attr">#[allow(clippy::option_option)]
     </span><span class="kw">fn </span>do_close&lt;<span class="lifetime">&#39;t</span>&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, close: <span class="prelude-ty">Option</span>&lt;CloseFrame&lt;<span class="lifetime">&#39;t</span>&gt;&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="prelude-ty">Option</span>&lt;CloseFrame&lt;<span class="lifetime">&#39;t</span>&gt;&gt;&gt; {
         <span class="macro">debug!</span>(<span class="string">&quot;Received close frame: {:?}&quot;</span>, close);
         <span class="kw">match </span><span class="self">self</span>.state {
@@ -1339,7 +1339,7 @@
 }
 
 <span class="doccomment">/// The current connection state.
-</span><span class="attribute">#[derive(Debug, PartialEq, Eq, Clone, Copy)]
+</span><span class="attr">#[derive(Debug, PartialEq, Eq, Clone, Copy)]
 </span><span class="kw">enum </span>WebSocketState {
     <span class="doccomment">/// The connection is active.
     </span>Active,
@@ -1395,7 +1395,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::{Message, Role, WebSocket, WebSocketConfig};
     <span class="kw">use </span><span class="kw">crate</span>::error::{CapacityError, Error};
@@ -1419,7 +1419,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>receive_messages() {
         <span class="kw">let </span>incoming = Cursor::new(<span class="macro">vec!</span>[
             <span class="number">0x89</span>, <span class="number">0x02</span>, <span class="number">0x01</span>, <span class="number">0x02</span>, <span class="number">0x8a</span>, <span class="number">0x01</span>, <span class="number">0x03</span>, <span class="number">0x01</span>, <span class="number">0x07</span>, <span class="number">0x48</span>, <span class="number">0x65</span>, <span class="number">0x6c</span>, <span class="number">0x6c</span>, <span class="number">0x6f</span>,
@@ -1433,7 +1433,7 @@
         <span class="macro">assert_eq!</span>(socket.read_message().unwrap(), Message::Binary(<span class="macro">vec!</span>[<span class="number">0x01</span>, <span class="number">0x02</span>, <span class="number">0x03</span>]));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>size_limiting_text_fragmented() {
         <span class="kw">let </span>incoming = Cursor::new(<span class="macro">vec!</span>[
             <span class="number">0x01</span>, <span class="number">0x07</span>, <span class="number">0x48</span>, <span class="number">0x65</span>, <span class="number">0x6c</span>, <span class="number">0x6c</span>, <span class="number">0x6f</span>, <span class="number">0x2c</span>, <span class="number">0x20</span>, <span class="number">0x80</span>, <span class="number">0x06</span>, <span class="number">0x57</span>, <span class="number">0x6f</span>, <span class="number">0x72</span>,
@@ -1448,7 +1448,7 @@
         ));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>size_limiting_binary() {
         <span class="kw">let </span>incoming = Cursor::new(<span class="macro">vec!</span>[<span class="number">0x82</span>, <span class="number">0x03</span>, <span class="number">0x01</span>, <span class="number">0x02</span>, <span class="number">0x03</span>]);
         <span class="kw">let </span>limit = WebSocketConfig { max_message_size: <span class="prelude-val">Some</span>(<span class="number">2</span>), ..WebSocketConfig::default() };
@@ -1461,4 +1461,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tungstenite" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

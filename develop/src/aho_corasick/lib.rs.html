@@ -476,11 +476,11 @@ disabled via
 [`AhoCorasickBuilder::prefilter`](struct.AhoCorasickBuilder.html#method.prefilter).
 */
 
-</span><span class="attribute">#![deny(missing_docs)]
+</span><span class="attr">#![deny(missing_docs)]
 
 </span><span class="comment">// We can never be truly no_std, but we could be alloc-only some day, so
 // require the std feature for now.
-</span><span class="attribute">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
+</span><span class="attr">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
 </span><span class="macro">compile_error!</span>(<span class="string">&quot;`std` feature is currently required to build this crate&quot;</span>);
 
 <span class="comment">// #[cfg(doctest)]
@@ -508,7 +508,7 @@ disabled via
 <span class="kw">pub mod </span>packed;
 <span class="kw">mod </span>prefilter;
 <span class="kw">mod </span>state_id;
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests;
 
 <span class="doccomment">/// A representation of a match reported by an Aho-Corasick automaton.
@@ -532,7 +532,7 @@ disabled via
 /// assert_eq!(4, mat.start());
 /// assert_eq!(7, mat.end());
 /// ```
-</span><span class="attribute">#[derive(Clone, Debug, Eq, Hash, PartialEq)]
+</span><span class="attr">#[derive(Clone, Debug, Eq, Hash, PartialEq)]
 </span><span class="kw">pub struct </span>Match {
     <span class="doccomment">/// The pattern id.
     </span>pattern: usize,
@@ -555,19 +555,19 @@ disabled via
     /// was originally inserted into the corresponding automaton. The first
     /// pattern has identifier `0`, and each subsequent pattern is `1`, `2`
     /// and so on.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>pattern(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.pattern
     }
 
     <span class="doccomment">/// The starting position of the match.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>start(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.end - <span class="self">self</span>.len
     }
 
     <span class="doccomment">/// The ending position of the match.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>end(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.end
     }
@@ -577,20 +577,20 @@ disabled via
     ///
     /// An empty match can only be returned when the empty string was among
     /// the patterns used to build the Aho-Corasick automaton.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_empty(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.len == <span class="number">0
     </span>}
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>increment(<span class="kw-2">&amp;</span><span class="self">self</span>, by: usize) -&gt; Match {
         Match { pattern: <span class="self">self</span>.pattern, len: <span class="self">self</span>.len, end: <span class="self">self</span>.end + by }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from_span(id: usize, start: usize, end: usize) -&gt; Match {
         Match { pattern: id, len: end - start, end }
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="aho_corasick" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="aho_corasick" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

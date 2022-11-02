@@ -235,7 +235,7 @@
 <span id="235">235</span>
 <span id="236">236</span>
 <span id="237">237</span>
-</pre><pre class="rust"><code><span class="attribute">#![cfg_attr(not(feature = <span class="string">&quot;rt&quot;</span>), allow(dead_code))]
+</pre><pre class="rust"><code><span class="attr">#![cfg_attr(not(feature = <span class="string">&quot;rt&quot;</span>), allow(dead_code))]
 
 </span><span class="doccomment">//! Source of time abstraction.
 //!
@@ -246,7 +246,7 @@
 </span><span class="macro">cfg_not_test_util! </span>{
     <span class="kw">use </span><span class="kw">crate</span>::time::{Instant};
 
-    <span class="attribute">#[derive(Debug, Clone)]
+    <span class="attr">#[derive(Debug, Clone)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Clock {}
 
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>now() -&gt; Instant {
@@ -281,12 +281,12 @@
     }
 
     <span class="doccomment">/// A handle to a source of time.
-    </span><span class="attribute">#[derive(Debug, Clone)]
+    </span><span class="attr">#[derive(Debug, Clone)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Clock {
         inner: Arc&lt;Mutex&lt;Inner&gt;&gt;,
     }
 
-    <span class="attribute">#[derive(Debug)]
+    <span class="attr">#[derive(Debug)]
     </span><span class="kw">struct </span>Inner {
         <span class="doccomment">/// True if the ability to pause time is enabled.
         </span>enable_pausing: bool,
@@ -333,7 +333,7 @@
     ///
     /// [`Sleep`]: crate::time::Sleep
     /// [`advance`]: crate::time::advance
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>pause() {
         <span class="kw">let </span>clock = clock().expect(<span class="string">&quot;time cannot be frozen from outside the Tokio runtime&quot;</span>);
         clock.pause();
@@ -348,7 +348,7 @@
     ///
     /// Panics if time is not frozen or if called from outside of the Tokio
     /// runtime.
-    </span><span class="attribute">#[track_caller]
+    </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>resume() {
         <span class="kw">let </span>clock = clock().expect(<span class="string">&quot;time cannot be frozen from outside the Tokio runtime&quot;</span>);
         <span class="kw">let </span><span class="kw-2">mut </span>inner = clock.inner.lock();
@@ -428,7 +428,7 @@
             clock
         }
 
-        <span class="attribute">#[track_caller]
+        <span class="attr">#[track_caller]
         </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>pause(<span class="kw-2">&amp;</span><span class="self">self</span>) {
             <span class="kw">let </span><span class="kw-2">mut </span>inner = <span class="self">self</span>.inner.lock();
 
@@ -448,7 +448,7 @@
             inner.unfrozen.is_none()
         }
 
-        <span class="attribute">#[track_caller]
+        <span class="attr">#[track_caller]
         </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>advance(<span class="kw-2">&amp;</span><span class="self">self</span>, duration: Duration) {
             <span class="kw">let </span><span class="kw-2">mut </span>inner = <span class="self">self</span>.inner.lock();
 
@@ -473,4 +473,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

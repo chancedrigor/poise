@@ -466,7 +466,7 @@
 <span class="doccomment">/// A guard to which the protected data can be accessed
 ///
 /// When the guard falls out of scope it will release the lock.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>MutexGuard&lt;<span class="lifetime">&#39;a</span>, T: <span class="question-mark">?</span>Sized + <span class="lifetime">&#39;a</span>&gt;
 {
     lock: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>AtomicBool,
@@ -622,7 +622,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span>std::prelude::v1::<span class="kw-2">*</span>;
 
@@ -633,17 +633,17 @@
 
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[derive(Eq, PartialEq, Debug)]
+    <span class="attr">#[derive(Eq, PartialEq, Debug)]
     </span><span class="kw">struct </span>NonCopy(i32);
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>smoke() {
         <span class="kw">let </span>m = Mutex::new(());
         drop(m.lock());
         drop(m.lock());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>lots_and_lots() {
         <span class="kw">static </span>M: Mutex&lt;()&gt;  = Mutex::new(());
         <span class="kw">static </span><span class="kw-2">mut </span>CNT: u32 = <span class="number">0</span>;
@@ -674,7 +674,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw">unsafe </span>{CNT}, J * K * <span class="number">2</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>try_lock() {
         <span class="kw">let </span>mutex = Mutex::new(<span class="number">42</span>);
 
@@ -692,13 +692,13 @@
         <span class="macro">assert_eq!</span>(c.as_ref().map(|r| <span class="kw-2">**</span>r), <span class="prelude-val">Some</span>(<span class="number">42</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_into_inner() {
         <span class="kw">let </span>m = Mutex::new(NonCopy(<span class="number">10</span>));
         <span class="macro">assert_eq!</span>(m.into_inner(), NonCopy(<span class="number">10</span>));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_into_inner_drop() {
         <span class="kw">struct </span>Foo(Arc&lt;AtomicUsize&gt;);
         <span class="kw">impl </span>Drop <span class="kw">for </span>Foo {
@@ -716,7 +716,7 @@
         <span class="macro">assert_eq!</span>(num_drops.load(Ordering::SeqCst), <span class="number">1</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_mutex_arc_nested() {
         <span class="comment">// Tests nested mutexes and access
         // to underlying data.
@@ -732,7 +732,7 @@
         rx.recv().unwrap();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_mutex_arc_access_in_unwind() {
         <span class="kw">let </span>arc = Arc::new(Mutex::new(<span class="number">1</span>));
         <span class="kw">let </span>arc2 = arc.clone();
@@ -752,7 +752,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">*</span>lock, <span class="number">2</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_mutex_unsized() {
         <span class="kw">let </span>mutex: <span class="kw-2">&amp;</span>Mutex&lt;[i32]&gt; = <span class="kw-2">&amp;</span>Mutex::new([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);
         {
@@ -764,7 +764,7 @@
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;*</span>mutex.lock(), comp);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_mutex_force_lock() {
         <span class="kw">let </span>lock = Mutex::new(());
         ::std::mem::forget(lock.lock());
@@ -775,4 +775,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="spin" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="spin" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -529,7 +529,7 @@
 </pre><pre class="rust"><code><span class="comment">// Currently, rust warns when an unsafe fn contains an unsafe {} block. However,
 // in the future, this will change to the reverse. For now, suppress this
 // warning and generally stick with being explicit about unsafety.
-</span><span class="attribute">#![allow(unused_unsafe)]
+</span><span class="attr">#![allow(unused_unsafe)]
 #![cfg_attr(not(feature = <span class="string">&quot;rt&quot;</span>), allow(dead_code))]
 
 </span><span class="doccomment">//! Time driver.
@@ -609,7 +609,7 @@
 /// [sleep]: crate::time::Sleep
 /// [timeout]: crate::time::Timeout
 /// [interval]: crate::time::Interval
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Driver&lt;P: Park + <span class="lifetime">&#39;static</span>&gt; {
     <span class="doccomment">/// Timing backend in use.
     </span>time_source: ClockTime,
@@ -626,12 +626,12 @@
     //
     // While it may look racy, it only has any effect when the clock is paused
     // and pausing the clock is restricted to a single-threaded runtime.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;test-util&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;test-util&quot;</span>)]
     </span>did_wake: Arc&lt;AtomicBool&gt;,
 }
 
 <span class="doccomment">/// A structure which handles conversion from Instants to u64 timestamps.
-</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone)]
 </span><span class="kw">pub</span>(<span class="self">self</span>) <span class="kw">struct </span>ClockTime {
     clock: <span class="kw">super</span>::clock::Clock,
     start_time: Instant,
@@ -715,7 +715,7 @@
             time_source,
             handle: Handle::new(Arc::new(inner)),
             park,
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;test-util&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;test-util&quot;</span>)]
             </span>did_wake: Arc::new(AtomicBool::new(<span class="bool-val">false</span>)),
         }
     }
@@ -995,7 +995,7 @@
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>TimerUnpark&lt;P: Park + <span class="lifetime">&#39;static</span>&gt; {
     inner: P::Unpark,
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;test-util&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;test-util&quot;</span>)]
     </span>did_wake: Arc&lt;AtomicBool&gt;,
 }
 
@@ -1004,7 +1004,7 @@
         TimerUnpark {
             inner: driver.park.unpark(),
 
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;test-util&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;test-util&quot;</span>)]
             </span>did_wake: driver.did_wake.clone(),
         }
     }
@@ -1012,7 +1012,7 @@
 
 <span class="kw">impl</span>&lt;P: Park + <span class="lifetime">&#39;static</span>&gt; Unpark <span class="kw">for </span>TimerUnpark&lt;P&gt; {
     <span class="kw">fn </span>unpark(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;test-util&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;test-util&quot;</span>)]
         </span><span class="self">self</span>.did_wake.store(<span class="bool-val">true</span>, Ordering::SeqCst);
 
         <span class="self">self</span>.inner.unpark();
@@ -1052,7 +1052,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests;
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -339,7 +339,7 @@
 </pre><pre class="rust"><code><span class="doccomment">//! A macro that generates backtracking-capable argument parsing code, given a list of parameter
 //! types and attributes
 
-</span><span class="attribute">#[doc(hidden)]
+</span><span class="attr">#[doc(hidden)]
 #[macro_export]
 </span><span class="macro">macro_rules! </span>_parse_prefix {
     <span class="comment">// All arguments have been consumed
@@ -374,7 +374,7 @@
 
     <span class="comment">// Consume Option&lt;T&gt; lazy-first
     </span>( <span class="macro-nonterminal">$ctx</span>:ident <span class="macro-nonterminal">$msg</span>:ident <span class="macro-nonterminal">$args</span>:ident <span class="macro-nonterminal">$attachment_index</span>:ident =&gt; [ <span class="macro-nonterminal">$error</span>:ident $(<span class="macro-nonterminal">$preamble</span>:tt)* ]
-        (<span class="attribute">#[lazy] </span><span class="prelude-ty">Option</span>&lt;<span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty </span>$(,)<span class="question-mark">?</span>&gt;)
+        (<span class="attr">#[lazy] </span><span class="prelude-ty">Option</span>&lt;<span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty </span>$(,)<span class="question-mark">?</span>&gt;)
         $( <span class="macro-nonterminal">$rest</span>:tt )*
     ) =&gt; {
         <span class="kw">let </span>token: <span class="prelude-ty">Option</span>&lt;<span class="macro-nonterminal">$</span><span class="kw">type</span>&gt; = <span class="prelude-val">None</span>;
@@ -390,7 +390,7 @@
 
     <span class="comment">// Consume #[rest] Option&lt;T&gt; until the end of the input
     </span>( <span class="macro-nonterminal">$ctx</span>:ident <span class="macro-nonterminal">$msg</span>:ident <span class="macro-nonterminal">$args</span>:ident <span class="macro-nonterminal">$attachment_index</span>:ident =&gt; [ <span class="macro-nonterminal">$error</span>:ident $(<span class="macro-nonterminal">$preamble</span>:tt)* ]
-        (<span class="attribute">#[rest] </span><span class="prelude-ty">Option</span>&lt;<span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty </span>$(,)<span class="question-mark">?</span>&gt;)
+        (<span class="attr">#[rest] </span><span class="prelude-ty">Option</span>&lt;<span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty </span>$(,)<span class="question-mark">?</span>&gt;)
         $( <span class="macro-nonterminal">$rest</span>:tt )*
     ) =&gt; {
         <span class="kw">if </span><span class="macro-nonterminal">$args</span>.trim_start().is_empty() {
@@ -453,7 +453,7 @@
     // Consume #[rest] T as the last argument
     </span>( <span class="macro-nonterminal">$ctx</span>:ident <span class="macro-nonterminal">$msg</span>:ident <span class="macro-nonterminal">$args</span>:ident <span class="macro-nonterminal">$attachment_index</span>:ident =&gt; [ <span class="macro-nonterminal">$error</span>:ident $(<span class="macro-nonterminal">$preamble</span>:tt)* ]
         <span class="comment">// question to my former self: why the $(poise::)* ?
-        </span>(<span class="attribute">#[rest] </span>$(poise::)* <span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty</span>)
+        </span>(<span class="attr">#[rest] </span>$(poise::)* <span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty</span>)
     ) =&gt; {
         <span class="kw">let </span>input = <span class="macro-nonterminal">$args</span>.trim_start();
         <span class="kw">if </span>input.is_empty() {
@@ -473,7 +473,7 @@
 
     <span class="comment">// Consume #[flag] FLAGNAME
     </span>( <span class="macro-nonterminal">$ctx</span>:ident <span class="macro-nonterminal">$msg</span>:ident <span class="macro-nonterminal">$args</span>:ident <span class="macro-nonterminal">$attachment_index</span>:ident =&gt; [ <span class="macro-nonterminal">$error</span>:ident $(<span class="macro-nonterminal">$preamble</span>:tt)* ]
-        (<span class="attribute">#[flag] </span><span class="macro-nonterminal">$name</span>:literal)
+        (<span class="attr">#[flag] </span><span class="macro-nonterminal">$name</span>:literal)
         $( <span class="macro-nonterminal">$rest</span>:tt )*
     ) =&gt; {
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::pop_prefix_argument!</span>(<span class="macro-nonterminal">String</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$args</span>, <span class="macro-nonterminal">$attachment_index</span>, <span class="macro-nonterminal">$ctx</span>, <span class="macro-nonterminal">$msg</span>).<span class="kw">await </span>{
@@ -555,10 +555,10 @@ assert_eq!(
 # Ok(()) }
 ```
 */
-</span><span class="attribute">#[macro_export]
+</span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>parse_prefix_args {
     (<span class="macro-nonterminal">$ctx</span>:expr, <span class="macro-nonterminal">$msg</span>:expr, <span class="macro-nonterminal">$args</span>:expr, <span class="macro-nonterminal">$attachment_index</span>:expr =&gt; $(
-        $( <span class="attribute">#[<span class="macro-nonterminal">$attr</span>:ident] </span>)<span class="question-mark">?
+        $( <span class="attr">#[<span class="macro-nonterminal">$attr</span>:ident] </span>)<span class="question-mark">?
         </span>( $(<span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">tt</span>)* )
     ),* $(,)<span class="question-mark">? </span>) =&gt; {
         <span class="kw">async </span>{
@@ -575,7 +575,7 @@ assert_eq!(
             <span class="macro-nonterminal">$</span><span class="macro">crate::_parse_prefix!</span>(
                 <span class="macro-nonterminal">ctx </span>msg args attachment_index =&gt; [error]
                 $(
-                    ($( <span class="attribute">#[<span class="macro-nonterminal">$attr</span>] </span>)<span class="question-mark">? </span>$(<span class="macro-nonterminal">$</span><span class="kw">type</span>)<span class="kw-2">*</span>)
+                    ($( <span class="attr">#[<span class="macro-nonterminal">$attr</span>] </span>)<span class="question-mark">? </span>$(<span class="macro-nonterminal">$</span><span class="kw">type</span>)<span class="kw-2">*</span>)
                 )*
             );
             <span class="prelude-val">Err</span>(<span class="macro-nonterminal">error</span>)
@@ -583,11 +583,11 @@ assert_eq!(
     };
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[tokio::test]
+    <span class="attr">#[tokio::test]
     </span><span class="kw">async fn </span>test_parse_args() {
         <span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
 
@@ -599,7 +599,7 @@ assert_eq!(
             ),
             shard_id: Default::default(),
             http: std::sync::Arc::new(::serenity::http::Http::new(<span class="string">&quot;example&quot;</span>)),
-            <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
             </span>cache: Default::default(),
         };
         <span class="kw">let </span>msg = serenity::CustomMessage::new().build();
@@ -642,32 +642,32 @@ assert_eq!(
             ),
         );
         <span class="macro">assert_eq!</span>(
-            <span class="macro">parse_prefix_args!</span>(<span class="kw-2">&amp;</span>ctx, <span class="kw-2">&amp;</span>msg, <span class="string">&quot;hi&quot;</span>, <span class="number">0 </span>=&gt; <span class="attribute">#[lazy] </span>(<span class="prelude-ty">Option</span>&lt;String&gt;), (<span class="prelude-ty">Option</span>&lt;String&gt;))
+            <span class="macro">parse_prefix_args!</span>(<span class="kw-2">&amp;</span>ctx, <span class="kw-2">&amp;</span>msg, <span class="string">&quot;hi&quot;</span>, <span class="number">0 </span>=&gt; <span class="attr">#[lazy] </span>(<span class="prelude-ty">Option</span>&lt;String&gt;), (<span class="prelude-ty">Option</span>&lt;String&gt;))
                 .<span class="kw">await
                 </span>.unwrap(),
             (<span class="prelude-val">None</span>, <span class="prelude-val">Some</span>(<span class="string">&quot;hi&quot;</span>.into())),
         );
         <span class="macro">assert_eq!</span>(
-            <span class="macro">parse_prefix_args!</span>(<span class="kw-2">&amp;</span>ctx, <span class="kw-2">&amp;</span>msg, <span class="string">&quot;a b c&quot;</span>, <span class="number">0 </span>=&gt; (String), <span class="attribute">#[rest] </span>(String))
+            <span class="macro">parse_prefix_args!</span>(<span class="kw-2">&amp;</span>ctx, <span class="kw-2">&amp;</span>msg, <span class="string">&quot;a b c&quot;</span>, <span class="number">0 </span>=&gt; (String), <span class="attr">#[rest] </span>(String))
                 .<span class="kw">await
                 </span>.unwrap(),
             (<span class="string">&quot;a&quot;</span>.into(), <span class="string">&quot;b c&quot;</span>.into()),
         );
         <span class="macro">assert_eq!</span>(
-            <span class="macro">parse_prefix_args!</span>(<span class="kw-2">&amp;</span>ctx, <span class="kw-2">&amp;</span>msg, <span class="string">&quot;a b c&quot;</span>, <span class="number">0 </span>=&gt; (String), <span class="attribute">#[rest] </span>(String))
+            <span class="macro">parse_prefix_args!</span>(<span class="kw-2">&amp;</span>ctx, <span class="kw-2">&amp;</span>msg, <span class="string">&quot;a b c&quot;</span>, <span class="number">0 </span>=&gt; (String), <span class="attr">#[rest] </span>(String))
                 .<span class="kw">await
                 </span>.unwrap(),
             (<span class="string">&quot;a&quot;</span>.into(), <span class="string">&quot;b c&quot;</span>.into()),
         );
         <span class="macro">assert!</span>(
-            <span class="macro">parse_prefix_args!</span>(<span class="kw-2">&amp;</span>ctx, <span class="kw-2">&amp;</span>msg, <span class="string">&quot;hello&quot;</span>, <span class="number">0 </span>=&gt; <span class="attribute">#[flag] </span>(<span class="string">&quot;hello&quot;</span>), <span class="attribute">#[rest] </span>(String))
+            <span class="macro">parse_prefix_args!</span>(<span class="kw-2">&amp;</span>ctx, <span class="kw-2">&amp;</span>msg, <span class="string">&quot;hello&quot;</span>, <span class="number">0 </span>=&gt; <span class="attr">#[flag] </span>(<span class="string">&quot;hello&quot;</span>), <span class="attr">#[rest] </span>(String))
                 .<span class="kw">await
                 </span>.unwrap_err()
                 .<span class="number">0
                 </span>.is::&lt;<span class="kw">crate</span>::TooFewArguments&gt;(),
         );
         <span class="macro">assert_eq!</span>(
-            <span class="macro">parse_prefix_args!</span>(<span class="kw-2">&amp;</span>ctx, <span class="kw-2">&amp;</span>msg, <span class="string">&quot;helloo&quot;</span>, <span class="number">0 </span>=&gt; <span class="attribute">#[flag] </span>(<span class="string">&quot;hello&quot;</span>), <span class="attribute">#[rest] </span>(String))
+            <span class="macro">parse_prefix_args!</span>(<span class="kw-2">&amp;</span>ctx, <span class="kw-2">&amp;</span>msg, <span class="string">&quot;helloo&quot;</span>, <span class="number">0 </span>=&gt; <span class="attr">#[flag] </span>(<span class="string">&quot;hello&quot;</span>), <span class="attr">#[rest] </span>(String))
                 .<span class="kw">await
                 </span>.unwrap(),
             (<span class="bool-val">false</span>, <span class="string">&quot;helloo&quot;</span>.into())
@@ -675,4 +675,4 @@ assert_eq!(
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

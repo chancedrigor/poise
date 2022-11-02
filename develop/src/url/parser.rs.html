@@ -1658,14 +1658,14 @@
         ///
         /// This may be extended in the future so exhaustive matching is
         /// discouraged with an unused variant.
-        </span><span class="attribute">#[allow(clippy::manual_non_exhaustive)] </span><span class="comment">// introduced in 1.40, MSRV is 1.36
-        </span><span class="attribute">#[derive(PartialEq, Eq, Clone, Copy, Debug)]
+        </span><span class="attr">#[allow(clippy::manual_non_exhaustive)] </span><span class="comment">// introduced in 1.40, MSRV is 1.36
+        </span><span class="attr">#[derive(PartialEq, Eq, Clone, Copy, Debug)]
         </span><span class="kw">pub enum </span>ParseError {
             $(
                 <span class="macro-nonterminal">$name</span>,
             )+
             <span class="doccomment">/// Unused variant enable non-exhaustive matching
-            </span><span class="attribute">#[doc(hidden)]
+            </span><span class="attr">#[doc(hidden)]
             </span>__FutureProof,
         }
 
@@ -1711,14 +1711,14 @@
         ///
         /// This may be extended in the future so exhaustive matching is
         /// discouraged with an unused variant.
-        </span><span class="attribute">#[allow(clippy::manual_non_exhaustive)] </span><span class="comment">// introduced in 1.40, MSRV is 1.36
-        </span><span class="attribute">#[derive(PartialEq, Eq, Clone, Copy, Debug)]
+        </span><span class="attr">#[allow(clippy::manual_non_exhaustive)] </span><span class="comment">// introduced in 1.40, MSRV is 1.36
+        </span><span class="attr">#[derive(PartialEq, Eq, Clone, Copy, Debug)]
         </span><span class="kw">pub enum </span>SyntaxViolation {
             $(
                 <span class="macro-nonterminal">$name</span>,
             )+
             <span class="doccomment">/// Unused variant enable non-exhaustive matching
-            </span><span class="attribute">#[doc(hidden)]
+            </span><span class="attr">#[doc(hidden)]
             </span>__FutureProof,
         }
 
@@ -1760,7 +1760,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone, PartialEq)]
+<span class="attr">#[derive(Copy, Clone, PartialEq)]
 </span><span class="kw">pub enum </span>SchemeType {
     File,
     SpecialNotFile,
@@ -1794,7 +1794,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone)]
+<span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>Input&lt;<span class="lifetime">&#39;i</span>&gt; {
     chars: str::Chars&lt;<span class="lifetime">&#39;i</span>&gt;,
 }
@@ -1843,17 +1843,17 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_empty(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.clone().next().is_none()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>starts_with&lt;P: Pattern&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, p: P) -&gt; bool {
         p.split_prefix(<span class="kw-2">&amp;mut </span><span class="self">self</span>.clone())
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>split_prefix&lt;P: Pattern&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, p: P) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="self">Self</span>&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>remaining = <span class="self">self</span>.clone();
         <span class="kw">if </span>p.split_prefix(<span class="kw-2">&amp;mut </span>remaining) {
@@ -1863,13 +1863,13 @@
         </span>}
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>split_first(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (<span class="prelude-ty">Option</span>&lt;char&gt;, <span class="self">Self</span>) {
         <span class="kw">let </span><span class="kw-2">mut </span>remaining = <span class="self">self</span>.clone();
         (remaining.next(), remaining)
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>count_matching&lt;F: Fn(char) -&gt; bool&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; (u32, <span class="self">Self</span>) {
         <span class="kw">let </span><span class="kw-2">mut </span>count = <span class="number">0</span>;
         <span class="kw">let </span><span class="kw-2">mut </span>remaining = <span class="self">self</span>.clone();
@@ -1884,7 +1884,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>next_utf8(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(char, <span class="kw-2">&amp;</span><span class="lifetime">&#39;i </span>str)&gt; {
         <span class="kw">loop </span>{
             <span class="kw">let </span>utf8 = <span class="self">self</span>.chars.as_str();
@@ -1944,7 +1944,7 @@
     <span class="kw">pub </span>context: Context,
 }
 
-<span class="attribute">#[derive(PartialEq, Eq, Copy, Clone)]
+<span class="attr">#[derive(PartialEq, Eq, Copy, Clone)]
 </span><span class="kw">pub enum </span>Context {
     UrlParser,
     Setter,
@@ -2964,7 +2964,7 @@
         }
     }
 
-    <span class="attribute">#[allow(clippy::too_many_arguments)]
+    <span class="attr">#[allow(clippy::too_many_arguments)]
     </span><span class="kw">fn </span>with_query_and_fragment(
         <span class="kw-2">mut </span><span class="self">self</span>,
         scheme_type: SchemeType,
@@ -3107,7 +3107,7 @@
     }
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">fn </span>is_ascii_hex_digit(c: char) -&gt; bool {
     <span class="macro">matches!</span>(c, <span class="string">&#39;a&#39;</span>..=<span class="string">&#39;f&#39; </span>| <span class="string">&#39;A&#39;</span>..=<span class="string">&#39;F&#39; </span>| <span class="string">&#39;0&#39;</span>..=<span class="string">&#39;9&#39;</span>)
 }
@@ -3119,7 +3119,7 @@
 // surrogates
 // U+FDD0 to U+FDEF
 // Last two of each plane: U+__FFFE to U+__FFFF for __ in 00 to 10 hex
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>is_url_code_point(c: char) -&gt; bool {
     <span class="macro">matches!</span>(c,
         <span class="string">&#39;a&#39;</span>..=<span class="string">&#39;z&#39; </span>|
@@ -3139,24 +3139,24 @@
 }
 
 <span class="doccomment">/// https://url.spec.whatwg.org/#c0-controls-and-space
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>c0_control_or_space(ch: char) -&gt; bool {
     ch &lt;= <span class="string">&#39; &#39; </span><span class="comment">// U+0000 to U+0020
 </span>}
 
 <span class="doccomment">/// https://infra.spec.whatwg.org/#ascii-tab-or-newline
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>ascii_tab_or_new_line(ch: char) -&gt; bool {
     <span class="macro">matches!</span>(ch, <span class="string">&#39;\t&#39; </span>| <span class="string">&#39;\r&#39; </span>| <span class="string">&#39;\n&#39;</span>)
 }
 
 <span class="doccomment">/// https://url.spec.whatwg.org/#ascii-alpha
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>ascii_alpha(ch: char) -&gt; bool {
     <span class="macro">matches!</span>(ch, <span class="string">&#39;a&#39;</span>..=<span class="string">&#39;z&#39; </span>| <span class="string">&#39;A&#39;</span>..=<span class="string">&#39;Z&#39;</span>)
 }
 
-<span class="attribute">#[inline]
+<span class="attr">#[inline]
 </span><span class="kw">pub fn </span>to_u32(i: usize) -&gt; ParseResult&lt;u32&gt; {
     <span class="kw">if </span>i &lt;= ::std::u32::MAX <span class="kw">as </span>usize {
         <span class="prelude-val">Ok</span>(i <span class="kw">as </span>u32)
@@ -3171,7 +3171,7 @@
 
 <span class="doccomment">/// Wether the scheme is file:, the path has a single segment, and that segment
 /// is a Windows drive letter
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>is_windows_drive_letter(segment: <span class="kw-2">&amp;</span>str) -&gt; bool {
     segment.len() == <span class="number">2 </span>&amp;&amp; starts_with_windows_drive_letter(segment)
 }
@@ -3211,4 +3211,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="url" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="url" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

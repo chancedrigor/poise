@@ -759,7 +759,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::client::ServerName;
 <span class="kw">use </span><span class="kw">crate</span>::error::Error;
 <span class="kw">use </span><span class="kw">crate</span>::key::Certificate;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::log::{debug, trace, warn};
 <span class="kw">use </span><span class="kw">crate</span>::msgs::enums::SignatureScheme;
 <span class="kw">use </span><span class="kw">crate</span>::msgs::handshake::{DigitallySignedStruct, DistinguishedNames};
@@ -800,7 +800,7 @@
 // for their `assertion` constructors.
 
 </span><span class="doccomment">/// Zero-sized marker type representing verification of a signature.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>HandshakeSignatureValid(());
 
 <span class="kw">impl </span>HandshakeSignatureValid {
@@ -810,7 +810,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>FinishedMessageVerified(());
 
 <span class="kw">impl </span>FinishedMessageVerified {
@@ -820,11 +820,11 @@
 }
 
 <span class="doccomment">/// Zero-sized marker type representing verification of a server cert chain.
-</span><span class="attribute">#[allow(unreachable_pub)]
+</span><span class="attr">#[allow(unreachable_pub)]
 #[derive(Debug)]
 </span><span class="kw">pub struct </span>ServerCertVerified(());
 
-<span class="attribute">#[allow(unreachable_pub)]
+<span class="attr">#[allow(unreachable_pub)]
 </span><span class="kw">impl </span>ServerCertVerified {
     <span class="doccomment">/// Make a `ServerCertVerified`
     </span><span class="kw">pub fn </span>assertion() -&gt; <span class="self">Self </span>{
@@ -833,7 +833,7 @@
 }
 
 <span class="doccomment">/// Zero-sized marker type representing verification of a client cert chain.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ClientCertVerified(());
 
 <span class="kw">impl </span>ClientCertVerified {
@@ -845,7 +845,7 @@
 
 <span class="doccomment">/// Something that can verify a server certificate chain, and verify
 /// signatures made by certificates.
-</span><span class="attribute">#[allow(unreachable_pub)]
+</span><span class="attr">#[allow(unreachable_pub)]
 </span><span class="kw">pub trait </span>ServerCertVerifier: Send + Sync {
     <span class="doccomment">/// Verify the end-entity certificate `end_entity` is valid for the
     /// hostname `dns_name` and chains to at least one trust anchor.
@@ -937,7 +937,7 @@
 }
 
 <span class="doccomment">/// A type which encapsuates a string that is a syntactically valid DNS name.
-</span><span class="attribute">#[derive(Clone, Debug, PartialEq)]
+</span><span class="attr">#[derive(Clone, Debug, PartialEq)]
 </span><span class="kw">pub struct </span>DnsName(<span class="kw">pub</span>(<span class="kw">crate</span>) webpki::DnsName);
 
 <span class="kw">impl </span>AsRef&lt;str&gt; <span class="kw">for </span>DnsName {
@@ -947,7 +947,7 @@
 }
 
 <span class="doccomment">/// Something that can verify a client certificate chain
-</span><span class="attribute">#[allow(unreachable_pub)]
+</span><span class="attr">#[allow(unreachable_pub)]
 </span><span class="kw">pub trait </span>ClientCertVerifier: Send + Sync {
     <span class="doccomment">/// Returns `true` to enable the server to request a client certificate and
     /// `false` to skip requesting a client certificate. Defaults to `true`.
@@ -1086,13 +1086,13 @@
 }
 
 <span class="doccomment">/// Default `ServerCertVerifier`, see the trait impl for more information.
-</span><span class="attribute">#[allow(unreachable_pub)]
+</span><span class="attr">#[allow(unreachable_pub)]
 </span><span class="kw">pub struct </span>WebPkiVerifier {
     roots: RootCertStore,
     ct_policy: <span class="prelude-ty">Option</span>&lt;CertificateTransparencyPolicy&gt;,
 }
 
-<span class="attribute">#[allow(unreachable_pub)]
+<span class="attr">#[allow(unreachable_pub)]
 </span><span class="kw">impl </span>WebPkiVerifier {
     <span class="doccomment">/// Constructs a new `WebPkiVerifier`.
     ///
@@ -1129,7 +1129,7 @@
 /// be validated against the configured CT logs until the deadline expires. After the deadline,
 /// certificates will no longer be validated, and a warning message will be logged. The deadline
 /// may vary depending on how often you deploy builds with updated dependencies.
-</span><span class="attribute">#[allow(unreachable_pub)]
+</span><span class="attr">#[allow(unreachable_pub)]
 </span><span class="kw">pub struct </span>CertificateTransparencyPolicy {
     logs: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>sct::Log&lt;<span class="lifetime">&#39;static</span>&gt;],
     validation_deadline: SystemTime,
@@ -1137,7 +1137,7 @@
 
 <span class="kw">impl </span>CertificateTransparencyPolicy {
     <span class="doccomment">/// Create a new policy.
-    </span><span class="attribute">#[allow(unreachable_pub)]
+    </span><span class="attr">#[allow(unreachable_pub)]
     </span><span class="kw">pub fn </span>new(
         logs: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>sct::Log&lt;<span class="lifetime">&#39;static</span>&gt;],
         validation_deadline: SystemTime,
@@ -1168,7 +1168,7 @@
         <span class="kw">let </span>now = unix_time_millis(now)<span class="question-mark">?</span>;
         <span class="kw">let </span><span class="kw-2">mut </span>last_sct_error = <span class="prelude-val">None</span>;
         <span class="kw">for </span>sct <span class="kw">in </span>scts {
-            <span class="attribute">#[cfg_attr(not(feature = <span class="string">&quot;logging&quot;</span>), allow(unused_variables))]
+            <span class="attr">#[cfg_attr(not(feature = <span class="string">&quot;logging&quot;</span>), allow(unused_variables))]
             </span><span class="kw">match </span>sct::verify_sct(<span class="kw-2">&amp;</span>cert.<span class="number">0</span>, sct, now, <span class="self">self</span>.logs) {
                 <span class="prelude-val">Ok</span>(index) =&gt; {
                     <span class="macro">debug!</span>(
@@ -1488,11 +1488,11 @@
         })
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>assertions_are_debug() {
         <span class="macro">assert_eq!</span>(
             <span class="macro">format!</span>(<span class="string">&quot;{:?}&quot;</span>, ClientCertVerified::assertion()),
@@ -1513,4 +1513,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

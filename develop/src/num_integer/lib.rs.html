@@ -1357,7 +1357,7 @@
 //!
 //! The `num-integer` crate is tested for rustc 1.8 and greater.
 
-</span><span class="attribute">#![doc(html_root_url = <span class="string">&quot;https://docs.rs/num-integer/0.1&quot;</span>)]
+</span><span class="attr">#![doc(html_root_url = <span class="string">&quot;https://docs.rs/num-integer/0.1&quot;</span>)]
 #![no_std]
 #[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">extern crate </span>std;
@@ -1481,7 +1481,7 @@
     /// assert_eq!(10.gcd_lcm(&amp;4), (2, 20));
     /// assert_eq!(8.gcd_lcm(&amp;9), (1, 72));
     /// ~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>gcd_lcm(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; (<span class="self">Self</span>, <span class="self">Self</span>) {
         (<span class="self">self</span>.gcd(other), <span class="self">self</span>.lcm(other))
     }
@@ -1504,7 +1504,7 @@
     /// assert!(check(8isize,  9isize));
     /// # }
     /// ~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>extended_gcd(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; ExtendedGcd&lt;<span class="self">Self</span>&gt;
     <span class="kw">where
         </span><span class="self">Self</span>: Clone,
@@ -1543,7 +1543,7 @@
     }
 
     <span class="doccomment">/// Greatest common divisor, least common multiple, and Bézout coefficients.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>extended_gcd_lcm(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; (ExtendedGcd&lt;<span class="self">Self</span>&gt;, <span class="self">Self</span>)
     <span class="kw">where
         </span><span class="self">Self</span>: Clone + Signed,
@@ -1646,7 +1646,7 @@
     /// assert_eq!((-16).next_multiple_of(&amp;-8), -16);
     /// assert_eq!((-23).next_multiple_of(&amp;-8), -24);
     /// ~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>next_multiple_of(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="self">Self
     </span><span class="kw">where
         </span><span class="self">Self</span>: Clone,
@@ -1679,7 +1679,7 @@
     /// assert_eq!((-16).prev_multiple_of(&amp;-8), -16);
     /// assert_eq!((-23).prev_multiple_of(&amp;-8), -16);
     /// ~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>prev_multiple_of(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="self">Self
     </span><span class="kw">where
         </span><span class="self">Self</span>: Clone,
@@ -1694,7 +1694,7 @@
 /// let e = isize::extended_gcd(a, b);
 /// assert_eq!(e.gcd, e.x*a + e.y*b);
 /// ```
-</span><span class="attribute">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+</span><span class="attr">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>ExtendedGcd&lt;A&gt; {
     <span class="kw">pub </span>gcd: A,
     <span class="kw">pub </span>x: A,
@@ -1703,46 +1703,46 @@
 }
 
 <span class="doccomment">/// Simultaneous integer division and modulus
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>div_rem&lt;T: Integer&gt;(x: T, y: T) -&gt; (T, T) {
     x.div_rem(<span class="kw-2">&amp;</span>y)
 }
 <span class="doccomment">/// Floored integer division
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>div_floor&lt;T: Integer&gt;(x: T, y: T) -&gt; T {
     x.div_floor(<span class="kw-2">&amp;</span>y)
 }
 <span class="doccomment">/// Floored integer modulus
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>mod_floor&lt;T: Integer&gt;(x: T, y: T) -&gt; T {
     x.mod_floor(<span class="kw-2">&amp;</span>y)
 }
 <span class="doccomment">/// Simultaneous floored integer division and modulus
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>div_mod_floor&lt;T: Integer&gt;(x: T, y: T) -&gt; (T, T) {
     x.div_mod_floor(<span class="kw-2">&amp;</span>y)
 }
 <span class="doccomment">/// Ceiled integer division
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>div_ceil&lt;T: Integer&gt;(x: T, y: T) -&gt; T {
     x.div_ceil(<span class="kw-2">&amp;</span>y)
 }
 
 <span class="doccomment">/// Calculates the Greatest Common Divisor (GCD) of the number and `other`. The
 /// result is always positive.
-</span><span class="attribute">#[inline(always)]
+</span><span class="attr">#[inline(always)]
 </span><span class="kw">pub fn </span>gcd&lt;T: Integer&gt;(x: T, y: T) -&gt; T {
     x.gcd(<span class="kw-2">&amp;</span>y)
 }
 <span class="doccomment">/// Calculates the Lowest Common Multiple (LCM) of the number and `other`.
-</span><span class="attribute">#[inline(always)]
+</span><span class="attr">#[inline(always)]
 </span><span class="kw">pub fn </span>lcm&lt;T: Integer&gt;(x: T, y: T) -&gt; T {
     x.lcm(<span class="kw-2">&amp;</span>y)
 }
 
 <span class="doccomment">/// Calculates the Greatest Common Divisor (GCD) and
 /// Lowest Common Multiple (LCM) of the number and `other`.
-</span><span class="attribute">#[inline(always)]
+</span><span class="attr">#[inline(always)]
 </span><span class="kw">pub fn </span>gcd_lcm&lt;T: Integer&gt;(x: T, y: T) -&gt; (T, T) {
     x.gcd_lcm(<span class="kw-2">&amp;</span>y)
 }
@@ -1751,7 +1751,7 @@
     (<span class="macro-nonterminal">$T</span>:ty, <span class="macro-nonterminal">$test_mod</span>:ident) =&gt; {
         <span class="kw">impl </span>Integer <span class="kw">for </span><span class="macro-nonterminal">$T </span>{
             <span class="doccomment">/// Floored integer division
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">fn </span>div_floor(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="self">Self </span>{
                 <span class="comment">// Algorithm from [Daan Leijen. _Division and Modulus for Computer Scientists_,
                 // December 2001](http://research.microsoft.com/pubs/151917/divmodnote-letter.pdf)
@@ -1764,7 +1764,7 @@
             }
 
             <span class="doccomment">/// Floored integer modulo
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">fn </span>mod_floor(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="self">Self </span>{
                 <span class="comment">// Algorithm from [Daan Leijen. _Division and Modulus for Computer Scientists_,
                 // December 2001](http://research.microsoft.com/pubs/151917/divmodnote-letter.pdf)
@@ -1777,7 +1777,7 @@
             }
 
             <span class="doccomment">/// Calculates `div_floor` and `mod_floor` simultaneously
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">fn </span>div_mod_floor(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; (<span class="self">Self</span>, <span class="self">Self</span>) {
                 <span class="comment">// Algorithm from [Daan Leijen. _Division and Modulus for Computer Scientists_,
                 // December 2001](http://research.microsoft.com/pubs/151917/divmodnote-letter.pdf)
@@ -1789,7 +1789,7 @@
                 }
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>div_ceil(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="self">Self </span>{
                 <span class="kw">let </span>(d, r) = <span class="self">self</span>.div_rem(other);
                 <span class="kw">if </span>(r &gt; <span class="number">0 </span>&amp;&amp; <span class="kw-2">*</span>other &gt; <span class="number">0</span>) || (r &lt; <span class="number">0 </span>&amp;&amp; <span class="kw-2">*</span>other &lt; <span class="number">0</span>) {
@@ -1801,7 +1801,7 @@
 
             <span class="doccomment">/// Calculates the Greatest Common Divisor (GCD) of the number and
             /// `other`. The result is always positive.
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">fn </span>gcd(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="self">Self </span>{
                 <span class="comment">// Use Stein&#39;s algorithm
                 </span><span class="kw">let </span><span class="kw-2">mut </span>m = <span class="kw-2">*</span><span class="self">self</span>;
@@ -1845,7 +1845,7 @@
                 m &lt;&lt; shift
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>extended_gcd_lcm(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; (ExtendedGcd&lt;<span class="self">Self</span>&gt;, <span class="self">Self</span>) {
                 <span class="kw">let </span>egcd = <span class="self">self</span>.extended_gcd(other);
                 <span class="comment">// should not have to recalculate abs
@@ -1859,14 +1859,14 @@
 
             <span class="doccomment">/// Calculates the Lowest Common Multiple (LCM) of the number and
             /// `other`.
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">fn </span>lcm(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="self">Self </span>{
                 <span class="self">self</span>.gcd_lcm(other).<span class="number">1
             </span>}
 
             <span class="doccomment">/// Calculates the Greatest Common Divisor (GCD) and
             /// Lowest Common Multiple (LCM) of the number and `other`.
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">fn </span>gcd_lcm(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; (<span class="self">Self</span>, <span class="self">Self</span>) {
                 <span class="kw">if </span><span class="self">self</span>.is_zero() &amp;&amp; other.is_zero() {
                     <span class="kw">return </span>(<span class="self">Self</span>::zero(), <span class="self">Self</span>::zero());
@@ -1878,37 +1878,37 @@
             }
 
             <span class="doccomment">/// Deprecated, use `is_multiple_of` instead.
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">fn </span>divides(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool {
                 <span class="self">self</span>.is_multiple_of(other)
             }
 
             <span class="doccomment">/// Returns `true` if the number is a multiple of `other`.
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">fn </span>is_multiple_of(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool {
                 <span class="kw-2">*</span><span class="self">self </span>% <span class="kw-2">*</span>other == <span class="number">0
             </span>}
 
             <span class="doccomment">/// Returns `true` if the number is divisible by `2`
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">fn </span>is_even(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
                 (<span class="kw-2">*</span><span class="self">self</span>) &amp; <span class="number">1 </span>== <span class="number">0
             </span>}
 
             <span class="doccomment">/// Returns `true` if the number is not divisible by `2`
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">fn </span>is_odd(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
                 !<span class="self">self</span>.is_even()
             }
 
             <span class="doccomment">/// Simultaneous truncated integer division and modulus.
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">fn </span>div_rem(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; (<span class="self">Self</span>, <span class="self">Self</span>) {
                 (<span class="kw-2">*</span><span class="self">self </span>/ <span class="kw-2">*</span>other, <span class="kw-2">*</span><span class="self">self </span>% <span class="kw-2">*</span>other)
             }
         }
 
-        <span class="attribute">#[cfg(test)]
+        <span class="attr">#[cfg(test)]
         </span><span class="kw">mod </span><span class="macro-nonterminal">$test_mod </span>{
             <span class="kw">use </span>core::mem;
             <span class="kw">use </span>Integer;
@@ -1918,12 +1918,12 @@
             /// - `n`: numerator (dividend)
             /// - `d`: denominator (divisor)
             /// - `qr`: quotient and remainder
-            </span><span class="attribute">#[cfg(test)]
+            </span><span class="attr">#[cfg(test)]
             </span><span class="kw">fn </span>test_division_rule((n, d): (<span class="macro-nonterminal">$T</span>, <span class="macro-nonterminal">$T</span>), (q, r): (<span class="macro-nonterminal">$T</span>, <span class="macro-nonterminal">$T</span>)) {
                 <span class="macro">assert_eq!</span>(d * q + r, n);
             }
 
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span>test_div_rem() {
                 <span class="kw">fn </span>test_nd_dr(nd: (<span class="macro-nonterminal">$T</span>, <span class="macro-nonterminal">$T</span>), qr: (<span class="macro-nonterminal">$T</span>, <span class="macro-nonterminal">$T</span>)) {
                     <span class="kw">let </span>(n, d) = nd;
@@ -1948,7 +1948,7 @@
                 test_nd_dr((-<span class="number">1</span>, -<span class="number">2</span>), (<span class="number">0</span>, -<span class="number">1</span>));
             }
 
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span>test_div_mod_floor() {
                 <span class="kw">fn </span>test_nd_dm(nd: (<span class="macro-nonterminal">$T</span>, <span class="macro-nonterminal">$T</span>), dm: (<span class="macro-nonterminal">$T</span>, <span class="macro-nonterminal">$T</span>)) {
                     <span class="kw">let </span>(n, d) = nd;
@@ -1973,7 +1973,7 @@
                 test_nd_dm((-<span class="number">1</span>, -<span class="number">2</span>), (<span class="number">0</span>, -<span class="number">1</span>));
             }
 
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span>test_gcd() {
                 <span class="macro">assert_eq!</span>((<span class="number">10 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).gcd(<span class="kw-2">&amp;</span><span class="number">2</span>), <span class="number">2 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>);
                 <span class="macro">assert_eq!</span>((<span class="number">10 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).gcd(<span class="kw-2">&amp;</span><span class="number">3</span>), <span class="number">1 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>);
@@ -1985,7 +1985,7 @@
                 <span class="macro">assert_eq!</span>((-<span class="number">4 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).gcd(<span class="kw-2">&amp;</span>-<span class="number">2</span>), <span class="number">2 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>);
             }
 
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span>test_gcd_cmp_with_euclidean() {
                 <span class="kw">fn </span>euclidean_gcd(<span class="kw-2">mut </span>m: <span class="macro-nonterminal">$T</span>, <span class="kw-2">mut </span>n: <span class="macro-nonterminal">$T</span>) -&gt; <span class="macro-nonterminal">$T </span>{
                     <span class="kw">while </span>m != <span class="number">0 </span>{
@@ -2013,7 +2013,7 @@
                 <span class="macro">assert_eq!</span>(<span class="number">127</span>.gcd(<span class="kw-2">&amp;</span><span class="number">127</span>), <span class="number">127</span>);
             }
 
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span>test_gcd_min_val() {
                 <span class="kw">let </span>min = &lt;<span class="macro-nonterminal">$T</span>&gt;::min_value();
                 <span class="kw">let </span>max = &lt;<span class="macro-nonterminal">$T</span>&gt;::max_value();
@@ -2026,28 +2026,28 @@
                 <span class="macro">assert_eq!</span>((<span class="number">42 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).gcd(<span class="kw-2">&amp;</span>min), <span class="number">2 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>);
             }
 
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             #[should_panic]
             </span><span class="kw">fn </span>test_gcd_min_val_min_val() {
                 <span class="kw">let </span>min = &lt;<span class="macro-nonterminal">$T</span>&gt;::min_value();
                 <span class="macro">assert!</span>(min.gcd(<span class="kw-2">&amp;</span>min) &gt;= <span class="number">0</span>);
             }
 
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             #[should_panic]
             </span><span class="kw">fn </span>test_gcd_min_val_0() {
                 <span class="kw">let </span>min = &lt;<span class="macro-nonterminal">$T</span>&gt;::min_value();
                 <span class="macro">assert!</span>(min.gcd(<span class="kw-2">&amp;</span><span class="number">0</span>) &gt;= <span class="number">0</span>);
             }
 
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             #[should_panic]
             </span><span class="kw">fn </span>test_gcd_0_min_val() {
                 <span class="kw">let </span>min = &lt;<span class="macro-nonterminal">$T</span>&gt;::min_value();
                 <span class="macro">assert!</span>((<span class="number">0 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).gcd(<span class="kw-2">&amp;</span>min) &gt;= <span class="number">0</span>);
             }
 
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span>test_lcm() {
                 <span class="macro">assert_eq!</span>((<span class="number">1 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).lcm(<span class="kw-2">&amp;</span><span class="number">0</span>), <span class="number">0 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>);
                 <span class="macro">assert_eq!</span>((<span class="number">0 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).lcm(<span class="kw-2">&amp;</span><span class="number">1</span>), <span class="number">0 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>);
@@ -2059,7 +2059,7 @@
                 <span class="macro">assert_eq!</span>((<span class="number">11 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).lcm(<span class="kw-2">&amp;</span><span class="number">5</span>), <span class="number">55 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>);
             }
 
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span>test_gcd_lcm() {
                 <span class="kw">use </span>core::iter::once;
                 <span class="kw">for </span>i <span class="kw">in </span>once(<span class="number">0</span>)
@@ -2075,7 +2075,7 @@
                 }
             }
 
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span>test_extended_gcd_lcm() {
                 <span class="kw">use </span>core::fmt::Debug;
                 <span class="kw">use </span>traits::NumAssign;
@@ -2102,7 +2102,7 @@
                 }
             }
 
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span>test_even() {
                 <span class="macro">assert_eq!</span>((-<span class="number">4 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).is_even(), <span class="bool-val">true</span>);
                 <span class="macro">assert_eq!</span>((-<span class="number">3 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).is_even(), <span class="bool-val">false</span>);
@@ -2115,7 +2115,7 @@
                 <span class="macro">assert_eq!</span>((<span class="number">4 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).is_even(), <span class="bool-val">true</span>);
             }
 
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span>test_odd() {
                 <span class="macro">assert_eq!</span>((-<span class="number">4 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).is_odd(), <span class="bool-val">false</span>);
                 <span class="macro">assert_eq!</span>((-<span class="number">3 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).is_odd(), <span class="bool-val">true</span>);
@@ -2136,31 +2136,31 @@
 <span class="macro">impl_integer_for_isize!</span>(i32, test_integer_i32);
 <span class="macro">impl_integer_for_isize!</span>(i64, test_integer_i64);
 <span class="macro">impl_integer_for_isize!</span>(isize, test_integer_isize);
-<span class="attribute">#[cfg(has_i128)]
+<span class="attr">#[cfg(has_i128)]
 </span><span class="macro">impl_integer_for_isize!</span>(i128, test_integer_i128);
 
 <span class="macro">macro_rules! </span>impl_integer_for_usize {
     (<span class="macro-nonterminal">$T</span>:ty, <span class="macro-nonterminal">$test_mod</span>:ident) =&gt; {
         <span class="kw">impl </span>Integer <span class="kw">for </span><span class="macro-nonterminal">$T </span>{
             <span class="doccomment">/// Unsigned integer division. Returns the same result as `div` (`/`).
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">fn </span>div_floor(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="self">Self </span>{
                 <span class="kw-2">*</span><span class="self">self </span>/ <span class="kw-2">*</span>other
             }
 
             <span class="doccomment">/// Unsigned integer modulo operation. Returns the same result as `rem` (`%`).
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">fn </span>mod_floor(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="self">Self </span>{
                 <span class="kw-2">*</span><span class="self">self </span>% <span class="kw-2">*</span>other
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>div_ceil(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="self">Self </span>{
                 <span class="kw-2">*</span><span class="self">self </span>/ <span class="kw-2">*</span>other + (<span class="number">0 </span>!= <span class="kw-2">*</span><span class="self">self </span>% <span class="kw-2">*</span>other) <span class="kw">as </span><span class="self">Self
             </span>}
 
             <span class="doccomment">/// Calculates the Greatest Common Divisor (GCD) of the number and `other`
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">fn </span>gcd(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="self">Self </span>{
                 <span class="comment">// Use Stein&#39;s algorithm
                 </span><span class="kw">let </span><span class="kw-2">mut </span>m = <span class="kw-2">*</span><span class="self">self</span>;
@@ -2188,7 +2188,7 @@
                 m &lt;&lt; shift
             }
 
-            <span class="attribute">#[inline]
+            <span class="attr">#[inline]
             </span><span class="kw">fn </span>extended_gcd_lcm(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; (ExtendedGcd&lt;<span class="self">Self</span>&gt;, <span class="self">Self</span>) {
                 <span class="kw">let </span>egcd = <span class="self">self</span>.extended_gcd(other);
                 <span class="comment">// should not have to recalculate abs
@@ -2201,14 +2201,14 @@
             }
 
             <span class="doccomment">/// Calculates the Lowest Common Multiple (LCM) of the number and `other`.
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">fn </span>lcm(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="self">Self </span>{
                 <span class="self">self</span>.gcd_lcm(other).<span class="number">1
             </span>}
 
             <span class="doccomment">/// Calculates the Greatest Common Divisor (GCD) and
             /// Lowest Common Multiple (LCM) of the number and `other`.
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">fn </span>gcd_lcm(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; (<span class="self">Self</span>, <span class="self">Self</span>) {
                 <span class="kw">if </span><span class="self">self</span>.is_zero() &amp;&amp; other.is_zero() {
                     <span class="kw">return </span>(<span class="self">Self</span>::zero(), <span class="self">Self</span>::zero());
@@ -2219,42 +2219,42 @@
             }
 
             <span class="doccomment">/// Deprecated, use `is_multiple_of` instead.
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">fn </span>divides(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool {
                 <span class="self">self</span>.is_multiple_of(other)
             }
 
             <span class="doccomment">/// Returns `true` if the number is a multiple of `other`.
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">fn </span>is_multiple_of(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool {
                 <span class="kw-2">*</span><span class="self">self </span>% <span class="kw-2">*</span>other == <span class="number">0
             </span>}
 
             <span class="doccomment">/// Returns `true` if the number is divisible by `2`.
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">fn </span>is_even(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
                 <span class="kw-2">*</span><span class="self">self </span>% <span class="number">2 </span>== <span class="number">0
             </span>}
 
             <span class="doccomment">/// Returns `true` if the number is not divisible by `2`.
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">fn </span>is_odd(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
                 !<span class="self">self</span>.is_even()
             }
 
             <span class="doccomment">/// Simultaneous truncated integer division and modulus.
-            </span><span class="attribute">#[inline]
+            </span><span class="attr">#[inline]
             </span><span class="kw">fn </span>div_rem(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; (<span class="self">Self</span>, <span class="self">Self</span>) {
                 (<span class="kw-2">*</span><span class="self">self </span>/ <span class="kw-2">*</span>other, <span class="kw-2">*</span><span class="self">self </span>% <span class="kw-2">*</span>other)
             }
         }
 
-        <span class="attribute">#[cfg(test)]
+        <span class="attr">#[cfg(test)]
         </span><span class="kw">mod </span><span class="macro-nonterminal">$test_mod </span>{
             <span class="kw">use </span>core::mem;
             <span class="kw">use </span>Integer;
 
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span>test_div_mod_floor() {
                 <span class="macro">assert_eq!</span>((<span class="number">10 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).div_floor(<span class="kw-2">&amp;</span>(<span class="number">3 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>)), <span class="number">3 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>);
                 <span class="macro">assert_eq!</span>((<span class="number">10 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).mod_floor(<span class="kw-2">&amp;</span>(<span class="number">3 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>)), <span class="number">1 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>);
@@ -2267,7 +2267,7 @@
                 <span class="macro">assert_eq!</span>((<span class="number">3 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).div_mod_floor(<span class="kw-2">&amp;</span>(<span class="number">7 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>)), (<span class="number">0 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>, <span class="number">3 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>));
             }
 
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span>test_gcd() {
                 <span class="macro">assert_eq!</span>((<span class="number">10 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).gcd(<span class="kw-2">&amp;</span><span class="number">2</span>), <span class="number">2 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>);
                 <span class="macro">assert_eq!</span>((<span class="number">10 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).gcd(<span class="kw-2">&amp;</span><span class="number">3</span>), <span class="number">1 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>);
@@ -2276,7 +2276,7 @@
                 <span class="macro">assert_eq!</span>((<span class="number">56 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).gcd(<span class="kw-2">&amp;</span><span class="number">42</span>), <span class="number">14 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>);
             }
 
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span>test_gcd_cmp_with_euclidean() {
                 <span class="kw">fn </span>euclidean_gcd(<span class="kw-2">mut </span>m: <span class="macro-nonterminal">$T</span>, <span class="kw-2">mut </span>n: <span class="macro-nonterminal">$T</span>) -&gt; <span class="macro-nonterminal">$T </span>{
                     <span class="kw">while </span>m != <span class="number">0 </span>{
@@ -2301,7 +2301,7 @@
                 <span class="macro">assert_eq!</span>(<span class="number">255</span>.gcd(<span class="kw-2">&amp;</span><span class="number">255</span>), <span class="number">255</span>);
             }
 
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span>test_lcm() {
                 <span class="macro">assert_eq!</span>((<span class="number">1 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).lcm(<span class="kw-2">&amp;</span><span class="number">0</span>), <span class="number">0 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>);
                 <span class="macro">assert_eq!</span>((<span class="number">0 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).lcm(<span class="kw-2">&amp;</span><span class="number">1</span>), <span class="number">0 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>);
@@ -2311,7 +2311,7 @@
                 <span class="macro">assert_eq!</span>((<span class="number">15 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).lcm(<span class="kw-2">&amp;</span><span class="number">17</span>), <span class="number">255 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>);
             }
 
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span>test_gcd_lcm() {
                 <span class="kw">for </span>i <span class="kw">in </span>(<span class="number">0</span>..).take(<span class="number">256</span>) {
                     <span class="kw">for </span>j <span class="kw">in </span>(<span class="number">0</span>..).take(<span class="number">256</span>) {
@@ -2320,14 +2320,14 @@
                 }
             }
 
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span>test_is_multiple_of() {
                 <span class="macro">assert!</span>((<span class="number">6 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).is_multiple_of(<span class="kw-2">&amp;</span>(<span class="number">6 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>)));
                 <span class="macro">assert!</span>((<span class="number">6 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).is_multiple_of(<span class="kw-2">&amp;</span>(<span class="number">3 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>)));
                 <span class="macro">assert!</span>((<span class="number">6 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).is_multiple_of(<span class="kw-2">&amp;</span>(<span class="number">1 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>)));
             }
 
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span>test_even() {
                 <span class="macro">assert_eq!</span>((<span class="number">0 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).is_even(), <span class="bool-val">true</span>);
                 <span class="macro">assert_eq!</span>((<span class="number">1 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).is_even(), <span class="bool-val">false</span>);
@@ -2336,7 +2336,7 @@
                 <span class="macro">assert_eq!</span>((<span class="number">4 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).is_even(), <span class="bool-val">true</span>);
             }
 
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span>test_odd() {
                 <span class="macro">assert_eq!</span>((<span class="number">0 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).is_odd(), <span class="bool-val">false</span>);
                 <span class="macro">assert_eq!</span>((<span class="number">1 </span><span class="kw">as </span><span class="macro-nonterminal">$T</span>).is_odd(), <span class="bool-val">true</span>);
@@ -2353,7 +2353,7 @@
 <span class="macro">impl_integer_for_usize!</span>(u32, test_integer_u32);
 <span class="macro">impl_integer_for_usize!</span>(u64, test_integer_u64);
 <span class="macro">impl_integer_for_usize!</span>(usize, test_integer_usize);
-<span class="attribute">#[cfg(has_i128)]
+<span class="attr">#[cfg(has_i128)]
 </span><span class="macro">impl_integer_for_usize!</span>(u128, test_integer_u128);
 
 <span class="doccomment">/// An iterator over binomial coefficients.
@@ -2480,7 +2480,7 @@
     r
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_lcm_overflow() {
     <span class="macro">macro_rules! </span>check {
         (<span class="macro-nonterminal">$t</span>:ty, <span class="macro-nonterminal">$x</span>:expr, <span class="macro-nonterminal">$y</span>:expr, <span class="macro-nonterminal">$r</span>:expr) =&gt; {{
@@ -2512,7 +2512,7 @@
     <span class="macro">check!</span>(u64, <span class="number">0x8000_0000_0000_0000</span>, <span class="number">0x02</span>, <span class="number">0x8000_0000_0000_0000</span>);
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_iter_binomial() {
     <span class="macro">macro_rules! </span>check_simple {
         (<span class="macro-nonterminal">$t</span>:ty) =&gt; {{
@@ -2555,7 +2555,7 @@
     <span class="macro">check_binomial!</span>(i64, <span class="number">66</span>);
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_binomial() {
     <span class="macro">macro_rules! </span>check {
         (<span class="macro-nonterminal">$t</span>:ty, <span class="macro-nonterminal">$x</span>:expr, <span class="macro-nonterminal">$y</span>:expr, <span class="macro-nonterminal">$r</span>:expr) =&gt; {{
@@ -2611,7 +2611,7 @@
     <span class="macro">check!</span>(i64, <span class="number">2</span>, <span class="number">3</span>, <span class="number">0</span>);
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_multinomial() {
     <span class="macro">macro_rules! </span>check_binomial {
         (<span class="macro-nonterminal">$t</span>:ty, <span class="macro-nonterminal">$k</span>:expr) =&gt; {{
@@ -2685,4 +2685,4 @@
     <span class="macro">check_multinomial!</span>(u64, <span class="kw-2">&amp;</span>[<span class="number">12345</span>], <span class="number">1</span>);
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="num_integer" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="num_integer" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -254,12 +254,12 @@
 </span><span class="kw">use crate</span>::{error, hmac};
 
 <span class="doccomment">/// An HKDF algorithm.
-</span><span class="attribute">#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 </span><span class="kw">pub struct </span>Algorithm(hmac::Algorithm);
 
 <span class="kw">impl </span>Algorithm {
     <span class="doccomment">/// The underlying HMAC algorithm.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>hmac_algorithm(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; hmac::Algorithm {
         <span class="self">self</span>.<span class="number">0
     </span>}
@@ -285,7 +285,7 @@
 }
 
 <span class="doccomment">/// A salt for HKDF operations.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Salt(hmac::Key);
 
 <span class="kw">impl </span>Salt {
@@ -314,7 +314,7 @@
     }
 
     <span class="doccomment">/// The algorithm used to derive this salt.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>algorithm(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Algorithm {
         Algorithm(<span class="self">self</span>.<span class="number">0</span>.algorithm())
     }
@@ -338,7 +338,7 @@
 }
 
 <span class="doccomment">/// A HKDF PRK (pseudorandom key).
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>Prk(hmac::Key);
 
 <span class="kw">impl </span>Prk {
@@ -356,7 +356,7 @@
     /// [HKDF-Expand]: https://tools.ietf.org/html/rfc5869#section-2.3
     ///
     /// Fails if (and only if) `len` is too large.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>expand&lt;<span class="lifetime">&#39;a</span>, L: KeyType&gt;(
         <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>,
         info: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]],
@@ -390,7 +390,7 @@
 ///
 /// Intentionally not `Clone` or `Copy` as an OKM is generally only safe to
 /// use once.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Okm&lt;<span class="lifetime">&#39;a</span>, L: KeyType&gt; {
     prk: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Prk,
     info: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[u8]],
@@ -400,7 +400,7 @@
 
 <span class="kw">impl</span>&lt;L: KeyType&gt; Okm&lt;<span class="lifetime">&#39;_</span>, L&gt; {
     <span class="doccomment">/// The `OkmLength` given to `Prk::expand()`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>L {
         <span class="kw-2">&amp;</span><span class="self">self</span>.len
     }
@@ -412,7 +412,7 @@
     /// times the size of the digest algorithm&#39;s output. (This is the limit
     /// imposed by the HKDF specification due to the way HKDF&#39;s counter is
     /// constructed.)
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>fill(<span class="self">self</span>, out: <span class="kw-2">&amp;mut </span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;(), error::Unspecified&gt; {
         fill_okm(<span class="self">self</span>.prk, <span class="self">self</span>.info, out, <span class="self">self</span>.len_cached)
     }
@@ -465,4 +465,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

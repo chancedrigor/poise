@@ -336,7 +336,7 @@
 <span id="336">336</span>
 <span id="337">337</span>
 <span id="338">338</span>
-</pre><pre class="rust"><code><span class="attribute">#![allow(clippy::needless_doctest_main)]
+</pre><pre class="rust"><code><span class="attr">#![allow(clippy::needless_doctest_main)]
 #![warn(
     missing_debug_implementations,
     missing_docs,
@@ -352,7 +352,7 @@
 
 </span><span class="comment">// This `extern` is required for older `rustc` versions but newer `rustc`
 // versions warn about the unused `extern crate`.
-</span><span class="attribute">#[allow(unused_extern_crates)]
+</span><span class="attr">#[allow(unused_extern_crates)]
 </span><span class="kw">extern crate </span>proc_macro;
 
 <span class="kw">mod </span>entry;
@@ -512,7 +512,7 @@
 /// If you must rename the current version of Tokio because you&#39;re also using an
 /// older version of Tokio, you _must_ make the current version of Tokio
 /// available as `tokio` in the module where this macro is expanded.
-</span><span class="attribute">#[proc_macro_attribute]
+</span><span class="attr">#[proc_macro_attribute]
 #[cfg(not(test))] </span><span class="comment">// Work around for rust-lang/rust#62127
 </span><span class="kw">pub fn </span>main(args: TokenStream, item: TokenStream) -&gt; TokenStream {
     entry::main(args, item, <span class="bool-val">true</span>)
@@ -557,7 +557,7 @@
 /// If you must rename the current version of Tokio because you&#39;re also using an
 /// older version of Tokio, you _must_ make the current version of Tokio
 /// available as `tokio` in the module where this macro is expanded.
-</span><span class="attribute">#[proc_macro_attribute]
+</span><span class="attr">#[proc_macro_attribute]
 #[cfg(not(test))] </span><span class="comment">// Work around for rust-lang/rust#62127
 </span><span class="kw">pub fn </span>main_rt(args: TokenStream, item: TokenStream) -&gt; TokenStream {
     entry::main(args, item, <span class="bool-val">false</span>)
@@ -604,7 +604,7 @@
 /// If you must rename the current version of Tokio because you&#39;re also using an
 /// older version of Tokio, you _must_ make the current version of Tokio
 /// available as `tokio` in the module where this macro is expanded.
-</span><span class="attribute">#[proc_macro_attribute]
+</span><span class="attr">#[proc_macro_attribute]
 </span><span class="kw">pub fn </span>test(args: TokenStream, item: TokenStream) -&gt; TokenStream {
     entry::test(args, item, <span class="bool-val">true</span>)
 }
@@ -626,7 +626,7 @@
 /// If you must rename the current version of Tokio because you&#39;re also using an
 /// older version of Tokio, you _must_ make the current version of Tokio
 /// available as `tokio` in the module where this macro is expanded.
-</span><span class="attribute">#[proc_macro_attribute]
+</span><span class="attr">#[proc_macro_attribute]
 </span><span class="kw">pub fn </span>test_rt(args: TokenStream, item: TokenStream) -&gt; TokenStream {
     entry::test(args, item, <span class="bool-val">false</span>)
 }
@@ -635,7 +635,7 @@
 /// ```text
 /// The #[tokio::main] macro requires rt or rt-multi-thread.
 /// ```
-</span><span class="attribute">#[proc_macro_attribute]
+</span><span class="attr">#[proc_macro_attribute]
 </span><span class="kw">pub fn </span>main_fail(_args: TokenStream, _item: TokenStream) -&gt; TokenStream {
     syn::Error::new(
         proc_macro2::Span::call_site(),
@@ -649,7 +649,7 @@
 /// ```text
 /// The #[tokio::test] macro requires rt or rt-multi-thread.
 /// ```
-</span><span class="attribute">#[proc_macro_attribute]
+</span><span class="attr">#[proc_macro_attribute]
 </span><span class="kw">pub fn </span>test_fail(_args: TokenStream, _item: TokenStream) -&gt; TokenStream {
     syn::Error::new(
         proc_macro2::Span::call_site(),
@@ -661,7 +661,7 @@
 
 <span class="doccomment">/// Implementation detail of the `select!` macro. This macro is **not** intended
 /// to be used as part of the public API and is permitted to change.
-</span><span class="attribute">#[proc_macro]
+</span><span class="attr">#[proc_macro]
 #[doc(hidden)]
 </span><span class="kw">pub fn </span>select_priv_declare_output_enum(input: TokenStream) -&gt; TokenStream {
     select::declare_output_enum(input)
@@ -669,10 +669,10 @@
 
 <span class="doccomment">/// Implementation detail of the `select!` macro. This macro is **not** intended
 /// to be used as part of the public API and is permitted to change.
-</span><span class="attribute">#[proc_macro]
+</span><span class="attr">#[proc_macro]
 #[doc(hidden)]
 </span><span class="kw">pub fn </span>select_priv_clean_pattern(input: TokenStream) -&gt; TokenStream {
     select::clean_pattern_macro(input)
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tokio_macros" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tokio_macros" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

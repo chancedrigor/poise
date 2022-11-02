@@ -2596,24 +2596,24 @@
 <span class="kw">use </span>core::ops::{Add, Sub};
 <span class="kw">use </span>core::{fmt, hash, str};
 <span class="kw">use </span>oldtime::Duration <span class="kw">as </span>OldDuration;
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">use </span>std::time::{SystemTime, UNIX_EPOCH};
 
-<span class="attribute">#[cfg(all(not(feature = <span class="string">&quot;std&quot;</span>), feature = <span class="string">&quot;alloc&quot;</span>))]
+<span class="attr">#[cfg(all(not(feature = <span class="string">&quot;std&quot;</span>), feature = <span class="string">&quot;alloc&quot;</span>))]
 </span><span class="kw">use </span>alloc::string::{String, ToString};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
 </span><span class="kw">use </span>std::string::ToString;
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">use </span>core::borrow::Borrow;
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">use </span>format::DelayedFormat;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
 </span><span class="kw">use </span>format::Locale;
 <span class="kw">use </span>format::{parse, ParseError, ParseResult, Parsed, StrftimeItems};
 <span class="kw">use </span>format::{Fixed, Item};
 <span class="kw">use </span>naive::{<span class="self">self</span>, IsoWeek, NaiveDateTime, NaiveTime};
-<span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
 </span><span class="kw">use </span>offset::Local;
 <span class="kw">use </span>offset::{FixedOffset, Offset, TimeZone, Utc};
 <span class="kw">use </span>Date;
@@ -2623,7 +2623,7 @@
 /// future, so exhaustive matching in external code is not recommended.
 ///
 /// See the `TimeZone::to_rfc3339_opts` function for usage.
-</span><span class="attribute">#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+</span><span class="attr">#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 </span><span class="kw">pub enum </span>SecondsFormat {
     <span class="doccomment">/// Format whole seconds only, with no decimal point nor subseconds.
     </span>Secs,
@@ -2646,7 +2646,7 @@
     </span>AutoSi,
 
     <span class="comment">// Do not match against this.
-    </span><span class="attribute">#[doc(hidden)]
+    </span><span class="attr">#[doc(hidden)]
     </span>__NonExhaustive,
 }
 
@@ -2655,7 +2655,7 @@
 /// There are some constructors implemented here (the `from_*` methods), but
 /// the general-purpose constructors are all via the methods on the
 /// [`TimeZone`](./offset/trait.TimeZone.html) implementations.
-</span><span class="attribute">#[derive(Clone)]
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>DateTime&lt;Tz: TimeZone&gt; {
     datetime: NaiveDateTime,
     offset: Tz::Offset,
@@ -2680,27 +2680,27 @@
     /// ~~~~
     </span><span class="comment">//
     // note: this constructor is purposely not named to `new` to discourage the direct usage.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>from_utc(datetime: NaiveDateTime, offset: Tz::Offset) -&gt; DateTime&lt;Tz&gt; {
         DateTime { datetime: datetime, offset: offset }
     }
 
     <span class="doccomment">/// Retrieves a date component.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>date(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Date&lt;Tz&gt; {
         Date::from_utc(<span class="self">self</span>.naive_local().date(), <span class="self">self</span>.offset.clone())
     }
 
     <span class="doccomment">/// Retrieves a time component.
     /// Unlike `date`, this is not associated to the time zone.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>time(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; NaiveTime {
         <span class="self">self</span>.datetime.time() + <span class="self">self</span>.offset.fix()
     }
 
     <span class="doccomment">/// Returns the number of non-leap seconds since January 1, 1970 0:00:00 UTC
     /// (aka &quot;UNIX timestamp&quot;).
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>timestamp(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i64 {
         <span class="self">self</span>.datetime.timestamp()
     }
@@ -2724,7 +2724,7 @@
     /// let dt = Utc.ymd(2001, 9, 9).and_hms_milli(1, 46, 40, 555);
     /// assert_eq!(dt.timestamp_millis(), 1_000_000_000_555);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>timestamp_millis(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i64 {
         <span class="self">self</span>.datetime.timestamp_millis()
     }
@@ -2748,7 +2748,7 @@
     /// let dt = Utc.ymd(2001, 9, 9).and_hms_nano(1, 46, 40, 555);
     /// assert_eq!(dt.timestamp_nanos(), 1_000_000_000_000_000_555);
     /// ~~~~
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>timestamp_nanos(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i64 {
         <span class="self">self</span>.datetime.timestamp_nanos()
     }
@@ -2758,7 +2758,7 @@
     /// warning: in event of a leap second, this may exceed 999
     ///
     /// note: this is not the number of milliseconds since January 1, 1970 0:00:00 UTC
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>timestamp_subsec_millis(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.datetime.timestamp_subsec_millis()
     }
@@ -2768,7 +2768,7 @@
     /// warning: in event of a leap second, this may exceed 999_999
     ///
     /// note: this is not the number of microseconds since January 1, 1970 0:00:00 UTC
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>timestamp_subsec_micros(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.datetime.timestamp_subsec_micros()
     }
@@ -2778,26 +2778,26 @@
     /// warning: in event of a leap second, this may exceed 999_999_999
     ///
     /// note: this is not the number of nanoseconds since January 1, 1970 0:00:00 UTC
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>timestamp_subsec_nanos(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.datetime.timestamp_subsec_nanos()
     }
 
     <span class="doccomment">/// Retrieves an associated offset from UTC.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>offset(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Tz::Offset {
         <span class="kw-2">&amp;</span><span class="self">self</span>.offset
     }
 
     <span class="doccomment">/// Retrieves an associated time zone.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>timezone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Tz {
         TimeZone::from_offset(<span class="kw-2">&amp;</span><span class="self">self</span>.offset)
     }
 
     <span class="doccomment">/// Changes the associated time zone.
     /// This does not change the actual `DateTime` (but will change the string representation).
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>with_timezone&lt;Tz2: TimeZone&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, tz: <span class="kw-2">&amp;</span>Tz2) -&gt; DateTime&lt;Tz2&gt; {
         tz.from_utc_datetime(<span class="kw-2">&amp;</span><span class="self">self</span>.datetime)
     }
@@ -2805,7 +2805,7 @@
     <span class="doccomment">/// Adds given `Duration` to the current date and time.
     ///
     /// Returns `None` when it will result in overflow.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>checked_add_signed(<span class="self">self</span>, rhs: OldDuration) -&gt; <span class="prelude-ty">Option</span>&lt;DateTime&lt;Tz&gt;&gt; {
         <span class="kw">let </span>datetime = <span class="macro">try_opt!</span>(<span class="self">self</span>.datetime.checked_add_signed(rhs));
         <span class="kw">let </span>tz = <span class="self">self</span>.timezone();
@@ -2815,7 +2815,7 @@
     <span class="doccomment">/// Subtracts given `Duration` from the current date and time.
     ///
     /// Returns `None` when it will result in overflow.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>checked_sub_signed(<span class="self">self</span>, rhs: OldDuration) -&gt; <span class="prelude-ty">Option</span>&lt;DateTime&lt;Tz&gt;&gt; {
         <span class="kw">let </span>datetime = <span class="macro">try_opt!</span>(<span class="self">self</span>.datetime.checked_sub_signed(rhs));
         <span class="kw">let </span>tz = <span class="self">self</span>.timezone();
@@ -2824,19 +2824,19 @@
 
     <span class="doccomment">/// Subtracts another `DateTime` from the current date and time.
     /// This does not overflow or underflow at all.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>signed_duration_since&lt;Tz2: TimeZone&gt;(<span class="self">self</span>, rhs: DateTime&lt;Tz2&gt;) -&gt; OldDuration {
         <span class="self">self</span>.datetime.signed_duration_since(rhs.datetime)
     }
 
     <span class="doccomment">/// Returns a view to the naive UTC datetime.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>naive_utc(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; NaiveDateTime {
         <span class="self">self</span>.datetime
     }
 
     <span class="doccomment">/// Returns a view to the naive local datetime.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>naive_local(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; NaiveDateTime {
         <span class="self">self</span>.datetime + <span class="self">self</span>.offset.fix()
     }
@@ -2854,7 +2854,7 @@
 }
 
 <span class="doccomment">/// Convert a `DateTime&lt;Utc&gt;` instance into a `DateTime&lt;Local&gt;` instance.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
 </span><span class="kw">impl </span>From&lt;DateTime&lt;Utc&gt;&gt; <span class="kw">for </span>DateTime&lt;Local&gt; {
     <span class="doccomment">/// Convert this `DateTime&lt;Utc&gt;` instance into a `DateTime&lt;Local&gt;` instance.
     ///
@@ -2876,7 +2876,7 @@
 }
 
 <span class="doccomment">/// Convert a `DateTime&lt;FixedOffset&gt;` instance into a `DateTime&lt;Local&gt;` instance.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
 </span><span class="kw">impl </span>From&lt;DateTime&lt;FixedOffset&gt;&gt; <span class="kw">for </span>DateTime&lt;Local&gt; {
     <span class="doccomment">/// Convert this `DateTime&lt;FixedOffset&gt;` instance into a `DateTime&lt;Local&gt;` instance.
     ///
@@ -2888,7 +2888,7 @@
 }
 
 <span class="doccomment">/// Convert a `DateTime&lt;Local&gt;` instance into a `DateTime&lt;Utc&gt;` instance.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
 </span><span class="kw">impl </span>From&lt;DateTime&lt;Local&gt;&gt; <span class="kw">for </span>DateTime&lt;Utc&gt; {
     <span class="doccomment">/// Convert this `DateTime&lt;Local&gt;` instance into a `DateTime&lt;Utc&gt;` instance.
     ///
@@ -2900,7 +2900,7 @@
 }
 
 <span class="doccomment">/// Convert a `DateTime&lt;Local&gt;` instance into a `DateTime&lt;FixedOffset&gt;` instance.
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
 </span><span class="kw">impl </span>From&lt;DateTime&lt;Local&gt;&gt; <span class="kw">for </span>DateTime&lt;FixedOffset&gt; {
     <span class="doccomment">/// Convert this `DateTime&lt;Local&gt;` instance into a `DateTime&lt;FixedOffset&gt;` instance.
     ///
@@ -2984,14 +2984,14 @@
     </span>Tz::Offset: fmt::Display,
 {
     <span class="doccomment">/// Returns an RFC 2822 date and time string such as `Tue, 1 Jul 2003 10:52:37 +0200`.
-    </span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
     </span><span class="kw">pub fn </span>to_rfc2822(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
         <span class="kw">const </span>ITEMS: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[Item&lt;<span class="lifetime">&#39;static</span>&gt;] = <span class="kw-2">&amp;</span>[Item::Fixed(Fixed::RFC2822)];
         <span class="self">self</span>.format_with_items(ITEMS.iter()).to_string()
     }
 
     <span class="doccomment">/// Returns an RFC 3339 and ISO 8601 date and time string such as `1996-12-19T16:39:57-08:00`.
-    </span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
     </span><span class="kw">pub fn </span>to_rfc3339(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
         <span class="kw">const </span>ITEMS: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[Item&lt;<span class="lifetime">&#39;static</span>&gt;] = <span class="kw-2">&amp;</span>[Item::Fixed(Fixed::RFC3339)];
         <span class="self">self</span>.format_with_items(ITEMS.iter()).to_string()
@@ -3021,7 +3021,7 @@
     /// assert_eq!(dt.to_rfc3339_opts(SecondsFormat::Secs, true),
     ///            &quot;2018-01-26T10:30:09+08:00&quot;);
     /// ```
-    </span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
     </span><span class="kw">pub fn </span>to_rfc3339_opts(<span class="kw-2">&amp;</span><span class="self">self</span>, secform: SecondsFormat, use_z: bool) -&gt; String {
         <span class="kw">use </span>format::Numeric::<span class="kw-2">*</span>;
         <span class="kw">use </span>format::Pad::Zero;
@@ -3065,7 +3065,7 @@
     }
 
     <span class="doccomment">/// Formats the combined date and time with the specified formatting items.
-    </span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
     #[inline]
     </span><span class="kw">pub fn </span>format_with_items&lt;<span class="lifetime">&#39;a</span>, I, B&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, items: I) -&gt; DelayedFormat&lt;I&gt;
     <span class="kw">where
@@ -3079,14 +3079,14 @@
     <span class="doccomment">/// Formats the combined date and time with the specified format string.
     /// See the [`format::strftime` module](./format/strftime/index.html)
     /// on the supported escape sequences.
-    </span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
     #[inline]
     </span><span class="kw">pub fn </span>format&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, fmt: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; DelayedFormat&lt;StrftimeItems&lt;<span class="lifetime">&#39;a</span>&gt;&gt; {
         <span class="self">self</span>.format_with_items(StrftimeItems::new(fmt))
     }
 
     <span class="doccomment">/// Formats the combined date and time with the specified formatting items and locale.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
     #[inline]
     </span><span class="kw">pub fn </span>format_localized_with_items&lt;<span class="lifetime">&#39;a</span>, I, B&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -3110,7 +3110,7 @@
     <span class="doccomment">/// Formats the combined date and time with the specified format string and locale.
     /// See the [`format::strftime` module](./format/strftime/index.html)
     /// on the supported escape sequences.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;unstable-locales&quot;</span>)]
     #[inline]
     </span><span class="kw">pub fn </span>format_localized&lt;<span class="lifetime">&#39;a</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -3122,113 +3122,113 @@
 }
 
 <span class="kw">impl</span>&lt;Tz: TimeZone&gt; Datelike <span class="kw">for </span>DateTime&lt;Tz&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>year(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="self">self</span>.naive_local().year()
     }
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>month(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.naive_local().month()
     }
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>month0(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.naive_local().month0()
     }
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>day(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.naive_local().day()
     }
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>day0(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.naive_local().day0()
     }
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>ordinal(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.naive_local().ordinal()
     }
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>ordinal0(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.naive_local().ordinal0()
     }
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>weekday(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Weekday {
         <span class="self">self</span>.naive_local().weekday()
     }
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>iso_week(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; IsoWeek {
         <span class="self">self</span>.naive_local().iso_week()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>with_year(<span class="kw-2">&amp;</span><span class="self">self</span>, year: i32) -&gt; <span class="prelude-ty">Option</span>&lt;DateTime&lt;Tz&gt;&gt; {
         map_local(<span class="self">self</span>, |datetime| datetime.with_year(year))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>with_month(<span class="kw-2">&amp;</span><span class="self">self</span>, month: u32) -&gt; <span class="prelude-ty">Option</span>&lt;DateTime&lt;Tz&gt;&gt; {
         map_local(<span class="self">self</span>, |datetime| datetime.with_month(month))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>with_month0(<span class="kw-2">&amp;</span><span class="self">self</span>, month0: u32) -&gt; <span class="prelude-ty">Option</span>&lt;DateTime&lt;Tz&gt;&gt; {
         map_local(<span class="self">self</span>, |datetime| datetime.with_month0(month0))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>with_day(<span class="kw-2">&amp;</span><span class="self">self</span>, day: u32) -&gt; <span class="prelude-ty">Option</span>&lt;DateTime&lt;Tz&gt;&gt; {
         map_local(<span class="self">self</span>, |datetime| datetime.with_day(day))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>with_day0(<span class="kw-2">&amp;</span><span class="self">self</span>, day0: u32) -&gt; <span class="prelude-ty">Option</span>&lt;DateTime&lt;Tz&gt;&gt; {
         map_local(<span class="self">self</span>, |datetime| datetime.with_day0(day0))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>with_ordinal(<span class="kw-2">&amp;</span><span class="self">self</span>, ordinal: u32) -&gt; <span class="prelude-ty">Option</span>&lt;DateTime&lt;Tz&gt;&gt; {
         map_local(<span class="self">self</span>, |datetime| datetime.with_ordinal(ordinal))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>with_ordinal0(<span class="kw-2">&amp;</span><span class="self">self</span>, ordinal0: u32) -&gt; <span class="prelude-ty">Option</span>&lt;DateTime&lt;Tz&gt;&gt; {
         map_local(<span class="self">self</span>, |datetime| datetime.with_ordinal0(ordinal0))
     }
 }
 
 <span class="kw">impl</span>&lt;Tz: TimeZone&gt; Timelike <span class="kw">for </span>DateTime&lt;Tz&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>hour(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.naive_local().hour()
     }
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>minute(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.naive_local().minute()
     }
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>second(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.naive_local().second()
     }
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>nanosecond(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.naive_local().nanosecond()
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>with_hour(<span class="kw-2">&amp;</span><span class="self">self</span>, hour: u32) -&gt; <span class="prelude-ty">Option</span>&lt;DateTime&lt;Tz&gt;&gt; {
         map_local(<span class="self">self</span>, |datetime| datetime.with_hour(hour))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>with_minute(<span class="kw-2">&amp;</span><span class="self">self</span>, min: u32) -&gt; <span class="prelude-ty">Option</span>&lt;DateTime&lt;Tz&gt;&gt; {
         map_local(<span class="self">self</span>, |datetime| datetime.with_minute(min))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>with_second(<span class="kw-2">&amp;</span><span class="self">self</span>, sec: u32) -&gt; <span class="prelude-ty">Option</span>&lt;DateTime&lt;Tz&gt;&gt; {
         map_local(<span class="self">self</span>, |datetime| datetime.with_second(sec))
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>with_nanosecond(<span class="kw-2">&amp;</span><span class="self">self</span>, nano: u32) -&gt; <span class="prelude-ty">Option</span>&lt;DateTime&lt;Tz&gt;&gt; {
         map_local(<span class="self">self</span>, |datetime| datetime.with_nanosecond(nano))
     }
@@ -3282,7 +3282,7 @@
 <span class="kw">impl</span>&lt;Tz: TimeZone&gt; Add&lt;OldDuration&gt; <span class="kw">for </span>DateTime&lt;Tz&gt; {
     <span class="kw">type </span>Output = DateTime&lt;Tz&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>add(<span class="self">self</span>, rhs: OldDuration) -&gt; DateTime&lt;Tz&gt; {
         <span class="self">self</span>.checked_add_signed(rhs).expect(<span class="string">&quot;`DateTime + Duration` overflowed&quot;</span>)
     }
@@ -3291,7 +3291,7 @@
 <span class="kw">impl</span>&lt;Tz: TimeZone&gt; Sub&lt;OldDuration&gt; <span class="kw">for </span>DateTime&lt;Tz&gt; {
     <span class="kw">type </span>Output = DateTime&lt;Tz&gt;;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sub(<span class="self">self</span>, rhs: OldDuration) -&gt; DateTime&lt;Tz&gt; {
         <span class="self">self</span>.checked_sub_signed(rhs).expect(<span class="string">&quot;`DateTime - Duration` overflowed&quot;</span>)
     }
@@ -3300,7 +3300,7 @@
 <span class="kw">impl</span>&lt;Tz: TimeZone&gt; Sub&lt;DateTime&lt;Tz&gt;&gt; <span class="kw">for </span>DateTime&lt;Tz&gt; {
     <span class="kw">type </span>Output = OldDuration;
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>sub(<span class="self">self</span>, rhs: DateTime&lt;Tz&gt;) -&gt; OldDuration {
         <span class="self">self</span>.signed_duration_since(rhs)
     }
@@ -3329,7 +3329,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
 </span><span class="kw">impl </span>str::FromStr <span class="kw">for </span>DateTime&lt;Local&gt; {
     <span class="kw">type </span><span class="prelude-val">Err </span>= ParseError;
 
@@ -3338,7 +3338,7 @@
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">impl </span>From&lt;SystemTime&gt; <span class="kw">for </span>DateTime&lt;Utc&gt; {
     <span class="kw">fn </span>from(t: SystemTime) -&gt; DateTime&lt;Utc&gt; {
         <span class="kw">let </span>(sec, nsec) = <span class="kw">match </span>t.duration_since(UNIX_EPOCH) {
@@ -3358,14 +3358,14 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
 </span><span class="kw">impl </span>From&lt;SystemTime&gt; <span class="kw">for </span>DateTime&lt;Local&gt; {
     <span class="kw">fn </span>from(t: SystemTime) -&gt; DateTime&lt;Local&gt; {
         DateTime::&lt;Utc&gt;::from(t).with_timezone(<span class="kw-2">&amp;</span>Local)
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">impl</span>&lt;Tz: TimeZone&gt; From&lt;DateTime&lt;Tz&gt;&gt; <span class="kw">for </span>SystemTime {
     <span class="kw">fn </span>from(dt: DateTime&lt;Tz&gt;) -&gt; SystemTime {
         <span class="kw">use </span>std::time::Duration;
@@ -3381,14 +3381,14 @@
     }
 }
 
-<span class="attribute">#[cfg(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>))]
+<span class="attr">#[cfg(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>))]
 </span><span class="kw">impl </span>From&lt;js_sys::Date&gt; <span class="kw">for </span>DateTime&lt;Utc&gt; {
     <span class="kw">fn </span>from(date: js_sys::Date) -&gt; DateTime&lt;Utc&gt; {
         DateTime::&lt;Utc&gt;::from(<span class="kw-2">&amp;</span>date)
     }
 }
 
-<span class="attribute">#[cfg(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>))]
+<span class="attr">#[cfg(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>))]
 </span><span class="kw">impl </span>From&lt;<span class="kw-2">&amp;</span>js_sys::Date&gt; <span class="kw">for </span>DateTime&lt;Utc&gt; {
     <span class="kw">fn </span>from(date: <span class="kw-2">&amp;</span>js_sys::Date) -&gt; DateTime&lt;Utc&gt; {
         <span class="kw">let </span>millisecs_since_unix_epoch: u64 = date.get_time() <span class="kw">as </span>u64;
@@ -3399,7 +3399,7 @@
     }
 }
 
-<span class="attribute">#[cfg(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>))]
+<span class="attr">#[cfg(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>))]
 </span><span class="kw">impl </span>From&lt;DateTime&lt;Utc&gt;&gt; <span class="kw">for </span>js_sys::Date {
     <span class="kw">fn </span>from(date: DateTime&lt;Utc&gt;) -&gt; js_sys::Date {
         <span class="kw">let </span>js_date = js_sys::Date::new_0();
@@ -3418,7 +3418,7 @@
     }
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_auto_conversion() {
     <span class="kw">let </span>utc_dt = Utc.ymd(<span class="number">2018</span>, <span class="number">9</span>, <span class="number">5</span>).and_hms(<span class="number">23</span>, <span class="number">58</span>, <span class="number">0</span>);
     <span class="kw">let </span>cdt_dt = FixedOffset::west(<span class="number">5 </span>* <span class="number">60 </span>* <span class="number">60</span>).ymd(<span class="number">2018</span>, <span class="number">9</span>, <span class="number">5</span>).and_hms(<span class="number">18</span>, <span class="number">58</span>, <span class="number">0</span>);
@@ -3426,7 +3426,7 @@
     <span class="macro">assert_eq!</span>(utc_dt, utc_dt2);
 }
 
-<span class="attribute">#[cfg(all(test, any(feature = <span class="string">&quot;rustc-serialize&quot;</span>, feature = <span class="string">&quot;serde&quot;</span>)))]
+<span class="attr">#[cfg(all(test, any(feature = <span class="string">&quot;rustc-serialize&quot;</span>, feature = <span class="string">&quot;serde&quot;</span>)))]
 </span><span class="kw">fn </span>test_encodable_json&lt;FUtc, FFixed, E&gt;(to_string_utc: FUtc, to_string_fixed: FFixed)
 <span class="kw">where
     </span>FUtc: Fn(<span class="kw-2">&amp;</span>DateTime&lt;Utc&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;String, E&gt;,
@@ -3448,7 +3448,7 @@
     );
 }
 
-<span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;clock&quot;</span>, any(feature = <span class="string">&quot;rustc-serialize&quot;</span>, feature = <span class="string">&quot;serde&quot;</span>)))]
+<span class="attr">#[cfg(all(test, feature = <span class="string">&quot;clock&quot;</span>, any(feature = <span class="string">&quot;rustc-serialize&quot;</span>, feature = <span class="string">&quot;serde&quot;</span>)))]
 </span><span class="kw">fn </span>test_decodable_json&lt;FUtc, FFixed, FLocal, E&gt;(
     utc_from_str: FUtc,
     fixed_from_str: FFixed,
@@ -3497,7 +3497,7 @@
     <span class="macro">assert!</span>(fixed_from_str(<span class="string">r#&quot;&quot;2014-07-32T12:34:06Z&quot;&quot;#</span>).is_err());
 }
 
-<span class="attribute">#[cfg(all(test, feature = <span class="string">&quot;clock&quot;</span>, feature = <span class="string">&quot;rustc-serialize&quot;</span>))]
+<span class="attr">#[cfg(all(test, feature = <span class="string">&quot;clock&quot;</span>, feature = <span class="string">&quot;rustc-serialize&quot;</span>))]
 </span><span class="kw">fn </span>test_decodable_json_timestamps&lt;FUtc, FFixed, FLocal, E&gt;(
     utc_from_str: FUtc,
     fixed_from_str: FFixed,
@@ -3540,12 +3540,12 @@
     );
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;rustc-serialize&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;rustc-serialize&quot;</span>)]
 </span><span class="kw">pub mod </span>rustc_serialize {
     <span class="kw">use </span><span class="kw">super</span>::DateTime;
     <span class="kw">use </span>core::fmt;
     <span class="kw">use </span>core::ops::Deref;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
     </span><span class="kw">use </span>offset::Local;
     <span class="kw">use </span>offset::{FixedOffset, LocalResult, TimeZone, Utc};
     <span class="kw">use </span>rustc_serialize::{Decodable, Decoder, Encodable, Encoder};
@@ -3577,9 +3577,9 @@
         }
     }
 
-    <span class="attribute">#[allow(deprecated)]
+    <span class="attr">#[allow(deprecated)]
     </span><span class="kw">impl </span>Decodable <span class="kw">for </span>TsSeconds&lt;FixedOffset&gt; {
-        <span class="attribute">#[allow(deprecated)]
+        <span class="attr">#[allow(deprecated)]
         </span><span class="kw">fn </span>decode&lt;D: Decoder&gt;(d: <span class="kw-2">&amp;mut </span>D) -&gt; <span class="prelude-ty">Result</span>&lt;TsSeconds&lt;FixedOffset&gt;, D::Error&gt; {
             from(FixedOffset::east(<span class="number">0</span>).timestamp_opt(d.read_i64()<span class="question-mark">?</span>, <span class="number">0</span>), d).map(TsSeconds)
         }
@@ -3597,19 +3597,19 @@
     <span class="doccomment">/// A `DateTime` that can be deserialized from a timestamp
     ///
     /// A timestamp here is seconds since the epoch
-    </span><span class="attribute">#[derive(Debug)]
+    </span><span class="attr">#[derive(Debug)]
     </span><span class="kw">pub struct </span>TsSeconds&lt;Tz: TimeZone&gt;(DateTime&lt;Tz&gt;);
 
-    <span class="attribute">#[allow(deprecated)]
+    <span class="attr">#[allow(deprecated)]
     </span><span class="kw">impl</span>&lt;Tz: TimeZone&gt; From&lt;TsSeconds&lt;Tz&gt;&gt; <span class="kw">for </span>DateTime&lt;Tz&gt; {
         <span class="doccomment">/// Pull the inner DateTime&lt;Tz&gt; out
-        </span><span class="attribute">#[allow(deprecated)]
+        </span><span class="attr">#[allow(deprecated)]
         </span><span class="kw">fn </span>from(obj: TsSeconds&lt;Tz&gt;) -&gt; DateTime&lt;Tz&gt; {
             obj.<span class="number">0
         </span>}
     }
 
-    <span class="attribute">#[allow(deprecated)]
+    <span class="attr">#[allow(deprecated)]
     </span><span class="kw">impl</span>&lt;Tz: TimeZone&gt; Deref <span class="kw">for </span>TsSeconds&lt;Tz&gt; {
         <span class="kw">type </span>Target = DateTime&lt;Tz&gt;;
 
@@ -3618,14 +3618,14 @@
         </span>}
     }
 
-    <span class="attribute">#[allow(deprecated)]
+    <span class="attr">#[allow(deprecated)]
     </span><span class="kw">impl </span>Decodable <span class="kw">for </span>TsSeconds&lt;Utc&gt; {
         <span class="kw">fn </span>decode&lt;D: Decoder&gt;(d: <span class="kw-2">&amp;mut </span>D) -&gt; <span class="prelude-ty">Result</span>&lt;TsSeconds&lt;Utc&gt;, D::Error&gt; {
             from(Utc.timestamp_opt(d.read_i64()<span class="question-mark">?</span>, <span class="number">0</span>), d).map(TsSeconds)
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
     </span><span class="kw">impl </span>Decodable <span class="kw">for </span>DateTime&lt;Local&gt; {
         <span class="kw">fn </span>decode&lt;D: Decoder&gt;(d: <span class="kw-2">&amp;mut </span>D) -&gt; <span class="prelude-ty">Result</span>&lt;DateTime&lt;Local&gt;, D::Error&gt; {
             <span class="kw">match </span>d.read_str()<span class="question-mark">?</span>.parse::&lt;DateTime&lt;FixedOffset&gt;&gt;() {
@@ -3635,31 +3635,31 @@
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
     #[allow(deprecated)]
     </span><span class="kw">impl </span>Decodable <span class="kw">for </span>TsSeconds&lt;Local&gt; {
-        <span class="attribute">#[allow(deprecated)]
+        <span class="attr">#[allow(deprecated)]
         </span><span class="kw">fn </span>decode&lt;D: Decoder&gt;(d: <span class="kw-2">&amp;mut </span>D) -&gt; <span class="prelude-ty">Result</span>&lt;TsSeconds&lt;Local&gt;, D::Error&gt; {
             from(Utc.timestamp_opt(d.read_i64()<span class="question-mark">?</span>, <span class="number">0</span>), d)
                 .map(|dt| TsSeconds(dt.with_timezone(<span class="kw-2">&amp;</span>Local)))
         }
     }
 
-    <span class="attribute">#[cfg(test)]
+    <span class="attr">#[cfg(test)]
     </span><span class="kw">use </span>rustc_serialize::json;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_encodable() {
         <span class="kw">super</span>::test_encodable_json(json::encode, json::encode);
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
     #[test]
     </span><span class="kw">fn </span>test_decodable() {
         <span class="kw">super</span>::test_decodable_json(json::decode, json::decode, json::decode);
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
     #[test]
     </span><span class="kw">fn </span>test_decodable_timestamps() {
         <span class="kw">super</span>::test_decodable_json_timestamps(json::decode, json::decode, json::decode);
@@ -3667,25 +3667,25 @@
 }
 
 <span class="doccomment">/// documented at re-export site
-</span><span class="attribute">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">pub mod </span>serde {
     <span class="kw">use </span><span class="kw">super</span>::DateTime;
     <span class="kw">use </span>core::fmt;
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
     </span><span class="kw">use </span>offset::Local;
     <span class="kw">use </span>offset::{FixedOffset, LocalResult, TimeZone, Utc};
     <span class="kw">use </span>serdelib::{de, ser};
     <span class="kw">use </span>{ne_timestamp, SerdeError};
 
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     #[derive(Debug)]
     </span><span class="kw">pub struct </span>SecondsTimestampVisitor;
 
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     #[derive(Debug)]
     </span><span class="kw">pub struct </span>NanoSecondsTimestampVisitor;
 
-    <span class="attribute">#[doc(hidden)]
+    <span class="attr">#[doc(hidden)]
     #[derive(Debug)]
     </span><span class="kw">pub struct </span>MilliSecondsTimestampVisitor;
 
@@ -4712,7 +4712,7 @@
     ///
     /// See [the `serde` module](./serde/index.html) for alternate
     /// serialization formats.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
     </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;de</span>&gt; de::Deserialize&lt;<span class="lifetime">&#39;de</span>&gt; <span class="kw">for </span>DateTime&lt;Local&gt; {
         <span class="kw">fn </span>deserialize&lt;D&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, D::Error&gt;
         <span class="kw">where
@@ -4722,17 +4722,17 @@
         }
     }
 
-    <span class="attribute">#[cfg(test)]
+    <span class="attr">#[cfg(test)]
     </span><span class="kw">extern crate </span>bincode;
-    <span class="attribute">#[cfg(test)]
+    <span class="attr">#[cfg(test)]
     </span><span class="kw">extern crate </span>serde_json;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_serde_serialize() {
         <span class="kw">super</span>::test_encodable_json(<span class="self">self</span>::serde_json::to_string, <span class="self">self</span>::serde_json::to_string);
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
     #[test]
     </span><span class="kw">fn </span>test_serde_deserialize() {
         <span class="kw">super</span>::test_decodable_json(
@@ -4742,7 +4742,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_serde_bincode() {
         <span class="comment">// Bincode is relevant to test separately from JSON because
         // it is not self-describing.
@@ -4756,19 +4756,19 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::DateTime;
     <span class="kw">use </span>naive::{NaiveDate, NaiveTime};
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
     </span><span class="kw">use </span>offset::Local;
     <span class="kw">use </span>offset::{FixedOffset, TimeZone, Utc};
     <span class="kw">use </span>oldtime::Duration;
     <span class="kw">use </span>std::time::{SystemTime, UNIX_EPOCH};
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
     </span><span class="kw">use </span>Datelike;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[allow(non_snake_case)]
     </span><span class="kw">fn </span>test_datetime_offset() {
         <span class="kw">let </span>Est = FixedOffset::west(<span class="number">5 </span>* <span class="number">60 </span>* <span class="number">60</span>);
@@ -4830,7 +4830,7 @@
         <span class="macro">assert!</span>(<span class="kw-2">*</span>Edt.ymd(<span class="number">2014</span>, <span class="number">5</span>, <span class="number">6</span>).and_hms(<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>).offset() != Est);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_datetime_date_and_time() {
         <span class="kw">let </span>tz = FixedOffset::east(<span class="number">5 </span>* <span class="number">60 </span>* <span class="number">60</span>);
         <span class="kw">let </span>d = tz.ymd(<span class="number">2014</span>, <span class="number">5</span>, <span class="number">6</span>).and_hms(<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>);
@@ -4857,7 +4857,7 @@
         <span class="macro">assert!</span>(utc_d &lt; d);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
     </span><span class="kw">fn </span>test_datetime_with_timezone() {
         <span class="kw">let </span>local_now = Local::now();
@@ -4866,7 +4866,7 @@
         <span class="macro">assert_eq!</span>(local_now, local_now2);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[allow(non_snake_case)]
     </span><span class="kw">fn </span>test_datetime_rfc2822_and_rfc3339() {
         <span class="kw">let </span>EDT = FixedOffset::east(<span class="number">5 </span>* <span class="number">60 </span>* <span class="number">60</span>);
@@ -4917,7 +4917,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_rfc3339_opts() {
         <span class="kw">use </span>SecondsFormat::<span class="kw-2">*</span>;
         <span class="kw">let </span>pst = FixedOffset::east(<span class="number">8 </span>* <span class="number">60 </span>* <span class="number">60</span>);
@@ -4939,7 +4939,7 @@
         <span class="macro">assert_eq!</span>(ut.to_rfc3339_opts(AutoSi, <span class="bool-val">true</span>), <span class="string">&quot;2018-01-11T02:05:13.084660Z&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[should_panic]
     </span><span class="kw">fn </span>test_rfc3339_opts_nonexhaustive() {
         <span class="kw">use </span>SecondsFormat;
@@ -4947,7 +4947,7 @@
         dt.to_rfc3339_opts(SecondsFormat::__NonExhaustive, <span class="bool-val">true</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_datetime_from_str() {
         <span class="macro">assert_eq!</span>(
             <span class="string">&quot;2015-02-18T23:16:9.15Z&quot;</span>.parse::&lt;DateTime&lt;FixedOffset&gt;&gt;(),
@@ -4989,7 +4989,7 @@
         <span class="comment">// no test for `DateTime&lt;Local&gt;`, we cannot verify that much.
     </span>}
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_datetime_parse_from_str() {
         <span class="kw">let </span>ymdhms = |y, m, d, h, n, s, off| FixedOffset::east(off).ymd(y, m, d).and_hms(h, n, s);
         <span class="macro">assert_eq!</span>(
@@ -5008,7 +5008,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_to_string_round_trip() {
         <span class="kw">let </span>dt = Utc.ymd(<span class="number">2000</span>, <span class="number">1</span>, <span class="number">1</span>).and_hms(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);
         <span class="kw">let </span>_dt: DateTime&lt;Utc&gt; = dt.to_string().parse().unwrap();
@@ -5020,14 +5020,14 @@
         <span class="kw">let </span>_dt: DateTime&lt;FixedOffset&gt; = ndt_fixed.to_string().parse().unwrap();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
     </span><span class="kw">fn </span>test_to_string_round_trip_with_local() {
         <span class="kw">let </span>ndt = Local::now();
         <span class="kw">let </span>_dt: DateTime&lt;FixedOffset&gt; = ndt.to_string().parse().unwrap();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
     </span><span class="kw">fn </span>test_datetime_format_with_local() {
         <span class="comment">// if we are not around the year boundary, local and UTC date should have the same year
@@ -5035,7 +5035,7 @@
         <span class="macro">assert_eq!</span>(dt.format(<span class="string">&quot;%Y&quot;</span>).to_string(), dt.with_timezone(<span class="kw-2">&amp;</span>Utc).format(<span class="string">&quot;%Y&quot;</span>).to_string());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
     </span><span class="kw">fn </span>test_datetime_is_copy() {
         <span class="comment">// UTC is known to be `Copy`.
@@ -5044,7 +5044,7 @@
         <span class="macro">assert_eq!</span>(a, b);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
     </span><span class="kw">fn </span>test_datetime_is_send() {
         <span class="kw">use </span>std::thread;
@@ -5058,7 +5058,7 @@
         .unwrap();
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_subsecond_part() {
         <span class="kw">let </span>datetime = Utc.ymd(<span class="number">2014</span>, <span class="number">7</span>, <span class="number">8</span>).and_hms_nano(<span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">1234567</span>);
 
@@ -5067,7 +5067,7 @@
         <span class="macro">assert_eq!</span>(<span class="number">1234567</span>, datetime.timestamp_subsec_nanos());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg(not(target_os = <span class="string">&quot;windows&quot;</span>))]
     </span><span class="kw">fn </span>test_from_system_time() {
         <span class="kw">use </span>std::time::Duration;
@@ -5098,7 +5098,7 @@
         );
 
         <span class="comment">// DateTime&lt;any tz&gt; -&gt; SystemTime (via `with_timezone`)
-        </span><span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+        </span><span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
         </span>{
             <span class="macro">assert_eq!</span>(SystemTime::from(epoch.with_timezone(<span class="kw-2">&amp;</span>Local)), UNIX_EPOCH);
         }
@@ -5106,7 +5106,7 @@
         <span class="macro">assert_eq!</span>(SystemTime::from(epoch.with_timezone(<span class="kw-2">&amp;</span>FixedOffset::west(<span class="number">28800</span>))), UNIX_EPOCH);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
     </span><span class="kw">fn </span>test_from_system_time() {
         <span class="kw">use </span>std::time::Duration;
@@ -5138,7 +5138,7 @@
         );
 
         <span class="comment">// DateTime&lt;any tz&gt; -&gt; SystemTime (via `with_timezone`)
-        </span><span class="attribute">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
+        </span><span class="attr">#[cfg(feature = <span class="string">&quot;clock&quot;</span>)]
         </span>{
             <span class="macro">assert_eq!</span>(SystemTime::from(epoch.with_timezone(<span class="kw-2">&amp;</span>Local)), UNIX_EPOCH);
         }
@@ -5146,7 +5146,7 @@
         <span class="macro">assert_eq!</span>(SystemTime::from(epoch.with_timezone(<span class="kw-2">&amp;</span>FixedOffset::west(<span class="number">28800</span>))), UNIX_EPOCH);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_datetime_format_alignment() {
         <span class="kw">let </span>datetime = Utc.ymd(<span class="number">2007</span>, <span class="number">01</span>, <span class="number">02</span>);
 
@@ -5177,4 +5177,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

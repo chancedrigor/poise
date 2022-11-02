@@ -23,17 +23,17 @@
 <span id="23">23</span>
 <span id="24">24</span>
 <span id="25">25</span>
-</pre><pre class="rust"><code><span class="attribute">#[doc(hidden)]
+</pre><pre class="rust"><code><span class="attr">#[doc(hidden)]
 </span><span class="kw">pub const </span>MZ_ADLER32_INIT: u32 = <span class="number">1</span>;
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">pub const </span>MZ_DEFAULT_WINDOW_BITS: i32 = <span class="number">15</span>;
 
 <span class="kw">pub const </span>HUFFMAN_LENGTH_ORDER: [u8; <span class="number">19</span>] = [
     <span class="number">16</span>, <span class="number">17</span>, <span class="number">18</span>, <span class="number">0</span>, <span class="number">8</span>, <span class="number">7</span>, <span class="number">9</span>, <span class="number">6</span>, <span class="number">10</span>, <span class="number">5</span>, <span class="number">11</span>, <span class="number">4</span>, <span class="number">12</span>, <span class="number">3</span>, <span class="number">13</span>, <span class="number">2</span>, <span class="number">14</span>, <span class="number">1</span>, <span class="number">15</span>,
 ];
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 #[cfg(not(feature = <span class="string">&quot;simd&quot;</span>))]
 </span><span class="kw">pub fn </span>update_adler32(adler: u32, data: <span class="kw-2">&amp;</span>[u8]) -&gt; u32 {
     <span class="kw">let </span><span class="kw-2">mut </span>hash = adler::Adler32::from_checksum(adler);
@@ -41,7 +41,7 @@
     hash.checksum()
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 #[cfg(feature = <span class="string">&quot;simd&quot;</span>)]
 </span><span class="kw">pub fn </span>update_adler32(adler: u32, data: <span class="kw-2">&amp;</span>[u8]) -&gt; u32 {
     <span class="kw">let </span><span class="kw-2">mut </span>hash = simd_adler32::Adler32::from_checksum(adler);
@@ -49,4 +49,4 @@
     hash.finish()
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="miniz_oxide" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="miniz_oxide" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

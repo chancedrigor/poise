@@ -181,7 +181,7 @@
 <span class="kw">const </span>KEY_LEN: usize = <span class="number">2 </span>* BLOCK_LEN;
 
 <span class="kw">impl </span>Key {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>new(key_and_nonce: [u8; KEY_LEN], cpu_features: cpu::Features) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             key_and_nonce,
@@ -192,7 +192,7 @@
 
 <span class="kw">pub struct </span>Context {
     state: poly1305_state,
-    <span class="attribute">#[allow(dead_code)]
+    <span class="attr">#[allow(dead_code)]
     </span>cpu_features: cpu::Features,
 }
 
@@ -200,7 +200,7 @@
 //
 // The C code, in particular the way the `poly1305_aligned_state` functions
 // are used, is only correct when the state buffer is 64-byte aligned.
-</span><span class="attribute">#[repr(C, align(<span class="number">64</span>))]
+</span><span class="attr">#[repr(C, align(<span class="number">64</span>))]
 </span><span class="kw">struct </span>poly1305_state([u8; OPAQUE_LEN]);
 <span class="kw">const </span>OPAQUE_LEN: usize = <span class="number">512</span>;
 
@@ -213,7 +213,7 @@
       ( $( <span class="macro-nonterminal">$a</span>:expr ),+ ) ) =&gt; {
         <span class="kw">match </span>() {
             <span class="comment">// Apple&#39;s 32-bit ARM ABI is incompatible with the assembly code.
-            </span><span class="attribute">#[cfg(all(target_arch = <span class="string">&quot;arm&quot;</span>, not(target_vendor = <span class="string">&quot;apple&quot;</span>)))]
+            </span><span class="attr">#[cfg(all(target_arch = <span class="string">&quot;arm&quot;</span>, not(target_vendor = <span class="string">&quot;apple&quot;</span>)))]
             </span>() <span class="kw">if </span>cpu::arm::NEON.available(<span class="macro-nonterminal">$features</span>) =&gt; {
                 <span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
                     <span class="kw">fn </span><span class="macro-nonterminal">$neon_f</span>( $( <span class="macro-nonterminal">$p </span>: <span class="macro-nonterminal">$t </span>),+ );
@@ -231,7 +231,7 @@
 }
 
 <span class="kw">impl </span>Context {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>from_key(
         Key {
             key_and_nonce,
@@ -252,7 +252,7 @@
         ctx
     }
 
-    <span class="attribute">#[inline(always)]
+    <span class="attr">#[inline(always)]
     </span><span class="kw">pub fn </span>update(<span class="kw-2">&amp;mut </span><span class="self">self</span>, input: <span class="kw-2">&amp;</span>[u8]) {
         <span class="macro">dispatch!</span>(
             <span class="self">self</span>.cpu_features =&gt;
@@ -282,14 +282,14 @@
     ctx.finish()
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::test;
     <span class="kw">use </span>core::convert::TryInto;
 
     <span class="comment">// Adapted from BoringSSL&#39;s crypto/poly1305/poly1305_test.cc.
-    </span><span class="attribute">#[test]
+    </span><span class="attr">#[test]
     </span><span class="kw">pub fn </span>test_poly1305() {
         <span class="kw">let </span>cpu_features = cpu::features();
         test::run(<span class="macro">test_file!</span>(<span class="string">&quot;poly1305_test.txt&quot;</span>), |section, test_case| {
@@ -307,4 +307,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ring" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

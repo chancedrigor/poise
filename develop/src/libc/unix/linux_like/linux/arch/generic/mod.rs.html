@@ -370,7 +370,7 @@
 <span class="macro">cfg_if! </span>{
     <span class="comment">// Some of these platforms in CI already have these constants.
     // But they may still not have those _OLD ones.
-    </span><span class="kw">if </span><span class="attribute">#[cfg(all(any(target_arch = <span class="string">&quot;x86&quot;</span>,
+    </span><span class="kw">if </span><span class="attr">#[cfg(all(any(target_arch = <span class="string">&quot;x86&quot;</span>,
                      target_arch = <span class="string">&quot;x86_64&quot;</span>,
                      target_arch = <span class="string">&quot;aarch64&quot;</span>),
                  not(target_env = <span class="string">&quot;musl&quot;</span>)))] </span>{
@@ -474,7 +474,7 @@
 <span class="kw">pub const </span>BLKPBSZGET: ::Ioctl = <span class="number">0x127B</span>;
 
 <span class="macro">cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(any(target_arch = <span class="string">&quot;arm&quot;</span>,
+    <span class="kw">if </span><span class="attr">#[cfg(any(target_arch = <span class="string">&quot;arm&quot;</span>,
                  target_arch = <span class="string">&quot;s390x&quot;</span>))] </span>{
         <span class="kw">pub const </span>FIOQSIZE: ::Ioctl = <span class="number">0x545E</span>;
     } <span class="kw">else </span>{
@@ -500,7 +500,7 @@
 <span class="comment">// RLIMIT Constants
 
 </span><span class="macro">cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(any(target_env = <span class="string">&quot;gnu&quot;</span>,
+    <span class="kw">if </span><span class="attr">#[cfg(any(target_env = <span class="string">&quot;gnu&quot;</span>,
                  target_env = <span class="string">&quot;uclibc&quot;</span>))] </span>{
 
         <span class="kw">pub const </span>RLIMIT_CPU: ::__rlimit_resource_t = <span class="number">0</span>;
@@ -521,7 +521,7 @@
         <span class="kw">pub const </span>RLIMIT_RTTIME: ::__rlimit_resource_t = <span class="number">15</span>;
         <span class="kw">pub const </span>RLIMIT_NLIMITS: ::__rlimit_resource_t = RLIM_NLIMITS;
 
-    } <span class="kw">else if </span><span class="attribute">#[cfg(target_env = <span class="string">&quot;musl&quot;</span>)] </span>{
+    } <span class="kw">else if </span><span class="attr">#[cfg(target_env = <span class="string">&quot;musl&quot;</span>)] </span>{
 
         <span class="kw">pub const </span>RLIMIT_CPU: ::c_int = <span class="number">0</span>;
         <span class="kw">pub const </span>RLIMIT_FSIZE: ::c_int = <span class="number">1</span>;
@@ -545,14 +545,14 @@
 }
 
 <span class="macro">cfg_if! </span>{
-    <span class="kw">if </span><span class="attribute">#[cfg(target_env = <span class="string">&quot;gnu&quot;</span>)] </span>{
+    <span class="kw">if </span><span class="attr">#[cfg(target_env = <span class="string">&quot;gnu&quot;</span>)] </span>{
         <span class="kw">pub const </span>RLIM_NLIMITS: ::__rlimit_resource_t = <span class="number">16</span>;
     }
-    <span class="kw">else if </span><span class="attribute">#[cfg(target_env = <span class="string">&quot;uclibc&quot;</span>)] </span>{
+    <span class="kw">else if </span><span class="attr">#[cfg(target_env = <span class="string">&quot;uclibc&quot;</span>)] </span>{
         <span class="kw">pub const </span>RLIM_NLIMITS: ::__rlimit_resource_t = <span class="number">15</span>;
     }
 }
 
 <span class="kw">pub const </span>RLIM_INFINITY: ::rlim_t = !<span class="number">0</span>;
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../../../" data-current-crate="libc" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../../../" data-current-crate="libc" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

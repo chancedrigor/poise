@@ -98,7 +98,7 @@
 
 </span><span class="kw">use </span>rand_core::{impls, Error, RngCore};
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;serde1&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;serde1&quot;</span>)]
 </span><span class="kw">use </span>serde::{Serialize, Deserialize};
 
 <span class="doccomment">/// A simple implementation of `RngCore` for testing purposes.
@@ -115,7 +115,7 @@
 /// let sample: [u64; 3] = my_rng.gen();
 /// assert_eq!(sample, [2, 3, 4]);
 /// ```
-</span><span class="attribute">#[derive(Debug, Clone, PartialEq, Eq)]
+</span><span class="attr">#[derive(Debug, Clone, PartialEq, Eq)]
 #[cfg_attr(feature = <span class="string">&quot;serde1&quot;</span>, derive(Serialize, Deserialize))]
 </span><span class="kw">pub struct </span>StepRng {
     v: u64,
@@ -134,33 +134,33 @@
 }
 
 <span class="kw">impl </span>RngCore <span class="kw">for </span>StepRng {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>next_u32(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; u32 {
         <span class="self">self</span>.next_u64() <span class="kw">as </span>u32
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>next_u64(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; u64 {
         <span class="kw">let </span>result = <span class="self">self</span>.v;
         <span class="self">self</span>.v = <span class="self">self</span>.v.wrapping_add(<span class="self">self</span>.a);
         result
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>fill_bytes(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dest: <span class="kw-2">&amp;mut </span>[u8]) {
         impls::fill_bytes_via_next(<span class="self">self</span>, dest);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>try_fill_bytes(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dest: <span class="kw-2">&amp;mut </span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
         <span class="self">self</span>.fill_bytes(dest);
         <span class="prelude-val">Ok</span>(())
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg(feature = <span class="string">&quot;serde1&quot;</span>)]
     </span><span class="kw">fn </span>test_serialization_step_rng() {
         <span class="kw">use </span><span class="kw">super</span>::StepRng;
@@ -174,4 +174,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rand" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rand" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -193,6 +193,8 @@
 <span id="193">193</span>
 <span id="194">194</span>
 <span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Prefix and slash agnostic utilities for dispatching incoming events onto framework commands
 
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
@@ -210,12 +212,12 @@
         <span class="prelude-val">None </span>=&gt; <span class="kw">return </span><span class="prelude-val">Some</span>(serenity::Permissions::all()), <span class="comment">// no permission checks in DMs
     </span>};
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span><span class="kw">let </span>guild = <span class="kw">match </span>ctx.cache.guild(guild_id) {
         <span class="prelude-val">Some</span>(x) =&gt; x,
         <span class="prelude-val">None </span>=&gt; <span class="kw">return </span><span class="prelude-val">None</span>, <span class="comment">// Guild not in cache
     </span>};
-    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    <span class="attr">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
     </span><span class="kw">let </span>guild = <span class="kw">match </span>ctx.http.get_guild(guild_id.<span class="number">0</span>).<span class="kw">await </span>{
         <span class="prelude-val">Ok</span>(x) =&gt; x,
         <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; <span class="kw">return </span><span class="prelude-val">None</span>,
@@ -233,9 +235,9 @@
         <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; <span class="kw">return </span><span class="prelude-val">None</span>,
     };
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span><span class="kw">let </span>cached_member = guild.members.get(<span class="kw-2">&amp;</span>user_id).cloned();
-    <span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+    <span class="attr">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
     </span><span class="kw">let </span>cached_member = <span class="prelude-val">None</span>;
 
     <span class="comment">// If member not in cache (probably because presences intent is not enabled), retrieve via HTTP
@@ -266,7 +268,9 @@
     <span class="prelude-val">Some</span>(required_permissions - permissions<span class="question-mark">?</span>)
 }
 
-<span class="kw">async fn </span>check_permissions_and_cooldown_single&lt;<span class="lifetime">&#39;a</span>, U, E&gt;(
+<span class="doccomment">/// See [`check_permissions_and_cooldown`]. Runs the check only for a single command. The caller
+/// should call this multiple time for each parent command to achieve the check inheritance logic.
+</span><span class="kw">async fn </span>check_permissions_and_cooldown_single&lt;<span class="lifetime">&#39;a</span>, U, E&gt;(
     ctx: <span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
     cmd: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Command&lt;U, E&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt; {
@@ -278,13 +282,13 @@
         <span class="kw">match </span>ctx.guild_id() {
             <span class="prelude-val">None </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="kw">crate</span>::FrameworkError::GuildOnly { ctx }),
             <span class="prelude-val">Some</span>(guild_id) =&gt; {
-                <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+                <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
                 </span><span class="kw">if </span>ctx.framework().options().require_cache_for_guild_check
                     &amp;&amp; ctx.discord().cache.guild_field(guild_id, |<span class="kw">_</span>| ()).is_none()
                 {
                     <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="kw">crate</span>::FrameworkError::GuildOnly { ctx });
                 }
-                <span class="attribute">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
+                <span class="attr">#[cfg(not(feature = <span class="string">&quot;cache&quot;</span>))]
                 </span><span class="kw">let _ </span>= guild_id;
             }
         }
@@ -377,7 +381,7 @@
 /// Doesn&#39;t actually start the cooldown timer! This should be done by the caller later, after
 /// argument parsing.
 /// (A command that didn&#39;t even get past argument parsing shouldn&#39;t trigger cooldowns)
-</span><span class="attribute">#[allow(clippy::needless_lifetimes)] </span><span class="comment">// false positive (clippy issue 7271)
+</span><span class="attr">#[allow(clippy::needless_lifetimes)] </span><span class="comment">// false positive (clippy issue 7271)
 </span><span class="kw">pub async fn </span>check_permissions_and_cooldown&lt;<span class="lifetime">&#39;a</span>, U, E&gt;(
     ctx: <span class="kw">crate</span>::Context&lt;<span class="lifetime">&#39;a</span>, U, E&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="kw">crate</span>::FrameworkError&lt;<span class="lifetime">&#39;a</span>, U, E&gt;&gt; {
@@ -389,4 +393,4 @@
     <span class="prelude-val">Ok</span>(())
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

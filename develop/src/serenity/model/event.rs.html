@@ -2200,35 +2200,35 @@
 <span class="kw">use </span><span class="kw">crate</span>::model::application::interaction::Interaction;
 <span class="kw">use </span><span class="kw">crate</span>::model::guild::automod::{ActionExecution, Rule};
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ApplicationCommandPermissionsUpdateEvent {
     <span class="kw">pub </span>permission: CommandPermission,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>AutoModerationRuleCreateEvent {
     <span class="kw">pub </span>rule: Rule,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>AutoModerationRuleUpdateEvent {
     <span class="kw">pub </span>rule: Rule,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>AutoModerationRuleDeleteEvent {
     <span class="kw">pub </span>rule: Rule,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>AutoModerationActionExecutionEvent {
@@ -2241,7 +2241,7 @@
 ///
 /// - A [`Channel`] is created in a [`Guild`]
 /// - A [`PrivateChannel`] is created
-</span><span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ChannelCreateEvent {
@@ -2249,14 +2249,14 @@
     </span><span class="kw">pub </span>channel: Channel,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ChannelDeleteEvent {
     <span class="kw">pub </span>channel: Channel,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ChannelPinsUpdateEvent {
     <span class="kw">pub </span>guild_id: <span class="prelude-ty">Option</span>&lt;GuildId&gt;,
@@ -2264,70 +2264,70 @@
     <span class="kw">pub </span>last_pin_timestamp: <span class="prelude-ty">Option</span>&lt;Timestamp&gt;,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ChannelUpdateEvent {
     <span class="kw">pub </span>channel: Channel,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>GuildBanAddEvent {
     <span class="kw">pub </span>guild_id: GuildId,
     <span class="kw">pub </span>user: User,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>GuildBanRemoveEvent {
     <span class="kw">pub </span>guild_id: GuildId,
     <span class="kw">pub </span>user: User,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>GuildCreateEvent {
     <span class="kw">pub </span>guild: Guild,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>GuildDeleteEvent {
     <span class="kw">pub </span>guild: UnavailableGuild,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>GuildEmojisUpdateEvent {
-    <span class="attribute">#[serde(with = <span class="string">&quot;emojis&quot;</span>)]
+    <span class="attr">#[serde(with = <span class="string">&quot;emojis&quot;</span>)]
     </span><span class="kw">pub </span>emojis: HashMap&lt;EmojiId, Emoji&gt;,
     <span class="kw">pub </span>guild_id: GuildId,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>GuildIntegrationsUpdateEvent {
     <span class="kw">pub </span>guild_id: GuildId,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>GuildMemberAddEvent {
     <span class="kw">pub </span>member: Member,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>GuildMemberRemoveEvent {
     <span class="kw">pub </span>guild_id: GuildId,
     <span class="kw">pub </span>user: User,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>GuildMemberUpdateEvent {
     <span class="kw">pub </span>guild_id: GuildId,
@@ -2336,17 +2336,17 @@
     <span class="kw">pub </span>roles: Vec&lt;RoleId&gt;,
     <span class="kw">pub </span>user: User,
     <span class="kw">pub </span>premium_since: <span class="prelude-ty">Option</span>&lt;Timestamp&gt;,
-    <span class="attribute">#[serde(default)]
+    <span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>pending: bool,
-    <span class="attribute">#[serde(default)]
+    <span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>deaf: bool,
-    <span class="attribute">#[serde(default)]
+    <span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>mute: bool,
     <span class="kw">pub </span>avatar: <span class="prelude-ty">Option</span>&lt;String&gt;,
     <span class="kw">pub </span>communication_disabled_until: <span class="prelude-ty">Option</span>&lt;Timestamp&gt;,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>GuildMembersChunkEvent {
     <span class="kw">pub </span>guild_id: GuildId,
@@ -2358,7 +2358,7 @@
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;de</span>&gt; Deserialize&lt;<span class="lifetime">&#39;de</span>&gt; <span class="kw">for </span>GuildMembersChunkEvent {
     <span class="kw">fn </span>deserialize&lt;D: Deserializer&lt;<span class="lifetime">&#39;de</span>&gt;&gt;(deserializer: D) -&gt; StdResult&lt;<span class="self">Self</span>, D::Error&gt; {
-        <span class="attribute">#[derive(Deserialize)]
+        <span class="attr">#[derive(Deserialize)]
         #[serde(field_identifier, rename_all = <span class="string">&quot;snake_case&quot;</span>)]
         </span><span class="kw">enum </span>Field {
             GuildId,
@@ -2455,7 +2455,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Debug, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>GuildRoleCreateEvent {
     <span class="kw">pub </span>role: Role,
@@ -2469,14 +2469,14 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>GuildRoleDeleteEvent {
     <span class="kw">pub </span>guild_id: GuildId,
     <span class="kw">pub </span>role_id: RoleId,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>GuildRoleUpdateEvent {
     <span class="kw">pub </span>role: Role,
@@ -2490,15 +2490,15 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>GuildStickersUpdateEvent {
-    <span class="attribute">#[serde(with = <span class="string">&quot;stickers&quot;</span>)]
+    <span class="attr">#[serde(with = <span class="string">&quot;stickers&quot;</span>)]
     </span><span class="kw">pub </span>stickers: HashMap&lt;StickerId, Sticker&gt;,
     <span class="kw">pub </span>guild_id: GuildId,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>InviteCreateEvent {
     <span class="kw">pub </span>channel_id: ChannelId,
@@ -2510,7 +2510,7 @@
     <span class="kw">pub </span>temporary: bool,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>InviteDeleteEvent {
     <span class="kw">pub </span>channel_id: ChannelId,
@@ -2518,28 +2518,28 @@
     <span class="kw">pub </span>code: String,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>GuildUnavailableEvent {
-    <span class="attribute">#[serde(rename = <span class="string">&quot;id&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">&quot;id&quot;</span>)]
     </span><span class="kw">pub </span>guild_id: GuildId,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>GuildUpdateEvent {
     <span class="kw">pub </span>guild: PartialGuild,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>MessageCreateEvent {
     <span class="kw">pub </span>message: Message,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>MessageDeleteBulkEvent {
     <span class="kw">pub </span>guild_id: <span class="prelude-ty">Option</span>&lt;GuildId&gt;,
@@ -2547,16 +2547,16 @@
     <span class="kw">pub </span>ids: Vec&lt;MessageId&gt;,
 }
 
-<span class="attribute">#[derive(Clone, Copy, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Copy, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>MessageDeleteEvent {
     <span class="kw">pub </span>guild_id: <span class="prelude-ty">Option</span>&lt;GuildId&gt;,
     <span class="kw">pub </span>channel_id: ChannelId,
-    <span class="attribute">#[serde(rename = <span class="string">&quot;id&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">&quot;id&quot;</span>)]
     </span><span class="kw">pub </span>message_id: MessageId,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>MessageUpdateEvent {
     <span class="kw">pub </span>id: MessageId,
@@ -2578,35 +2578,35 @@
     <span class="kw">pub </span>flags: <span class="prelude-ty">Option</span>&lt;MessageFlags&gt;,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>PresenceUpdateEvent {
     <span class="kw">pub </span>presence: Presence,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>PresencesReplaceEvent {
     <span class="kw">pub </span>presences: Vec&lt;Presence&gt;,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ReactionAddEvent {
     <span class="kw">pub </span>reaction: Reaction,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ReactionRemoveEvent {
     <span class="kw">pub </span>reaction: Reaction,
 }
 
-<span class="attribute">#[derive(Clone, Copy, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Copy, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ReactionRemoveAllEvent {
     <span class="kw">pub </span>guild_id: <span class="prelude-ty">Option</span>&lt;GuildId&gt;,
@@ -2615,21 +2615,21 @@
 }
 
 <span class="doccomment">/// The &quot;Ready&quot; event, containing initial ready cache
-</span><span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ReadyEvent {
     <span class="kw">pub </span>ready: Ready,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ResumedEvent {
-    <span class="attribute">#[serde(rename = <span class="string">&quot;_trace&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">&quot;_trace&quot;</span>)]
     </span><span class="kw">pub </span>trace: Vec&lt;<span class="prelude-ty">Option</span>&lt;String&gt;&gt;,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>TypingStartEvent {
     <span class="kw">pub </span>guild_id: <span class="prelude-ty">Option</span>&lt;GuildId&gt;,
@@ -2638,21 +2638,21 @@
     <span class="kw">pub </span>user_id: UserId,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>UnknownEvent {
     <span class="kw">pub </span>kind: String,
     <span class="kw">pub </span>value: Value,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>UserUpdateEvent {
     <span class="kw">pub </span>current_user: CurrentUser,
 }
 
-<span class="attribute">#[derive(Clone, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>VoiceServerUpdateEvent {
     <span class="kw">pub </span>channel_id: <span class="prelude-ty">Option</span>&lt;ChannelId&gt;,
@@ -2671,42 +2671,42 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>VoiceStateUpdateEvent {
     <span class="kw">pub </span>voice_state: VoiceState,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>WebhookUpdateEvent {
     <span class="kw">pub </span>channel_id: ChannelId,
     <span class="kw">pub </span>guild_id: GuildId,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>InteractionCreateEvent {
     <span class="kw">pub </span>interaction: Interaction,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>IntegrationCreateEvent {
     <span class="kw">pub </span>integration: Integration,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>IntegrationUpdateEvent {
     <span class="kw">pub </span>integration: Integration,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Serialize, Deserialize)]
+<span class="attr">#[derive(Clone, Debug, Serialize, Deserialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>IntegrationDeleteEvent {
     <span class="kw">pub </span>id: IntegrationId,
@@ -2714,56 +2714,56 @@
     <span class="kw">pub </span>application_id: <span class="prelude-ty">Option</span>&lt;ApplicationId&gt;,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>StageInstanceCreateEvent {
     <span class="kw">pub </span>stage_instance: StageInstance,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>StageInstanceUpdateEvent {
     <span class="kw">pub </span>stage_instance: StageInstance,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>StageInstanceDeleteEvent {
     <span class="kw">pub </span>stage_instance: StageInstance,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ThreadCreateEvent {
     <span class="kw">pub </span>thread: GuildChannel,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ThreadUpdateEvent {
     <span class="kw">pub </span>thread: GuildChannel,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ThreadDeleteEvent {
     <span class="kw">pub </span>thread: PartialGuildChannel,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ThreadListSyncEvent {
     <span class="doccomment">/// The guild Id.
     </span><span class="kw">pub </span>guild_id: GuildId,
     <span class="doccomment">/// The parent channel Id whose threads are being synced. If empty, then threads were synced for the entire guild.
     /// This array may contain channel Ids that have no active threads as well, so you know to clear that data.
-    </span><span class="attribute">#[serde(default)]
+    </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>channels_id: Vec&lt;ChannelId&gt;,
     <span class="doccomment">/// All active threads in the given channels that the current user can access.
     </span><span class="kw">pub </span>threads: Vec&lt;GuildChannel&gt;,
@@ -2772,14 +2772,14 @@
     </span><span class="kw">pub </span>members: Vec&lt;ThreadMember&gt;,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ThreadMemberUpdateEvent {
     <span class="kw">pub </span>member: ThreadMember,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ThreadMembersUpdateEvent {
     <span class="doccomment">/// The id of the thread.
@@ -2789,53 +2789,53 @@
     <span class="doccomment">/// The approximate number of members in the thread, capped at 50.
     </span><span class="kw">pub </span>member_count: u8,
     <span class="doccomment">/// The users who were added to the thread.
-    </span><span class="attribute">#[serde(default)]
+    </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>added_members: Vec&lt;ThreadMember&gt;,
     <span class="doccomment">/// The ids of the users who were removed from the thread.
-    </span><span class="attribute">#[serde(default)]
+    </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>removed_members_ids: Vec&lt;UserId&gt;,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>GuildScheduledEventCreateEvent {
     <span class="kw">pub </span>event: ScheduledEvent,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>GuildScheduledEventUpdateEvent {
     <span class="kw">pub </span>event: ScheduledEvent,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(transparent)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>GuildScheduledEventDeleteEvent {
     <span class="kw">pub </span>event: ScheduledEvent,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>GuildScheduledEventUserAddEvent {
-    <span class="attribute">#[serde(rename = <span class="string">&quot;guild_scheduled_event_id&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">&quot;guild_scheduled_event_id&quot;</span>)]
     </span>scheduled_event_id: ScheduledEventId,
     guild_id: GuildId,
     user_id: UserId,
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>GuildScheduledEventUserRemoveEvent {
-    <span class="attribute">#[serde(rename = <span class="string">&quot;guild_scheduled_event_id&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">&quot;guild_scheduled_event_id&quot;</span>)]
     </span>scheduled_event_id: ScheduledEventId,
     guild_id: GuildId,
     user_id: UserId,
 }
 
-<span class="attribute">#[allow(clippy::large_enum_variant)]
+<span class="attr">#[allow(clippy::large_enum_variant)]
 #[derive(Debug, Clone, Serialize)]
 #[non_exhaustive]
 #[serde(untagged)]
@@ -2925,7 +2925,7 @@
 }
 
 <span class="doccomment">/// Event received over a websocket connection
-</span><span class="attribute">#[allow(clippy::large_enum_variant)]
+</span><span class="attr">#[allow(clippy::large_enum_variant)]
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 #[serde(untagged)]
@@ -3107,7 +3107,7 @@
     </span>Unknown(UnknownEvent),
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">fn </span>gid_from_channel(c: <span class="kw-2">&amp;</span>Channel) -&gt; RelatedId&lt;GuildId&gt; {
     <span class="kw">match </span>c {
         Channel::Guild(g) =&gt; RelatedId::Some(g.guild_id),
@@ -3518,10 +3518,10 @@
     };
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="macro">macro_rules! </span>define_event_related_id_methods {
     ($(
-        $(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)<span class="question-mark">?
+        $(<span class="attr">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)<span class="question-mark">?
         </span><span class="macro-nonterminal">$</span><span class="kw">_</span>:<span class="macro-nonterminal">path</span>, <span class="macro-nonterminal">$variant</span>:pat =&gt; {
             user_id: <span class="macro-nonterminal">$user_id</span>:expr,
             guild_id: <span class="macro-nonterminal">$guild_id</span>:expr,
@@ -3530,56 +3530,56 @@
         }
     ),+ $(,)<span class="question-mark">?</span>) =&gt; {
         <span class="doccomment">/// User ID(s) related to this event.
-        </span><span class="attribute">#[must_use]
+        </span><span class="attr">#[must_use]
         </span><span class="kw">pub fn </span>user_id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; RelatedId&lt;UserId&gt; {
             <span class="kw">use </span>RelatedId::<span class="kw-2">*</span>;
-            <span class="attribute">#[allow(unused_variables)]
+            <span class="attr">#[allow(unused_variables)]
             </span><span class="kw">match </span><span class="self">self </span>{
                 <span class="self">Self</span>::Unknown(<span class="kw">_</span>) =&gt; Never,
                 $(
-                    $(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>]</span>)<span class="question-mark">?
+                    $(<span class="attr">#[<span class="macro-nonterminal">$attr</span>]</span>)<span class="question-mark">?
                     </span><span class="macro-nonterminal">$variant </span>=&gt; <span class="macro-nonterminal">$user_id
                 </span>),+
             }
         }
 
         <span class="doccomment">/// Guild ID related to this event.
-        </span><span class="attribute">#[must_use]
+        </span><span class="attr">#[must_use]
         </span><span class="kw">pub fn </span>guild_id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; RelatedId&lt;GuildId&gt; {
             <span class="kw">use </span>RelatedId::<span class="kw-2">*</span>;
-            <span class="attribute">#[allow(unused_variables)]
+            <span class="attr">#[allow(unused_variables)]
             </span><span class="kw">match </span><span class="self">self </span>{
                 <span class="self">Self</span>::Unknown(<span class="kw">_</span>) =&gt; Never,
                 $(
-                    $(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>]</span>)<span class="question-mark">?
+                    $(<span class="attr">#[<span class="macro-nonterminal">$attr</span>]</span>)<span class="question-mark">?
                     </span><span class="macro-nonterminal">$variant </span>=&gt; <span class="macro-nonterminal">$guild_id
                 </span>),+
             }
         }
 
         <span class="doccomment">/// Channel ID(s) related to this event.
-        </span><span class="attribute">#[must_use]
+        </span><span class="attr">#[must_use]
         </span><span class="kw">pub fn </span>channel_id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; RelatedId&lt;ChannelId&gt; {
             <span class="kw">use </span>RelatedId::<span class="kw-2">*</span>;
-            <span class="attribute">#[allow(unused_variables)]
+            <span class="attr">#[allow(unused_variables)]
             </span><span class="kw">match </span><span class="self">self </span>{
                 <span class="self">Self</span>::Unknown(<span class="kw">_</span>) =&gt; Never,
                 $(
-                    $(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>]</span>)<span class="question-mark">?
+                    $(<span class="attr">#[<span class="macro-nonterminal">$attr</span>]</span>)<span class="question-mark">?
                     </span><span class="macro-nonterminal">$variant </span>=&gt; <span class="macro-nonterminal">$channel_id
                 </span>),+
             }
         }
 
         <span class="doccomment">/// Message ID(s) related to this event.
-        </span><span class="attribute">#[must_use]
+        </span><span class="attr">#[must_use]
         </span><span class="kw">pub fn </span>message_id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; RelatedId&lt;MessageId&gt; {
             <span class="kw">use </span>RelatedId::<span class="kw-2">*</span>;
-            <span class="attribute">#[allow(unused_variables)]
+            <span class="attr">#[allow(unused_variables)]
             </span><span class="kw">match </span><span class="self">self </span>{
                 <span class="self">Self</span>::Unknown(<span class="kw">_</span>) =&gt; Never,
                 $(
-                    $(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>]</span>)<span class="question-mark">?
+                    $(<span class="attr">#[<span class="macro-nonterminal">$attr</span>]</span>)<span class="question-mark">?
                     </span><span class="macro-nonterminal">$variant </span>=&gt; <span class="macro-nonterminal">$message_id
                 </span>),+
             }
@@ -3589,7 +3589,7 @@
 
 <span class="kw">impl </span>Event {
     <span class="doccomment">/// Return the type of this event.
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>event_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; EventType {
         <span class="kw">match </span><span class="self">self </span>{
             <span class="self">Self</span>::ApplicationCommandPermissionsUpdate(<span class="kw">_</span>) =&gt; {
@@ -3659,7 +3659,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
     </span><span class="macro">with_related_ids_for_event_types!</span>(define_event_related_id_methods);
 }
 
@@ -3822,7 +3822,7 @@
 /// A Deserialization implementation is provided for deserializing raw event
 /// dispatch type strings to this enum, e.g. deserializing `&quot;CHANNEL_CREATE&quot;` to
 /// [`EventType::ChannelCreate`].
-</span><span class="attribute">#[derive(Clone, Debug, Eq, PartialEq, PartialOrd, Ord)]
+</span><span class="attr">#[derive(Clone, Debug, Eq, PartialEq, PartialOrd, Ord)]
 #[non_exhaustive]
 </span><span class="kw">pub enum </span>EventType {
     <span class="doccomment">/// Indicator that an application command permission update payload was received.
@@ -4088,7 +4088,7 @@
 /// If a field equals `false`, the corresponding [`Event`] method (i.e. [`Event::user_id`] for the
 /// `user_id` field ) will always return [`RelatedId::Never`] for this [`EventType`]. Otherwise, an
 /// event of this type may have one or more related IDs.
-</span><span class="attribute">#[derive(Debug, Default)]
+</span><span class="attr">#[derive(Debug, Default)]
 </span><span class="kw">pub struct </span>RelatedIdsForEventType {
     <span class="kw">pub </span>user_id: bool,
     <span class="kw">pub </span>guild_id: bool,
@@ -4099,16 +4099,16 @@
 <span class="macro">macro_rules! </span>define_related_ids_for_event_type {
     (
         $(
-            $(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)<span class="question-mark">?
+            $(<span class="attr">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)<span class="question-mark">?
             </span><span class="macro-nonterminal">$variant</span>:path, <span class="macro-nonterminal">$</span><span class="kw">_</span>:<span class="macro-nonterminal">pat </span>=&gt; { $(<span class="macro-nonterminal">$input</span>:tt)* }
         ),+ $(,)<span class="question-mark">?
     </span>) =&gt; {
-        <span class="attribute">#[must_use]
+        <span class="attr">#[must_use]
         </span><span class="kw">pub fn </span>related_ids(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; RelatedIdsForEventType {
             <span class="kw">match </span><span class="self">self </span>{
                 <span class="self">Self</span>::Other(<span class="kw">_</span>) =&gt; Default::default(),
                 $(
-                    $(<span class="attribute">#[<span class="macro-nonterminal">$attr</span>]</span>)<span class="question-mark">?
+                    $(<span class="attr">#[<span class="macro-nonterminal">$attr</span>]</span>)<span class="question-mark">?
                     </span><span class="macro-nonterminal">$variant </span>=&gt;
                         <span class="macro">define_related_ids_for_event_type!</span>{ @munch ($(<span class="macro-nonterminal">$input</span>)<span class="kw-2">*</span>) -&gt; {} }
                 ),+
@@ -4200,7 +4200,7 @@
     <span class="doccomment">/// Return the event name of this event. Some events are synthetic, and we lack
     /// the information to recover the original event name for these events, in which
     /// case this method returns [`None`].
-    </span><span class="attribute">#[must_use]
+    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt; {
         <span class="kw">match </span><span class="self">self </span>{
             <span class="self">Self</span>::ApplicationCommandPermissionsUpdate =&gt; {
@@ -4369,4 +4369,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -716,30 +716,30 @@
 <span id="716">716</span>
 <span id="717">717</span>
 <span id="718">718</span>
-</pre><pre class="rust"><code><span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+</pre><pre class="rust"><code><span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span>std::borrow::Cow;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
 </span><span class="kw">use </span>std::cmp::Reverse;
 <span class="kw">use </span>std::fmt;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::builder::EditMember;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::cache::Cache;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::http::{CacheHttp, Http};
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::internal::prelude::<span class="kw-2">*</span>;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::json;
 <span class="kw">use </span><span class="kw">crate</span>::model::permissions::Permissions;
 <span class="kw">use </span><span class="kw">crate</span>::model::prelude::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::model::Timestamp;
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;cache&quot;</span>, feature = <span class="string">&quot;model&quot;</span>, feature = <span class="string">&quot;utils&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::utils::Colour;
 
 <span class="doccomment">/// Information about a member of a guild.
-</span><span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>Member {
     <span class="doccomment">/// Indicator of whether the member can hear in voice channels.
@@ -759,7 +759,7 @@
     <span class="doccomment">/// Attached User struct.
     </span><span class="kw">pub </span>user: User,
     <span class="doccomment">/// Indicator that the member hasn&#39;t accepted the rules of the guild yet.
-    </span><span class="attribute">#[serde(default)]
+    </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>pending: bool,
     <span class="doccomment">/// Timestamp representing the date since the member is boosting the guild.
     </span><span class="kw">pub </span>premium_since: <span class="prelude-ty">Option</span>&lt;Timestamp&gt;,
@@ -780,17 +780,17 @@
 <span class="doccomment">/// Helper for deserialization without a `GuildId` but then later updated to the correct `GuildId`.
 ///
 /// The only difference to `Member` is `#[serde(default)]` on `guild_id`.
-</span><span class="attribute">#[derive(Deserialize)]
+</span><span class="attr">#[derive(Deserialize)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>InterimMember {
     <span class="kw">pub </span>deaf: bool,
-    <span class="attribute">#[serde(default)]
+    <span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>guild_id: GuildId,
     <span class="kw">pub </span>joined_at: <span class="prelude-ty">Option</span>&lt;Timestamp&gt;,
     <span class="kw">pub </span>mute: bool,
     <span class="kw">pub </span>nick: <span class="prelude-ty">Option</span>&lt;String&gt;,
     <span class="kw">pub </span>roles: Vec&lt;RoleId&gt;,
     <span class="kw">pub </span>user: User,
-    <span class="attribute">#[serde(default)]
+    <span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>pending: bool,
     <span class="kw">pub </span>premium_since: <span class="prelude-ty">Option</span>&lt;Timestamp&gt;,
     <span class="kw">pub </span>permissions: <span class="prelude-ty">Option</span>&lt;Permissions&gt;,
@@ -817,7 +817,7 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">impl </span>Member {
     <span class="doccomment">/// Adds a [`Role`] to the member, editing its roles in-place if the request
     /// was successful.
@@ -830,7 +830,7 @@
     /// or if a role with the given Id does not exist.
     ///
     /// [Manage Roles]: Permissions::MANAGE_ROLES
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>add_role(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         http: <span class="kw">impl </span>AsRef&lt;Http&gt;,
@@ -899,7 +899,7 @@
     /// this member.
     ///
     /// [Ban Members]: Permissions::BAN_MEMBERS
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>ban(<span class="kw-2">&amp;</span><span class="self">self</span>, http: <span class="kw">impl </span>AsRef&lt;Http&gt;, dmd: u8) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="self">self</span>.ban_with_reason(<span class="kw-2">&amp;</span>http, dmd, <span class="string">&quot;&quot;</span>).<span class="kw">await
     </span>}
@@ -910,7 +910,7 @@
     ///
     /// In addition to the errors [`Self::ban`] may return, can also return [`Error::ExceededLimit`]
     /// if the length of the reason is greater than 512.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>ban_with_reason(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         http: <span class="kw">impl </span>AsRef&lt;Http&gt;,
@@ -921,7 +921,7 @@
     </span>}
 
     <span class="doccomment">/// Determines the member&#39;s colour.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span><span class="kw">pub fn </span>colour(<span class="kw-2">&amp;</span><span class="self">self</span>, cache: <span class="kw">impl </span>AsRef&lt;Cache&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;Colour&gt; {
         <span class="kw">let </span>guild_roles = cache.as_ref().guild_field(<span class="self">self</span>.guild_id, |g| g.roles.clone())<span class="question-mark">?</span>;
 
@@ -941,7 +941,7 @@
     <span class="doccomment">/// Returns the &quot;default channel&quot; of the guild for the member.
     /// (This returns the first channel that can be read by the member, if there isn&#39;t
     /// one returns [`None`])
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span><span class="kw">pub fn </span>default_channel(<span class="kw-2">&amp;</span><span class="self">self</span>, cache: <span class="kw">impl </span>AsRef&lt;Cache&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;GuildChannel&gt; {
         <span class="kw">let </span>guild = <span class="self">self</span>.guild_id.to_guild_cached(cache)<span class="question-mark">?</span>;
 
@@ -970,7 +970,7 @@
     /// 28 days from the current time.
     ///
     /// [Moderate Members]: Permissions::MODERATE_MEMBERS
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;timeout&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;timeout&quot;</span>)]
     </span><span class="kw">pub async fn </span>disable_communication_until_datetime(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         http: <span class="kw">impl </span>AsRef&lt;Http&gt;,
@@ -994,13 +994,13 @@
     <span class="doccomment">/// Calculates the member&#39;s display name.
     ///
     /// The nickname takes priority over the member&#39;s username if it exists.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>display_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Cow&lt;<span class="lifetime">&#39;_</span>, String&gt; {
         <span class="self">self</span>.nick.as_ref().map_or_else(|| Cow::Owned(<span class="self">self</span>.user.name.clone()), Cow::Borrowed)
     }
 
     <span class="doccomment">/// Returns the DiscordTag of a Member, taking possible nickname into account.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[must_use]
     </span><span class="kw">pub fn </span>distinct(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
         <span class="macro">format!</span>(<span class="string">&quot;{}#{:04}&quot;</span>, <span class="self">self</span>.display_name(), <span class="self">self</span>.user.discriminator)
@@ -1035,7 +1035,7 @@
     /// Returns [`Error::Http`] if the current user lacks permission.
     ///
     /// [Moderate Members]: Permissions::MODERATE_MEMBERS
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;timeout&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;timeout&quot;</span>)]
     </span><span class="kw">pub async fn </span>enable_communication(<span class="kw-2">&amp;mut </span><span class="self">self</span>, http: <span class="kw">impl </span>AsRef&lt;Http&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">match </span><span class="self">self</span>.guild_id.edit_member(<span class="kw-2">&amp;</span>http, <span class="self">self</span>.user.id, EditMember::enable_communication).<span class="kw">await
         </span>{
@@ -1059,7 +1059,7 @@
     /// The &quot;highest role in hierarchy&quot; is defined as the role with the highest
     /// position. If two or more roles have the same highest position, then the
     /// role with the lowest ID is the highest.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span><span class="kw">pub fn </span>highest_role_info(<span class="kw-2">&amp;</span><span class="self">self</span>, cache: <span class="kw">impl </span>AsRef&lt;Cache&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;(RoleId, i64)&gt; {
         <span class="kw">let </span>guild_roles = cache.as_ref().guild_field(<span class="self">self</span>.guild_id, |g| g.roles.clone())<span class="question-mark">?</span>;
 
@@ -1117,7 +1117,7 @@
     /// Otherwise will return [`Error::Http`] if the current user lacks permission.
     ///
     /// [Kick Members]: Permissions::KICK_MEMBERS
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>kick(<span class="kw-2">&amp;</span><span class="self">self</span>, cache_http: <span class="kw">impl </span>CacheHttp) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="self">self</span>.kick_with_reason(cache_http, <span class="string">&quot;&quot;</span>).<span class="kw">await
     </span>}
@@ -1150,7 +1150,7 @@
     ///
     /// [Kick Members]: Permissions::KICK_MEMBERS
     </span><span class="kw">pub async fn </span>kick_with_reason(<span class="kw-2">&amp;</span><span class="self">self</span>, cache_http: <span class="kw">impl </span>CacheHttp, reason: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
         </span>{
             <span class="kw">if let </span><span class="prelude-val">Some</span>(cache) = cache_http.cache() {
                 <span class="kw">if let </span><span class="prelude-val">Some</span>(guild) = cache.guilds.get(<span class="kw-2">&amp;</span><span class="self">self</span>.guild_id) {
@@ -1217,7 +1217,7 @@
     ///
     /// And/or returns [`ModelError::ItemMissing`] if the &quot;default channel&quot; of the guild is not
     /// found.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span><span class="kw">pub fn </span>permissions(<span class="kw-2">&amp;</span><span class="self">self</span>, cache: <span class="kw">impl </span>AsRef&lt;Cache&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Permissions&gt; {
         <span class="kw">let </span>perms_opt = cache
             .as_ref()
@@ -1302,7 +1302,7 @@
     /// This is shorthand for manually searching through the Cache.
     ///
     /// If role data can not be found for the member, then [`None`] is returned.
-    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;cache&quot;</span>)]
     </span><span class="kw">pub fn </span>roles(<span class="kw-2">&amp;</span><span class="self">self</span>, cache: <span class="kw">impl </span>AsRef&lt;Cache&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;Vec&lt;Role&gt;&gt; {
         <span class="prelude-val">Some</span>(
             cache
@@ -1325,7 +1325,7 @@
     /// if the current user does not have permission to perform bans.
     ///
     /// [Ban Members]: Permissions::BAN_MEMBERS
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub async fn </span>unban(<span class="kw-2">&amp;</span><span class="self">self</span>, http: <span class="kw">impl </span>AsRef&lt;Http&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         http.as_ref().remove_ban(<span class="self">self</span>.guild_id.<span class="number">0</span>, <span class="self">self</span>.user.id.<span class="number">0</span>, <span class="prelude-val">None</span>).<span class="kw">await
     </span>}
@@ -1333,7 +1333,7 @@
     <span class="doccomment">/// Returns the formatted URL of the member&#39;s per guild avatar, if one exists.
     ///
     /// This will produce a WEBP image URL, or GIF if the member has a GIF avatar.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[must_use]
     </span><span class="kw">pub fn </span>avatar_url(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;String&gt; {
         avatar_url(<span class="self">self</span>.guild_id, <span class="self">self</span>.user.id, <span class="self">self</span>.avatar.as_ref())
@@ -1344,7 +1344,7 @@
     ///
     /// This will call [`Self::avatar_url`] first, and if that returns [`None`],
     /// it then falls back to [`User::face()`].
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     #[must_use]
     </span><span class="kw">pub fn </span>face(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
         <span class="self">self</span>.avatar_url().unwrap_or_else(|| <span class="self">self</span>.user.face())
@@ -1370,16 +1370,16 @@
 <span class="doccomment">/// A partial amount of data for a member.
 ///
 /// This is used in [`Message`]s from [`Guild`]s.
-</span><span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>PartialMember {
     <span class="doccomment">/// Indicator of whether the member can hear in voice channels.
-    </span><span class="attribute">#[serde(default)]
+    </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>deaf: bool,
     <span class="doccomment">/// Timestamp representing the date when the member joined.
     </span><span class="kw">pub </span>joined_at: <span class="prelude-ty">Option</span>&lt;Timestamp&gt;,
     <span class="doccomment">/// Indicator of whether the member can speak in voice channels
-    </span><span class="attribute">#[serde(default)]
+    </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>mute: bool,
     <span class="doccomment">/// The member&#39;s nickname, if present.
     ///
@@ -1388,7 +1388,7 @@
     <span class="doccomment">/// Vector of Ids of [`Role`]s given to the member.
     </span><span class="kw">pub </span>roles: Vec&lt;RoleId&gt;,
     <span class="doccomment">/// Indicator that the member hasn&#39;t accepted the rules of the guild yet.
-    </span><span class="attribute">#[serde(default)]
+    </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>pending: bool,
     <span class="doccomment">/// Timestamp representing the date since the member is boosting the guild.
     </span><span class="kw">pub </span>premium_since: <span class="prelude-ty">Option</span>&lt;Timestamp&gt;,
@@ -1404,7 +1404,7 @@
     </span><span class="kw">pub </span>permissions: <span class="prelude-ty">Option</span>&lt;Permissions&gt;,
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;model&quot;</span>)]
 </span><span class="kw">fn </span>avatar_url(guild_id: GuildId, user_id: UserId, hash: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>String&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;String&gt; {
     hash.map(|hash| {
         <span class="kw">let </span>ext = <span class="kw">if </span>hash.starts_with(<span class="string">&quot;a_&quot;</span>) { <span class="string">&quot;gif&quot; </span>} <span class="kw">else </span>{ <span class="string">&quot;webp&quot; </span>};
@@ -1413,7 +1413,7 @@
     })
 }
 
-<span class="attribute">#[derive(Clone, Debug, Deserialize, Serialize)]
+<span class="attr">#[derive(Clone, Debug, Deserialize, Serialize)]
 #[non_exhaustive]
 </span><span class="kw">pub struct </span>ThreadMember {
     <span class="doccomment">/// The id of the thread.
@@ -1428,11 +1428,11 @@
 
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// Describes extra features of the message.
-    </span><span class="attribute">#[derive(Default)]
+    </span><span class="attr">#[derive(Default)]
     </span><span class="kw">pub struct </span>ThreadMemberFlags: u64 {
         <span class="comment">// Not documented.
         </span><span class="kw">const </span>NOTIFICATIONS = <span class="number">1 </span>&lt;&lt; <span class="number">0</span>;
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="serenity" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -269,7 +269,7 @@
 ///
 /// [`Builder::enable_time`]: crate::runtime::Builder::enable_time
 /// [`Builder::enable_all`]: crate::runtime::Builder::enable_all
-</span><span class="attribute">#[track_caller]
+</span><span class="attr">#[track_caller]
 </span><span class="kw">pub fn </span>timeout&lt;T&gt;(duration: Duration, future: T) -&gt; Timeout&lt;T&gt;
 <span class="kw">where
     </span>T: Future,
@@ -332,12 +332,12 @@
 
 <span class="macro">pin_project! </span>{
     <span class="doccomment">/// Future returned by [`timeout`](timeout) and [`timeout_at`](timeout_at).
-    </span><span class="attribute">#[must_use = <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]
     #[derive(Debug)]
     </span><span class="kw">pub struct </span>Timeout&lt;T&gt; {
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span>value: T,
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span>delay: Sleep,
     }
 }
@@ -403,4 +403,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

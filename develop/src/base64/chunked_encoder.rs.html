@@ -249,10 +249,10 @@
     encode::{add_padding, encode_to_slice},
     Config,
 };
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">use </span>alloc::string::String;
 <span class="kw">use </span>core::cmp;
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">use </span>core::str;
 
 <span class="doccomment">/// The output mechanism for ChunkedEncoder&#39;s encoded bytes.
@@ -331,19 +331,19 @@
 </span>}
 
 <span class="comment">// A really simple sink that just appends to a string
-</span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+</span><span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>StringSink&lt;<span class="lifetime">&#39;a</span>&gt; {
     string: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>String,
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; StringSink&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(s: <span class="kw-2">&amp;mut </span>String) -&gt; StringSink {
         StringSink { string: s }
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;alloc&quot;</span>, feature = <span class="string">&quot;std&quot;</span>, test))]
 </span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Sink <span class="kw">for </span>StringSink&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="kw">type </span>Error = ();
 
@@ -354,7 +354,7 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">pub mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use crate</span>::{encode_config_buf, tests::random_config, CharacterSet, STANDARD};
@@ -364,12 +364,12 @@
         FromEntropy, Rng,
     };
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>chunked_encode_empty() {
         <span class="macro">assert_eq!</span>(<span class="string">&quot;&quot;</span>, chunked_encode_str(<span class="kw-2">&amp;</span>[], STANDARD));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>chunked_encode_intermediate_fast_loop() {
         <span class="comment">// &gt; 8 bytes input, will enter the pretty fast loop
         </span><span class="macro">assert_eq!</span>(
@@ -378,7 +378,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>chunked_encode_fast_loop() {
         <span class="comment">// &gt; 32 bytes input, will enter the uber fast loop
         </span><span class="macro">assert_eq!</span>(
@@ -387,43 +387,43 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>chunked_encode_slow_loop_only() {
         <span class="comment">// &lt; 8 bytes input, slow loop only
         </span><span class="macro">assert_eq!</span>(<span class="string">&quot;Zm9vYmFy&quot;</span>, chunked_encode_str(<span class="string">b&quot;foobar&quot;</span>, STANDARD));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>chunked_encode_matches_normal_encode_random_string_sink() {
         <span class="kw">let </span>helper = StringSinkTestHelper;
         chunked_encode_matches_normal_encode_random(<span class="kw-2">&amp;</span>helper);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>max_input_length_no_pad() {
         <span class="kw">let </span>config = config_with_pad(<span class="bool-val">false</span>);
         <span class="macro">assert_eq!</span>(<span class="number">768</span>, max_input_length(<span class="number">1024</span>, config));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>max_input_length_with_pad_decrements_one_triple() {
         <span class="kw">let </span>config = config_with_pad(<span class="bool-val">true</span>);
         <span class="macro">assert_eq!</span>(<span class="number">765</span>, max_input_length(<span class="number">1024</span>, config));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>max_input_length_with_pad_one_byte_short() {
         <span class="kw">let </span>config = config_with_pad(<span class="bool-val">true</span>);
         <span class="macro">assert_eq!</span>(<span class="number">765</span>, max_input_length(<span class="number">1025</span>, config));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>max_input_length_with_pad_fits_exactly() {
         <span class="kw">let </span>config = config_with_pad(<span class="bool-val">true</span>);
         <span class="macro">assert_eq!</span>(<span class="number">768</span>, max_input_length(<span class="number">1026</span>, config));
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>max_input_length_cant_use_extra_single_encoded_byte() {
         <span class="kw">let </span>config = Config::new(<span class="kw">crate</span>::CharacterSet::Standard, <span class="bool-val">false</span>);
         <span class="macro">assert_eq!</span>(<span class="number">300</span>, max_input_length(<span class="number">401</span>, config));
@@ -493,4 +493,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="base64" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="base64" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -264,7 +264,7 @@
 <span id="264">264</span>
 <span id="265">265</span>
 <span id="266">266</span>
-</pre><pre class="rust"><code><span class="attribute">#![deny(
+</pre><pre class="rust"><code><span class="attr">#![deny(
     missing_docs,
     missing_debug_implementations,
     rust_2018_idioms,
@@ -273,9 +273,9 @@
 )]
 #![cfg_attr(docsrs, feature(doc_cfg))]
 </span><span class="comment">// Disallow warnings when running tests.
-</span><span class="attribute">#![cfg_attr(test, deny(warnings))]
+</span><span class="attr">#![cfg_attr(test, deny(warnings))]
 </span><span class="comment">// Disallow warnings in examples.
-</span><span class="attribute">#![doc(test(attr(deny(warnings))))]
+</span><span class="attr">#![doc(test(attr(deny(warnings))))]
 
 </span><span class="doccomment">//! Mio is a fast, low-level I/O library for Rust focusing on non-blocking APIs
 //! and event notification for building high performance I/O apps with as little
@@ -307,14 +307,14 @@
 //! The available features are described in the [`features`] module.
 
 </span><span class="comment">// macros used internally
-</span><span class="attribute">#[macro_use]
+</span><span class="attr">#[macro_use]
 </span><span class="kw">mod </span>macros;
 
 <span class="kw">mod </span>interest;
 <span class="kw">mod </span>poll;
 <span class="kw">mod </span>sys;
 <span class="kw">mod </span>token;
-<span class="attribute">#[cfg(not(target_os = <span class="string">&quot;wasi&quot;</span>))]
+<span class="attr">#[cfg(not(target_os = <span class="string">&quot;wasi&quot;</span>))]
 </span><span class="kw">mod </span>waker;
 
 <span class="kw">pub mod </span>event;
@@ -327,15 +327,15 @@
     <span class="kw">pub mod </span>net;
 }
 
-<span class="attribute">#[doc(no_inline)]
+<span class="attr">#[doc(no_inline)]
 </span><span class="kw">pub use </span>event::Events;
 <span class="kw">pub use </span>interest::Interest;
 <span class="kw">pub use </span>poll::{Poll, Registry};
 <span class="kw">pub use </span>token::Token;
-<span class="attribute">#[cfg(not(target_os = <span class="string">&quot;wasi&quot;</span>))]
+<span class="attr">#[cfg(not(target_os = <span class="string">&quot;wasi&quot;</span>))]
 </span><span class="kw">pub use </span>waker::Waker;
 
-<span class="attribute">#[cfg(all(unix, feature = <span class="string">&quot;os-ext&quot;</span>))]
+<span class="attr">#[cfg(all(unix, feature = <span class="string">&quot;os-ext&quot;</span>))]
 #[cfg_attr(docsrs, doc(cfg(all(unix, feature = <span class="string">&quot;os-ext&quot;</span>))))]
 </span><span class="kw">pub mod </span>unix {
     <span class="doccomment">//! Unix only extensions.
@@ -351,7 +351,7 @@
     <span class="kw">pub use </span><span class="kw">crate</span>::sys::SourceFd;
 }
 
-<span class="attribute">#[cfg(all(windows, feature = <span class="string">&quot;os-ext&quot;</span>))]
+<span class="attr">#[cfg(all(windows, feature = <span class="string">&quot;os-ext&quot;</span>))]
 #[cfg_attr(docsrs, doc(cfg(all(windows, feature = <span class="string">&quot;os-ext&quot;</span>))))]
 </span><span class="kw">pub mod </span>windows {
     <span class="doccomment">//! Windows only extensions.
@@ -364,7 +364,7 @@
     //!
     //! This document describes the available features in Mio.
     //!
-    </span><span class="attribute">#![cfg_attr(feature = <span class="string">&quot;os-poll&quot;</span>, doc = <span class="string">&quot;## `os-poll` (enabled)&quot;</span>)]
+    </span><span class="attr">#![cfg_attr(feature = <span class="string">&quot;os-poll&quot;</span>, doc = <span class="string">&quot;## `os-poll` (enabled)&quot;</span>)]
     #![cfg_attr(not(feature = <span class="string">&quot;os-poll&quot;</span>), doc = <span class="string">&quot;## `os-poll` (disabled)&quot;</span>)]
     </span><span class="doccomment">//!
     //! Mio by default provides only a shell implementation that `panic!`s the
@@ -373,13 +373,13 @@
     //!
     //! This makes `Poll`, `Registry` and `Waker` functional.
     //!
-    </span><span class="attribute">#![cfg_attr(feature = <span class="string">&quot;os-ext&quot;</span>, doc = <span class="string">&quot;## `os-ext` (enabled)&quot;</span>)]
+    </span><span class="attr">#![cfg_attr(feature = <span class="string">&quot;os-ext&quot;</span>, doc = <span class="string">&quot;## `os-ext` (enabled)&quot;</span>)]
     #![cfg_attr(not(feature = <span class="string">&quot;os-ext&quot;</span>), doc = <span class="string">&quot;## `os-ext` (disabled)&quot;</span>)]
     </span><span class="doccomment">//!
     //! `os-ext` enables additional OS specific facilities. These facilities can
     //! be found in the `unix` and `windows` module.
     //!
-    </span><span class="attribute">#![cfg_attr(feature = <span class="string">&quot;net&quot;</span>, doc = <span class="string">&quot;## Network types (enabled)&quot;</span>)]
+    </span><span class="attr">#![cfg_attr(feature = <span class="string">&quot;net&quot;</span>, doc = <span class="string">&quot;## Network types (enabled)&quot;</span>)]
     #![cfg_attr(not(feature = <span class="string">&quot;net&quot;</span>), doc = <span class="string">&quot;## Network types (disabled)&quot;</span>)]
     </span><span class="doccomment">//!
     //! The `net` feature enables networking primitives in the `net` module.
@@ -406,7 +406,7 @@
     //! [`Poll`]: ../struct.Poll.html
     //! [`Events`]: ../event/struct.Events.html
     //!
-    </span><span class="attribute">#![cfg_attr(feature = <span class="string">&quot;os-poll&quot;</span>, doc = <span class="string">&quot;```&quot;</span>)]
+    </span><span class="attr">#![cfg_attr(feature = <span class="string">&quot;os-poll&quot;</span>, doc = <span class="string">&quot;```&quot;</span>)]
     #![cfg_attr(not(feature = <span class="string">&quot;os-poll&quot;</span>), doc = <span class="string">&quot;```ignore&quot;</span>)]
     </span><span class="doccomment">//! # use mio::{Poll, Events};
     //! # fn main() -&gt; std::io::Result&lt;()&gt; {
@@ -441,7 +441,7 @@
     //!
     //! [event source]: ../event/trait.Source.html
     //!
-    </span><span class="attribute">#![cfg_attr(all(feature = <span class="string">&quot;os-poll&quot;</span>, feature = <span class="string">&quot;net&quot;</span>), doc = <span class="string">&quot;```&quot;</span>)]
+    </span><span class="attr">#![cfg_attr(all(feature = <span class="string">&quot;os-poll&quot;</span>, feature = <span class="string">&quot;net&quot;</span>), doc = <span class="string">&quot;```&quot;</span>)]
     #![cfg_attr(not(all(feature = <span class="string">&quot;os-poll&quot;</span>, feature = <span class="string">&quot;net&quot;</span>)), doc = <span class="string">&quot;```ignore&quot;</span>)]
     </span><span class="doccomment">//! # use mio::net::TcpListener;
     //! # use mio::{Poll, Token, Interest};
@@ -480,7 +480,7 @@
     //! [poll]: ../struct.Poll.html#method.poll
     //! [event sources]: ../event/trait.Source.html
     //!
-    </span><span class="attribute">#![cfg_attr(all(feature = <span class="string">&quot;os-poll&quot;</span>, feature = <span class="string">&quot;net&quot;</span>), doc = <span class="string">&quot;```&quot;</span>)]
+    </span><span class="attr">#![cfg_attr(all(feature = <span class="string">&quot;os-poll&quot;</span>, feature = <span class="string">&quot;net&quot;</span>), doc = <span class="string">&quot;```&quot;</span>)]
     #![cfg_attr(not(all(feature = <span class="string">&quot;os-poll&quot;</span>, feature = <span class="string">&quot;net&quot;</span>)), doc = <span class="string">&quot;```ignore&quot;</span>)]
     </span><span class="doccomment">//! # use std::io;
     //! # use std::time::Duration;
@@ -531,4 +531,4 @@
     //! ```
 </span>}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="mio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="mio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

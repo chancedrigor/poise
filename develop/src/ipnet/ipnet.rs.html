@@ -1804,7 +1804,7 @@
 /// let net: IpNet = &quot;fd00::/32&quot;.parse().unwrap();
 /// assert_eq!(Ok(net.network()), &quot;fd00::&quot;.parse());
 /// ```
-</span><span class="attribute">#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
+</span><span class="attr">#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[cfg_attr(feature = <span class="string">&quot;json&quot;</span>, derive(schemars::JsonSchema))]
 </span><span class="kw">pub enum </span>IpNet {
     V4(Ipv4Net),
@@ -1835,7 +1835,7 @@
 /// let net: Ipv4Net = &quot;10.1.1.0/24&quot;.parse().unwrap();
 /// assert_eq!(Ok(net.network()), &quot;10.1.1.0&quot;.parse());
 /// ```
-</span><span class="attribute">#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
+</span><span class="attr">#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[cfg_attr(feature = <span class="string">&quot;json&quot;</span>, derive(schemars::JsonSchema))]
 </span><span class="kw">pub struct </span>Ipv4Net {
     addr: Ipv4Addr,
@@ -1866,7 +1866,7 @@
 /// let net: Ipv6Net = &quot;fd00::/32&quot;.parse().unwrap();
 /// assert_eq!(Ok(net.network()), &quot;fd00::&quot;.parse());
 /// ```
-</span><span class="attribute">#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
+</span><span class="attr">#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[cfg_attr(feature = <span class="string">&quot;json&quot;</span>, derive(schemars::JsonSchema))]
 </span><span class="kw">pub struct </span>Ipv6Net {
     addr: Ipv6Addr,
@@ -1876,7 +1876,7 @@
 <span class="doccomment">/// An error which can be returned when the prefix length is invalid.
 ///
 /// Valid prefix lengths are 0 to 32 for IPv4 and 0 to 128 for IPv6.
-</span><span class="attribute">#[derive(Debug, Clone, PartialEq, Eq)]
+</span><span class="attr">#[derive(Debug, Clone, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>PrefixLenError;
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>PrefixLenError {
@@ -3084,7 +3084,7 @@
 ///     &quot;fd00:e0::/28&quot;.parse().unwrap(),
 /// ]);
 /// ```
-</span><span class="attribute">#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug)]
+</span><span class="attr">#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug)]
 </span><span class="kw">pub enum </span>IpSubnets {
     V4(Ipv4Subnets),
     V6(Ipv6Subnets),
@@ -3117,7 +3117,7 @@
 ///     &quot;10.0.0.224/28&quot;.parse().unwrap(),
 /// ]);
 /// ```
-</span><span class="attribute">#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug)]
+</span><span class="attr">#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug)]
 </span><span class="kw">pub struct </span>Ipv4Subnets {
     start: Ipv4Addr,
     end: Ipv4Addr, <span class="comment">// end is inclusive
@@ -3151,7 +3151,7 @@
 ///     &quot;fd00:e0::/28&quot;.parse().unwrap(),
 /// ]);
 /// ```
-</span><span class="attribute">#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug)]
+</span><span class="attr">#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug)]
 </span><span class="kw">pub struct </span>Ipv6Subnets {
     start: Ipv6Addr,
     end: Ipv6Addr, <span class="comment">// end is inclusive
@@ -3311,7 +3311,7 @@
     res
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
@@ -3320,7 +3320,7 @@
         ($(<span class="macro-nonterminal">$x</span>:expr,)<span class="kw-2">*</span>) =&gt; ( <span class="macro">make_ipnet_vec!</span>[$(<span class="macro-nonterminal">$x</span>),<span class="kw-2">*</span>] );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_make_ipnet_vec() {
         <span class="macro">assert_eq!</span>(
             <span class="macro">make_ipnet_vec!</span>[
@@ -3338,7 +3338,7 @@
         );
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_merge_intervals() {
         <span class="kw">let </span>v = <span class="macro">vec!</span>[
             (<span class="number">0</span>, <span class="number">1</span>), (<span class="number">1</span>, <span class="number">2</span>), (<span class="number">2</span>, <span class="number">3</span>),
@@ -3368,7 +3368,7 @@
 
     <span class="macro">macro_rules! </span>make_ipv4_subnets_test {
         (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$start</span>:expr, <span class="macro-nonterminal">$end</span>:expr, <span class="macro-nonterminal">$min_prefix_len</span>:expr, $(<span class="macro-nonterminal">$x</span>:expr),<span class="kw-2">*</span>) =&gt; (
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>() {
                 <span class="kw">let </span>subnets = IpSubnets::from(Ipv4Subnets::new(
                     <span class="macro-nonterminal">$start</span>.parse().unwrap(),
@@ -3386,7 +3386,7 @@
 
     <span class="macro">macro_rules! </span>make_ipv6_subnets_test {
         (<span class="macro-nonterminal">$name</span>:ident, <span class="macro-nonterminal">$start</span>:expr, <span class="macro-nonterminal">$end</span>:expr, <span class="macro-nonterminal">$min_prefix_len</span>:expr, $(<span class="macro-nonterminal">$x</span>:expr),<span class="kw-2">*</span>) =&gt; (
-            <span class="attribute">#[test]
+            <span class="attr">#[test]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>() {
                 <span class="kw">let </span>subnets = IpSubnets::from(Ipv6Subnets::new(
                     <span class="macro-nonterminal">$start</span>.parse().unwrap(),
@@ -3480,7 +3480,7 @@
         <span class="string">&quot;::a/128&quot;</span>,
     );
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_aggregate() {
         <span class="kw">let </span>ip_nets = <span class="macro">make_ipnet_vec!</span>[
             <span class="string">&quot;10.0.0.0/24&quot;</span>, <span class="string">&quot;10.0.1.0/24&quot;</span>, <span class="string">&quot;10.0.1.1/24&quot;</span>, <span class="string">&quot;10.0.1.2/24&quot;</span>,
@@ -3510,23 +3510,23 @@
         <span class="macro">assert_eq!</span>(Ipv6Net::aggregate(<span class="kw-2">&amp;</span>ipv6_nets), ipv6_aggs);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>ipnet_default() {
         <span class="kw">let </span>ipnet: IpNet = <span class="string">&quot;0.0.0.0/0&quot;</span>.parse().unwrap();
         <span class="macro">assert_eq!</span>(ipnet, IpNet::default());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>ipv4net_default() {
         <span class="kw">let </span>ipnet: Ipv4Net = <span class="string">&quot;0.0.0.0/0&quot;</span>.parse().unwrap();
         <span class="macro">assert_eq!</span>(ipnet, Ipv4Net::default());
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>ipv6net_default() {
         <span class="kw">let </span>ipnet: Ipv6Net = <span class="string">&quot;::/0&quot;</span>.parse().unwrap();
         <span class="macro">assert_eq!</span>(ipnet, Ipv6Net::default());
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ipnet" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ipnet" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

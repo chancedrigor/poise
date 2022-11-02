@@ -225,7 +225,7 @@
 <span class="comment">// With TypeIds as keys, there&#39;s no need to hash them. They are already hashes
 // themselves, coming from the compiler. The IdHasher just holds the u64 of
 // the TypeId, and then returns it, instead of doing any bit fiddling.
-</span><span class="attribute">#[derive(Default)]
+</span><span class="attr">#[derive(Default)]
 </span><span class="kw">struct </span>IdHasher(u64);
 
 <span class="kw">impl </span>Hasher <span class="kw">for </span>IdHasher {
@@ -233,12 +233,12 @@
         <span class="macro">unreachable!</span>(<span class="string">&quot;TypeId calls write_u64&quot;</span>);
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>write_u64(<span class="kw-2">&amp;mut </span><span class="self">self</span>, id: u64) {
         <span class="self">self</span>.<span class="number">0 </span>= id;
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>finish(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u64 {
         <span class="self">self</span>.<span class="number">0
     </span>}
@@ -248,7 +248,7 @@
 ///
 /// `Extensions` can be used by `Request` and `Response` to store
 /// extra data derived from the underlying protocol.
-</span><span class="attribute">#[derive(Default)]
+</span><span class="attr">#[derive(Default)]
 </span><span class="kw">pub struct </span>Extensions {
     <span class="comment">// If extensions are never used, no need to carry around an empty HashMap.
     // That&#39;s 3 words. Instead, this is only 1 word.
@@ -257,7 +257,7 @@
 
 <span class="kw">impl </span>Extensions {
     <span class="doccomment">/// Create an empty `Extensions`.
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>new() -&gt; Extensions {
         Extensions { map: <span class="prelude-val">None </span>}
     }
@@ -363,7 +363,7 @@
     ///
     /// assert!(ext.get::&lt;i32&gt;().is_none());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>clear(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref mut </span>map) = <span class="self">self</span>.map {
             map.clear();
@@ -381,7 +381,7 @@
     /// ext.insert(5i32);
     /// assert!(!ext.is_empty());
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_empty(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.map
             .as_ref()
@@ -399,7 +399,7 @@
     /// ext.insert(5i32);
     /// assert_eq!(ext.len(), 1);
     /// ```
-    </span><span class="attribute">#[inline]
+    </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
         <span class="self">self</span>.map
             .as_ref()
@@ -413,9 +413,9 @@
     }
 }
 
-<span class="attribute">#[test]
+<span class="attr">#[test]
 </span><span class="kw">fn </span>test_extensions() {
-    <span class="attribute">#[derive(Debug, PartialEq)]
+    <span class="attr">#[derive(Debug, PartialEq)]
     </span><span class="kw">struct </span>MyType(i32);
 
     <span class="kw">let </span><span class="kw-2">mut </span>extensions = Extensions::new();
@@ -433,4 +433,4 @@
     <span class="macro">assert_eq!</span>(extensions.get(), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>MyType(<span class="number">10</span>)));
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="http" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="http" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

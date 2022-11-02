@@ -485,19 +485,19 @@
 //!
 //! [processor tricks]: https://en.wikipedia.org/wiki/Simultaneous_multithreading
 //! [`rayon::ThreadPool`]: https://docs.rs/rayon/1.*/rayon/struct.ThreadPool.html
-</span><span class="attribute">#![cfg_attr(test, deny(warnings))]
+</span><span class="attr">#![cfg_attr(test, deny(warnings))]
 #![deny(missing_docs)]
 #![allow(non_snake_case)]
 
 #[cfg(not(windows))]
 </span><span class="kw">extern crate </span>libc;
 
-<span class="attribute">#[cfg(target_os = <span class="string">&quot;hermit&quot;</span>)]
+<span class="attr">#[cfg(target_os = <span class="string">&quot;hermit&quot;</span>)]
 </span><span class="kw">extern crate </span>hermit_abi;
 
-<span class="attribute">#[cfg(target_os = <span class="string">&quot;linux&quot;</span>)]
+<span class="attr">#[cfg(target_os = <span class="string">&quot;linux&quot;</span>)]
 </span><span class="kw">mod </span>linux;
-<span class="attribute">#[cfg(target_os = <span class="string">&quot;linux&quot;</span>)]
+<span class="attr">#[cfg(target_os = <span class="string">&quot;linux&quot;</span>)]
 </span><span class="kw">use </span>linux::{get_num_cpus, get_num_physical_cpus};
 
 <span class="doccomment">/// Returns the number of available CPUs of the current system.
@@ -528,7 +528,7 @@
 /// [smt]: https://en.wikipedia.org/wiki/Simultaneous_multithreading
 /// [sched affinity]: http://www.gnu.org/software/libc/manual/html_node/CPU-Affinity.html
 /// [cgroups]: https://www.kernel.org/doc/Documentation/cgroup-v1/cgroups.txt
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>get() -&gt; usize {
     get_num_cpus()
 }
@@ -563,20 +563,20 @@
 /// ```
 ///
 /// [`get()`]: fn.get.html
-</span><span class="attribute">#[inline]
+</span><span class="attr">#[inline]
 </span><span class="kw">pub fn </span>get_physical() -&gt; usize {
     get_num_physical_cpus()
 }
 
 
-<span class="attribute">#[cfg(not(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;windows&quot;</span>, target_os=<span class="string">&quot;macos&quot;</span>, target_os=<span class="string">&quot;openbsd&quot;</span>)))]
+<span class="attr">#[cfg(not(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;windows&quot;</span>, target_os=<span class="string">&quot;macos&quot;</span>, target_os=<span class="string">&quot;openbsd&quot;</span>)))]
 #[inline]
 </span><span class="kw">fn </span>get_num_physical_cpus() -&gt; usize {
     <span class="comment">// Not implemented, fall back
     </span>get_num_cpus()
 }
 
-<span class="attribute">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
+<span class="attr">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
 </span><span class="kw">fn </span>get_num_physical_cpus() -&gt; usize {
     <span class="kw">match </span>get_num_physical_cpus_windows() {
         <span class="prelude-val">Some</span>(num) =&gt; num,
@@ -584,17 +584,17 @@
     }
 }
 
-<span class="attribute">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
+<span class="attr">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
 </span><span class="kw">fn </span>get_num_physical_cpus_windows() -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
     <span class="comment">// Inspired by https://msdn.microsoft.com/en-us/library/ms683194
 
     </span><span class="kw">use </span>std::ptr;
     <span class="kw">use </span>std::mem;
 
-    <span class="attribute">#[allow(non_upper_case_globals)]
+    <span class="attr">#[allow(non_upper_case_globals)]
     </span><span class="kw">const </span>RelationProcessorCore: u32 = <span class="number">0</span>;
 
-    <span class="attribute">#[repr(C)]
+    <span class="attr">#[repr(C)]
     #[allow(non_camel_case_types)]
     </span><span class="kw">struct </span>SYSTEM_LOGICAL_PROCESSOR_INFORMATION {
         mask: usize,
@@ -659,9 +659,9 @@
     }
 }
 
-<span class="attribute">#[cfg(windows)]
+<span class="attr">#[cfg(windows)]
 </span><span class="kw">fn </span>get_num_cpus() -&gt; usize {
-    <span class="attribute">#[repr(C)]
+    <span class="attr">#[repr(C)]
     </span><span class="kw">struct </span>SYSTEM_INFO {
         wProcessorArchitecture: u16,
         wReserved: u16,
@@ -687,7 +687,7 @@
     }
 }
 
-<span class="attribute">#[cfg(any(target_os = <span class="string">&quot;freebsd&quot;</span>,
+<span class="attr">#[cfg(any(target_os = <span class="string">&quot;freebsd&quot;</span>,
           target_os = <span class="string">&quot;dragonfly&quot;</span>,
           target_os = <span class="string">&quot;netbsd&quot;</span>))]
 </span><span class="kw">fn </span>get_num_cpus() -&gt; usize {
@@ -716,7 +716,7 @@
     cpus <span class="kw">as </span>usize
 }
 
-<span class="attribute">#[cfg(target_os = <span class="string">&quot;openbsd&quot;</span>)]
+<span class="attr">#[cfg(target_os = <span class="string">&quot;openbsd&quot;</span>)]
 </span><span class="kw">fn </span>get_num_cpus() -&gt; usize {
     <span class="kw">use </span>std::ptr;
 
@@ -739,7 +739,7 @@
     cpus <span class="kw">as </span>usize
 }
 
-<span class="attribute">#[cfg(target_os = <span class="string">&quot;openbsd&quot;</span>)]
+<span class="attr">#[cfg(target_os = <span class="string">&quot;openbsd&quot;</span>)]
 </span><span class="kw">fn </span>get_num_physical_cpus() -&gt; usize {
     <span class="kw">use </span>std::ptr;
 
@@ -763,7 +763,7 @@
 }
 
 
-<span class="attribute">#[cfg(target_os = <span class="string">&quot;macos&quot;</span>)]
+<span class="attr">#[cfg(target_os = <span class="string">&quot;macos&quot;</span>)]
 </span><span class="kw">fn </span>get_num_physical_cpus() -&gt; usize {
     <span class="kw">use </span>std::ffi::CStr;
     <span class="kw">use </span>std::ptr;
@@ -786,7 +786,7 @@
     cpus <span class="kw">as </span>usize
 }
 
-<span class="attribute">#[cfg(any(
+<span class="attr">#[cfg(any(
     target_os = <span class="string">&quot;nacl&quot;</span>,
     target_os = <span class="string">&quot;macos&quot;</span>,
     target_os = <span class="string">&quot;ios&quot;</span>,
@@ -798,9 +798,9 @@
 </span><span class="kw">fn </span>get_num_cpus() -&gt; usize {
     <span class="comment">// On ARM targets, processors could be turned off to save power.
     // Use `_SC_NPROCESSORS_CONF` to get the real number.
-    </span><span class="attribute">#[cfg(any(target_arch = <span class="string">&quot;arm&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>))]
+    </span><span class="attr">#[cfg(any(target_arch = <span class="string">&quot;arm&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>))]
     </span><span class="kw">const </span>CONF_NAME: libc::c_int = libc::_SC_NPROCESSORS_CONF;
-    <span class="attribute">#[cfg(not(any(target_arch = <span class="string">&quot;arm&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>)))]
+    <span class="attr">#[cfg(not(any(target_arch = <span class="string">&quot;arm&quot;</span>, target_arch = <span class="string">&quot;aarch64&quot;</span>)))]
     </span><span class="kw">const </span>CONF_NAME: libc::c_int = libc::_SC_NPROCESSORS_ONLN;
 
     <span class="kw">let </span>cpus = <span class="kw">unsafe </span>{ libc::sysconf(CONF_NAME) };
@@ -811,16 +811,16 @@
     }
 }
 
-<span class="attribute">#[cfg(target_os = <span class="string">&quot;haiku&quot;</span>)]
+<span class="attr">#[cfg(target_os = <span class="string">&quot;haiku&quot;</span>)]
 </span><span class="kw">fn </span>get_num_cpus() -&gt; usize {
     <span class="kw">use </span>std::mem;
 
-    <span class="attribute">#[allow(non_camel_case_types)]
+    <span class="attr">#[allow(non_camel_case_types)]
     </span><span class="kw">type </span>bigtime_t = i64;
-    <span class="attribute">#[allow(non_camel_case_types)]
+    <span class="attr">#[allow(non_camel_case_types)]
     </span><span class="kw">type </span>status_t = i32;
 
-    <span class="attribute">#[repr(C)]
+    <span class="attr">#[repr(C)]
     </span><span class="kw">pub struct </span>system_info {
         <span class="kw">pub </span>boot_time: bigtime_t,
         <span class="kw">pub </span>cpu_count: u32,
@@ -862,12 +862,12 @@
     </span>}
 }
 
-<span class="attribute">#[cfg(target_os = <span class="string">&quot;hermit&quot;</span>)]
+<span class="attr">#[cfg(target_os = <span class="string">&quot;hermit&quot;</span>)]
 </span><span class="kw">fn </span>get_num_cpus() -&gt; usize {
     <span class="kw">unsafe </span>{ hermit_abi::get_processor_count() }
 }
 
-<span class="attribute">#[cfg(not(any(
+<span class="attr">#[cfg(not(any(
     target_os = <span class="string">&quot;nacl&quot;</span>,
     target_os = <span class="string">&quot;macos&quot;</span>,
     target_os = <span class="string">&quot;ios&quot;</span>,
@@ -888,13 +888,13 @@
     <span class="number">1
 </span>}
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">fn </span>env_var(name: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
         ::std::env::var(name).ok().map(|val| val.parse().unwrap())
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_get() {
         <span class="kw">let </span>num = <span class="kw">super</span>::get();
         <span class="kw">if let </span><span class="prelude-val">Some</span>(n) = env_var(<span class="string">&quot;NUM_CPUS_TEST_GET&quot;</span>) {
@@ -905,7 +905,7 @@
         }
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_get_physical() {
         <span class="kw">let </span>num = <span class="kw">super</span>::get_physical();
         <span class="kw">if let </span><span class="prelude-val">Some</span>(n) = env_var(<span class="string">&quot;NUM_CPUS_TEST_GET_PHYSICAL&quot;</span>) {
@@ -917,4 +917,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="num_cpus" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="num_cpus" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

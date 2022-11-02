@@ -154,7 +154,7 @@
 }
 
 <span class="kw">impl</span>&lt;T: AsyncRead + AsyncWrite + Unpin&gt; AsyncRead <span class="kw">for </span>MaybeHttpsStream&lt;T&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>poll_read(
         <span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;,
         cx: <span class="kw-2">&amp;mut </span>Context,
@@ -168,7 +168,7 @@
 }
 
 <span class="kw">impl</span>&lt;T: AsyncWrite + AsyncRead + Unpin&gt; AsyncWrite <span class="kw">for </span>MaybeHttpsStream&lt;T&gt; {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>poll_write(
         <span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;,
         cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;,
@@ -180,7 +180,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>poll_flush(<span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;<span class="prelude-ty">Result</span>&lt;(), io::Error&gt;&gt; {
         <span class="kw">match </span>Pin::get_mut(<span class="self">self</span>) {
             MaybeHttpsStream::Http(s) =&gt; Pin::new(s).poll_flush(cx),
@@ -188,7 +188,7 @@
         }
     }
 
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>poll_shutdown(<span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;<span class="prelude-ty">Result</span>&lt;(), io::Error&gt;&gt; {
         <span class="kw">match </span>Pin::get_mut(<span class="self">self</span>) {
             MaybeHttpsStream::Http(s) =&gt; Pin::new(s).poll_shutdown(cx),
@@ -197,4 +197,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="hyper_rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="hyper_rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

@@ -2348,7 +2348,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::msgs::enums::{KeyUpdateRequest, NamedGroup, SignatureScheme};
 <span class="kw">use </span><span class="kw">crate</span>::rand;
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::log::warn;
 
 <span class="kw">use </span>std::collections;
@@ -2389,7 +2389,7 @@
 <span class="macro">declare_u16_vec!</span>(VecU16OfPayloadU8, PayloadU8);
 <span class="macro">declare_u16_vec!</span>(VecU16OfPayloadU16, PayloadU16);
 
-<span class="attribute">#[derive(Clone, Copy, Debug, PartialEq)]
+<span class="attr">#[derive(Clone, Copy, Debug, PartialEq)]
 </span><span class="kw">pub struct </span>Random(<span class="kw">pub </span>[u8; <span class="number">32</span>]);
 
 <span class="kw">static </span>HELLO_RETRY_REQUEST_RANDOM: Random = Random([
@@ -2427,13 +2427,13 @@
 }
 
 <span class="kw">impl </span>From&lt;[u8; <span class="number">32</span>]&gt; <span class="kw">for </span>Random {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>from(bytes: [u8; <span class="number">32</span>]) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>(bytes)
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 </span><span class="kw">pub struct </span>SessionID {
     len: usize,
     data: [u8; <span class="number">32</span>],
@@ -2506,7 +2506,7 @@
     </span>}
 }
 
-<span class="attribute">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>UnknownExtension {
     <span class="kw">pub </span>typ: ExtensionType,
     <span class="kw">pub </span>payload: Payload,
@@ -2578,7 +2578,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub enum </span>ServerNamePayload {
     <span class="comment">// Stored twice, bytes so we can round-trip, and DnsName for use
     </span>HostName((PayloadU16, webpki::DnsName)),
@@ -2617,7 +2617,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>ServerName {
     <span class="kw">pub </span>typ: ServerNameType,
     <span class="kw">pub </span>payload: ServerNamePayload,
@@ -2712,7 +2712,7 @@
 }
 
 <span class="comment">// --- TLS 1.3 Key shares ---
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>KeyShareEntry {
     <span class="kw">pub </span>group: NamedGroup,
     <span class="kw">pub </span>payload: PayloadU16,
@@ -2742,7 +2742,7 @@
 }
 
 <span class="comment">// --- TLS 1.3 PresharedKey offers ---
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>PresharedKeyIdentity {
     <span class="kw">pub </span>identity: PayloadU16,
     <span class="kw">pub </span>obfuscated_ticket_age: u32,
@@ -2775,7 +2775,7 @@
 <span class="kw">pub type </span>PresharedKeyBinder = PayloadU8;
 <span class="kw">pub type </span>PresharedKeyBinders = VecU16OfPayloadU8;
 
-<span class="attribute">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>PresharedKeyOffer {
     <span class="kw">pub </span>identities: PresharedKeyIdentities,
     <span class="kw">pub </span>binders: PresharedKeyBinders,
@@ -2808,7 +2808,7 @@
 <span class="comment">// --- RFC6066 certificate status request ---
 </span><span class="kw">type </span>ResponderIDs = VecU16OfPayloadU16;
 
-<span class="attribute">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>OCSPCertificateStatusRequest {
     <span class="kw">pub </span>responder_ids: ResponderIDs,
     <span class="kw">pub </span>extensions: PayloadU16,
@@ -2829,7 +2829,7 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub enum </span>CertificateStatusRequest {
     OCSP(OCSPCertificateStatusRequest),
     Unknown((CertificateStatusType, Payload)),
@@ -2883,7 +2883,7 @@
 <span class="macro">declare_u16_vec!</span>(KeyShareEntries, KeyShareEntry);
 <span class="macro">declare_u8_vec!</span>(ProtocolVersions, ProtocolVersion);
 
-<span class="attribute">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub enum </span>ClientExtension {
     ECPointFormats(ECPointFormatList),
     NamedGroups(NamedGroups),
@@ -3048,13 +3048,13 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub enum </span>ClientSessionTicket {
     Request,
     Offer(Payload),
 }
 
-<span class="attribute">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub enum </span>ServerExtension {
     ECPointFormats(ECPointFormatList),
     ServerNameAck,
@@ -3181,7 +3181,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ClientHelloPayload {
     <span class="kw">pub </span>client_version: ProtocolVersion,
     <span class="kw">pub </span>random: Random,
@@ -3383,7 +3383,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub enum </span>HelloRetryExtension {
     KeyShare(NamedGroup),
     Cookie(PayloadU16),
@@ -3440,7 +3440,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>HelloRetryRequest {
     <span class="kw">pub </span>legacy_version: ProtocolVersion,
     <span class="kw">pub </span>session_id: SessionID,
@@ -3533,7 +3533,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ServerHelloPayload {
     <span class="kw">pub </span>legacy_version: ProtocolVersion,
     <span class="kw">pub </span>random: Random,
@@ -3648,7 +3648,7 @@
 // That&#39;s annoying. It means the parsing is not
 // context-free any more.
 
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub enum </span>CertificateExtension {
     CertificateStatus(CertificateStatus),
     SignedCertificateTimestamp(SCTList),
@@ -3726,7 +3726,7 @@
 
 <span class="macro">declare_u16_vec!</span>(CertificateExtensions, CertificateExtension);
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>CertificateEntry {
     <span class="kw">pub </span>cert: key::Certificate,
     <span class="kw">pub </span>exts: CertificateExtensions,
@@ -3790,7 +3790,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>CertificatePayloadTLS13 {
     <span class="kw">pub </span>context: PayloadU8,
     <span class="kw">pub </span>entries: Vec&lt;CertificateEntry&gt;,
@@ -3872,7 +3872,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub enum </span>KeyExchangeAlgorithm {
     BulkOnly,
     DH,
@@ -3885,7 +3885,7 @@
 <span class="comment">// We don&#39;t support arbitrary curves.  It&#39;s a terrible
 // idea and unnecessary attack surface.  Please,
 // get a grip.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ECParameters {
     <span class="kw">pub </span>curve_type: ECCurveType,
     <span class="kw">pub </span>named_group: NamedGroup,
@@ -3913,7 +3913,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug, Clone)]
+<span class="attr">#[derive(Debug, Clone)]
 </span><span class="kw">pub struct </span>DigitallySignedStruct {
     <span class="kw">pub </span>scheme: SignatureScheme,
     <span class="kw">pub </span>sig: PayloadU16,
@@ -3942,7 +3942,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ClientECDHParams {
     <span class="kw">pub </span>public: PayloadU8,
 }
@@ -3958,7 +3958,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ServerECDHParams {
     <span class="kw">pub </span>curve_params: ECParameters,
     <span class="kw">pub </span>public: PayloadU8,
@@ -3993,7 +3993,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ECDHEServerKeyExchange {
     <span class="kw">pub </span>params: ServerECDHParams,
     <span class="kw">pub </span>dss: DigitallySignedStruct,
@@ -4013,7 +4013,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub enum </span>ServerKeyExchangePayload {
     ECDHE(ECDHEServerKeyExchange),
     Unknown(Payload),
@@ -4118,7 +4118,7 @@
 <span class="kw">pub type </span>DistinguishedName = PayloadU16;
 <span class="kw">pub type </span>DistinguishedNames = VecU16OfPayloadU16;
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>CertificateRequestPayload {
     <span class="kw">pub </span>certtypes: ClientCertificateTypes,
     <span class="kw">pub </span>sigschemes: SupportedSignatureSchemes,
@@ -4150,7 +4150,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub enum </span>CertReqExtension {
     SignatureAlgorithms(SupportedSignatureSchemes),
     AuthorityNames(DistinguishedNames),
@@ -4212,7 +4212,7 @@
 
 <span class="macro">declare_u16_vec!</span>(CertReqExtensions, CertReqExtension);
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>CertificateRequestPayloadTLS13 {
     <span class="kw">pub </span>context: PayloadU8,
     <span class="kw">pub </span>extensions: CertReqExtensions,
@@ -4260,7 +4260,7 @@
 }
 
 <span class="comment">// -- NewSessionTicket --
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>NewSessionTicketPayload {
     <span class="kw">pub </span>lifetime_hint: u32,
     <span class="kw">pub </span>ticket: PayloadU16,
@@ -4293,7 +4293,7 @@
 }
 
 <span class="comment">// -- NewSessionTicket electric boogaloo --
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub enum </span>NewSessionTicketExtension {
     EarlyData(u32),
     Unknown(UnknownExtension),
@@ -4342,7 +4342,7 @@
 
 <span class="macro">declare_u16_vec!</span>(NewSessionTicketExtensions, NewSessionTicketExtension);
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>NewSessionTicketPayloadTLS13 {
     <span class="kw">pub </span>lifetime: u32,
     <span class="kw">pub </span>age_add: u32,
@@ -4421,7 +4421,7 @@
 <span class="comment">// -- RFC6066 certificate status types
 
 </span><span class="doccomment">/// Only supports OCSP
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>CertificateStatus {
     <span class="kw">pub </span>ocsp_response: PayloadU24,
 }
@@ -4456,7 +4456,7 @@
     </span>}
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub enum </span>HandshakePayload {
     HelloRequest,
     ClientHello(ClientHelloPayload),
@@ -4509,7 +4509,7 @@
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>HandshakeMessagePayload {
     <span class="kw">pub </span>typ: HandshakeType,
     <span class="kw">pub </span>payload: HandshakePayload,
@@ -4673,4 +4673,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

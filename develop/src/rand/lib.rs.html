@@ -255,7 +255,7 @@
 //! For the user guide and further documentation, please read
 //! [The Rust Rand Book](https://rust-random.github.io/book).
 
-</span><span class="attribute">#![doc(
+</span><span class="attr">#![doc(
     html_logo_url = <span class="string">&quot;https://www.rust-lang.org/logos/rust-logo-128x128-blk.png&quot;</span>,
     html_favicon_url = <span class="string">&quot;https://www.rust-lang.org/favicon.ico&quot;</span>,
     html_root_url = <span class="string">&quot;https://rust-random.github.io/rand/&quot;
@@ -272,35 +272,35 @@
 )]
 
 #[cfg(feature = <span class="string">&quot;std&quot;</span>)] </span><span class="kw">extern crate </span>std;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)] </span><span class="kw">extern crate </span>alloc;
+<span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)] </span><span class="kw">extern crate </span>alloc;
 
-<span class="attribute">#[allow(unused)]
+<span class="attr">#[allow(unused)]
 </span><span class="macro">macro_rules! </span>trace { ($(<span class="macro-nonterminal">$x</span>:tt)<span class="kw-2">*</span>) =&gt; (
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;log&quot;</span>)] </span>{
+    <span class="attr">#[cfg(feature = <span class="string">&quot;log&quot;</span>)] </span>{
         <span class="macro">log::trace!</span>($(<span class="macro-nonterminal">$x</span>)<span class="kw-2">*</span>)
     }
 ) }
-<span class="attribute">#[allow(unused)]
+<span class="attr">#[allow(unused)]
 </span><span class="macro">macro_rules! </span>debug { ($(<span class="macro-nonterminal">$x</span>:tt)<span class="kw-2">*</span>) =&gt; (
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;log&quot;</span>)] </span>{
+    <span class="attr">#[cfg(feature = <span class="string">&quot;log&quot;</span>)] </span>{
         <span class="macro">log::debug!</span>($(<span class="macro-nonterminal">$x</span>)<span class="kw-2">*</span>)
     }
 ) }
-<span class="attribute">#[allow(unused)]
+<span class="attr">#[allow(unused)]
 </span><span class="macro">macro_rules! </span>info { ($(<span class="macro-nonterminal">$x</span>:tt)<span class="kw-2">*</span>) =&gt; (
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;log&quot;</span>)] </span>{
+    <span class="attr">#[cfg(feature = <span class="string">&quot;log&quot;</span>)] </span>{
         <span class="macro">log::info!</span>($(<span class="macro-nonterminal">$x</span>)<span class="kw-2">*</span>)
     }
 ) }
-<span class="attribute">#[allow(unused)]
+<span class="attr">#[allow(unused)]
 </span><span class="macro">macro_rules! </span>warn { ($(<span class="macro-nonterminal">$x</span>:tt)<span class="kw-2">*</span>) =&gt; (
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;log&quot;</span>)] </span>{
+    <span class="attr">#[cfg(feature = <span class="string">&quot;log&quot;</span>)] </span>{
         <span class="macro">log::warn!</span>($(<span class="macro-nonterminal">$x</span>)<span class="kw-2">*</span>)
     }
 ) }
-<span class="attribute">#[allow(unused)]
+<span class="attr">#[allow(unused)]
 </span><span class="macro">macro_rules! </span>error { ($(<span class="macro-nonterminal">$x</span>:tt)<span class="kw-2">*</span>) =&gt; (
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;log&quot;</span>)] </span>{
+    <span class="attr">#[cfg(feature = <span class="string">&quot;log&quot;</span>)] </span>{
         <span class="macro">log::error!</span>($(<span class="macro-nonterminal">$x</span>)<span class="kw-2">*</span>)
     }
 ) }
@@ -316,11 +316,11 @@
 <span class="kw">pub mod </span>seq;
 
 <span class="comment">// Public exports
-</span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;std&quot;</span>, feature = <span class="string">&quot;std_rng&quot;</span>))]
+</span><span class="attr">#[cfg(all(feature = <span class="string">&quot;std&quot;</span>, feature = <span class="string">&quot;std_rng&quot;</span>))]
 </span><span class="kw">pub use </span><span class="kw">crate</span>::rngs::thread::thread_rng;
 <span class="kw">pub use </span>rng::{Fill, Rng};
 
-<span class="attribute">#[cfg(all(feature = <span class="string">&quot;std&quot;</span>, feature = <span class="string">&quot;std_rng&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">&quot;std&quot;</span>, feature = <span class="string">&quot;std_rng&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::distributions::{Distribution, Standard};
 
 <span class="doccomment">/// Generates a random value using the thread-local random number generator.
@@ -392,7 +392,7 @@
 /// ```
 ///
 /// [`Standard`]: distributions::Standard
-</span><span class="attribute">#[cfg(all(feature = <span class="string">&quot;std&quot;</span>, feature = <span class="string">&quot;std_rng&quot;</span>))]
+</span><span class="attr">#[cfg(all(feature = <span class="string">&quot;std&quot;</span>, feature = <span class="string">&quot;std_rng&quot;</span>))]
 #[cfg_attr(doc_cfg, doc(cfg(all(feature = <span class="string">&quot;std&quot;</span>, feature = <span class="string">&quot;std_rng&quot;</span>))))]
 #[inline]
 </span><span class="kw">pub fn </span>random&lt;T&gt;() -&gt; T
@@ -400,7 +400,7 @@
     thread_rng().gen()
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
@@ -412,13 +412,13 @@
         rand_pcg::Pcg32::new(seed, INC)
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     #[cfg(all(feature = <span class="string">&quot;std&quot;</span>, feature = <span class="string">&quot;std_rng&quot;</span>))]
     </span><span class="kw">fn </span>test_random() {
         <span class="kw">let </span>_n: usize = random();
         <span class="kw">let </span>_f: f32 = random();
         <span class="kw">let </span>_o: <span class="prelude-ty">Option</span>&lt;<span class="prelude-ty">Option</span>&lt;i8&gt;&gt; = random();
-        <span class="attribute">#[allow(clippy::type_complexity)]
+        <span class="attr">#[allow(clippy::type_complexity)]
         </span><span class="kw">let </span>_many: (
             (),
             (usize, isize, <span class="prelude-ty">Option</span>&lt;(u32, (bool,))&gt;),
@@ -428,4 +428,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rand" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rand" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

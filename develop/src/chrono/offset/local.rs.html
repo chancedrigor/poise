@@ -230,34 +230,34 @@
 
 </span><span class="doccomment">//! The local (system) time zone.
 
-</span><span class="attribute">#[cfg(not(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>)))]
+</span><span class="attr">#[cfg(not(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>)))]
 </span><span class="kw">use </span>sys::{<span class="self">self</span>, Timespec};
 
 <span class="kw">use </span><span class="kw">super</span>::fixed::FixedOffset;
 <span class="kw">use super</span>::{LocalResult, TimeZone};
-<span class="attribute">#[cfg(not(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>)))]
+<span class="attr">#[cfg(not(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>)))]
 </span><span class="kw">use </span>naive::NaiveTime;
 <span class="kw">use </span>naive::{NaiveDate, NaiveDateTime};
 <span class="kw">use </span>{Date, DateTime};
-<span class="attribute">#[cfg(not(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>)))]
+<span class="attr">#[cfg(not(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>)))]
 </span><span class="kw">use </span>{Datelike, Timelike};
 
 <span class="doccomment">/// Converts a `time::Tm` struct into the timezone-aware `DateTime`.
 /// This assumes that `time` is working correctly, i.e. any error is fatal.
-</span><span class="attribute">#[cfg(not(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>)))]
+</span><span class="attr">#[cfg(not(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>)))]
 </span><span class="kw">fn </span>tm_to_datetime(<span class="kw-2">mut </span>tm: sys::Tm) -&gt; DateTime&lt;Local&gt; {
     <span class="kw">if </span>tm.tm_sec &gt;= <span class="number">60 </span>{
         tm.tm_nsec += (tm.tm_sec - <span class="number">59</span>) * <span class="number">1_000_000_000</span>;
         tm.tm_sec = <span class="number">59</span>;
     }
 
-    <span class="attribute">#[cfg(not(windows))]
+    <span class="attr">#[cfg(not(windows))]
     </span><span class="kw">fn </span>tm_to_naive_date(tm: <span class="kw-2">&amp;</span>sys::Tm) -&gt; NaiveDate {
         <span class="comment">// from_yo is more efficient than from_ymd (since it&#39;s the internal representation).
         </span>NaiveDate::from_yo(tm.tm_year + <span class="number">1900</span>, tm.tm_yday <span class="kw">as </span>u32 + <span class="number">1</span>)
     }
 
-    <span class="attribute">#[cfg(windows)]
+    <span class="attr">#[cfg(windows)]
     </span><span class="kw">fn </span>tm_to_naive_date(tm: <span class="kw-2">&amp;</span>sys::Tm) -&gt; NaiveDate {
         <span class="comment">// ...but tm_yday is broken in Windows (issue #85)
         </span>NaiveDate::from_ymd(tm.tm_year + <span class="number">1900</span>, tm.tm_mon <span class="kw">as </span>u32 + <span class="number">1</span>, tm.tm_mday <span class="kw">as </span>u32)
@@ -275,7 +275,7 @@
 }
 
 <span class="doccomment">/// Converts a local `NaiveDateTime` to the `time::Timespec`.
-</span><span class="attribute">#[cfg(not(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>)))]
+</span><span class="attr">#[cfg(not(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>)))]
 </span><span class="kw">fn </span>datetime_to_timespec(d: <span class="kw-2">&amp;</span>NaiveDateTime, local: bool) -&gt; sys::Timespec {
     <span class="comment">// well, this exploits an undocumented `Tm::to_timespec` behavior
     // to get the exact function we want (either `timegm` or `mktime`).
@@ -314,7 +314,7 @@
 /// let dt: DateTime&lt;Local&gt; = Local::now();
 /// let dt: DateTime&lt;Local&gt; = Local.timestamp(0, 0);
 /// ~~~~
-</span><span class="attribute">#[derive(Copy, Clone, Debug)]
+</span><span class="attr">#[derive(Copy, Clone, Debug)]
 </span><span class="kw">pub struct </span>Local;
 
 <span class="kw">impl </span>Local {
@@ -324,13 +324,13 @@
     }
 
     <span class="doccomment">/// Returns a `DateTime` which corresponds to the current date.
-    </span><span class="attribute">#[cfg(not(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>)))]
+    </span><span class="attr">#[cfg(not(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>)))]
     </span><span class="kw">pub fn </span>now() -&gt; DateTime&lt;Local&gt; {
         tm_to_datetime(Timespec::now().local())
     }
 
     <span class="doccomment">/// Returns a `DateTime` which corresponds to the current date.
-    </span><span class="attribute">#[cfg(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>))]
+    </span><span class="attr">#[cfg(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>))]
     </span><span class="kw">pub fn </span>now() -&gt; DateTime&lt;Local&gt; {
         <span class="kw">use </span><span class="kw">super</span>::Utc;
         <span class="kw">let </span>now: DateTime&lt;Utc&gt; = <span class="kw">super</span>::Utc::now();
@@ -374,7 +374,7 @@
         midnight.map(|datetime| Date::from_utc(<span class="kw-2">*</span>local, <span class="kw-2">*</span>datetime.offset()))
     }
 
-    <span class="attribute">#[cfg(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>))]
+    <span class="attr">#[cfg(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>))]
     </span><span class="kw">fn </span>from_local_datetime(<span class="kw-2">&amp;</span><span class="self">self</span>, local: <span class="kw-2">&amp;</span>NaiveDateTime) -&gt; LocalResult&lt;DateTime&lt;Local&gt;&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>local = local.clone();
         <span class="comment">// Get the offset from the js runtime
@@ -383,7 +383,7 @@
         LocalResult::Single(DateTime::from_utc(local, offset))
     }
 
-    <span class="attribute">#[cfg(not(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>)))]
+    <span class="attr">#[cfg(not(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>)))]
     </span><span class="kw">fn </span>from_local_datetime(<span class="kw-2">&amp;</span><span class="self">self</span>, local: <span class="kw-2">&amp;</span>NaiveDateTime) -&gt; LocalResult&lt;DateTime&lt;Local&gt;&gt; {
         <span class="kw">let </span>timespec = datetime_to_timespec(local, <span class="bool-val">true</span>);
 
@@ -400,14 +400,14 @@
         Date::from_utc(<span class="kw-2">*</span>utc, <span class="kw-2">*</span>midnight.offset())
     }
 
-    <span class="attribute">#[cfg(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>))]
+    <span class="attr">#[cfg(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>))]
     </span><span class="kw">fn </span>from_utc_datetime(<span class="kw-2">&amp;</span><span class="self">self</span>, utc: <span class="kw-2">&amp;</span>NaiveDateTime) -&gt; DateTime&lt;Local&gt; {
         <span class="comment">// Get the offset from the js runtime
         </span><span class="kw">let </span>offset = FixedOffset::west((js_sys::Date::new_0().get_timezone_offset() <span class="kw">as </span>i32) * <span class="number">60</span>);
         DateTime::from_utc(<span class="kw-2">*</span>utc, offset)
     }
 
-    <span class="attribute">#[cfg(not(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>)))]
+    <span class="attr">#[cfg(not(all(target_arch = <span class="string">&quot;wasm32&quot;</span>, not(target_os = <span class="string">&quot;wasi&quot;</span>), feature = <span class="string">&quot;wasmbind&quot;</span>)))]
     </span><span class="kw">fn </span>from_utc_datetime(<span class="kw-2">&amp;</span><span class="self">self</span>, utc: <span class="kw-2">&amp;</span>NaiveDateTime) -&gt; DateTime&lt;Local&gt; {
         <span class="kw">let </span>timespec = datetime_to_timespec(utc, <span class="bool-val">false</span>);
 
@@ -420,19 +420,19 @@
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::Local;
     <span class="kw">use </span>offset::TimeZone;
     <span class="kw">use </span>Datelike;
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_local_date_sanity_check() {
         <span class="comment">// issue #27
         </span><span class="macro">assert_eq!</span>(Local.ymd(<span class="number">2999</span>, <span class="number">12</span>, <span class="number">28</span>).day(), <span class="number">28</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_leap_second() {
         <span class="comment">// issue #123
         </span><span class="kw">let </span>today = Local::today();
@@ -453,4 +453,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="chrono" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

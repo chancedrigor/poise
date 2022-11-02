@@ -94,19 +94,19 @@
 
 <span class="comment">// FIXME: allow() required due to `impl Trait` leaking types to this lint
 </span><span class="macro">pin_project! </span>{
-    <span class="attribute">#[allow(missing_debug_implementations)]
+    <span class="attr">#[allow(missing_debug_implementations)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Lazy&lt;F, R&gt; {
-        <span class="attribute">#[pin]
+        <span class="attr">#[pin]
         </span>inner: Inner&lt;F, R&gt;,
     }
 }
 
 <span class="macro">pin_project! </span>{
-    <span class="attribute">#[project = InnerProj]
+    <span class="attr">#[project = InnerProj]
     #[project_replace = InnerProjReplace]
     </span><span class="kw">enum </span>Inner&lt;F, R&gt; {
         Init { func: F },
-        Fut { <span class="attribute">#[pin] </span>fut: R },
+        Fut { <span class="attr">#[pin] </span>fut: R },
         Empty,
     }
 }
@@ -151,4 +151,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="hyper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

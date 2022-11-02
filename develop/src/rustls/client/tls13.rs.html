@@ -1169,7 +1169,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::error::Error;
 <span class="kw">use </span><span class="kw">crate</span>::hash_hs::{HandshakeHash, HandshakeHashBuffer};
 <span class="kw">use </span><span class="kw">crate</span>::kx;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;logging&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::log::{debug, trace, warn};
 <span class="kw">use </span><span class="kw">crate</span>::msgs::base::{Payload, PayloadU8};
 <span class="kw">use </span><span class="kw">crate</span>::msgs::ccs::ChangeCipherSpecPayload;
@@ -1192,7 +1192,7 @@
 };
 <span class="kw">use </span><span class="kw">crate</span>::tls13::Tls13CipherSuite;
 <span class="kw">use </span><span class="kw">crate</span>::verify;
-<span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
 </span><span class="kw">use crate</span>::{conn::Protocol, msgs::base::PayloadU16, quic};
 <span class="kw">use crate</span>::{sign, KeyLog};
 
@@ -1329,7 +1329,7 @@
             .set_message_encrypter(suite.derive_encrypter(<span class="kw-2">&amp;</span>client_key));
     }
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
     </span><span class="kw">if </span>cx.common.is_quic() {
         cx.common.quic.hs_secrets = <span class="prelude-val">Some</span>(quic::Secrets::new(client_key, server_key, suite, <span class="bool-val">true</span>));
     }
@@ -1480,7 +1480,7 @@
         .record_layer
         .set_message_encrypter(resuming_suite.derive_encrypter(<span class="kw-2">&amp;</span>client_early_traffic_secret));
 
-    <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
     </span><span class="kw">if </span>cx.common.is_quic() {
         cx.common.quic.early_secret = <span class="prelude-val">Some</span>(client_early_traffic_secret);
     }
@@ -1561,7 +1561,7 @@
         validate_encrypted_extensions(cx.common, <span class="kw-2">&amp;</span><span class="self">self</span>.hello, exts)<span class="question-mark">?</span>;
         hs::process_alpn_protocol(cx.common, <span class="kw-2">&amp;</span><span class="self">self</span>.config, exts.get_alpn_protocol())<span class="question-mark">?</span>;
 
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
         </span>{
             <span class="comment">// QUIC transport parameters
             </span><span class="kw">if </span>cx.common.is_quic() {
@@ -2105,7 +2105,7 @@
             _fin_verified: fin,
         };
 
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
         </span>{
             <span class="kw">if </span>cx.common.protocol == Protocol::Quic {
                 cx.common.quic.traffic_secrets =
@@ -2134,7 +2134,7 @@
 }
 
 <span class="kw">impl </span>ExpectTraffic {
-    <span class="attribute">#[allow(clippy::unnecessary_wraps)] </span><span class="comment">// returns Err for #[cfg(feature = &quot;quic&quot;)]
+    <span class="attr">#[allow(clippy::unnecessary_wraps)] </span><span class="comment">// returns Err for #[cfg(feature = &quot;quic&quot;)]
     </span><span class="kw">fn </span>handle_new_ticket_tls13(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         cx: <span class="kw-2">&amp;mut </span>ClientContext&lt;<span class="lifetime">&#39;_</span>&gt;,
@@ -2155,7 +2155,7 @@
 
         <span class="kw">let </span>time_now = <span class="kw">match </span>TimeBase::now() {
             <span class="prelude-val">Ok</span>(t) =&gt; t,
-            <span class="attribute">#[allow(unused_variables)]
+            <span class="attr">#[allow(unused_variables)]
             </span><span class="prelude-val">Err</span>(e) =&gt; {
                 <span class="macro">debug!</span>(<span class="string">&quot;Session not saved: {}&quot;</span>, e);
                 <span class="kw">return </span><span class="prelude-val">Ok</span>(());
@@ -2177,7 +2177,7 @@
                 .unwrap_or_default(),
         );
 
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
         </span><span class="kw">if let </span><span class="prelude-val">Some</span>(sz) = nst.get_max_early_data_size() {
             <span class="kw">if </span>cx.common.protocol == Protocol::Quic &amp;&amp; sz != <span class="number">0 </span>&amp;&amp; sz != <span class="number">0xffff_ffff </span>{
                 <span class="kw">return </span><span class="prelude-val">Err</span>(Error::PeerMisbehavedError(
@@ -2187,10 +2187,10 @@
         }
 
         <span class="kw">let </span>key = persist::ClientSessionKey::session_for_server_name(<span class="kw-2">&amp;</span><span class="self">self</span>.server_name);
-        <span class="attribute">#[allow(unused_mut)]
+        <span class="attr">#[allow(unused_mut)]
         </span><span class="kw">let </span><span class="kw-2">mut </span>ticket = value.get_encoding();
 
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
         </span><span class="kw">if let </span>(Protocol::Quic, <span class="prelude-val">Some</span>(<span class="kw-2">ref </span>quic_params)) =
             (cx.common.protocol, <span class="kw-2">&amp;</span>cx.common.quic.params)
         {
@@ -2214,7 +2214,7 @@
         common: <span class="kw-2">&amp;mut </span>CommonState,
         kur: <span class="kw-2">&amp;</span>KeyUpdateRequest,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
-        <span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
         </span>{
             <span class="kw">if let </span>Protocol::Quic = common.protocol {
                 common.send_fatal_alert(AlertDescription::UnexpectedMessage);
@@ -2304,10 +2304,10 @@
     }
 }
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
 </span><span class="kw">struct </span>ExpectQuicTraffic(ExpectTraffic);
 
-<span class="attribute">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">&quot;quic&quot;</span>)]
 </span><span class="kw">impl </span>State&lt;ClientConnectionData&gt; <span class="kw">for </span>ExpectQuicTraffic {
     <span class="kw">fn </span>handle(<span class="kw-2">mut </span><span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, cx: <span class="kw-2">&amp;mut </span>ClientContext&lt;<span class="lifetime">&#39;_</span>&gt;, m: Message) -&gt; hs::NextStateOrError {
         <span class="kw">let </span>nst = <span class="macro">require_handshake_msg!</span>(
@@ -2331,4 +2331,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="rustls" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>

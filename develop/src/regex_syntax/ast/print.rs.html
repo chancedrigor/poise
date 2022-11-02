@@ -579,7 +579,7 @@ This module provides a regular expression printer for `Ast`.
 ///
 /// Note that since a printer doesn&#39;t have any configuration knobs, this type
 /// remains unexported.
-</span><span class="attribute">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">struct </span>PrinterBuilder {
     _priv: (),
 }
@@ -609,7 +609,7 @@ This module provides a regular expression printer for `Ast`.
 /// This printer will not necessarily preserve the original formatting of the
 /// regular expression pattern string. For example, all whitespace and comments
 /// are ignored.
-</span><span class="attribute">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Printer {
     _priv: (),
 }
@@ -629,7 +629,7 @@ This module provides a regular expression printer for `Ast`.
     }
 }
 
-<span class="attribute">#[derive(Debug)]
+<span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>Writer&lt;W&gt; {
     wtr: W,
 }
@@ -961,7 +961,7 @@ This module provides a regular expression printer for `Ast`.
     }
 }
 
-<span class="attribute">#[cfg(test)]
+<span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use </span><span class="kw">super</span>::Printer;
     <span class="kw">use </span><span class="kw">crate</span>::ast::parse::ParserBuilder;
@@ -984,7 +984,7 @@ This module provides a regular expression printer for `Ast`.
         <span class="macro">assert_eq!</span>(given, dst);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>print_literal() {
         roundtrip(<span class="string">&quot;a&quot;</span>);
         roundtrip(<span class="string">r&quot;\[&quot;</span>);
@@ -1007,19 +1007,19 @@ This module provides a regular expression printer for `Ast`.
         roundtrip(<span class="string">r&quot;(?x)\ &quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>print_dot() {
         roundtrip(<span class="string">&quot;.&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>print_concat() {
         roundtrip(<span class="string">&quot;ab&quot;</span>);
         roundtrip(<span class="string">&quot;abcde&quot;</span>);
         roundtrip(<span class="string">&quot;a(bcd)ef&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>print_alternation() {
         roundtrip(<span class="string">&quot;a|b&quot;</span>);
         roundtrip(<span class="string">&quot;a|b|c|d|e&quot;</span>);
@@ -1028,7 +1028,7 @@ This module provides a regular expression printer for `Ast`.
         roundtrip(<span class="string">&quot;a(b|c|d)|e|f&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>print_assertion() {
         roundtrip(<span class="string">r&quot;^&quot;</span>);
         roundtrip(<span class="string">r&quot;$&quot;</span>);
@@ -1038,7 +1038,7 @@ This module provides a regular expression printer for `Ast`.
         roundtrip(<span class="string">r&quot;\B&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>print_repetition() {
         roundtrip(<span class="string">&quot;a?&quot;</span>);
         roundtrip(<span class="string">&quot;a??&quot;</span>);
@@ -1054,7 +1054,7 @@ This module provides a regular expression printer for `Ast`.
         roundtrip(<span class="string">&quot;a{5,10}?&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>print_flags() {
         roundtrip(<span class="string">&quot;(?i)&quot;</span>);
         roundtrip(<span class="string">&quot;(?-i)&quot;</span>);
@@ -1063,14 +1063,14 @@ This module provides a regular expression printer for `Ast`.
         roundtrip(<span class="string">&quot;(?siUmux)&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>print_group() {
         roundtrip(<span class="string">&quot;(?i:a)&quot;</span>);
         roundtrip(<span class="string">&quot;(?P&lt;foo&gt;a)&quot;</span>);
         roundtrip(<span class="string">&quot;(a)&quot;</span>);
     }
 
-    <span class="attribute">#[test]
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>print_class() {
         roundtrip(<span class="string">r&quot;[abc]&quot;</span>);
         roundtrip(<span class="string">r&quot;[a-z]&quot;</span>);
@@ -1135,4 +1135,4 @@ This module provides a regular expression printer for `Ast`.
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="regex_syntax" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (95a3a7277 2022-10-31)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="regex_syntax" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>
