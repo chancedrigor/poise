@@ -461,7 +461,7 @@ To set multiple gateway events, use the OR operator:
 You can run Discord actions outside of commands by cloning and storing [`serenity::CacheAndHttp`]/
 [`Arc&lt;serenity::Http&gt;`](serenity::Http)/[`Arc&lt;serenity::Cache&gt;`](serenity::Cache). You can get
 those either from [`serenity::Context`] (passed to
-[`user_data_setup`](crate::FrameworkBuilder::user_data_setup) and all commands via
+[`setup`](crate::FrameworkBuilder::setup) and all commands via
 [`ctx.discord()`](crate::Context::discord)) or before starting the framework via
 [`framework.client()`](crate::Framework::client)[`.cache_and_http`](serenity::Client::cache_and_http).
 
@@ -634,7 +634,7 @@ async fn error_handler(error: poise::FrameworkError&lt;&#39;_, Data, Error&gt;) 
 // Use `Framework::builder()` to create a framework builder and supply basic data to the framework:
 poise::Framework::builder()
     .token(&quot;...&quot;)
-    .user_data_setup(|_, _, _| Box::pin(async move {
+    .setup(|_, _, _| Box::pin(async move {
         // construct user data here (invoked when bot connects to Discord)
         Ok(())
     }))
@@ -684,7 +684,7 @@ functions manually:
 - [`serenity::Command::set_global_application_commands`]
 - [`serenity::GuildId::set_application_commands`]
 
-For example, you could call this function in [`FrameworkBuilder::user_data_setup`] to automatically
+For example, you could call this function in [`FrameworkBuilder::setup`] to automatically
 register commands on startup. Also see the docs of [`builtins::create_application_commands`].
 
 The lowest level of abstraction for registering commands is [`Command::create_as_slash_command`]
@@ -807,4 +807,4 @@ Also, poise is a stat in Dark Souls
 /// An owned future has the `&#39;static` lifetime.
 </span><span class="kw">pub type </span>BoxFuture&lt;<span class="lifetime">&#39;a</span>, T&gt; = std::pin::Pin&lt;Box&lt;<span class="kw">dyn </span>std::future::Future&lt;Output = T&gt; + Send + <span class="lifetime">&#39;a</span>&gt;&gt;;
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (edf018221 2022-11-02)" ></div></body></html>

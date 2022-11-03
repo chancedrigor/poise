@@ -229,6 +229,23 @@
 <span id="229">229</span>
 <span id="230">230</span>
 <span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
 </pre><pre class="rust"><code><span class="doccomment">//! A builder struct that allows easy and readable creation of a [`crate::Framework`]
 
 </span><span class="kw">use </span><span class="kw">crate</span>::serenity_prelude <span class="kw">as </span>serenity;
@@ -238,15 +255,15 @@
 ///
 /// If one of the following required values is missing, the builder will panic on start:
 /// - [`Self::token`]
-/// - [`Self::user_data_setup`]
+/// - [`Self::setup`]
 /// - [`Self::options`]
 /// - [`Self::intents`]
 ///
 /// Before starting, the builder will make an HTTP request to retrieve the bot&#39;s application ID and
 /// owner, if [`Self::initialize_owners`] is set (true by default).
 </span><span class="kw">pub struct </span>FrameworkBuilder&lt;U, E&gt; {
-    <span class="doccomment">/// Callback for user data setup
-    </span>user_data_setup: <span class="prelude-ty">Option</span>&lt;
+    <span class="doccomment">/// Callback for startup code and user data creation
+    </span>setup: <span class="prelude-ty">Option</span>&lt;
         Box&lt;
             <span class="kw">dyn </span>Send
                 + Sync
@@ -275,7 +292,7 @@
 <span class="kw">impl</span>&lt;U, E&gt; Default <span class="kw">for </span>FrameworkBuilder&lt;U, E&gt; {
     <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            user_data_setup: Default::default(),
+            setup: Default::default(),
             options: Default::default(),
             client_settings: Default::default(),
             token: Default::default(),
@@ -294,9 +311,9 @@
         <span class="macro">panic!</span>(<span class="string">&quot;Please set the prefix via FrameworkOptions::prefix_options::prefix&quot;</span>);
     }
 
-    <span class="doccomment">/// Set a callback to be invoked to create the user data instance
+    <span class="doccomment">/// Sets the setup callback which also returns the user data struct.
     </span><span class="attr">#[must_use]
-    </span><span class="kw">pub fn </span>user_data_setup&lt;F&gt;(<span class="kw-2">mut </span><span class="self">self</span>, user_data_setup: F) -&gt; <span class="self">Self
+    </span><span class="kw">pub fn </span>setup&lt;F&gt;(<span class="kw-2">mut </span><span class="self">self</span>, setup: F) -&gt; <span class="self">Self
     </span><span class="kw">where
         </span>F: Send
             + Sync
@@ -307,9 +324,26 @@
                 <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Framework&lt;U, E&gt;,
             ) -&gt; BoxFuture&lt;<span class="lifetime">&#39;a</span>, <span class="prelude-ty">Result</span>&lt;U, E&gt;&gt;,
     {
-        <span class="self">self</span>.user_data_setup = <span class="prelude-val">Some</span>(Box::new(user_data_setup) <span class="kw">as _</span>);
+        <span class="self">self</span>.setup = <span class="prelude-val">Some</span>(Box::new(setup) <span class="kw">as _</span>);
         <span class="self">self
     </span>}
+
+    <span class="doccomment">/// Sets the setup callback which also returns the user data struct.
+    </span><span class="attr">#[must_use]
+    #[deprecated = <span class="string">&quot;renamed to .setup()&quot;</span>]
+    </span><span class="kw">pub fn </span>user_data_setup&lt;F&gt;(<span class="self">self</span>, setup: F) -&gt; <span class="self">Self
+    </span><span class="kw">where
+        </span>F: Send
+            + Sync
+            + <span class="lifetime">&#39;static
+            </span>+ <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; FnOnce(
+                <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Context,
+                <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>serenity::Ready,
+                <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">crate</span>::Framework&lt;U, E&gt;,
+            ) -&gt; BoxFuture&lt;<span class="lifetime">&#39;a</span>, <span class="prelude-ty">Result</span>&lt;U, E&gt;&gt;,
+    {
+        <span class="self">self</span>.setup(setup)
+    }
 
     <span class="doccomment">/// Configure framework options
     </span><span class="attr">#[must_use]
@@ -416,8 +450,8 @@ and enable MESSAGE_CONTENT in your Discord bot dashboard
 
 &quot;</span>,
         );
-        <span class="kw">let </span>user_data_setup = <span class="self">self
-            </span>.user_data_setup
+        <span class="kw">let </span>setup = <span class="self">self
+            </span>.setup
             .expect(<span class="string">&quot;No user data setup function was provided to the framework&quot;</span>);
         <span class="kw">let </span><span class="kw-2">mut </span>options = <span class="self">self</span>.options.expect(<span class="string">&quot;No framework options provided&quot;</span>);
 
@@ -436,7 +470,7 @@ and enable MESSAGE_CONTENT in your Discord bot dashboard
         }
 
         <span class="comment">// Create framework with specified settings
-        </span><span class="kw">crate</span>::Framework::new(client_builder, user_data_setup, options).<span class="kw">await
+        </span><span class="kw">crate</span>::Framework::new(client_builder, setup, options).<span class="kw">await
     </span>}
 
     <span class="doccomment">/// Start the framework with the specified configuration.
@@ -461,4 +495,4 @@ and enable MESSAGE_CONTENT in your Discord bot dashboard
     </span>}
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (edf018221 2022-11-02)" ></div></body></html>

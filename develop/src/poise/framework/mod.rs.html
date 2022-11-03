@@ -370,7 +370,7 @@
     <span class="doccomment">/// Initialized to Some during construction; so shouldn&#39;t be None at any observable point
     </span>shard_manager: std::sync::Arc&lt;tokio::sync::Mutex&lt;serenity::ShardManager&gt;&gt;,
     <span class="doccomment">/// Filled with Some on construction. Taken out and executed on first Ready gateway event
-    </span>user_data_setup: std::sync::Mutex&lt;
+    </span>setup: std::sync::Mutex&lt;
         <span class="prelude-ty">Option</span>&lt;
             Box&lt;
                 <span class="kw">dyn </span>Send
@@ -411,7 +411,7 @@
     /// course of action on error.
     </span><span class="kw">pub async fn </span>new&lt;F&gt;(
         client_builder: serenity::ClientBuilder,
-        user_data_setup: F,
+        setup: F,
         <span class="kw-2">mut </span>options: <span class="kw">crate</span>::FrameworkOptions&lt;U, E&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;std::sync::Arc&lt;<span class="self">Self</span>&gt;, serenity::Error&gt;
     <span class="kw">where
@@ -454,7 +454,7 @@
         <span class="kw">let </span>framework = Arc::new(<span class="self">Self </span>{
             user_data: once_cell::sync::OnceCell::new(),
             bot_id: once_cell::sync::OnceCell::new(),
-            user_data_setup: Mutex::new(<span class="prelude-val">Some</span>(Box::new(user_data_setup))),
+            setup: Mutex::new(<span class="prelude-val">Some</span>(Box::new(setup))),
             options,
             shard_manager: client.shard_manager.clone(),
             client: parking_lot::Mutex::new(<span class="prelude-val">Some</span>(client)),
@@ -571,9 +571,9 @@
 {
     <span class="kw">if let </span><span class="kw">crate</span>::Event::Ready { data_about_bot } = event {
         <span class="kw">let _</span>: <span class="prelude-ty">Result</span>&lt;<span class="kw">_</span>, <span class="kw">_</span>&gt; = framework.bot_id.set(data_about_bot.user.id);
-        <span class="kw">let </span>user_data_setup = Option::take(<span class="kw-2">&amp;mut *</span>framework.user_data_setup.lock().unwrap());
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(user_data_setup) = user_data_setup {
-            <span class="kw">match </span>user_data_setup(ctx, data_about_bot, framework).<span class="kw">await </span>{
+        <span class="kw">let </span>setup = Option::take(<span class="kw-2">&amp;mut *</span>framework.setup.lock().unwrap());
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(setup) = setup {
+            <span class="kw">match </span>setup(ctx, data_about_bot, framework).<span class="kw">await </span>{
                 <span class="prelude-val">Ok</span>(user_data) =&gt; {
                     <span class="kw">let _</span>: <span class="prelude-ty">Result</span>&lt;<span class="kw">_</span>, <span class="kw">_</span>&gt; = framework.user_data.set(user_data);
                 }
@@ -681,4 +681,4 @@
     })
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (11ebe6512 2022-11-01)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="poise" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (edf018221 2022-11-02)" ></div></body></html>
